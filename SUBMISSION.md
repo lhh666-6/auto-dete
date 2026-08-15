@@ -3,8 +3,9 @@
 ## 稿件（已重构为 LLM 方向）
 
 - 定位：**LLM + RAG + human-in-the-loop 的文档智能系统**（对口你的 LLM 应用/agent 保研方向）
-- Markdown 母版：`main.md`（v0.3）
-- IEEE 投稿版：`latex/main.tex`（标题/摘要/关键词/贡献/评估已同步，Overleaf 可编译）
+- Markdown 母版：`main.md`（v0.4，含对比实验 + 端到端整单）
+- **PAKDD 用 Springer LNCS/LNAI 投稿版：`lncs/main.tex`**（llncs.cls，Overleaf 有该模板；含 2 张结果表格 + 10 条干净参考文献）
+- IEEE 备选版：`latex/main.tex`（备用）
 - 架构图：`figures/architecture.png`
 
 ## 投稿目标（按优先级，截稿以官网为准）
