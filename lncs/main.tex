@@ -50,7 +50,7 @@ Auto-Decte is a single-machine deployment: FastAPI (Python 3.11) backend, SQLite
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.62\textwidth]{../figures/architecture.png}
+\includegraphics[width=\textwidth]{../figures/architecture.png}
 \caption{End-to-end pipeline. Recognition and the LLM produce candidates and references; only human confirmations or corrections become facts.}
 \label{fig:arch}
 \end{figure}
@@ -79,7 +79,7 @@ Methodology: end-to-end functional acceptance via the automated test suite; cont
 
 \textbf{Functional acceptance and trustworthy-AI invariants.} On the public snapshot of the integration branch, 389 tests pass (import, SHA-256 dedup, QR classification, digit/OMR candidates, rule validation, human confirmation, export, reverse traceability), and the suite enforces the AI trust boundaries: the AI-off path completes the workflow end-to-end; LLM suggestions are stored separately from confirmed values; similarity-retrieval results are read-only. 159 additional tests require enterprise database fixtures excluded from the public repository by data policy.
 
-\textbf{Digit recognition and baseline comparison.} Table~\ref{tab:digit} reports the template matcher against a learned HOG + linear-SVM recognizer trained on the printed font. On the printed font family both reach 100\%; on unseen fonts they are comparable, but only the template matcher routes 10--15\% of cells to human review instead of silently guessing.
+\textbf{Digit recognition and baseline comparison.} Table~\ref{tab:digit} reports the template matcher against a learned HOG + linear-SVM recognizer trained on the printed font. On the printed font family both reach 100\%; on unseen fonts they are comparable, but only the template matcher routes 10--15\% of cells to human review instead of silently guessing. Against a general OCR engine (Tesseract, single-character mode) on the same test set, the template matcher wins on the deployment-relevant printed-template regime (100\% vs 84--87\%), whereas Tesseract generalizes better to unseen fonts (94--95\% vs 86--90\%), which is outside the printed-form scope; in all cases only the template matcher emits an ambiguity channel.
 
 \begin{table}[t]
 \centering
@@ -123,7 +123,9 @@ Rotation $3^\circ$ & 0.575 & 0.025 & 0.600 & 0.600 \\
 
 \textbf{Latency.} Mean per-image stage times: QR search 2{,}180\,ms (multi-region robust search dominates), quality assessment 20\,ms, perspective correction 35\,ms.
 
-\textbf{LLM/RAG effectiveness (functional, not yet quantitative).} The current release establishes correctness and isolation of the AI layer; a quantitative reviewer-time-reduction study on a field pilot is future work.
+\textbf{Similarity retrieval.} The read-only retrieval module (character-bigram + word cosine over form records) is evaluated on a synthetic corpus of 200 records across five templates, with relevance defined as sharing the template key (the reviewer's notion of a ``similar past form''). Mean precision is 1.00@1, 0.99@3, 0.975@5, and 0.95@10, confirming that the module surfaces the intended same-template references without injecting them into records.
+
+\textbf{LLM/RAG effectiveness.} The AI layer's correctness and isolation are established functionally (AI-off path, suggestion isolation, read-only retrieval); the retrieval module is quantitatively validated (Precision@k above), while the end-to-end efficiency gain of LLM suggestions remains a field-pilot future work.
 
 \section{Limitations and Future Work}
 General handwritten digit-string / Chinese text / signature OCR is not implemented (only single-cell template digits and OMR); deployment is single-machine without a completed multi-user capacity test or field pilot; the evaluation lacks a 30--50-form golden set with double entry and real plant images, so accuracy claims are limited to controlled benchmarks; and the LLM suggestion module has functional correctness but no measured end-to-end efficiency gain. Future work: general OCR integration, independent task workers, external storage, a quantitative LLM-assistance study, and a field pilot measuring financial-processing time reduction.
