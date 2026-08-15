@@ -81,13 +81,13 @@ $\tau$ & Coverage & Accepted acc. & Selective risk & Routing rate \\
 
 **Retrieval precision.** On a corpus of 200 records across five templates (relevance = same template key), mean precision is 1.00@1, 0.99@3, 0.975@5, 0.95@10, confirming the retrieval surfaces the intended same-template references.
 
-**Traceability and AI-off invariants.** The acceptance suite enforces the trust boundary: the AI-off path completes end-to-end; LLM suggestions are stored separately from confirmed values; retrieval results are read-only; exports are back-traceable to evidence, version, and event log.
+**Trust boundary (fault injection).** To verify the invariant that machine errors never become facts, we adversarially inject a wrong LLM suggestion (suggested value $\neq$ the confirmed value) into a form with a confirmed record. The confirmed fact is unchanged, the wrong suggestion is stored separately as a candidate, and no record version ever carries the machine value; a subsequent human correction remains the authoritative fact. The acceptance suite additionally enforces the AI-off path (workflow completes with the model disabled), read-only retrieval, and back-traceable exports.
 
 **LLM/RAG assistance.** Trust is treated as the primary acceptance criterion, so the AI layer is designed for correctness before efficiency. The efficiency of the assistant --- reviewer time, error-catch rate, suggestion acceptance --- is the natural next evaluation step in a planned field pilot (Section 8); it is not claimed here.
 
 ## 7. Industrial Case Study
 
-Auto-Decte is deployed as a working baseline at a bamboo-processing plant, replacing hand-kept paper payroll and production records. The deployment motivates the design (traceability, offline submission, human authority over payroll values) and provides the substrate for a future field pilot; enterprise data is excluded from the public repository by policy.
+Auto-Decte is deployed as a working baseline at a bamboo-processing plant, replacing hand-kept paper payroll and production records. Deployment establishes that the system runs in a real industrial setting; the quantitative experiments of Section 6 are, by contrast, conducted on controlled, reproducible benchmarks, because real production data is excluded from the public repository by policy. We therefore do not claim a measured industrial deployment effect: deployment motivates the design (traceability, offline submission, human authority over payroll values) and provides the substrate for a future field pilot.
 
 ## 8. Limitations and Future Work
 
