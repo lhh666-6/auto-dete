@@ -59,12 +59,12 @@ Our contributions are:
 \textbf{Human decision layer.} A React review workbench is the sole path from candidate to fact: operators confirm or correct every value under rule validation; each human action appends a versioned record with a before/after audit pair; exports are back-traceable to form, version, evidence, and event log.
 
 \section{System Architecture}
-Auto-Decte implements the four planes as a single-machine deployment: the evidence layer stores SHA-256-addressed images; the candidate layer holds append-only recognition attempts, isolated suggestions, and read-only retrieval references; the trust boundary is the review workbench; the fact layer holds versioned records, audit events, and export batches with role-based access (operator, reviewer, finance, admin, auditor). A PWA front end with an IndexedDB outbox (scrypt credentials, HttpOnly cookies, CSRF double-submit, idempotency keys) routes in-plant mobile submissions into the same review queue (Fig.~\ref{fig:arch}).
+Auto-Decte instantiates the trust-constrained design as four logically separated planes --- evidence, candidate, human trust boundary, and fact. Figure~\ref{fig:arch} summarizes the end-to-end architecture and the control flow. Concretely, the evidence layer stores SHA-256-addressed images; the candidate layer holds append-only recognition attempts, isolated suggestions, and read-only retrieval references; the trust boundary is the review workbench; the fact layer holds versioned records, audit events, and export batches with role-based access (operator, reviewer, finance, admin, auditor). A PWA front end with an IndexedDB outbox (scrypt credentials, HttpOnly cookies, CSRF double-submit, idempotency keys) routes in-plant mobile submissions into the same review queue.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/architecture.png}
-\caption{Trust-constrained architecture of Auto-Decte. The evidence layer feeds a candidate plane (perception, LLM suggestions, retrieval --- all candidate/read-only); only the human trust boundary writes versioned facts, with audit lineage and export.}
+\caption{Trust-constrained architecture of Auto-Decte. Evidence is transformed into machine-generated candidates or read-only references, while the human trust boundary is the sole transition from candidate data to versioned facts. Recognition, LLM suggestions, and retrieval have no direct write path to the fact plane.}
 \label{fig:arch}
 \end{figure}
 
