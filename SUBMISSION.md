@@ -1,22 +1,29 @@
-# Auto-Decte 论文投稿状态（2026-08-14）
+# Auto-Decte 论文投稿状态（2026-08-14 v2，LLM/RAG 定位）
 
-## 稿件
+## 稿件（已重构为 LLM 方向）
 
-- Markdown 母版：`main.md`（v0.2，评估数字已定稿）
-- IEEE 会议投稿版：`latex/main.tex`（IEEEtran，Overleaf 可直接编译；图片路径 `../figures/architecture.png`）
+- 定位：**LLM + RAG + human-in-the-loop 的文档智能系统**（对口你的 LLM 应用/agent 保研方向）
+- Markdown 母版：`main.md`（v0.3）
+- IEEE 投稿版：`latex/main.tex`（标题/摘要/关键词/贡献/评估已同步，Overleaf 可编译）
 - 架构图：`figures/architecture.png`
 
 ## 投稿目标（按优先级，截稿以官网为准）
 
-| 会议 | 状态 | 备注 |
+| 会议 | 定位 | 状态 |
 |---|---|---|
-| **CCDC 2027**（第 39 届中国控制与决策会议，长沙） | 主目标；截稿通常 2026 年 10 月底，官网 CFP 待发布 | IEEE 出版、EI 检索；系统工程应用契合 |
-| **ICCSSE 2026**（IEEE 第 12 届控制科学与系统工程） | 备选；截稿见 [easychair CFP](https://2easychair-www.easychair.org/cfp/ICCSSE2026) | 需核实截稿日期 |
-| ICISCAE / ICCSE 类 IEEE EI 会议 | 兜底 | 注意甄别会议工厂（AEIC 系慎投） |
+| **IJCNN 2027**（IEEE 神经网络联合大会，CCF-C） | AI 应用大会，LLM/RAG 系统对口 + CCF-C 头衔 | 主目标；往年截稿 11~12 月、通知次年 3~4 月 → 夏令营"在审"、预推免前录用 |
+| **AI/信息系统类 EI 会议**（ITCA 2026 / ICAICE 2026 / ISCIPT 2026 等，9~11 月截稿） | 保底，主题更贴但需逐个核实主办方与检索 | 备选；注意甄别 AEIC 会议工厂 |
+| CCDC 2027（EI） | 时间窗口最稳但控制方向略偏 | 兜底 |
 
 ## 待办
 
-1. CCDC 2027 官网 CFP 发布后确认截稿 → 卡点投稿；
-2. Overleaf 编译 main.tex 并修格式问题；
-3. 摘要/引言按目标会议主题微调（控制与决策 → 强调自动化与决策支持）；
-4. 若学校/导师要求双作者，投稿前谈署名（一作保持）。
+1. 9 月逐个核实 IJCNN 2027 / 各 AI 类 EI 会议的**确切截稿 + 主办方 + EI 检索**；
+2. Overleaf 编译 `main.tex` 修格式；
+3. 队友知情同意（投稿前）；
+4. 投稿前把 `\author` 匿名块换成真实作者信息（一作：你，湖南大学信科院）。
+
+## 成本备忘（投稿季执行）
+
+- 学生价 + CAA/IEEE 学生会员折扣（几十到一两百）；
+- 湖大信科院科研奖励/创新学分认定需开学问教务（EI 非 CCF 是否认，决定回血幅度）；
+- 线上参会或长沙本地（IJCNN 地点待定）。

@@ -1,108 +1,90 @@
-# Auto-Decte: A Semi-Automatic Industrial Paper-Form Digitization System with Template Recognition, AI-Assisted Review, and Offline Mobile Submission
+# Auto-Decte: An LLM- and RAG-Assisted Human-in-the-Loop Document Intelligence System for Industrial Paper Forms
 
-> Draft v0.1 — 2026-08-14. Benchmarked numbers marked `[BENCHMARK]` are placeholders pending measurement.
-> Target venue: EI-indexed applied-AI/systems conference (e.g., IEEE CCDC/CAC/ISPA class).
+> Draft v0.3 — 2026-08-14 (LLM/RAG/human-in-the-loop repositioning). Benchmarked numbers are measured on the deployed system.
+> Target venue: AI-application EI/CCF-C conference (IJCNN 2027 primary; autumn-deadline AI/information-systems EI venues as backup).
 
 ## Abstract
 
-Paper-based production and payroll forms remain the de-facto record medium in many small and medium manufacturing plants, where digitization must coexist with workers who fill forms by hand and administrators who must trust every entered number. This paper presents Auto-Decte, a semi-automatic industrial paper-form digitization system that closes the loop from printed form templates to auditable electronic records. Auto-Decte generates form templates embedded with QR codes and ArUco fiducials, imports photographs of filled forms, performs template identification, perspective correction, and field cropping, then produces per-cell digit and checkbox (OMR) candidates with explicit confidence and ambiguity signals. All machine outputs are candidates only: a React review workbench lets operators confirm or correct every value under rule validation, with immutable versioning and a full audit trail. An optional DeepSeek-based AI suggestion adapter and a local similarity-retrieval module support reviewers without ever writing records autonomously, and a PWA front end with offline outbox enables in-plant mobile submission. The system is evaluated on end-to-end acceptance (389 public-snapshot tests), digit recognition accuracy under synthetic perturbation (93.9% overall; 100% on the printed font family), OMR fill-ratio behavior (100% correct outside the ambiguity band, which routes all borderline cells to review), template detection robustness (QR 100%; ArUco perspective correction 100% under blur/noise/brightness/tilt with ≤0.34 px alignment error, degrading under rotation), and per-image processing latency (QR search 2.18 s dominating a ~2.2 s pipeline).
+Deploying large language models (LLMs) in high-stakes enterprise workflows is constrained less by model capability than by trust: suggestions must never silently become facts, every decision must be traceable to evidence, and the system must keep working when the model is unavailable. This paper presents Auto-Decte, a document intelligence system for industrial paper forms that operationalizes these constraints through a human-in-the-loop architecture. A fiducial-guided perception front end (QR/ArUco template recognition, perspective correction, per-cell digit and OMR recognition with an explicit ambiguity band) converts photographed paper forms into structured candidate values. An LLM suggestion adapter (DeepSeek, structured output) and a local vector similarity-retrieval module (RAG-style, read-only) assist reviewers, while a React review workbench makes the human the only source of truth: machine outputs are stored as append-only candidates, and only human confirmations or corrections become versioned, auditable records. A PWA front end with an offline outbox extends submission to in-plant mobile devices. The system is evaluated on end-to-end acceptance (389 public-snapshot tests, including the AI-off path and suggestion-isolation invariants), front-end recognition benchmarks (digit 93.9% overall, 100% on the printed font family; OMR 100% correct outside the ambiguity band; QR 100%; ArUco correction ≤0.34 px), and per-image latency (≈2.2 s, QR search dominant).
 
 ## 1. Introduction
 
-Small and medium manufacturing plants — e.g., bamboo processing workshops — still record daily production output and piece-rate payroll on paper forms. These forms are heterogeneous, change frequently, and carry financial consequences: a single mis-transcribed cell changes a worker's wage. General-purpose OCR pipelines handle free text but not the combination of fixed layouts, printed fiducials, hand-filled digit cells, checkbox grids, and hard traceability requirements found in this setting. Conversely, fully automatic systems that write records without human confirmation are unacceptable when errors have payroll impact.
+Foundation-model-assisted document processing is attractive for the long tail of paper-based workflows in small and medium plants, but its adoption in payroll-adjacent settings is blocked by a trust problem: an LLM that transcribes a digit wrong changes a worker's wage, and a retrieval system that injects a similar-looking historical record into a decision can silently corrupt it. Fully automatic pipelines are therefore unacceptable where errors carry financial consequences, yet purely manual digitization does not scale.
 
-Auto-Decte is designed around three principles: (i) **machine outputs are candidates, never facts** — every recognized value must pass human confirmation or correction; (ii) **the paper form itself is engineered** — templates are generated by the system with QR codes and ArUco markers so that identification and geometry recovery are reliable rather than learned; (iii) **everything is auditable** — evidence images are content-addressed (SHA-256), record changes are append-only versions, and exports are traceable back to individual cells.
+Auto-Decte addresses this with a human-in-the-loop architecture built on three principles: (i) **machine outputs are candidates, never facts** — the LLM adapter and every recognition stage emit candidates that a human must confirm or correct; (ii) **the document is engineered** — templates are generated with QR codes and ArUco fiducials so that perception is reliable rather than learned; (iii) **everything is auditable** — evidence is content-addressed, records are append-only versions, and every exported cell is back-traceable. The system is deployed as a working baseline at a bamboo-processing plant.
 
 Contributions:
 
-1. An end-to-end paper-form digitization pipeline (template generation → photo import → template recognition → perspective correction → field cropping → per-cell recognition → human review → versioned export), implemented and acceptance-tested (`[BENCHMARK]` tests, `[BENCHMARK]` endpoints).
-2. Lightweight, interpretable field recognizers — synthetic-font template matching for single-digit cells and a fill-ratio OMR recognizer — both emitting confidence scores and an explicit ambiguity band that routes borderline cells to human attention.
-3. An AI-assistance layer (DeepSeek adapter + local similarity retrieval) that is architecturally unable to modify facts: suggestions are stored separately and reference records are read-only.
-4. An offline-capable mobile submission path (PWA + IndexedDB outbox + idempotency keys) for in-plant use without stable connectivity.
-5. A deployment-motivated case study at a bamboo-processing plant, with end-to-end acceptance evidence and honest reporting of what remains unmeasured.
+1. A human-in-the-loop document intelligence architecture for industrial paper forms, integrating a fiducial perception front end, an LLM suggestion adapter, and local similarity retrieval under a single "candidates-only, human-confirmed" trust boundary.
+2. Trustworthy LLM/RAG integration mechanisms: suggestions are stored separately and can never mutate confirmed values; retrieval results are strictly read-only; the core pipeline runs and remains correct with the AI layer fully disabled (guarded by acceptance tests).
+3. An engineered, interpretable perception front end — synthetic-font template matching for digit cells and a fill-ratio OMR recognizer — whose explicit ambiguity band routes borderline cells to humans instead of guessing.
+4. An offline-capable mobile submission path (PWA + IndexedDB outbox + idempotency keys) that feeds the same review queue as scanned forms.
+5. A deployment-motivated case study with end-to-end acceptance evidence and honest reporting of what remains unmeasured.
 
 ## 2. Related Work
 
-**Document OCR and layout analysis.** General document AI stacks (PP-OCRv3 [arXiv:2206.03001], LayoutLMv3 [arXiv:2204.08387], Donut [arXiv:2111.15664]) target free-form documents with learned detection and recognition. Auto-Decte deliberately avoids learned layout models in the critical path: templates are generated by the system, so layout is known exactly, and recognition reduces to fiducial-guided cropping plus per-cell template matching. Learned OCR remains a future extension for handwriting and Chinese text.
+**Document OCR and layout analysis.** General document AI stacks (PP-OCRv3 [arXiv:2206.03001], LayoutLMv3 [arXiv:2204.08387], Donut [arXiv:2111.15664]) target free-form documents with learned detection and recognition. Auto-Decte deliberately keeps learned layout models out of the critical path: system-generated templates make layout known exactly, so perception reduces to fiducial-guided cropping plus per-cell template matching; learned OCR remains a future extension for handwriting and Chinese text.
 
-**OMR and form-processing systems.** Existing OMR literature and systems (e.g., SurveyNet, J. Imaging 12(4):175, DOI 10.3390/jimaging12040175) evaluate sheet-fed or camera-based mark recognition in bulk. Auto-Decte differs in making the ambiguity band a first-class citizen: cells in the (0.15, 0.50) fill band are returned with zero confidence and force human review instead of a thresholded guess.
-
-**Fiducial-based localization.** ArUco [DOI 10.1016/j.imavis.2018.05.004] and MILP dictionary markers [DOI 10.1016/j.patcog.2015.09.023] provide the geometric anchoring, and QR-based perspective work informs the payload classification stage. Auto-Decte combines a multi-region QR search with four-corner ArUco canonical mapping (marker IDs 10–13) to make template identification and geometry recovery deterministic.
+**LLM assistance and retrieval.** Retrieval-augmented generation and generative information-extraction surveys [arXiv:2312.17617, arXiv:2409.14924] and Local-First Software principles [Onward! 2019, DOI 10.1145/3359591.3359737] motivate two components: a read-only DeepSeek structured-output suggestion adapter and a local vector similarity index. The distinction from generic RAG is architectural: in Auto-Decte the model and the retriever are denied write access to facts by construction, and their outputs are versioned separately from records.
 
 **Human-in-the-loop digitization.** HITL principles for high-stakes data (Budd et al., Med. Image Anal. 2021, DOI 10.1016/j.media.2021.102062; drilling-report digitization, EAGE 2025) motivate the review workbench: machine outputs are append-only candidates, and every confirmed or corrected value is a versioned human decision with a before/after audit pair.
 
-**LLM assistance and offline-first Web.** Retrieval-augmented and generative IE surveys [arXiv:2312.17617, arXiv:2409.14924] and Local-First Software principles [Onward! 2019, DOI 10.1145/3359591.3359737] inform two optional components: a read-only DeepSeek suggestion adapter and a PWA front end with an IndexedDB outbox that preserves idempotency and CSRF security offline.
+**Fiducial-based localization and OMR.** ArUco [DOI 10.1016/j.imavis.2018.05.004] and MILP dictionary markers [DOI 10.1016/j.patcog.2015.09.023] provide geometric anchoring; existing OMR systems (e.g., SurveyNet, J. Imaging 12(4):175, DOI 10.3390/jimaging12040175) evaluate bulk mark recognition. Auto-Decte's distinguishing feature is the first-class ambiguity band: cells in the intermediate fill band are emitted with zero confidence and force review rather than a thresholded guess.
 
-**Positioning.** Four design decisions distinguish Auto-Decte from prior systems: (i) machine outputs are candidates, never facts; (ii) recognition emits an explicit ambiguity band that routes borderline cells to humans; (iii) full traceability — SHA-256 evidence, versioned records, audit events, back-traceable exports; (iv) offline mobile submission integrated with the same review queue as scanned forms.
+**Positioning.** Four decisions distinguish Auto-Decte from prior systems: (i) machine outputs — from recognition and from the LLM alike — are candidates, never facts; (ii) an explicit ambiguity band routes borderline cells to humans; (iii) full traceability — SHA-256 evidence, versioned records, audit events, back-traceable exports; (iv) offline mobile submission integrated with the same review queue.
 
 ## 3. System Overview
 
-Auto-Decte is a single-machine deployment: FastAPI (Python 3.11) backend, SQLite via SQLAlchemy 2.0 with Alembic migrations, React 18 + Vite front end, OpenCV for all image operations. Fig. 1 (to be generated) shows the pipeline stages.
+Auto-Decte is a single-machine deployment: FastAPI (Python 3.11) backend, SQLite via SQLAlchemy 2.0 with Alembic migrations, React 18 + Vite front end, OpenCV for image operations, a DeepSeek client for structured-output suggestions, and a local vector index for similarity retrieval. Fig. 1 (figures/architecture.png) shows the pipeline stages.
 
-```
-Template design ─► print ─► worker fills by hand
-        │
-Photo import (PNG/PDF) ─► SHA-256 dedup ─► blur detection
-        │
-Template recognition (QR / ArUco) ─► perspective correction ─► field cropping
-        │
-Per-cell candidates (digit template matching / OMR fill ratio) + AI suggestions (optional)
-        │
-Human review workbench (queue, rules, confirm/correct/return/void)
-        │
-Versioned records + audit ─► XLSX export (4 sheets) + re-export
-```
+The domain model separates immutable evidence, versioned form records (`RecordVersion`), append-only recognition attempts, isolated AI suggestions, read-only retrieval references, audit events, and export batches. Roles (operator, reviewer, finance, admin, auditor) gate every mutation.
 
-The domain model distinguishes immutable evidence, versioned form records (`RecordVersion`), recognition attempts (append-only, never overwrite human values), audit events, and export batches. Roles (operator, reviewer, finance, admin, auditor) gate every mutation.
+## 4. Template Design and Perception Front End
 
-## 4. Template Design and Recognition Pipeline
-
-Templates are designed and published inside the system (template center with versioning, draft canvas, and idempotent installation of built-in enterprise templates). Each published template renders a PDF/PNG with a QR code (template identity + version) and ArUco markers at known positions; multi-page templates are imposed into print sheets.
-
-Recognition is fiducial-first rather than learned: after import, the pipeline locates the QR code for classification, detects ArUco markers for geometric anchoring, applies perspective correction, and crops per-field cells from the template definition. This makes template identification deterministic and auditable.
+Templates are designed and published inside the system (template center with versioning and draft canvas). Each published template renders a PDF/PNG with a QR code (template identity + version) and ArUco markers at known positions. Recognition is fiducial-first: a multi-region QR search classifies the form, four ArUco corner markers (IDs 10–13) map it to the canonical canvas, perspective correction aligns it, and per-field cells are cropped from the template definition. This makes identification and geometry deterministic and auditable.
 
 ## 5. Field-Level Recognition with Confidence and Ambiguity
 
-**Digit cells.** Each cell is normalized to 48×64, binarized with Otsu thresholding, and compared against ten rendered synthetic-font templates (0–9) by normalized mean absolute difference. The recognizer reports the best-matching digit, a distance-based confidence, and an `AMBIGUOUS` flag when the margin to the second-best template falls below 0.02. Blank cells (ink ratio < 1%) are reported as blank with high confidence rather than as a digit.
+**Digit cells.** Each cell is normalized to 48×64, binarized with Otsu thresholding, and matched against ten rendered synthetic-font templates (0–9) by normalized mean absolute difference. The recognizer reports the best digit, a distance-based confidence, and an `AMBIGUOUS` flag when the margin to the second-best template falls below 0.02. Blank cells (ink ratio < 1%) are reported as blank rather than as a digit.
 
-**Checkbox (OMR) cells.** Fill ratio inside the cell interior is computed after Otsu binarization. Ratios ≤ 0.15 map to unchecked, ≥ 0.35 to checked, and the (0.15, 0.35) band maps to `AMBIGUOUS` with zero confidence, forcing human review. Confidence is graded on both sides of the band.
+**Checkbox (OMR) cells.** Fill ratio in the cell interior is computed after Otsu binarization; ratios ≤ 0.15 map to unchecked, ≥ 0.35 to checked, and the (0.15, 0.35) band maps to `AMBIGUOUS` with zero confidence. The ambiguity band is the key design choice: it routes exactly the cells that recognition cannot decide to the human, instead of silently guessing.
 
-The explicit ambiguity band is the key design choice: recall-oriented recognition would silently misread borderline cells, which is unacceptable for payroll; the band routes exactly those cells to the review queue.
+## 6. LLM Assistance and Similarity Retrieval
 
-## 6. AI-Assisted Review and Similarity Retrieval
+Two optional AI components support the reviewer, both constrained to be unable to write facts:
 
-Two optional AI components support the reviewer:
+- **LLM suggestions (DeepSeek).** A structured-output client requests field suggestions for a form under review. Suggestions are stored separately from records, carry their evidence reference, and can never mutate confirmed values. The adapter is disabled by default; the core pipeline is fully functional without any external model (an acceptance-tested AI-off path).
+- **Similarity retrieval (local vector index).** Historical records are indexed locally; the review page shows similar past forms as reference. Retrieval results are strictly read-only — they do not participate in statistics or fact modification (guarded by acceptance tests).
 
-- **AI suggestions (DeepSeek adapter):** a structured-output client requests field suggestions for a form under review. Suggestions are stored separately from records, carry their evidence reference, and can never mutate confirmed values. The adapter is disabled by default; the core pipeline runs fully without any external AI.
-- **Similarity retrieval (local vector index):** historical records are indexed locally; the review page shows similar past forms as reference. Retrieval results are strictly read-only — they do not participate in statistics or fact modification (guarded by acceptance tests).
+The trust boundary is architectural: the model and the retriever produce candidates and references; only the reviewer produces facts.
 
 ## 7. Data Integrity, Versioning, and Export
 
-Evidence images are content-addressed with SHA-256; duplicates are detected and never silently overwritten. Every human correction appends a `RecordVersion` with before/after audit rows. XLSX export produces four worksheets (formal data, exceptions & review, summary, export notes) and every exported cell is back-traceable to form, version, evidence image, and event log. Exports are batchable and re-exportable with post-export correction warnings.
+Evidence images are content-addressed with SHA-256; duplicates are detected and never silently overwritten. Every human correction appends a `RecordVersion` with before/after audit rows. XLSX export produces four worksheets (formal data, exceptions & review, summary, export notes) and every exported cell is back-traceable to form, version, evidence image, and event log.
 
 ## 8. Offline Mobile Submission
 
-A PWA front end supports in-plant phone use: mobile credentials are salted with scrypt; sessions use HttpOnly SameSite cookies with CSRF double-submit; drafts live in an IndexedDB outbox keyed by owner/device with idempotency keys; submission retries back off on network errors and stop permanently on 4xx conflicts; the review queue consumes mobile submissions through the same NEEDS_REVIEW path as scanned forms.
+A PWA front end supports in-plant phone use: mobile credentials are salted with scrypt; sessions use HttpOnly SameSite cookies with CSRF double-submit; drafts live in an IndexedDB outbox keyed by owner/device with idempotency keys; retries back off on network errors and stop on 4xx conflicts; mobile submissions flow into the same NEEDS_REVIEW path as scanned forms.
 
 ## 9. Evaluation
 
-Methodology: end-to-end functional acceptance via the automated test suite; controlled benchmarks on the recognition stage using the system's canonical template conventions and synthetic perturbations (blur, rotation, brightness, Gaussian noise, perspective tilt) plus fill-ratio sweeps for OMR; per-stage latency on A4@150 dpi images (desktop hardware, CPU timing).
+Methodology: end-to-end functional acceptance via the automated test suite; controlled benchmarks on the perception front end using the system's canonical template conventions and synthetic perturbations (blur, rotation, brightness, Gaussian noise, perspective tilt) plus fill-ratio sweeps for OMR; per-stage latency on A4@150 dpi images (desktop hardware, CPU timing).
 
-- **Functional acceptance.** On the public snapshot of the integration branch, 389 tests pass (import, SHA-256 dedup, QR-based classification, digit/OMR candidates, rule validation, human confirmation, AI-off path, similarity retrieval, export, reverse traceability); 159 additional tests require enterprise database fixtures that repository policy excludes from public distribution.
-- **Digit recognition.** Overall accuracy 93.9% across 28 font × perturbation conditions. On the system's own printed font family (Hershey Simplex/Duplex), accuracy is 100% under Gaussian blur (3×3/5×5), rotation (±5°), Gaussian noise (σ=20), and brightness (0.7×/1.3×). On unseen fonts (Triplex/Complex), accuracy is 80–90% with 10–20% of cells flagged ambiguous — i.e., degradation concentrates in the ambiguity channel routed to human review rather than in silent errors.
-- **OMR.** Sweeping fill ratio from 0 to 1: ratios ≤ 0.15 are classified unchecked (100% correct), ratios ≥ 0.50 are classified checked (100% correct), and ratios in (0.15, 0.50) are emitted as ambiguous with zero confidence (100% routed to review). The ambiguity band cleanly separates machine-decidable from human-required cells.
-- **Template detection & geometry.** QR payload recovery succeeds on 100% of 90 perturbed renders (blur, noise, brightness, ±5° rotation, 8% perspective tilt). ArUco-based perspective correction succeeds on 100% of clean/blur/noise/brightness/tilt images with mean alignment error ≤ 0.34 px; success drops to 50% at 3° rotation and 20% at 5° rotation — rotation remains the known weak axis of fiducial geometry recovery, mitigated in practice by the multi-region QR search and operator guidance.
-- **Latency.** Mean per-image stage times: QR search 2,180 ms (multi-region robust search dominates), quality assessment 20 ms, perspective correction 35 ms.
+**Functional acceptance and trustworthy-AI invariants.** On the public snapshot of the integration branch, 389 tests pass. Beyond core digitization (import, SHA-256 dedup, QR classification, digit/OMR candidates, rule validation, human confirmation, export, reverse traceability), the suite enforces the AI trust boundaries: the AI-off path completes the workflow end-to-end; LLM suggestions are stored separately from confirmed values; similarity-retrieval results are read-only references. 159 additional tests require enterprise database fixtures excluded from the public repository by data policy.
+
+**Perception front end.** (i) Digit recognition: 93.9% overall across 28 font × perturbation conditions; 100% on the system's printed font family under blur/rotation/noise/brightness; 80–90% on unseen fonts with 10–20% of cells flagged ambiguous — degradation concentrates in the human-routed ambiguity channel rather than silent errors. (ii) OMR: ratios ≤ 0.15 classified unchecked (100% correct), ≥ 0.50 classified checked (100% correct), and (0.15, 0.50) emitted ambiguous (100% routed to review). (iii) Template detection & geometry: QR recovery 100% on 90 perturbed renders; ArUco correction 100% under blur/noise/brightness/tilt with ≤ 0.34 px alignment error, dropping to 50%/20% at 3°/5° rotation (the known weak axis of fiducial recovery, mitigated by multi-region QR search). (iv) Latency: QR search 2,180 ms, quality assessment 20 ms, perspective correction 35 ms per image.
+
+**LLM/RAG effectiveness (functional, not yet quantitative).** The current release establishes correctness and isolation of the AI layer, not yet its efficiency benefit; a quantitative reviewer-time-reduction study on a 100–300-form field pilot is explicitly future work (see Section 10).
 
 ## 10. Limitations and Future Work
 
-Honest scope limits: general handwritten digit-string / Chinese text / signature OCR is not implemented (only single-cell template digits and OMR); the deployment is single-machine and has not completed multi-user capacity or field pilot; the evaluation lacks a 30–50-form golden set with double entry and real plant images, so accuracy claims are limited to controlled benchmarks. Future work: general OCR integration, independent task workers, external storage, and a 100–300-form field pilot with measured financial-processing time reduction.
+Honest scope limits: general handwritten digit-string / Chinese text / signature OCR is not implemented (only single-cell template digits and OMR); deployment is single-machine without a completed multi-user capacity test or field pilot; the evaluation lacks a 30–50-form golden set with double entry and real plant images, so accuracy claims are limited to controlled benchmarks; and the LLM suggestion module has functional correctness but no measured end-to-end efficiency gain. Future work: general OCR integration, independent task workers, external storage, a quantitative LLM-assistance study (reviewer time, error-catch rate, suggestion acceptance rate), and a field pilot measuring financial-processing time reduction.
 
 ## 11. Conclusion
 
-Auto-Decte demonstrates a complete, traceability-first approach to industrial paper-form digitization in which machine recognition is deliberately constrained to produce candidates with explicit ambiguity, and humans retain final authority over every record. The system is deployed as a working baseline at a bamboo-processing plant and provides the substrate for a future field pilot.
+Auto-Decte demonstrates a trust-first integration of an LLM adapter and similarity retrieval into an industrial document workflow: recognition and the model produce candidates and references, while humans remain the only source of facts, with full traceability from photograph to exported cell. The system is deployed as a working baseline at a bamboo-processing plant and provides the substrate for a future quantitative field study.
 
 ## Appendix: benchmark scripts and artifacts
 
-- Repo: `lhh666-6/auto-decte` (branch `main`); acceptance report `docs/acceptance-report.md`.
-- Benchmark harness to be added under `benchmarks/` (digit/OMR/template/latency) with a separate `benchmarks/report.md`.
+- Repo: `lhh666-6/auto-decte` (branch `modular-architecture`); acceptance report `docs/acceptance-report.md`.
+- Benchmark harness under `benchmarks/` (digit/OMR/template/latency) with `benchmarks/report.md`, `report_template.md`, `results.json`, `results_template.json`.
