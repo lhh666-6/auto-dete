@@ -25,6 +25,8 @@ Foundation-model-assisted document processing is attractive for the long tail of
 
 We address this with a trust-constrained framework whose two principles are (i) \emph{candidates, never facts}, and (ii) \emph{abstention over guessing}. We study three sub-problems: (RQ1) reducing perception uncertainty on structured paper forms (template-guided perception with an explicit ambiguity band); (RQ2) letting LLM/RAG provide assistance without contaminating facts (candidate/reference isolation); (RQ3) making human confirmation the sole path that writes facts while preserving traceability (append-only candidates, versioned decisions, evidence lineage).
 
+\textbf{Positioning.} Existing approaches address different parts of the problem: OCR and document understanding primarily optimize extraction accuracy; human-in-the-loop systems typically apply human correction after machine prediction; and LLM/RAG-based systems improve semantic assistance or retrieval. However, these components alone do not impose a \emph{data-model-level invariant} preventing machine-generated outputs from directly entering the factual record. Auto-Decte instead treats machine outputs as candidates or references by construction, introduces explicit abstention for uncertain predictions, and makes human confirmation the sole transition from candidate data to versioned facts. The novelty is therefore not any single component, but this enforced integration of selective abstention and machine-to-fact isolation.
+
 Our contributions are:
 \begin{enumerate}
 \item A \emph{trust-constrained document intelligence framework} separating an evidence layer, a candidate plane, a human trust boundary, and a fact plane, enforcing the invariant that machine outputs never become facts.
@@ -75,7 +77,7 @@ The backend is FastAPI (Python 3.11) with SQLite via SQLAlchemy~2.0 and Alembic 
 Functional acceptance via the automated suite; controlled benchmarks on synthetic filled forms under perturbations (blur, rotation, brightness, Gaussian noise, perspective tilt); a learned baseline and a general-OCR baseline; retrieval precision on a synthetic corpus; and a selective-prediction sweep. We organize the evaluation around the three research questions of Section~1, so that every experiment answers a specific question rather than reporting features.
 
 \subsection{RQ1: Can selective recognition reduce silent error?}
-Sweeping the margin threshold $\tau$ yields the coverage-vs-risk curve in Fig.~\ref{fig:coverage} and Table~\ref{tab:selective}. At the operating point $\tau{=}0.02$ the system covers 93.7\% of cells at 94.7\% accepted accuracy (5.3\% selective risk); tightening $\tau$ to $0.05$ raises accepted accuracy to 100\% --- eliminating \emph{observed} silent recognition errors on this benchmark --- while covering 61.4\% and routing the rest to review. This quantifies the intended trade-off: abstention eliminates observed silent errors at the cost of lower coverage. The comparison with baselines sharpens the point: a learned HOG + linear-SVM recognizer reaches 100\% on the printed font and 79.7--80.3\% on unseen fonts --- comparable to the template matcher --- but has no abstention mechanism, so its errors are silent; against general OCR (Tesseract, single-character mode), the template matcher wins on the deployment-relevant printed-template regime (100\% vs 84--87\%) while Tesseract generalizes better to unseen fonts (94--95\% vs 86--90\%), which is outside the printed-form scope. In all cases only the template matcher emits an ambiguity channel.
+Sweeping the margin threshold $\tau$ yields the coverage-vs-risk curve in Fig.~\ref{fig:coverage} and Table~\ref{tab:selective}. At the operating point $\tau{=}0.02$ the system covers 93.7\% of cells at 94.7\% accepted accuracy (5.3\% selective risk); tightening $\tau$ to $0.05$ raises accepted accuracy to 100\% --- eliminating \emph{observed} silent recognition errors on this benchmark --- while covering 61.4\% and routing the rest to review. This quantifies the intended trade-off: abstention eliminates observed silent errors at the cost of lower coverage. All selective-risk measurements are distribution-specific to this controlled benchmark and are not intended to establish calibrated risk under an unknown real-world deployment distribution. The comparison with baselines sharpens the point: a learned HOG + linear-SVM recognizer reaches 100\% on the printed font and 79.7--80.3\% on unseen fonts --- comparable to the template matcher --- but has no abstention mechanism, so its errors are silent; against general OCR (Tesseract, single-character mode), the template matcher wins on the deployment-relevant printed-template regime (100\% vs 84--87\%) while Tesseract generalizes better to unseen fonts (94--95\% vs 86--90\%), which is outside the printed-form scope. In all cases only the template matcher emits an ambiguity channel.
 
 \begin{figure}[t]
 \centering
@@ -86,16 +88,20 @@ Sweeping the margin threshold $\tau$ yields the coverage-vs-risk curve in Fig.~\
 
 \begin{table}[t]
 \centering
-\caption{Selective recognition: coverage vs selective risk over the abstention threshold $\tau$.}
+\caption{Selective recognition: full sweep of coverage vs selective risk over the abstention threshold $\tau$.}
 \label{tab:selective}
 \begin{tabular}{lcccc}
 \toprule
 $\tau$ & Coverage & Accepted acc. & Selective risk & Routing rate \\
 \midrule
 0.000 (always guess) & 1.000 & 0.938 & 0.062 & 0.000 \\
+0.005 & 0.967 & 0.947 & 0.053 & 0.033 \\
+0.010 & 0.952 & 0.948 & 0.052 & 0.048 \\
 0.020 (operating) & 0.937 & 0.947 & 0.053 & 0.063 \\
-0.050 & 0.614 & 1.000 & 0.000 & 0.386 \\
-0.080 & 0.411 & 1.000 & 0.000 & 0.589 \\
+0.030 & 0.903 & 0.946 & 0.054 & 0.097 \\
+0.050 (conservative) & 0.614 & 1.000 & 0.000 & 0.386 \\
+0.080 (conservative) & 0.411 & 1.000 & 0.000 & 0.589 \\
+0.120 & 0.105 & 1.000 & 0.000 & 0.896 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -115,7 +121,7 @@ Auto-Decte is deployed as a working baseline at a bamboo-processing plant, repla
 This paper addresses \emph{structured printed industrial forms} --- the regime the template-guided perception is designed for --- not general-purpose document understanding. Within that scope, the following limits remain. General handwritten / Chinese-text / signature OCR is not implemented (only single-cell printed digits and OMR); deployment is single-machine without a completed multi-user capacity test; the evaluation uses controlled synthetic benchmarks rather than a 30--50-form golden set with double entry and real plant images, so accuracy claims are limited to those benchmarks; and the LLM assistant has no measured end-to-end efficiency gain. Future work: general OCR integration, independent task workers, a quantitative human-review-efficiency study (recognition-only vs +retrieval vs +LLM), and a field pilot measuring financial-processing time reduction.
 
 \section{Conclusion}
-Auto-Decte instantiates a trust-constrained human-in-the-loop framework in which machine perception, LLM suggestions, and retrieval produce candidates and references, while humans remain the only source of facts, with full traceability from photograph to exported cell. Selective recognition trades coverage for eliminating observed silent errors on the benchmark, and the AI layer assists without ever writing facts. The system is deployed as a working baseline and provides the substrate for a quantitative field study.
+Auto-Decte instantiates a trust-constrained human-in-the-loop framework in which machine perception, LLM suggestions, and retrieval produce candidates and references, while humans remain the only source of facts, with full traceability from photograph to exported cell. Selective recognition trades coverage for eliminating observed silent errors on the benchmark, and the AI layer assists without ever writing facts. The system is deployed as a working baseline and provides the substrate for a quantitative field study. In one sentence: Auto-Decte does not seek to make every machine prediction correct; it constrains when machine predictions are accepted and, more importantly, prevents any machine output from directly becoming a fact.
 
 \bibliographystyle{splncs04}
 \begin{thebibliography}{9}
