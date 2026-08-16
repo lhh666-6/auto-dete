@@ -120,6 +120,16 @@ The title page will remain separate and will be completed only from definitive a
 
 The three ChatGPT-generated diagrams remain part of the preserved LNCS project but will not be submitted to ESWA. Their factual content may inform newly drawn architecture diagrams, but the replacement graphics will be constructed from explicit nodes, edges, labels, and implemented data flows using TikZ or SVG tooling.
 
+The selected visual system is **Trust Teal**:
+
+- teal `#16796F` for evidence and permitted candidate data flows;
+- charcoal `#243746` for trust boundaries, structural labels, and primary text;
+- amber `#C06B19` for human decisions, warnings, and authoritative transitions;
+- pale teal `#E1F2EF` and pale amber `#FFF0DC` for restrained fills;
+- white or near-white backgrounds, without gradients, decorative shadows, or pictorial embellishment.
+
+Figures will use consistent node shapes, arrowheads, line weights, label hierarchy, and panel lettering. Color will never be the sole encoding: curves also differ by line style or marker, states use labels or patterns, and all graphics must remain interpretable in grayscale. Tables will use booktabs-style horizontal rules, aligned decimal columns, restrained emphasis, and no vertical grid. Figure text will remain legible at final single- or double-column size.
+
 The manuscript will include the required section titled `Declaration of generative AI and AI-assisted technologies in the manuscript preparation process`. It will state that DeepSeek Harness and Codex were used for drafting, organization, and language editing; the authors reviewed and edited the content and take responsibility for the article. AI tools will not be credited as authors and will not generate experimental observations.
 
 The authors' review responsibility covers the accuracy, completeness, impartiality, and originality of AI-assisted material; verification of every source and reference; substantive editing so that the paper reflects the authors' own analysis and interpretation; and protection of confidential data, intellectual property, and other rights. The declaration will follow the wording required by the submission system at the time of submission.
