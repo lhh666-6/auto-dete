@@ -14,7 +14,7 @@ The paper will not claim measured real-world accuracy, productivity gains, payro
 
 - Preserve `lncs/`, including `main.tex`, `main-polished.pdf`, and all existing LNCS artifacts.
 - Create the journal manuscript under `eswa/` as an independent Elsevier LaTeX project.
-- Perform experimental development in a separate clone at `D:\Claude_Design\auto-decte-eswa` on branch `codex/eswa-experiments`; do not alter the public repository's `main` branch directly.
+- Perform experimental development in a separate clone at `D:\Claude_Design\auto-decte-paper\experiments\auto-decte` on branch `codex/eswa-experiments`; do not alter the public repository's `main` branch directly. Copy only generated, paper-facing result artifacts into `eswa/artifacts/`.
 - Use only measured outputs produced by executable scripts. Do not invent results, sample sizes, confidence intervals, or deployment effects.
 - Treat the industrial deployment as application context and design motivation, not quantitative effectiveness evidence.
 - Do not include the three ChatGPT-generated engineering illustrations in the ESWA submission. Replace them with author-controlled TikZ or SVG diagrams derived from the implemented architecture.
