@@ -69,7 +69,7 @@ Auto-Decte instantiates the trust-constrained design as four logically separated
 \end{figure}
 
 \section{Implementation}
-The backend is FastAPI (Python 3.11) with SQLite via SQLAlchemy~2.0 and Alembic migrations; the front end is React~18 + Vite; image operations use OpenCV; suggestions use a DeepSeek client; retrieval is a local vector index. The codebase carries 478 passing automated tests on the public snapshot; the trust-boundary invariants (AI-off path, read-only retrieval, and adversarial fault-injection) are covered by passing acceptance tests. The remaining tests concern bamboo business-logic edge cases and are outside the trust-boundary contribution.
+The backend is FastAPI (Python 3.11) with SQLite via SQLAlchemy~2.0 and Alembic migrations; the front end is React~18 + Vite; image operations use OpenCV; suggestions use a DeepSeek client; retrieval is a local vector index. The current V1 implementation is covered by 478 passing automated tests, including acceptance tests for evidence integrity, trust-boundary enforcement, review workflows, and audit traceability.
 
 \section{Experimental Evaluation}
 
