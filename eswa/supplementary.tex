@@ -1,0 +1,59 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{url}
+\title{Supplementary Material for\\Auto-Decte: Trust-Constrained Document Intelligence}
+\author{Anonymous author(s)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Artifact inventory}
+The package contains raw per-case predictions, aggregate recognition results, resilience timings, fault-injection outcomes, generated plots and tables, and a manifest with SHA-256 hashes. The manifest records benchmark identifier \texttt{eswa-v1}, five deterministic seeds, package versions, source commit, commands, and source-tree cleanliness at generation time.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Artifact & Purpose \\
+\midrule
+\texttt{artifacts/recognition\_raw.json} & 13,050 model--case rows \\
+\texttt{artifacts/recognition\_summary.json} & split, threshold, baseline, robustness metrics \\
+\texttt{artifacts/trust\_faults.json} & five injected fault outcomes \\
+\texttt{artifacts/resilience.json} & checks and 30 latency repetitions \\
+\texttt{artifacts/manifest.json} & hashes, environment, commands, source identity \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Threshold protocol}
+Calibration uses seeds 101 and 202 (1,740 cases). Evaluation uses seeds 303, 404, and 505 (2,610 cases). Training seeds for the HOG--SVM baseline are separate. Thresholds from 0 to 0.10 in increments of 0.005 are evaluated; the operating threshold is frozen from the calibration-risk target before evaluation.
+
+\section{Perturbation-level outcomes}
+Table~\ref{tab:robustness-supp} reports the complete generated aggregation at $\tau=0.08$. Each row contains 90 independent evaluation cases. Accepted accuracy is conditional on acceptance and must be interpreted with the reported coverage.
+
+\begin{table}[ht]
+\centering
+\caption{Coverage and conditional accepted accuracy by perturbation.}
+\label{tab:robustness-supp}
+\small
+\input{tables/generated/robustness}
+\end{table}
+
+\section{Fault definitions}
+Wrong recognition and wrong AI suggestion inject incorrect values through their respective candidate services. Irrelevant retrieval supplies a non-matching reference. Stale human replay submits an outdated expected version. Duplicate evidence submits identical content twice. Passing requires an unchanged pre-existing fact and complete audit evidence; the last two conditions also require their designated exceptions.
+
+\section{Reproduction}
+From the experiment repository and its locked Python environment, run:
+\begin{verbatim}
+python -m benchmarks.run_all --output artifacts/eswa-v1
+pytest -q
+ruff check .
+mypy app benchmarks tests
+\end{verbatim}
+Tesseract was unavailable in the recorded environment and is therefore excluded from the quantitative comparison.
+
+\end{document}

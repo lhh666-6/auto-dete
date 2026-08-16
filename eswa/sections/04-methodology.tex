@@ -1,0 +1,35 @@
+\section{System and methodology}
+\label{sec:method}
+
+\subsection{Template-guided perception}
+Each form template carries a QR payload identifying its template and version and four ArUco corner markers. The system decodes the QR, estimates a homography from detected corners, warps the image to a canonical canvas, and crops fields from versioned template coordinates. This converts a whole-page task into typed cell decisions and preserves the transformation parameters with the recognition attempt.
+
+Digit crops are resized to $48\times64$ pixels and binarized with Otsu's method. They are compared with ten rendered digit templates using normalized mean absolute difference. If $d_1(x)$ and $d_2(x)$ are the best and second-best distances, the selection score is the distance margin
+\begin{equation}
+  s(x)=d_2(x)-d_1(x).
+\end{equation}
+The candidate value is emitted only when $s(x)\geq\tau$; otherwise the recognizer emits an explicit abstention. OMR cells use an interior fill ratio: at most 0.15 is unchecked, at least 0.35 is checked, and the interval between them is rejected for review. These rules are intentionally inspectable rather than claimed as state of the art.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/vector/system-pipeline}}
+  \caption{Operational pipeline. Recognition outcomes cross the threshold gate into the review queue but remain non-authoritative until a confirm/correct action.}
+  \label{fig:pipeline}
+\end{figure}
+
+\subsection{Candidate, decision, and fact services}
+Evidence is assigned a SHA-256 digest. Recognition attempts and AI reviews are stored independently from confirmed record versions. The optional AI adapter accepts structured context and must return schema-valid review JSON; its prompt contract states that it cannot modify business facts. The default adapter is disabled, returning an explicit \texttt{NOT\_RUN} status. Local retrieval uses a dependency-free similarity index and exposes results only as references.
+
+The review service accepts an expected record version, reviewer identifier, reason, candidate values, and evidence identifiers. It rejects a stale expected version, appends a new confirmed record on success, and emits a corresponding audit event. Exports query confirmed records only. Figure~\ref{fig:lineage} shows the reverse-trace chain.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/vector/data-lineage}}
+  \caption{Evidence lineage from content-addressed input to export. Every arrow represents a persisted identifier used by the reverse-trace check.}
+  \label{fig:lineage}
+\end{figure}
+
+\subsection{Implementation}
+The evaluated implementation uses Python~3.11, Streamlit, SQLite, SQLAlchemy, Alembic, OpenCV, scikit-learn, and an optional provider adapter. The application is organized into domain, application, adapter, and user-interface layers. It is a local single-machine prototype; it does not implement the FastAPI/React/PWA, authentication, or role-based-access features described in an earlier design concept. Reporting the implemented stack matters because the invariant is only as credible as the code path actually tested.
+
+The system retains local evidence, database, and export files as one backup unit. This local-first operational choice supports recovery in a small-plant setting \citep{kleppmann2019}, but it is not itself a security boundary. Deployment still requires host access control, encrypted backups, retention rules, and tested restore procedures.

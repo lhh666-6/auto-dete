@@ -1,0 +1,53 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\microtypesetup{expansion=false}
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{url}
+\usetikzlibrary{arrows.meta,fit,positioning,shapes.geometric}
+\input{styles/trust-teal}
+\setlength{\emergencystretch}{2em}
+
+\journal{Expert Systems with Applications}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Auto-Decte: Trust-Constrained Document Intelligence through Candidate--Fact Separation and Selective Prediction}
+
+\author{Anonymous author(s)}
+\affiliation{organization={Anonymous institution},country={Anonymous country}}
+
+\begin{abstract}
+Document intelligence in payroll-adjacent and production workflows must control not only recognition error but also how machine output becomes an authoritative record. We present Auto-Decte, a trust-constrained human-in-the-loop architecture for structured industrial forms. Its central invariant separates immutable evidence, append-only machine candidates, attributable human decisions, and versioned facts: across the exposed application paths, perception, retrieval, and language-model modules have no direct write path to the fact plane. A selective recognizer abstains when a template-distance margin is below a calibration threshold, while a review action is the only transition that can create or revise a fact. We evaluate the implementation using 4,350 deterministic synthetic image cases, independent calibration and evaluation seeds, seven perturbation families, five injected trust-boundary faults, and 70 automated tests. A threshold selected on 1,740 calibration cases for at most 1\% empirical selective risk accepted 292 of 2,610 independent evaluation cases (11.19\% coverage) with no observed accepted error; the Wilson 95\% interval for accepted accuracy was 98.70\%--100\%. A HOG--linear-SVM baseline achieved 99.81\% accuracy at full coverage, showing that the contribution is governance of uncertain outputs rather than a new state-of-the-art recognizer. All five injected faults left facts unchanged and produced complete audit evidence. These results support the architectural mechanism while delimiting its evidence: field effectiveness still requires validation on independently transcribed production forms and human-review studies.
+\end{abstract}
+
+\begin{keyword}
+document intelligence \sep human-in-the-loop \sep selective prediction \sep data provenance \sep trustworthy artificial intelligence
+\end{keyword}
+\end{frontmatter}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-formal-model}
+\input{sections/04-methodology}
+\input{sections/05-experimental-protocol}
+\input{sections/06-results}
+\input{sections/07-industrial-context}
+\input{sections/08-discussion}
+\input{sections/09-limitations}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,112 @@
+{
+  "artifacts": [
+    {
+      "bytes": 249,
+      "path": "paper/baseline_comparison.tex",
+      "sha256": "2538db4f8274ed5d59d092dd52e48af4f515abe581c423bdd1e02ef3ec70ca76"
+    },
+    {
+      "bytes": 11371,
+      "path": "paper/coverage_risk.pdf",
+      "sha256": "ace1d91b510fa8d66b3e0c9e24846f3fd9715922f08d9c8afb35b7021b910ea0"
+    },
+    {
+      "bytes": 14515,
+      "path": "paper/coverage_risk.svg",
+      "sha256": "7a66f7185c580e10b154672059fa0ffc3626f95645f25b62a6cd83b7b7fcb608"
+    },
+    {
+      "bytes": 11421,
+      "path": "paper/latency.pdf",
+      "sha256": "40cf7de00bb633fb6e8e8fecaa05ec050625de837dc1916445caf56bd2d3d663"
+    },
+    {
+      "bytes": 11573,
+      "path": "paper/latency.svg",
+      "sha256": "95ac2df10abc1ff4f2df782eea9e7ebc6cd5c80be772d0bf1c226ecd3b452cbd"
+    },
+    {
+      "bytes": 14508,
+      "path": "paper/robustness.pdf",
+      "sha256": "a0889e96281c514d9e03659ef2a5fd5c25b58d90a8b65e3a32010332099ea9e5"
+    },
+    {
+      "bytes": 25923,
+      "path": "paper/robustness.svg",
+      "sha256": "e49d29f02138d162703ce5ae2ac360c6ce48da352574de537ccaa7ed117c7b32"
+    },
+    {
+      "bytes": 1203,
+      "path": "paper/robustness.tex",
+      "sha256": "897813816d42621dac89a757d76b8f91e208c4ea633fc57dd4537094a8971a92"
+    },
+    {
+      "bytes": 250,
+      "path": "paper/selective_metrics.tex",
+      "sha256": "32a3a7634bef6be3d79dd99d9879362588f1d3e171a0ae752e34cb84e2ac0250"
+    },
+    {
+      "bytes": 10186,
+      "path": "paper/trust_faults.pdf",
+      "sha256": "1a7121f4eea6ef5e95f87af2a731d7496ff19338dec0e83eb6e8247626d9cdf5"
+    },
+    {
+      "bytes": 7173,
+      "path": "paper/trust_faults.svg",
+      "sha256": "a024ed530f868125314754ef37bf1919bba6d460891841caa8c4d4df5ec31c18"
+    },
+    {
+      "bytes": 3666623,
+      "path": "recognition_raw.json",
+      "sha256": "4dbaa56f16c87d9bd5f4039cced791f8721d0f9d70f3ef05f09f7f30549cf9b1"
+    },
+    {
+      "bytes": 17031,
+      "path": "recognition_summary.json",
+      "sha256": "5a0af48d7aed13e04b3cb51b0a1c7e80152ec1fdc7cb11977e2e2b232e994582"
+    },
+    {
+      "bytes": 1668,
+      "path": "resilience.json",
+      "sha256": "223ff11049e71e0dce782f149fe748993102c12d20c115d1c8466d975fe3e079"
+    },
+    {
+      "bytes": 862,
+      "path": "trust_faults.json",
+      "sha256": "05d33588faa899c740b5e355de5f67709d27de6abbae50977bb18870ae6b0595"
+    }
+  ],
+  "benchmark_id": "eswa-v1",
+  "commands": [
+    "python -m benchmarks.run_trust",
+    "python -m benchmarks.run_recognition",
+    "python -m benchmarks.run_resilience",
+    "python -m benchmarks.render_paper_artifacts"
+  ],
+  "config_path": "benchmarks/config/eswa-v1.json",
+  "config_sha256": "4fe2aee699442ba9d8ebed19ad19ca7aab3d19c3efa7c317031690a969d0ee9d",
+  "ended_utc": "2026-08-16T12:18:03.015425+00:00",
+  "packages": {
+    "matplotlib": "3.11.1",
+    "numpy": "1.26.4",
+    "opencv-python-headless": "4.11.0.86",
+    "scikit-learn": "1.9.0",
+    "sqlalchemy": "2.0.51"
+  },
+  "recognition": {
+    "case_count": 4350,
+    "model_count": 3,
+    "raw_row_count": 13050
+  },
+  "resilience_repetitions": 30,
+  "seeds": [
+    101,
+    202,
+    303,
+    404,
+    505
+  ],
+  "source_commit": "cbdc83e668e2acf253db89ad31123f51e52326f5",
+  "source_tracked_dirty_before_run": false,
+  "started_utc": "2026-08-16T12:17:56.790110+00:00"
+}

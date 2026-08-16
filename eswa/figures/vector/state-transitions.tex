@@ -1,0 +1,10 @@
+\begin{tikzpicture}[node distance=12mm and 17mm,font=\small]
+  \node[trustbox,minimum width=28mm] (e) {$E$: evidence};
+  \node[trustbox,minimum width=31mm,right=of e] (c) {$C$: candidate};
+  \node[human,minimum width=31mm,right=of c] (h) {$H$: decision};
+  \node[fact,minimum width=31mm,right=of h] (f) {$F_t$: fact};
+  \draw[flow] (e) -- node[above,font=\scriptsize]{machine derives} (c);
+  \draw[flow] (c) -- node[above,font=\scriptsize]{human reviews} (h);
+  \draw[flow] (h) -- node[above,font=\scriptsize]{$g(F_t,H_t)$} (f);
+  \path (c) edge[noflow,bend right=42] node[below,font=\scriptsize,text=TrustAmber]{forbidden direct transition} (f);
+\end{tikzpicture}

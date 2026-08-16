@@ -1,0 +1,78 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{RQ1: selective recognition}
+Calibration selected $\tau=0.08$ for the target empirical selective risk of at most 1\%. On the disjoint 2,610-case evaluation set, the gate accepted 292 predictions and routed 2,318 to review. Coverage was 11.19\%, accepted accuracy was 100\%, and no erroneous auto-pass was observed. The Wilson 95\% interval for accepted accuracy was 98.70\%--100\%. Thus, the experiment observed zero errors among accepted cases; it does not establish a zero error probability.
+
+\begin{table}[t]
+  \centering
+  \caption{Independent evaluation at the calibration-selected threshold $\tau=0.08$.}
+  \label{tab:selected}
+  \input{tables/generated/selective_metrics}
+\end{table}
+
+Figure~\ref{fig:coverage-risk} shows the cost of this operating point. The full-coverage end of the curve has roughly 25\% selective risk, while zero observed selective risk first occurs at $\tau=0.07$ and increasingly reduces coverage. Risk control is therefore purchased with reviewer workload, not obtained for free.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.78\textwidth]{figures/generated/coverage_risk.pdf}
+  \caption{Evaluation coverage--risk trade-off over the threshold sweep. The dashed operating point was fixed from the calibration split before evaluation.}
+  \label{fig:coverage-risk}
+\end{figure}
+
+The model comparison in Table~\ref{tab:baselines} is important for interpretation. The template recognizer achieved 74.90\% accuracy at effectively full coverage; forcing template prediction produced the same accuracy at exactly full coverage. HOG--linear-SVM achieved 99.81\% (2,605/2,610) at full coverage. Consequently, Auto-Decte's current recognizer is not competitive as a general classification contribution. The selective gate can isolate a small, high-confidence subset, while the stronger baseline indicates a direct path for improving coverage without changing the authority model.
+
+\begin{table}[t]
+  \centering
+  \caption{Recognition baselines on the independent evaluation split.}
+  \label{tab:baselines}
+  \input{tables/generated/baseline_comparison}
+\end{table}
+
+Across perturbations, accepted accuracy remained 100\% at the selected threshold, but coverage declined under strong perspective distortion and occlusion to 3.33\%. Figure~\ref{fig:robustness} makes this asymmetric response visible: the conservative gate tends to abstain under severe degradation rather than preserve throughput.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.86\textwidth]{figures/generated/robustness.pdf}
+  \caption{Coverage by perturbation and severity at $\tau=0.08$. Each point aggregates 90 evaluation cases; accepted accuracy was 100\% for every displayed group.}
+  \label{fig:robustness}
+\end{figure}
+
+\subsection{RQ2: trust-boundary fault injection}
+All five injected faults left the pre-existing fact unchanged and yielded complete audit evidence (Table~\ref{tab:faults}). Wrong recognition and wrong AI suggestions remained candidates; irrelevant retrieval remained a reference. The stale review replay raised \texttt{ConcurrentReviewError}, and duplicate evidence raised \texttt{DuplicateEvidenceError}. These are five controlled application-path cases, not a penetration test or exhaustive security proof.
+
+\begin{table}[t]
+  \centering
+  \caption{Trust-boundary fault outcomes. ``Contained'' requires an unchanged fact and a complete audit outcome.}
+  \label{tab:faults}
+  \begin{tabular}{lll}
+    \toprule
+    Injected condition & Required mechanism & Outcome \\
+    \midrule
+    Wrong recognition & Candidate isolation & Contained \\
+    Wrong AI suggestion & Separate AI-review record & Contained \\
+    Irrelevant retrieval & Read-only reference & Contained \\
+    Stale human replay & Optimistic concurrency & Rejected, contained \\
+    Duplicate evidence & Content-hash uniqueness & Rejected, contained \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.78\textwidth]{figures/generated/trust_faults.pdf}
+  \caption{Fault-injection outcomes. A value of one denotes both an unchanged fact and complete audit evidence.}
+  \label{fig:faults}
+\end{figure}
+
+\subsection{RQ3: resilience and reproducibility}
+The workflow completed with the AI adapter disabled, rejected duplicate evidence, rejected stale review, and returned a valid reverse trace. Across 30 measured repetitions, median cold service latency was 0.280 ms (IQR 0.071 ms; 95th percentile 0.517 ms), and median warm latency was 0.070 ms (IQR 0.014 ms; 95th percentile 0.129 ms). Figure~\ref{fig:latency} reports the distributions. These measurements validate low-overhead application services in the benchmark harness; they exclude perception and human interaction.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.72\textwidth]{figures/generated/latency.pdf}
+  \caption{Application-service latency over 30 repetitions after five warm-ups. Values exclude image processing, UI rendering, and reviewer time.}
+  \label{fig:latency}
+\end{figure}
+
+The final verification run passed 70 tests, Ruff checks, and mypy checks over 65 source files. The artifact manifest reports 15 hashed outputs and a clean tracked source state at generation time. These checks support repeatability of the stated synthetic results; they cannot substitute for external replication or production validation.

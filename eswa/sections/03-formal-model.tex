@@ -1,0 +1,44 @@
+\section{Trust model and problem formulation}
+\label{sec:model}
+
+Let a captured form image be evidence $e\in E$, and let $M$ denote the set of machine modules exposed through the application: perception, optional language-model review, and retrieval. A module may derive a candidate $c\in C$ from evidence or existing non-authoritative context. A human decision $h\in H$ records an actor, an action, an expected record version, a reason, and referenced evidence. Authoritative state is represented as a sequence of fact versions $F_0,F_1,\ldots$.
+
+The allowed transitions are
+\begin{equation}
+  E\xrightarrow{m}C,\qquad C\xrightarrow{\text{review}}H,
+  \qquad F_{t+1}=g(F_t,H_t),
+  \label{eq:transitions}
+\end{equation}
+where $g$ validates the expected version and appends, rather than overwrites, the resulting record. Retrieval can add a reference to $C$ but cannot supply $H$. The central invariant is
+\begin{equation}
+  \forall m\in M,\quad m\not\rightarrow F.
+  \label{eq:invariant}
+\end{equation}
+Equation~\ref{eq:invariant} is an application-architecture property: no exposed machine service possesses a direct fact-writing operation. It is not a claim about protection against privileged database modification, compromised dependencies, or an adversary controlling the host.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/vector/trust-model}}
+  \caption{Trust model. Dashed machine components terminate at append-only candidates or read-only references; an attributable human decision is the only exposed path to a versioned fact.}
+  \label{fig:trust-model}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \resizebox{0.96\textwidth}{!}{\input{figures/vector/state-transitions}}
+  \caption{Allowed state transitions. Candidate-to-fact mutation without a human decision is forbidden by the application service boundary.}
+  \label{fig:transitions}
+\end{figure}
+
+For a recognition input $x$, a predictor returns a class $\hat y(x)$ and a selection score $s(x)$. Given threshold $\tau$, the selection function is
+\begin{equation}
+  a_\tau(x)=\mathbb{1}[s(x)\geq\tau].
+\end{equation}
+For a sample of $n$ labeled cases, coverage and selective risk are
+\begin{align}
+  \widehat{\mathrm{cov}}(\tau)&=\frac{1}{n}\sum_{i=1}^{n}a_\tau(x_i),\\
+  \widehat{R}(\tau)&=\frac{\sum_{i=1}^{n}a_\tau(x_i)\mathbb{1}[\hat y_i\neq y_i]}{\max(1,\sum_{i=1}^{n}a_\tau(x_i))}.
+\end{align}
+The erroneous auto-pass rate uses all cases in the denominator. These empirical measures characterize the recognition gate; they do not alter the authority rule. An accepted recognition is still a candidate, not a fact.
+
+The desired properties are: (P1) machine isolation, Equation~\ref{eq:invariant}; (P2) append-only candidate and fact histories; (P3) optimistic concurrency, so a stale decision cannot overwrite a newer version; (P4) content-addressed evidence and reverse trace from export to its supporting chain; and (P5) graceful operation when the optional AI adapter is disabled.

@@ -1,0 +1,14 @@
+\section{Limitations and threats to validity}
+\label{sec:limitations}
+
+\textbf{External validity.} All quantitative recognition results use deterministic synthetic cells. They do not represent handwriting, Chinese text, signatures, paper damage, camera diversity, or the joint distribution of production forms. The privacy rationale for withholding production data is legitimate, but it does not turn synthetic evidence into field evidence.
+
+\textbf{Statistical validity.} Threshold selection uses a disjoint calibration split, reducing direct evaluation leakage. Nevertheless, calibration and evaluation arise from the same renderer and perturbation generator. Zero observed accepted errors among 292 cases produces a Wilson lower bound of 98.70\%, not proof of perfect accuracy. Perturbation-level groups contain 90 cases and therefore support only coarse comparisons.
+
+\textbf{Construct validity.} The trust tests operationalize containment as an unchanged fact plus complete audit evidence. This captures the stated application invariant but not human susceptibility to misleading suggestions, correctness of a later human decision, confidentiality, availability, or resistance to host compromise. ``Trust-constrained'' should not be read as a general security certification.
+
+\textbf{Baseline validity.} The HOG--SVM baseline is strong on this renderer and may benefit from the constrained visual regime. Conversely, Tesseract was not installed and was excluded rather than simulated. Broader OCR and document-model comparisons on real data remain necessary.
+
+\textbf{Implementation scope.} The evaluated prototype is local and single-machine, with a Streamlit interface. It has not been load-tested for concurrent users and does not yet implement production authentication or role-based access. Sub-millisecond service timings are microbenchmarks, not end-to-end latency.
+
+\textbf{Reproducibility.} Seeds, code, raw predictions, summary JSON, plots, tables, and hashes are supplied. Reproduction still depends on compatible OpenCV and system behavior, and independent execution has not yet been reported. The public package intentionally excludes sensitive plant records.

@@ -1,0 +1,20 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Document processing is often evaluated as a prediction problem: an image enters a model and structured values leave it. That abstraction is incomplete in payroll-adjacent and production workflows. A wrong digit may alter a wage calculation, a stale record may be mistaken for current evidence, and a plausible language-model suggestion may be granted authority that its provenance does not justify. In such settings, the consequential question is not only whether a machine output is accurate, but also whether that output can silently become an operational fact.
+
+Modern document models substantially improve representation learning and extraction across layouts \citep{layoutlm,layoutlmv2,layoutlmv3,donut,docformer,trocr}. Human-in-the-loop systems can direct difficult examples to reviewers \citep{budd2021,mosqueira2023}, while retrieval-augmented and generative systems can supply context or candidate values \citep{gao2023,xu2024}. These capabilities solve complementary inference and interaction problems. They do not, by themselves, constrain the authority of a machine output in the application data model. A high-scoring prediction and a retrieved historical value remain unsafe if either has an unreviewed write path to an authoritative record.
+
+We study the following question: \emph{How can machine perception and optional generative assistance support structured-form digitization while making human authorization an explicit, auditable prerequisite for fact creation?} Auto-Decte addresses this question through two coupled mechanisms. First, \emph{candidate--fact separation} places perception results, retrieved references, and language-model suggestions outside the authoritative fact plane. Second, \emph{selective prediction} rejects low-margin recognition results and exposes abstention as an ordinary workflow outcome rather than an exception \citep{chow1970,geifman2017,geifman2019}.
+
+The resulting claim is deliberately narrower than ``safe AI.'' Across the application paths exercised in this work, machine modules cannot directly create or revise facts. This architectural property does not guarantee that a human reviewer will detect every error, nor does it establish safety under arbitrary database compromise or malicious operating-system access. It makes each transition into the fact plane explicit, attributable, and traceable to evidence.
+
+This paper makes four contributions:
+\begin{enumerate}
+  \item We formalize a four-plane trust model---evidence, candidates, human decisions, and versioned facts---with a machine-to-fact noninterference invariant scoped to exposed application services.
+  \item We instantiate the model in a runnable Python 3.11 and Streamlit system for fixed industrial forms, combining QR template identity, ArUco localization, selective cell recognition, optional AI review, local retrieval, and auditable export.
+  \item We provide a deterministic evaluation package covering 4,350 synthetic image cases, calibration/evaluation seed separation, seven perturbation families, five fault injections, resilience checks, and 70 automated tests.
+  \item We report both favorable and unfavorable evidence. Risk-targeted abstention produced no observed accepted error at low coverage, while a HOG--linear-SVM baseline substantially outperformed the built-in template recognizer at full coverage. The architecture, not recognition novelty, is therefore the main contribution.
+\end{enumerate}
+
+The remainder of the paper distinguishes related inference and governance work (Section~\ref{sec:related}), defines the trust invariant (Section~\ref{sec:model}), describes the implementation and selective rule (Section~\ref{sec:method}), and presents a pre-registered-by-code synthetic protocol and results (Sections~\ref{sec:protocol}--\ref{sec:results}). Sections~\ref{sec:context}--\ref{sec:limitations} delimit industrial relevance and remaining validation needs.

@@ -1,0 +1,22 @@
+\section{Experimental protocol}
+\label{sec:protocol}
+
+\subsection{Research questions}
+The evaluation addresses three questions. \textbf{RQ1} asks how risk-targeted abstention changes coverage and error exposure. \textbf{RQ2} asks whether injected machine and workflow faults can change an existing fact through exposed application paths. \textbf{RQ3} asks whether core import--review--export operations, provenance, and concurrency checks remain functional without the AI adapter and across repeated executions.
+
+\subsection{Synthetic recognition benchmark}
+Production forms can contain employee identifiers, payroll-adjacent values, and commercially sensitive production data. They were therefore neither used in the public benchmark nor sent to external AI services. Instead, the package deterministically renders synthetic form cells with known labels. This decision makes the benchmark distributable and repeatable but limits ecological validity.
+
+The benchmark contains 4,350 image cases. Seeds 101 and 202 define 1,740 calibration cases; disjoint seeds 303, 404, and 505 define 2,610 evaluation cases. Training data for the learned baseline use separate seeds. Perturbations comprise clean images plus Gaussian blur, Gaussian noise, brightness reduction, rotation, perspective distortion, JPEG compression, and occlusion at predefined severities. The implementation records every raw prediction, score, label, model, perturbation, severity, and seed.
+
+Thresholds from 0 to 0.10 are swept in increments of 0.005. The operating threshold is selected \emph{only on calibration cases} as the most conservative available threshold satisfying a target empirical selective risk of at most 1\%. The selected value is then frozen for evaluation. We report coverage, accepted accuracy, selective risk, erroneous auto-pass rate, and routing rate. Because zero observed errors yield a degenerate percentile bootstrap interval, the Wilson binomial interval is the primary uncertainty interval for accepted accuracy.
+
+Three available recognition paths are compared: the Auto-Decte template matcher, the same template decision forced to predict whenever possible, and a HOG feature extractor with a linear support-vector machine. A Tesseract path is capability-gated. The executable was unavailable in the recorded environment, so no Tesseract score is reported.
+
+\subsection{Fault injection and resilience}
+Five application-path faults probe distinct boundaries: a wrong recognition candidate, a wrong language-model suggestion, an irrelevant retrieval result, a stale human-review replay, and duplicate evidence. A run passes only when the existing fact remains unchanged and an audit outcome is recorded; stale review and duplicate evidence must additionally raise their designated exceptions.
+
+Resilience checks exercise import, human confirmation, export, reverse trace, duplicate rejection, stale-version rejection, and operation with AI disabled. Latency is measured over 30 repetitions after five warm-ups for both fresh-container (cold) and reused-container (warm) application flows. These sub-millisecond service timings exclude image decoding, browser rendering, storage-device variance, and human review, and therefore should not be interpreted as end-to-end user latency.
+
+\subsection{Reproducibility controls}
+The experiment code fixes seeds and dependency versions, emits JSON before figures or tables, and writes a manifest containing SHA-256 hashes, commands, environment metadata, source commit, and working-tree status. Paper tables are generated from the same JSON read by the plots. The final code quality gate comprises unit/integration tests, Ruff static checks, and mypy type checks. The evaluation is synthetic by design; a production claim would require a separate, access-controlled protocol with double transcription and adjudication.

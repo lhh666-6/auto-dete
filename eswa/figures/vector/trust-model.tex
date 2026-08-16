@@ -1,0 +1,15 @@
+\begin{tikzpicture}[node distance=7mm and 8mm,font=\small]
+  \node[machine,minimum width=29mm] (perception) {Perception};
+  \node[machine,minimum width=29mm,below=of perception] (llm) {Optional LLM};
+  \node[machine,minimum width=29mm,below=of llm] (retrieval) {Retrieval};
+  \node[trustbox,minimum width=34mm,right=20mm of llm] (candidate) {Candidate plane\\append-only};
+  \node[human,minimum width=34mm,right=17mm of candidate] (decision) {Human decision\\confirm/correct};
+  \node[fact,minimum width=34mm,right=17mm of decision] (fact) {Fact plane\\versioned};
+  \draw[flow] (perception.east) -- (candidate.west);
+  \draw[flow] (llm.east) -- (candidate.west);
+  \draw[flow] (retrieval.east) -- node[below,sloped,font=\scriptsize]{read-only reference} (candidate.west);
+  \draw[flow] (candidate) -- (decision);
+  \draw[flow] (decision) -- (fact);
+  \draw[noflow] ([yshift=-10mm]llm.south east) -- node[below,font=\scriptsize,text=TrustAmber]{no machine write path} ([yshift=-10mm]fact.south west);
+  \node[draw=TrustCharcoal,dotted,rounded corners,fit=(perception)(retrieval),inner sep=4mm,label={[text=TrustCharcoal]above:untrusted machine modules}] {};
+\end{tikzpicture}
