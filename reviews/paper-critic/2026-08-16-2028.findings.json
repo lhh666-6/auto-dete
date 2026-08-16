@@ -1,0 +1,25 @@
+{
+  "method": "paper-critic",
+  "paper_slug": "auto-decte-eswa",
+  "anchor_version": 1,
+  "round": 1,
+  "verdict": "BLOCKED",
+  "score": 0,
+  "overall_feedback": "The manuscript is polished and compilation-ready, but it violates the locked evaluation specification. The artifacts evaluate perturbed synthetic digit cells and five hand-selected faults; they omit promised end-to-end form/OMR validation, QR/ArUco and candidate-isolation ablations, and a direct fact-write bypass test. Current evidence is insufficient for the stated architecture and industrial-form claims.",
+  "comments": [
+    {
+      "id": "C1",
+      "tier": "C",
+      "category": "Internal Consistency",
+      "title": "Locked evaluation specification is not implemented",
+      "quote": "We provide a deterministic evaluation package covering 4,350 synthetic image cases, calibration/evaluation seed separation, seven perturbation families, five fault injections, resilience checks, and 70 automated tests.",
+      "explanation": "The locked design requires structured forms, OMR, QR/ArUco ablations, candidate-bypass/direct-fact attempts; artifacts evaluate digit cells and five faults only. The agreed validation scope is not implemented.",
+      "fix": "Run and report end-to-end form/OMR/QR/ArUco ablations plus explicit direct-fact bypass attempts; regenerate artifacts, results, and the claim ledger.",
+      "comment_type": "methodology",
+      "location": "eswa/sections/01-introduction.tex:16",
+      "deduction": 100,
+      "paragraph_index": null
+    }
+  ],
+  "num_comments": 1
+}

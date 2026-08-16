@@ -10,7 +10,7 @@
 - Generative AI use is declared in the manuscript and cover letter.
 - Synthetic data, code, raw results, hashes, and generation commands are packaged.
 - Calibration and evaluation seeds are separated.
-- Zero observed errors are reported with a Wilson interval and no zero-risk claim.
+- Zero observed errors are reported without a zero-risk claim; the row-level Wilson interval is explicitly labeled descriptive because perturbations reuse base units.
 - Tesseract unavailability and the stronger HOG–SVM baseline are reported.
 - Production-data sensitivity and resulting external-validity limitation are explicit.
 

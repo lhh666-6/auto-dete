@@ -30,10 +30,10 @@ Artifact & Purpose \\
 \end{center}
 
 \section{Threshold protocol}
-Calibration uses seeds 101 and 202 (1,740 cases). Evaluation uses seeds 303, 404, and 505 (2,610 cases). Training seeds for the HOG--SVM baseline are separate. Thresholds from 0 to 0.10 in increments of 0.005 are evaluated; the operating threshold is frozen from the calibration-risk target before evaluation.
+Calibration uses seeds 101 and 202 (1,740 rows). Evaluation uses seeds 303, 404, and 505 (2,610 rows). The evaluation rows comprise 29 conditions applied to 90 seed--font--digit base units and are therefore not mutually independent. Training seeds for the HOG--SVM baseline are separate. Thresholds from 0 to 0.10 in increments of 0.005 are evaluated; the operating threshold is frozen from the calibration-risk target before evaluation.
 
 \section{Perturbation-level outcomes}
-Table~\ref{tab:robustness-supp} reports the complete generated aggregation at $\tau=0.08$. Each row contains 90 independent evaluation cases. Accepted accuracy is conditional on acceptance and must be interpreted with the reported coverage.
+Table~\ref{tab:robustness-supp} reports the complete generated aggregation at $\tau=0.08$. Each table row applies one condition to the same 90 evaluation base units. Accepted accuracy is conditional on acceptance and must be interpreted with the reported coverage; the table does not provide 90 new independent units per condition.
 
 \begin{table}[ht]
 \centering
@@ -49,10 +49,11 @@ Wrong recognition and wrong AI suggestion inject incorrect values through their 
 \section{Reproduction}
 From the experiment repository and its locked Python environment, run:
 \begin{verbatim}
-python -m benchmarks.run_all --output artifacts/eswa-v1
+python -m benchmarks.run_all --config benchmarks/config/eswa-v1.json \
+  --output artifacts/eswa-v1
 pytest -q
 ruff check .
-mypy app benchmarks tests
+mypy app benchmarks tests/benchmarks
 \end{verbatim}
 Tesseract was unavailable in the recorded environment and is therefore excluded from the quantitative comparison.
 

@@ -2,11 +2,11 @@
 \label{sec:results}
 
 \subsection{RQ1: selective recognition}
-Calibration selected $\tau=0.08$ for the target empirical selective risk of at most 1\%. On the disjoint 2,610-case evaluation set, the gate accepted 292 predictions and routed 2,318 to review. Coverage was 11.19\%, accepted accuracy was 100\%, and no erroneous auto-pass was observed. The Wilson 95\% interval for accepted accuracy was 98.70\%--100\%. Thus, the experiment observed zero errors among accepted cases; it does not establish a zero error probability.
+Calibration selected $\tau=0.08$ for the target empirical selective risk of at most 1\%. On the seed-disjoint 2,610-row evaluation set, the gate accepted 292 predictions and routed 2,318 to review. Coverage was 11.19\%, accepted accuracy was 100\%, and no erroneous auto-pass was observed. The descriptive row-level Wilson 95\% interval was 98.70\%--100\%, but it is optimistic as an inferential interval because the 29 conditions reuse 90 base units. Thus, the experiment observed zero errors among accepted rows; it does not establish a zero error probability.
 
 \begin{table}[t]
   \centering
-  \caption{Independent evaluation at the calibration-selected threshold $\tau=0.08$.}
+  \caption{Seed-disjoint evaluation at the calibration-selected threshold $\tau=0.08$. The Wilson interval is descriptive and assumes row independence.}
   \label{tab:selected}
   \input{tables/generated/selective_metrics}
 \end{table}
@@ -24,7 +24,7 @@ The model comparison in Table~\ref{tab:baselines} is important for interpretatio
 
 \begin{table}[t]
   \centering
-  \caption{Recognition baselines on the independent evaluation split.}
+  \caption{Recognition baselines on the seed-disjoint evaluation split.}
   \label{tab:baselines}
   \input{tables/generated/baseline_comparison}
 \end{table}
@@ -34,7 +34,7 @@ Across perturbations, accepted accuracy remained 100\% at the selected threshold
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.86\textwidth]{figures/generated/robustness.pdf}
-  \caption{Coverage by perturbation and severity at $\tau=0.08$. Each point aggregates 90 evaluation cases; accepted accuracy was 100\% for every displayed group.}
+  \caption{Coverage by perturbation and severity at $\tau=0.08$. Each point aggregates the same 90 evaluation base units under one condition; accepted accuracy was 100\% for every displayed group.}
   \label{fig:robustness}
 \end{figure}
 
