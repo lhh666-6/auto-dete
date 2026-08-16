@@ -1,16 +1,26 @@
 # Code--paper alignment
 
-| Paper claim | Artifact source | Verdict |
-|---|---|---|
-| 4,350 total cases; 1,740 calibration; 2,610 evaluation | `artifacts/recognition_summary.json` | PASS |
-| Threshold 0.08, selected for 1% calibration-risk target | `recognition_summary.json` | PASS |
-| 292 accepted; 11.19% coverage; 88.81% routing | `selected_metrics` | PASS |
-| 100% observed accepted accuracy; Wilson lower 98.70% | `accepted_accuracy_wilson_ci95` | PASS |
-| HOG--SVM 2,605/2,610 = 99.81% at full coverage | `baselines` | PASS |
-| Five faults contained with complete audit evidence | `artifacts/trust_faults.json` | PASS |
-| AI disabled, duplicate/stale rejected, reverse trace valid | `artifacts/resilience.json` | PASS |
-| Cold 0.280 ms median; warm 0.070 ms median | final `latency_summary` | PASS |
-| 15 hashed outputs and clean tracked source at generation | `artifacts/manifest.json` | PASS |
-| 70 tests; Ruff pass; mypy pass over 65 files | final verification commands | PASS |
+This ledger maps the revised ESWA manuscript to the frozen `eswa-v1` run generated from experiment commit `195355a27f3606bc070d8606ed299549067c5a6e`. The copied submission artifacts match all 27 SHA-256 values in `artifacts/manifest.json`.
 
-The robustness figure was initially found to plot conditional accepted accuracy while its caption described coverage. The generation code was fixed test-first, the plot now uses coverage with a data-sensitive axis, all artifacts were regenerated, and all 15 copied outputs were revalidated against the final manifest.
+| Paper claim | Artifact or code evidence | Verdict |
+|---|---|---|
+| 4,350 cell cases: 1,740 calibration and 2,610 evaluation | `artifacts/recognition_summary.json` | PASS |
+| Evaluation rows retain the dependence of 90 base units across 29 conditions | benchmark configuration and `selective_models[*].base_unit_count` | PASS |
+| Template gate: threshold 0.08, 11.19% coverage, 100% observed accepted accuracy | `selected_threshold` and `selected_metrics` | PASS |
+| Template cluster-bootstrap coverage interval: 5.86--16.97% | `selective_models[0].cluster_bootstrap_ci95.coverage` | PASS |
+| HOG--SVM: 2,605/2,610 correct, 99.81% accuracy, 0.19% selective risk | `baselines` and `selective_models[1]` | PASS |
+| HOG--SVM cluster-bootstrap accepted-accuracy interval: 99.62--99.96% | `selective_models[1].cluster_bootstrap_ci95.accepted_accuracy` | PASS |
+| Whole-form full pipeline: 300 condition rows, 86.03% digit accuracy, 100% OMR accuracy, 60% complete success | `artifacts/form_summary.json` | PASS |
+| Clean, perspective, and JPEG forms complete; blur breaks QR and rotation breaks marker alignment | `artifacts/form_raw.json` and `artifacts/form_summary.json` | PASS |
+| Removing QR or ArUco makes complete-form success zero | `artifacts/form_summary.json` ablations | PASS |
+| 60 clean forms complete import-to-export and reverse trace, producing 1,200 candidates and versioned facts | `artifacts/form_workflow.json` | PASS |
+| Six controlled faults are contained with audit evidence | `artifacts/trust_faults.json` | PASS |
+| All 12 attempted direct fact-write methods are unavailable | `artifacts/trust_faults.json` direct-write case | PASS |
+| Candidate isolation prevents an injected value from changing the fact; unsafe wiring changes it | `artifacts/trust_ablation.json` | PASS |
+| 500/500 randomized fault trials preserve existing facts | `artifacts/trust_stress.json` | PASS |
+| Median service-only latency is 0.300 ms cold and 0.073 ms warm | `artifacts/resilience.json`; supplementary only | PASS |
+| 27 generated outputs came from a clean tracked source state | `artifacts/manifest.json` | PASS |
+| 77 tests, Ruff, and mypy over 45 source files pass | fresh verification commands in the experiment repository | PASS |
+| Evaluated application stack is Python 3.11, Streamlit, SQLite/SQLAlchemy/Alembic | `docs/eswa-implementation-inventory.md`, `app/ui/`, `app/db/` | PASS |
+
+The preserved LNCS prose mentions FastAPI, React/Vite, PWA, authentication, and RBAC. Those descriptions have no corresponding tracked implementation in the currently available Auto-Decte repository or its Git history, so they are not carried into the ESWA manuscript. This does not establish that no private or lost prototype ever existed; it only defines the reproducible evidence boundary for this submission.

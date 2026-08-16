@@ -2,7 +2,7 @@
 
 ## Complete and verified
 
-- Double-anonymized manuscript uses the Elsevier `elsarticle` class.
+- Author-redacted technical review manuscript uses the Elsevier `elsarticle` class.
 - Abstract is under 250 words; five keywords are supplied.
 - Five highlights are supplied and each is at most 85 characters.
 - Figures are editable TikZ/vector diagrams or programmatic plots from experiment JSON.
@@ -10,8 +10,11 @@
 - Generative AI use is declared in the manuscript and cover letter.
 - Synthetic data, code, raw results, hashes, and generation commands are packaged.
 - Calibration and evaluation seeds are separated.
-- Zero observed errors are reported without a zero-risk claim; the row-level Wilson interval is explicitly labeled descriptive because perturbations reuse base units.
-- Tesseract unavailability and the stronger HOG–SVM baseline are reported.
+- Cluster-bootstrap intervals resample 90 base units and preserve repeated-condition dependence.
+- Whole-form, component-ablation, workflow, direct-write, and randomized-fault results are packaged.
+- Zero observed template-gate errors are reported without a zero-risk claim.
+- Tesseract unavailability and the stronger HOG–SVM recognizer are reported.
+- All 77 automated tests, Ruff checks, and mypy checks pass.
 - Production-data sensitivity and resulting external-validity limitation are explicit.
 
 ## Author input required before submission
@@ -22,6 +25,6 @@
 - Obtain every author's competing-interest declaration.
 - Add acknowledgements or remove the section.
 - Verify “not submitted elsewhere” and “approved by all authors” in the cover letter.
-- Add final repository/DOI URL after archival and confirm anonymous-review policy.
+- Add final repository/DOI URL after archival and restore verified author metadata for ESWA's single-anonymized review process.
 - Choose article type and nominate reviewers if the submission system requests them.
 - Recheck the current ESWA Guide for Authors immediately before upload.

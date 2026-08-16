@@ -4,15 +4,15 @@
 \subsection{Template-guided perception}
 Each form template carries a QR payload identifying its template and version and four ArUco corner markers. The system decodes the QR, estimates a homography from detected corners, warps the image to a canonical canvas, and crops fields from versioned template coordinates. This converts a whole-page task into typed cell decisions and preserves the transformation parameters with the recognition attempt.
 
-Digit crops are resized to $48\times64$ pixels and binarized with Otsu's method. They are compared with ten rendered digit templates using normalized mean absolute difference. If $d_1(x)$ and $d_2(x)$ are the best and second-best distances, the selection score is the distance margin
+Digit crops are resized to $48\times64$ pixels. The built-in comparator binarizes them with Otsu's method and measures normalized mean absolute difference from ten rendered templates. If $d_1(x)$ and $d_2(x)$ are its best and second-best distances, its selection score is
 \begin{equation}
   s(x)=d_2(x)-d_1(x).
 \end{equation}
-The candidate value is emitted only when $s(x)\geq\tau$; otherwise the recognizer emits an explicit abstention. OMR cells use an interior fill ratio: at most 0.15 is unchecked, at least 0.35 is checked, and the interval between them is rejected for review. These rules are intentionally inspectable rather than claimed as state of the art.
+The evaluated whole-form configuration instead uses a HOG descriptor with a $48\times64$ window, $16\times16$ blocks, $8\times8$ cells and stride, and nine orientation bins, followed by a linear support-vector machine. Training uses 240 separately seeded rendered cells (eight seeds, three fonts, and ten digits). Its selection score is the difference between the largest and second-largest decision values. Calibration selected $\tau=0$, so all evaluation predictions were retained; the candidate--fact boundary still requires review before a prediction becomes authoritative. OMR cells use an interior fill ratio: at most 0.15 is unchecked, at least 0.35 is checked, and the interval between them is rejected for review.
 
 \begin{figure}[t]
   \centering
-  \resizebox{\textwidth}{!}{\input{figures/vector/system-pipeline}}
+  \resizebox{0.96\textwidth}{!}{\input{figures/vector/system-pipeline}}
   \caption{Operational pipeline. Recognition outcomes cross the threshold gate into the review queue but remain non-authoritative until a confirm/correct action.}
   \label{fig:pipeline}
 \end{figure}
@@ -24,12 +24,12 @@ The review service accepts an expected record version, reviewer identifier, reas
 
 \begin{figure}[t]
   \centering
-  \resizebox{\textwidth}{!}{\input{figures/vector/data-lineage}}
+  \resizebox{0.96\textwidth}{!}{\input{figures/vector/data-lineage}}
   \caption{Evidence lineage from content-addressed input to export. Every arrow represents a persisted identifier used by the reverse-trace check.}
   \label{fig:lineage}
 \end{figure}
 
 \subsection{Implementation}
-The evaluated implementation uses Python~3.11, Streamlit, SQLite, SQLAlchemy, Alembic, OpenCV, scikit-learn, and an optional provider adapter. The application is organized into domain, application, adapter, and user-interface layers. It is a local single-machine prototype; it does not implement the FastAPI/React/PWA, authentication, or role-based-access features described in an earlier design concept. Reporting the implemented stack matters because the invariant is only as credible as the code path actually tested.
+The evaluated artifact is a local single-machine prototype implemented with Python~3.11, Streamlit, SQLite, SQLAlchemy, Alembic, OpenCV, scikit-learn, and an optional provider adapter. Domain, application, adapter, and user-interface layers separate fact-transition services from machine-facing services. The experiment harness invokes these same repositories and application services for import, candidate persistence, confirmation, export, and trace queries.
 
 The system retains local evidence, database, and export files as one backup unit. This local-first operational choice supports recovery in a small-plant setting \citep{kleppmann2019}, but it is not itself a security boundary. Deployment still requires host access control, encrypted backups, retention rules, and tested restore procedures.

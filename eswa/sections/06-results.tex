@@ -1,78 +1,76 @@
 \section{Results}
 \label{sec:results}
 
-\subsection{RQ1: selective recognition}
-Calibration selected $\tau=0.08$ for the target empirical selective risk of at most 1\%. On the seed-disjoint 2,610-row evaluation set, the gate accepted 292 predictions and routed 2,318 to review. Coverage was 11.19\%, accepted accuracy was 100\%, and no erroneous auto-pass was observed. The descriptive row-level Wilson 95\% interval was 98.70\%--100\%, but it is optimistic as an inferential interval because the 29 conditions reuse 90 base units. Thus, the experiment observed zero errors among accepted rows; it does not establish a zero error probability.
+\subsection{RQ1: recognition and selective risk}
+The template matcher required a conservative operating point. Calibration selected $\tau=0.08$; on the 2,610 evaluation rows, it accepted 292 predictions and routed 2,318 to review. Coverage was 11.19\% (cluster-bootstrap 95\% interval 5.86\%--16.97\%), with no accepted error observed. The corresponding cluster-bootstrap interval for accepted accuracy was 100\%--100\%; this degenerate interval reflects the deterministic sample and does not establish a zero population error rate.
+
+The HOG--linear-SVM changed the operating trade-off. Its calibration split already met the 1\% risk target at $\tau=0$, so the frozen selector accepted all 2,610 evaluation rows. It correctly classified 2,605, giving 99.81\% accepted accuracy and 0.19\% selective risk. Cluster resampling placed the risk interval at 0.038\%--0.346\% and the accepted-accuracy interval at 99.62\%--99.96\% (Table~\ref{tab:selective-models}). The result supports HOG--SVM as the evaluated digit recognizer; it does not support a claim of recognition novelty.
 
 \begin{table}[t]
   \centering
-  \caption{Seed-disjoint evaluation at the calibration-selected threshold $\tau=0.08$. The Wilson interval is descriptive and assumes row independence.}
-  \label{tab:selected}
-  \input{tables/generated/selective_metrics}
+  \caption{Calibration-selected operating points on the seed-disjoint evaluation split. Confidence intervals reported in the text resample 90 base units rather than 2,610 rows.}
+  \label{tab:selective-models}
+  \begingroup
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/generated/selective_model_comparison}
+  \endgroup
 \end{table}
-
-Figure~\ref{fig:coverage-risk} shows the cost of this operating point. The full-coverage end of the curve has roughly 25\% selective risk, while zero observed selective risk first occurs at $\tau=0.07$ and increasingly reduces coverage. Risk control is therefore purchased with reviewer workload, not obtained for free.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.78\textwidth]{figures/generated/coverage_risk.pdf}
-  \caption{Evaluation coverage--risk trade-off over the threshold sweep. The dashed operating point was fixed from the calibration split before evaluation.}
+  \includegraphics[width=0.76\textwidth]{figures/generated/model_selective_comparison.pdf}
+  \caption{Coverage and conditional accepted accuracy for the two calibration-selected recognizer--gate combinations.}
+  \label{fig:selective-models}
+\end{figure}
+
+The template gate remains informative as a stress case. Figure~\ref{fig:coverage-risk} shows that its full-coverage end incurred roughly 25\% selective risk; the first threshold with zero observed accepted error was $\tau=0.07$, at 14.83\% coverage. Severe perspective distortion and occlusion reduced its coverage to 3.33\%. Thus, selection prevented many weak template predictions from auto-passing, but the stronger HOG representation removed most of that synthetic-regime trade-off.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.76\textwidth]{figures/generated/coverage_risk.pdf}
+  \caption{Template-matcher coverage--risk curve. The dashed operating point was selected on calibration data before evaluation.}
   \label{fig:coverage-risk}
 \end{figure}
 
-The model comparison in Table~\ref{tab:baselines} is important for interpretation. The template recognizer achieved 74.90\% accuracy at effectively full coverage; forcing template prediction produced the same accuracy at exactly full coverage. HOG--linear-SVM achieved 99.81\% (2,605/2,610) at full coverage. Consequently, Auto-Decte's current recognizer is not competitive as a general classification contribution. The selective gate can isolate a small, high-confidence subset, while the stronger baseline indicates a direct path for improving coverage without changing the authority model.
+\subsection{RQ2: whole-form integration}
+Across the 300 evaluation form--condition rows, template identification succeeded on 80\% and ArUco alignment succeeded on 80\%; both succeeded together on 180 rows (60\%). Across all conditions, digit accuracy was 86.03\%, OMR accuracy was 100\%, and complete-form success was 60\% (Table~\ref{tab:whole-form}). All 60 clean, 60 perspective, and 60 JPEG rows were completely correct. Gaussian blur preserved alignment and 100\% field accuracy but prevented QR identification on all 60 rows. Rotation preserved QR identification but prevented marker alignment on all 60 rows and reduced digit accuracy to 30.17\%. These complementary failures explain why the two marginal component rates exceed their joint rate and why the complete endpoint is 60\%.
 
 \begin{table}[t]
   \centering
-  \caption{Recognition baselines on the seed-disjoint evaluation split.}
-  \label{tab:baselines}
-  \input{tables/generated/baseline_comparison}
+  \caption{Whole-form evaluation over 300 form--condition rows per variant. Complete success requires template identity, alignment, and all 20 fields correct.}
+  \label{tab:whole-form}
+  \begingroup
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/generated/whole_form_metrics}
+  \endgroup
 \end{table}
 
-Across perturbations, accepted accuracy remained 100\% at the selected threshold, but coverage declined under strong perspective distortion and occlusion to 3.33\%. Figure~\ref{fig:robustness} makes this asymmetric response visible: the conservative gate tends to abstain under severe degradation rather than preserve throughput.
+Suppressing QR identification left field recognition unchanged but made the complete endpoint unattainable. Suppressing ArUco alignment reduced digit accuracy from 86.03\% to 69.43\% and OMR accuracy from 100\% to 99.03\%; complete-form success again fell to zero. Figure~\ref{fig:whole-form} separates the component rates so the endpoint's conjunctive definition is explicit.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.86\textwidth]{figures/generated/robustness.pdf}
-  \caption{Coverage by perturbation and severity at $\tau=0.08$. Each point aggregates the same 90 evaluation base units under one condition; accepted accuracy was 100\% for every displayed group.}
-  \label{fig:robustness}
+  \includegraphics[width=0.82\textwidth]{figures/generated/whole_form_ablation.pdf}
+  \caption{Whole-form component ablations. Removing a component required by the endpoint forces complete success to zero; field metrics show the additional recognition effect of missing alignment.}
+  \label{fig:whole-form}
 \end{figure}
 
-\subsection{RQ2: trust-boundary fault injection}
-All five injected faults left the pre-existing fact unchanged and yielded complete audit evidence (Table~\ref{tab:faults}). Wrong recognition and wrong AI suggestions remained candidates; irrelevant retrieval remained a reference. The stale review replay raised \texttt{ConcurrentReviewError}, and duplicate evidence raised \texttt{DuplicateEvidenceError}. These are five controlled application-path cases, not a penetration test or exhaustive security proof.
+\subsection{RQ3: authority-boundary faults}
+All six controlled cases left the pre-existing fact unchanged and produced complete audit evidence. Wrong recognition and language-model outputs remained candidates, irrelevant retrieval remained a reference, stale review and duplicate evidence raised their designated exceptions, and all 12 attempted direct fact-write paths were absent from the three machine-facing services.
+
+The candidate-isolation ablation supplied an incorrect value of 999. Under normal wiring, recording the candidate did not change the fact. Under test-only unsafe wiring that granted the same value access to the review service, the fact changed. This contrast locates containment in capability separation rather than in the injected value or recognizer behavior.
+
+Randomized stress testing repeated five fault families 100 times each. All 500 trials were contained (Table~\ref{tab:fault-stress}). This expands the evidence beyond one example per family, although it remains an application-path test rather than a penetration test, formal proof, or assessment of host compromise.
 
 \begin{table}[t]
   \centering
-  \caption{Trust-boundary fault outcomes. ``Contained'' requires an unchanged fact and a complete audit outcome.}
-  \label{tab:faults}
-  \begin{tabular}{lll}
-    \toprule
-    Injected condition & Required mechanism & Outcome \\
-    \midrule
-    Wrong recognition & Candidate isolation & Contained \\
-    Wrong AI suggestion & Separate AI-review record & Contained \\
-    Irrelevant retrieval & Read-only reference & Contained \\
-    Stale human replay & Optimistic concurrency & Rejected, contained \\
-    Duplicate evidence & Content-hash uniqueness & Rejected, contained \\
-    \bottomrule
-  \end{tabular}
+  \caption{Seeded randomized trust-boundary stress test.}
+  \label{tab:fault-stress}
+  \input{tables/generated/fault_stress}
 \end{table}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.78\textwidth]{figures/generated/trust_faults.pdf}
-  \caption{Fault-injection outcomes. A value of one denotes both an unchanged fact and complete audit evidence.}
-  \label{fig:faults}
-\end{figure}
+\subsection{RQ4: executable workflow and reproducibility}
+Each of the 60 clean evaluation forms traversed the complete application workflow. The runner imported the original image, stored 20 recognition candidates, programmatically submitted known synthetic labels through the review service, created fact version~1, exported an XLSX file, and queried the reverse trace. All 60 workflows succeeded, accounting for 1,200 persisted candidate attempts. This verifies the software path but not human-review effectiveness. AI-disabled operation, duplicate rejection, stale-version rejection, and reverse tracing also passed.
 
-\subsection{RQ3: resilience and reproducibility}
-The workflow completed with the AI adapter disabled, rejected duplicate evidence, rejected stale review, and returned a valid reverse trace. Across 30 measured repetitions, median cold service latency was 0.280 ms (IQR 0.071 ms; 95th percentile 0.517 ms), and median warm latency was 0.070 ms (IQR 0.014 ms; 95th percentile 0.129 ms). Figure~\ref{fig:latency} reports the distributions. These measurements validate low-overhead application services in the benchmark harness; they exclude perception and human interaction.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.72\textwidth]{figures/generated/latency.pdf}
-  \caption{Application-service latency over 30 repetitions after five warm-ups. Values exclude image processing, UI rendering, and reviewer time.}
-  \label{fig:latency}
-\end{figure}
-
-The final verification run passed 70 tests, Ruff checks, and mypy checks over 65 source files. The artifact manifest reports 15 hashed outputs and a clean tracked source state at generation time. These checks support repeatability of the stated synthetic results; they cannot substitute for external replication or production validation.
+The final verification run passed 77 automated tests, Ruff checks, and mypy checks. The artifact manifest contains 27 hashed outputs, records source commit \texttt{195355a}, and reports a clean tracked source state at generation time. Service microbenchmarks and the full perturbation table are supplied in the supplementary material because they do not measure end-to-end reviewer latency.

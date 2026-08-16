@@ -9,12 +9,13 @@ We study the following question: \emph{How can machine perception and optional g
 
 The resulting claim is deliberately narrower than ``safe AI.'' Across the application paths exercised in this work, machine modules cannot directly create or revise facts. This architectural property does not guarantee that a human reviewer will detect every error, nor does it establish safety under arbitrary database compromise or malicious operating-system access. It makes each transition into the fact plane explicit, attributable, and traceable to evidence.
 
-This paper makes four contributions:
+This paper makes five contributions:
 \begin{enumerate}
   \item We formalize a four-plane trust model---evidence, candidates, human decisions, and versioned facts---with a machine-to-fact noninterference invariant scoped to exposed application services.
-  \item We instantiate the model in a runnable Python 3.11 and Streamlit system for fixed industrial forms, combining QR template identity, ArUco localization, selective cell recognition, optional AI review, local retrieval, and auditable export.
-  \item We provide a deterministic evaluation package covering 4,350 synthetic image rows, calibration/evaluation seed separation, seven perturbation families, five fault injections, resilience checks, and 70 automated tests.
-  \item We report both favorable and unfavorable evidence. Risk-targeted abstention produced no observed accepted error at low coverage, while a HOG--linear-SVM baseline substantially outperformed the built-in template recognizer at full coverage. The architecture, not recognition novelty, is therefore the main contribution.
+  \item We instantiate the model in a runnable Python~3.11 and Streamlit system for fixed industrial forms, combining QR template identity, ArUco localization, selective cell recognition, optional AI review, local retrieval, and auditable export.
+  \item We connect cell recognition to an executable whole-form and business-workflow benchmark: 60 evaluation forms, 300 form--condition rows per ablation variant, 1,200 stored candidates, versioned confirmation, XLSX export, and reverse trace.
+  \item We test the authority boundary through six controlled fault cases, a candidate-isolation ablation, 12 attempted direct-write paths, and 500 seeded randomized fault trials.
+  \item We report both favorable and unfavorable evidence. HOG--SVM reached 99.81\% cell accuracy, whereas complete-form success was 60\% and exposed QR and marker failures under blur and rotation. The architecture, not recognition novelty, is the main contribution.
 \end{enumerate}
 
-The remainder of the paper distinguishes related inference and governance work (Section~\ref{sec:related}), defines the trust invariant (Section~\ref{sec:model}), describes the implementation and selective rule (Section~\ref{sec:method}), and presents a pre-registered-by-code synthetic protocol and results (Sections~\ref{sec:protocol}--\ref{sec:results}). Sections~\ref{sec:context}--\ref{sec:limitations} delimit industrial relevance and remaining validation needs.
+The remainder of the paper distinguishes related inference and governance work (Section~\ref{sec:related}), defines the trust invariant (Section~\ref{sec:model}), describes the implementation and selective rule (Section~\ref{sec:method}), and presents the deterministic synthetic protocol and results (Sections~\ref{sec:protocol}--\ref{sec:results}). Sections~\ref{sec:context}--\ref{sec:limitations} delimit industrial relevance and remaining validation needs.

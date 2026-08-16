@@ -18,16 +18,9 @@ Equation~\ref{eq:invariant} is an application-architecture property: no exposed 
 
 \begin{figure}[t]
   \centering
-  \resizebox{\textwidth}{!}{\input{figures/vector/trust-model}}
+  \resizebox{0.96\textwidth}{!}{\input{figures/vector/trust-model}}
   \caption{Trust model. Dashed machine components terminate at append-only candidates or read-only references; an attributable human decision is the only exposed path to a versioned fact.}
   \label{fig:trust-model}
-\end{figure}
-
-\begin{figure}[t]
-  \centering
-  \resizebox{0.96\textwidth}{!}{\input{figures/vector/state-transitions}}
-  \caption{Allowed state transitions. Candidate-to-fact mutation without a human decision is forbidden by the application service boundary.}
-  \label{fig:transitions}
 \end{figure}
 
 For a recognition input $x$, a predictor returns a class $\hat y(x)$ and a selection score $s(x)$. Given threshold $\tau$, the selection function is

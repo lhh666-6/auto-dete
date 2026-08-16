@@ -1,8 +1,9 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage[a4paper,margin=24mm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{url}
 \title{Supplementary Material for\\Auto-Decte: Trust-Constrained Document Intelligence}
@@ -13,7 +14,7 @@
 \maketitle
 
 \section{Artifact inventory}
-The package contains raw per-case predictions, aggregate recognition results, resilience timings, fault-injection outcomes, generated plots and tables, and a manifest with SHA-256 hashes. The manifest records benchmark identifier \texttt{eswa-v1}, five deterministic seeds, package versions, source commit, commands, and source-tree cleanliness at generation time.
+The package contains raw cell and whole-form outcomes, complete workflow traces, trust-boundary tests, resilience timings, generated plots and tables, and a manifest with SHA-256 hashes. The recorded run used source commit \texttt{195355a} with a clean tracked source state and produced 27 hashed outputs.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -21,19 +22,26 @@ The package contains raw per-case predictions, aggregate recognition results, re
 Artifact & Purpose \\
 \midrule
 \texttt{artifacts/recognition\_raw.json} & 13,050 model--case rows \\
-\texttt{artifacts/recognition\_summary.json} & split, threshold, baseline, robustness metrics \\
-\texttt{artifacts/trust\_faults.json} & five injected fault outcomes \\
-\texttt{artifacts/resilience.json} & checks and 30 latency repetitions \\
+\texttt{artifacts/recognition\_summary.json} & thresholds, intervals, baselines, robustness \\
+\texttt{artifacts/form\_raw.json} & 1,200 form--condition--variant rows \\
+\texttt{artifacts/form\_summary.json} & whole-form metrics and ablations \\
+\texttt{artifacts/form\_workflow.json} & 60 import-to-export workflow outcomes \\
+\texttt{artifacts/trust\_faults.json} & six controlled fault outcomes \\
+\texttt{artifacts/trust\_ablation.json} & candidate-isolation intervention \\
+\texttt{artifacts/trust\_stress.json} & 500 randomized fault trials \\
+\texttt{artifacts/resilience.json} & checks and latency repetitions \\
 \texttt{artifacts/manifest.json} & hashes, environment, commands, source identity \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\section{Threshold protocol}
-Calibration uses seeds 101 and 202 (1,740 rows). Evaluation uses seeds 303, 404, and 505 (2,610 rows). The evaluation rows comprise 29 conditions applied to 90 seed--font--digit base units and are therefore not mutually independent. Training seeds for the HOG--SVM baseline are separate. Thresholds from 0 to 0.10 in increments of 0.005 are evaluated; the operating threshold is frozen from the calibration-risk target before evaluation.
+\section{Cell-level protocol}
+Calibration uses seeds 101 and 202 (1,740 rows). Evaluation uses seeds 303, 404, and 505 (2,610 rows). The evaluation rows comprise 29 conditions applied to 90 seed--font--digit base units. HOG--SVM training uses eight separate seeds. Thresholds from 0 to 0.10 in increments of 0.005 are evaluated; each operating threshold is frozen from the calibration-risk target before evaluation.
 
-\section{Perturbation-level outcomes}
-Table~\ref{tab:robustness-supp} reports the complete generated aggregation at $\tau=0.08$. Each table row applies one condition to the same 90 evaluation base units. Accepted accuracy is conditional on acceptance and must be interpreted with the reported coverage; the table does not provide 90 new independent units per condition.
+Cluster-bootstrap intervals use 2,000 replicates. Each replicate samples 90 base-unit identifiers with replacement and retains all condition rows belonging to each sampled unit. This preserves within-unit dependence. The descriptive Wilson interval in the generated JSON treats rows as independent and is not used as inferential evidence in the manuscript.
+
+\section{Perturbation-level template-matcher outcomes}
+Table~\ref{tab:robustness-supp} reports the complete template-matcher aggregation at $\tau=0.08$. Each row applies one condition to the same 90 evaluation base units. Accepted accuracy is conditional on acceptance and must be interpreted with coverage.
 
 \begin{table}[ht]
 \centering
@@ -43,18 +51,44 @@ Table~\ref{tab:robustness-supp} reports the complete generated aggregation at $\
 \input{tables/generated/robustness}
 \end{table}
 
+\section{Whole-form evaluation}
+Two templates and 30 evaluation seeds produced 60 base forms. Each was evaluated under clean, Gaussian-blur, rotation, perspective, and JPEG conditions, yielding 300 condition rows per variant. Table~\ref{tab:whole-form-supp} reports the aggregate component and complete-form outcomes.
+
+\begin{table}[ht]
+\centering
+\caption{Whole-form pipeline and component ablations.}
+\label{tab:whole-form-supp}
+\input{tables/generated/whole_form_metrics}
+\end{table}
+
+The complete pipeline succeeded on every clean, perspective, and JPEG row. Blur prevented QR identification while preserving alignment and field recognition. Rotation prevented marker alignment and reduced digit accuracy. The separate workflow artifact records 20 recognition candidates, one versioned confirmation, XLSX export, and reverse trace for each of 60 clean forms.
+
 \section{Fault definitions}
-Wrong recognition and wrong AI suggestion inject incorrect values through their respective candidate services. Irrelevant retrieval supplies a non-matching reference. Stale human replay submits an outdated expected version. Duplicate evidence submits identical content twice. Passing requires an unchanged pre-existing fact and complete audit evidence; the last two conditions also require their designated exceptions.
+Wrong recognition and wrong AI suggestion inject incorrect values through candidate services. Irrelevant retrieval supplies a non-matching reference. Stale human replay submits an outdated expected version. Duplicate evidence submits identical source content twice. Attempted direct fact write queries four fact-like methods on each of three machine-facing services; all 12 methods are unavailable. The candidate-isolation ablation contrasts normal candidate persistence with test-only unsafe review-service wiring.
+
+The randomized stress test draws new values, confidence scores, crops, references, and replay identifiers from a fixed seed. It executes 100 trials for each of five families:
+\begin{center}
+\input{tables/generated/fault_stress}
+\end{center}
+
+\section{Service microbenchmarks}
+Across 30 repetitions after five warm-ups, median fresh-container service latency was 0.300\,ms (95th percentile 0.343\,ms), and median reused-container latency was 0.073\,ms (95th percentile 0.085\,ms). These values exclude perception, UI rendering, storage-device variance, and human review.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.76\textwidth]{figures/generated/latency.pdf}
+  \caption{Application-service latency distributions.}
+\end{figure}
 
 \section{Reproduction}
-From the experiment repository and its locked Python environment, run:
+From the experiment repository and its Python environment, run:
 \begin{verbatim}
 python -m benchmarks.run_all --config benchmarks/config/eswa-v1.json \
-  --output artifacts/eswa-v1
-pytest -q
-ruff check .
-mypy app benchmarks tests/benchmarks
+  --output artifacts/eswa-journal-extension-v3
+python -m pytest -q
+python -m ruff check app benchmarks tests
+python -m mypy app config
 \end{verbatim}
-Tesseract was unavailable in the recorded environment and is therefore excluded from the quantitative comparison.
+The recorded environment used Python~3.11.9. Tesseract was unavailable and is therefore excluded rather than simulated.
 
 \end{document}
