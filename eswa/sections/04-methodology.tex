@@ -18,14 +18,16 @@ The evaluated whole-form configuration instead uses a HOG descriptor with a $48\
 \end{figure}
 
 \subsection{Candidate, decision, and fact services}
-Evidence is assigned a SHA-256 digest. Recognition attempts and AI reviews are stored independently from confirmed record versions. The optional AI adapter accepts structured context and must return schema-valid review JSON; its prompt contract states that it cannot modify business facts. The default adapter is disabled, returning an explicit \texttt{NOT\_RUN} status. Local retrieval uses a dependency-free similarity index and exposes results only as references.
+Evidence is assigned a SHA-256 digest. A recognition attempt atomically persists the evidence row, the attempt, its \emph{candidate certificate}, and an audit event in one transaction; a failure discards the stored crop so nothing referenceable remains. The certificate stores the field key, the canonical value payload, the evidence hash and locator, the producer and template identity, the selection artifact identifier, the target record, the expected fact version, and a content address computed over all of them. The selection artifact identifies the acceptance-threshold policy applied; it is a policy identifier, not a statistical calibration claim. On any subsequent read, the stored content address is re-derived so a modified certificate row is detected.
 
-The review service accepts an expected record version, reviewer identifier, reason, candidate values, and evidence identifiers. It rejects a stale expected version, appends a new confirmed record on success, and emits a corresponding audit event. Exports query confirmed records only. Figure~\ref{fig:lineage} shows the reverse-trace chain.
+The optional AI adapter accepts structured context and must return schema-valid review JSON; its prompt contract states that it cannot modify business facts. The default adapter is disabled, returning an explicit \texttt{NOT\_RUN} status. Local retrieval uses a dependency-free similarity index and exposes results only as references.
+
+The review service confirms one form version under the authority contract. For each field it loads the selected certificate from the database (never from the caller), requires the certificate's field key to equal the mapping key, independently loads the referenced evidence row and requires its owner form and hash to match the certificate, and validates identity, provenance, freshness, version, and content address. Each field yields one attributable decision and one fact transition bound to that certificate; a human-modified machine value derives a manual-entry certificate that inherits the evidence binding and records the machine certificate as lineage parent; an abstained candidate is resolved with an explicit manual-resolution flag. The record version, all decisions, all transitions, derived certificates, and the audit event commit in a single transaction whose first write is a compare-and-swap on the current fact version, so concurrent or stale confirmations fail closed. Exports query confirmed records only. Figure~\ref{fig:lineage} shows the reverse-trace chain.
 
 \begin{figure}[t]
   \centering
   \resizebox{0.96\textwidth}{!}{\input{figures/vector/data-lineage}}
-  \caption{Evidence lineage from content-addressed input to export. Every arrow represents a persisted identifier used by the reverse-trace check.}
+  \caption{Evidence lineage from content-addressed input to export. Every arrow represents a persisted identifier used by the reverse-trace check; each fact field rebuilds evidence--certificate--decision--transition from the database.}
   \label{fig:lineage}
 \end{figure}
 

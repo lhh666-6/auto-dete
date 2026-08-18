@@ -2,7 +2,7 @@
   \node[machine,minimum width=29mm] (perception) {Perception};
   \node[machine,minimum width=29mm,below=of perception] (llm) {Optional LLM};
   \node[machine,minimum width=29mm,below=of llm] (retrieval) {Retrieval};
-  \node[trustbox,minimum width=34mm,right=20mm of llm] (candidate) {Candidate plane\\append-only};
+  \node[trustbox,minimum width=34mm,right=20mm of llm] (candidate) {Candidate plane\\certificates, append-only};
   \node[human,minimum width=34mm,right=17mm of candidate] (decision) {Human decision\\confirm/correct};
   \node[fact,minimum width=34mm,right=17mm of decision] (fact) {Fact plane\\versioned};
   \draw[flow] (perception.east) -- (candidate.west);

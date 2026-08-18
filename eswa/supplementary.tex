@@ -14,7 +14,7 @@
 \maketitle
 
 \section{Artifact inventory}
-The package contains raw cell and whole-form outcomes, complete workflow traces, trust-boundary tests, resilience timings, generated plots and tables, and a manifest with SHA-256 hashes. The recorded run used source commit \texttt{195355a} with a clean tracked source state and produced 27 hashed outputs.
+The package contains raw cell and whole-form outcomes, complete workflow traces, trust-boundary tests, resilience timings, generated plots and tables, and a manifest with SHA-256 hashes. The recorded run used source commit \texttt{195355a} with a clean tracked source state and produced 27 hashed outputs. The authority-integration benchmark artifacts (benchmarks/pipeline\_authority\_benchmark.py) are generated from the integrated source commit \texttt{68f7b93} with a fixed injected clock and seed; two independent runs produced byte-identical pipeline\_authority.json and manifest.json files whose artifact hashes were independently recomputed.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -83,11 +83,13 @@ Across 30 repetitions after five warm-ups, median fresh-container service latenc
 \section{Reproduction}
 From the experiment repository and its Python environment, run:
 \begin{verbatim}
-python -m benchmarks.run_all --config benchmarks/config/eswa-v1.json \
+python -m benchmarks.run_all --config benchmarks/config/eswa-v1.json \\
   --output artifacts/eswa-journal-extension-v3
-python -m pytest -q
-python -m ruff check app benchmarks tests
-python -m mypy app config
+python -m benchmarks.pipeline_authority_benchmark --output \\
+  <output-dir> --now 2026-08-17T12:00:00+00:00 --seed 20260817 --cases 12
+uv run pytest -q
+uv run ruff check .
+uv run mypy
 \end{verbatim}
 The recorded environment used Python~3.11.9. Tesseract was unavailable and is therefore excluded rather than simulated.
 

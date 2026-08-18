@@ -12,9 +12,10 @@
 - Calibration and evaluation seeds are separated.
 - Cluster-bootstrap intervals resample 90 base units and preserve repeated-condition dependence.
 - Whole-form, component-ablation, workflow, direct-write, and randomized-fault results are packaged.
+- Authority-integration benchmark runs are byte-identical across independent runs with an immutable manifest; artifact hashes are independently recomputed.
 - Zero observed template-gate errors are reported without a zero-risk claim.
 - Tesseract unavailability and the stronger HOG–SVM recognizer are reported.
-- All 77 automated tests, Ruff checks, and mypy checks pass.
+- The integrated software verification suite passes 239 automated tests (test count reported as software verification, not a scientific sample size); Ruff and mypy checks pass.
 - Production-data sensitivity and resulting external-validity limitation are explicit.
 
 ## Author input required before submission
