@@ -1,6 +1,6 @@
 Dear Editors of *Expert Systems with Applications*,
 
-Please consider my manuscript, "Auto-Decte: Trust-Constrained Document Intelligence through Candidate--Fact Separation and Selective Prediction," as a research article.
+Please consider my manuscript, "Auto-Decte: Trust-Constrained Document Intelligence through Candidate--Fact Separation and Certificate-Bound Human Authorization," as a research article.
 
 The manuscript addresses a practical gap between document-model accuracy and operational authority. Auto-Decte separates immutable evidence, append-only machine candidates, attributable human decisions, and versioned facts. Across the evaluated application paths, perception, retrieval, and optional language-model modules have no direct fact-writing operation. The system combines this constraint with selective prediction and the evaluation tests both recognition behavior and the system boundary.
 
