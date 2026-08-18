@@ -14,7 +14,9 @@
 \affiliation[inst1]{organization={College of Computer Science, Hunan University},department={Internet of Things Engineering},addressline={No. 2 Lushan South Road, Yuelu District},city={Changsha},postcode={410082},country={China}}
 
 \begin{abstract}
-[The abstract of the anonymous manuscript is reused verbatim; it is kept here only if the journal's single-anonymized workflow expects the author-identified PDF to carry it. Otherwise delete this block.]
+Document intelligence in payroll-adjacent and production workflows must control both recognition error and the authority granted to machine output. Auto-Decte is a trust-constrained human-in-the-loop architecture for structured industrial forms. Its central invariant separates immutable evidence, append-only machine candidates, attributable human decisions, and versioned facts: perception, retrieval, and language-model services have no direct fact-writing capability through the evaluated application interfaces. The implemented authority contract makes this invariant executable: every recognition result is persisted as a content-addressed candidate certificate bound to its field, evidence, and expected fact version; a confirmation is a per-field attributable human decision over a database-loaded certificate, committed with the record version, decisions, transitions, and audit event in a single compare-and-swap-protected transaction; and reverse traces rebuild each field chain from evidence through certificate, decision, and transition, reporting any tampered, missing, or wrongly bound entry as incomplete.
+
+We evaluated the implementation at three levels. First, a seed-disjoint cell benchmark measured recognition: a HOG--linear-SVM recognizer achieved 99.81\% accuracy at full coverage, and 60 synthetic forms under five whole-page conditions achieved 60\% complete-form success, exposing QR and marker failures under blur and rotation. Second, an executable authority-integration benchmark ran the real services over a synthetic fault corpus with a scripted reviewer: every injected corruption (tampered transition producer, deleted transition, rebound record-version row) was detected as an incomplete trace, cross-field certificate substitution and cross-form evidence were rejected before any write, all valid certificate confirmations succeeded, and stale replay was contained. Third, the integrated software verification suite passes 239 automated tests, and the benchmark outputs are byte-identical across repeated runs under an immutable manifest. The evidence supports the executable authority boundary but not production effectiveness: independently transcribed real forms and controlled reviewer studies remain necessary.
 \end{abstract}
 
 \begin{keyword}
@@ -30,8 +32,5 @@ This research received no specific grant from any funding agency in the public, 
 
 \section*{Declaration of competing interest}
 The author declares that he has no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
-
-\section*{Acknowledgements}
-[Optional: thank non-author contributors. If the repository's earlier GitHub collaborator contributed code that appears in the evaluated artifact, acknowledge that contribution here, e.g., "The author thanks [name] for earlier assistance with the underlying code repository." If no such contribution is included, delete this section.]
 
 \end{document}
