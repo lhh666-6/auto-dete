@@ -19,6 +19,9 @@ repository provenance will be restored after acceptance.
   - `recognition_*\form_*\trust_*\resilience.json` and `paper/` — the
     27 frozen outputs of the recorded ESWA evaluation run (commit `195355a`)
     used to generate the reported tables and figures.
+- `paper/final_explanatory_figures/` — final explanatory workflow diagrams
+  (manuscript Figures 1–3); AI-assisted design, author-verified; distinct
+  from the quantitative renders under `artifacts/paper/`.
 - `reproduction/commands.txt` — exact reproduction commands.
 - `REVIEWER_README.md` — provenance and reproduction guide.
 - `SOURCE_PROVENANCE.md` — detailed provenance and file hashes.

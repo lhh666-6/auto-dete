@@ -27,6 +27,10 @@ Contents
                              whole-form, workflow, trust ablation and stress,
                              resilience, manifest with SHA-256 hashes)
     paper/                   rendered tables and figures for the manuscript
+  paper/final_explanatory_figures/
+                             final explanatory workflow diagrams
+                             (manuscript Figures 1-3; AI-assisted design,
+                             author-verified; not benchmark outputs)
   reproduction/commands.txt  exact reproduction commands
   SOURCE_PROVENANCE.md       detailed provenance and file hashes
 
@@ -49,6 +53,24 @@ Manuscript-level frozen outputs
 The exact frozen outputs used by the manuscript are supplied under artifacts/.
 They originate from the recorded ESWA run at 195355a.
 The included 68f7b93 snapshot is not claimed to reproduce those files byte-for-byte.
+
+## Explanatory workflow diagrams
+
+Figures 1-3 in the submitted manuscript are explanatory architecture and
+workflow diagrams. OpenAI ChatGPT was used to assist with their design and
+visual refinement. All scientific content, terminology, labels, process
+relationships, and final figure selection were reviewed and verified by the
+author.
+
+These explanatory diagrams are not experimental outputs and are not claimed
+to be generated from the frozen benchmark code.
+
+Quantitative figures and tables remain programmatically generated from the
+frozen experimental artifacts described in this document.
+
+The final explanatory diagrams are available under:
+
+paper/final_explanatory_figures/
 
 Legacy artifact field names
 ---------------------------
