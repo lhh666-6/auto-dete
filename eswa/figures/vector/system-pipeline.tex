@@ -1,12 +1,12 @@
 \begin{tikzpicture}[node distance=5mm and 6mm,font=\scriptsize]
-  \node[trustbox,minimum width=16mm] (capture) {Capture};
-  \node[trustbox,minimum width=22mm,right=of capture] (locate) {QR + ArUco\\localization};
-  \node[machine,minimum width=20mm,right=of locate] (recognize) {Cell\\recognition};
-  \node[trustbox,minimum width=24mm,right=of recognize] (cert) {Candidate\\certificate};
-  \node[trustbox,minimum width=24mm,right=of cert] (gate) {Margin gate\\$s(x)\geq\tau$?};
-  \node[trustbox,minimum width=20mm,right=of gate] (queue) {Review\\queue};
-  \node[human,minimum width=20mm,right=of queue] (review) {Confirm or\\correct};
-  \node[fact,minimum width=18mm,right=of review] (export) {Versioned\\fact};
+  \node[trustbox,minimum width=16mm] (capture) {\textbf{Capture}};
+  \node[trustbox,minimum width=22mm,right=of capture] (locate) {\textbf{QR + ArUco}\\localization};
+  \node[machine,minimum width=20mm,right=of locate] (recognize) {\textbf{Cell}\\recognition};
+  \node[trustbox,minimum width=24mm,right=of recognize] (cert) {\textbf{Candidate}\\certificate};
+  \node[trustbox,minimum width=24mm,right=of cert] (gate) {\textbf{Margin gate}\\$s(x)\geq\tau$?};
+  \node[trustbox,minimum width=20mm,right=of gate] (queue) {\textbf{Review}\\queue};
+  \node[human,minimum width=20mm,right=of queue] (review) {\textbf{Confirm or}\\correct};
+  \node[fact,minimum width=18mm,right=of review] (export) {\textbf{Versioned}\\fact};
   \draw[flow] (capture)--(locate)--(recognize)--(cert)--(gate);
   \draw[flow] (gate)--node[above,font=\tiny]{candidate}(queue)--(review)--(export);
   \draw[flow] (gate.south) -- ++(0,-7mm) -| node[pos=.3,below,font=\tiny]{abstain} (queue.south);

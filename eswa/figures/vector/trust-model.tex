@@ -1,10 +1,10 @@
 \begin{tikzpicture}[node distance=7mm and 10mm,font=\small]
-  \node[machine,minimum width=30mm] (perception) {Perception\\[-1pt]{\scriptsize\textcolor{TrustGray}{machine service}}};
-  \node[machine,minimum width=30mm,below=of perception] (llm) {Optional LLM\\[-1pt]{\scriptsize\textcolor{TrustGray}{machine service}}};
-  \node[machine,minimum width=30mm,below=of llm] (retrieval) {Retrieval\\[-1pt]{\scriptsize\textcolor{TrustGray}{machine service}}};
-  \node[trustbox,minimum width=37mm,minimum height=33mm,right=24mm of llm] (candidate) {Candidate plane\\[-1pt]{\scriptsize\textcolor{TrustGray}{certificates, append-only}}};
-  \node[human,minimum width=35mm,right=16mm of candidate] (decision) {Human decision\\[-1pt]{\scriptsize\textcolor{TrustGray}{confirm / correct}}};
-  \node[fact,minimum width=35mm,right=16mm of decision] (fact) {Fact plane\\[-1pt]{\scriptsize\textcolor{TrustGray}{versioned}}};
+  \node[machine,minimum width=30mm] (perception) {\textbf{Perception}\\[-1pt]{\scriptsize\textcolor{TrustGray}{machine service}}};
+  \node[machine,minimum width=30mm,below=of perception] (llm) {\textbf{Optional LLM}\\[-1pt]{\scriptsize\textcolor{TrustGray}{machine service}}};
+  \node[machine,minimum width=30mm,below=of llm] (retrieval) {\textbf{Retrieval}\\[-1pt]{\scriptsize\textcolor{TrustGray}{machine service}}};
+  \node[trustbox,minimum width=37mm,minimum height=33mm,right=24mm of llm] (candidate) {\textbf{Candidate plane}\\[-1pt]{\scriptsize\textcolor{TrustGray}{certificates, append-only}}};
+  \node[human,minimum width=35mm,right=16mm of candidate] (decision) {\textbf{Human decision}\\[-1pt]{\scriptsize\textcolor{TrustGray}{confirm / correct}}};
+  \node[fact,minimum width=35mm,right=16mm of decision] (fact) {\textbf{Fact plane}\\[-1pt]{\scriptsize\textcolor{TrustGray}{versioned}}};
   \draw[flow] (perception.east) -| (candidate.west);
   \draw[flow] (llm.east) -- (candidate.west);
   \draw[flow] (retrieval.east) -| (candidate.west);
