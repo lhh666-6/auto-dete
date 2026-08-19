@@ -8,6 +8,14 @@ This repository contains the source snapshot, frozen experiment outputs, and
 reproduction commands. It is released anonymously for review; author and
 repository provenance will be restored after acceptance.
 
+### ESWA reviewer artifact
+
+The repository contains the frozen evaluation artifacts used in the ESWA submission, together with the final explanatory workflow diagrams.
+
+Figures 1–3 are explanatory diagrams whose visual design was assisted by OpenAI ChatGPT (GPT-5.6 Sol) and subsequently reviewed and verified by the author.
+
+Experimental data, quantitative plots, manifests, hashes, and benchmark outputs remain frozen and unchanged.
+
 ## Contents
 
 - `source_snapshot_68f7b93/` — executable source snapshot (application,

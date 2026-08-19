@@ -54,21 +54,17 @@ The exact frozen outputs used by the manuscript are supplied under artifacts/.
 They originate from the recorded ESWA run at 195355a.
 The included 68f7b93 snapshot is not claimed to reproduce those files byte-for-byte.
 
-## Explanatory workflow diagrams
+## Explanatory Figures
 
-Figures 1-3 in the submitted manuscript are explanatory architecture and
-workflow diagrams. OpenAI ChatGPT was used to assist with their design and
-visual refinement. All scientific content, terminology, labels, process
-relationships, and final figure selection were reviewed and verified by the
-author.
+Figures 1–3 in the submitted manuscript are explanatory architecture and workflow diagrams rather than experimental outputs.
 
-These explanatory diagrams are not experimental outputs and are not claimed
-to be generated from the frozen benchmark code.
+OpenAI ChatGPT (GPT-5.6 Sol) was used to assist with the design and visual refinement of these diagrams. All scientific content, terminology, labels, process relationships, and final figure selections were reviewed and verified by the author.
 
-Quantitative figures and tables remain programmatically generated from the
-frozen experimental artifacts described in this document.
+These explanatory figures are not claimed to be generated from the frozen benchmark code.
 
-The final explanatory diagrams are available under:
+Quantitative plots and tables remain programmatically generated from the frozen experimental artifacts.
+
+Final explanatory figures are provided under:
 
 paper/final_explanatory_figures/
 

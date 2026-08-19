@@ -55,22 +55,17 @@ They must not be conflated.
   68f7b93 snapshot itself. The 68f7b93 snapshot is not claimed to reproduce
   the component C files byte-for-byte; component C is supplied frozen.
 
-## Explanatory figure provenance
+### Explanatory Figure Provenance
 
-The submitted manuscript contains revised explanatory Figures 1-3 describing
-the trust architecture, operational pipeline, and reverse-trace lineage.
+The submitted manuscript contains revised explanatory Figures 1–3 describing the trust architecture, operational pipeline, and reverse-trace lineage.
 
-These figures are presentation-layer explanatory diagrams and are not part of
-the frozen scientific benchmark outputs.
+These diagrams are presentation-layer explanatory materials and are not part of the frozen experimental outputs.
 
-Their visual design was assisted by OpenAI ChatGPT and the final scientific
-structure, labels, relationships, and terminology were reviewed and verified
-by the author against the manuscript and implementation.
+OpenAI ChatGPT (GPT-5.6 Sol) assisted with their design and visual refinement. The final scientific structure, terminology, labels, authority relationships, and workflow logic were reviewed and verified by the author against the manuscript and evaluated implementation.
 
-The frozen benchmark artifacts, source snapshot, manifests, hashes, and
-quantitative results remain unchanged.
+The frozen benchmark artifacts, source snapshot, manifests, hashes, raw predictions, and quantitative results remain unchanged.
 
-The final explanatory diagrams are available under
+The final explanatory figures are available under
 paper/final_explanatory_figures/ as vector PDFs with PNG previews.
 
 ## File hashes
