@@ -5,8 +5,8 @@
 - Author-redacted technical review manuscript uses the Elsevier `elsarticle` class.
 - Abstract is under 250 words; five keywords are supplied.
 - Five highlights are supplied and each is at most 85 characters.
-- Figures are editable TikZ/vector diagrams or programmatic plots from experiment JSON.
-- No generative-AI-created or generative-AI-altered image is included.
+- Figures 1–3 are explanatory workflow diagrams (AI-assisted design and vector rendering, author-reviewed and verified; disclosed in the figure captions and the declarations); quantitative plots and tables are programmatic outputs from the frozen experiment artifacts.
+- Explanatory diagrams (Figures 1–3) are disclosed as generative-AI-assisted; quantitative plots are generated programmatically from the experiment artifacts and were not generated or altered by generative AI.
 - Generative AI use is declared in the manuscript and cover letter.
 - Synthetic data, code, raw results, hashes, and generation commands are packaged.
 - Calibration and evaluation seeds are separated.
