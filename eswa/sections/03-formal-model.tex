@@ -1,7 +1,7 @@
 \section{Trust model and problem formulation}
 \label{sec:model}
 
-Let a captured form image be evidence $e\in E$, and let $M$ denote the set of machine modules exposed through the application: perception, optional language-model review, and retrieval. A module may derive a candidate $c\in C$ from evidence or existing non-authoritative context. Every persisted candidate carries a \emph{certificate}: a content address computed over its field key, value payload, evidence hash and locator, producer and template identity, selection artifact, target record, expected fact version, and creation time. A human decision $h\in H$ records an actor, a per-field action, an expected record version, a reason, and the referenced certificate. Authoritative state is represented as a sequence of fact versions $F_0,F_1,\ldots$.
+Let a captured form image be evidence $e\in E$, and let $M$ denote the set of machine modules exposed through the application: perception, optional language-model review, and retrieval. A module may derive a candidate $c\in C$ from evidence or existing non-authoritative context. Every persisted candidate carries a \emph{certificate}: a content address computed over its field key, value payload, evidence hash and locator, producer and template identity, selection artifact, target record, expected fact version, and creation time. The certificate is an application-level content-addressed authorization artifact, not a PKI certificate or digital identity credential. A human decision $h\in H$ records an actor, a per-field action, an expected record version, a reason, and the referenced certificate. Authoritative state is represented as a sequence of fact versions $F_0,F_1,\ldots$.
 
 The allowed transitions are
 \begin{equation}
@@ -15,6 +15,8 @@ where $g$ validates the expected version and appends, rather than overwrites, th
   \label{eq:invariant}
 \end{equation}
 Equation~\ref{eq:invariant} is an application-architecture property: no exposed machine service possesses a direct fact-writing operation. It is not a claim about protection against privileged database modification, compromised dependencies, or an adversary controlling the host.
+
+In this prototype, human authorization denotes an attributable review action issued through the review capability; reviewer identity is recorded but not cryptographically authenticated. The evaluated invariant concerns capability separation rather than proof of human presence. Figure~\ref{fig:trust-model} shows the trust model.
 
 \begin{figure}[t]
   \centering
