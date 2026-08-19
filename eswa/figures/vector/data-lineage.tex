@@ -1,10 +1,10 @@
-\begin{tikzpicture}[node distance=8mm and 10mm,font=\small]
-  \node[trustbox] (hash) {SHA-256 evidence};
-  \node[trustbox,right=of hash] (attempt) {recognition attempt};
-  \node[trustbox,right=of attempt] (candidate) {candidate\\certificate};
-  \node[trustbox,right=of candidate] (decision) {human decision};
-  \node[trustbox,right=of decision] (transition) {fact transition};
-  \node[fact,right=of transition] (version) {fact version};
+\begin{tikzpicture}[node distance=8mm and 9mm,font=\small]
+  \node[trustbox] (hash) {SHA-256 evidence\\[-1pt]{\scriptsize\textcolor{TrustGray}{input}}};
+  \node[trustbox,right=of hash] (attempt) {recognition\\[-1pt]{\scriptsize\textcolor{TrustGray}{attempt}}};
+  \node[trustbox,right=of attempt] (candidate) {candidate\\[-1pt]{\scriptsize\textcolor{TrustGray}{certificate}}};
+  \node[human,right=of candidate] (decision) {human\\[-1pt]{\scriptsize\textcolor{TrustGray}{decision}}};
+  \node[trustbox,right=of decision] (transition) {fact\\[-1pt]{\scriptsize\textcolor{TrustGray}{transition}}};
+  \node[fact,right=of transition] (version) {fact version\\[-1pt]{\scriptsize\textcolor{TrustGray}{authoritative}}};
   \node[fact,below=of version] (batch) {export batch};
   \draw[flow] (hash)--(attempt)--(candidate)--(decision)--(transition)--(version)--(batch);
   \draw[flow] (batch.west) -| node[pos=.25,below,font=\scriptsize]{reverse trace} (hash.south);

@@ -3,11 +3,16 @@
 \definecolor{TrustAmber}{HTML}{C06B19}
 \definecolor{TrustPaleTeal}{HTML}{E1F2EF}
 \definecolor{TrustPaleAmber}{HTML}{FFF0DC}
+\definecolor{TrustGray}{HTML}{5A6B7A}
 \tikzset{
-  trustbox/.style={draw=TrustTeal,very thick,rounded corners=2pt,fill=TrustPaleTeal,align=center,minimum height=9mm,text=TrustCharcoal},
+  basebox/.style={rounded corners=3pt,align=center,text=TrustCharcoal,
+    minimum height=9mm,inner sep=1.5mm,
+    drop shadow={shadow xshift=0.5pt,shadow yshift=-0.5pt,opacity=0.18,fill=TrustCharcoal}},
+  trustbox/.style={basebox,draw=TrustTeal,very thick,fill=TrustPaleTeal},
   machine/.style={trustbox,dashed},
-  human/.style={draw=TrustAmber,very thick,rounded corners=2pt,fill=TrustPaleAmber,align=center,minimum height=9mm,text=TrustCharcoal},
-  fact/.style={trustbox,fill=white},
+  human/.style={basebox,draw=TrustAmber,very thick,fill=TrustPaleAmber},
+  fact/.style={basebox,draw=TrustTeal,very thick,fill=white},
+  tag/.style={font=\scriptsize\sffamily,text=TrustGray},
   flow/.style={-{Latex[length=2.2mm]},thick,draw=TrustCharcoal},
   noflow/.style={thick,draw=TrustAmber,densely dashed}
 }
