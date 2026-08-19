@@ -1,7 +1,7 @@
 # ESWA submission package
 
-- `main_anonymous.tex`: author-redacted technical review source; add verified author metadata for ESWA's single-anonymized submission
-- `title_page.tex`: separate author/title metadata with explicit placeholders
+- `main_anonymous.tex`: author-redacted manuscript source; keep identifying author metadata in the separate title page during anonymized review
+- `title_page.tex`: separate finalized author/title metadata, funding, competing-interest statement, and CRediT roles
 - `supplementary.tex`: reproducibility and detailed-results supplement
 - `highlights.txt`, `cover_letter.md`, `figure_captions.txt`: submission files
 - `figures/vector`: editable author-controlled TikZ diagrams

@@ -17,7 +17,7 @@
 - Tesseract unavailability and the stronger HOG--SVM recognizer are reported.
 - The integrated software verification suite passes 239 automated tests (test count reported as software verification, not a scientific sample size); Ruff and mypy checks pass.
 - Production-data sensitivity and resulting external-validity limitation are explicit.
-- Author metadata (name, affiliation, corresponding email), funding wording, competing-interest declaration, and single-author CRediT roles are finalized in the title page and declarations.
+- Author metadata (name, affiliation, corresponding email), funding wording, competing-interest declaration, and single-author CRediT roles are finalized in the separate title page; the anonymous manuscript retains only non-identifying data/code and AI-use declarations.
 - Cover letter states originality, no prior publication, no simultaneous submission, and author approval.
 
 ## Remaining author actions (not manuscript text)
