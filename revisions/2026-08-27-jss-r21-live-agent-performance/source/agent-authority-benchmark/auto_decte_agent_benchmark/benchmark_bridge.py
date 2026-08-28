@@ -3,16 +3,26 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 import sys
-from typing import Any
+from typing import Any, Mapping
 
 from app.integrations import dsh_bridge as production_bridge
 
 from .bridge_client import BRIDGE_VERSION
+from .host_challenges import execute_challenge, prepare_scenario, self_test_scenario
 
 
 MODEL_OPERATIONS = frozenset({"propose", "verify"})
-HOST_OPERATIONS = frozenset({"init-fixture", "export-receipt"})
+HOST_OPERATIONS = frozenset(
+    {
+        "init-fixture",
+        "export-receipt",
+        "prepare-scenario",
+        "execute-challenge",
+        "self-test-scenario",
+    }
+)
 
 
 def _require_text(request: dict[str, Any], key: str) -> str:
@@ -30,10 +40,35 @@ def handle_request(request: dict[str, Any]) -> dict[str, Any]:
     allowed = MODEL_OPERATIONS if surface == "model" else HOST_OPERATIONS if surface == "host" else ()
     if operation not in allowed:
         raise PermissionError(f"operation {operation!r} is not exposed on {surface!r}")
-    delegated = {
-        **request,
-        "bridge_version": production_bridge.BRIDGE_VERSION,
-    }
+    if surface == "host" and operation in {
+        "prepare-scenario",
+        "execute-challenge",
+        "self-test-scenario",
+    }:
+        data_root = Path(_require_text(request, "data_root"))
+        scenario_id = _require_text(request, "scenario_id")
+        if operation == "prepare-scenario":
+            result = prepare_scenario(data_root, scenario_id)
+        elif operation == "execute-challenge":
+            prepared = request.get("prepared")
+            agent_evidence = request.get("agent_evidence")
+            if not isinstance(prepared, Mapping) or not isinstance(agent_evidence, Mapping):
+                raise ValueError("prepared and agent_evidence must be objects")
+            result = execute_challenge(
+                data_root,
+                scenario_id,
+                prepared,
+                agent_evidence,
+            )
+        else:
+            result = self_test_scenario(data_root, scenario_id)
+        return {
+            "ok": True,
+            "bridge_version": BRIDGE_VERSION,
+            "operation": operation,
+            "result": result,
+        }
+    delegated = {**request, "bridge_version": production_bridge.BRIDGE_VERSION}
     envelope = production_bridge.handle_request(delegated)
     return {
         "ok": True,

@@ -114,3 +114,15 @@
 - Fresh verification after both fixes: 48 tests pass, Ruff is clean, and the dry-run reports 112
   planned executions, 4 configurations, 14 scenarios, 2 variants, 56 semantic-equivalence groups,
   exact logical tool-surface equivalence, zero model calls, and zero database writes.
+- Added real Codex/OpenAI command execution, DeepSeek Anthropic-compatible HTTP/tool-loop execution,
+  raw response retention, transport classification, and a pinned FastMCP two-tool server. Provider
+  credentials are removed from the local trusted-bridge subprocess environment.
+- Added the benchmark-specific bridge, read-only logical SQLite state probe, separate candidate and
+  authority digests, and explicit prepare/execute host protocols.
+- Executed deterministic real-database self-tests for all fourteen scenarios. B2/B3/B4 performed
+  legal admissions and changed authority state; A1--A10 returned their frozen scenario-specific
+  rejection codes with authority-state stutter; B1 performed no host admission. Separate protocol
+  tests proved that legal and invalid challenges consume certificates produced or verified through
+  the same model tool surface.
+- Fresh local verification now reports 78 tests passed, Ruff clean, and the unchanged 112-run
+  zero-call/zero-write dry-run. No live pilot call has started.

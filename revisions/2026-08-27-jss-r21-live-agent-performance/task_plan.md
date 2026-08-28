@@ -92,8 +92,11 @@ without changing the frozen R17--R19 evidence or overstating the new results.
   estimands, two evidence layers, provider-neutral events, and logical tool-equivalence gate.
 - [x] Write `PLAN_V2_CHANGELOG.md` and self-review the plan for stale v1 assumptions.
 - [x] Implement schemas, canonical events, generator, digests, and scorer test-first.
-- [ ] Implement and qualify OpenAI/Codex and DeepSeek adapters against the same logical tool surface
-  (raw normalization and schema equivalence implemented; live invocation/qualification pending).
+- [ ] Qualify OpenAI/Codex and DeepSeek configurations against the same logical tool surface
+  (both live invocation layers, schema equivalence, MCP surface, and trusted bridge are implemented;
+  live pilot qualification pending).
+- [x] Execute deterministic real-boundary tests for all fourteen legal/invalid host challenges,
+  including separate candidate/authority digests and the prepare/execute protocol.
 - [ ] Complete normalization, statistics, and artifact generation (all fourteen scenarios, all
   three final prompts, the immutable ledger, and deterministic 112-run dry-run validation are done).
 - [ ] Execute the 112-run non-citable pilot only after deterministic gates pass.

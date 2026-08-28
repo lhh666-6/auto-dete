@@ -193,3 +193,14 @@
 51. Full SHA-derived unsigned 64-bit case seeds are valid identity inputs but cannot be used
     directly as seconds in a calendar offset. Fixture timestamps now reduce the seed modulo the
     number of seconds in 2026, preserving determinism without narrowing the recorded seed.
+52. Provider-exposed JSON schemas can differ only by presentation metadata such as generated
+    `title` fields. The equivalence gate strips only those declared presentation keys and still
+    rejects any changed tool set, property, required field, type, or constraint.
+53. The historical DSH root fixture certificate intentionally uses a fixture locator that is valid
+    for candidate-parent testing but does not satisfy the current fact-admission locator check.
+    Benchmark baseline commits therefore use the explicit manual-evidence path, then create a fresh
+    version-bound parent when a legal correction or stale recovery requires one.
+54. The real boundary emits stable, scenario-specific rejection evidence: cross-record and
+    cross-field binding failures, certificate-identity mismatch, evidence-form mismatch, stale
+    version, authorized-value mismatch, initial-field-set mismatch, and unavailable capability.
+    None of the ten invalid challenges changed the logical authority projection.
