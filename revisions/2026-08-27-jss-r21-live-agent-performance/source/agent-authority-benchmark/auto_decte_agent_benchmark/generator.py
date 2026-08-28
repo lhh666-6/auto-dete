@@ -73,7 +73,10 @@ def build_fixture_spec(case_seed: int) -> OperationalFixtureSpec:
         )
         for field_key, initial_value in _FIELD_VALUES
     )
-    generated_at = (datetime(2026, 1, 1, tzinfo=UTC) + timedelta(seconds=case_seed)).isoformat()
+    seconds_within_2026 = case_seed % (365 * 24 * 60 * 60)
+    generated_at = (
+        datetime(2026, 1, 1, tzinfo=UTC) + timedelta(seconds=seconds_within_2026)
+    ).isoformat()
     return OperationalFixtureSpec(
         case_seed=case_seed,
         primary_form_id=_identity(case_seed, "form:primary"),

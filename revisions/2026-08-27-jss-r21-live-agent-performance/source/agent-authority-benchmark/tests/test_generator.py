@@ -45,3 +45,12 @@ def test_fixture_has_distinct_primary_foreign_and_field_identities() -> None:
     ]
 
     assert len(identities) == len(set(identities))
+
+
+def test_fixture_accepts_full_unsigned_64_bit_case_seed() -> None:
+    build = require("build_fixture_spec")
+
+    fixture = build((1 << 64) - 1)
+
+    assert fixture.case_seed == (1 << 64) - 1
+    assert fixture.generated_at.startswith("2026-")
