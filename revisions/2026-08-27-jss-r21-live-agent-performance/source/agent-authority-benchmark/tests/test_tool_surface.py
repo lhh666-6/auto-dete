@@ -55,3 +55,16 @@ def test_equivalence_rejects_changed_required_arguments() -> None:
 
     with pytest.raises(ValueError, match="schema"):
         require("assert_logical_tool_equivalence")(surface, {"openai": openai})
+
+
+def test_equivalence_ignores_only_presentation_metadata() -> None:
+    surface = require("canonical_tool_surface")()
+    openai = require("openai_tool_schemas")(surface)
+    deepseek = require("deepseek_tool_schemas")(surface)
+    openai[0]["inputSchema"]["title"] = "ProposeArguments"
+    openai[0]["inputSchema"]["properties"]["value"]["title"] = "Value"
+
+    require("assert_logical_tool_equivalence")(
+        surface,
+        {"openai": openai, "deepseek": deepseek},
+    )

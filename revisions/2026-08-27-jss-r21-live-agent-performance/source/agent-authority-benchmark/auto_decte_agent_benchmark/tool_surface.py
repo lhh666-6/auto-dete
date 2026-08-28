@@ -6,6 +6,21 @@ from copy import deepcopy
 from typing import Any, Mapping
 
 
+_PRESENTATION_ONLY_SCHEMA_KEYS = frozenset({"title", "examples"})
+
+
+def _logical_schema(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {
+            key: _logical_schema(item)
+            for key, item in value.items()
+            if key not in _PRESENTATION_ONLY_SCHEMA_KEYS
+        }
+    if isinstance(value, list):
+        return [_logical_schema(item) for item in value]
+    return value
+
+
 def canonical_tool_surface() -> dict[str, Any]:
     return {
         "schema_version": "auto-decte.logical-tool-surface.v2",
@@ -88,5 +103,5 @@ def assert_logical_tool_equivalence(
         for tool in tools:
             name = str(tool["name"])
             schema = tool.get("inputSchema", tool.get("input_schema"))
-            if schema != expected[name]:
+            if _logical_schema(schema) != _logical_schema(expected[name]):
                 raise ValueError(f"{provider} schema differs for {name}")

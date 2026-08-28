@@ -3,10 +3,31 @@
 from __future__ import annotations
 
 import json
-from typing import Any
+from dataclasses import dataclass
+from pathlib import Path
+import subprocess
+from time import monotonic
+from typing import Any, Callable, Sequence
 
 from .canonical_events import EventType, ProviderNeutralAgentEvent, validate_event_stream
-from .schema import ModelConfiguration, ProviderFamily
+from .schema import ModelConfiguration, ProviderFamily, UNAVAILABLE
+
+
+@dataclass(frozen=True, slots=True)
+class CodexInvocationResult:
+    raw_payload: str
+    stderr: str
+    returncode: int
+    latency_ms: int
+    transport_error: str | None
+    events: tuple[ProviderNeutralAgentEvent, ...]
+
+
+def _toml_literal(value: str | Path) -> str:
+    rendered = str(value).replace("\\", "/")
+    if "'" in rendered:
+        raise ValueError("Codex configuration values may not contain a single quote")
+    return f"'{rendered}'"
 
 
 class OpenAICodexAdapter:
@@ -14,6 +35,104 @@ class OpenAICodexAdapter:
         if configuration.provider is not ProviderFamily.OPENAI:
             raise ValueError("OpenAICodexAdapter requires an OpenAI configuration")
         self.configuration = configuration
+
+    def build_command(
+        self,
+        *,
+        codex: Path,
+        workspace: Path,
+        server_python: Path,
+        server_source: Path,
+        server_args: Sequence[str],
+        prompt: str,
+    ) -> list[str]:
+        reasoning = self.configuration.reasoning_config
+        if reasoning == UNAVAILABLE:
+            reasoning = "low"
+        arguments = ",".join(_toml_literal(value) for value in server_args)
+        return [
+            str(codex),
+            "-a",
+            "never",
+            "exec",
+            "--ephemeral",
+            "--json",
+            "--ignore-user-config",
+            "--ignore-rules",
+            "--skip-git-repo-check",
+            "-m",
+            self.configuration.requested_model,
+            "-c",
+            f"model_reasoning_effort='{reasoning}'",
+            "-c",
+            f"mcp_servers.auto_decte.command={_toml_literal(server_python)}",
+            "-c",
+            f"mcp_servers.auto_decte.args=[{arguments}]",
+            "-c",
+            f"mcp_servers.auto_decte.env={{PYTHONPATH={_toml_literal(server_source)}}}",
+            "-c",
+            "mcp_servers.auto_decte.enabled_tools=['auto_decte_propose','auto_decte_verify']",
+            "-c",
+            "mcp_servers.auto_decte.default_tools_approval_mode='approve'",
+            "-s",
+            "read-only",
+            "-C",
+            str(workspace),
+            prompt,
+        ]
+
+    def invoke(
+        self,
+        *,
+        codex: Path,
+        workspace: Path,
+        server_python: Path,
+        server_source: Path,
+        server_args: Sequence[str],
+        prompt: str,
+        timeout_seconds: float,
+        command_runner: Callable[..., subprocess.CompletedProcess[str]] = subprocess.run,
+    ) -> CodexInvocationResult:
+        command = self.build_command(
+            codex=codex,
+            workspace=workspace,
+            server_python=server_python,
+            server_source=server_source,
+            server_args=server_args,
+            prompt=prompt,
+        )
+        started = monotonic()
+        try:
+            completed = command_runner(
+                command,
+                cwd=workspace,
+                stdin=subprocess.DEVNULL,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=timeout_seconds,
+                check=False,
+            )
+            raw_payload = completed.stdout or ""
+            stderr = completed.stderr or ""
+            returncode = completed.returncode
+            transport_error = None if returncode == 0 else f"CODEX_RETURN_CODE_{returncode}"
+        except subprocess.TimeoutExpired as error:
+            raw_payload = error.stdout if isinstance(error.stdout, str) else ""
+            stderr = error.stderr if isinstance(error.stderr, str) else ""
+            returncode = -1
+            transport_error = "CODEX_TIMEOUT"
+            raw_payload += json.dumps({"type": "error", "message": transport_error}) + "\n"
+        latency_ms = round((monotonic() - started) * 1000)
+        return CodexInvocationResult(
+            raw_payload=raw_payload,
+            stderr=stderr,
+            returncode=returncode,
+            latency_ms=latency_ms,
+            transport_error=transport_error,
+            events=self.normalize(raw_payload, raw_pointer="raw/openai.jsonl"),
+        )
 
     def normalize(
         self,

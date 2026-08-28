@@ -1,5 +1,7 @@
 from importlib import import_module
 import json
+from pathlib import Path
+import subprocess
 
 from auto_decte_agent_benchmark.schema import ModelConfiguration, ProviderFamily
 
@@ -70,3 +72,58 @@ def test_codex_error_event_normalizes_as_transport_error() -> None:
 
     assert any(event.event_type.value == "TRANSPORT_ERROR" for event in events)
     assert any(event.message_text == "rate limited" for event in events)
+
+
+def test_codex_command_exposes_only_two_tools_and_frozen_reasoning() -> None:
+    adapter = require("OpenAICodexAdapter")(config())
+
+    command = adapter.build_command(
+        codex=Path("C:/tools/codex.exe"),
+        workspace=Path("C:/workspace"),
+        server_python=Path("C:/python/python.exe"),
+        server_source=Path("C:/benchmark/source"),
+        server_args=("--run-root", "C:/runs/R1"),
+        prompt="bounded prompt",
+    )
+    joined = " ".join(command)
+
+    assert "gpt-5.6" not in joined
+    assert "requested-gpt-alias" in command
+    assert "model_reasoning_effort='low'" in command
+    assert "enabled_tools=['auto_decte_propose','auto_decte_verify']" in joined
+    assert "default_tools_approval_mode='approve'" in joined
+    assert "-s read-only" in joined
+
+
+def test_codex_invoke_retains_raw_output_stderr_and_latency(tmp_path) -> None:
+    adapter = require("OpenAICodexAdapter")(config())
+    observed: dict[str, object] = {}
+
+    def fake_run(command, **kwargs):
+        observed["command"] = command
+        observed["kwargs"] = kwargs
+        return subprocess.CompletedProcess(
+            command,
+            0,
+            stdout=json.dumps({"type": "turn.completed", "usage": {"input_tokens": 3}}),
+            stderr="provider diagnostic",
+        )
+
+    result = adapter.invoke(
+        codex=Path("C:/tools/codex.exe"),
+        workspace=tmp_path,
+        server_python=Path("C:/python/python.exe"),
+        server_source=Path("C:/benchmark/source"),
+        server_args=("--run-root", str(tmp_path / "run")),
+        prompt="bounded prompt",
+        timeout_seconds=12.0,
+        command_runner=fake_run,
+    )
+
+    assert result.returncode == 0
+    assert result.raw_payload
+    assert result.stderr == "provider diagnostic"
+    assert result.latency_ms >= 0
+    assert result.transport_error is None
+    assert any(event.event_type.value == "MODEL_USAGE" for event in result.events)
+    assert observed["kwargs"]["timeout"] == 12.0
