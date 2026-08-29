@@ -215,3 +215,15 @@
 57. Narrow connectivity diagnostics and the full 112-run Pilot require separate report identities.
     A selector-narrowed execution now emits `DIAGNOSTIC_REPORT.md`; only exact coverage of the locked
     Pilot ledger may emit `PILOT_REPORT.md` and `pilot-model-qualification.json`.
+58. Codex CLI may emit several presemantic reconnect events inside one invocation and then complete
+    the requested tool sequence with return code zero. Historical transport events alone therefore
+    cannot make behavior non-evaluable; only no-semantic or post-semantic unrecovered transport
+    failures do. All reconnect events remain visible in the raw and canonical traces.
+59. `deepseek-v4-pro` can spend a 1,024-token output budget entirely on a thinking block and stop at
+    `max_tokens` before exposing a tool call. A shared 4,096-token DeepSeek cap allowed D2 to complete
+    the same B1 tool task. Max-token responses without any normalized semantic output are now
+    terminal `INVALID_OUTPUT`, not ordinary utility failures.
+60. The two connectivity diagnostics already show behavioral variation: D1 completed tools once and
+    returned text without tools once, while D2 failed under the old token cap and passed under the
+    repaired common cap. These diagnostic outcomes are not citable; they justify the frozen repeated
+    Pilot rather than any model ranking.

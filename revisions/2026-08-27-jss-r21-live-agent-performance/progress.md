@@ -140,3 +140,16 @@
 - Fresh deterministic gate: 105 tests passed, Ruff clean, and the full CLI dry-run validated 112
   executions, four configurations, fourteen scenarios, two variants, 56 semantic-equivalence
   groups, zero model calls, and zero database writes. No live Pilot call has started.
+- Executed non-citable `connectivity-1` as a four-call diagnostic. D1 completed propose/verify; D2
+  exhausted its 1,024-token output budget in thinking; G1/G2 completed both tools after presemantic
+  Codex reconnect events but exposed a scorer bug that treated any historical transport event as
+  permanently non-evaluable. The directory and its manifest remain preserved unchanged.
+- Fixed the scorer so only unrecovered/no-semantic or post-semantic transport failures invalidate
+  behavior, while presemantic reconnects followed by real tool evidence remain evaluable. Raised the
+  common DeepSeek output budget to 4,096 and classifies max-token/no-semantic responses as
+  `INVALID_OUTPUT`. Commit: `0dd9486`; fresh gate: 109 tests passed and Ruff clean.
+- Executed independent `connectivity-2`. G1, G2, and D2 completed propose/verify; D1 returned an
+  end-turn text response without tools, an expected behavioral failure rather than a harness defect.
+  Across the two preserved diagnostics every target configuration demonstrated at least one real
+  tool-capable execution. The second manifest verifies clean; only `DIAGNOSTIC_REPORT.md` exists,
+  with no official Pilot report or model-qualification artifact.
