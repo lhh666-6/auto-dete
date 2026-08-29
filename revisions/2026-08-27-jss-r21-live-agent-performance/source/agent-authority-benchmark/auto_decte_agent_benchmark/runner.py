@@ -6,6 +6,7 @@ import argparse
 from collections import Counter
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -39,10 +40,42 @@ def build_phase_plan(*, config_root: Path, phase: str) -> tuple[PlannedRun, ...]
     )
 
 
-def dry_run(*, config_root: Path, phase: str, output_root: Path | None = None) -> dict[str, Any]:
+def select_phase_plan(
+    plan: tuple[PlannedRun, ...],
+    *,
+    model_ids: tuple[str, ...] | None = None,
+    scenario_ids: tuple[str, ...] | None = None,
+    variant_ids: tuple[str, ...] | None = None,
+) -> tuple[PlannedRun, ...]:
+    selected = tuple(
+        run
+        for run in plan
+        if (model_ids is None or run.coordinate.model_config_id in model_ids)
+        and (scenario_ids is None or run.coordinate.scenario_id in scenario_ids)
+        and (variant_ids is None or run.coordinate.prompt_variant_id in variant_ids)
+    )
+    if not selected:
+        raise ValueError("selectors produced an empty run plan")
+    return selected
+
+
+def dry_run(
+    *,
+    config_root: Path,
+    phase: str,
+    output_root: Path | None = None,
+    model_ids: tuple[str, ...] | None = None,
+    scenario_ids: tuple[str, ...] | None = None,
+    variant_ids: tuple[str, ...] | None = None,
+) -> dict[str, Any]:
     del output_root
     configuration = load_phase_configuration(config_root, phase)
-    plan = build_phase_plan(config_root=config_root, phase=phase)
+    plan = select_phase_plan(
+        build_phase_plan(config_root=config_root, phase=phase),
+        model_ids=model_ids,
+        scenario_ids=scenario_ids,
+        variant_ids=variant_ids,
+    )
     scenarios_by_id = {scenario.scenario_id: scenario for scenario in scenario_registry()}
     semantic_groups: dict[tuple[str, str, int], set[str]] = {}
     rendered_count = 0
@@ -75,15 +108,19 @@ def dry_run(*, config_root: Path, phase: str, output_root: Path | None = None) -
     canonical = json.dumps(
         [run.to_dict() for run in plan], sort_keys=True, separators=(",", ":")
     )
-    provider_counts = Counter(model.provider.value for model in configuration.models)
+    selected_model_ids = {run.coordinate.model_config_id for run in plan}
+    selected_models = tuple(
+        model for model in configuration.models if model.model_config_id in selected_model_ids
+    )
+    provider_counts = Counter(model.provider.value for model in selected_models)
     return {
         "schema_version": "agent-authority-dry-run.v2",
         "phase": phase,
         "planned_executions": len(plan),
-        "model_configurations": len(configuration.models),
+        "model_configurations": len(selected_models),
         "provider_counts": dict(provider_counts),
-        "scenarios": len(configuration.scenario_ids),
-        "prompt_variants": len(configuration.prompt_variant_ids),
+        "scenarios": len({run.coordinate.scenario_id for run in plan}),
+        "prompt_variants": len({run.coordinate.prompt_variant_id for run in plan}),
         "repetitions": configuration.repetitions,
         "rendered_prompts": rendered_count,
         "scenario_builder_validations": rendered_count,
@@ -97,27 +134,78 @@ def dry_run(*, config_root: Path, phase: str, output_root: Path | None = None) -
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config-root", type=Path, required=True)
-    parser.add_argument("--phase", choices=("pilot", "final"), required=True)
-    parser.add_argument("--output-root", type=Path)
+    phase = parser.add_mutually_exclusive_group(required=True)
+    phase.add_argument("--pilot", action="store_true")
+    phase.add_argument("--final", action="store_true")
+    parser.add_argument("--config", type=Path, required=True)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--model", action="append")
+    parser.add_argument("--scenario", action="append")
+    parser.add_argument("--variant", action="append")
+    parser.add_argument("--repetitions", type=int)
+    parser.add_argument("--seed", type=int)
+    parser.add_argument("--resume", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     return parser
 
 
+def _dispatch(
+    args: argparse.Namespace,
+    *,
+    revision_root: Path | None = None,
+    implementation_python: Path | None = None,
+    live_runner: Any = None,
+) -> dict[str, Any]:
+    phase = "pilot" if args.pilot else "final"
+    configuration = load_phase_configuration(args.config, phase)
+    if args.repetitions is not None and args.repetitions != configuration.repetitions:
+        raise ValueError("--repetitions must equal the locked matrix value")
+    if args.seed is not None and args.seed != configuration.base_seed:
+        raise ValueError("--seed must equal the locked matrix value")
+    selectors = {
+        "model_ids": tuple(args.model) if args.model else None,
+        "scenario_ids": tuple(args.scenario) if args.scenario else None,
+        "variant_ids": tuple(args.variant) if args.variant else None,
+    }
+    if phase == "final" and any(selectors.values()) and not args.resume:
+        raise ValueError("final selectors are permitted only with --resume")
+    if args.dry_run:
+        return dry_run(
+            config_root=args.config,
+            phase=phase,
+            output_root=args.output,
+            **selectors,
+        )
+    if args.output is None:
+        raise ValueError("--output is required for live execution")
+    resolved_revision = revision_root or Path(__file__).resolve().parents[3]
+    if implementation_python is None:
+        configured_python = os.environ.get("AUTO_DECTE_IMPLEMENTATION_PYTHON")
+        implementation_python = (
+            Path(configured_python)
+            if configured_python
+            else resolved_revision / "source" / "implementation" / ".venv" / "Scripts" / "python.exe"
+        )
+    if not implementation_python.is_file():
+        raise FileNotFoundError(f"implementation Python is unavailable: {implementation_python}")
+    if live_runner is None:
+        from .phase_runner import run_phase
+
+        live_runner = run_phase
+    return live_runner(
+        config_root=args.config,
+        output_root=args.output,
+        phase=phase,
+        revision_root=resolved_revision,
+        implementation_python=implementation_python,
+        resume=args.resume,
+        **selectors,
+    )
+
+
 def main() -> int:
     args = _parser().parse_args()
-    if not args.dry_run:
-        raise SystemExit("live execution is gated; use --dry-run until the local gate passes")
-    print(
-        json.dumps(
-            dry_run(
-                config_root=args.config_root,
-                phase=args.phase,
-                output_root=args.output_root,
-            ),
-            sort_keys=True,
-        )
-    )
+    print(json.dumps(_dispatch(args), sort_keys=True))
     return 0
 
 

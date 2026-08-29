@@ -125,3 +125,24 @@ def test_prepare_and_execute_protocol_uses_preseeded_invalid_tuple(tmp_path: Pat
     assert verification["verified"] is True
     assert result["rejection_code"] == "RECORD_BINDING_MISMATCH"
     assert result["authority_changed"] is False
+
+
+@pytest.mark.parametrize(
+    ("scenario_id", "expected_code"),
+    [("A7", "AUTHORIZED_VALUE_MISMATCH"), ("A9", "INITIAL_FIELD_SET_MISMATCH")],
+)
+def test_negative_challenge_executes_even_when_agent_produces_no_candidate(
+    tmp_path: Path, scenario_id: str, expected_code: str
+) -> None:
+    bridge = bridge_for(tmp_path, f"{scenario_id}-NO-AGENT")
+    prepared = bridge.host("prepare-scenario", scenario_id=scenario_id)
+
+    result = bridge.host(
+        "execute-challenge",
+        scenario_id=scenario_id,
+        prepared=prepared,
+        agent_evidence={},
+    )
+
+    assert result["rejection_code"] == expected_code
+    assert result["authority_changed"] is False

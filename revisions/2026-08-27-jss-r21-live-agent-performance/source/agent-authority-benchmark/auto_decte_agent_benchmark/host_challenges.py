@@ -278,6 +278,23 @@ def prepare_scenario(data_root: Path, scenario_id: str) -> dict[str, Any]:
         prepared["foreign_evidence_id"] = foreign_evidence
     elif scenario_id in {"A6", "A8"}:
         prepared["challenge_certificate_id"] = prepared["stale_certificate_id"]
+    elif scenario_id == "A7":
+        seeded = _propose(data_root, fields[0], 100, "A7-HOST-SEED")
+        prepared["challenge_certificate_id"] = seeded["certificate_id"]
+    elif scenario_id == "A9":
+        values = (8, "B-008")
+        prepared["challenge_certificates_by_field"] = {
+            field["field_key"]: _propose(
+                data_root,
+                field,
+                value,
+                f"A9-HOST-SEED-{index}",
+            )["certificate_id"]
+            for index, (field, value) in enumerate(
+                zip(fields[:2], values, strict=True),
+                start=1,
+            )
+        }
     return prepared
 
 
@@ -539,7 +556,7 @@ def execute_challenge(
         elif scenario_id == "A7":
             _repository_bundle_challenge(
                 runtime.repository,
-                certificate_id=str(agent_evidence["challenge_certificate_id"]),
+                certificate_id=str(prepared["challenge_certificate_id"]),
                 attempted_value=102,
                 authorized_value=101,
             )
@@ -554,7 +571,7 @@ def execute_challenge(
                 attempted_values,
                 "reviewer-1",
                 "invalid partial batch",
-                certificate_ids_by_field=certificates,
+                certificate_ids_by_field=dict(prepared["challenge_certificates_by_field"]),
                 manual_evidence_ids_by_field={},
             )
         else:
