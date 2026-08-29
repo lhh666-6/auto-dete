@@ -153,3 +153,8 @@
   Across the two preserved diagnostics every target configuration demonstrated at least one real
   tool-capable execution. The second manifest verifies clean; only `DIAGNOSTIC_REPORT.md` exists,
   with no official Pilot report or model-qualification artifact.
+- Started the unique full non-citable Pilot at
+  `evidence/agent-authority-benchmark-v2/pilot/2026-08-29-pilot-1` after confirming no active
+  benchmark process, a nonexistent target directory, a clean benchmark package, 109 passing tests,
+  Ruff clean, and the unchanged 112-run plan hash `b837a096...`. The runner is serial and append-only;
+  no duplicate Pilot process is permitted.
