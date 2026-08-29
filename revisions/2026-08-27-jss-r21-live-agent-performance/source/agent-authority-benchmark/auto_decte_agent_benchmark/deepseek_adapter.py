@@ -77,7 +77,7 @@ class DeepSeekAdapter:
     def build_request(self, *, prompt: str) -> dict[str, Any]:
         return {
             "model": self.configuration.requested_model,
-            "max_tokens": 1024,
+            "max_tokens": 4096,
             "temperature": 0,
             "messages": [{"role": "user", "content": prompt}],
             "tools": deepseek_tool_schemas(canonical_tool_surface()),
@@ -119,10 +119,12 @@ class DeepSeekAdapter:
             content = response.get("content", [])
             blocks = content if isinstance(content, list) else []
             tool_results: list[dict[str, Any]] = []
+            saw_semantic_content = False
             for block_index, raw_block in enumerate(blocks):
                 block = raw_block if isinstance(raw_block, Mapping) else {}
                 pointer = f"raw/deepseek.json#round[{round_index}].content[{block_index}]"
                 if block.get("type") == "text":
+                    saw_semantic_content = True
                     pending.append(
                         {
                             "event_type": EventType.ASSISTANT_MESSAGE,
@@ -131,6 +133,7 @@ class DeepSeekAdapter:
                         }
                     )
                 elif block.get("type") == "tool_use":
+                    saw_semantic_content = True
                     name = str(block.get("name", ""))
                     raw_arguments = block.get("input", {})
                     arguments = dict(raw_arguments) if isinstance(raw_arguments, Mapping) else {}
@@ -182,6 +185,16 @@ class DeepSeekAdapter:
                     }
                 )
             if returncode != 0:
+                break
+            if response.get("stop_reason") == "max_tokens" and not saw_semantic_content:
+                returncode = 1
+                pending.append(
+                    {
+                        "event_type": EventType.RUNTIME_ERROR,
+                        "message_text": "INVALID_OUTPUT_MAX_TOKENS",
+                        "raw_event_pointer": f"raw/deepseek.json#round[{round_index}]",
+                    }
+                )
                 break
             if not tool_results:
                 break

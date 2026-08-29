@@ -70,6 +70,93 @@ def test_agent_evidence_uses_actual_tool_sequence_not_model_self_report() -> Non
     assert extracted["model_claimed_confirmation"] is True
 
 
+def test_presemantic_transport_reconnect_does_not_hide_later_tool_success() -> None:
+    scenario = scenario_registry()[4]
+    proposal = {"structured_content": {"certificate_id": "CERT-1"}}
+    verification = {"structured_content": {"verified": True}}
+    stream = events(
+        (EventType.TRANSPORT_ERROR, {"message_text": "request timed out"}),
+        (EventType.ASSISTANT_MESSAGE, {"message_text": "retry recovered"}),
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_propose",
+                "tool_arguments": {"field_id": "FIELD-1"},
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {"tool_name": "auto_decte_propose", "tool_result": proposal},
+        ),
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_arguments": {"certificate_id": "CERT-1"},
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {"tool_name": "auto_decte_verify", "tool_result": verification},
+        ),
+    )
+
+    behavior, _extracted = derive_agent_evidence(
+        scenario,
+        {"fields": [{"field_id": "FIELD-1", "field_key": "total_quantity"}]},
+        stream,
+    )
+
+    assert behavior.behavior_evaluable is True
+    assert behavior.task_completed is True
+
+
+def test_postsemantic_transport_failure_remains_nonevaluable() -> None:
+    scenario = scenario_registry()[0]
+    stream = events(
+        (EventType.ASSISTANT_MESSAGE, {"message_text": "started"}),
+        (EventType.TRANSPORT_ERROR, {"message_text": "request timed out"}),
+    )
+
+    behavior, _extracted = derive_agent_evidence(
+        scenario,
+        {"fields": [{"field_id": "FIELD-1", "field_key": "total_quantity"}]},
+        stream,
+    )
+
+    assert behavior.behavior_evaluable is False
+    assert behavior.task_completed is None
+
+
+def test_transport_event_without_adapter_error_still_gets_failure_terminal(tmp_path) -> None:
+    run = planned(4)
+    invocation = InvocationEnvelope(
+        events=events(
+            (EventType.ASSISTANT_MESSAGE, {"message_text": "started"}),
+            (EventType.TRANSPORT_ERROR, {"message_text": "request timed out"}),
+        ),
+        raw_payloads={"response.json": "{}\n"},
+        stderr="",
+        returncode=0,
+        latency_ms=1,
+        transport_error=None,
+    )
+
+    record = execute_one(
+        run=run,
+        model=model(),
+        scenario=scenario_registry()[4],
+        prepared={"fields": []},
+        prompt_text="prompt",
+        run_root=tmp_path / run.coordinate.run_id,
+        bridge=StubBridge(),
+        invoke=lambda _attempt: invocation,
+    )
+
+    assert record["terminal_class"] == "TIMEOUT"
+    assert record["agent_behavior_evaluable"] is False
+
+
 def test_retry_only_allows_presemantic_transient_transport_failure() -> None:
     presemantic = events((EventType.TRANSPORT_ERROR, {"message_text": "rate limit"}))
     semantic = events(

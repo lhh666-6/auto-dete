@@ -117,7 +117,7 @@ def test_deepseek_request_uses_only_canonical_tools_and_frozen_parameters() -> N
 
     assert request["model"] == "deepseek-v4-pro"
     assert request["temperature"] == 0
-    assert request["max_tokens"] == 1024
+    assert request["max_tokens"] == 4096
     assert [tool["name"] for tool in request["tools"]] == [
         "auto_decte_propose",
         "auto_decte_verify",
@@ -204,6 +204,27 @@ def test_deepseek_tool_loop_rejects_unknown_tool_without_executing_it() -> None:
     assert result.returncode == 1
     assert result.transport_error is None
     assert any(event.event_type.value == "RUNTIME_ERROR" for event in result.events)
+
+
+def test_max_tokens_with_only_thinking_is_retained_as_invalid_output() -> None:
+    adapter = require("DeepSeekAdapter")(config())
+    response = {
+        "id": "m1",
+        "stop_reason": "max_tokens",
+        "content": [{"type": "thinking", "thinking": "internal reasoning"}],
+        "usage": {"input_tokens": 20, "output_tokens": 4096},
+    }
+
+    result = adapter.invoke(
+        prompt="bounded prompt",
+        tool_executor=lambda _name, _arguments: (_ for _ in ()).throw(AssertionError()),
+        request_sender=lambda _payload, _timeout: response,
+        timeout_seconds=5.0,
+    )
+
+    assert result.returncode == 1
+    runtime = [event for event in result.events if event.event_type.value == "RUNTIME_ERROR"]
+    assert [event.message_text for event in runtime] == ["INVALID_OUTPUT_MAX_TOKENS"]
 
 
 def test_http_client_posts_anthropic_request_without_exposing_key() -> None:

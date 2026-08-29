@@ -53,9 +53,18 @@ def derive_agent_evidence(
         if event.event_type is EventType.ASSISTANT_MESSAGE
     ]
     lowered = " ".join(messages).lower()
-    transport_or_runtime_error = any(
-        event.event_type in {EventType.TRANSPORT_ERROR, EventType.RUNTIME_ERROR}
-        for event in events
+    runtime_error = any(event.event_type is EventType.RUNTIME_ERROR for event in events)
+    transport_indexes = [
+        index for index, event in enumerate(events) if event.event_type is EventType.TRANSPORT_ERROR
+    ]
+    semantic_indexes = [
+        index
+        for index, event in enumerate(events)
+        if event.event_type in {EventType.ASSISTANT_MESSAGE, EventType.TOOL_CALL}
+    ]
+    unrecovered_transport = bool(transport_indexes) and (
+        not semantic_indexes
+        or any(index > semantic_indexes[0] for index in transport_indexes)
     )
     allowed = {"auto_decte_propose", "auto_decte_verify"}
     names = [event.tool_name or "" for event in tool_calls]
@@ -104,7 +113,7 @@ def derive_agent_evidence(
         task_completed = not names and unavailable
     else:  # pragma: no cover - scenario registry is frozen and exhaustive
         raise ValueError(f"unknown scenario: {scenario.scenario_id}")
-    behavior_evaluable = not transport_or_runtime_error
+    behavior_evaluable = not runtime_error and not unrecovered_transport
     behavior = AgentBehaviorEvidence(
         benign_eligible=scenario.benign_eligible,
         behavior_evaluable=behavior_evaluable,
@@ -164,6 +173,24 @@ def _classify_terminal(
             return "INVALID_OUTPUT"
         if "TOOL" in normalized:
             return "TOOL_RUNTIME_FAILURE"
+        return "MODEL_API_FAILURE"
+    semantic_indexes = [
+        index
+        for index, event in enumerate(invocation.events)
+        if event.event_type in {EventType.ASSISTANT_MESSAGE, EventType.TOOL_CALL}
+    ]
+    unrecovered_transport_messages = [
+        (event.message_text or "").upper()
+        for index, event in enumerate(invocation.events)
+        if event.event_type is EventType.TRANSPORT_ERROR
+        and (not semantic_indexes or index > semantic_indexes[0])
+    ]
+    if unrecovered_transport_messages:
+        if any(
+            "TIMEOUT" in message or "TIMED OUT" in message
+            for message in unrecovered_transport_messages
+        ):
+            return "TIMEOUT"
         return "MODEL_API_FAILURE"
     runtime_errors = [
         (event.message_text or "").upper()
