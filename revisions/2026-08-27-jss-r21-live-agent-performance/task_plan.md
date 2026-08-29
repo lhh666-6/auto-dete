@@ -98,13 +98,15 @@ without changing the frozen R17--R19 evidence or overstating the new results.
 - [x] Execute deterministic real-boundary tests for all fourteen legal/invalid host challenges,
   including separate candidate/authority digests and the prepare/execute protocol.
 - [ ] Complete normalization, statistics, and artifact generation (all fourteen scenarios, all
-  three final prompts, the immutable ledger, and deterministic 112-run dry-run validation are done).
+  three final prompts, the immutable ledger, append-only resume, exact primary intervals, manifest,
+  and deterministic 112-run dry-run validation are done; table/figure rendering remains).
 - [ ] Execute the 112-run non-citable pilot only after deterministic gates pass.
 - [ ] Decide the resource gate, freeze the qualified balanced matrix, and execute final only if all
   stop conditions pass.
 - [ ] Replace the old live-agent manuscript evidence, verify artifacts, and rerun submission gates.
 
-**Status:** v2 design approved; implementation authorized and entering the test-first local phase.
+**Status:** deterministic execution gate passed; four-configuration live connectivity diagnostics
+are next, before the non-citable 112-run pilot.
 
 ## Errors and constraints
 

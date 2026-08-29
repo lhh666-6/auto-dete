@@ -204,3 +204,14 @@
     cross-field binding failures, certificate-identity mismatch, evidence-form mismatch, stale
     version, authorized-value mismatch, initial-field-set mismatch, and unavailable capability.
     None of the ten invalid challenges changed the logical authority projection.
+55. A long-running benchmark needs two distinct failure treatments. Ordinary provider/adapter
+    exceptions are known failures and can be sealed immediately as terminal API/tool/timeout
+    classes. A process or power interruption leaves semantic progress unknown; resuming that run
+    would risk favorable rerun, so it is sealed as `INTERRUPTED_UNKNOWN`, never reinvoked, and
+    excluded from both authority and utility evaluable denominators while remaining in planned T.
+56. Exact-binomial outputs must be produced during normalization, not added while writing the
+    manuscript. JSON uses `null` rather than non-standard NaN when a one-sided zero-event bound is
+    inapplicable, and every primary endpoint carries its explicit denominator.
+57. Narrow connectivity diagnostics and the full 112-run Pilot require separate report identities.
+    A selector-narrowed execution now emits `DIAGNOSTIC_REPORT.md`; only exact coverage of the locked
+    Pilot ledger may emit `PILOT_REPORT.md` and `pilot-model-qualification.json`.

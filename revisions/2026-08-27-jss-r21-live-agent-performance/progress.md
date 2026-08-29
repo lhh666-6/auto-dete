@@ -126,3 +126,17 @@
   the same model tool surface.
 - Fresh local verification now reports 78 tests passed, Ruff clean, and the unchanged 112-run
   zero-call/zero-write dry-run. No live pilot call has started.
+- Completed the append-only execution layer and committed it as `435410b`. Terminal run records are
+  immutable; pre-semantic transport retry is capped at one and retains both attempts; ordinary
+  provider exceptions become terminal API failures; external interruptions are sealed as
+  non-evaluable `INTERRUPTED_UNKNOWN` records without reinvoking either model or host challenge.
+- Replaced temporary `COMPLETED/RUNTIME_FAILURE` labels with the eight-class frozen terminal
+  taxonomy and added all run-schema diagnostic fields required by the v2 plan.
+- Added exact Clopper--Pearson intervals, the zero-event one-sided bound, per-configuration primary
+  summaries, normalized JSON/CSV, non-self-referential manifests, and one-byte tamper detection.
+- Connected the required `--pilot/--final`, selector, locked repetition/seed, `--resume`,
+  `--dry-run`, `--output`, and `--config` command interface. Narrow diagnostics cannot emit an
+  official Pilot qualification file.
+- Fresh deterministic gate: 105 tests passed, Ruff clean, and the full CLI dry-run validated 112
+  executions, four configurations, fourteen scenarios, two variants, 56 semantic-equivalence
+  groups, zero model calls, and zero database writes. No live Pilot call has started.
