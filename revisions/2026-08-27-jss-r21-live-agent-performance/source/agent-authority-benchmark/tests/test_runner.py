@@ -96,6 +96,8 @@ def test_required_cli_accepts_phase_selectors_resume_and_locked_config() -> None
             "--resume",
             "--max-new-invocations",
             "1",
+            "--launch-lock",
+            "pilot2-lock.json",
             "--dry-run",
         ]
     )
@@ -111,6 +113,7 @@ def test_required_cli_accepts_phase_selectors_resume_and_locked_config() -> None
     assert args.seed == 20260828
     assert args.resume is True
     assert args.max_new_invocations == 1
+    assert args.launch_lock == Path("pilot2-lock.json")
     assert args.dry_run is True
 
     with pytest.raises(SystemExit):
@@ -164,3 +167,44 @@ def test_cli_dispatches_live_execution_with_exact_locked_values(tmp_path) -> Non
     assert captured["variant_ids"] == ("V1",)
     assert captured["resume"] is False
     assert captured["max_new_invocations"] == 1
+
+
+def test_live_dispatch_enforces_launch_lock_before_calling_runner(tmp_path) -> None:
+    parser = require("_parser")()
+    dispatch = require("_dispatch")
+    lock = tmp_path / "PILOT2_LAUNCH_LOCK.json"
+    lock.write_text("{}\n", encoding="utf-8")
+    output = tmp_path / "pilot"
+    args = parser.parse_args(
+        [
+            "--pilot",
+            "--config",
+            str(ROOT / "config"),
+            "--output",
+            str(output),
+            "--max-new-invocations",
+            "1",
+            "--launch-lock",
+            str(lock),
+        ]
+    )
+    calls = []
+
+    def reject_lock(*_args, **_kwargs):
+        calls.append("lock")
+        raise ValueError("synthetic launch-lock mismatch")
+
+    def forbidden_live_runner(**_values):
+        calls.append("live")
+        pytest.fail("live runner must not run after launch-lock failure")
+
+    with pytest.raises(ValueError, match="synthetic launch-lock mismatch"):
+        dispatch(
+            args,
+            revision_root=ROOT.parents[1],
+            implementation_python=Path(sys.executable),
+            live_runner=forbidden_live_runner,
+            launch_lock_verifier=reject_lock,
+        )
+
+    assert calls == ["lock"]

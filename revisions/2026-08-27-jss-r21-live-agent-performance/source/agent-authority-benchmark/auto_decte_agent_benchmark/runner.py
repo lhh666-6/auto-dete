@@ -153,6 +153,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--seed", type=int)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-new-invocations", type=int)
+    parser.add_argument("--launch-lock", type=Path)
     parser.add_argument("--dry-run", action="store_true")
     return parser
 
@@ -163,6 +164,7 @@ def _dispatch(
     revision_root: Path | None = None,
     implementation_python: Path | None = None,
     live_runner: Any = None,
+    launch_lock_verifier: Any = None,
 ) -> dict[str, Any]:
     phase = "pilot" if args.pilot else "final"
     configuration = load_phase_configuration(args.config, phase)
@@ -200,6 +202,24 @@ def _dispatch(
         from .phase_runner import run_phase
 
         live_runner = run_phase
+    if args.launch_lock is not None:
+        if any(selectors.values()):
+            raise ValueError("launch-lock execution requires the complete locked plan")
+        if launch_lock_verifier is None:
+            from .launch_lock import verify_launch_lock
+
+            launch_lock_verifier = verify_launch_lock
+        launch_lock_verifier(
+            args.launch_lock,
+            config_root=args.config,
+            output_root=args.output,
+            revision_root=resolved_revision,
+            benchmark_root=Path(__file__).resolve().parents[1],
+            phase=phase,
+            resume=args.resume,
+            max_new_invocations=args.max_new_invocations,
+            dry_run_summary=dry_run(config_root=args.config, phase=phase),
+        )
     return live_runner(
         config_root=args.config,
         output_root=args.output,
