@@ -247,3 +247,11 @@
 - Fresh offline gate: 148 tests passed, Ruff reported no findings, and the complete Pilot dry-run
   validated 112 executions, four configurations, fourteen scenarios, two variants, 56 semantic
   equivalence groups, zero model calls, and zero database writes. Pilot-2 has not started.
+- Reverified Pilot-1's original manifest with zero differences. Wrote a separate Pilot-1 resource
+  disposition whose computed result exactly matches the gate implementation: `BLOCK`, qualified
+  set `[D1]`, missing OpenAI provider family, provider credit unconfirmed, and zero authorized Final
+  executions. Its own non-self-referential manifest verifies.
+- Committed the repaired quota-aware benchmark as `1d66f77d2937be7ac25a00eed3a0238348750cc1`.
+  The Pilot-2 preflight lock binds that commit and tree, all four config hashes, 55 selected
+  implementation source files, Python/Codex versions, the 112-run plan hash, zero retry, and the
+  unique absent output root. Its preflight verification and manifest both pass without model calls.

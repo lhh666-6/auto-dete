@@ -141,12 +141,16 @@ authorized until quota recovers.
   a second provider call.
 - [x] Re-run all 148 deterministic tests, Ruff, and the complete 112-run dry-run gate with zero
   model calls.
+- [x] Verify Pilot-1's original manifest, record its exact cross-provider resource-gate `BLOCK`
+  outside the immutable Pilot root, and manifest that disposition.
+- [x] Bind Pilot-2 to commit `1d66f77`, the clean benchmark tree, four config hashes, 55
+  implementation source files, the 112-run ledger hash, and one absent unique output root.
 - [ ] Start the unique Pilot-2 root only after an OpenAI quota reset is confirmed; execute G1/G2
   coordinates one call per reset/checkpoint and never overwrite a terminal result.
 - [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider
   families pass the frozen gates.
 
-**Status:** Pilot-2 is technically ready but has not started. The next live action is exactly one
+**Status:** Pilot-2 preflight verifies `PASS` but the output root remains absent. The next live action is exactly one
 OpenAI coordinate after confirmed quota recovery; all work completed in this phase so far was
 offline and consumed no GPT benchmark quota.
 

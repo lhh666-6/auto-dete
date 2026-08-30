@@ -286,3 +286,12 @@
 64. The repaired offline gate is 148 passing tests plus Ruff clean. The unchanged full Pilot ledger
     hash is `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`;
     dry-run validation performs zero model calls and zero database writes.
+65. Pilot-1's original manifest still verifies with no missing, extra, or changed file. Its computed
+    resource result is necessarily `BLOCK`: D1 is the only qualified configuration, so the required
+    OpenAI family is absent; provider credit is also not confirmed. This disposition is stored in a
+    new separately manifested resource-gate directory, not inside Pilot-1.
+66. Pilot-2 is bound before execution to benchmark commit `1d66f77`, Git tree `63301fbb`, four
+    config SHA-256 values, 55 implementation-source hashes, and run-plan SHA-256
+    `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`.
+    Preflight verification confirms the planned output root does not yet exist and performs zero
+    model calls.
