@@ -94,6 +94,8 @@ def test_required_cli_accepts_phase_selectors_resume_and_locked_config() -> None
             "--seed",
             "20260828",
             "--resume",
+            "--max-new-invocations",
+            "1",
             "--dry-run",
         ]
     )
@@ -108,6 +110,7 @@ def test_required_cli_accepts_phase_selectors_resume_and_locked_config() -> None
     assert args.repetitions == 1
     assert args.seed == 20260828
     assert args.resume is True
+    assert args.max_new_invocations == 1
     assert args.dry_run is True
 
     with pytest.raises(SystemExit):
@@ -135,6 +138,8 @@ def test_cli_dispatches_live_execution_with_exact_locked_values(tmp_path) -> Non
             "1",
             "--seed",
             "20260828",
+            "--max-new-invocations",
+            "1",
         ]
     )
     captured = {}
@@ -158,3 +163,4 @@ def test_cli_dispatches_live_execution_with_exact_locked_values(tmp_path) -> Non
     assert captured["scenario_ids"] == ("B1",)
     assert captured["variant_ids"] == ("V1",)
     assert captured["resume"] is False
+    assert captured["max_new_invocations"] == 1

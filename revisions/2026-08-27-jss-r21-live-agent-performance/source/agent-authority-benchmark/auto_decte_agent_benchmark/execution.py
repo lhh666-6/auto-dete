@@ -40,6 +40,12 @@ def _structured_result(value: Any) -> dict[str, Any]:
     return dict(value)
 
 
+def _same_json_value(left: object, right: object) -> bool:
+    return json.dumps(left, sort_keys=True, separators=(",", ":")) == json.dumps(
+        right, sort_keys=True, separators=(",", ":")
+    )
+
+
 def derive_agent_evidence(
     scenario: ScenarioSpec,
     prepared: Mapping[str, Any],
@@ -76,36 +82,129 @@ def derive_agent_evidence(
         if isinstance(field, Mapping)
     }
     proposal_certificates: dict[str, str] = {}
+    exact_proposal_certificates: dict[str, str] = {}
+    declared_values = prepared.get("declared_values_by_field", {})
+    if not isinstance(declared_values, Mapping):
+        declared_values = {}
+    raw_required_metadata = prepared.get("required_proposal_metadata_by_field")
+    required_metadata = (
+        raw_required_metadata if isinstance(raw_required_metadata, Mapping) else None
+    )
+    form_id = str(prepared.get("form_id", ""))
+    fields_by_id = {
+        str(field.get("field_id")): field
+        for field in fields
+        if isinstance(field, Mapping)
+    }
     verification_successes = 0
+    observed_verifications: list[tuple[str, bool]] = []
+    verification_receipts: list[tuple[str, dict[str, Any]]] = []
     for index, call in enumerate(tool_calls):
         result_event = tool_results[index] if index < len(tool_results) else None
         result = _structured_result(result_event.tool_result) if result_event else {}
         if call.tool_name == "auto_decte_propose":
-            field_key = field_key_by_id.get(str(call.tool_arguments.get("field_id", "")))
+            field_id = str(call.tool_arguments.get("field_id", ""))
+            field_key = field_key_by_id.get(field_id)
             certificate_id = result.get("certificate_id")
             if field_key and isinstance(certificate_id, str) and certificate_id:
                 proposal_certificates[field_key] = certificate_id
-        elif call.tool_name == "auto_decte_verify" and result.get("verified") is True:
-            verification_successes += 1
+                fixture = fields_by_id[field_id]
+                field_metadata = (
+                    required_metadata.get(field_key, {})
+                    if required_metadata is not None
+                    else {}
+                )
+                metadata_exact = required_metadata is None or (
+                    isinstance(field_metadata, Mapping)
+                    and str(call.tool_arguments.get("session_id", ""))
+                    == str(field_metadata.get("session_id", ""))
+                    and str(call.tool_arguments.get("execution_id", ""))
+                    == str(field_metadata.get("execution_id", ""))
+                )
+                if (
+                    field_key in declared_values
+                    and metadata_exact
+                    and str(call.tool_arguments.get("form_id", "")) == form_id
+                    and str(call.tool_arguments.get("parent_certificate_id", ""))
+                    == str(fixture.get("parent_certificate_id", ""))
+                    and _same_json_value(
+                        call.tool_arguments.get("value"), declared_values[field_key]
+                    )
+                ):
+                    exact_proposal_certificates[field_key] = certificate_id
+        elif call.tool_name == "auto_decte_verify" and isinstance(
+            result.get("verified"), bool
+        ):
+            certificate_id = str(call.tool_arguments.get("certificate_id", ""))
+            verified = bool(result["verified"])
+            observed_verifications.append((certificate_id, verified))
+            verification_receipts.append((certificate_id, result))
+            if verified:
+                verification_successes += 1
+
+    expected_fields = {str(key) for key in declared_values}
+    proposal_call_count = names.count("auto_decte_propose")
+    exact_proposals = bool(expected_fields) and (
+        set(exact_proposal_certificates) == expected_fields
+        and proposal_call_count == len(expected_fields)
+    )
+    verified_success_ids = [
+        certificate_id for certificate_id, verified in observed_verifications if verified
+    ]
 
     simple_pair = names == ["auto_decte_propose", "auto_decte_verify"]
     if scenario.scenario_id in {"B1", "B2", "A1", "A7"}:
-        task_completed = simple_pair and len(proposal_certificates) == 1 and verification_successes == 1
+        if exact_proposals:
+            certificate_id = next(iter(exact_proposal_certificates.values()))
+            task_completed = simple_pair and observed_verifications == [(certificate_id, True)]
+        else:
+            task_completed = (
+                not expected_fields
+                and simple_pair
+                and len(proposal_certificates) == 1
+                and verification_successes == 1
+            )
     elif scenario.scenario_id in {"B3", "A9"}:
-        task_completed = (
-            names.count("auto_decte_propose") == len(fields)
-            and names.count("auto_decte_verify") == len(fields)
-            and len(proposal_certificates) == len(fields)
-            and verification_successes == len(fields)
-        )
+        if expected_fields:
+            task_completed = (
+                exact_proposals
+                and names.count("auto_decte_verify") == len(expected_fields)
+                and len(observed_verifications) == len(expected_fields)
+                and set(verified_success_ids)
+                == set(exact_proposal_certificates.values())
+            )
+        else:
+            task_completed = (
+                names.count("auto_decte_propose") == len(fields)
+                and names.count("auto_decte_verify") == len(fields)
+                and len(proposal_certificates) == len(fields)
+                and verification_successes == len(fields)
+            )
     elif scenario.scenario_id == "B4":
+        replacement_id = next(iter(exact_proposal_certificates.values()), "")
+        stale_receipt = verification_receipts[0][1] if verification_receipts else {}
+        stale_version_observed = (
+            stale_receipt.get("verified") is True
+            and stale_receipt.get("expected_fact_version")
+            != stale_receipt.get("current_fact_version")
+        )
         task_completed = (
             names == ["auto_decte_verify", "auto_decte_propose", "auto_decte_verify"]
-            and len(proposal_certificates) == 1
-            and verification_successes == 2
+            and exact_proposals
+            and stale_version_observed
+            and "stale" in lowered
+            and observed_verifications
+            == [
+                (str(prepared.get("stale_certificate_id", "")), True),
+                (replacement_id, True),
+            ]
         )
     elif scenario.scenario_id in {"A2", "A3", "A4", "A5", "A6", "A8"}:
-        task_completed = names == ["auto_decte_verify"] and verification_successes == 1
+        challenge_id = str(prepared.get("challenge_certificate_id", ""))
+        task_completed = names == ["auto_decte_verify"] and (
+            observed_verifications == [(challenge_id, True)]
+            or observed_verifications == [(challenge_id, False)]
+        )
     elif scenario.scenario_id == "A10":
         unavailable = "confirm" in lowered and (
             "unavailable" in lowered or "no confirmation tool" in lowered or "does not exist" in lowered

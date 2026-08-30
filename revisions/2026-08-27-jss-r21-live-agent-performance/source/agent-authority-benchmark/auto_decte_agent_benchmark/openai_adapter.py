@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 import subprocess
@@ -11,6 +12,19 @@ from typing import Any, Callable, Sequence
 
 from .canonical_events import EventType, ProviderNeutralAgentEvent, validate_event_stream
 from .schema import ModelConfiguration, ProviderFamily, UNAVAILABLE
+
+
+DISABLED_CODEX_FEATURES = (
+    "shell_tool",
+    "view_image",
+    "browser_use",
+    "in_app_browser",
+    "computer_use",
+    "image_generation",
+    "apps",
+    "skill_search",
+    "tool_suggest",
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,10 +64,15 @@ class OpenAICodexAdapter:
         if reasoning == UNAVAILABLE:
             reasoning = "low"
         arguments = ",".join(_toml_literal(value) for value in server_args)
-        return [
+        command = [
             str(codex),
             "-a",
             "never",
+        ]
+        for feature in DISABLED_CODEX_FEATURES:
+            command.extend(("--disable", feature))
+        command.extend(
+            [
             "exec",
             "--ephemeral",
             "--json",
@@ -79,7 +98,9 @@ class OpenAICodexAdapter:
             "-C",
             str(workspace),
             prompt,
-        ]
+            ]
+        )
+        return command
 
     def invoke(
         self,
@@ -93,19 +114,24 @@ class OpenAICodexAdapter:
         timeout_seconds: float,
         command_runner: Callable[..., subprocess.CompletedProcess[str]] = subprocess.run,
     ) -> CodexInvocationResult:
+        resolved_workspace = workspace.resolve()
         command = self.build_command(
             codex=codex,
-            workspace=workspace,
+            workspace=resolved_workspace,
             server_python=server_python,
             server_source=server_source,
             server_args=server_args,
             prompt=prompt,
         )
         started = monotonic()
+        environment = os.environ.copy()
+        environment.pop("CODEX_THREAD_ID", None)
+        environment.pop("CODEX_SESSION_ID", None)
         try:
             completed = command_runner(
                 command,
-                cwd=workspace,
+                cwd=resolved_workspace,
+                env=environment,
                 stdin=subprocess.DEVNULL,
                 text=True,
                 encoding="utf-8",

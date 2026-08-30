@@ -557,7 +557,10 @@ taxonomy, source/config identities, and artifact lineage.
 
 ## 14. Retry policy
 
-The frozen default is `max_transport_retry = 1`.
+The originally approved default was `max_transport_retry = 1`. For the repaired Pilot-2 and any
+Final derived from it, the later user-imposed quota constraint supersedes that value with the
+provider-symmetric `max_transport_retry = 0`; see
+`BENCHMARK_EXECUTION_AMENDMENT_2026-08-31.md`. Pilot-1 retains its original frozen value.
 
 - Retry is allowed only for a classified transient transport failure before any semantic execution
   (no assistant message and no tool call).

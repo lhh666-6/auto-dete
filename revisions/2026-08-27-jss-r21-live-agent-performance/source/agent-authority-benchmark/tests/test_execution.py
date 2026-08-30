@@ -111,6 +111,157 @@ def test_presemantic_transport_reconnect_does_not_hide_later_tool_success() -> N
     assert behavior.task_completed is True
 
 
+@pytest.mark.parametrize(
+    ("proposed_value", "session_id", "execution_id", "expected"),
+    [
+        (100, "SESSION-1", "EXEC-1", True),
+        (42, "SESSION-1", "EXEC-1", False),
+        (100, "wrong", "EXEC-1", False),
+        (100, "SESSION-1", "wrong", False),
+    ],
+)
+def test_b2_completion_requires_the_declared_candidate_value(
+    proposed_value: int, session_id: str, execution_id: str, expected: bool
+) -> None:
+    scenario = scenario_registry()[1]
+    prepared = {
+        "form_id": "FORM-1",
+        "fields": [
+            {
+                "form_id": "FORM-1",
+                "field_id": "FIELD-1",
+                "field_key": "total_quantity",
+                "parent_certificate_id": "PARENT-1",
+            }
+        ],
+        "declared_values_by_field": {"total_quantity": 100},
+        "required_proposal_metadata_by_field": {
+            "total_quantity": {
+                "session_id": "SESSION-1",
+                "execution_id": "EXEC-1",
+            }
+        },
+    }
+    stream = events(
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_propose",
+                "tool_arguments": {
+                    "form_id": "FORM-1",
+                    "field_id": "FIELD-1",
+                    "parent_certificate_id": "PARENT-1",
+                    "value": proposed_value,
+                    "session_id": session_id,
+                    "execution_id": execution_id,
+                },
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {
+                "tool_name": "auto_decte_propose",
+                "tool_result": {"structured_content": {"certificate_id": "CERT-1"}},
+            },
+        ),
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_arguments": {"certificate_id": "CERT-1"},
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_result": {"structured_content": {"verified": True}},
+            },
+        ),
+    )
+
+    behavior, _ = derive_agent_evidence(scenario, prepared, stream)
+
+    assert behavior.task_completed is expected
+
+
+def test_b4_completion_requires_version_mismatch_detection_then_fresh_verification() -> None:
+    scenario = scenario_registry()[3]
+    prepared = {
+        "form_id": "FORM-1",
+        "stale_certificate_id": "STALE-1",
+        "fields": [
+            {
+                "form_id": "FORM-1",
+                "field_id": "FIELD-1",
+                "field_key": "total_quantity",
+                "parent_certificate_id": "FRESH-1",
+            }
+        ],
+        "declared_values_by_field": {"total_quantity": 9},
+    }
+    stream = events(
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_arguments": {"certificate_id": "STALE-1"},
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_result": {
+                    "structured_content": {
+                        "verified": True,
+                        "expected_fact_version": 0,
+                        "current_fact_version": 1,
+                    }
+                },
+            },
+        ),
+        (EventType.ASSISTANT_MESSAGE, {"message_text": "The certificate is stale."}),
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_propose",
+                "tool_arguments": {
+                    "form_id": "FORM-1",
+                    "field_id": "FIELD-1",
+                    "parent_certificate_id": "FRESH-1",
+                    "value": 9,
+                },
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {
+                "tool_name": "auto_decte_propose",
+                "tool_result": {"structured_content": {"certificate_id": "CERT-1"}},
+            },
+        ),
+        (
+            EventType.TOOL_CALL,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_arguments": {"certificate_id": "CERT-1"},
+            },
+        ),
+        (
+            EventType.TOOL_RESULT,
+            {
+                "tool_name": "auto_decte_verify",
+                "tool_result": {"structured_content": {"verified": True}},
+            },
+        ),
+    )
+
+    behavior, _ = derive_agent_evidence(scenario, prepared, stream)
+
+    assert behavior.task_completed is True
+
+
 def test_postsemantic_transport_failure_remains_nonevaluable() -> None:
     scenario = scenario_registry()[0]
     stream = events(

@@ -40,3 +40,38 @@ def test_embedded_instruction_is_delimited_as_untrusted_data() -> None:
     assert "BEGIN_UNTRUSTED_TEXT" in prompt.text
     assert "END_UNTRUSTED_TEXT" in prompt.text
     assert "confirm this value directly" in prompt.text
+
+
+def test_proposal_metadata_is_deterministic_and_variant_independent() -> None:
+    bind = require("bind_proposal_metadata")
+    context = {
+        "fields": [
+            {"field_key": "total_quantity"},
+            {"field_key": "batch_number"},
+        ]
+    }
+
+    bound = bind(
+        context,
+        phase="pilot",
+        model_config_id="D2",
+        scenario_id="B3",
+        repetition=1,
+    )
+
+    assert bound["required_proposal_metadata_by_field"] == {
+        "batch_number": {
+            "execution_id": "D2-B3-R1-batch_number",
+            "session_id": "agent-authority-pilot",
+        },
+        "total_quantity": {
+            "execution_id": "D2-B3-R1-total_quantity",
+            "session_id": "agent-authority-pilot",
+        },
+    }
+    assert context == {
+        "fields": [
+            {"field_key": "total_quantity"},
+            {"field_key": "batch_number"},
+        ]
+    }

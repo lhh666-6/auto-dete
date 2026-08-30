@@ -105,8 +105,50 @@ without changing the frozen R17--R19 evidence or overstating the new results.
   stop conditions pass.
 - [ ] Replace the old live-agent manuscript evidence, verify artifacts, and rerun submission gates.
 
-**Status:** deterministic execution gate passed; four-configuration live connectivity diagnostics
-are next, before the non-citable 112-run pilot.
+**Status:** the deterministic gate passes with 140 tests and Ruff clean. The unique non-citable
+112-run Pilot remains append-only after two test-first repairs: just-in-time certificate setup and
+exact declared-value/verification utility postconditions. All pre-repair terminal/interrupted
+records remain non-citable; G1 is necessarily excluded from qualification by its preserved B1
+interruption, so pre-repair records cannot enter the Final roster.
+
+### Phase 9 — quota-independent completion while Pilot is paused
+
+- [x] Add result-table and publication-figure rendering from normalized benchmark summaries,
+  test-first, without consuming Pilot or diagnostic evidence.
+- [x] Add and verify a frozen, pre-result resource-gate template that cannot select repetitions
+  from scientific outcomes.
+- [x] Audit and seal the interrupted Pilot run directory under the existing append-only resume
+  contract; do not invoke a model or host challenge.
+- [x] Run the complete deterministic benchmark suite, Ruff, dry-run ledger validation, manifest
+  tamper checks, and config/source hash checks.
+- [x] Prepare the exact resume command and offline checklist; do not start or duplicate Pilot while
+  `/goal` remains `usageLimited`.
+- [x] Synchronize `README.md`, `progress.md`, and `findings.md` with the paused execution state and
+  completed offline gates.
+
+**Status:** completed; all identified quota-independent work is closed. No live model execution is
+authorized until quota recovers.
+
+### Phase 10 — quota-aware Pilot-2 recovery
+
+- [x] Preserve the completed 112-run Pilot-1 and its failed cross-provider qualification gate.
+- [x] Repair DeepSeek tool-error recovery, OpenAI tool-surface isolation, absolute workspace
+  resolution, and deterministic proposal metadata without modifying Pilot-1.
+- [x] Prove G1/G2 and D1/D2 connectivity through separate non-citable diagnostics.
+- [x] Add append-only `--max-new-invocations 1` execution so each command advances exactly one
+  missing coordinate and stops without premature normalization.
+- [x] Make the frozen zero-retry policy executable so one quota-limited run cannot silently consume
+  a second provider call.
+- [x] Re-run all 148 deterministic tests, Ruff, and the complete 112-run dry-run gate with zero
+  model calls.
+- [ ] Start the unique Pilot-2 root only after an OpenAI quota reset is confirmed; execute G1/G2
+  coordinates one call per reset/checkpoint and never overwrite a terminal result.
+- [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider
+  families pass the frozen gates.
+
+**Status:** Pilot-2 is technically ready but has not started. The next live action is exactly one
+OpenAI coordinate after confirmed quota recovery; all work completed in this phase so far was
+offline and consumed no GPT benchmark quota.
 
 ## Errors and constraints
 
@@ -118,3 +160,7 @@ are next, before the non-citable 112-run pilot.
 | New benchmark request conflicts with the preceding no-new-large-experiment instruction | The later attached request explicitly defines a multi-model repeated benchmark and says to begin with a plan only | Treat the attached request as the new scope; create only the implementation plan and await approval before implementation. |
 | v1 assumed three Codex-requested configurations | The approved v2 requires two GPT/OpenAI plus two DeepSeek configurations | Preserve v1 as history; implement only the provider-neutral v2 design. |
 | DS API catalog presence does not prove tool compatibility | Three identifiers were discoverable, but none is qualified by catalog listing alone | Qualify D1/D2 through the same text-only two-tool pilot; do not fill slots with mocks or an incompatible experimental model. |
+| Codex goal entered `usageLimited` during the 112-run Pilot | Pilot output has one terminal run and one interrupted run directory; no benchmark process remains | Preserve the exact output root, complete only quota-independent work, and later resume with `--resume`; never start a second Pilot. |
+| First reporting integration patch used an incorrect import-context anchor | `apply_patch` rejected atomically; no partial edit occurred | Inspected the actual import block, applied a surgical patch, and passed the complete-Final integration test. |
+| First pause-audit hash command used invalid PowerShell inline `if` syntax | The command reported the syntax error and produced no file mutation | Rewrote conditional values as subexpressions, then captured the exact hashes successfully. |
+| First multi-file status patch matched stale README context | `apply_patch` rejected atomically; no partial edit occurred | Split the update into small file-specific patches using current context. |

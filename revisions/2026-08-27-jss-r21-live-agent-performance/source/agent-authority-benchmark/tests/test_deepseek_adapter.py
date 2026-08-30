@@ -184,6 +184,70 @@ def test_deepseek_invoke_executes_tool_loop_and_retains_every_round() -> None:
     assert [event.event_type.value for event in result.events].count("TOOL_RESULT") == 1
 
 
+def test_deepseek_tool_error_is_returned_to_model_and_raw_rounds_are_retained() -> None:
+    adapter = require("DeepSeekAdapter")(config())
+    requests: list[dict] = []
+    responses = iter(
+        (
+            {
+                "id": "m1",
+                "model": "deepseek-v4-pro",
+                "stop_reason": "tool_use",
+                "content": [
+                    {
+                        "type": "tool_use",
+                        "id": "toolu-bad",
+                        "name": "auto_decte_propose",
+                        "input": {"field_id": "wrong"},
+                    }
+                ],
+            },
+            {
+                "id": "m2",
+                "model": "deepseek-v4-pro",
+                "stop_reason": "end_turn",
+                "content": [{"type": "text", "text": "The proposal was rejected."}],
+            },
+        )
+    )
+
+    def fake_send(payload: dict, _timeout_seconds: float) -> dict:
+        requests.append(payload)
+        return next(responses)
+
+    def rejected_tool(_name: str, _arguments: dict) -> dict:
+        raise RuntimeError("BENCHMARK_BRIDGE_REJECTED:ValueError:field_id is invalid")
+
+    result = adapter.invoke(
+        prompt="bounded prompt",
+        tool_executor=rejected_tool,
+        request_sender=fake_send,
+        timeout_seconds=20.0,
+    )
+
+    assert result.returncode == 0
+    assert len(result.raw_responses) == 2
+    assert requests[1]["messages"][-1]["content"] == [
+        {
+            "type": "tool_result",
+            "tool_use_id": "toolu-bad",
+            "content": (
+                '{"error":{"message":"BENCHMARK_BRIDGE_REJECTED:ValueError:'
+                'field_id is invalid","type":"RuntimeError"},"ok":false}'
+            ),
+            "is_error": True,
+        }
+    ]
+    tool_result = next(event for event in result.events if event.event_type.value == "TOOL_RESULT")
+    assert tool_result.tool_result == {
+        "ok": False,
+        "error": {
+            "type": "RuntimeError",
+            "message": "BENCHMARK_BRIDGE_REJECTED:ValueError:field_id is invalid",
+        },
+    }
+
+
 def test_deepseek_tool_loop_rejects_unknown_tool_without_executing_it() -> None:
     adapter = require("DeepSeekAdapter")(config())
     response = {

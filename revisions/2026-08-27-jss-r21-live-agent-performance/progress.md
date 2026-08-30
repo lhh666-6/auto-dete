@@ -1,5 +1,75 @@
 # AUTO-DECTE R21 progress
 
+## 2026-08-30 — Pilot resume defect found and repaired
+
+- Resumed the unique append-only Pilot after `/goal` returned to `active`; no duplicate phase root
+  or benchmark process was created.
+- The first new B2 legal-correction run preserved a `HARNESS_FAILURE`: its live proposal and
+  verification succeeded, but the trusted host reported `INCOMPLETE_LINEAGE` with authority-state
+  stutter.
+- Traced the failure to phase-wide setup caching. Scenario certificates have a one-hour production
+  age bound, and the quota pause made the cached fresh-parent certificate expire before resume.
+- Added a witnessed failing orchestration test, changed only missing-run setup to just-in-time
+  preparation, and added a regression proving both candidate values 100 and 42 can be legally
+  corrected to the human-authorized value.
+- Fresh post-repair gate: 126 tests passed and Ruff is clean. Added an append-only
+  `PILOT_REPAIR_LEDGER.md`; the failed and interrupted Pilot records remain preserved and non-citable.
+- Resumed the same Pilot root. Existing terminal records are skipped, the newly interrupted B2/V2
+  record is sealed `INTERRUPTED_UNKNOWN`, and execution continues only for absent run IDs.
+- Stopped again after observing that live prompts omitted the frozen declared values and utility
+  scoring checked tool order without the required scenario-specific value postconditions. The
+  active run was retained rather than rerun.
+- Added explicit declared/authorized/attempted value maps, exact proposal-tuple and certificate
+  verification scoring, and correct stale-false/fresh-true B4 semantics. Deterministic and live
+  scenario builders now share one value registry. Fresh gate: 133 tests passed; Ruff is clean.
+- The immutable pre-repair records belong only to G1, which already cannot qualify because B1/V2
+  is `INTERRUPTED_UNKNOWN`; they therefore cannot enter the qualified Final roster.
+- A repaired-context B4 run exposed the tool's real stale semantics: content verification returns
+  true while `expected_fact_version != current_fact_version`. Updated the scorer to require that
+  mismatch, an explicit stale observation, exact replacement proposal, and successful fresh
+  verification. The immutable old score stays in non-qualifying G1; fresh gate: 134 tests, Ruff clean.
+- Stopped during A6 after detecting that A2--A5 live mechanism receipts used `KEYERROR` rather than
+  their frozen structural rejection codes. The negative driver had incorrectly read host tuple IDs
+  from agent-derived evidence. Changed A2/A3/A4/A5/A6/A8 to use only host-prepared tuples; A7/A9
+  already did. Eight no-agent mechanism regressions now prove exact rejection codes and authority
+  stutter. Fresh gate: 140 tests, Ruff clean.
+
+## 2026-08-29 — quota pause and offline completion gate
+
+- Started the unique non-citable 112-run Pilot in
+  `evidence/agent-authority-benchmark-v2/pilot/2026-08-29-pilot-1` only after the deterministic and
+  connectivity gates passed.
+- The Codex goal entered `usageLimited` after one terminal run. The exact six-process benchmark
+  tree was stopped, the partially created second run directory was retained, and a follow-up check
+  confirmed zero real benchmark processes.
+- No Pilot manifest exists yet, no alternate Pilot was created, and no R17/R18/R19/R21 evidence was
+  overwritten, deleted, or cleaned.
+- User authorized completing all quota-independent work. Phase 9 now covers rendering, offline
+  integrity checks, resource-gate preparation, deterministic regression, documentation, and exact
+  resume preparation; live execution remains paused.
+- Added two paper-facing tables that keep agent behavior and trusted-host mechanism challenges
+  logically separate, plus a two-panel behavior-versus-authority figure with exact-binomial
+  intervals. Final rendering is gated to a complete locked Final plan; Pilot and diagnostics reject.
+- The renderer exports editable SVG, vector PDF, and 300-dpi PNG. Fixture QA found and fixed one
+  boundary-label overlap. Final inspection found 27 editable SVG text nodes, zero SVG/PDF raster
+  images, embedded Unicode Arial fonts, and a 300-dpi preview.
+- Froze `config/resource-policy.json`: balanced 10/default or 5/fallback only, 72-hour expected
+  serial wall-time ceiling, 5% runtime-failure ceiling, both provider families and confirmed credit
+  required, and scientific outcome fields prohibited. Five resource-gate tests pass.
+- Added Final configuration and source-freeze builders. They refuse an existing output, require a
+  passing uncontaminated resource gate, retain an honest qualified roster, enforce three variants
+  and balanced repetitions, emit non-self-referential hashes, and detect a one-byte mutation. Five
+  freeze tests pass.
+- Added the resource policy byte-for-byte to the active Pilot frozen-config. Sealed the incomplete
+  second run as `INTERRUPTED_UNKNOWN` with no model or host reinvocation and wrote `PAUSE_AUDIT.md`
+  with exact hashes and resume command.
+- Fresh offline gate: 118 tests passed (one third-party forward-reference warning), Ruff clean, and
+  the 112-run dry-run reports four configurations, fourteen scenarios, two variants, 56 semantic
+  groups, zero model calls, zero database writes, and logical tool equivalence.
+- Added `README_REPRODUCE.md` and `MANUSCRIPT_UPDATE_NOTES.md`; the existing R21 README/handoff now
+  distinguish the completed historical six-case package from the still-noncitable repeated
+  benchmark extension.
+
 ## 2026-08-27
 
 - Copied 235 files / 26,288,961 bytes from the isolated R20 workspace into a new, non-overwriting
@@ -158,3 +228,22 @@
   benchmark process, a nonexistent target directory, a clean benchmark package, 109 passing tests,
   Ruff clean, and the unchanged 112-run plan hash `b837a096...`. The runner is serial and append-only;
   no duplicate Pilot process is permitted.
+
+## 2026-08-31 — quota-aware Pilot-2 preparation
+
+- Preserved Pilot-1 unchanged after its completed 112-run qualification gate failed to retain an
+  OpenAI family configuration; its outcomes remain diagnostic and non-citable.
+- Added deterministic proposal metadata, DeepSeek bridge-error recovery, OpenAI built-in-tool
+  suppression, child-environment isolation, and absolute workspace resolution. Separate diagnostics
+  confirmed that G1/G2 and D1/D2 can reach the same two-tool authority surface after these repairs.
+- Received the user's explicit resource constraint that OpenAI/GPT tests may need to run one at a
+  time across quota resets.
+- Added `--max-new-invocations 1` test-first. An incomplete command retains the full 112-coordinate
+  plan, writes one immutable terminal run and an append-only checkpoint, and emits no normalized
+  data, qualification, report, or manifest. Resume verifies the frozen inputs and skips terminal
+  coordinates.
+- Wired phase execution to the frozen retry policy and set the prospective Pilot-2 policy to zero
+  transport retries. A single logical coordinate therefore cannot consume a hidden second call.
+- Fresh offline gate: 148 tests passed, Ruff reported no findings, and the complete Pilot dry-run
+  validated 112 executions, four configurations, fourteen scenarios, two variants, 56 semantic
+  equivalence groups, zero model calls, and zero database writes. Pilot-2 has not started.

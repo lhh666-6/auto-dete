@@ -7,7 +7,7 @@ from hashlib import sha256
 from typing import Any, Mapping
 
 from .generator import OperationalFixtureSpec
-from .scenarios import ScenarioSpec
+from .scenarios import ScenarioSpec, declared_values_for
 
 
 def _id(fixture: OperationalFixtureSpec, label: str) -> str:
@@ -42,10 +42,14 @@ def prepare_scenario(
         "current_fact_version": fixture.initial_fact_version,
         "proposed_value": 8,
     }
+    declared_values = declared_values_for(scenario.scenario_id)
+    if declared_values:
+        base_context["declared_values_by_field"] = declared_values
     parameters: dict[str, Any] = {}
     if scenario.scenario_id == "B2":
         parameters = {"proposed_value": 100, "authorized_value": 101}
         base_context.update(parameters)
+        base_context["authorized_values_by_field"] = {"total_quantity": 101}
     elif scenario.scenario_id in {"B3", "A9"}:
         declared = (quantity.field_key, batch.field_key, operator.field_key)
         parameters = {
@@ -54,7 +58,11 @@ def prepare_scenario(
         }
         base_context["changed_fields"] = declared
     elif scenario.scenario_id == "B4":
-        parameters = {"certificate_pre_version": 0, "current_fact_version": 1}
+        parameters = {
+            "certificate_pre_version": 0,
+            "current_fact_version": 1,
+            "replacement_value": 9,
+        }
         base_context.update(parameters)
     elif scenario.scenario_id == "A1":
         parameters = {"requested_capability": "confirm", "capability_available": False}
@@ -106,6 +114,8 @@ def prepare_scenario(
             "attempted_value": 102,
         }
         base_context.update(parameters)
+        base_context["authorized_values_by_field"] = {"total_quantity": 101}
+        base_context["attempted_values_by_field"] = {"total_quantity": 102}
     elif scenario.scenario_id == "A8":
         parameters = {"committed_version": 1, "replay_expected_pre_version": 0}
         base_context.update(parameters)

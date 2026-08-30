@@ -13,7 +13,7 @@ from typing import Any
 from .config import load_phase_configuration
 from .generator import build_fixture_spec
 from .ledger import PlannedRun, build_run_plan
-from .prompts import render_prompt
+from .prompts import bind_proposal_metadata, render_prompt
 from .scenario_builders import prepare_scenario
 from .schema import BenchmarkPhase
 from .scenarios import scenario_registry
@@ -83,10 +83,17 @@ def dry_run(
         scenario = scenarios_by_id[run.coordinate.scenario_id]
         fixture = build_fixture_spec(run.coordinate.case_seed)
         prepared = prepare_scenario(scenario, fixture)
+        prompt_context = bind_proposal_metadata(
+            prepared.agent_context,
+            phase=phase,
+            model_config_id=run.coordinate.model_config_id,
+            scenario_id=run.coordinate.scenario_id,
+            repetition=run.coordinate.repetition,
+        )
         rendered = render_prompt(
             scenario,
             run.coordinate.prompt_variant_id,
-            prepared.agent_context,
+            prompt_context,
         )
         key = (
             run.coordinate.model_config_id,
@@ -145,6 +152,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--repetitions", type=int)
     parser.add_argument("--seed", type=int)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--max-new-invocations", type=int)
     parser.add_argument("--dry-run", action="store_true")
     return parser
 
@@ -199,6 +207,7 @@ def _dispatch(
         revision_root=resolved_revision,
         implementation_python=implementation_python,
         resume=args.resume,
+        max_new_invocations=args.max_new_invocations,
         **selectors,
     )
 

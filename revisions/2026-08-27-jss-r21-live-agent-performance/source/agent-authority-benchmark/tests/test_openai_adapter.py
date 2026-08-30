@@ -93,11 +93,27 @@ def test_codex_command_exposes_only_two_tools_and_frozen_reasoning() -> None:
     assert "enabled_tools=['auto_decte_propose','auto_decte_verify']" in joined
     assert "default_tools_approval_mode='approve'" in joined
     assert "-s read-only" in joined
+    for feature in (
+        "shell_tool",
+        "view_image",
+        "browser_use",
+        "in_app_browser",
+        "computer_use",
+        "image_generation",
+        "apps",
+        "skill_search",
+        "tool_suggest",
+    ):
+        assert command.count(feature) == 1
+        assert command[command.index(feature) - 1] == "--disable"
 
 
-def test_codex_invoke_retains_raw_output_stderr_and_latency(tmp_path) -> None:
+def test_codex_invoke_retains_raw_output_stderr_and_latency(tmp_path, monkeypatch) -> None:
     adapter = require("OpenAICodexAdapter")(config())
     observed: dict[str, object] = {}
+    monkeypatch.setenv("CODEX_THREAD_ID", "must-not-leak")
+    monkeypatch.setenv("CODEX_SESSION_ID", "must-not-leak")
+    monkeypatch.setenv("BENCHMARK_ENV_SENTINEL", "preserved")
 
     def fake_run(command, **kwargs):
         observed["command"] = command
@@ -127,3 +143,41 @@ def test_codex_invoke_retains_raw_output_stderr_and_latency(tmp_path) -> None:
     assert result.transport_error is None
     assert any(event.event_type.value == "MODEL_USAGE" for event in result.events)
     assert observed["kwargs"]["timeout"] == 12.0
+    assert "CODEX_THREAD_ID" not in observed["kwargs"]["env"]
+    assert "CODEX_SESSION_ID" not in observed["kwargs"]["env"]
+    assert observed["kwargs"]["env"]["BENCHMARK_ENV_SENTINEL"] == "preserved"
+
+
+def test_codex_invoke_resolves_relative_workspace_before_process_creation(
+    tmp_path, monkeypatch
+) -> None:
+    adapter = require("OpenAICodexAdapter")(config())
+    monkeypatch.chdir(tmp_path)
+    workspace = Path("agent-workspace")
+    workspace.mkdir()
+    observed: dict[str, object] = {}
+
+    def fake_run(command, **kwargs):
+        observed["command"] = command
+        observed["cwd"] = kwargs["cwd"]
+        return subprocess.CompletedProcess(
+            command,
+            0,
+            stdout=json.dumps({"type": "turn.completed", "usage": {}}),
+            stderr="",
+        )
+
+    adapter.invoke(
+        codex=Path("C:/tools/codex.exe"),
+        workspace=workspace,
+        server_python=Path("C:/python/python.exe"),
+        server_source=Path("C:/benchmark/source"),
+        server_args=("--run-root", "C:/runs/R1"),
+        prompt="bounded prompt",
+        timeout_seconds=12.0,
+        command_runner=fake_run,
+    )
+
+    assert Path(observed["cwd"]).is_absolute()
+    command = observed["command"]
+    assert Path(command[command.index("-C") + 1]).is_absolute()

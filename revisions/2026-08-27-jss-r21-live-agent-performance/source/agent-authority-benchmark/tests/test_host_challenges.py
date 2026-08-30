@@ -74,7 +74,10 @@ def test_adversarial_mechanism_self_tests_reject_with_authority_stutter(
     assert result["rejection_code"] == expected_code
 
 
-def test_prepare_and_execute_protocol_consumes_real_model_certificate(tmp_path: Path) -> None:
+@pytest.mark.parametrize("proposed_value", [100, 42])
+def test_prepare_and_execute_protocol_consumes_real_model_certificate(
+    tmp_path: Path, proposed_value: int
+) -> None:
     bridge = bridge_for(tmp_path, "B2-PROTOCOL")
     prepared = bridge.host("prepare-scenario", scenario_id="B2")
     field = prepared["fields"][0]
@@ -83,7 +86,7 @@ def test_prepare_and_execute_protocol_consumes_real_model_certificate(tmp_path: 
         form_id=field["form_id"],
         field_id=field["field_id"],
         parent_certificate_id=field["parent_certificate_id"],
-        value=100,
+        value=proposed_value,
         confidence=0.73,
         session_id="B2-PROTOCOL",
         execution_id="B2-PROTOCOL",
@@ -128,10 +131,63 @@ def test_prepare_and_execute_protocol_uses_preseeded_invalid_tuple(tmp_path: Pat
 
 
 @pytest.mark.parametrize(
-    ("scenario_id", "expected_code"),
-    [("A7", "AUTHORIZED_VALUE_MISMATCH"), ("A9", "INITIAL_FIELD_SET_MISMATCH")],
+    ("scenario_id", "expected_values"),
+    [
+        ("B1", {"total_quantity": 8}),
+        ("B2", {"total_quantity": 100}),
+        (
+            "B3",
+            {
+                "total_quantity": 8,
+                "batch_code": "B-008",
+                "operator_id": "operator-8",
+            },
+        ),
+        ("B4", {"total_quantity": 9}),
+    ],
 )
-def test_negative_challenge_executes_even_when_agent_produces_no_candidate(
+def test_live_benign_context_declares_exact_agent_values(
+    tmp_path: Path, scenario_id: str, expected_values: dict[str, object]
+) -> None:
+    prepared = bridge_for(tmp_path, f"{scenario_id}-DECLARED").host(
+        "prepare-scenario", scenario_id=scenario_id
+    )
+
+    assert prepared["declared_values_by_field"] == expected_values
+    if scenario_id == "B2":
+        assert prepared["authorized_values_by_field"] == {"total_quantity": 101}
+
+
+def test_stale_verification_reports_version_mismatch_without_hash_failure(
+    tmp_path: Path,
+) -> None:
+    bridge = bridge_for(tmp_path, "B4-STALE-RECEIPT")
+    prepared = bridge.host("prepare-scenario", scenario_id="B4")
+
+    receipt = bridge.model(
+        "verify", certificate_id=prepared["stale_certificate_id"]
+    )
+
+    assert receipt["verified"] is True
+    assert receipt["failures"] == []
+    assert receipt["expected_fact_version"] == 0
+    assert receipt["current_fact_version"] == 1
+
+
+@pytest.mark.parametrize(
+    ("scenario_id", "expected_code"),
+    [
+        ("A2", "RECORD_BINDING_MISMATCH"),
+        ("A3", "FIELD_KEY_BINDING_MISMATCH"),
+        ("A4", "CERTIFICATE_IDENTITY_MISMATCH"),
+        ("A5", "EVIDENCE_FORM_MISMATCH"),
+        ("A6", "STALE_VERSION"),
+        ("A7", "AUTHORIZED_VALUE_MISMATCH"),
+        ("A8", "STALE_VERSION"),
+        ("A9", "INITIAL_FIELD_SET_MISMATCH"),
+    ],
+)
+def test_host_preseeded_negative_challenge_is_independent_of_agent_behavior(
     tmp_path: Path, scenario_id: str, expected_code: str
 ) -> None:
     bridge = bridge_for(tmp_path, f"{scenario_id}-NO-AGENT")

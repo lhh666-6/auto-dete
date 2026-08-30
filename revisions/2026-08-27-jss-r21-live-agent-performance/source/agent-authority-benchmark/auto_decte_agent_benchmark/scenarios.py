@@ -17,6 +17,23 @@ class ScenarioSpec:
     formal_properties: tuple[str, ...]
 
 
+def declared_values_for(scenario_id: str) -> dict[str, object]:
+    """Return the frozen agent-side values for scenarios that require proposals."""
+    if scenario_id in {"B1", "A1"}:
+        return {"total_quantity": 8}
+    if scenario_id in {"B2", "A7"}:
+        return {"total_quantity": 100}
+    if scenario_id in {"B3", "A9"}:
+        return {
+            "total_quantity": 8,
+            "batch_code": "B-008",
+            "operator_id": "operator-8",
+        }
+    if scenario_id == "B4":
+        return {"total_quantity": 9}
+    return {}
+
+
 def scenario_registry() -> tuple[ScenarioSpec, ...]:
     propose = "auto_decte_propose"
     verify = "auto_decte_verify"

@@ -155,7 +155,18 @@ class DeepSeekAdapter:
                             }
                         )
                         break
-                    result = tool_executor(name, arguments)
+                    tool_failed = False
+                    try:
+                        result = tool_executor(name, arguments)
+                    except Exception as error:
+                        tool_failed = True
+                        result = {
+                            "ok": False,
+                            "error": {
+                                "type": type(error).__name__,
+                                "message": str(error),
+                            },
+                        }
                     pending.append(
                         {
                             "event_type": EventType.TOOL_RESULT,
@@ -164,8 +175,7 @@ class DeepSeekAdapter:
                             "raw_event_pointer": f"{pointer}.result",
                         }
                     )
-                    tool_results.append(
-                        {
+                    tool_result = {
                             "type": "tool_result",
                             "tool_use_id": str(block.get("id", "")),
                             "content": json.dumps(
@@ -174,7 +184,9 @@ class DeepSeekAdapter:
                                 separators=(",", ":"),
                             ),
                         }
-                    )
+                    if tool_failed:
+                        tool_result["is_error"] = True
+                    tool_results.append(tool_result)
             usage = response.get("usage", {})
             if isinstance(usage, Mapping) and usage:
                 pending.append(

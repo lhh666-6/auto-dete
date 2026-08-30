@@ -1,5 +1,50 @@
 # AUTO-DECTE R21 findings
 
+## Pilot resume lineage finding — 2026-08-30
+
+- The production admission path enforces a one-hour maximum certificate age recursively across
+  lineage. Model-side `verify` accepted the newly created child certificate, but the trusted-host
+  correction correctly rejected its cached parent after the quota pause.
+- The failed B2 run's model value (`42`) was not causal. Fresh deterministic tests show that both
+  `100` and `42` can be corrected to the separately authorized value `101` when lineage is current.
+- Therefore, setup freshness belongs to each run rather than each semantic case or whole phase.
+  Sharing phase-start databases is invalid for any serial benchmark that can last over one hour or
+  resume after interruption.
+- The repair preserves the scientific separation: agent behavior remains whatever the live model
+  did, while the host mechanism receives a current, run-local authority state. It does not convert
+  Pilot data into citable evidence or suppress the observed harness failure.
+- A second Pilot defect showed why “scenario-specific postconditions” must be executable, not just
+  prose: production prompts omitted the value referenced as “declared,” and the scorer accepted a
+  tool sequence without comparing the proposal tuple. The frozen values now appear explicitly in
+  context and are checked together with form, field, parent, certificate, and verification result.
+- Stale recovery has asymmetric verification semantics: rejecting the old certificate is a
+  distinct concern from content verification. The old certificate can be hash/evidence-valid
+  (`verified=true`) while its `expected_fact_version` differs from `current_fact_version`; B4 must
+  recognize that mismatch as stale, then verify the fresh replacement successfully.
+- Evidence-layer separation must also hold in code ownership: agent-derived observations cannot be
+  the source of a host mechanism's invalid tuple. Otherwise a compliant, incorrect, or silent agent
+  can turn a structural challenge into a `KeyError`, which looks like a safe rejection but tests no
+  admission property. All negative tuples are now selected exclusively from host-prepared state.
+
+## Quota-independent completion boundary — 2026-08-29
+
+- `/goal` reports `usageLimited`; therefore no live provider call, Pilot continuation, resource
+  decision based on incomplete measurements, final freeze, or final benchmark is currently valid.
+- The unique Pilot root already exists and contains one terminal `run.json` plus an interrupted
+  next-run directory. The append-only resume design can seal the latter as `INTERRUPTED_UNKNOWN`
+  and continue absent run IDs later; the directory must not be removed or replaced.
+- Offline work that remains scientifically valid includes deterministic tests, dry-run ledger
+  checks, normalized-summary table/figure renderers, non-self-referential manifest/tamper tests,
+  pre-result resource-gate schema/template work, source/config hash checks, and documentation.
+- Those offline items are now complete. The reporting layer is structurally unable to consume Pilot
+  or diagnostic records, and the resource/freeze layers reject scientific outcome fields.
+- The non-citable Pilot now has exactly two terminal records: one completed G1/B1/V1 run and one
+  externally interrupted G1/B1/V2 run sealed as `INTERRUPTED_UNKNOWN`. Its phase manifest remains
+  absent, correctly, because 110 planned run IDs are still absent.
+- The paper figure contract is fixed before Final data: panel a shows benign task completion and
+  panel b shows unauthorized authoritative mutation; both use count/evaluable N and 95%
+  Clopper--Pearson intervals, while zero-event one-sided upper bounds are visually distinct.
+
 1. A live-model experiment is feasible without borrowing or exposing provider credentials: the
    authenticated Codex CLI can act as the hosted LLM and invoke a dedicated local MCP server.
 2. This experiment must remain distinct from R19. R19 establishes the pinned DSH plugin/runtime
@@ -227,3 +272,17 @@
     returned text without tools once, while D2 failed under the old token cap and passed under the
     repaired common cap. These diagnostic outcomes are not citable; they justify the frozen repeated
     Pilot rather than any model ranking.
+61. Pilot-1 completed all 112 planned coordinates but cannot unlock Final because no OpenAI
+    configuration passed the frozen qualification gate. Its preserved failures include quota
+    exhaustion and pre-repair harness behavior; they cannot be rewritten or selectively rerun.
+62. Quota-limited execution requires controlling provider attempts, not merely logical run count.
+    The phase runner previously froze `max_transport_retry` in a JSON file but relied on
+    `execute_one`'s default. It now reads and enforces the frozen value; Pilot-2 uses zero retries so
+    one command with `--max-new-invocations 1` makes at most one provider call.
+63. Partial-phase normalization would create misleading denominators and a mutable derived layer.
+    Checkpoint mode therefore writes only terminal run evidence plus an append-only incomplete
+    checkpoint until every planned coordinate is terminal. Qualification, tables, reports, and the
+    phase manifest remain completion-only artifacts.
+64. The repaired offline gate is 148 passing tests plus Ruff clean. The unchanged full Pilot ledger
+    hash is `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`;
+    dry-run validation performs zero model calls and zero database writes.

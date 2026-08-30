@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import shutil
 import sys
+import tempfile
 from typing import Any, Callable, Mapping
 
 from .bridge_client import BridgeClient, BridgeConfig
@@ -18,8 +19,9 @@ from .ledger import PlannedRun
 from .manifest import build_manifest, verify_manifest
 from .normalization import FAILURE_TERMINAL_CLASSES, normalize_complete_plan, summarize_primary
 from .openai_adapter import OpenAICodexAdapter
-from .prompts import render_prompt
+from .prompts import bind_proposal_metadata, render_prompt
 from .provider_runtime import invoke_deepseek, invoke_openai_codex
+from .reporting import render_final_reporting_bundle
 from .runner import build_phase_plan
 from .schema import BenchmarkPhase, ModelConfiguration, ProviderFamily
 from .scenarios import scenario_registry
@@ -221,7 +223,10 @@ def run_phase(
     provider_invoker: ProviderInvoker | None = None,
     timeout_seconds: float = 300.0,
     resume: bool = False,
+    max_new_invocations: int | None = None,
 ) -> dict[str, Any]:
+    if max_new_invocations is not None and max_new_invocations < 1:
+        raise ValueError("max_new_invocations must be positive")
     if output_root.exists() and not resume:
         raise FileExistsError(f"refusing to overwrite phase output: {output_root}")
     if resume and not output_root.is_dir():
@@ -246,10 +251,14 @@ def run_phase(
     scenarios_by_id = {scenario.scenario_id: scenario for scenario in scenario_registry()}
     output_root.mkdir(parents=True, exist_ok=resume)
     (output_root / "runs").mkdir(exist_ok=resume)
-    (output_root / "setup-templates").mkdir(exist_ok=resume)
     frozen_config = output_root / "frozen-config"
     frozen_config.mkdir(exist_ok=resume)
-    for name in (f"{phase}.models.json", f"{phase}.matrix.json", "retry-policy.json"):
+    for name in (
+        f"{phase}.models.json",
+        f"{phase}.matrix.json",
+        "retry-policy.json",
+        "resource-policy.json",
+    ):
         source = config_root / name
         target = frozen_config / name
         if resume:
@@ -270,36 +279,16 @@ def run_phase(
             raise RuntimeError(f"existing phase manifest failed verification: {failures}")
         return json.loads((output_root / "normalized" / "summary.json").read_text(encoding="utf-8"))
 
-    prepared_by_case: dict[tuple[str, int], tuple[Path, dict[str, Any]]] = {}
     implementation_root = revision_root / "source" / "implementation"
-    for run in plan:
-        key = (run.coordinate.scenario_id, run.coordinate.case_seed)
-        if key in prepared_by_case:
-            continue
-        template_root = output_root / "setup-templates" / f"{key[0]}-{key[1]}"
-        data_root = template_root / "data"
-        if template_root.is_dir():
-            prepared_path = template_root / "prepared.json"
-            if not prepared_path.is_file() or not data_root.is_dir():
-                raise RuntimeError(f"incomplete setup template cannot be resumed: {template_root}")
-            prepared = json.loads(prepared_path.read_text(encoding="utf-8"))
-        else:
-            template_root.mkdir()
-            bridge = BridgeClient(
-                BridgeConfig(data_root, implementation_root, implementation_python, 60.0)
-            )
-            prepared = bridge.host("prepare-scenario", scenario_id=key[0])
-            _write_json(template_root / "prepared.json", prepared)
-        prepared_by_case[key] = (data_root, prepared)
-
+    retry_policy = json.loads((config_root / "retry-policy.json").read_text(encoding="utf-8"))
+    max_transport_retry = int(retry_policy["max_transport_retry"])
+    if max_transport_retry < 0:
+        raise ValueError("max_transport_retry must be non-negative")
     records: list[dict[str, Any]] = []
+    new_invocations = 0
     for run in plan:
         model = models_by_id[run.coordinate.model_config_id]
         scenario = scenarios_by_id[run.coordinate.scenario_id]
-        template_data, prepared = prepared_by_case[
-            (run.coordinate.scenario_id, run.coordinate.case_seed)
-        ]
-        rendered = render_prompt(scenario, run.coordinate.prompt_variant_id, prepared)
         run_root = output_root / "runs" / run.coordinate.run_id
         if (run_root / "run.json").is_file():
             record = json.loads((run_root / "run.json").read_text(encoding="utf-8"))
@@ -317,29 +306,73 @@ def run_phase(
                 )
             )
             continue
-        bridge = BridgeClient(
-            BridgeConfig(run_root / "data", implementation_root, implementation_python, 60.0)
-        )
-        invoker = provider_invoker or _default_provider_invoker(
-            revision_root=revision_root,
-            implementation_python=implementation_python,
-            run_root=run_root,
-            timeout_seconds=timeout_seconds,
-        )
-        records.append(
-            execute_one(
-                run=run,
-                model=model,
-                scenario=scenario,
-                prepared=prepared,
-                prompt_text=rendered.text,
-                run_root=run_root,
-                bridge=bridge,
-                invoke=lambda _attempt, invoker=invoker, model=model, prompt=rendered.text,
-                bridge=bridge, prepared=prepared: invoker(model, prompt, bridge, prepared),
-                template_data_root=template_data,
+        if max_new_invocations is not None and new_invocations >= max_new_invocations:
+            break
+        # Scenario certificates expire after one hour. Prepare each missing run
+        # immediately before provider invocation so a long phase or resumed
+        # pause cannot age a shared setup cache into invalid lineage.
+        with tempfile.TemporaryDirectory(prefix=f"auto-decte-{run.coordinate.run_id[:12]}-") as scratch:
+            template_data = Path(scratch) / "data"
+            setup_bridge = BridgeClient(
+                BridgeConfig(template_data, implementation_root, implementation_python, 60.0)
             )
+            prepared = setup_bridge.host(
+                "prepare-scenario", scenario_id=run.coordinate.scenario_id
+            )
+            prepared = bind_proposal_metadata(
+                prepared,
+                phase=phase,
+                model_config_id=run.coordinate.model_config_id,
+                scenario_id=run.coordinate.scenario_id,
+                repetition=run.coordinate.repetition,
+            )
+            rendered = render_prompt(scenario, run.coordinate.prompt_variant_id, prepared)
+            bridge = BridgeClient(
+                BridgeConfig(
+                    run_root / "data", implementation_root, implementation_python, 60.0
+                )
+            )
+            invoker = provider_invoker or _default_provider_invoker(
+                revision_root=revision_root,
+                implementation_python=implementation_python,
+                run_root=run_root,
+                timeout_seconds=timeout_seconds,
+            )
+            records.append(
+                execute_one(
+                    run=run,
+                    model=model,
+                    scenario=scenario,
+                    prepared=prepared,
+                    prompt_text=rendered.text,
+                    run_root=run_root,
+                    bridge=bridge,
+                    invoke=lambda _attempt, invoker=invoker, model=model,
+                    prompt=rendered.text, bridge=bridge, prepared=prepared: invoker(
+                        model, prompt, bridge, prepared
+                    ),
+                    max_transport_retry=max_transport_retry,
+                    template_data_root=template_data,
+                )
+            )
+            new_invocations += 1
+
+    terminal_executions = len(tuple((output_root / "runs").glob("*/run.json")))
+    if terminal_executions < len(plan):
+        checkpoint = {
+            "schema_version": "agent-authority-phase-checkpoint.v2",
+            "phase": phase,
+            "status": "INCOMPLETE",
+            "planned_executions": len(plan),
+            "terminal_executions": terminal_executions,
+            "remaining_executions": len(plan) - terminal_executions,
+            "new_invocations": new_invocations,
+        }
+        _write_or_verify(
+            output_root / "checkpoints" / f"{terminal_executions:04d}.json",
+            _json_bytes(checkpoint),
         )
+        return checkpoint
 
     normalized_root = output_root / "normalized"
     normalized_root.mkdir(exist_ok=resume)
@@ -348,6 +381,13 @@ def run_phase(
     _write_or_verify(normalized_root / "runs.json", _json_bytes(rows))
     _write_or_verify(normalized_root / "summary.json", _json_bytes(summary))
     _write_or_verify(normalized_root / "runs.csv", _csv_bytes(rows))
+    if phase == "final" and complete_locked_plan:
+        render_final_reporting_bundle(
+            rows,
+            normalized_root / "paper-reporting",
+            phase=phase,
+            complete_locked_plan=True,
+        )
     if phase == "pilot" and complete_locked_plan:
         qualification = _qualification(rows, models)
         _write_or_verify(

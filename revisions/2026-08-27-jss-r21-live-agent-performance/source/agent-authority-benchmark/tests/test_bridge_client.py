@@ -6,7 +6,11 @@ import sys
 
 import pytest
 
-from auto_decte_agent_benchmark.bridge_client import BridgeClient, BridgeConfig
+from auto_decte_agent_benchmark.bridge_client import (
+    BridgeClient,
+    BridgeConfig,
+    BridgeRejectedError,
+)
 
 
 def config(tmp_path: Path) -> BridgeConfig:
@@ -49,8 +53,32 @@ def test_bridge_client_rejects_failed_or_wrong_version_envelopes(tmp_path) -> No
 
     bridge = BridgeClient(config(tmp_path), command_runner=fake_run)
 
-    with pytest.raises(RuntimeError, match="BENCHMARK_BRIDGE_REJECTED"):
+    with pytest.raises(BridgeRejectedError, match="BENCHMARK_BRIDGE_REJECTED") as caught:
         bridge.model("verify", certificate_id="C1")
+
+    assert caught.value.error_type == "unknown"
+    assert caught.value.error_message == "REJECTED"
+
+
+def test_bridge_client_retains_sanitized_validation_error_for_tool_feedback(tmp_path) -> None:
+    def fake_run(command, **_kwargs):
+        response = {
+            "ok": False,
+            "bridge_version": "auto-decte.agent-benchmark-bridge.v2",
+            "error": {
+                "type": "ValueError",
+                "message": "field_id must be FIELD-BENCH-QUANTITY",
+            },
+        }
+        return subprocess.CompletedProcess(command, 1, json.dumps(response), "")
+
+    bridge = BridgeClient(config(tmp_path), command_runner=fake_run)
+
+    with pytest.raises(BridgeRejectedError) as caught:
+        bridge.model("propose", field_id="wrong")
+
+    assert caught.value.error_type == "ValueError"
+    assert caught.value.error_message == "field_id must be FIELD-BENCH-QUANTITY"
 
 
 def test_real_bridge_candidate_round_trip_leaves_authority_version_zero(tmp_path) -> None:

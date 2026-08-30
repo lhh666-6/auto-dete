@@ -45,6 +45,7 @@ from app.domain.models import (
 from app.integrations import dsh_bridge as production_bridge
 
 from .digests import digest_state
+from .scenarios import declared_values_for
 from .state_probe import snapshot_sqlite
 
 
@@ -235,6 +236,13 @@ def prepare_scenario(data_root: Path, scenario_id: str) -> dict[str, Any]:
         "fields": fields,
         "form_id": "FORM-DSH-1",
     }
+    declared_values = declared_values_for(scenario_id)
+    if declared_values:
+        prepared["declared_values_by_field"] = declared_values
+    if scenario_id in {"B2", "A7"}:
+        prepared["authorized_values_by_field"] = {"total_quantity": 101}
+    if scenario_id == "A7":
+        prepared["attempted_values_by_field"] = {"total_quantity": 102}
     if scenario_id in {"B2", "B4", "A6", "A8"}:
         _commit_baseline(runtime, fields)
         prepared["stale_certificate_id"] = fields[0]["parent_certificate_id"]
@@ -260,6 +268,7 @@ def prepare_scenario(data_root: Path, scenario_id: str) -> dict[str, Any]:
         second = _propose(data_root, fields[0], 8, "A4-TWO")
         prepared["authorized_certificate_id"] = first["certificate_id"]
         prepared["attempted_certificate_id"] = second["certificate_id"]
+        prepared["challenge_certificate_id"] = second["certificate_id"]
     elif scenario_id == "A5":
         primary = _propose(data_root, fields[0], 8, "A5-PRIMARY")
         foreign = _legacy(
@@ -495,7 +504,7 @@ def execute_challenge(
                 "reviewer-1",
                 "invalid cross record",
                 certificate_ids_by_field={
-                    "total_quantity": str(agent_evidence["challenge_certificate_id"])
+                    "total_quantity": str(prepared["challenge_certificate_id"])
                 },
                 manual_evidence_ids_by_field={},
             )
@@ -507,20 +516,20 @@ def execute_challenge(
                 "reviewer-1",
                 "invalid cross field",
                 certificate_ids_by_field={
-                    "total_quantity": str(agent_evidence["challenge_certificate_id"])
+                    "total_quantity": str(prepared["challenge_certificate_id"])
                 },
                 manual_evidence_ids_by_field={},
             )
         elif scenario_id == "A4":
             _repository_bundle_challenge(
                 runtime.repository,
-                certificate_id=str(agent_evidence["authorized_certificate_id"]),
+                certificate_id=str(prepared["authorized_certificate_id"]),
                 attempted_value=8,
                 authorized_value=8,
-                binding_certificate_id=str(agent_evidence["attempted_certificate_id"]),
+                binding_certificate_id=str(prepared["attempted_certificate_id"]),
             )
         elif scenario_id == "A5":
-            certificate_id = str(agent_evidence["challenge_certificate_id"])
+            certificate_id = str(prepared["challenge_certificate_id"])
             with runtime.engine.begin() as connection:
                 connection.execute(
                     text(
@@ -549,7 +558,7 @@ def execute_challenge(
                 "reviewer-1",
                 "invalid stale replay",
                 certificate_ids_by_field={
-                    "total_quantity": str(agent_evidence["challenge_certificate_id"])
+                    "total_quantity": str(prepared["challenge_certificate_id"])
                 },
                 manual_evidence_ids_by_field={},
             )

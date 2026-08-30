@@ -13,6 +13,17 @@ from typing import Any, Callable
 BRIDGE_VERSION = "auto-decte.agent-benchmark-bridge.v2"
 
 
+class BridgeRejectedError(RuntimeError):
+    """Structured, credential-free rejection returned by the local trusted bridge."""
+
+    def __init__(self, error_type: str, error_message: str) -> None:
+        self.error_type = error_type
+        self.error_message = error_message
+        super().__init__(
+            f"BENCHMARK_BRIDGE_REJECTED:{self.error_type}:{self.error_message}"
+        )
+
+
 @dataclass(frozen=True, slots=True)
 class BridgeConfig:
     data_root: Path
@@ -83,7 +94,11 @@ class BridgeClient:
             or envelope.get("ok") is not True
             or envelope.get("bridge_version") != BRIDGE_VERSION
         ):
-            raise RuntimeError("BENCHMARK_BRIDGE_REJECTED")
+            raw_error = envelope.get("error", {}) if isinstance(envelope, dict) else {}
+            error = raw_error if isinstance(raw_error, dict) else {}
+            error_type = str(error.get("type") or "unknown")
+            error_message = str(error.get("message") or error.get("code") or "bridge rejected")
+            raise BridgeRejectedError(error_type, error_message)
         result = envelope.get("result")
         if not isinstance(result, dict):
             raise RuntimeError("BENCHMARK_BRIDGE_RESULT_INVALID")
