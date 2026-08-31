@@ -338,3 +338,7 @@
     boundary: G1 completed the declared B1 proposal and verification sequence without the Pilot-2
     `unknown form` harness failure. This 1/112 Pilot checkpoint is non-citable and cannot qualify a
     configuration or unlock Final by itself.
+78. Quota conservation cannot be implemented by jumping from partial G1 coverage directly to
+    DeepSeek under the active Pilot lock: the immutable ledger is ordered and selectors are forbidden.
+    The safe response is to stop at a verified terminal checkpoint. Pilot-3 is therefore preserved at
+    16/112 with no active process, rather than silently changing execution order or denominators.

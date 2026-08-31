@@ -346,3 +346,18 @@
 - Checkpoint `0001.json` records 1 terminal execution and 111 remaining. No normalization,
   qualification, Pilot report, or Pilot manifest exists while the locked plan is incomplete. The
   process exited with code zero and no benchmark process remains; no second invocation was started.
+
+## 2026-08-31 — Pilot-3 supervised batch paused for GPT conservation
+
+- After explicit authorization to continue the Pilot, paused the five-hour heartbeat to prevent a
+  duplicate process and ran the same unique root under the R2 lock. Each child command retained
+  `--resume --max-new-invocations 1`, zero retry, terminal immutability, and failure/safety stop gates.
+- Advanced from 1 to 16 terminal G1 coordinates. Eleven are `PASS_UTILITY_SAFE`; five negative-case
+  observations are `PASS_SAFE_BUT_UTILITY_FAILED`. Across all 16 there are zero provider/runtime/
+  harness failures and zero mechanism authority violations.
+- When the user asked to minimize additional GPT quota, suspended only the supervisor parent while
+  the already-issued sixteenth call finished, verified checkpoint `0016.json`, confirmed no child
+  processes remained, and then stopped the supervisor. No seventeenth call was issued.
+- The frozen ledger orders G1 and G2 before D1 and D2, and the active lock prohibits selectors.
+  Skipping directly to DeepSeek would change the predeclared execution order, so the intact Pilot
+  remains paused at 16/112 rather than trading quota savings for an invalid benchmark.
