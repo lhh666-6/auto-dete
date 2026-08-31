@@ -326,3 +326,7 @@
     both provider families, the exact frozen coordinate Cartesian product, Final-only phase labels,
     summary/statistics schemas, and every paper-facing table/figure before emitting a separately
     manifested `READY_FOR_MANUSCRIPT_INTEGRATION` status.
+75. A unit-level manifest tamper test does not itself provide the operator-facing release evidence
+    required by the approved plan. The new artifact-audit command performs that probe on an isolated
+    temporary copy, insists on the exact single-file hash failure, then re-verifies the clean Final;
+    it cannot write inside the Final root or reuse an existing audit destination.

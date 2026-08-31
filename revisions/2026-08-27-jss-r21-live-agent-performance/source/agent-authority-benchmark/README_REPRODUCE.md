@@ -146,3 +146,18 @@ statistics schemas, all paper tables and figure formats, and an intact Final man
 those inputs into a separately manifested bundle but does not modify `paper/` or the historical
 six-case R21 input. Manuscript replacement starts only when `MANUSCRIPT_INPUT_STATUS.json` says
 `READY_FOR_MANUSCRIPT_INTEGRATION` and the new bundle manifest verifies.
+
+## Independent artifact tamper probe
+
+After copying the complete Final artifact to its release location, run the isolated probe into a
+new directory outside the Final root:
+
+```powershell
+<external-python> -m auto_decte_agent_benchmark.artifact_audit `
+  --final-root <complete-final-output-root> `
+  --output <new-artifact-audit-root>
+```
+
+The command first verifies the clean Final manifest, flips one byte only in a temporary copy, and
+requires the verifier to report exactly `HASH_OR_SIZE:<path>`. It then verifies the untouched Final
+again and writes `TAMPER_PROBE.json`; an existing or nested output is rejected.

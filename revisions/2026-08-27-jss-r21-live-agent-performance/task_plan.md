@@ -159,6 +159,8 @@ authorized until quota recovers.
 - [x] Add a no-overwrite manuscript-input staging gate that accepts only an intact complete Final,
   exact frozen coordinate coverage, both provider families, and all generated tables/figures; do
   not alter the historical six-case input or current manuscript before real Final results exist.
+- [x] Add an operator-facing independent artifact tamper probe that verifies a clean Final, mutates
+  only a temporary copy, requires the exact manifest failure, and re-verifies the untouched Final.
 - [ ] Start the unique Pilot-3 root only after an OpenAI quota reset is confirmed; execute G1/G2
   coordinates one call per reset/checkpoint and never overwrite a terminal result.
 - [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider

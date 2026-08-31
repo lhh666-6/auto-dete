@@ -318,3 +318,15 @@
   PNG figure set, figure QA, and Final report under a new non-self-referential manifest.
 - The staging command does not edit `paper/`. Replacement of the old six-case narrative remains
   gated on actual complete Final evidence and the approved 2--3-page replace-not-stack plan.
+
+## 2026-08-31 — independent artifact tamper probe
+
+- Added `auto_decte_agent_benchmark.artifact_audit`, a create-only operator command for the
+  plan-required release check. It verifies the clean Final manifest, copies the artifact to a
+  temporary directory, flips one byte in the first non-empty manifest file, requires exactly one
+  `HASH_OR_SIZE:<path>` failure, and verifies the untouched Final again before writing
+  `TAMPER_PROBE.json` outside the Final root.
+- Added three test-first cases covering exact detection and clean-root preservation, refusal of a
+  dirty Final, and refusal of existing or nested output. The full package suite now passes 181 tests
+  with the same known third-party warning; Ruff remains clean. No Pilot root, manuscript, or frozen
+  historical evidence was modified.
