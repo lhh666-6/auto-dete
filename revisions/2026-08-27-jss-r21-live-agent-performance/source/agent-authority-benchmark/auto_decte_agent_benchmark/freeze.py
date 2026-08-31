@@ -173,7 +173,21 @@ def write_frozen_manifest(
 
 
 def verify_frozen_manifest(root: Path) -> list[str]:
-    return verify_manifest(root, root / "FROZEN.json")
+    manifest_path = root / "FROZEN.json"
+    if not manifest_path.is_file():
+        return ["MISSING:FROZEN.json"]
+    try:
+        manifest = _read_object(manifest_path)
+    except (json.JSONDecodeError, ValueError):
+        return ["INVALID:FROZEN.json"]
+    failures = []
+    if (
+        manifest.get("schema_version") != "agent-authority-frozen-source.v2"
+        or manifest.get("scientific_outcomes_read") is not False
+    ):
+        failures.append("SCHEMA:FROZEN.json")
+    failures.extend(verify_manifest(root, manifest_path))
+    return failures
 
 
 def _copy_runtime_tree(source: Path, destination: Path) -> None:

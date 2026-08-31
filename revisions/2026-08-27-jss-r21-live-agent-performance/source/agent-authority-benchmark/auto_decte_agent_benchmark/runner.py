@@ -154,6 +154,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-new-invocations", type=int)
     parser.add_argument("--launch-lock", type=Path)
+    parser.add_argument("--frozen-root", type=Path)
     parser.add_argument("--dry-run", action="store_true")
     return parser
 
@@ -165,6 +166,7 @@ def _dispatch(
     implementation_python: Path | None = None,
     live_runner: Any = None,
     launch_lock_verifier: Any = None,
+    frozen_manifest_verifier: Any = None,
 ) -> dict[str, Any]:
     phase = "pilot" if args.pilot else "final"
     configuration = load_phase_configuration(args.config, phase)
@@ -220,7 +222,19 @@ def _dispatch(
             max_new_invocations=args.max_new_invocations,
             dry_run_summary=dry_run(config_root=args.config, phase=phase),
         )
-    return live_runner(
+    if phase == "final":
+        if args.frozen_root is None:
+            raise ValueError("--frozen-root is required for live Final execution")
+        if args.frozen_root.resolve() != resolved_revision.resolve():
+            raise ValueError("--frozen-root must be the active frozen revision root")
+        if frozen_manifest_verifier is None:
+            from .freeze import verify_frozen_manifest
+
+            frozen_manifest_verifier = verify_frozen_manifest
+        failures = frozen_manifest_verifier(args.frozen_root)
+        if failures:
+            raise ValueError(f"frozen manifest verification failed before Final: {failures}")
+    result = live_runner(
         config_root=args.config,
         output_root=args.output,
         phase=phase,
@@ -230,6 +244,11 @@ def _dispatch(
         max_new_invocations=args.max_new_invocations,
         **selectors,
     )
+    if phase == "final":
+        failures = frozen_manifest_verifier(args.frozen_root)
+        if failures:
+            raise ValueError(f"frozen manifest verification failed after Final: {failures}")
+    return result
 
 
 def main() -> int:

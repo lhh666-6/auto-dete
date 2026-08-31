@@ -1,4 +1,5 @@
 from importlib import import_module
+import json
 from pathlib import Path
 import sys
 
@@ -98,6 +99,8 @@ def test_required_cli_accepts_phase_selectors_resume_and_locked_config() -> None
             "1",
             "--launch-lock",
             "pilot2-lock.json",
+            "--frozen-root",
+            "final-freeze",
             "--dry-run",
         ]
     )
@@ -114,6 +117,7 @@ def test_required_cli_accepts_phase_selectors_resume_and_locked_config() -> None
     assert args.resume is True
     assert args.max_new_invocations == 1
     assert args.launch_lock == Path("pilot2-lock.json")
+    assert args.frozen_root == Path("final-freeze")
     assert args.dry_run is True
 
     with pytest.raises(SystemExit):
@@ -208,3 +212,132 @@ def test_live_dispatch_enforces_launch_lock_before_calling_runner(tmp_path) -> N
         )
 
     assert calls == ["lock"]
+
+
+def _final_config(tmp_path: Path) -> Path:
+    from auto_decte_agent_benchmark.freeze import build_final_configuration
+
+    qualification = {
+        "schema_version": "agent-authority-model-qualification.v2",
+        "models": [
+            {
+                "model_config_id": model_id,
+                "provider": provider,
+                "qualification_pass": True,
+            }
+            for model_id, provider in (
+                ("G1", "openai"),
+                ("G2", "openai"),
+                ("D1", "deepseek"),
+                ("D2", "deepseek"),
+            )
+        ],
+    }
+    gate = {
+        "schema_version": "agent-authority-final-resource-gate.v2",
+        "status": "PASS",
+        "scientific_outcomes_read": False,
+        "qualified_model_config_ids": ["D1", "D2", "G1", "G2"],
+        "selected_repetitions": 10,
+        "planned_executions": 1680,
+    }
+    output = tmp_path / "final-config"
+    build_final_configuration(
+        pilot_config_root=ROOT / "config",
+        qualification=qualification,
+        resource_gate=gate,
+        output_root=output,
+    )
+    return output
+
+
+def _final_args(tmp_path: Path, *, frozen_root: Path | None = None):
+    parser = require("_parser")()
+    values = [
+        "--final",
+        "--config",
+        str(_final_config(tmp_path)),
+        "--output",
+        str(tmp_path / "final-output"),
+    ]
+    if frozen_root is not None:
+        values.extend(["--frozen-root", str(frozen_root)])
+    return parser.parse_args(values)
+
+
+def test_live_final_requires_frozen_root_before_calling_runner(tmp_path: Path) -> None:
+    dispatch = require("_dispatch")
+    calls = []
+
+    with pytest.raises(ValueError, match="frozen-root"):
+        dispatch(
+            _final_args(tmp_path),
+            revision_root=tmp_path / "freeze",
+            implementation_python=Path(sys.executable),
+            live_runner=lambda **_values: calls.append("live"),
+        )
+
+    assert calls == []
+
+
+def test_live_final_rejects_tampered_freeze_before_calling_runner(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.freeze import write_frozen_manifest
+
+    dispatch = require("_dispatch")
+    freeze = tmp_path / "freeze"
+    (freeze / "source").mkdir(parents=True)
+    (freeze / "source/module.py").write_text("VALUE = 1\n", encoding="utf-8")
+    write_frozen_manifest(freeze, runtime_metadata={"python": "3.11"})
+    (freeze / "source/module.py").write_text("VALUE = 2\n", encoding="utf-8")
+    calls = []
+
+    with pytest.raises(ValueError, match="frozen manifest"):
+        dispatch(
+            _final_args(tmp_path, frozen_root=freeze),
+            revision_root=freeze,
+            implementation_python=Path(sys.executable),
+            live_runner=lambda **_values: calls.append("live"),
+        )
+
+    assert calls == []
+
+
+def test_live_final_verifies_freeze_before_and_after_dispatch(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.freeze import write_frozen_manifest
+
+    dispatch = require("_dispatch")
+    freeze = tmp_path / "freeze"
+    (freeze / "source").mkdir(parents=True)
+    source = freeze / "source/module.py"
+    source.write_text("VALUE = 1\n", encoding="utf-8")
+    write_frozen_manifest(freeze, runtime_metadata={"python": "3.11"})
+    calls = []
+
+    def mutating_live_runner(**_values):
+        calls.append("live")
+        source.write_text("VALUE = 2\n", encoding="utf-8")
+        return {"planned_executions": 1680}
+
+    with pytest.raises(ValueError, match="frozen manifest"):
+        dispatch(
+            _final_args(tmp_path, frozen_root=freeze),
+            revision_root=freeze,
+            implementation_python=Path(sys.executable),
+            live_runner=mutating_live_runner,
+        )
+
+    assert calls == ["live"]
+
+
+def test_frozen_manifest_rejects_wrong_schema(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.freeze import verify_frozen_manifest
+    from auto_decte_agent_benchmark.manifest import build_manifest
+
+    freeze = tmp_path / "freeze"
+    freeze.mkdir()
+    (freeze / "source.py").write_text("VALUE = 1\n", encoding="utf-8")
+    manifest_path = freeze / "FROZEN.json"
+    manifest = build_manifest(freeze, manifest_path=manifest_path)
+    manifest_path.write_text(json.dumps(manifest) + "\n", encoding="utf-8")
+
+    assert verify_frozen_manifest(freeze) == ["SCHEMA:FROZEN.json"]
