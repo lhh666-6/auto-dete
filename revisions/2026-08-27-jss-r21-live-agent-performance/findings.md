@@ -345,3 +345,17 @@
 79. The authenticated Codex usage limit is itself a valid Pilot runtime observation, not a reason to
     cherry-pick or retry. G2/A2/V2 is permanently retained as `MODEL_API_FAILURE`; execution stopped
     at checkpoint 0040 and will resume only with the next absent coordinate after the reported reset.
+80. Quota-aware interruption did not change the frozen denominator. Pilot-3 ultimately contains all
+    112 planned coordinates exactly once, including the immutable quota failure, with 28 observations
+    for each of G1, G2, D1, and D2 and no missing or extra coordinate.
+81. The completed Pilot separates utility from authority safety: all 32 benign cases completed, while
+    none of 80 negative mechanism challenges produced an unauthorized authoritative mutation. The
+    latter zero-event one-sided 95% upper bound is 0.036754; it characterizes this Pilot only and is
+    not a manuscript-facing Final claim.
+82. Frozen qualification is intentionally not identical to zero runtime failures. G2 qualifies with
+    one preserved quota failure, and D2 qualifies with four invalid outputs plus one tool-runtime
+    failure, because each still passes the predeclared benign, tool-use, schema, and raw-trace gates.
+    These failure rates must remain visible in later configuration selection and reporting.
+83. Completion and qualification do not prove budget sufficiency for Final. The Pilot manifest and R2
+    source/config lock both verify, but the next transition still requires an independent provider-
+    credit attestation; successful Pilot calls cannot populate that attestation by inference.

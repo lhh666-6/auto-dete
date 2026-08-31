@@ -12,9 +12,11 @@ blocked by the missing OpenAI family. Pilot-1 and its verified manifest remain u
 No repeated-benchmark result is citable yet, and the manuscript has not been updated with Pilot or
 diagnostic observations. Pilot-2 stopped after one invocation because a relative MCP data path
 opened an unintended empty database; that root is externally manifested, classified as an aborted
-harness run, and prohibited from resuming. The repaired Pilot-3 uses a complete locked 112-run plan,
-zero automatic transport retries, hard launch-lock enforcement, and at most one provider invocation
-per quota-aware checkpoint command. Its preflight passes and its output root remains absent.
+harness run, and prohibited from resuming. The repaired Pilot-3 completed its locked 112-run plan
+with zero automatic transport retries, hard launch-lock enforcement, and one provider invocation per
+checkpoint command. Its manifest, exact coordinate ledger, and R2 source/config lock verify. All four
+attempted configurations qualify, so both OpenAI and DeepSeek families pass the Pilot prerequisite;
+Final remains blocked until independent provider credit passes the separately frozen resource gate.
 
 This directory is the standalone R21 reviewer-package candidate for
 *Certificate-Bound Admission of AI-Derived Updates into Versioned Authoritative

@@ -161,18 +161,20 @@ authorized until quota recovers.
   not alter the historical six-case input or current manuscript before real Final results exist.
 - [x] Add an operator-facing independent artifact tamper probe that verifies a clean Final, mutates
   only a temporary copy, requires the exact manifest failure, and re-verifies the untouched Final.
-- [ ] Start the unique Pilot-3 root only after an OpenAI quota reset is confirmed; execute G1/G2
+- [x] Start the unique Pilot-3 root only after an OpenAI quota reset is confirmed; execute G1/G2
   coordinates one call per reset/checkpoint and never overwrite a terminal result.
-- [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider
-  families pass the frozen gates.
+- [x] Complete all DeepSeek Pilot coordinates and verify the complete Pilot manifest, exact ledger,
+  qualification roster, and source/config launch lock.
+- [ ] Obtain an independent provider-credit attestation, run the resource gate, and execute Final
+  only if the frozen balanced-provider gate passes.
 
 **Status:** Pilot-2 is externally manifested as an aborted harness run after one invocation and must
-not resume. Pilot-3's refreshed preflight verifies `PASS`; 40 coordinates are terminal, leaving 72
-of 112. G1 completed all 28 coordinates without runtime or authority failure. G2 reached 12/28;
-G2/A2/V2 is retained as a single `MODEL_API_FAILURE` after the authenticated Codex channel reported
-its usage limit and a 21:44 reset. The complete post-Pilot resource/config/freeze chain is executable
-and fail-closed, but cannot authorize Final before Pilot-3 completes. The next live action is an
-R2-locked `--resume` after quota recovery; the failed coordinate must never be rerun.
+not resume. Pilot-3 completed all 112 frozen coordinates: 28 per configuration, with 112 unique run
+IDs, no missing or extra coordinates, and zero unauthorized authoritative mutations. Its manifest
+and R2 launch lock verify, and G1, G2, D1, and D2 all pass the frozen qualification rule. Six runtime
+failure terminals remain immutable evidence (one G2 quota failure; four D2 invalid outputs; one D2
+tool-runtime failure). The next gate is independent provider-credit confirmation; no Final call is
+authorized merely from Pilot success.
 
 ## Errors and constraints
 

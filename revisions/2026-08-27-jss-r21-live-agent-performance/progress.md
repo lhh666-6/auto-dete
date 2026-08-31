@@ -377,3 +377,25 @@
 - Reactivated the five-hour heartbeat with the exact root and R2 lock. It will wait for quota,
   continue only absent coordinates with zero retry and no selectors, and stop again on any runtime,
   harness, or authority failure. It is restricted to completing and verifying Pilot, not Final.
+
+## 2026-08-31 — Pilot-3 complete at 112/112
+
+- After the user confirmed quota recovery, resumed only the same Pilot-3 output root with the R2
+  launch lock, `--resume --max-new-invocations 1`, zero automatic retries, and no selectors. The
+  already-terminal G2/A2/V2 quota failure was skipped and never retried.
+- Completed the remaining OpenAI coordinates first and then the DeepSeek coordinates in frozen
+  ledger order. Once G1 and G2 reached 56/56, no further GPT/OpenAI benchmark calls were made.
+- The completed ledger contains exactly 112 unique run IDs and 112 unique frozen coordinates, 28
+  per configuration, with zero missing and zero extra coordinates. There are 70
+  `PASS_UTILITY_SAFE`, 36 `PASS_SAFE_BUT_UTILITY_FAILED`, one `MODEL_API_FAILURE`, four
+  `INVALID_OUTPUT`, and one `TOOL_RUNTIME_FAILURE` terminal records; no terminal was overwritten.
+- Primary Pilot summaries are 32/32 benign task completions and 0/80 unauthorized authoritative
+  mutations. The one-sided 95% upper bound for the latter is 0.036754. Agent behavior and mechanism
+  challenge evidence remain separate; Pilot observations are not manuscript-citable Final results.
+- `manifest.json` verifies with zero failures. `pilot-model-qualification.json` qualifies all four
+  attempted configurations (G1, G2, D1, D2), satisfying the cross-provider-family qualification
+  prerequisite. A fresh zero-call dry run plus R2 verification checked 39 benchmark files, 55
+  implementation files, four config files, and the unchanged 112-coordinate plan.
+- No benchmark process remains. The five-hour automation now checks the independent Final resource
+  requirement and is prohibited from restarting Pilot or inferring provider credit from Pilot
+  success.
