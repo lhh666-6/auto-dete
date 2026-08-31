@@ -173,8 +173,9 @@ not resume. Pilot-3 completed all 112 frozen coordinates: 28 per configuration, 
 IDs, no missing or extra coordinates, and zero unauthorized authoritative mutations. Its manifest
 and R2 launch lock verify, and G1, G2, D1, and D2 all pass the frozen qualification rule. Six runtime
 failure terminals remain immutable evidence (one G2 quota failure; four D2 invalid outputs; one D2
-tool-runtime failure). The next gate is independent provider-credit confirmation; no Final call is
-authorized merely from Pilot success.
+tool-runtime failure). An optimistic zero-write resource precheck that treats every provider-credit
+attestation as true still returns `BLOCK`: D2's 5/28 runtime failures (17.86%) exceed the frozen 5%
+limit. No Final call is authorized, and quota recovery cannot remove this predeclared hard stop.
 
 ## Errors and constraints
 

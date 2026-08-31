@@ -359,3 +359,14 @@
 83. Completion and qualification do not prove budget sufficiency for Final. The Pilot manifest and R2
     source/config lock both verify, but the next transition still requires an independent provider-
     credit attestation; successful Pilot calls cannot populate that attestation by inference.
+84. Provider credit is not the controlling Final constraint. Even a counterfactual all-true credit
+    roster produces `BLOCK` because D2's 5/28 runtime-failure rate is 0.178571, above the frozen 0.05
+    maximum. The 41.01-hour default and 20.50-hour fallback estimates satisfy the 72-hour ceiling,
+    and both provider families are present, leaving the failure-rate rule as the sole blocker.
+    The five D2 failures are not quota interruptions: four raw responses stop at exactly 4,096
+    output tokens, and the fifth contains a bridge-rejected empty-argument tool call during an
+    eight-round sequence. The only explicit quota failure is G2/A2/V2.
+85. Post-outcome exclusion of D2, relaxation of the 5% threshold, or selective reruns would convert a
+    fail-closed preregistered gate into outcome-dependent design selection. The defensible result is
+    to retain the complete Pilot, issue no Final calls, and report the resource-gate hard stop unless
+    a separately preregistered future experiment is explicitly authorized.

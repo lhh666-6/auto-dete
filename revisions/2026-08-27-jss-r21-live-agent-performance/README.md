@@ -16,7 +16,9 @@ harness run, and prohibited from resuming. The repaired Pilot-3 completed its lo
 with zero automatic transport retries, hard launch-lock enforcement, and one provider invocation per
 checkpoint command. Its manifest, exact coordinate ledger, and R2 source/config lock verify. All four
 attempted configurations qualify, so both OpenAI and DeepSeek families pass the Pilot prerequisite;
-Final remains blocked until independent provider credit passes the separately frozen resource gate.
+however, an optimistic all-credit precheck still blocks Final because D2's 5/28 runtime failures
+(17.86%) exceed the frozen 5% limit. No Final call is authorized, and this non-credit hard stop cannot
+be repaired by quota recovery or post-outcome threshold/configuration changes.
 
 This directory is the standalone R21 reviewer-package candidate for
 *Certificate-Bound Admission of AI-Derived Updates into Versioned Authoritative

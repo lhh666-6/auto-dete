@@ -399,3 +399,22 @@
 - No benchmark process remains. The five-hour automation now checks the independent Final resource
   requirement and is prohibited from restarting Pilot or inferring provider credit from Pilot
   success.
+
+## 2026-08-31 — frozen Final resource gate hard stop
+
+- Evaluated the frozen resource decision in memory without writing an attestation or making a model
+  call. To isolate the non-credit constraints, the precheck used the most favorable counterfactual:
+  provider credit set to true for all four attempted configurations.
+- The gate still returns `BLOCK`, selects no repetition count, and plans zero Final executions.
+  Estimated default and fallback wall times are 41.01 and 20.50 hours, both below the frozen 72-hour
+  ceiling; both provider families are present.
+- The sole reason is `RUNTIME_FAILURE_RATE_EXCEEDS_POLICY`: D2 records 5/28 runtime failures
+  (17.86%), above the predeclared 5% maximum. Raw traces show that these are not credit failures:
+  four responses ended at the frozen 4,096-output-token cap without a valid terminal action, and
+  one long tool sequence included an empty-argument proposal rejected by the bridge. G2's 1/28
+  failure is the only explicit usage-limit event and remains below the 5% rate limit.
+- Did not create a false provider-credit attestation, change the threshold, exclude D2 after seeing
+  outcomes, rerun failed coordinates, freeze Final, or call any provider. Any of those actions would
+  either misstate capacity or alter the design after outcomes.
+- Deleted the five-hour quota automation because further quota resets cannot resolve this frozen
+  non-credit blocker and a stale heartbeat could incorrectly imply that Final may start.
