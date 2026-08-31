@@ -5,6 +5,7 @@ import pytest
 
 from auto_decte_agent_benchmark.freeze import (
     build_final_configuration,
+    stage_final_freeze,
     verify_frozen_manifest,
     write_frozen_manifest,
 )
@@ -119,3 +120,92 @@ def test_frozen_manifest_rejects_scientific_outcome_metadata(tmp_path: Path) -> 
             root,
             runtime_metadata={"benign_task_completion": 1.0},
         )
+
+
+def _write(path: Path, value: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(value, encoding="utf-8")
+
+
+def final_freeze_fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
+    benchmark = tmp_path / "benchmark"
+    implementation = tmp_path / "implementation"
+    final_config = tmp_path / "final-config"
+    _write(benchmark / "auto_decte_agent_benchmark/runner.py", "VALUE = 1\n")
+    _write(benchmark / "auto_decte_agent_benchmark/__pycache__/runner.pyc", "cache\n")
+    _write(benchmark / "pyproject.toml", "[project]\nname='benchmark'\n")
+    _write(benchmark / "uv.lock", "version = 1\n")
+    _write(benchmark / "README_REPRODUCE.md", "# reproduce\n")
+    _write(benchmark / "config/pilot.models.json", "{}\n")
+    _write(benchmark / ".venv/secret.txt", "secret\n")
+    _write(benchmark / "evidence/pilot/run.json", "{}\n")
+    _write(implementation / "app/service.py", "VALUE = 2\n")
+    _write(implementation / "app/__pycache__/service.pyc", "cache\n")
+    _write(implementation / "pyproject.toml", "[project]\nname='implementation'\n")
+    _write(implementation / "uv.lock", "version = 1\n")
+    _write(implementation / ".env", "TOKEN=secret\n")
+    for name in (
+        "final.models.json",
+        "final.matrix.json",
+        "retry-policy.json",
+        "resource-policy.json",
+    ):
+        _write(final_config / name, "{}\n")
+    return benchmark, implementation, final_config
+
+
+def test_stage_final_freeze_copies_only_runtime_allowlist(tmp_path: Path) -> None:
+    benchmark, implementation, final_config = final_freeze_fixture(tmp_path)
+    output = tmp_path / "freeze"
+
+    result = stage_final_freeze(
+        benchmark_root=benchmark,
+        implementation_root=implementation,
+        final_config_root=final_config,
+        output_root=output,
+        runtime_metadata={"python": "3.11", "scientific_outcomes_read": False},
+    )
+
+    assert result["schema_version"] == "agent-authority-frozen-source.v2"
+    assert (output / "source/agent-authority-benchmark/auto_decte_agent_benchmark/runner.py").is_file()
+    assert (output / "source/agent-authority-benchmark/config/final.models.json").is_file()
+    assert (output / "source/implementation/app/service.py").is_file()
+    assert not (output / "source/agent-authority-benchmark/config/pilot.models.json").exists()
+    assert not (output / "source/agent-authority-benchmark/.venv").exists()
+    assert not (output / "source/agent-authority-benchmark/evidence").exists()
+    assert not (output / "source/implementation/.env").exists()
+    assert not tuple(output.rglob("__pycache__"))
+    assert verify_frozen_manifest(output) == []
+
+
+def test_stage_final_freeze_refuses_existing_output(tmp_path: Path) -> None:
+    benchmark, implementation, final_config = final_freeze_fixture(tmp_path)
+    output = tmp_path / "freeze"
+    output.mkdir()
+
+    with pytest.raises(FileExistsError):
+        stage_final_freeze(
+            benchmark_root=benchmark,
+            implementation_root=implementation,
+            final_config_root=final_config,
+            output_root=output,
+            runtime_metadata={"python": "3.11"},
+        )
+
+
+def test_stage_final_freeze_preserves_failed_attempt(tmp_path: Path) -> None:
+    benchmark, implementation, final_config = final_freeze_fixture(tmp_path)
+    (implementation / "uv.lock").unlink()
+    output = tmp_path / "freeze"
+
+    with pytest.raises(FileNotFoundError):
+        stage_final_freeze(
+            benchmark_root=benchmark,
+            implementation_root=implementation,
+            final_config_root=final_config,
+            output_root=output,
+            runtime_metadata={"python": "3.11"},
+        )
+
+    assert (output / "FREEZE_FAILED.txt").is_file()
+    assert not (output / "FROZEN.json").exists()

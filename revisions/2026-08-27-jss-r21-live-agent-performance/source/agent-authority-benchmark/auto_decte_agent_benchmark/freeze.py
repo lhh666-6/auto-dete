@@ -12,6 +12,18 @@ from .manifest import build_manifest, verify_manifest
 from .resource_gate import FORBIDDEN_OUTCOME_FIELDS
 
 
+_EXCLUDED_RUNTIME_NAMES = frozenset(
+    {
+        ".git",
+        ".mypy_cache",
+        ".pytest_cache",
+        ".ruff_cache",
+        ".venv",
+        "__pycache__",
+    }
+)
+
+
 def _read_object(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
@@ -162,3 +174,65 @@ def write_frozen_manifest(
 
 def verify_frozen_manifest(root: Path) -> list[str]:
     return verify_manifest(root, root / "FROZEN.json")
+
+
+def _copy_runtime_tree(source: Path, destination: Path) -> None:
+    if not source.is_dir():
+        raise FileNotFoundError(source)
+    for path in sorted(source.rglob("*")):
+        relative = path.relative_to(source)
+        if any(part in _EXCLUDED_RUNTIME_NAMES for part in relative.parts):
+            continue
+        if path.is_file() and path.suffix not in {".pyc", ".pyo"}:
+            target = destination / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, target)
+
+
+def _copy_required_file(source: Path, destination: Path) -> None:
+    if not source.is_file():
+        raise FileNotFoundError(source)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+
+
+def stage_final_freeze(
+    *,
+    benchmark_root: Path,
+    implementation_root: Path,
+    final_config_root: Path,
+    output_root: Path,
+    runtime_metadata: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Stage the minimal Final runtime tree and bind it before execution."""
+    if output_root.exists():
+        raise FileExistsError(output_root)
+    output_root.mkdir(parents=True)
+    benchmark_destination = output_root / "source" / "agent-authority-benchmark"
+    implementation_destination = output_root / "source" / "implementation"
+    try:
+        _copy_runtime_tree(
+            benchmark_root / "auto_decte_agent_benchmark",
+            benchmark_destination / "auto_decte_agent_benchmark",
+        )
+        for name in ("pyproject.toml", "uv.lock", "README_REPRODUCE.md"):
+            _copy_required_file(benchmark_root / name, benchmark_destination / name)
+        _copy_runtime_tree(implementation_root / "app", implementation_destination / "app")
+        for name in ("pyproject.toml", "uv.lock"):
+            _copy_required_file(implementation_root / name, implementation_destination / name)
+        for name in (
+            "final.models.json",
+            "final.matrix.json",
+            "retry-policy.json",
+            "resource-policy.json",
+        ):
+            _copy_required_file(
+                final_config_root / name,
+                benchmark_destination / "config" / name,
+            )
+        return write_frozen_manifest(output_root, runtime_metadata=runtime_metadata)
+    except BaseException:
+        marker = output_root / "FREEZE_FAILED.txt"
+        if not marker.exists():
+            marker.write_text("Final source freeze staging failed; preserve for diagnosis.\n", encoding="utf-8")
+        raise
