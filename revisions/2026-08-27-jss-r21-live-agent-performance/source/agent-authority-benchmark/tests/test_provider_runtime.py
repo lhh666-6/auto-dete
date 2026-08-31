@@ -74,3 +74,42 @@ def test_openai_runtime_preserves_jsonl_and_stderr(tmp_path) -> None:
 
     assert envelope.raw_payloads == {"openai.jsonl": '{"type":"turn.completed"}\n'}
     assert envelope.stderr == "diagnostic"
+
+
+def test_openai_runtime_absolutizes_all_mcp_paths_before_codex_changes_cwd(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    observed = {}
+
+    class Adapter:
+        def invoke(self, **kwargs):
+            observed.update(kwargs)
+            return SimpleNamespace(
+                events=(),
+                raw_payload='{"type":"turn.completed"}\n',
+                stderr="",
+                returncode=0,
+                latency_ms=1,
+                transport_error=None,
+            )
+
+    invoke_openai_codex(
+        adapter=Adapter(),
+        codex=Path("codex.exe"),
+        workspace=Path("run/agent-workspace"),
+        server_python=Path("server/python.exe"),
+        server_source=Path("benchmark/source"),
+        implementation_root=Path("implementation"),
+        implementation_python=Path("implementation/.venv/python.exe"),
+        data_root=Path("run/data"),
+        prompt="prompt",
+        timeout_seconds=3.0,
+    )
+
+    assert Path(observed["workspace"]).is_absolute()
+    assert Path(observed["server_python"]).is_absolute()
+    assert Path(observed["server_source"]).is_absolute()
+    arguments = observed["server_args"]
+    for flag in ("--data-root", "--implementation-root", "--python"):
+        assert Path(arguments[arguments.index(flag) + 1]).is_absolute()
