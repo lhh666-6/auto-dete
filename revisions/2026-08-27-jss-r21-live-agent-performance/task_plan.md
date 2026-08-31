@@ -167,10 +167,10 @@ authorized until quota recovers.
   families pass the frozen gates.
 
 **Status:** Pilot-2 is externally manifested as an aborted harness run after one invocation and must
-not resume. Pilot-3 preflight verifies `PASS` and its output root remains absent. The complete
-post-Pilot resource/config/freeze chain is now executable and fail-closed, but cannot authorize
-Final before Pilot-3 completes. The next live action is exactly one OpenAI coordinate after
-confirmed quota recovery.
+not resume. Pilot-3's refreshed preflight verifies `PASS`; its first G1/B1/V1 coordinate is terminal
+`PASS_UTILITY_SAFE`, leaving 111 of 112 Pilot coordinates. The complete post-Pilot
+resource/config/freeze chain is executable and fail-closed, but cannot authorize Final before
+Pilot-3 completes. The next live action is exactly one `--resume` coordinate after confirmed quota.
 
 ## Errors and constraints
 

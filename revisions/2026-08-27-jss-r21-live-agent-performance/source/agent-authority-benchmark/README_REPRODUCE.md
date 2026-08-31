@@ -31,6 +31,11 @@ plan, output identity, and frozen zero retry before it can call a provider; it t
 new invocation. An incomplete Pilot has checkpoints but no normalized data, qualification, phase
 report, or manifest.
 
+The active preflight is the separately manifested `2026-08-31-pilot-3-lock-r2` refresh. It retains
+the earlier preflight unchanged, binds the current committed package before the first Pilot-3 call,
+and uses the same unique Pilot-3 output root. After checkpoint `0001.json`, all subsequent commands
+must use `--resume` and `PILOT3_LAUNCH_LOCK_R2.json`.
+
 Each absent run is prepared just in time, immediately before its provider invocation. This is a
 correctness requirement: production certificates have a one-hour age bound, so a phase-wide cache
 would make later or post-pause runs inherit expired lineage. The run directory retains the exact

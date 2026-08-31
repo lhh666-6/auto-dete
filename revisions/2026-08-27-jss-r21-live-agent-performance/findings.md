@@ -330,3 +330,11 @@
     required by the approved plan. The new artifact-audit command performs that probe on an isolated
     temporary copy, insists on the exact single-file hash failure, then re-verifies the clean Final;
     it cannot write inside the Final root or reuse an existing audit destination.
+76. A broad source-lock glob should reject even non-runtime package additions; this is desirable
+    fail-closed behavior but means a not-yet-started lock must be refreshed after approved offline
+    tooling lands. Pilot-3 had no output or provider call, so the original lock was retained and a
+    separately manifested refresh bound the current commit to the same unique output root.
+77. The first repaired Pilot-3 observation confirms the absolute MCP path repair at the real hosted
+    boundary: G1 completed the declared B1 proposal and verification sequence without the Pilot-2
+    `unknown form` harness failure. This 1/112 Pilot checkpoint is non-citable and cannot qualify a
+    configuration or unlock Final by itself.

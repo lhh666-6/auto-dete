@@ -1,0 +1,57 @@
+{
+  "benchmark_git_commit": "de70f323cfaf526c7b9f7cb9de04149c32a9010f",
+  "benchmark_git_tree": "f34f7ed7f2127a9f3c88662e49d60c6a907e2757",
+  "benchmark_source_manifest": "benchmark-source-manifest.json",
+  "benchmark_source_manifest_sha256": "b9545ae4d19d7f7f9cf0013c8d72840010e70f9673a98fd60f3a9b2e6fdc7262",
+  "config_sha256": {
+    "pilot.matrix.json": "a761322415aae6b4bbd6c99f081d3253adc602a25d564c6fb8f2f865f7d3e459",
+    "pilot.models.json": "49ecc0e80e7a1b3705d4eb67b35ac813d150568972a46a0924ed6b3bde70e683",
+    "resource-policy.json": "b1add3053f452ef5f7173f560eb89ed66ba3742061a1f6a38fc54faeef07c446",
+    "retry-policy.json": "20bcc4d87bbe8ebacdfdc70e2b50eb866e38283584c0a42f40f5a1b636736f9f"
+  },
+  "environment": {
+    "codex_cli": "0.150.0-alpha.8",
+    "python": "3.11.9",
+    "serial_execution": true
+  },
+  "first_command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "auto_decte_agent_benchmark.runner",
+    "--pilot",
+    "--config",
+    "config",
+    "--output",
+    "../../evidence/agent-authority-benchmark-v2/pilot/2026-08-31-pilot-3",
+    "--max-new-invocations",
+    "1",
+    "--launch-lock",
+    "../../evidence/agent-authority-benchmark-v2/pilot-preflight/2026-08-31-pilot-3-lock-r2/PILOT3_LAUNCH_LOCK_R2.json"
+  ],
+  "implementation_source_manifest": "implementation-source-manifest.json",
+  "implementation_source_manifest_sha256": "68438ef3bb57e4c4267c9b31241815a46d98f8514f34568b8a923c55d9d17dcc",
+  "max_new_invocations_per_command": 1,
+  "max_transport_retry": 0,
+  "output_root": "evidence/agent-authority-benchmark-v2/pilot/2026-08-31-pilot-3",
+  "planned_executions": 112,
+  "phase": "pilot",
+  "provider_credit_confirmed": false,
+  "resume_command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "auto_decte_agent_benchmark.runner",
+    "--pilot",
+    "--config",
+    "config",
+    "--output",
+    "../../evidence/agent-authority-benchmark-v2/pilot/2026-08-31-pilot-3",
+    "--resume",
+    "--max-new-invocations",
+    "1",
+    "--launch-lock",
+    "../../evidence/agent-authority-benchmark-v2/pilot-preflight/2026-08-31-pilot-3-lock-r2/PILOT3_LAUNCH_LOCK_R2.json"
+  ],
+  "run_plan_sha256": "b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4",
+  "schema_version": "agent-authority-pilot-launch-lock.v2",
+  "status": "READY_NOT_STARTED"
+}
