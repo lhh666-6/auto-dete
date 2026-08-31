@@ -6,6 +6,7 @@ import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
+import shutil
 from typing import Any, Mapping
 
 from .freeze import build_final_configuration, stage_final_freeze, verify_frozen_manifest
@@ -118,7 +119,6 @@ def _resource_rows(
 def write_resource_gate(
     *,
     pilot_root: Path,
-    pilot_config_root: Path,
     provider_credit_path: Path,
     output_path: Path,
 ) -> dict[str, Any]:
@@ -127,7 +127,7 @@ def write_resource_gate(
         raise FileExistsError(output_path)
     qualification, qualification_rows = _load_complete_pilot(pilot_root)
     provider_credit = _read_object(provider_credit_path)
-    policy_path = pilot_config_root / "resource-policy.json"
+    policy_path = pilot_root / "frozen-config" / "resource-policy.json"
     policy = load_resource_policy(policy_path)
     decision = decide_resource_gate(
         qualification,
@@ -146,7 +146,6 @@ def write_resource_gate(
 
 def write_final_config(
     *,
-    pilot_config_root: Path,
     qualification_path: Path,
     resource_gate_path: Path,
     output_root: Path,
@@ -156,9 +155,21 @@ def write_final_config(
         raise FileExistsError(output_root)
     qualification = _read_object(qualification_path)
     resource_gate = _read_object(resource_gate_path)
-    expected_hash = resource_gate.get("input_sha256", {}).get("pilot_qualification")
-    if expected_hash != _digest(qualification_path):
+    input_hashes = resource_gate.get("input_sha256", {})
+    if input_hashes.get("pilot_qualification") != _digest(qualification_path):
         raise ValueError("resource-gate qualification hash does not match the selected file")
+    pilot_root = qualification_path.parent
+    manifest_path = pilot_root / "manifest.json"
+    if input_hashes.get("pilot_manifest") != _digest(manifest_path):
+        raise ValueError("resource-gate Pilot manifest hash does not match the selected Pilot")
+    manifest_failures = verify_manifest(pilot_root, manifest_path)
+    if manifest_failures:
+        raise ValueError(f"Pilot manifest verification failed: {manifest_failures}")
+    pilot_config_root = pilot_root / "frozen-config"
+    if input_hashes.get("resource_policy") != _digest(
+        pilot_config_root / "resource-policy.json"
+    ):
+        raise ValueError("resource-gate policy hash does not match the frozen Pilot policy")
     receipt = build_final_configuration(
         pilot_config_root=pilot_config_root,
         qualification=qualification,
@@ -169,6 +180,8 @@ def write_final_config(
         "pilot_qualification": _digest(qualification_path),
         "resource_gate": _digest(resource_gate_path),
     }
+    shutil.copy2(qualification_path, output_root / "PILOT_MODEL_QUALIFICATION.json")
+    shutil.copy2(resource_gate_path, output_root / "FINAL_RESOURCE_GATE.json")
     _write_json_exclusive(output_root / "FINAL_CONFIG_RECEIPT.json", receipt)
     return receipt
 
@@ -178,11 +191,9 @@ def _parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
     gate = commands.add_parser("gate")
     gate.add_argument("--pilot-root", type=Path, required=True)
-    gate.add_argument("--pilot-config", type=Path, required=True)
     gate.add_argument("--provider-credit", type=Path, required=True)
     gate.add_argument("--output", type=Path, required=True)
     final_config = commands.add_parser("final-config")
-    final_config.add_argument("--pilot-config", type=Path, required=True)
     final_config.add_argument("--qualification", type=Path, required=True)
     final_config.add_argument("--resource-gate", type=Path, required=True)
     final_config.add_argument("--output", type=Path, required=True)
@@ -201,13 +212,11 @@ def _dispatch(args: argparse.Namespace) -> dict[str, Any]:
     if args.command == "gate":
         return write_resource_gate(
             pilot_root=args.pilot_root,
-            pilot_config_root=args.pilot_config,
             provider_credit_path=args.provider_credit,
             output_path=args.output,
         )
     if args.command == "final-config":
         return write_final_config(
-            pilot_config_root=args.pilot_config,
             qualification_path=args.qualification,
             resource_gate_path=args.resource_gate,
             output_root=args.output,

@@ -55,7 +55,6 @@ Pilot outcome. Then run:
 ```powershell
 .venv\Scripts\python.exe -m auto_decte_agent_benchmark.post_pilot gate `
   --pilot-root <complete-pilot-root> `
-  --pilot-config config `
   --provider-credit <provider-credit.json> `
   --output <new-gate-root>\FINAL_RESOURCE_GATE.json
 ```
@@ -65,11 +64,15 @@ decision is `PASS` or `PASS_FALLBACK`, bind the exact qualification file selecte
 
 ```powershell
 .venv\Scripts\python.exe -m auto_decte_agent_benchmark.post_pilot final-config `
-  --pilot-config config `
   --qualification <complete-pilot-root>\pilot-model-qualification.json `
   --resource-gate <new-gate-root>\FINAL_RESOURCE_GATE.json `
   --output <new-final-config-root>
 ```
+
+Both commands obtain models, matrix, retry policy, and resource policy only from the Pilot's
+manifest-bound `frozen-config`; there is no option to substitute the current working configuration.
+The Final configuration directory also retains exact copies of the complete Pilot qualification,
+resource-gate decision, and Final-config receipt; all three enter the subsequent source freeze.
 
 Create a JSON object containing only pre-execution runtime metadata (for example Python, OS,
 Codex/API client versions, and `scientific_outcomes_read: false`). Stage a fresh source freeze:

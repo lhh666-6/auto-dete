@@ -307,13 +307,15 @@
     the complete gate is now 155 tests, Ruff clean, and the unchanged 112-run zero-call plan hash.
 70. Correct gate primitives are insufficient if an operator must join them with ad hoc scripts.
     The post-Pilot transition now verifies Pilot completeness and integrity, binds qualification,
-    policy, and explicit credit inputs by SHA-256, and writes only a zero-execution decision when
-    resources block. It never reads paper-facing scientific metrics to choose repetitions.
+    the Pilot's own manifest-bound frozen policy, and explicit credit inputs by SHA-256, and writes
+    only a zero-execution decision when resources block. It exposes no current-config override and
+    never uses paper-facing scientific metrics to choose repetitions.
 71. A source manifest that is checked only during staging does not protect live Final execution.
     The Final runner now requires the active frozen revision root and checks `FROZEN.json` before
     and after dispatch. The Final output remains external, so legitimate evidence growth cannot
     mutate the frozen source inventory.
 72. Reproducible source freezing must not vendor a mutable virtual environment or secret-bearing
     files. The new allow-list stages runtime source, dependency locks, Final configuration, and
-    pre-execution metadata only; external pinned environments execute the frozen source without
-    writing inside it.
+    pre-execution metadata only; it also retains the exact Pilot qualification, gate, and config
+    receipt control files. External pinned environments execute the frozen source without writing
+    inside it.

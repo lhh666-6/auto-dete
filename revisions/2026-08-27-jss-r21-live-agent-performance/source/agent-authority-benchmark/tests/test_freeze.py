@@ -149,6 +149,9 @@ def final_freeze_fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
         "final.matrix.json",
         "retry-policy.json",
         "resource-policy.json",
+        "PILOT_MODEL_QUALIFICATION.json",
+        "FINAL_RESOURCE_GATE.json",
+        "FINAL_CONFIG_RECEIPT.json",
     ):
         _write(final_config / name, "{}\n")
     return benchmark, implementation, final_config
@@ -169,6 +172,11 @@ def test_stage_final_freeze_copies_only_runtime_allowlist(tmp_path: Path) -> Non
     assert result["schema_version"] == "agent-authority-frozen-source.v2"
     assert (output / "source/agent-authority-benchmark/auto_decte_agent_benchmark/runner.py").is_file()
     assert (output / "source/agent-authority-benchmark/config/final.models.json").is_file()
+    assert (output / "source/agent-authority-benchmark/config/FINAL_RESOURCE_GATE.json").is_file()
+    assert (
+        output / "source/agent-authority-benchmark/config/PILOT_MODEL_QUALIFICATION.json"
+    ).is_file()
+    assert (output / "source/agent-authority-benchmark/config/FINAL_CONFIG_RECEIPT.json").is_file()
     assert (output / "source/implementation/app/service.py").is_file()
     assert not (output / "source/agent-authority-benchmark/config/pilot.models.json").exists()
     assert not (output / "source/agent-authority-benchmark/.venv").exists()

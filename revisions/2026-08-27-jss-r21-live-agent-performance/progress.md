@@ -292,7 +292,14 @@
   secrets, Pilot records, and unrelated evidence are excluded.
 - Added mandatory live-Final verification before and after dispatch. A missing, wrong-schema,
   tampered, or non-active frozen root stops before a provider call or invalidates the return.
-- Fresh offline gate: 171 tests passed; Ruff reported no findings; the Pilot dry run remained exactly
+- A final self-review found and closed a policy-substitution path: post-Pilot commands no longer
+  accept a current config directory. They use only the complete Pilot's manifest-bound
+  `frozen-config`, and Final-config creation rechecks the original Pilot manifest, qualification,
+  and resource-policy hashes recorded by the gate.
+- The Final-config directory and source freeze now retain exact copies of the complete attempted
+  qualification roster, resource decision, and Final-config receipt, so excluded slots and the
+  full Pilot→gate→Final hash chain remain inspectable rather than existing only as external paths.
+- Fresh offline gate: 173 tests passed; Ruff reported no findings; the Pilot dry run remained exactly
   112 executions, four configurations, fourteen scenarios, two variants, 56 semantic groups, zero
   model calls, zero database writes, and plan hash `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`.
 - No Pilot-3 output root or provider invocation was created during this work.

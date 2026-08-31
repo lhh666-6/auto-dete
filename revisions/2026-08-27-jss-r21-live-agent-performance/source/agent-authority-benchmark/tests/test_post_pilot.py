@@ -1,10 +1,14 @@
 from hashlib import sha256
 import json
 from pathlib import Path
+import shutil
 
 import pytest
 
 from auto_decte_agent_benchmark.manifest import build_manifest
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def _write_json(path: Path, value: object) -> None:
@@ -59,9 +63,6 @@ def _pilot_fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
         {"schema_version": "agent-authority-summary.v2", "planned_executions": 112},
     )
     (pilot / "PILOT_REPORT.md").write_text("# complete Pilot\n", encoding="utf-8")
-    manifest_path = pilot / "manifest.json"
-    _write_json(manifest_path, build_manifest(pilot, manifest_path=manifest_path))
-
     _write_json(
         config / "resource-policy.json",
         {
@@ -79,6 +80,18 @@ def _pilot_fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
             "decision_order": ["default", "balanced_fallback", "block"],
         },
     )
+    frozen_config = pilot / "frozen-config"
+    frozen_config.mkdir()
+    for name in (
+        "pilot.models.json",
+        "pilot.matrix.json",
+        "retry-policy.json",
+        "resource-policy.json",
+    ):
+        source = config / name if name == "resource-policy.json" else ROOT / "config" / name
+        shutil.copy2(source, frozen_config / name)
+    manifest_path = pilot / "manifest.json"
+    _write_json(manifest_path, build_manifest(pilot, manifest_path=manifest_path))
     _write_json(
         credit,
         {
@@ -97,7 +110,6 @@ def test_complete_pilot_writes_hash_bound_resource_gate(tmp_path: Path) -> None:
 
     result = write_resource_gate(
         pilot_root=pilot,
-        pilot_config_root=config,
         provider_credit_path=credit,
         output_path=output,
     )
@@ -112,7 +124,7 @@ def test_complete_pilot_writes_hash_bound_resource_gate(tmp_path: Path) -> None:
         "pilot_manifest": _digest(pilot / "manifest.json"),
         "pilot_qualification": _digest(pilot / "pilot-model-qualification.json"),
         "provider_credit": _digest(credit),
-        "resource_policy": _digest(config / "resource-policy.json"),
+        "resource_policy": _digest(pilot / "frozen-config/resource-policy.json"),
     }
 
 
@@ -126,7 +138,6 @@ def test_resource_gate_blocks_false_credit_without_creating_final_authority(tmp_
 
     result = write_resource_gate(
         pilot_root=pilot,
-        pilot_config_root=config,
         provider_credit_path=credit,
         output_path=tmp_path / "FINAL_RESOURCE_GATE.json",
     )
@@ -164,7 +175,6 @@ def test_resource_gate_rejects_invalid_pilot_before_writing(
     with pytest.raises((FileNotFoundError, ValueError), match="Pilot|manifest|roster"):
         write_resource_gate(
             pilot_root=pilot,
-            pilot_config_root=config,
             provider_credit_path=credit,
             output_path=output,
         )
@@ -182,7 +192,6 @@ def test_resource_gate_refuses_overwrite(tmp_path: Path) -> None:
     with pytest.raises(FileExistsError):
         write_resource_gate(
             pilot_root=pilot,
-            pilot_config_root=config,
             provider_credit_path=credit,
             output_path=output,
         )
@@ -199,8 +208,6 @@ def test_post_pilot_cli_exposes_separate_non_networked_steps() -> None:
             "gate",
             "--pilot-root",
             "pilot",
-            "--pilot-config",
-            "config",
             "--provider-credit",
             "credit.json",
             "--output",
@@ -210,8 +217,6 @@ def test_post_pilot_cli_exposes_separate_non_networked_steps() -> None:
     final_config = parser.parse_args(
         [
             "final-config",
-            "--pilot-config",
-            "config",
             "--qualification",
             "qualification.json",
             "--resource-gate",
@@ -252,7 +257,6 @@ def test_final_config_cli_binding_refuses_gate_from_other_qualification(tmp_path
 
     write_resource_gate(
         pilot_root=pilot,
-        pilot_config_root=config,
         provider_credit_path=credit,
         output_path=gate_path,
     )
@@ -263,10 +267,62 @@ def test_final_config_cli_binding_refuses_gate_from_other_qualification(tmp_path
 
     with pytest.raises(ValueError, match="qualification hash"):
         write_final_config(
-            pilot_config_root=config,
             qualification_path=qualification_path,
             resource_gate_path=gate_path,
             output_root=tmp_path / "final-config",
         )
 
     assert not (tmp_path / "final-config").exists()
+
+
+def test_final_config_uses_only_manifest_bound_pilot_config(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.post_pilot import write_final_config, write_resource_gate
+
+    pilot, _config, credit = _pilot_fixture(tmp_path)
+    gate_path = tmp_path / "FINAL_RESOURCE_GATE.json"
+    write_resource_gate(
+        pilot_root=pilot,
+        provider_credit_path=credit,
+        output_path=gate_path,
+    )
+
+    receipt = write_final_config(
+        qualification_path=pilot / "pilot-model-qualification.json",
+        resource_gate_path=gate_path,
+        output_root=tmp_path / "final-config",
+    )
+
+    assert receipt["planned_executions"] == 1680
+    assert receipt["selected_model_config_ids"] == ["G1", "G2", "D1", "D2"]
+    assert (tmp_path / "final-config/PILOT_MODEL_QUALIFICATION.json").read_bytes() == (
+        pilot / "pilot-model-qualification.json"
+    ).read_bytes()
+    assert (tmp_path / "final-config/FINAL_RESOURCE_GATE.json").read_bytes() == (
+        gate_path.read_bytes()
+    )
+    assert (tmp_path / "final-config/FINAL_CONFIG_RECEIPT.json").is_file()
+
+
+def test_final_config_rejects_rewritten_pilot_manifest_after_gate(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.post_pilot import write_final_config, write_resource_gate
+
+    pilot, _config, credit = _pilot_fixture(tmp_path)
+    gate_path = tmp_path / "FINAL_RESOURCE_GATE.json"
+    write_resource_gate(
+        pilot_root=pilot,
+        provider_credit_path=credit,
+        output_path=gate_path,
+    )
+    models = pilot / "frozen-config/pilot.models.json"
+    models.write_bytes(models.read_bytes() + b"\n")
+    _write_json(
+        pilot / "manifest.json",
+        build_manifest(pilot, manifest_path=pilot / "manifest.json"),
+    )
+
+    with pytest.raises(ValueError, match="Pilot manifest hash"):
+        write_final_config(
+            qualification_path=pilot / "pilot-model-qualification.json",
+            resource_gate_path=gate_path,
+            output_root=tmp_path / "final-config",
+        )

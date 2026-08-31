@@ -239,6 +239,9 @@ def stage_final_freeze(
             "final.matrix.json",
             "retry-policy.json",
             "resource-policy.json",
+            "PILOT_MODEL_QUALIFICATION.json",
+            "FINAL_RESOURCE_GATE.json",
+            "FINAL_CONFIG_RECEIPT.json",
         ):
             _copy_required_file(
                 final_config_root / name,

@@ -28,10 +28,16 @@ attestation, and writes an append-only `FINAL_RESOURCE_GATE.json`. A blocked dec
 the gate. A passing decision may then create a new Final configuration with the existing
 `build_final_configuration` primitive.
 
+The authoritative model, matrix, retry, and resource-policy inputs come only from the complete
+Pilot's manifest-bound `frozen-config`. The interface intentionally exposes no current-config
+override. Final-configuration creation rechecks the Pilot manifest and every gate-bound input hash.
+
 `freeze.py` gains a narrow staging function that copies only the benchmark runtime source,
 dependency locks, selected implementation runtime inputs, and generated Final configuration into a
 new root. It then writes a non-self-referential `FROZEN.json` with pre-execution runtime metadata.
 Caches, environments, raw Pilot records, prior evidence, and secrets are excluded.
+The staged control files also retain the complete Pilot qualification, resource decision, and Final
+configuration receipt, so excluded attempted slots and every transition hash remain inspectable.
 
 `runner.py` requires `--frozen-root` for every live Final command. It verifies `FROZEN.json` before
 dispatch and again after the phase runner returns. Dry runs remain network-free and do not require a
