@@ -319,3 +319,10 @@
     pre-execution metadata only; it also retains the exact Pilot qualification, gate, and config
     receipt control files. External pinned environments execute the frozen source without writing
     inside it.
+73. The historical six-case R21 builder is itself hash-bound evidence, so modifying it to consume
+    the new benchmark would invalidate rather than improve that historical package. The repeated
+    benchmark therefore uses a new Final-only stager and a physically separate candidate bundle.
+74. File presence is not enough for manuscript admission. The stager verifies the Final manifest,
+    both provider families, the exact frozen coordinate Cartesian product, Final-only phase labels,
+    summary/statistics schemas, and every paper-facing table/figure before emitting a separately
+    manifested `READY_FOR_MANUSCRIPT_INTEGRATION` status.

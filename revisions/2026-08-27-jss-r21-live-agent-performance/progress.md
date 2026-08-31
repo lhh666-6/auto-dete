@@ -299,7 +299,22 @@
 - The Final-config directory and source freeze now retain exact copies of the complete attempted
   qualification roster, resource decision, and Final-config receipt, so excluded slots and the
   full Pilot→gate→Final hash chain remain inspectable rather than existing only as external paths.
-- Fresh offline gate: 173 tests passed; Ruff reported no findings; the Pilot dry run remained exactly
+- Fresh offline gate: 178 tests passed with one known third-party forward-reference warning; Ruff
+  reported no findings; the Pilot dry run remained exactly
   112 executions, four configurations, fourteen scenarios, two variants, 56 semantic groups, zero
   model calls, zero database writes, and plan hash `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`.
 - No Pilot-3 output root or provider invocation was created during this work.
+
+## 2026-08-31 — Final-only manuscript-input gate
+
+- Preserved the historical `scripts/build_r21_inputs.py`, its six-case paper input, and the current
+  manuscript unchanged. They remain valid historical evidence and are not silently overwritten.
+- Added a test-first, separately versioned manuscript-input stager inside the benchmark package. It
+  rejects a missing/tampered manifest, Pilot-labelled row, incomplete reporting bundle, existing
+  destination, wrong scenario/variant/repetition design, provider-family loss, duplicate ledger, or
+  any coordinate gap before creating output.
+- A valid candidate must cover the exact frozen qualified-model × 14-scenario × V1/V2/V3 × 5/10
+  matrix and retain the normalized JSON/CSV, summary, exact statistics, two logical tables, SVG/PDF/
+  PNG figure set, figure QA, and Final report under a new non-self-referential manifest.
+- The staging command does not edit `paper/`. Replacement of the old six-case narrative remains
+  gated on actual complete Final evidence and the approved 2--3-page replace-not-stack plan.

@@ -97,19 +97,17 @@ without changing the frozen R17--R19 evidence or overstating the new results.
   live pilot qualification pending).
 - [x] Execute deterministic real-boundary tests for all fourteen legal/invalid host challenges,
   including separate candidate/authority digests and the prepare/execute protocol.
-- [ ] Complete normalization, statistics, and artifact generation (all fourteen scenarios, all
-  three final prompts, the immutable ledger, append-only resume, exact primary intervals, manifest,
-  and deterministic 112-run dry-run validation are done; table/figure rendering remains).
+- [x] Complete normalization, exact statistics, two logically separate tables, editable/vector/
+  preview figures, figure QA, immutable ledger, append-only resume, manifest, and deterministic
+  112-run dry-run validation; generation remains Final-only.
 - [ ] Execute the 112-run non-citable pilot only after deterministic gates pass.
 - [ ] Decide the resource gate, freeze the qualified balanced matrix, and execute final only if all
   stop conditions pass.
 - [ ] Replace the old live-agent manuscript evidence, verify artifacts, and rerun submission gates.
 
-**Status:** the deterministic gate passes with 140 tests and Ruff clean. The unique non-citable
-112-run Pilot remains append-only after two test-first repairs: just-in-time certificate setup and
-exact declared-value/verification utility postconditions. All pre-repair terminal/interrupted
-records remain non-citable; G1 is necessarily excluded from qualification by its preserved B1
-interruption, so pre-repair records cannot enter the Final roster.
+**Status:** the deterministic implementation, reporting, freeze, and manuscript-staging paths are
+complete. Pilot-1 remains historical and unqualified; Pilot-2 remains an externally manifested
+harness abort; the repaired Pilot-3 is the only candidate Pilot and has not started.
 
 ### Phase 9 — quota-independent completion while Pilot is paused
 
@@ -158,6 +156,9 @@ authorized until quota recovers.
   environments, caches, secrets, Pilot output, and unrelated evidence from `FROZEN.json`.
 - [x] Require every live Final command to use the active frozen root and verify its manifest both
   before and after dispatch; retain dry-run and Pilot behavior unchanged.
+- [x] Add a no-overwrite manuscript-input staging gate that accepts only an intact complete Final,
+  exact frozen coordinate coverage, both provider families, and all generated tables/figures; do
+  not alter the historical six-case input or current manuscript before real Final results exist.
 - [ ] Start the unique Pilot-3 root only after an OpenAI quota reset is confirmed; execute G1/G2
   coordinates one call per reset/checkpoint and never overwrite a terminal result.
 - [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider

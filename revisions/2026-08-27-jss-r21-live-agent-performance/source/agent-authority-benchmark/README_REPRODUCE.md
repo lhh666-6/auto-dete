@@ -128,3 +128,21 @@ Only a complete locked Final plan can call `render_final_reporting_bundle`. It w
 The behavior and mechanism tables have disjoint meanings and denominators. The figure reports
 Clopper--Pearson intervals and separate one-sided zero-event upper bounds; it does not rank provider
 families or claim general security.
+
+## Manuscript-input staging
+
+Do not edit the manuscript from a Pilot, diagnostic, checkpoint, or partial Final. After the complete
+Final root and its own manifest verify, stage a separate no-overwrite candidate bundle:
+
+```powershell
+<external-python> -m auto_decte_agent_benchmark.manuscript_stage `
+  --final-root <complete-final-output-root> `
+  --output <new-manuscript-input-bundle>
+```
+
+The command requires exact coverage of the frozen model × 14-scenario × three-variant × five/ten-
+repetition matrix, both provider families, Final-only normalized rows, consistent summary and
+statistics schemas, all paper tables and figure formats, and an intact Final manifest. It copies
+those inputs into a separately manifested bundle but does not modify `paper/` or the historical
+six-case R21 input. Manuscript replacement starts only when `MANUSCRIPT_INPUT_STATUS.json` says
+`READY_FOR_MANUSCRIPT_INTEGRATION` and the new bundle manifest verifies.
