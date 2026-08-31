@@ -278,3 +278,21 @@
 - Created Pilot-3 preflight from repaired commit `1e7b0ac081385d9e2e9a10feebb9c0f9f0e1e061`.
   Its launch lock verifies 36 benchmark files, 55 implementation files, four configs, 112 planned
   coordinates, zero model calls, and an absent unique output root. Its manifest verifies.
+
+## 2026-08-31 — post-Pilot Final gate hardening
+
+- Found that the resource decision and freeze primitives had no stable end-to-end command and that
+  a live Final dispatch did not yet require `FROZEN.json` verification.
+- Added a non-networked post-Pilot gate that requires an intact complete Pilot manifest, exact
+  112-coordinate ledger, four-slot attempted roster, explicit provider-credit attestation, and
+  hash bindings to the Pilot manifest, qualification, policy, and credit file. A blocked gate writes
+  zero authorized Final executions.
+- Added a bound Final-config command and minimal create-only freeze staging for benchmark runtime
+  source, Final config, implementation runtime source, and dependency locks. Environments, caches,
+  secrets, Pilot records, and unrelated evidence are excluded.
+- Added mandatory live-Final verification before and after dispatch. A missing, wrong-schema,
+  tampered, or non-active frozen root stops before a provider call or invalidates the return.
+- Fresh offline gate: 171 tests passed; Ruff reported no findings; the Pilot dry run remained exactly
+  112 executions, four configurations, fourteen scenarios, two variants, 56 semantic groups, zero
+  model calls, zero database writes, and plan hash `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`.
+- No Pilot-3 output root or provider invocation was created during this work.

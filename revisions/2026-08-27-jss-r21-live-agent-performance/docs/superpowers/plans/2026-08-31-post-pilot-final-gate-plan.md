@@ -16,16 +16,16 @@
 - Create: `source/agent-authority-benchmark/auto_decte_agent_benchmark/post_pilot.py`
 - Create: `source/agent-authority-benchmark/tests/test_post_pilot.py`
 
-- [ ] Write a failing test whose fixture contains a valid 112-coordinate Pilot manifest,
+- [x] Write a failing test whose fixture contains a valid 112-coordinate Pilot manifest,
   qualification roster, summary, and provider-credit attestation; assert that the new function
   writes a create-only gate with Pilot/config/credit SHA-256 bindings.
-- [ ] Run `pytest tests/test_post_pilot.py -q` and confirm the import or API fails because the module
+- [x] Run `pytest tests/test_post_pilot.py -q` and confirm the import or API fails because the module
   is absent.
-- [ ] Implement JSON loading, manifest verification, exact phase/count/roster checks, resource-row
+- [x] Implement JSON loading, manifest verification, exact phase/count/roster checks, resource-row
   construction, no-overwrite JSON writing, and `decide_resource_gate` delegation.
-- [ ] Add failing tests for incomplete/tampered Pilot, false provider credit, roster mismatch, and an
+- [x] Add failing tests for incomplete/tampered Pilot, false provider credit, roster mismatch, and an
   existing output; implement only the validation needed to pass them.
-- [ ] Run `pytest tests/test_post_pilot.py tests/test_resource_gate.py -q` and commit the task.
+- [x] Run `pytest tests/test_post_pilot.py tests/test_resource_gate.py -q` and commit the task.
 
 ### Task 2: Stage a minimal verified Final source tree
 
@@ -33,15 +33,15 @@
 - Modify: `source/agent-authority-benchmark/auto_decte_agent_benchmark/freeze.py`
 - Modify: `source/agent-authority-benchmark/tests/test_freeze.py`
 
-- [ ] Write a failing test that stages benchmark runtime source, generated Final config, and the
+- [x] Write a failing test that stages benchmark runtime source, generated Final config, and the
   implementation runtime allow-list into a new root and excludes `.venv`, caches, Pilot output,
   secrets, and unrelated evidence.
-- [ ] Run the focused test and confirm the staging API is missing.
-- [ ] Implement `stage_final_freeze` with safe relative allow-lists, create-only destinations,
+- [x] Run the focused test and confirm the staging API is missing.
+- [x] Implement `stage_final_freeze` with safe relative allow-lists, create-only destinations,
   failure-marker preservation, runtime metadata, and `write_frozen_manifest`.
-- [ ] Add and satisfy tests for missing required inputs, existing output, manifest tamper detection,
+- [x] Add and satisfy tests for missing required inputs, existing output, manifest tamper detection,
   and absence of secret material.
-- [ ] Run `pytest tests/test_freeze.py -q` and commit the task.
+- [x] Run `pytest tests/test_freeze.py -q` and commit the task.
 
 ### Task 3: Enforce the freeze at the Final execution boundary
 
@@ -49,13 +49,13 @@
 - Modify: `source/agent-authority-benchmark/auto_decte_agent_benchmark/runner.py`
 - Modify: `source/agent-authority-benchmark/tests/test_runner.py`
 
-- [ ] Write failing parser/dispatch tests showing that a live Final without `--frozen-root`, or with
+- [x] Write failing parser/dispatch tests showing that a live Final without `--frozen-root`, or with
   a tampered freeze, fails before the injected live runner records a call.
-- [ ] Run the focused tests and confirm the missing enforcement causes the expected failures.
-- [ ] Add `--frozen-root`; require it only for live Final; verify its path is the active revision
+- [x] Run the focused tests and confirm the missing enforcement causes the expected failures.
+- [x] Add `--frozen-root`; require it only for live Final; verify its path is the active revision
   root and call `verify_frozen_manifest` immediately before and after live dispatch.
-- [ ] Add a passing test for a verified freeze and confirm Pilot plus dry-run semantics are unchanged.
-- [ ] Run `pytest tests/test_runner.py tests/test_freeze.py -q` and commit the task.
+- [x] Add a passing test for a verified freeze and confirm Pilot plus dry-run semantics are unchanged.
+- [x] Run `pytest tests/test_runner.py tests/test_freeze.py -q` and commit the task.
 
 ### Task 4: Add stable commands and run the deterministic gate
 
@@ -65,10 +65,10 @@
 - Modify: `revisions/2026-08-27-jss-r21-live-agent-performance/progress.md`
 - Modify: `revisions/2026-08-27-jss-r21-live-agent-performance/findings.md`
 
-- [ ] Add exact post-Pilot gate, freeze, verify, Final dry-run, first-run, and resume commands. State
+- [x] Add exact post-Pilot gate, freeze, verify, Final dry-run, first-run, and resume commands. State
   that a blocked gate writes no Final config and no Final execution is authorized.
-- [ ] Run the full package tests and require zero failures.
-- [ ] Run Ruff and require zero diagnostics.
-- [ ] Run the locked Pilot dry run and require 112 executions, four configurations, zero calls, and
+- [x] Run the full package tests and require zero failures.
+- [x] Run Ruff and require zero diagnostics.
+- [x] Run the locked Pilot dry run and require 112 executions, four configurations, zero calls, and
   zero writes; exercise the post-Pilot tests rather than fabricating a real Pilot-3 result.
-- [ ] Review the diff for historical evidence mutations, then commit only the new source/tests/docs.
+- [x] Review the diff for historical evidence mutations, then commit only the new source/tests/docs.

@@ -188,3 +188,85 @@ def test_resource_gate_refuses_overwrite(tmp_path: Path) -> None:
         )
 
     assert output.read_text(encoding="utf-8") == "preserve\n"
+
+
+def test_post_pilot_cli_exposes_separate_non_networked_steps() -> None:
+    from auto_decte_agent_benchmark.post_pilot import _parser
+
+    parser = _parser()
+    gate = parser.parse_args(
+        [
+            "gate",
+            "--pilot-root",
+            "pilot",
+            "--pilot-config",
+            "config",
+            "--provider-credit",
+            "credit.json",
+            "--output",
+            "gate.json",
+        ]
+    )
+    final_config = parser.parse_args(
+        [
+            "final-config",
+            "--pilot-config",
+            "config",
+            "--qualification",
+            "qualification.json",
+            "--resource-gate",
+            "gate.json",
+            "--output",
+            "final-config",
+        ]
+    )
+    freeze = parser.parse_args(
+        [
+            "freeze",
+            "--benchmark-root",
+            "benchmark",
+            "--implementation-root",
+            "implementation",
+            "--final-config",
+            "final-config",
+            "--runtime-metadata",
+            "runtime.json",
+            "--output",
+            "freeze",
+        ]
+    )
+    verify = parser.parse_args(["verify-freeze", "--root", "freeze"])
+
+    assert gate.command == "gate"
+    assert final_config.command == "final-config"
+    assert freeze.command == "freeze"
+    assert verify.command == "verify-freeze"
+
+
+def test_final_config_cli_binding_refuses_gate_from_other_qualification(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.post_pilot import write_final_config
+
+    pilot, config, credit = _pilot_fixture(tmp_path)
+    gate_path = tmp_path / "FINAL_RESOURCE_GATE.json"
+    from auto_decte_agent_benchmark.post_pilot import write_resource_gate
+
+    write_resource_gate(
+        pilot_root=pilot,
+        pilot_config_root=config,
+        provider_credit_path=credit,
+        output_path=gate_path,
+    )
+    qualification_path = pilot / "pilot-model-qualification.json"
+    qualification = json.loads(qualification_path.read_text(encoding="utf-8"))
+    qualification["models"][0]["qualification_pass"] = False
+    _write_json(qualification_path, qualification)
+
+    with pytest.raises(ValueError, match="qualification hash"):
+        write_final_config(
+            pilot_config_root=config,
+            qualification_path=qualification_path,
+            resource_gate_path=gate_path,
+            output_root=tmp_path / "final-config",
+        )
+
+    assert not (tmp_path / "final-config").exists()

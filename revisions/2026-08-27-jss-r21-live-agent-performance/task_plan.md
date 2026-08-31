@@ -151,14 +151,23 @@ authorized until quota recovers.
   and pass 155 deterministic tests, Ruff, and the unchanged 112-run dry run.
 - [x] Bind Pilot-3 to repaired commit `1e7b0ac`, 36 benchmark and 55 implementation source files,
   four configs, the complete run-plan hash, and a unique absent output root.
+- [x] Add a non-networked post-Pilot command that verifies a complete 112-run Pilot manifest and
+  exact roster, derives only latency/failure/credit resource rows, and writes a hash-bound,
+  no-overwrite `FINAL_RESOURCE_GATE.json`.
+- [x] Add create-only Final configuration and minimal source-freeze staging commands; exclude
+  environments, caches, secrets, Pilot output, and unrelated evidence from `FROZEN.json`.
+- [x] Require every live Final command to use the active frozen root and verify its manifest both
+  before and after dispatch; retain dry-run and Pilot behavior unchanged.
 - [ ] Start the unique Pilot-3 root only after an OpenAI quota reset is confirmed; execute G1/G2
   coordinates one call per reset/checkpoint and never overwrite a terminal result.
 - [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider
   families pass the frozen gates.
 
 **Status:** Pilot-2 is externally manifested as an aborted harness run after one invocation and must
-not resume. Pilot-3 preflight verifies `PASS` and its output root remains absent. The next live
-action is exactly one OpenAI coordinate after confirmed quota recovery.
+not resume. Pilot-3 preflight verifies `PASS` and its output root remains absent. The complete
+post-Pilot resource/config/freeze chain is now executable and fail-closed, but cannot authorize
+Final before Pilot-3 completes. The next live action is exactly one OpenAI coordinate after
+confirmed quota recovery.
 
 ## Errors and constraints
 

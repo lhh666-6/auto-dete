@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from .freeze import build_final_configuration, stage_final_freeze, verify_frozen_manifest
 from .manifest import verify_manifest
 from .resource_gate import decide_resource_gate, load_resource_policy
 
@@ -143,23 +144,94 @@ def write_resource_gate(
     return decision
 
 
+def write_final_config(
+    *,
+    pilot_config_root: Path,
+    qualification_path: Path,
+    resource_gate_path: Path,
+    output_root: Path,
+) -> dict[str, Any]:
+    """Create a Final configuration only from the qualification bound by the gate."""
+    if output_root.exists():
+        raise FileExistsError(output_root)
+    qualification = _read_object(qualification_path)
+    resource_gate = _read_object(resource_gate_path)
+    expected_hash = resource_gate.get("input_sha256", {}).get("pilot_qualification")
+    if expected_hash != _digest(qualification_path):
+        raise ValueError("resource-gate qualification hash does not match the selected file")
+    receipt = build_final_configuration(
+        pilot_config_root=pilot_config_root,
+        qualification=qualification,
+        resource_gate=resource_gate,
+        output_root=output_root,
+    )
+    receipt["input_sha256"] = {
+        "pilot_qualification": _digest(qualification_path),
+        "resource_gate": _digest(resource_gate_path),
+    }
+    _write_json_exclusive(output_root / "FINAL_CONFIG_RECEIPT.json", receipt)
+    return receipt
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pilot-root", type=Path, required=True)
-    parser.add_argument("--pilot-config", type=Path, required=True)
-    parser.add_argument("--provider-credit", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    commands = parser.add_subparsers(dest="command", required=True)
+    gate = commands.add_parser("gate")
+    gate.add_argument("--pilot-root", type=Path, required=True)
+    gate.add_argument("--pilot-config", type=Path, required=True)
+    gate.add_argument("--provider-credit", type=Path, required=True)
+    gate.add_argument("--output", type=Path, required=True)
+    final_config = commands.add_parser("final-config")
+    final_config.add_argument("--pilot-config", type=Path, required=True)
+    final_config.add_argument("--qualification", type=Path, required=True)
+    final_config.add_argument("--resource-gate", type=Path, required=True)
+    final_config.add_argument("--output", type=Path, required=True)
+    freeze = commands.add_parser("freeze")
+    freeze.add_argument("--benchmark-root", type=Path, required=True)
+    freeze.add_argument("--implementation-root", type=Path, required=True)
+    freeze.add_argument("--final-config", type=Path, required=True)
+    freeze.add_argument("--runtime-metadata", type=Path, required=True)
+    freeze.add_argument("--output", type=Path, required=True)
+    verify = commands.add_parser("verify-freeze")
+    verify.add_argument("--root", type=Path, required=True)
     return parser
 
 
+def _dispatch(args: argparse.Namespace) -> dict[str, Any]:
+    if args.command == "gate":
+        return write_resource_gate(
+            pilot_root=args.pilot_root,
+            pilot_config_root=args.pilot_config,
+            provider_credit_path=args.provider_credit,
+            output_path=args.output,
+        )
+    if args.command == "final-config":
+        return write_final_config(
+            pilot_config_root=args.pilot_config,
+            qualification_path=args.qualification,
+            resource_gate_path=args.resource_gate,
+            output_root=args.output,
+        )
+    if args.command == "freeze":
+        return stage_final_freeze(
+            benchmark_root=args.benchmark_root,
+            implementation_root=args.implementation_root,
+            final_config_root=args.final_config,
+            output_root=args.output,
+            runtime_metadata=_read_object(args.runtime_metadata),
+        )
+    failures = verify_frozen_manifest(args.root)
+    if failures:
+        raise ValueError(f"frozen manifest verification failed: {failures}")
+    return {
+        "schema_version": "agent-authority-frozen-source-verification.v2",
+        "status": "PASS",
+        "failures": [],
+    }
+
+
 def main() -> int:
-    args = _parser().parse_args()
-    result = write_resource_gate(
-        pilot_root=args.pilot_root,
-        pilot_config_root=args.pilot_config,
-        provider_credit_path=args.provider_credit,
-        output_path=args.output,
-    )
+    result = _dispatch(_parser().parse_args())
     print(json.dumps(result, sort_keys=True))
     return 0
 

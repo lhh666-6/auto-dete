@@ -329,6 +329,25 @@ def test_live_final_verifies_freeze_before_and_after_dispatch(tmp_path: Path) ->
     assert calls == ["live"]
 
 
+def test_live_final_returns_only_after_unchanged_freeze_reverifies(tmp_path: Path) -> None:
+    from auto_decte_agent_benchmark.freeze import write_frozen_manifest
+
+    dispatch = require("_dispatch")
+    freeze = tmp_path / "freeze"
+    (freeze / "source").mkdir(parents=True)
+    (freeze / "source/module.py").write_text("VALUE = 1\n", encoding="utf-8")
+    write_frozen_manifest(freeze, runtime_metadata={"python": "3.11"})
+
+    result = dispatch(
+        _final_args(tmp_path, frozen_root=freeze),
+        revision_root=freeze,
+        implementation_python=Path(sys.executable),
+        live_runner=lambda **_values: {"planned_executions": 1680},
+    )
+
+    assert result == {"planned_executions": 1680}
+
+
 def test_frozen_manifest_rejects_wrong_schema(tmp_path: Path) -> None:
     from auto_decte_agent_benchmark.freeze import verify_frozen_manifest
     from auto_decte_agent_benchmark.manifest import build_manifest
