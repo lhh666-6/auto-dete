@@ -418,3 +418,16 @@
   either misstate capacity or alter the design after outcomes.
 - Deleted the five-hour quota automation because further quota resets cannot resolve this frozen
   non-credit blocker and a stale heartbeat could incorrectly imply that Final may start.
+
+## 2026-09-01 — D2b amendment approved
+
+- Approved a prospective post-Pilot amendment rather than modifying Pilot-3. The new configuration
+  ID `D2b` retains the D2 `deepseek-v4-pro` request and changes only the explicit output-token cap
+  from 4,096 to 8,192.
+- Froze an exact 28-cell D2b qualification matrix, zero automatic retries, at most one invocation per
+  command, no selective reruns, and a reliability rule under which 0--1 failures pass while two or
+  more fail. No D2c rescue is permitted.
+- Froze both composite Final branches before D2b outcomes: G1/G2/D1/D2b if D2b passes, otherwise
+  G1/G2/D1. Original D2 remains excluded and immutable in both branches.
+- Committed the design at `19647e9`. No implementation file, Pilot evidence, or provider was touched
+  during design approval.

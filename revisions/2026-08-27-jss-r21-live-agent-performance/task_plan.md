@@ -177,6 +177,28 @@ tool-runtime failure). An optimistic zero-write resource precheck that treats ev
 attestation as true still returns `BLOCK`: D2's 5/28 runtime failures (17.86%) exceed the frozen 5%
 limit. No Final call is authorized, and quota recovery cannot remove this predeclared hard stop.
 
+### Phase 11 — D2b post-Pilot qualification amendment
+
+- [x] Approve and commit the prospective D2b protocol amendment with an 8,192-token cap, exact
+  28-cell matrix, zero retry, and no D2 overwrite.
+- [ ] Add failing tests for a hashed per-configuration output-token cap and unchanged G1/G2/D1
+  request behavior.
+- [ ] Add failing tests for the D2b-only ledger, complete-manifest gate, 0-or-1/28 reliability pass,
+  2-or-more/28 failure, and immutable composite-roster branches.
+- [ ] Implement the minimal D2b configuration, runner support, amendment qualification, and
+  composite eligibility receipt required by those tests.
+- [ ] Pass the complete deterministic test suite, Ruff, and a zero-provider-call 28-cell dry run.
+- [ ] Create and verify a new source/config/run-plan launch lock bound to one absent D2b output root.
+- [ ] Execute exactly 28 D2b coordinates with one call per command, zero retry, immutable terminals,
+  and immediate runtime/authority stop checks.
+- [ ] Verify D2b qualification and both Pilot manifests; compute the amended Final resource gate
+  without admitting Pilot outcomes to the manuscript.
+- [ ] If the amended resource gate passes, freeze and execute the selected three- or four-config
+  Final; otherwise preserve the hard stop and update the paper/artifact boundary.
+
+**Status:** design approved and committed as `19647e9`; implementation has not started and no D2b
+provider call has been made.
+
 ## Errors and constraints
 
 | Item | Evidence | Resolution |

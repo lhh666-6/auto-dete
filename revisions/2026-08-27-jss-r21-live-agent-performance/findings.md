@@ -370,3 +370,11 @@
     fail-closed preregistered gate into outcome-dependent design selection. The defensible result is
     to retain the complete Pilot, issue no Final calls, and report the resource-gate hard stop unless
     a separately preregistered future experiment is explicitly authorized.
+86. A configuration-specific remediation can preserve the original evidence if it is treated as a
+    disclosed post-Pilot amendment rather than a corrected D2 result. D2b therefore receives a new
+    identifier, independent 28-cell ledger, separate manifest, and a cap frozen before its first
+    observation; Pilot-3 and D2 remain byte-for-byte unchanged.
+87. With 28 cells, the frozen 5% reliability threshold has a discrete implication: zero or one
+    runtime failure is at most 3.57% and passes, while two failures are 7.14% and fail. Freezing this
+    rule and both possible Final rosters before D2b execution prevents a second round of selective
+    rescue or outcome-dependent configuration choice.
