@@ -129,7 +129,7 @@ interruption, so pre-repair records cannot enter the Final roster.
 **Status:** completed; all identified quota-independent work is closed. No live model execution is
 authorized until quota recovers.
 
-### Phase 10 — quota-aware Pilot-2 recovery
+### Phase 10 — quota-aware Pilot recovery
 
 - [x] Preserve the completed 112-run Pilot-1 and its failed cross-provider qualification gate.
 - [x] Repair DeepSeek tool-error recovery, OpenAI tool-surface isolation, absolute workspace
@@ -145,14 +145,20 @@ authorized until quota recovers.
   outside the immutable Pilot root, and manifest that disposition.
 - [x] Bind Pilot-2 to commit `1d66f77`, the clean benchmark tree, four config hashes, 55
   implementation source files, the 112-run ledger hash, and one absent unique output root.
-- [ ] Start the unique Pilot-2 root only after an OpenAI quota reset is confirmed; execute G1/G2
+- [x] Execute exactly one locked Pilot-2 invocation, diagnose the relative MCP data-root defect,
+  preserve the affected run and unintended nested database, and prohibit Pilot-2 continuation.
+- [x] Fix all OpenAI MCP runtime paths at the provider boundary, add the exact regression test,
+  and pass 155 deterministic tests, Ruff, and the unchanged 112-run dry run.
+- [x] Bind Pilot-3 to repaired commit `1e7b0ac`, 36 benchmark and 55 implementation source files,
+  four configs, the complete run-plan hash, and a unique absent output root.
+- [ ] Start the unique Pilot-3 root only after an OpenAI quota reset is confirmed; execute G1/G2
   coordinates one call per reset/checkpoint and never overwrite a terminal result.
 - [ ] Complete DeepSeek coordinates, qualification, resource gate, and Final only if both provider
   families pass the frozen gates.
 
-**Status:** Pilot-2 preflight verifies `PASS` but the output root remains absent. The next live action is exactly one
-OpenAI coordinate after confirmed quota recovery; all work completed in this phase so far was
-offline and consumed no GPT benchmark quota.
+**Status:** Pilot-2 is externally manifested as an aborted harness run after one invocation and must
+not resume. Pilot-3 preflight verifies `PASS` and its output root remains absent. The next live
+action is exactly one OpenAI coordinate after confirmed quota recovery.
 
 ## Errors and constraints
 

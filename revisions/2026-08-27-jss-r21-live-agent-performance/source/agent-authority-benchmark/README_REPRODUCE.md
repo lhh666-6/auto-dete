@@ -16,18 +16,20 @@ uv sync --frozen
 The dry run must report 112 planned executions, four configurations, fourteen scenarios, two
 prompt variants, zero model calls, zero database writes, and logical tool-surface equivalence.
 
-## Pilot history and quota-aware Pilot-2
+## Pilot history and quota-aware Pilot-3
 
 Pilot-1 is complete and immutable. Its failed qualification and blocking resource-gate disposition
 are preserved outside the Pilot root. It must never be resumed or edited.
 
-The repaired adapter/tool/prompt conditions require one new, physically separate Pilot-2 root under
-`BENCHMARK_EXECUTION_AMENDMENT_2026-08-31.md`. Start that root exactly once with
-`--max-new-invocations 1`. Every later command uses the same root with `--resume
---max-new-invocations 1`. The runner verifies the complete plan and frozen config, skips immutable
-terminal records, and stops after one new provider invocation. It uses the frozen zero-retry policy,
-so the command cannot consume a hidden second provider call. An incomplete Pilot has checkpoints
-but no normalized data, qualification, phase report, or manifest.
+Pilot-2 is an externally manifested aborted harness run. Its relative MCP data path opened an empty
+nested database, so its sole observation cannot qualify or characterize G1. It must not resume.
+
+Pilot-3 is the repaired, physically separate candidate Pilot. Start its locked root exactly once
+with `--max-new-invocations 1 --launch-lock <PILOT3_LAUNCH_LOCK.json>`. Every later command uses the
+same root with `--resume` and the same two controls. The runner verifies selected source, config,
+plan, output identity, and frozen zero retry before it can call a provider; it then stops after one
+new invocation. An incomplete Pilot has checkpoints but no normalized data, qualification, phase
+report, or manifest.
 
 Each absent run is prepared just in time, immediately before its provider invocation. This is a
 correctness requirement: production certificates have a one-hour age bound, so a phase-wide cache

@@ -255,3 +255,26 @@
   The Pilot-2 preflight lock binds that commit and tree, all four config hashes, 55 selected
   implementation source files, Python/Codex versions, the 112-run plan hash, zero retry, and the
   unique absent output root. Its preflight verification and manifest both pass without model calls.
+
+## 2026-08-31 — Pilot-2 abort and Pilot-3 repair lock
+
+- Added launch-lock enforcement test-first. Before any output creation or provider call, the CLI now
+  verifies selected benchmark and implementation files, four configs, zero retry, single-call
+  limit, output identity/resume state, and the complete dry-run plan. Source/config/output drift
+  blocks the live runner. Full gate at this point was 154 tests plus Ruff clean.
+- Ran the first and only Pilot-2 provider invocation. G1 called the proposal tool with the correct
+  declared value and metadata, but the tool reported `unknown form`. The run stopped at one terminal
+  record and one checkpoint; no normalization, qualification, report, manifest, second invocation,
+  or active process followed.
+- Root-cause tracing found both the initialized expected database and a second empty database under
+  `runs/evidence/...`. The relative CLI output propagated into the OpenAI MCP `--data-root`, which
+  Codex re-resolved from the agent workspace. Therefore the recorded utility failure is a harness
+  artifact and cannot qualify or characterize G1.
+- Preserved the entire Pilot-2 root under an external 18-file manifest and wrote a separately
+  manifested abort disposition. Pilot-2 continuation is prohibited.
+- Added a failing relative-path regression test, then resolved all OpenAI MCP workspace, source,
+  implementation, interpreter, and data paths at the provider boundary. Fresh full verification:
+  155 tests passed, Ruff clean, and the same 112-run zero-call dry-run hash.
+- Created Pilot-3 preflight from repaired commit `1e7b0ac081385d9e2e9a10feebb9c0f9f0e1e061`.
+  Its launch lock verifies 36 benchmark files, 55 implementation files, four configs, 112 planned
+  coordinates, zero model calls, and an absent unique output root. Its manifest verifies.

@@ -295,3 +295,13 @@
     `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`.
     Preflight verification confirms the planned output root does not yet exist and performs zero
     model calls.
+67. A launch lock is ineffective if it is only documentary. The live CLI now consumes
+    `--launch-lock` and refuses to call the phase runner when selected source, config, retry,
+    run-plan, output-root, resume-state, or single-call invariants differ.
+68. Pilot-2 exposed a path-boundary defect after exactly one G1 invocation. The expected initialized
+    database and an unintended empty `runs/evidence/.../demo.db` coexisted; the latter proves the
+    relative MCP data-root was resolved from Codex's agent workspace. The observed `unknown form`
+    and utility failure are harness artifacts, so the entire Pilot-2 root is aborted and excluded.
+69. Resolving every MCP path before the Codex working-directory transition fixes the source of the
+    defect. The regression test fails on the old provider boundary and passes on commit `1e7b0ac`;
+    the complete gate is now 155 tests, Ruff clean, and the unchanged 112-run zero-call plan hash.

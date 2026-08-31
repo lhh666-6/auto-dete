@@ -32,7 +32,18 @@ coordinates are terminal.
 
 ## Gates unchanged
 
-Pilot-2 remains non-citable. Final remains prohibited unless the completed Pilot-2 qualifies at
+The candidate Pilot remains non-citable. Final remains prohibited unless the completed candidate qualifies at
 least one OpenAI and one DeepSeek configuration, the pre-result resource gate passes, and the
 qualified balanced matrix is frozen and verified. Quota exhaustion is retained as a planned-run
 failure; it is never rerun within the same Pilot root.
+
+## Pilot-2 abort and repaired successor
+
+Pilot-2 executed exactly one call and exposed a harness path-resolution defect: a relative MCP data
+root was interpreted from the Codex agent workspace, creating an empty nested database and an
+`unknown form` tool error. The complete Pilot-2 root is externally manifested and excluded from all
+qualification and model-behavior claims. It must not resume.
+
+Commit `1e7b0ac` resolves every MCP path at the provider boundary and adds the exact regression
+test. Pilot-3 is the new physically separate candidate Pilot and is additionally protected by a
+mandatory live `--launch-lock` gate.
