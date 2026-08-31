@@ -33,9 +33,10 @@ report, or manifest.
 
 The active preflight is the separately manifested `2026-08-31-pilot-3-lock-r2` refresh. It retains
 the earlier preflight unchanged, binds the current committed package before the first Pilot-3 call,
-and uses the same unique Pilot-3 output root. After checkpoint `0016.json`, all subsequent commands
-must use `--resume` and `PILOT3_LAUNCH_LOCK_R2.json`. The Pilot is intentionally paused there to
-conserve GPT quota; do not use selectors to skip ahead to later provider configurations.
+and uses the same unique Pilot-3 output root. After checkpoint `0040.json`, all subsequent commands
+must use `--resume` and `PILOT3_LAUNCH_LOCK_R2.json`. G2/A2/V2 is an immutable usage-limit failure;
+resume starts at the next absent coordinate after quota recovery. Do not use selectors or retry the
+failed coordinate to improve the result.
 
 Each absent run is prepared just in time, immediately before its provider invocation. This is a
 correctness requirement: production certificates have a one-hour age bound, so a phase-wide cache

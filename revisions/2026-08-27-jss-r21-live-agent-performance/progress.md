@@ -361,3 +361,19 @@
 - The frozen ledger orders G1 and G2 before D1 and D2, and the active lock prohibits selectors.
   Skipping directly to DeepSeek would change the predeclared execution order, so the intact Pilot
   remains paused at 16/112 rather than trading quota savings for an invalid benchmark.
+
+## 2026-08-31 — Pilot-3 quota stop at 40/112
+
+- Resumed only the frozen, required coordinates after clarifying that quota conservation excludes
+  diagnostics, retries, and duplicate calls but cannot remove the 56 predeclared OpenAI executions.
+  G1 completed all 28 coordinates. G2 completed its first 11 coordinates normally.
+- The twelfth G2 coordinate, A2/V2, made exactly one attempt and terminated
+  `MODEL_API_FAILURE`. Its raw Codex trace reports the authenticated usage limit and advises retrying
+  after 21:44. The terminal record and checkpoint `0040.json` are retained; the failed coordinate is
+  immutable and will not be retried.
+- The supervisor stopped on the first runtime failure as designed. Pilot-3 now has 40 terminal
+  records, 72 remaining, no active process, no unauthorized authoritative mutation, and no Pilot
+  normalization/qualification/manifest because the full locked plan is incomplete.
+- Reactivated the five-hour heartbeat with the exact root and R2 lock. It will wait for quota,
+  continue only absent coordinates with zero retry and no selectors, and stop again on any runtime,
+  harness, or authority failure. It is restricted to completing and verifying Pilot, not Final.

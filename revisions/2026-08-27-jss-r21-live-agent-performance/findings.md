@@ -342,3 +342,6 @@
     DeepSeek under the active Pilot lock: the immutable ledger is ordered and selectors are forbidden.
     The safe response is to stop at a verified terminal checkpoint. Pilot-3 is therefore preserved at
     16/112 with no active process, rather than silently changing execution order or denominators.
+79. The authenticated Codex usage limit is itself a valid Pilot runtime observation, not a reason to
+    cherry-pick or retry. G2/A2/V2 is permanently retained as `MODEL_API_FAILURE`; execution stopped
+    at checkpoint 0040 and will resume only with the next absent coordinate after the reported reset.
