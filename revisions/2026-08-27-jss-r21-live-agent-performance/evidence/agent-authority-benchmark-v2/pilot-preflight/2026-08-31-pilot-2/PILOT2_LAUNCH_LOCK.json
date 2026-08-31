@@ -1,6 +1,8 @@
 {
-  "benchmark_git_commit": "1d66f77d2937be7ac25a00eed3a0238348750cc1",
-  "benchmark_git_tree": "63301fbb024897460ee4fd0de66253e9aa7bcd9d",
+  "benchmark_git_commit": "af0b37cecde33114ac3193e03ed6a0f20cf10e71",
+  "benchmark_git_tree": "e3b0152a5098add92f7eb0d01c9fc23fcfeae64c",
+  "benchmark_source_manifest": "benchmark-source-manifest.json",
+  "benchmark_source_manifest_sha256": "a33f55d5127a6b0acdf851f4bf4f340a753a79fe681cd7c998f186d57d9383fb",
   "benchmark_tree_clean_at_lock": true,
   "config_sha256": {
     "pilot.matrix.json": "a761322415aae6b4bbd6c99f081d3253adc602a25d564c6fb8f2f865f7d3e459",
@@ -23,14 +25,18 @@
     "--output",
     "../../evidence/agent-authority-benchmark-v2/pilot/2026-08-31-pilot-2",
     "--max-new-invocations",
-    "1"
+    "1",
+    "--launch-lock",
+    "../../evidence/agent-authority-benchmark-v2/pilot-preflight/2026-08-31-pilot-2/PILOT2_LAUNCH_LOCK.json"
   ],
+  "implementation_source_manifest": "implementation-source-manifest.json",
   "implementation_source_manifest_sha256": "2ce4a2d4007975c332eac6c56949426eec9ec8c37847db6e6d7a08a73df34027",
   "max_new_invocations_per_command": 1,
   "max_transport_retry": 0,
   "output_root": "evidence/agent-authority-benchmark-v2/pilot/2026-08-31-pilot-2",
   "output_root_exists_at_lock": false,
   "planned_executions": 112,
+  "phase": "pilot",
   "provider_credit_confirmed": false,
   "resume_command": [
     ".venv/Scripts/python.exe",
@@ -43,7 +49,9 @@
     "../../evidence/agent-authority-benchmark-v2/pilot/2026-08-31-pilot-2",
     "--resume",
     "--max-new-invocations",
-    "1"
+    "1",
+    "--launch-lock",
+    "../../evidence/agent-authority-benchmark-v2/pilot-preflight/2026-08-31-pilot-2/PILOT2_LAUNCH_LOCK.json"
   ],
   "run_plan_sha256": "b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4",
   "schema_version": "agent-authority-pilot-launch-lock.v2",
