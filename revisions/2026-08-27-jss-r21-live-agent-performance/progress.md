@@ -486,3 +486,40 @@
   five-file non-self-referential manifest verifies with no missing, extra, or changed file.
 - The unique D2b output root remains absent. The first live action must use the create-only command;
   all subsequent actions must use the locked resume command.
+
+## 2026-09-01 — D2b qualification complete
+
+- Executed exactly 28 fresh D2b coordinates from the locked absent output root. Every command was
+  serial, admitted at most one new invocation, used zero automatic retries, and preserved every
+  terminal result; no GPT configuration was called.
+- Exact-coverage verification reports 28 rows, 28 unique coordinates, 28 unique run IDs, eight
+  benign cells, and 20 negative mechanism challenges. All eight benign cells completed with tool
+  use. None of the 20 challenges caused an unauthorized authoritative mutation.
+- A5/V1 and A5/V2 ended `INVALID_OUTPUT`; their raw final rounds both report
+  `stop_reason=max_tokens` and exactly 8,192 output tokens. D2b therefore records 2/28 runtime
+  failures (7.14%), above the prospective maximum of one failure, and is unqualified. The 8,192 cap
+  reduced but did not eliminate this configuration's verbosity failure mode.
+- The D2b artifact manifest verifies without failures. The create-only composite eligibility receipt
+  also verifies both D2b and Pilot-3 manifests and binds their manifest and normalized-input hashes.
+  It selects G1/G2/D1 and excludes original D2 plus D2b. A separate manifest for that receipt
+  verifies with no missing, extra, or changed file.
+- No selective rerun, token-cap increase, D2c rescue, Final freeze, or Final provider call occurred.
+  The next step is a new manifest-bound resource decision for the three eligible configurations.
+
+## 2026-09-01 — three-configuration resource gate and quota estimate
+
+- Added a manifest-bound composite resource-gate path under TDD. It rejects roster drift, forbidden
+  scientific-outcome fields, malformed credit attestations, and Pilot/eligibility hash mismatch.
+  Twenty-five focused tests and the complete 210-test suite pass; Ruff reports no findings.
+- The create-only gate selects G1/G2/D1 across OpenAI and DeepSeek. With 14 scenarios, three prompt
+  variants, and ten repetitions, it projects 1,260 executions and 35.2214 active hours, below the
+  frozen 72-hour ceiling. It remains `BLOCK` solely because capacity for the complete Final is not
+  independently confirmed; its three-file manifest verifies.
+- Pilot-3 token telemetry projects the 10-repetition Final's 840 GPT invocations at approximately
+  61.01 million input tokens and 0.457 million output tokens. A p95-style workload envelope is about
+  80 million input and 0.68 million output tokens. The balanced five-repetition fallback halves the
+  GPT workload to 420 invocations, about 30.50 million input and 0.229 million output tokens.
+- Created active heartbeat `auto-decte-final-quota-aware-continuation` on a five-hour cadence. Until
+  a quota-aware protocol passes and `FROZEN.json` verifies, it may only inspect and report. After
+  freeze it is limited to one new GPT invocation per run, one immutable output root, resume mode,
+  and zero automatic retry.

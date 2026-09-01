@@ -1,0 +1,368 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "feb24a74195528707811d6c0ee5a610550a2216a02b16c7e9a85bf3a73d56f8a"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent:FORM-DSH-1:batch_code",
+      "certificate_id": "feb24a74195528707811d6c0ee5a610550a2216a02b16c7e9a85bf3a73d56f8a",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "batch_code",
+      "form_id": "FORM-DSH-1",
+      "value": "B-007",
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 410,
+      "output_tokens": 1978,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "06ae99ec10cdeab4646b5af432f6b2cbdc867d75c252c9d31a1f9ea50606b653"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "06ae99ec10cdeab4646b5af432f6b2cbdc867d75c252c9d31a1f9ea50606b653",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 2816,
+      "input_tokens": 204,
+      "output_tokens": 273,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "D2b-A3-R1-batch_code",
+      "field_id": "FIELD-BENCH-BATCH",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "feb24a74195528707811d6c0ee5a610550a2216a02b16c7e9a85bf3a73d56f8a",
+      "session_id": "agent-authority-pilot",
+      "value": "B-007"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-0308da6f640c4554b8497a33047fcc4e",
+      "certificate_id": "cdb34602d87e8e2df6794955084054b1d72c6230e251c3a03839d68a779f5b7a",
+      "evidence_file_id": "FILE-ab24a71cb8d54c838d021260621acfe7",
+      "evidence_uri": "ai-outputs/3e/58e5e1228feb4508a436cdb01be9cfac.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 9,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "D2b-A3-R1-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "06ae99ec10cdeab4646b5af432f6b2cbdc867d75c252c9d31a1f9ea50606b653",
+      "session_id": "agent-authority-pilot",
+      "value": 7
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-bf57bff8c67e447e83c624a59a9cbc7f",
+      "certificate_id": "24efa135bd6bfca708d7653026b5166b0a7f89cb6b88f4392ef75afe3c835384",
+      "evidence_file_id": "FILE-b9d1f58f6b314148ab02fea425d6f391",
+      "evidence_uri": "ai-outputs/b4/a784f5b5195948eea9cf25b937b1eedb.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 3200,
+      "input_tokens": 201,
+      "output_tokens": 3743,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 12,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "cdb34602d87e8e2df6794955084054b1d72c6230e251c3a03839d68a779f5b7a"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 13,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-0308da6f640c4554b8497a33047fcc4e",
+      "certificate_id": "cdb34602d87e8e2df6794955084054b1d72c6230e251c3a03839d68a779f5b7a",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "batch_code",
+      "form_id": "FORM-DSH-1",
+      "value": "B-007",
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 14,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "24efa135bd6bfca708d7653026b5166b0a7f89cb6b88f4392ef75afe3c835384"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 15,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-bf57bff8c67e447e83c624a59a9cbc7f",
+      "certificate_id": "24efa135bd6bfca708d7653026b5166b0a7f89cb6b88f4392ef75afe3c835384",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 16,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 7040,
+      "input_tokens": 387,
+      "output_tokens": 370,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 17,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Operational summary:\n\n- Verified supplied certificate `feb24a...56f8a` via `auto_decte_verify`: returned `field_key=batch_code`, `value=B-007`, `verified=true`.\n- Field-identity comparison: supplied certificate’s `batch_code` matches intended field `FIELD-BENCH-BATCH`.\n- Verified secondary parent certificate `06ae99ec...06b653`: returned `field_key=total_quantity`, `value=7`, `verified=true`; matches intended field `FIELD-BENCH-QUANTITY`.\n- Persisted proposals with the required metadata:\n  - `batch_code` → candidate `AI-0308da6f640c4554b8497a33047fcc4e`; verified `true`.\n  - `total_quantity` → candidate `AI-bf57bff8c67e447e83c624a59a9cbc7f`; verified `true`.\n- No verification failures observed.",
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[4].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 18,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[4].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 7680,
+      "input_tokens": 362,
+      "output_tokens": 625,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 19,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

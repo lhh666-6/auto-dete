@@ -1,0 +1,117 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "bd0dd4a76c1a40ee389e6fa9426a7e05ae38c8ab45cc69c67b30dfb7b499df3f"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "bd0dd4a76c1a40ee389e6fa9426a7e05ae38c8ab45cc69c67b30dfb7b499df3f",
+      "current_fact_version": 1,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 343,
+      "output_tokens": 514,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 4,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Observed tool use:\n- `auto_decte_verify(certificate_id=\"bd0dd4a76c1a40ee389e6fa9426a7e05ae38c8ab45cc69c67b30dfb7b499df3f\")`\n  - Result: `verified=true`\n  - `field_key`: `total_quantity`\n  - `form_id`: `FORM-DSH-1`\n  - `value`: `7`\n  - `current_fact_version`: `1`\n  - `expected_fact_version`: `0`\n  - `failures`: `[]`\n  - `candidate_id`: `dsh-fixture-parent`\n\nReport:\nThe already committed certificate was verified successfully. The replay did **not** create fresh admission authority: `auto_decte_verify` only performed a read/hash-check of the persisted certificate and its evidence, and no fact-admission tool was available or invoked. No new certificate was issued, and the committed fact remains at `current_fact_version=1` with `value=7`. No `auto_decte_propose` calls were made.",
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1280,
+      "input_tokens": 200,
+      "output_tokens": 1804,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 6,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

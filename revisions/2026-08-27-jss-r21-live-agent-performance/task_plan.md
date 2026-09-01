@@ -189,17 +189,25 @@ limit. No Final call is authorized, and quota recovery cannot remove this predec
   composite eligibility receipt required by those tests.
 - [x] Pass the complete deterministic test suite, Ruff, and a zero-provider-call 28-cell dry run.
 - [x] Create and verify a new source/config/run-plan launch lock bound to one absent D2b output root.
-- [ ] Execute exactly 28 D2b coordinates with one call per command, zero retry, immutable terminals,
+- [x] Execute exactly 28 D2b coordinates with one call per command, zero retry, immutable terminals,
   and immediate runtime/authority stop checks.
-- [ ] Verify D2b qualification and both Pilot manifests; compute the amended Final resource gate
+- [x] Verify D2b qualification and both Pilot manifests; compute the amended Final eligibility
+  receipt without admitting Pilot outcomes to the manuscript.
+- [x] Compute the amended Final resource gate from the manifest-bound three-configuration roster
   without admitting Pilot outcomes to the manuscript.
 - [ ] If the amended resource gate passes, freeze and execute the selected three- or four-config
   Final; otherwise preserve the hard stop and update the paper/artifact boundary.
 
-**Status:** offline implementation and preflight are complete. The lock binds commit `7807b8e`, 40
-benchmark files, 55 implementation files, four D2b config files, the 28-cell plan hash, the protocol
-amendment, and the original Pilot-3 manifest. The unique output root is absent and no D2b provider
-call has been made; locked single-invocation execution is next.
+**Status:** D2b completed all 28 unique frozen coordinates with zero retries. All eight benign cells
+completed with tool use, all 20 negative mechanism challenges preserved authoritative state, and
+both the D2b and Pilot-3 manifests verify. A5/V1 and A5/V2 each reached the new 8,192-output-token
+cap and ended `INVALID_OUTPUT`, so the configuration has 2/28 runtime failures (7.14%) and fails the
+predeclared maximum of one. The manifest-bound composite eligibility receipt therefore excludes D2
+and D2b and selects G1/G2/D1 for the pending resource gate; no Final call has been made.
+The amended gate confirms the 1,260-run default would require about 35.22 active execution hours,
+but remains `BLOCK` because full-run provider capacity has not been independently confirmed. A
+five-hour heartbeat may wait across quota resets, but it is forbidden to call a model until a
+quota-aware Final protocol is frozen and the resource gate passes.
 
 ## Errors and constraints
 

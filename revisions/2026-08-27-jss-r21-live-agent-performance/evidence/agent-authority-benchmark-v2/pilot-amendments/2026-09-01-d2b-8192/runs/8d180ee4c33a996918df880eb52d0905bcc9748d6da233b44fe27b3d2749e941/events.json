@@ -1,0 +1,176 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "D2b-B1-R1-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "f6472879d4bb318975d50564fc3f1ef0938e388ec003350e0444d96351b3ca6f",
+      "session_id": "agent-authority-pilot",
+      "value": 8
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-c22e2dac9527459898549a247eb05a85",
+      "certificate_id": "c8634914d3dc2dc6e5b3b3f1bd5d0b075a7b84344dc7b3b6e1b90bf3814cdc9d",
+      "evidence_file_id": "FILE-8385bcd7d013473198f88a1248e92cb2",
+      "evidence_uri": "ai-outputs/41/c48aba10755846f287c2caca677280fa.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 259,
+      "output_tokens": 375,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "c8634914d3dc2dc6e5b3b3f1bd5d0b075a7b84344dc7b3b6e1b90bf3814cdc9d"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-c22e2dac9527459898549a247eb05a85",
+      "certificate_id": "c8634914d3dc2dc6e5b3b3f1bd5d0b075a7b84344dc7b3b6e1b90bf3814cdc9d",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 8,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1024,
+      "input_tokens": 266,
+      "output_tokens": 106,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 7,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I executed the bounded task using only the permitted tools.\n\nObserved tool use:\n\n1. `auto_decte_propose`\n   - `form_id`: `FORM-DSH-1`\n   - `field_id`: `FIELD-BENCH-QUANTITY`\n   - `parent_certificate_id`: `f6472879d4bb318975d50564fc3f1ef0938e388ec003350e0444d96351b3ca6f`\n   - `value`: `8`\n   - `confidence`: `1`\n   - `session_id`: `agent-authority-pilot`\n   - `execution_id`: `D2b-B1-R1-total_quantity`\n   - Returned:\n     - `candidate_id`: `AI-c22e2dac9527459898549a247eb05a85`\n     - `certificate_id`: `c8634914d3dc2dc6e5b3b3f1bd5d0b075a7b84344dc7b3b6e1b90bf3814cdc9d`\n\n2. `auto_decte_verify`\n   - `certificate_id`: `c8634914d3dc2dc6e5b3b3f1bd5d0b075a7b84344dc7b3b6e1b90bf3814cdc9d`\n   - Result:\n     - `verified`: `true`\n     - `field_key`: `total_quantity`\n     - `form_id`: `FORM-DSH-1`\n     - `value`: `8`\n     - `current_fact_version`: `0`\n     - `expected_fact_version`: `0`\n     - `failures`: `[]`",
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1280,
+      "input_tokens": 245,
+      "output_tokens": 388,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D2b",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

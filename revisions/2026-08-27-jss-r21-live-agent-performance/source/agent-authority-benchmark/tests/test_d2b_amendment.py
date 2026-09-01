@@ -31,15 +31,21 @@ def digest(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
 
-def manifested_amendment_inputs(tmp_path: Path) -> tuple[Path, Path]:
+def manifested_amendment_inputs(
+    tmp_path: Path, *, d2b_runtime_failures: int = 0
+) -> tuple[Path, Path]:
     pilot3 = tmp_path / "pilot3"
     d2b = tmp_path / "d2b"
     write_json(pilot3 / "pilot-model-qualification.json", pilot3_qualification())
+    write_json(pilot3 / "frozen-config/resource-policy.json", resource_policy())
     write_json(
         pilot3 / "manifest.json",
         build_manifest(pilot3, manifest_path=pilot3 / "manifest.json"),
     )
-    write_json(d2b / "normalized/runs.json", rows_with_runtime_failures(0))
+    write_json(
+        d2b / "normalized/runs.json",
+        rows_with_runtime_failures(d2b_runtime_failures),
+    )
     write_json(
         d2b / "manifest.json",
         build_manifest(d2b, manifest_path=d2b / "manifest.json"),
@@ -136,24 +142,28 @@ def pilot3_qualification() -> dict:
                 "provider": "openai",
                 "qualification_pass": True,
                 "runtime_failure_rate": 0.0,
+                "mean_latency_ms": 142_000,
             },
             {
                 "model_config_id": "G2",
                 "provider": "openai",
                 "qualification_pass": True,
                 "runtime_failure_rate": 1 / 28,
+                "mean_latency_ms": 140_000,
             },
             {
                 "model_config_id": "D1",
                 "provider": "deepseek",
                 "qualification_pass": True,
                 "runtime_failure_rate": 0.0,
+                "mean_latency_ms": 19_000,
             },
             {
                 "model_config_id": "D2",
                 "provider": "deepseek",
                 "qualification_pass": True,
                 "runtime_failure_rate": 5 / 28,
+                "mean_latency_ms": 50_000,
             },
         ],
     }
@@ -249,3 +259,113 @@ def test_composite_receipt_refuses_overwrite(tmp_path: Path) -> None:
         write_receipt(pilot3_root=pilot3, d2b_root=d2b, output_path=output)
 
     assert output.read_text(encoding="utf-8") == "preserve\n"
+
+
+def resource_policy() -> dict:
+    return {
+        "schema_version": "agent-authority-resource-policy.v2",
+        "scenario_count": 14,
+        "final_prompt_variant_count": 3,
+        "default_repetitions": 10,
+        "fallback_repetitions": 5,
+        "max_runtime_failure_rate": 0.05,
+        "max_expected_wall_time_hours": 72,
+        "required_provider_families": ["openai", "deepseek"],
+        "require_provider_credit_sufficient": True,
+        "scientific_outcomes_permitted": False,
+    }
+
+
+def failed_d2b_eligibility() -> dict:
+    compose = require("compose_final_eligibility")
+    evaluate = require("evaluate_d2b_qualification")
+    return compose(pilot3_qualification(), evaluate(rows_with_runtime_failures(2)))
+
+
+def test_composite_resource_gate_uses_only_predeclared_eligible_roster() -> None:
+    decide = require("decide_composite_resource_gate")
+    credit = {
+        "schema_version": "agent-authority-provider-credit.v2",
+        "model_configurations": {"G1": True, "G2": True, "D1": True},
+    }
+
+    result = decide(
+        pilot3_qualification=pilot3_qualification(),
+        d2b_rows=rows_with_runtime_failures(2),
+        composite_eligibility=failed_d2b_eligibility(),
+        provider_credit=credit,
+        policy=resource_policy(),
+    )
+
+    assert result["status"] == "PASS"
+    assert result["qualified_model_config_ids"] == ["D1", "G1", "G2"]
+    assert result["planned_executions"] == 1260
+    assert result["scientific_outcomes_read"] is False
+
+
+@pytest.mark.parametrize("mutation", ["extra_credit", "missing_credit", "outcome_field"])
+def test_composite_resource_gate_rejects_roster_drift_or_outcome_contamination(
+    mutation: str,
+) -> None:
+    decide = require("decide_composite_resource_gate")
+    credit = {
+        "schema_version": "agent-authority-provider-credit.v2",
+        "model_configurations": {"G1": True, "G2": True, "D1": True},
+    }
+    pilot = pilot3_qualification()
+    if mutation == "extra_credit":
+        credit["model_configurations"]["D2"] = True
+    elif mutation == "missing_credit":
+        del credit["model_configurations"]["G2"]
+    elif mutation == "outcome_field":
+        pilot["models"][0]["benign_task_completion"] = 1.0
+
+    with pytest.raises(ValueError, match="credit|scientific outcome"):
+        decide(
+            pilot3_qualification=pilot,
+            d2b_rows=rows_with_runtime_failures(2),
+            composite_eligibility=failed_d2b_eligibility(),
+            provider_credit=credit,
+            policy=resource_policy(),
+        )
+
+
+def test_composite_resource_gate_receipt_binds_both_pilots_and_credit(
+    tmp_path: Path,
+) -> None:
+    write_eligibility = require("write_composite_eligibility_receipt")
+    write_gate = require("write_composite_resource_gate_receipt")
+    pilot3, d2b = manifested_amendment_inputs(tmp_path, d2b_runtime_failures=2)
+    eligibility = tmp_path / "COMPOSITE_ELIGIBILITY.json"
+    write_eligibility(pilot3_root=pilot3, d2b_root=d2b, output_path=eligibility)
+    credit = tmp_path / "PROVIDER_CREDIT.json"
+    write_json(
+        credit,
+        {
+            "schema_version": "agent-authority-provider-credit.v2",
+            "model_configurations": {"G1": True, "G2": True, "D1": True},
+        },
+    )
+    output = tmp_path / "FINAL_RESOURCE_GATE.json"
+
+    result = write_gate(
+        pilot3_root=pilot3,
+        d2b_root=d2b,
+        composite_eligibility_path=eligibility,
+        provider_credit_path=credit,
+        output_path=output,
+    )
+
+    assert result == json.loads(output.read_text(encoding="utf-8"))
+    assert result["status"] == "PASS"
+    assert result["planned_executions"] == 1260
+    assert result["qualified_model_config_ids"] == ["D1", "G1", "G2"]
+    assert result["input_sha256"] == {
+        "pilot3_manifest": digest(pilot3 / "manifest.json"),
+        "pilot3_qualification": digest(pilot3 / "pilot-model-qualification.json"),
+        "d2b_manifest": digest(d2b / "manifest.json"),
+        "d2b_runs": digest(d2b / "normalized/runs.json"),
+        "composite_eligibility": digest(eligibility),
+        "provider_credit": digest(credit),
+        "resource_policy": digest(pilot3 / "frozen-config/resource-policy.json"),
+    }

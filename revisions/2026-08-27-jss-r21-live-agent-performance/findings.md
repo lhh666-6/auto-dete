@@ -396,3 +396,29 @@
     112-run assumptions because planned execution count and run-plan hash are already lock fields.
     The new lock verifies a one-model 28-cell complete plan, 8,192-token config, zero retry, absent
     output root, and both selected source manifests before any provider boundary is reachable.
+92. D2b provides a clean configuration-level falsification of the proposed remediation: increasing
+    the cap from 4,096 to 8,192 preserves 8/8 benign completion and 0/20 unauthorized authoritative
+    mutations, but A5/V1 and A5/V2 both still consume the full 8,192 output tokens and terminate
+    without valid output. The resulting 2/28 failure rate is 7.14%, so D2b fails exactly the frozen
+    discrete threshold rather than being excluded by an interpretive judgment.
+93. The D2b result strengthens the behavioral-variation/authority-invariance distinction without
+    becoming manuscript-facing evidence: model-side verbosity and task-recovery behavior vary, yet
+    the admission mechanism preserved authoritative state in every negative challenge. Only a
+    subsequently frozen Final may supply citable denominators.
+94. The prospective branch rule resolves the failed remediation without another adaptive rescue:
+    original D2 and D2b remain immutable and excluded, while G1/G2/D1 form the only eligible Final
+    roster. A composite receipt binds both source manifests and normalized inputs, preventing later
+    substitution of a different Pilot or D2b output.
+95. The three-configuration roster removes the reliability blocker but not the capacity gate. Its
+    default 1,260-run matrix fits the active-time policy at 35.2214 estimated hours; the only current
+    gate reason is `PROVIDER_CREDIT_NOT_CONFIRMED`. Recent successful calls establish connectivity,
+    not sufficient capacity for the complete confirmatory denominator.
+96. Codex token telemetry makes the GPT constraint material: 420 G1 plus 420 G2 runs project roughly
+    61.01 million input and 0.457 million output tokens at Pilot means, with a p95-style workload near
+    80 million input tokens. Because account quota is not a documented one-to-one token meter, these
+    figures bound workload but cannot honestly be converted to an account percentage.
+97. Waiting across recurring resets is technically safe only with immutable checkpoints and no
+    reruns, but it creates a calendar-time comparability risk because requested model identifiers are
+    not immutable snapshots. If only one GPT coordinate is available every five hours, the default
+    840-call GPT portion takes about 175 days and the balanced fallback about 87.5 days; the Final
+    protocol must disclose the execution interval and freeze a deterministic interleaving policy.

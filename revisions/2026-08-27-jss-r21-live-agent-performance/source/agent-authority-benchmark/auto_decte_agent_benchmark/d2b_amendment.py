@@ -9,6 +9,7 @@ from typing import Any, Mapping, Sequence
 
 from .manifest import verify_manifest
 from .normalization import FAILURE_TERMINAL_CLASSES
+from .resource_gate import FORBIDDEN_OUTCOME_FIELDS, decide_resource_gate, load_resource_policy
 from .scenarios import scenario_registry
 
 
@@ -136,6 +137,91 @@ def compose_final_eligibility(
     }
 
 
+def decide_composite_resource_gate(
+    *,
+    pilot3_qualification: Mapping[str, Any],
+    d2b_rows: Sequence[Mapping[str, Any]],
+    composite_eligibility: Mapping[str, Any],
+    provider_credit: Mapping[str, Any],
+    policy: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Decide Final capacity from the predeclared D2b branch and non-outcome resources."""
+    d2b_qualification = evaluate_d2b_qualification(d2b_rows)
+    expected = compose_final_eligibility(pilot3_qualification, d2b_qualification)
+    if (
+        composite_eligibility.get("schema_version")
+        != "agent-authority-composite-eligibility.v1"
+        or composite_eligibility.get("scientific_outcomes_read") is not False
+        or composite_eligibility.get("eligible_model_config_ids")
+        != expected["eligible_model_config_ids"]
+        or composite_eligibility.get("excluded") != expected["excluded"]
+    ):
+        raise ValueError("composite eligibility differs from the predeclared D2b branch")
+
+    raw_models = pilot3_qualification.get("models")
+    if not isinstance(raw_models, list) or not all(
+        isinstance(row, Mapping) for row in raw_models
+    ):
+        raise ValueError("Pilot-3 qualification roster is malformed")
+    pilot_models = {str(row.get("model_config_id", "")): row for row in raw_models}
+    eligible_ids = [str(value) for value in expected["eligible_model_config_ids"]]
+
+    if provider_credit.get("schema_version") != "agent-authority-provider-credit.v2":
+        raise ValueError("provider-credit schema is unsupported")
+    attestations = provider_credit.get("model_configurations")
+    if not isinstance(attestations, Mapping) or set(map(str, attestations)) != set(
+        eligible_ids
+    ):
+        raise ValueError("provider-credit roster differs from composite eligibility")
+    if any(type(value) is not bool for value in attestations.values()):
+        raise ValueError("provider-credit values must be booleans")
+
+    qualification_rows: list[dict[str, Any]] = []
+    resources: dict[str, dict[str, Any]] = {}
+    for model_id in eligible_ids:
+        if model_id == "D2b":
+            source: Mapping[str, Any] = {
+                "provider": "deepseek",
+                "runtime_failure_rate": d2b_qualification["runtime_failure_rate"],
+                "mean_latency_ms": sum(
+                    float(row.get("total_latency_ms", 0)) for row in d2b_rows
+                )
+                / len(d2b_rows),
+            }
+        else:
+            if model_id not in pilot_models:
+                raise ValueError(f"eligible configuration is absent from Pilot-3: {model_id}")
+            source = pilot_models[model_id]
+        contaminated = FORBIDDEN_OUTCOME_FIELDS.intersection(source)
+        if contaminated:
+            names = ", ".join(sorted(contaminated))
+            raise ValueError(f"scientific outcome fields are prohibited in resource gate: {names}")
+        provider = str(source.get("provider", ""))
+        mean_latency_ms = source.get("mean_latency_ms")
+        runtime_failure_rate = source.get("runtime_failure_rate")
+        if not isinstance(mean_latency_ms, (int, float)) or mean_latency_ms < 0:
+            raise ValueError(f"qualified model lacks valid mean latency: {model_id}")
+        if not isinstance(runtime_failure_rate, (int, float)) or not 0 <= runtime_failure_rate <= 1:
+            raise ValueError(f"qualified model lacks valid runtime-failure rate: {model_id}")
+        qualification_rows.append(
+            {
+                "model_config_id": model_id,
+                "provider": provider,
+                "qualification_pass": True,
+            }
+        )
+        resources[model_id] = {
+            "mean_total_latency_seconds": float(mean_latency_ms) / 1000.0,
+            "runtime_failure_rate": float(runtime_failure_rate),
+            "provider_credit_sufficient": attestations[model_id],
+        }
+    return decide_resource_gate(
+        {"models": qualification_rows},
+        resources,
+        policy,
+    )
+
+
 def _digest(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
@@ -181,3 +267,72 @@ def write_composite_eligibility_receipt(
         json.dump(receipt, handle, indent=2, sort_keys=True)
         handle.write("\n")
     return receipt
+
+
+def write_composite_resource_gate_receipt(
+    *,
+    pilot3_root: Path,
+    d2b_root: Path,
+    composite_eligibility_path: Path,
+    provider_credit_path: Path,
+    output_path: Path,
+) -> dict[str, Any]:
+    """Write one create-only Final capacity decision bound to the D2b branch."""
+    if output_path.exists():
+        raise FileExistsError(output_path)
+    pilot3_manifest = _verified_manifest(pilot3_root)
+    d2b_manifest = _verified_manifest(d2b_root)
+    pilot3_qualification_path = pilot3_root / "pilot-model-qualification.json"
+    d2b_runs_path = d2b_root / "normalized" / "runs.json"
+    policy_path = pilot3_root / "frozen-config" / "resource-policy.json"
+    required = (
+        pilot3_qualification_path,
+        d2b_runs_path,
+        policy_path,
+        composite_eligibility_path,
+        provider_credit_path,
+    )
+    missing = [str(path) for path in required if not path.is_file()]
+    if missing:
+        raise ValueError(f"composite resource-gate input is missing: {missing}")
+
+    pilot3_qualification = json.loads(
+        pilot3_qualification_path.read_text(encoding="utf-8")
+    )
+    d2b_rows = json.loads(d2b_runs_path.read_text(encoding="utf-8"))
+    eligibility = json.loads(composite_eligibility_path.read_text(encoding="utf-8"))
+    provider_credit = json.loads(provider_credit_path.read_text(encoding="utf-8"))
+    if not all(
+        isinstance(value, Mapping)
+        for value in (pilot3_qualification, eligibility, provider_credit)
+    ) or not isinstance(d2b_rows, list):
+        raise ValueError("composite resource-gate inputs are malformed")
+
+    eligibility_hashes = eligibility.get("input_sha256")
+    expected_eligibility_hashes = {
+        "pilot3_manifest": _digest(pilot3_manifest),
+        "pilot3_qualification": _digest(pilot3_qualification_path),
+        "d2b_manifest": _digest(d2b_manifest),
+        "d2b_runs": _digest(d2b_runs_path),
+    }
+    if eligibility_hashes != expected_eligibility_hashes:
+        raise ValueError("composite eligibility is not bound to the selected Pilot inputs")
+
+    decision = decide_composite_resource_gate(
+        pilot3_qualification=pilot3_qualification,
+        d2b_rows=d2b_rows,
+        composite_eligibility=eligibility,
+        provider_credit=provider_credit,
+        policy=load_resource_policy(policy_path),
+    )
+    decision["input_sha256"] = {
+        **expected_eligibility_hashes,
+        "composite_eligibility": _digest(composite_eligibility_path),
+        "provider_credit": _digest(provider_credit_path),
+        "resource_policy": _digest(policy_path),
+    }
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("x", encoding="utf-8", newline="\n") as handle:
+        json.dump(decision, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+    return decision
