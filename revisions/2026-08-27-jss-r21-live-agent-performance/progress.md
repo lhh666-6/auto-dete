@@ -474,3 +474,15 @@
   prompts, fourteen semantic-equivalence groups, run-plan SHA-256
   `a6381db127b4543e801637e864828c468c282075686b76cca8667408b7e8517e`, zero model calls, and zero
   database writes. No live D2b call has occurred.
+
+## 2026-09-01 — D2b launch lock ready
+
+- Committed the D2b implementation as `7807b8e`, then created a separate preflight without changing
+  any selected runtime source.
+- `D2B_LAUNCH_LOCK.json` binds 40 benchmark runtime files, 55 implementation files, all four D2b
+  config hashes, the exact 28-cell plan, zero retry, one invocation per command, the approved
+  amendment design, and the completed Pilot-3 manifest.
+- Read-only verification reports `PASS`, 28 planned executions, and zero model calls. The preflight's
+  five-file non-self-referential manifest verifies with no missing, extra, or changed file.
+- The unique D2b output root remains absent. The first live action must use the create-only command;
+  all subsequent actions must use the locked resume command.

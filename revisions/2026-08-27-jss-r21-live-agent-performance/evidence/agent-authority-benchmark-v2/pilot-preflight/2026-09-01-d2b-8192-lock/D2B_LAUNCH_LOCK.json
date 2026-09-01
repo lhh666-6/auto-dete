@@ -1,0 +1,62 @@
+{
+  "benchmark_git_commit": "7807b8ea566072b18aa68c466ec5c3f47bf35b9a",
+  "benchmark_git_tree": "9d32471745f4be1cc3382985bf6a78c637323b62",
+  "benchmark_source_manifest": "benchmark-source-manifest.json",
+  "benchmark_source_manifest_sha256": "83851cab4e5a6c6884e5e44ffb4e05c24ac63cf1239ea3fae944a54e3d78f16b",
+  "config_sha256": {
+    "pilot.matrix.json": "a761322415aae6b4bbd6c99f081d3253adc602a25d564c6fb8f2f865f7d3e459",
+    "pilot.models.json": "5b72a4f464612228b484bf0b5e4d05a737dacc269f8ee264ee0ee23832b56ba3",
+    "resource-policy.json": "b1add3053f452ef5f7173f560eb89ed66ba3742061a1f6a38fc54faeef07c446",
+    "retry-policy.json": "d3e5d692384eb1ebe1f7c67d1562278b967bc3b95b7f7a6162c00937f88c76a2"
+  },
+  "configuration_id": "D2b",
+  "environment": {
+    "python": "3.11.9",
+    "serial_execution": true
+  },
+  "first_command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "auto_decte_agent_benchmark.runner",
+    "--pilot",
+    "--config",
+    "config-d2b",
+    "--output",
+    "../../evidence/agent-authority-benchmark-v2/pilot-amendments/2026-09-01-d2b-8192",
+    "--max-new-invocations",
+    "1",
+    "--launch-lock",
+    "../../evidence/agent-authority-benchmark-v2/pilot-preflight/2026-09-01-d2b-8192-lock/D2B_LAUNCH_LOCK.json"
+  ],
+  "implementation_source_manifest": "implementation-source-manifest.json",
+  "implementation_source_manifest_sha256": "68438ef3bb57e4c4267c9b31241815a46d98f8514f34568b8a923c55d9d17dcc",
+  "max_new_invocations_per_command": 1,
+  "max_transport_retry": 0,
+  "output_root": "evidence/agent-authority-benchmark-v2/pilot-amendments/2026-09-01-d2b-8192",
+  "output_token_cap": 8192,
+  "phase": "pilot",
+  "pilot3_manifest_sha256": "6054e39e8a5ce86af09fd40b637953fdaa2c1c9e9228bc3a385f257051c70daa",
+  "planned_executions": 28,
+  "protocol_amendment_sha256": "94490199087cbeec6e10ab5c9a90befb93ddf03c0a64f88280b864d8eac301bc",
+  "provider_credit_confirmed": false,
+  "requested_model": "deepseek-v4-pro",
+  "resume_command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "auto_decte_agent_benchmark.runner",
+    "--pilot",
+    "--config",
+    "config-d2b",
+    "--output",
+    "../../evidence/agent-authority-benchmark-v2/pilot-amendments/2026-09-01-d2b-8192",
+    "--resume",
+    "--max-new-invocations",
+    "1",
+    "--launch-lock",
+    "../../evidence/agent-authority-benchmark-v2/pilot-preflight/2026-09-01-d2b-8192-lock/D2B_LAUNCH_LOCK.json"
+  ],
+  "run_plan_sha256": "a6381db127b4543e801637e864828c468c282075686b76cca8667408b7e8517e",
+  "schema_version": "agent-authority-pilot-launch-lock.v2",
+  "status": "READY_NOT_STARTED",
+  "superseded_configuration_id": "D2"
+}

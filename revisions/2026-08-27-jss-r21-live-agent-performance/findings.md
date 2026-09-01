@@ -392,3 +392,7 @@
     the unchanged G1/G2/D1 definitions plus D2b, while retaining original D2 only as an explicitly
     excluded provenance row. It cannot point the existing builder at Pilot-3 alone because D2b is
     absent from that immutable config.
+91. The D2b preflight can reuse the existing fail-closed launch-lock verifier without weakening its
+    112-run assumptions because planned execution count and run-plan hash are already lock fields.
+    The new lock verifies a one-model 28-cell complete plan, 8,192-token config, zero retry, absent
+    output root, and both selected source manifests before any provider boundary is reachable.

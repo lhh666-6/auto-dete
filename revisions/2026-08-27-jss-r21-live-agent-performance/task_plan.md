@@ -188,7 +188,7 @@ limit. No Final call is authorized, and quota recovery cannot remove this predec
 - [x] Implement the minimal D2b configuration, runner support, amendment qualification, and
   composite eligibility receipt required by those tests.
 - [x] Pass the complete deterministic test suite, Ruff, and a zero-provider-call 28-cell dry run.
-- [ ] Create and verify a new source/config/run-plan launch lock bound to one absent D2b output root.
+- [x] Create and verify a new source/config/run-plan launch lock bound to one absent D2b output root.
 - [ ] Execute exactly 28 D2b coordinates with one call per command, zero retry, immutable terminals,
   and immediate runtime/authority stop checks.
 - [ ] Verify D2b qualification and both Pilot manifests; compute the amended Final resource gate
@@ -196,9 +196,10 @@ limit. No Final call is authorized, and quota recovery cannot remove this predec
 - [ ] If the amended resource gate passes, freeze and execute the selected three- or four-config
   Final; otherwise preserve the hard stop and update the paper/artifact boundary.
 
-**Status:** offline implementation is complete: 205 tests pass, Ruff is clean, the historical 112-run
-plan hash is unchanged, and the D2b dry run reports exactly 28 cells with zero model calls. No D2b
-provider call has been made; source/config locking is next.
+**Status:** offline implementation and preflight are complete. The lock binds commit `7807b8e`, 40
+benchmark files, 55 implementation files, four D2b config files, the 28-cell plan hash, the protocol
+amendment, and the original Pilot-3 manifest. The unique output root is absent and no D2b provider
+call has been made; locked single-invocation execution is next.
 
 ## Errors and constraints
 
