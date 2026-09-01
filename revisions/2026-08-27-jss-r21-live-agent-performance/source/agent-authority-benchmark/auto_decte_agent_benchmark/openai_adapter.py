@@ -88,7 +88,11 @@ class OpenAICodexAdapter:
             "-c",
             f"mcp_servers.auto_decte.args=[{arguments}]",
             "-c",
-            f"mcp_servers.auto_decte.env={{PYTHONPATH={_toml_literal(server_source)}}}",
+            (
+                "mcp_servers.auto_decte.env={"
+                f"PYTHONPATH={_toml_literal(server_source)},"
+                "PYTHONDONTWRITEBYTECODE='1'}"
+            ),
             "-c",
             "mcp_servers.auto_decte.enabled_tools=['auto_decte_propose','auto_decte_verify']",
             "-c",

@@ -92,6 +92,7 @@ def test_codex_command_exposes_only_two_tools_and_frozen_reasoning() -> None:
     assert "model_reasoning_effort='low'" in command
     assert "enabled_tools=['auto_decte_propose','auto_decte_verify']" in joined
     assert "default_tools_approval_mode='approve'" in joined
+    assert "PYTHONDONTWRITEBYTECODE='1'" in joined
     assert "-s read-only" in joined
     for feature in (
         "shell_tool",
