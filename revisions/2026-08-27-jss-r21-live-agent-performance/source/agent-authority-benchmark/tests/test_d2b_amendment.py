@@ -39,6 +39,31 @@ def manifested_amendment_inputs(
     write_json(pilot3 / "pilot-model-qualification.json", pilot3_qualification())
     write_json(pilot3 / "frozen-config/resource-policy.json", resource_policy())
     write_json(
+        pilot3 / "frozen-config/pilot.models.json",
+        {
+            "schema_version": "agent-authority-model-config.v2",
+            "models": [
+                {"model_config_id": "G1", "provider": "openai", "requested_model": "g1"},
+                {"model_config_id": "G2", "provider": "openai", "requested_model": "g2"},
+                {"model_config_id": "D1", "provider": "deepseek", "requested_model": "d1"},
+                {"model_config_id": "D2", "provider": "deepseek", "requested_model": "d2"},
+            ],
+        },
+    )
+    write_json(
+        pilot3 / "frozen-config/pilot.matrix.json",
+        {
+            "schema_version": "agent-authority-matrix.v2",
+            "phase": "pilot",
+            "scenario_ids": list(SCENARIOS),
+            "prompt_variant_ids": list(VARIANTS),
+            "repetitions": 1,
+            "base_seed": 100,
+            "planned_executions": 112,
+        },
+    )
+    write_json(pilot3 / "frozen-config/retry-policy.json", {"max_transport_retry": 0})
+    write_json(
         pilot3 / "manifest.json",
         build_manifest(pilot3, manifest_path=pilot3 / "manifest.json"),
     )
@@ -369,3 +394,57 @@ def test_composite_resource_gate_receipt_binds_both_pilots_and_credit(
         "provider_credit": digest(credit),
         "resource_policy": digest(pilot3 / "frozen-config/resource-policy.json"),
     }
+
+
+def test_composite_final_config_binds_failed_d2b_branch_and_exact_roster(
+    tmp_path: Path,
+) -> None:
+    write_eligibility = require("write_composite_eligibility_receipt")
+    write_gate = require("write_composite_resource_gate_receipt")
+    write_final = require("write_composite_final_config")
+    pilot3, d2b = manifested_amendment_inputs(tmp_path, d2b_runtime_failures=2)
+    eligibility = tmp_path / "COMPOSITE_ELIGIBILITY.json"
+    write_eligibility(pilot3_root=pilot3, d2b_root=d2b, output_path=eligibility)
+    credit = tmp_path / "PROVIDER_CREDIT.json"
+    write_json(
+        credit,
+        {
+            "schema_version": "agent-authority-provider-credit.v2",
+            "model_configurations": {"G1": True, "G2": True, "D1": True},
+        },
+    )
+    gate_path = tmp_path / "FINAL_RESOURCE_GATE.json"
+    write_gate(
+        pilot3_root=pilot3,
+        d2b_root=d2b,
+        composite_eligibility_path=eligibility,
+        provider_credit_path=credit,
+        output_path=gate_path,
+    )
+
+    result = write_final(
+        pilot3_root=pilot3,
+        d2b_root=d2b,
+        composite_eligibility_path=eligibility,
+        resource_gate_path=gate_path,
+        output_root=tmp_path / "final-config",
+    )
+
+    models = json.loads((tmp_path / "final-config/final.models.json").read_text(encoding="utf-8"))
+    matrix = json.loads((tmp_path / "final-config/final.matrix.json").read_text(encoding="utf-8"))
+    assert [row["model_config_id"] for row in models["models"]] == ["G1", "G2", "D1"]
+    assert matrix["planned_executions"] == 1260
+    assert result["selected_model_config_ids"] == ["G1", "G2", "D1"]
+    assert result["excluded_model_config_ids"] == ["D2", "D2b"]
+    assert (tmp_path / "final-config/COMPOSITE_ELIGIBILITY.json").read_bytes() == (
+        eligibility.read_bytes()
+    )
+    assert (tmp_path / "final-config/PILOT_MODEL_QUALIFICATION.json").read_bytes() == (
+        pilot3 / "pilot-model-qualification.json"
+    ).read_bytes()
+    assert (tmp_path / "final-config/FINAL_RESOURCE_GATE.json").read_bytes() == (
+        gate_path.read_bytes()
+    )
+    assert result == json.loads(
+        (tmp_path / "final-config/FINAL_CONFIG_RECEIPT.json").read_text(encoding="utf-8")
+    )

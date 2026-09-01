@@ -152,6 +152,7 @@ def final_freeze_fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
         "PILOT_MODEL_QUALIFICATION.json",
         "FINAL_RESOURCE_GATE.json",
         "FINAL_CONFIG_RECEIPT.json",
+        "COMPOSITE_ELIGIBILITY.json",
     ):
         _write(final_config / name, "{}\n")
     return benchmark, implementation, final_config
@@ -177,6 +178,7 @@ def test_stage_final_freeze_copies_only_runtime_allowlist(tmp_path: Path) -> Non
         output / "source/agent-authority-benchmark/config/PILOT_MODEL_QUALIFICATION.json"
     ).is_file()
     assert (output / "source/agent-authority-benchmark/config/FINAL_CONFIG_RECEIPT.json").is_file()
+    assert (output / "source/agent-authority-benchmark/config/COMPOSITE_ELIGIBILITY.json").is_file()
     assert (output / "source/implementation/app/service.py").is_file()
     assert not (output / "source/agent-authority-benchmark/config/pilot.models.json").exists()
     assert not (output / "source/agent-authority-benchmark/.venv").exists()

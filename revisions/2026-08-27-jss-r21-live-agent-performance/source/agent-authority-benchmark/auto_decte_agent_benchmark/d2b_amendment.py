@@ -5,8 +5,11 @@ from __future__ import annotations
 from hashlib import sha256
 import json
 from pathlib import Path
+import shutil
+import tempfile
 from typing import Any, Mapping, Sequence
 
+from .freeze import build_final_configuration
 from .manifest import verify_manifest
 from .normalization import FAILURE_TERMINAL_CLASSES
 from .resource_gate import FORBIDDEN_OUTCOME_FIELDS, decide_resource_gate, load_resource_policy
@@ -336,3 +339,134 @@ def write_composite_resource_gate_receipt(
         json.dump(decision, handle, indent=2, sort_keys=True)
         handle.write("\n")
     return decision
+
+
+def write_composite_final_config(
+    *,
+    pilot3_root: Path,
+    d2b_root: Path,
+    composite_eligibility_path: Path,
+    resource_gate_path: Path,
+    output_root: Path,
+) -> dict[str, Any]:
+    """Create one Final config from the manifest-bound D2b eligibility branch."""
+    if output_root.exists():
+        raise FileExistsError(output_root)
+    pilot3_manifest = _verified_manifest(pilot3_root)
+    d2b_manifest = _verified_manifest(d2b_root)
+    pilot3_qualification_path = pilot3_root / "pilot-model-qualification.json"
+    d2b_runs_path = d2b_root / "normalized" / "runs.json"
+    policy_path = pilot3_root / "frozen-config" / "resource-policy.json"
+    eligibility = json.loads(composite_eligibility_path.read_text(encoding="utf-8"))
+    gate = json.loads(resource_gate_path.read_text(encoding="utf-8"))
+    pilot3_qualification = json.loads(pilot3_qualification_path.read_text(encoding="utf-8"))
+    d2b_rows = json.loads(d2b_runs_path.read_text(encoding="utf-8"))
+    if not all(
+        isinstance(value, Mapping) for value in (eligibility, gate, pilot3_qualification)
+    ) or not isinstance(d2b_rows, list):
+        raise ValueError("composite Final inputs are malformed")
+
+    expected_hashes = {
+        "pilot3_manifest": _digest(pilot3_manifest),
+        "pilot3_qualification": _digest(pilot3_qualification_path),
+        "d2b_manifest": _digest(d2b_manifest),
+        "d2b_runs": _digest(d2b_runs_path),
+    }
+    if eligibility.get("input_sha256") != expected_hashes:
+        raise ValueError("composite eligibility is not bound to the selected Pilot inputs")
+    gate_hashes = gate.get("input_sha256")
+    required_gate_hashes = {
+        **expected_hashes,
+        "composite_eligibility": _digest(composite_eligibility_path),
+        "resource_policy": _digest(policy_path),
+    }
+    if not isinstance(gate_hashes, Mapping) or any(
+        gate_hashes.get(name) != digest for name, digest in required_gate_hashes.items()
+    ):
+        raise ValueError("resource gate is not bound to the selected composite inputs")
+
+    expected_eligibility = compose_final_eligibility(
+        pilot3_qualification,
+        evaluate_d2b_qualification(d2b_rows),
+    )
+    if (
+        eligibility.get("eligible_model_config_ids")
+        != expected_eligibility["eligible_model_config_ids"]
+        or eligibility.get("excluded") != expected_eligibility["excluded"]
+    ):
+        raise ValueError("composite eligibility differs from the predeclared D2b branch")
+
+    eligible_ids = [str(value) for value in eligibility["eligible_model_config_ids"]]
+    pilot_models = json.loads(
+        (pilot3_root / "frozen-config" / "pilot.models.json").read_text(encoding="utf-8")
+    )
+    selected_models = [
+        model
+        for model in pilot_models.get("models", [])
+        if str(model.get("model_config_id")) in eligible_ids
+    ]
+    if "D2b" in eligible_ids:
+        d2b_models = json.loads(
+            (d2b_root / "frozen-config" / "pilot.models.json").read_text(encoding="utf-8")
+        )
+        selected_models.extend(
+            model
+            for model in d2b_models.get("models", [])
+            if str(model.get("model_config_id")) == "D2b"
+        )
+    if {str(model.get("model_config_id")) for model in selected_models} != set(eligible_ids):
+        raise ValueError("eligible configuration is absent from the frozen model rosters")
+
+    qualification = {
+        "schema_version": "agent-authority-model-qualification.v2",
+        "models": [
+            {
+                "model_config_id": str(model["model_config_id"]),
+                "provider": str(model["provider"]),
+                "qualification_pass": True,
+            }
+            for model in selected_models
+        ],
+    }
+    with tempfile.TemporaryDirectory(prefix="auto-decte-composite-final-") as temporary:
+        combined = Path(temporary)
+        (combined / "pilot.models.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "agent-authority-model-config.v2",
+                    "qualification_status": "qualified",
+                    "models": selected_models,
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        for name in ("pilot.matrix.json", "retry-policy.json", "resource-policy.json"):
+            shutil.copy2(pilot3_root / "frozen-config" / name, combined / name)
+        receipt = build_final_configuration(
+            pilot_config_root=combined,
+            qualification=qualification,
+            resource_gate=gate,
+            output_root=output_root,
+        )
+
+    receipt["excluded_model_config_ids"] = [
+        str(row["model_config_id"]) for row in eligibility["excluded"]
+    ]
+    receipt["input_sha256"] = {
+        **required_gate_hashes,
+        "resource_gate": _digest(resource_gate_path),
+    }
+    shutil.copy2(
+        pilot3_qualification_path,
+        output_root / "PILOT_MODEL_QUALIFICATION.json",
+    )
+    shutil.copy2(composite_eligibility_path, output_root / "COMPOSITE_ELIGIBILITY.json")
+    shutil.copy2(resource_gate_path, output_root / "FINAL_RESOURCE_GATE.json")
+    receipt_path = output_root / "FINAL_CONFIG_RECEIPT.json"
+    with receipt_path.open("x", encoding="utf-8", newline="\n") as handle:
+        json.dump(receipt, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+    return receipt

@@ -247,6 +247,12 @@ def stage_final_freeze(
                 final_config_root / name,
                 benchmark_destination / "config" / name,
             )
+        composite_eligibility = final_config_root / "COMPOSITE_ELIGIBILITY.json"
+        if composite_eligibility.is_file():
+            _copy_required_file(
+                composite_eligibility,
+                benchmark_destination / "config" / composite_eligibility.name,
+            )
         return write_frozen_manifest(output_root, runtime_metadata=runtime_metadata)
     except BaseException:
         marker = output_root / "FREEZE_FAILED.txt"
