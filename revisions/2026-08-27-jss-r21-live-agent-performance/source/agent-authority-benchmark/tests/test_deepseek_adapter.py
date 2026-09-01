@@ -124,6 +124,21 @@ def test_deepseek_request_uses_only_canonical_tools_and_frozen_parameters() -> N
     ]
 
 
+def test_deepseek_request_uses_configuration_specific_output_token_cap() -> None:
+    d2b = ModelConfiguration(
+        model_config_id="D2b",
+        provider=ProviderFamily.DEEPSEEK,
+        requested_model="deepseek-v4-pro",
+        endpoint_origin="https://api.deepseek.com",
+        api_dialect="anthropic-compatible",
+        output_token_cap=8192,
+    )
+
+    request = require("DeepSeekAdapter")(d2b).build_request(prompt="bounded prompt")
+
+    assert request["max_tokens"] == 8192
+
+
 def test_deepseek_invoke_executes_tool_loop_and_retains_every_round() -> None:
     adapter = require("DeepSeekAdapter")(config())
     requests: list[dict] = []

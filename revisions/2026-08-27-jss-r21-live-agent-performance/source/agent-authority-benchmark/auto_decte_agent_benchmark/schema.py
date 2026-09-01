@@ -70,6 +70,7 @@ class ModelConfiguration:
     reasoning_config: str = UNAVAILABLE
     temperature: float | str = UNAVAILABLE
     seed: int | str = UNAVAILABLE
+    output_token_cap: int = 4096
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -83,4 +84,5 @@ class ModelConfiguration:
             "reasoning_config": self.reasoning_config,
             "temperature": self.temperature,
             "seed": self.seed,
+            "output_token_cap": self.output_token_cap,
         }

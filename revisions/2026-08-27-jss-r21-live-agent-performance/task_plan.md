@@ -181,13 +181,13 @@ limit. No Final call is authorized, and quota recovery cannot remove this predec
 
 - [x] Approve and commit the prospective D2b protocol amendment with an 8,192-token cap, exact
   28-cell matrix, zero retry, and no D2 overwrite.
-- [ ] Add failing tests for a hashed per-configuration output-token cap and unchanged G1/G2/D1
+- [x] Add failing tests for a hashed per-configuration output-token cap and unchanged G1/G2/D1
   request behavior.
-- [ ] Add failing tests for the D2b-only ledger, complete-manifest gate, 0-or-1/28 reliability pass,
+- [x] Add failing tests for the D2b-only ledger, complete-manifest gate, 0-or-1/28 reliability pass,
   2-or-more/28 failure, and immutable composite-roster branches.
-- [ ] Implement the minimal D2b configuration, runner support, amendment qualification, and
+- [x] Implement the minimal D2b configuration, runner support, amendment qualification, and
   composite eligibility receipt required by those tests.
-- [ ] Pass the complete deterministic test suite, Ruff, and a zero-provider-call 28-cell dry run.
+- [x] Pass the complete deterministic test suite, Ruff, and a zero-provider-call 28-cell dry run.
 - [ ] Create and verify a new source/config/run-plan launch lock bound to one absent D2b output root.
 - [ ] Execute exactly 28 D2b coordinates with one call per command, zero retry, immutable terminals,
   and immediate runtime/authority stop checks.
@@ -196,8 +196,9 @@ limit. No Final call is authorized, and quota recovery cannot remove this predec
 - [ ] If the amended resource gate passes, freeze and execute the selected three- or four-config
   Final; otherwise preserve the hard stop and update the paper/artifact boundary.
 
-**Status:** design approved and committed as `19647e9`; implementation has not started and no D2b
-provider call has been made.
+**Status:** offline implementation is complete: 205 tests pass, Ruff is clean, the historical 112-run
+plan hash is unchanged, and the D2b dry run reports exactly 28 cells with zero model calls. No D2b
+provider call has been made; source/config locking is next.
 
 ## Errors and constraints
 

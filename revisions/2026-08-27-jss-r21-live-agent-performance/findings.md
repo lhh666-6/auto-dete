@@ -378,3 +378,17 @@
     runtime failure is at most 3.57% and passes, while two failures are 7.14% and fail. Freezing this
     rule and both possible Final rosters before D2b execution prevents a second round of selective
     rescue or outcome-dependent configuration choice.
+88. The current DeepSeek adapter hard-codes `max_tokens=4096`; `ModelConfiguration` does not retain
+    an output-token field. D2b therefore requires a hashed per-configuration field consumed directly
+    by request construction, while legacy configurations must default to 4,096 so Pilot-3 identity
+    and request behavior do not drift.
+89. The phase runner already derives completeness from the locked plan, so a one-model × fourteen-
+    scenario × two-variant config can produce a valid independent 28-cell Pilot root without
+    selectors. The existing post-Pilot transition, however, intentionally requires one 112-row,
+    four-slot Pilot root; D2b composition must be a new manifest-bound amendment path rather than a
+    relaxation of that historical verifier.
+90. Final configuration construction obtains model definitions from the selected qualification's
+    frozen model roster. A composite receipt must therefore bind a new pre-Final roster containing
+    the unchanged G1/G2/D1 definitions plus D2b, while retaining original D2 only as an explicitly
+    excluded provenance row. It cannot point the existing builder at Pilot-3 alone because D2b is
+    absent from that immutable config.

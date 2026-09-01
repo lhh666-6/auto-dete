@@ -67,3 +67,18 @@ def test_model_configuration_preserves_unavailable_metadata() -> None:
     assert serialized["exposed_model_revision"] == "unavailable"
     assert serialized["temperature"] == "unavailable"
     assert serialized["seed"] == "unavailable"
+
+
+def test_model_configuration_serializes_explicit_output_token_cap() -> None:
+    model_configuration = require("ModelConfiguration")
+    provider = require("ProviderFamily")
+    config = model_configuration(
+        model_config_id="D2b",
+        provider=provider.DEEPSEEK,
+        requested_model="deepseek-v4-pro",
+        endpoint_origin="https://api.deepseek.com",
+        api_dialect="anthropic-compatible",
+        output_token_cap=8192,
+    )
+
+    assert config.to_dict()["output_token_cap"] == 8192

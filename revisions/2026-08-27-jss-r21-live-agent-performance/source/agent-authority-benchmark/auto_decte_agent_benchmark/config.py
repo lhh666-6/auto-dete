@@ -55,6 +55,7 @@ def load_phase_configuration(config_root: Path, phase: str) -> PhaseConfiguratio
             reasoning_config=str(raw.get("reasoning_config", "unavailable")),
             temperature=raw.get("temperature", "unavailable"),
             seed=raw.get("seed", "unavailable"),
+            output_token_cap=int(raw.get("output_token_cap", 4096)),
         )
         for raw in raw_models
         if isinstance(raw, dict)

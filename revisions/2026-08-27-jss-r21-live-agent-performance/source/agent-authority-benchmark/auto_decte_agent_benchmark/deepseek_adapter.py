@@ -77,7 +77,7 @@ class DeepSeekAdapter:
     def build_request(self, *, prompt: str) -> dict[str, Any]:
         return {
             "model": self.configuration.requested_model,
-            "max_tokens": 4096,
+            "max_tokens": self.configuration.output_token_cap,
             "temperature": 0,
             "messages": [{"role": "user", "content": prompt}],
             "tools": deepseek_tool_schemas(canonical_tool_surface()),

@@ -431,3 +431,46 @@
   G1/G2/D1. Original D2 remains excluded and immutable in both branches.
 - Committed the design at `19647e9`. No implementation file, Pilot evidence, or provider was touched
   during design approval.
+
+## 2026-09-01 — D2b implementation, TDD cycle 1
+
+- Added tests requiring `ModelConfiguration` to retain an explicit 8,192-token D2b cap and requiring
+  the DeepSeek request to consume that field. Both tests first failed because the field did not
+  exist.
+- Added the minimal schema field with a legacy default of 4,096 and replaced the adapter's hidden
+  constant with the configured value. The two new tests and the existing frozen-parameter request
+  test now pass; no provider call was made.
+
+## 2026-09-01 — D2b implementation, TDD cycle 2
+
+- Added a configuration-loader test for a one-model D2b Pilot. It first failed because the loader
+  ignored the serialized 8,192-token field and silently used the legacy default.
+- Added the minimal loader mapping. All configuration, schema, and DeepSeek adapter tests now pass
+  (19 tests); a D2b-only matrix computes exactly 28 executions. No provider call was made.
+
+## 2026-09-01 — D2b implementation, TDD cycles 3--5
+
+- Added a checked-in-config test, observed the expected missing-directory failure, then created an
+  isolated D2b config with one `deepseek-v4-pro` slot, 8,192 output tokens, the unchanged 14×2×1
+  matrix, zero retry, and a byte-identical resource policy. Config tests pass and the dry run reports
+  28 prompts, 14 semantic groups, zero model calls, and zero database writes.
+- Added runtime-threshold tests and observed the missing amendment-module failure. Implemented the
+  0-or-1 pass / 2-or-more fail rule, then added and passed tests for exact coverage, all eight benign
+  cells, benign tool use, raw traces, and zero authority violation.
+- Added two predeclared composite-roster tests and observed the missing-function failure. The minimal
+  composer now permanently excludes D2 and selects G1/G2/D1 plus D2b only when D2b passes; all 12
+  amendment tests pass. No provider call was made.
+
+## 2026-09-01 — D2b offline implementation gate complete
+
+- Added fail-closed validation for the exact Pilot-3 four-slot qualification, the unchanged base
+  configurations, the original D2 reliability failure, and the D2b decision schema.
+- Added a create-only composite receipt that verifies and hashes both immutable manifests, embeds
+  the full D2b qualification decision, refuses overwrite, and leaves no output on manifest drift.
+- Complete offline gate: 205 tests passed with the one pre-existing third-party forward-reference
+  warning; Ruff reported no findings. The historical 112-run dry-run hash remains
+  `b837a09632fdb77eea86bd0a461ac632be0a979eb7c71e989ee2b5debc832fe4`.
+- D2b dry run reports one DeepSeek configuration, fourteen scenarios, two variants, 28 rendered
+  prompts, fourteen semantic-equivalence groups, run-plan SHA-256
+  `a6381db127b4543e801637e864828c468c282075686b76cca8667408b7e8517e`, zero model calls, and zero
+  database writes. No live D2b call has occurred.
