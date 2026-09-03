@@ -6,7 +6,7 @@ Last collision update: 2026-09-03
 
 Target manuscript: R21 JSS revision
 
-Status: approved conceptual design; manuscript implementation pending
+Status: approved conceptual design and canonical novelty baseline; manuscript implementation pending
 
 ## 1. Objective
 
@@ -118,7 +118,32 @@ CK 公开全文未使用 `Correction` 或 `authorized value` 语义；它安装 
 
 Primary source: <https://arxiv.org/html/2608.11632>
 
-### 3.2 When Memory Becomes Authority — highest conceptual collision risk
+### 3.2 LatticeMind — highest direct state-memory collision risk
+
+`LatticeMind: A Conflict-Aware Memory Primitive for Multi-Agent Systems`（arXiv:2608.08236）将 contradiction handling 从 answer aggregation 提升为 write-time structured-memory primitive。它显式建模：
+
+- 状态为 Proposed、Confirmed、Contested 或 Superseded 的 memory items；
+- 带 entity、slot、value、branch、environment、evidence 和 timestamp 的 normalized state claims；
+- 以 canonical slot key 路由相互冲突的 claims；
+- evidence-weighted supersession、recency tie-breaking 与 selective LLM reconciliation；
+- winner 成为 current state，loser 仍以 contested/superseded item 保留；
+- provenance-aware、scope-sensitive、temporal 和 stale-suppression evaluation。
+
+因此，candidate-claim preservation、write-time conflict resolution、slot-scoped current state、supersession、contestation、stale suppression 和 provenance-aware state memory 均不能单独作为 Auto-Decte novelty。
+
+Auto-Decte 与 LatticeMind 的可防守边界是：
+
+- LatticeMind 依据 evidence strength、recency 和 LLM reconciliation 选择 winning claim；Auto-Decte 要求与 exact persisted candidate 绑定的显式人类授权；
+- LatticeMind 的 `human-note` 是一种低权重 evidence type，不等价于赋予 authoritative status 的 human authorization；
+- 公开模型未展示 machine candidate value 与 distinct human-authorized value 同时保留的 dual-value Correction，即 \(x_c\neq x_a\)；
+- 公开模型未展示一个 batch-atomic complete-record successor，以及覆盖 changed/unchanged fields 的 total source map/copy-forward；
+- 公开论文提供系统、benchmark 和 ablation evidence，但未展示 Auto-Decte 所主张的 information-class distinguishability characterization 及其 formal–concrete conformance chain。
+
+这些差异仅描述 reviewed public v1 artifact 的显式语义边界，不表示 LatticeMind 不可被扩展为包含人类授权或事务机制。
+
+Primary source: <https://arxiv.org/html/2608.08236>
+
+### 3.3 When Memory Becomes Authority — highest conceptual collision risk
 
 该工作提出 authority collapse：memory consolidation 保留 claim content，却擦除其 source authority constraints，使后续系统赋予该 memory 超出来源许可的权威。它已经占据“content preservation 不等于 authority preservation”和“memory integration 本身是 authorization boundary”的问题表述。
 
@@ -130,7 +155,7 @@ Auto-Decte 不再把 candidate/fact separation 或 authority preservation 直觉
 
 Primary source: <https://arxiv.org/html/2608.01679>
 
-### 3.3 MutMem — authorized-mutation collision
+### 3.4 MutMem — authorized-mutation collision
 
 MutMem 研究已具有持久状态的 memory property 如何被 cryptographically authorized mutation：transition 绑定 old/new weight、terminal provenance node、signer epoch 和 no-fork predecessor，并由 housekeeper 授权。
 
@@ -143,7 +168,7 @@ Auto-Decte 不以这些机制本身为 novelty。剩余差异是：
 
 Primary source: <https://arxiv.org/html/2608.02843>
 
-### 3.4 Correct Is Not Governed — governed-state and dependency-lineage collision
+### 3.5 Correct Is Not Governed — governed-state and dependency-lineage collision
 
 该工作区分 correct outcome 与 governed execution，并在 versioned AuthoritySet、FactSet、DecisionSet、dependency lineage、supersession 和 targeted invalidation 上建立统一 state layer。其公开正文也直接使用“distinguish candidate evidence from admitted authority”的表述。
 
@@ -156,7 +181,7 @@ Primary source: <https://arxiv.org/html/2608.02843>
 
 Primary source: <https://arxiv.org/html/2608.12761>
 
-### 3.5 CAGE — typed-return authorization neighbor
+### 3.6 CAGE — typed-return authorization neighbor
 
 CAGE 针对 typed tool return \(z=(s,x)\) 与 candidate downstream action 的 authorization robustness，证明 discrete provenance/binding uncertainty 与 continuous numerical uncertainty 不能被独立认证后简单组合。它直接威胁“context-bound authorization”或“typed record binding”作为独立 novelty 的说法。
 
@@ -164,7 +189,7 @@ CAGE 针对 typed tool return \(z=(s,x)\) 与 candidate downstream action 的 au
 
 Primary source: <https://arxiv.org/html/2607.29190>
 
-### 3.6 Commit-time and approval/effect authorization neighbors
+### 3.7 Commit-time and approval/effect authorization neighbors
 
 以下工作共同覆盖 freshness、exact approval/effect binding、replay/retry 与 durable effect boundary，均需承认为 supporting mechanisms 的 prior art：
 
@@ -175,7 +200,7 @@ Primary source: <https://arxiv.org/html/2607.29190>
 
 这些工作压缩 Auto-Decte 的 freshness、non-transferable approval 和 replay-resistance claims，但研究对象主要是 provider/tool effects，而不是 correction-aware record-field admission。
 
-### 3.7 MemTxn
+### 3.8 MemTxn
 
 MemTxn 已明确提出 answer-model-external transaction boundary、source-supported update admission、conflict-conditioned visibility 和 complete-state recovery。它已经占据“首次把 agent-memory update 放入 transaction/admission boundary”的主张空间。
 
@@ -189,7 +214,7 @@ Auto-Decte 的剩余差异是：
 
 Primary source: <https://arxiv.org/html/2607.27834>
 
-### 3.8 Broader transactional and governed-system neighbors
+### 3.9 Broader transactional and governed-system neighbors
 
 以下工作必须在检索和 Related Work 中出现，但其 primary object 与 Auto-Decte 较远，不应与 highest direct collision 混为一层：
 
@@ -199,7 +224,7 @@ Primary source: <https://arxiv.org/html/2607.27834>
 
 GUIDE 和 LOGOS 会削弱 broad HITL/governed-promotion claims，但没有在 reviewed public abstract/HTML surface 上覆盖 Auto-Decte 的 exact per-field dual-value Correction relation。
 
-### 3.9 SuperLocalMemory 4.0
+### 3.10 SuperLocalMemory 4.0
 
 SuperLocalMemory 4.0 已包含 Admission Gateway、immutable ActorContext、policy registry、generation fence、canonical transaction 和 projection completion manifest。因此 admission、governed write 和 transactional projection completion 不能单独作为 Auto-Decte novelty。
 
@@ -215,32 +240,32 @@ Primary source: <https://arxiv.org/html/2608.08253>
 
 `Governed Memory Operating System` 在当前清单语境中是对 SuperLocalMemory 4.0 的描述，不作为第二篇独立论文重复计数，除非后续核验得到不同 identifier。
 
-### 3.10 When Stale Constraints Go Unchecked
+### 3.11 When Stale Constraints Go Unchecked
 
 该工作研究 immutable historical provenance、source supersession 与有限 verification budget 下的 stale-consistent agent decision。它为 freshness distinction 提供强 empirical motivation，但没有提出 candidate-bound authoritative commit contract。
 
 Primary source: <https://arxiv.org/html/2608.25553>
 
-### 3.11 Unresolved or non-canonical labels
+### 3.12 Non-canonical topic labels
 
-- `LatticeMind`：当前可公开核验的同名系统是 computational materials science agent，未核到清单所述 candidate-claim reconciliation/supersession 论文。没有稳定论文 identifier 和全文前，不进入 manuscript citation set。
 - `Authority Collapse 系列`：属于主题标签而非唯一 bibliographic identity。正式论文只引用已核验的具体工作，例如 `When Memory Becomes Authority`。
 - `Memory Governance 相关后续工作`：属于检索桶，不是可引用条目。
 
-### 3.12 MemTX is a separate work
+### 3.13 MemTX is a separate work
 
 项目当前引用的 `MemTX: Transactional Belief Commit for Stateful Agent Memory`（arXiv:2607.23929）与 `MemTxn: A Transaction Boundary for Source-Supported Updates and Complete-State Recovery in Agent Memory`（arXiv:2607.27834）是两篇不同论文。最终 Related Work 必须分别引用和比较，禁止名称或贡献归属混淆。
 
-### 3.13 Revised threat ordering
+### 3.14 Revised threat ordering
 
 按对当前收缩后定位的直接威胁排序：
 
 1. **Beyond Memory / Continuity Kernel**：直接覆盖 candidate/authority separation、atomic activation、exact predecessor、freshness、complete unit 和 bounded model；
-2. **When Memory Becomes Authority**：直接覆盖 authority-collapse problem framing；
-3. **MutMem、MemTxn、Correct Is Not Governed**：分别占据 authorized mutation、transaction/admission/recovery、versioned governed provenance；
-4. **Stateful Governance、Temporary Authority、AID-Guard、What You Approve**：覆盖 commit-time authority/effect binding；
-5. **SuperLocalMemory 4.0、LOGOS、BEGIN AI TRANSACTION、GUIDE**：系统和 workflow 层的 governed promotion/transaction neighbors；
-6. **CAGE、When Stale Constraints Go Unchecked**：分别为 typed-return authorization robustness 与 freshness motivation 提供相邻理论/实证。
+2. **LatticeMind**：直接覆盖 write-time candidate-claim reconciliation、slot-first current state、contestation/supersession、provenance 和 stale suppression；
+3. **When Memory Becomes Authority**：直接覆盖 authority-collapse problem framing；
+4. **MutMem、MemTxn、Correct Is Not Governed**：分别占据 authorized mutation、transaction/admission/recovery、versioned governed provenance；
+5. **Stateful Governance、Temporary Authority、AID-Guard、What You Approve**：覆盖 commit-time authority/effect binding；
+6. **SuperLocalMemory 4.0、LOGOS、BEGIN AI TRANSACTION、GUIDE**：系统和 workflow 层的 governed promotion/transaction neighbors；
+7. **CAGE、When Stale Constraints Go Unchecked**：分别为 typed-return authorization robustness 与 freshness motivation 提供相邻理论/实证。
 
 最终 novelty 不能依赖“九个能力第一次组合”。它必须依赖 dual-value human Correction 和 total per-field attribution 的语义对象，以及针对该对象的 distinguishability characterization。
 
@@ -600,6 +625,8 @@ benchmark 至少应记录：
 - proposal/verification order；
 - retry count；
 - unavailable-capability attempt；
+- bounded-action discipline，即 agent 是否在完成被请求的有限动作后停止；
+- unsolicited remediation，即 agent 是否在未获请求时自行扩大为修复、重试或额外操作；
 - stale/cross-context handling；
 - Correction handling；
 - scenario completion；
@@ -607,7 +634,17 @@ benchmark 至少应记录：
 
 只有观察到实际 behavior-trace differences，才能使用 `behavioral variation`。如果行为没有可测差异，只报告 `cross-model repeated execution`。
 
-### 10.3 Authority-invariance measurements
+### 10.3 G1/G2 evidence-integration status
+
+截至 2026-09-03，G1/G2 traces 已出现可用于编码的候选行为差异，尤其是 bounded-action discipline 与 unsolicited remediation。它们与 C4 的关系必须按以下规则处理：
+
+- 在 Final benchmark 完成、审计并冻结前，只称为 observed/provisional trace differences，不写入最终效应量或普遍性结论；
+- 将“agent 是否扩大行动范围”与“authority 是否被改变”分开计量；unsolicited remediation 本身属于 behavior variation，不自动等于 authority violation；
+- 只有 host contract 对越界、陈旧或未授权动作保持 fail closed，并且 rejection 前后 authoritative-state digest 不变时，该 run 才支持 authority invariance；
+- 最终报告按 model、prompt、scenario 和 repetition cell 展示行为类别，同时将 authority outcome 与预声明的 `ContractOutcome_s` 对照；
+- 若某个行为类别仅出现在单个 cell，应报告为 observed heterogeneity，而不是模型固有属性。
+
+### 10.4 Authority-invariance measurements
 
 每个 run 应验证：
 
@@ -636,7 +673,7 @@ benchmark 至少应记录：
 
 ### C4 — Behavioral validation under authority invariance
 
-在跨模型、跨 prompt、重复 agent executions 中同时测量 behavioral diversity 与 contract-governed authority outcome，验证有限实验范围内的 behavioral variation/authority invariance principle。
+在跨模型、跨 prompt、重复 agent executions 中同时测量 behavioral diversity——包括 bounded-action discipline 与 unsolicited remediation——以及 contract-governed authority outcome，验证有限实验范围内的 behavioral variation/authority invariance principle。该贡献只有在 Final benchmark 完成、审计并冻结后才进入 manuscript claim set。
 
 C1--C4 不是工作内容并列列表，而是一条依赖链：C1 定义对象，C2 给出结构性知识，C3 实现并验证该知识，C4 检验其在 agent behavior 变化下的系统意义。
 
@@ -718,7 +755,7 @@ C1--C4 不是工作内容并列列表，而是一条依赖链：C1 定义对象�
 
 ### Related Work
 
-- 分别加入并比较 MutMem、MemTxn、SuperLocalMemory 4.0、Stale Constraints 和现有 MemTX；
+- 分别加入并比较 Beyond Memory、LatticeMind、When Memory Becomes Authority、MutMem、MemTxn、SuperLocalMemory 4.0、Stale Constraints 和现有 MemTX；
 - 使用 relation-level comparison，而非空白格推断 competitor 缺陷；
 - 对未展示关系统一写 `not shown in the reviewed public artifact`；
 - 不以对方是否正式录用决定 novelty relevance；public disclosure 即构成 collision risk。
@@ -777,6 +814,7 @@ C1--C4 不是工作内容并列列表，而是一条依赖链：C1 定义对象�
 - [ ] 明确 bounded sufficiency 的检查边界；
 - [ ] 修改 title、abstract、RQ、contributions、Related Work 和 conclusion；
 - [ ] 修复 MemTX 与 MemTxn 的文献区分；
+- [ ] 将 LatticeMind（arXiv:2608.08236）纳入一级 nearest-neighbor comparison；
 - [ ] repeated benchmark 完成后测量真实 behavioral diversity；
 - [ ] authority-invariance result 与 frozen raw evidence 对齐；
 - [ ] 所有新增 claim 通过 citation、artifact 和 code-paper consistency audit。
