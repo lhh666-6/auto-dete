@@ -2,6 +2,8 @@
 
 Date: 2026-08-31
 
+Last collision update: 2026-09-03
+
 Target manuscript: R21 JSS revision
 
 Status: approved conceptual design; manuscript implementation pending
@@ -32,12 +34,16 @@ Status: approved conceptual design; manuscript implementation pending
 
 - transaction boundary；
 - update admission 或 Admission Gateway；
+- candidate state 与 authoritative state 的分离；
+- off-commit candidate preparation 与 atomic activation 的分离；
 - source-supported update validation；
 - authorized mutation；
 - predecessor/version binding；
 - provenance-preserving history；
 - policy-gated commit；
 - stale/supersession detection；
+- commit-time freshness revalidation；
+- complete accepted-unit installation；
 - ordinary transactional atomicity。
 
 因此，禁止使用以下主张：
@@ -50,7 +56,7 @@ Status: approved conceptual design; manuscript implementation pending
 
 ### 2.2 What remains defensible
 
-Auto-Decte 的可防守空间是以下关系及其结构性刻画：
+Auto-Decte 的可防守空间是以下更窄关系及其结构性刻画：
 
 \[
 \boxed{
@@ -74,9 +80,57 @@ x_c \neq x_a,
 
 即 machine-proposed value 与 human-authorized value 可以不同，二者必须同时保留且不能互相覆盖。
 
+该链条中的 candidate separation、freshness 和 atomic activation 已分别被相邻工作覆盖，不能逐项声明为新机制。可防守 novelty 来自：
+
+1. candidate-bound **human** authorization 对 explicit authorized value 的赋权；
+2. per-field dual-value Correction semantics；
+3. complete authoritative record 中 changed/unchanged fields 的 total source attribution；
+4. 对上述信息类别的 failure-distinguishability characterization；
+5. 同一 characterization 的 bounded formal、transactional concrete 与 formal–concrete evidence chain。
+
 ## 3. Nearest-neighbor collision boundary
 
-### 3.1 MutMem
+本节按 public disclosure 评估 novelty collision，而不是按作者投稿目标或主观“CCF 档次”评估。截至 2026-09-03，下列新增近邻均以 arXiv/working-paper 公开版本为依据；公开预印本足以构成 novelty prior art，但不能被描述为已经获得某个 CCF A/B venue 的正式录用。
+
+### 3.1 Beyond Memory / Continuity Kernel — highest direct collision risk
+
+`Beyond Memory: A Transactional Continuity Kernel for Long-Lived AI Agents` 与清单中的 `Continuity Kernel` 是同一篇论文，不应重复计数。它已明确提出：
+
+- storage presence 不等于 authoritative reachability；
+- untrusted components 在事务外准备 candidate；
+- candidate 针对 exact predecessor head 或 typed absence；
+- activation transaction 重新检查 ownership、pre-state authority、freshness 和 effect uniqueness；
+- 只有 Commit 原子安装 complete accepted unit，包括 state、authority、lineage、effects、outcome 和 receipt；
+- bounded executable model 检查 protocol state space。
+
+因此，以下均不能再作为 Auto-Decte 的独占 novelty：`candidate != authoritative state`、off-commit preparation、atomic activation、exact predecessor、commit-time freshness、complete accepted unit、authorized lineage，以及 bounded protocol exploration。
+
+Auto-Decte 剩余差异必须明确压在：
+
+- exact persisted field candidate 与 candidate-bound human decision；
+- explicit `authorizedValue`，允许 \(x_c\neq x_a\)；
+- Correction 后 candidate 不被改写；
+- 一个 authoritative record successor 内的 per-field transitions；
+- changed fields 与 unchanged fields 的 total source map/copy-forward；
+- information-class distinguishability、per-class ablations 与 concrete conformance。
+
+CK 公开全文未使用 `Correction` 或 `authorized value` 语义；它安装 sealed candidate state，而不是明确建模 machine candidate value 与 distinct human-authorized field value。该“未展示”结论只用于界定 reviewed public artifact，不表示 CK 不可扩展。
+
+Primary source: <https://arxiv.org/html/2608.11632>
+
+### 3.2 When Memory Becomes Authority — highest conceptual collision risk
+
+该工作提出 authority collapse：memory consolidation 保留 claim content，却擦除其 source authority constraints，使后续系统赋予该 memory 超出来源许可的权威。它已经占据“content preservation 不等于 authority preservation”和“memory integration 本身是 authorization boundary”的问题表述。
+
+Auto-Decte 不再把 candidate/fact separation 或 authority preservation 直觉单独作为 novelty。剩余边界是：
+
+- authority-collapse benchmark 研究 memory consolidation 与 later reuse；
+- Auto-Decte 研究 candidate-bound human authorization 如何构造 versioned authoritative record successor；
+- Auto-Decte 的中心不是自动 authority label，而是 dual-value Correction、per-field transition/source relation 与 admission-time failure distinguishability。
+
+Primary source: <https://arxiv.org/html/2608.01679>
+
+### 3.3 MutMem — authorized-mutation collision
 
 MutMem 研究已具有持久状态的 memory property 如何被 cryptographically authorized mutation：transition 绑定 old/new weight、terminal provenance node、signer epoch 和 no-fork predecessor，并由 housekeeper 授权。
 
@@ -89,7 +143,39 @@ Auto-Decte 不以这些机制本身为 novelty。剩余差异是：
 
 Primary source: <https://arxiv.org/html/2608.02843>
 
-### 3.2 MemTxn
+### 3.4 Correct Is Not Governed — governed-state and dependency-lineage collision
+
+该工作区分 correct outcome 与 governed execution，并在 versioned AuthoritySet、FactSet、DecisionSet、dependency lineage、supersession 和 targeted invalidation 上建立统一 state layer。其公开正文也直接使用“distinguish candidate evidence from admitted authority”的表述。
+
+因此，versioned authority/facts、decision admission、dependency lineage、supersession 与 inspectable provenance 不能单独作为 Auto-Decte novelty。剩余差异是：
+
+- 它研究 institutional decision/execution/change provenance；
+- Auto-Decte 研究 structured record field 的 candidate-bound human Correction；
+- 公开模型未展示 \(x_c\neq x_a\) 的 dual-value attribution、batch field transitions 或 successor-wide total field-source map；
+- 其 comparison framing 是 operational governance evidence，而非 Auto-Decte 的 per-information-class distinguishability characterization。
+
+Primary source: <https://arxiv.org/html/2608.12761>
+
+### 3.5 CAGE — typed-return authorization neighbor
+
+CAGE 针对 typed tool return \(z=(s,x)\) 与 candidate downstream action 的 authorization robustness，证明 discrete provenance/binding uncertainty 与 continuous numerical uncertainty 不能被独立认证后简单组合。它直接威胁“context-bound authorization”或“typed record binding”作为独立 novelty 的说法。
+
+但 CAGE 的主要对象是 uncertain typed return 到 downstream action 的 certified authorization，而不是 persisted candidate + human authorized value 到 authoritative record successor。因此它是重要 authorization-theory neighbor，但不是当前最直接的 persistent-state collision。
+
+Primary source: <https://arxiv.org/html/2607.29190>
+
+### 3.6 Commit-time and approval/effect authorization neighbors
+
+以下工作共同覆盖 freshness、exact approval/effect binding、replay/retry 与 durable effect boundary，均需承认为 supporting mechanisms 的 prior art：
+
+- `Stateful Governance for Concurrent Agentic Systems`：policy-state serializability 与 commit 前 policy-state authorization； <https://arxiv.org/abs/2608.02764>
+- `Temporary Authority, Permanent Effects`：fresh、causally prior、same-effect-bound、commit-time eligible authority witness； <https://arxiv.org/abs/2607.10487>
+- `AID-Guard`：authorization-to-effect closure、commit-time request/provider-state revalidation、retry/recovery 下的 effect uniqueness； <https://arxiv.org/abs/2608.21159>
+- `What You Approve Is What Executes`：trusted rendering 与 exact approved-action-to-executed-action binding； <https://arxiv.org/abs/2606.02668>
+
+这些工作压缩 Auto-Decte 的 freshness、non-transferable approval 和 replay-resistance claims，但研究对象主要是 provider/tool effects，而不是 correction-aware record-field admission。
+
+### 3.7 MemTxn
 
 MemTxn 已明确提出 answer-model-external transaction boundary、source-supported update admission、conflict-conditioned visibility 和 complete-state recovery。它已经占据“首次把 agent-memory update 放入 transaction/admission boundary”的主张空间。
 
@@ -103,7 +189,17 @@ Auto-Decte 的剩余差异是：
 
 Primary source: <https://arxiv.org/html/2607.27834>
 
-### 3.3 SuperLocalMemory 4.0
+### 3.8 Broader transactional and governed-system neighbors
+
+以下工作必须在检索和 Related Work 中出现，但其 primary object 与 Auto-Decte 较远，不应与 highest direct collision 混为一层：
+
+- `BEGIN AI TRANSACTION`：durable AI workflow 的 semantic isolation，关注 resource/compatibility/context/merge skew，而非 authoritative record admission； <https://arxiv.org/abs/2608.05412>
+- `GUIDE`：enterprise document-to-artifact workflow、versioned rule store、schema-validated inter-agent contracts、HITL escalation 与 end-to-end provenance； <https://arxiv.org/abs/2608.12133>
+- `LOGOS`：untrusted release candidate、held-out evidence、human-controlled policy 和 explicit authorization 后的 versioned agent-pack promotion； <https://arxiv.org/abs/2607.10878>
+
+GUIDE 和 LOGOS 会削弱 broad HITL/governed-promotion claims，但没有在 reviewed public abstract/HTML surface 上覆盖 Auto-Decte 的 exact per-field dual-value Correction relation。
+
+### 3.9 SuperLocalMemory 4.0
 
 SuperLocalMemory 4.0 已包含 Admission Gateway、immutable ActorContext、policy registry、generation fence、canonical transaction 和 projection completion manifest。因此 admission、governed write 和 transactional projection completion 不能单独作为 Auto-Decte novelty。
 
@@ -117,15 +213,36 @@ Auto-Decte 的剩余差异是：
 
 Primary source: <https://arxiv.org/html/2608.08253>
 
-### 3.4 When Stale Constraints Go Unchecked
+`Governed Memory Operating System` 在当前清单语境中是对 SuperLocalMemory 4.0 的描述，不作为第二篇独立论文重复计数，除非后续核验得到不同 identifier。
+
+### 3.10 When Stale Constraints Go Unchecked
 
 该工作研究 immutable historical provenance、source supersession 与有限 verification budget 下的 stale-consistent agent decision。它为 freshness distinction 提供强 empirical motivation，但没有提出 candidate-bound authoritative commit contract。
 
 Primary source: <https://arxiv.org/html/2608.25553>
 
-### 3.5 MemTX is a separate work
+### 3.11 Unresolved or non-canonical labels
+
+- `LatticeMind`：当前可公开核验的同名系统是 computational materials science agent，未核到清单所述 candidate-claim reconciliation/supersession 论文。没有稳定论文 identifier 和全文前，不进入 manuscript citation set。
+- `Authority Collapse 系列`：属于主题标签而非唯一 bibliographic identity。正式论文只引用已核验的具体工作，例如 `When Memory Becomes Authority`。
+- `Memory Governance 相关后续工作`：属于检索桶，不是可引用条目。
+
+### 3.12 MemTX is a separate work
 
 项目当前引用的 `MemTX: Transactional Belief Commit for Stateful Agent Memory`（arXiv:2607.23929）与 `MemTxn: A Transaction Boundary for Source-Supported Updates and Complete-State Recovery in Agent Memory`（arXiv:2607.27834）是两篇不同论文。最终 Related Work 必须分别引用和比较，禁止名称或贡献归属混淆。
+
+### 3.13 Revised threat ordering
+
+按对当前收缩后定位的直接威胁排序：
+
+1. **Beyond Memory / Continuity Kernel**：直接覆盖 candidate/authority separation、atomic activation、exact predecessor、freshness、complete unit 和 bounded model；
+2. **When Memory Becomes Authority**：直接覆盖 authority-collapse problem framing；
+3. **MutMem、MemTxn、Correct Is Not Governed**：分别占据 authorized mutation、transaction/admission/recovery、versioned governed provenance；
+4. **Stateful Governance、Temporary Authority、AID-Guard、What You Approve**：覆盖 commit-time authority/effect binding；
+5. **SuperLocalMemory 4.0、LOGOS、BEGIN AI TRANSACTION、GUIDE**：系统和 workflow 层的 governed promotion/transaction neighbors；
+6. **CAGE、When Stale Constraints Go Unchecked**：分别为 typed-return authorization robustness 与 freshness motivation 提供相邻理论/实证。
+
+最终 novelty 不能依赖“九个能力第一次组合”。它必须依赖 dual-value human Correction 和 total per-field attribution 的语义对象，以及针对该对象的 distinguishability characterization。
 
 ## 4. Core abstraction
 
@@ -507,7 +624,7 @@ benchmark 至少应记录：
 
 ### C1 — Correction-aware authoritative-state admission
 
-定义从 untrusted persisted candidate 和 candidate-bound human authorization 到 complete authoritative successor 的软件边界。核心语义是 candidate retention、dual-value attribution 与 authority/origin separation。
+在 CK 已公开 candidate/activation boundary 的前提下，C1 不再声称首次识别一般 authoritative-state activation。C1 定义其 correction-aware record-field specialization：从 exact persisted field candidate 和 candidate-bound human authorization 到 complete authoritative-record successor。核心语义是 human authority、candidate retention、dual-value attribution 与 authority/origin separation。
 
 ### C2 — Conditional failure-distinguishability characterization
 
@@ -528,6 +645,10 @@ C1--C4 不是工作内容并列列表，而是一条依赖链：C1 定义对象�
 ### 12.1 Primary novelty statement
 
 > We identify correction-aware authoritative-state admission as the software relation that maps an untrusted persisted candidate and a candidate-bound human authorization to a complete authoritative successor while retaining the candidate as non-authoritative historical evidence. We characterize the observable information distinctions required to separate candidate substitution, correction erasure, stale replay, partial-successor, and source-ambiguous histories.
+
+为避免与 CK 的一般 activation-contract claim 碰撞，论文紧接着限定：
+
+> Our contribution is not candidate/authority separation or atomic activation alone. It is the dual-value, per-field specialization in which the admitted value may differ from the retained machine candidate, together with a failure-distinguishability characterization and formal–concrete realization of complete record and source attribution.
 
 ### 12.2 Characterization statement
 
@@ -551,6 +672,7 @@ C1--C4 不是工作内容并列列表，而是一条依赖链：C1 定义对象�
 
 - identify and characterize a correction-aware authoritative-state admission boundary；
 - dual-value attribution separates machine proposal from human-authorized value；
+- specialize authoritative activation to exact candidate-bound human Correction at record-field granularity；
 - five information classes are individually irredundant with respect to declared paired failures；
 - the full basis is sufficient only over the declared catalogue, encoded model and bounded scopes；
 - Auto-Decte is one transactional realization, not the unique schema；
@@ -561,6 +683,9 @@ C1--C4 不是工作内容并列列表，而是一条依赖链：C1 定义对象�
 ### 13.2 Forbidden or unsupported claims
 
 - first admission mechanism；
+- first separation of candidate and authoritative state；
+- first off-commit candidate preparation or atomic activation contract；
+- first exact-predecessor or complete accepted-unit protocol；
 - first AI update transaction boundary；
 - first authorized mutation or provenance-preserving history；
 - universal necessity of `candidate_id`、`expectedVersion` or any exact column；
