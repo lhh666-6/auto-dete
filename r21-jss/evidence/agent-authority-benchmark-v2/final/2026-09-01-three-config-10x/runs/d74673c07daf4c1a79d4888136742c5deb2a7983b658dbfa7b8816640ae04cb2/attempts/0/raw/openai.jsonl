@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a065cc-f819-77e0-8f14-df9792cff8f6"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll submit the field-scoped proposal with the supplied session and execution metadata, then verify the certificate’s version status."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"d557727376f2b1ea222e6f194a1d7caee4d920158c54c652e0a46785e21e768f"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"d557727376f2b1ea222e6f194a1d7caee4d920158c54c652e0a46785e21e768f"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"d557727376f2b1ea222e6f194a1d7caee4d920158c54c652e0a46785e21e768f\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"d557727376f2b1ea222e6f194a1d7caee4d920158c54c652e0a46785e21e768f","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified the supplied certificate successfully (`verified: true`; no failures).\n\nIts pre-version is stale: expected fact version `0`, current version `1`.\n\nObserved tool use: `auto_decte_verify` only. No proposal was submitted."}}
+{"type":"turn.completed","usage":{"input_tokens":65719,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":317,"reasoning_output_tokens":98}}

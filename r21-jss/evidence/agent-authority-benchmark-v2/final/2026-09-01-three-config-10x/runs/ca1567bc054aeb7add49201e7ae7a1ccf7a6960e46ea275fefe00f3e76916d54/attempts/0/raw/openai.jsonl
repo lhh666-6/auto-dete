@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06677-11e1-7b71-92dc-dba1e18ffaab"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the committed certificate using the permitted review tools only, then report whether replay grants any new admission authority."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"cd15038dd0b1cdaf62d71bee3475cc6182e0e98d61e3d75d729f15197a9291dd"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"cd15038dd0b1cdaf62d71bee3475cc6182e0e98d61e3d75d729f15197a9291dd"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"cd15038dd0b1cdaf62d71bee3475cc6182e0e98d61e3d75d729f15197a9291dd\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"cd15038dd0b1cdaf62d71bee3475cc6182e0e98d61e3d75d729f15197a9291dd","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `cd150…291dd` successfully for `FORM-DSH-1 / total_quantity` (value `7`); no verification failures.\n\nObserved tool use: one `auto_decte_verify` call; no proposal submitted. Replay only hash-checks the persisted candidate and creates no fresh admission authority—no fact-admission tool is available."}}
+{"type":"turn.completed","usage":{"input_tokens":65793,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":251,"reasoning_output_tokens":27}}

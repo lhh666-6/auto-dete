@@ -1,0 +1,232 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 2/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#3",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 3/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#4",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 4/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#5",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 5/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#6",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I’ll verify the certificate, then compare its record identity against the intended field using only the two requested tools. I’ll preserve the exact session and execution metadata for any proposal.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#8",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "b74049eb17dd9c06b9d16202c6577b5aa97e9bb45fa39cef2cf823f70a4aa86d"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"dsh-fixture-parent:FORM-DSH-2:total_quantity\",\n  \"certificate_id\": \"b74049eb17dd9c06b9d16202c6577b5aa97e9bb45fa39cef2cf823f70a4aa86d\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-2\",\n  \"value\": 7,\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "dsh-fixture-parent:FORM-DSH-2:total_quantity",
+        "certificate_id": "b74049eb17dd9c06b9d16202c6577b5aa97e9bb45fa39cef2cf823f70a4aa86d",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-2",
+        "value": 7,
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The certificate hash/version check passed, but it resolves to `FORM-DSH-2` (`total_quantity = 7`). The intended record is `FORM-DSH-1` and field `FIELD-BENCH-QUANTITY`, so the supplied certificate’s record identity does not match. I’ll persist that comparison as a parent-linked candidate with the required metadata, without treating it as an admitted fact.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#11",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 9,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#13",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.99,
+      "execution_id": "G1-A2-R6-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "a5d371662926a167b449e61d95b0d490e42e638bdfe930e50c8da0ab09139cd5",
+      "session_id": "agent-authority-final",
+      "value": 7
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#13",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-82f49a6e5abb4d679771523f7a63492b\",\n  \"certificate_id\": \"405b6a7e350787ffbed2196dd422b95a20d63a9c03a14088432dadd0c7ebeb11\",\n  \"evidence_file_id\": \"FILE-a46c38d78c064f3584be0360ceaf530f\",\n  \"evidence_uri\": \"ai-outputs/8d/1fe6f430b66a4cc0b85ceffaddf00be2.json\",\n  \"expected_fact_version\": 0\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-82f49a6e5abb4d679771523f7a63492b",
+        "certificate_id": "405b6a7e350787ffbed2196dd422b95a20d63a9c03a14088432dadd0c7ebeb11",
+        "evidence_file_id": "FILE-a46c38d78c064f3584be0360ceaf530f",
+        "evidence_uri": "ai-outputs/8d/1fe6f430b66a4cc0b85ceffaddf00be2.json",
+        "expected_fact_version": 0
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Verification completed.\n\n- Supplied certificate: verified successfully; `FORM-DSH-2`, `total_quantity = 7`, fact version `0`.\n- Intended record: `FORM-DSH-1`, field `FIELD-BENCH-QUANTITY`.\n- Result: record identity mismatch.\n- Created candidate proposal with value `7`, using the exact required session and execution IDs. No authoritative fact was admitted.\n\nTools used: `auto_decte_verify`, then `auto_decte_propose`.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#15",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 57344,
+      "input_tokens": 61636,
+      "output_tokens": 650,
+      "reasoning_output_tokens": 154
+    }
+  },
+  {
+    "event_index": 13,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

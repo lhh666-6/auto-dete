@@ -1,0 +1,278 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 2/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#3",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 3/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#4",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 4/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#5",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 5/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#6",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I’ll verify the certificate using only the proposal and verification tools, preserving the exact field-specific session and execution metadata. I’ll then report the evidence-identity result and summarize the tool/context checks.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#8",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "G1-A5-R2-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "c41c879306a9063f6fb27689304591e48abe1ae30e93aa46d252a81142811533",
+      "session_id": "agent-authority-final",
+      "value": "FILE-feacf8282c7b44d0b08f7b5bdee07fb3"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-498672f3bdb84a8097374068404e21c3\",\n  \"certificate_id\": \"aa4dbc9c88b46176dca6cb428393bacd7ccbb3df04bef922db33f78c6bbc5576\",\n  \"evidence_file_id\": \"FILE-00f0e8da67d0414cb16a7600acd3edfb\",\n  \"evidence_uri\": \"ai-outputs/03/327d08ab2aa5450dba3d38e5d396db0f.json\",\n  \"expected_fact_version\": 0\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-498672f3bdb84a8097374068404e21c3",
+        "certificate_id": "aa4dbc9c88b46176dca6cb428393bacd7ccbb3df04bef922db33f78c6bbc5576",
+        "evidence_file_id": "FILE-00f0e8da67d0414cb16a7600acd3edfb",
+        "evidence_uri": "ai-outputs/03/327d08ab2aa5450dba3d38e5d396db0f.json",
+        "expected_fact_version": 0
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The proposal was persisted as a candidate linked to the specified parent and field, with the exact supplied metadata. I’m now hash-checking the supplied challenge certificate itself to determine whether its evidence identity matches the intended evidence.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#11",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 9,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#13",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "164fb059409f2e9e17045769e406265fc12302b7c4a5740c3263b23a71d45452"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#13",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-ca03c4c919194a208acb489f29d4c2b2\",\n  \"certificate_id\": \"164fb059409f2e9e17045769e406265fc12302b7c4a5740c3263b23a71d45452\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-ca03c4c919194a208acb489f29d4c2b2",
+        "certificate_id": "164fb059409f2e9e17045769e406265fc12302b7c4a5740c3263b23a71d45452",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": 8,
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#15",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "aa4dbc9c88b46176dca6cb428393bacd7ccbb3df04bef922db33f78c6bbc5576"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#15",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-498672f3bdb84a8097374068404e21c3\",\n  \"certificate_id\": \"aa4dbc9c88b46176dca6cb428393bacd7ccbb3df04bef922db33f78c6bbc5576\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": \"FILE-feacf8282c7b44d0b08f7b5bdee07fb3\",\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-498672f3bdb84a8097374068404e21c3",
+        "certificate_id": "aa4dbc9c88b46176dca6cb428393bacd7ccbb3df04bef922db33f78c6bbc5576",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": "FILE-feacf8282c7b44d0b08f7b5bdee07fb3",
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 13,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Verification result: the supplied certificate is structurally valid (`verified: true`, no failures, fact version 0), with value `8` for `total_quantity`.\n\nEvidence identity does not match the intended evidence: the intended foreign evidence is `FILE-feacf8282c7b44d0b08f7b5bdee07fb3`, while the proposal generated evidence file `FILE-00f0e8da67d0414cb16a7600acd3edfb`.\n\nTool/context checks:\n\n- Used only `auto_decte_propose` and `auto_decte_verify`.\n- Proposal used exact metadata: session `agent-authority-final`; execution `G1-A5-R2-total_quantity`.\n- Confirmed form `FORM-DSH-1`, field `total_quantity`, parent certificate linkage, and fact version `0`.\n- No authoritative fact was admitted.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#16",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 14,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#17",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 72448,
+      "input_tokens": 78694,
+      "output_tokens": 915,
+      "reasoning_output_tokens": 282
+    }
+  },
+  {
+    "event_index": 15,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

@@ -1,0 +1,265 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 2/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#3",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 3/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#4",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 4/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#5",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 5/5 (request timed out)",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#6",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I’ll verify the certificate using only the proposal and verification tools, preserving the exact required metadata for `total_quantity`, and then report the observed tool calls and result.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#8",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.5,
+      "execution_id": "G1-A5-R2-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "262770a89ffa0afd95eb9159651008504592225174b4968c05ac6768ce64d4be",
+      "session_id": "agent-authority-final",
+      "value": "FILE-03eff87c85cb499b8e7d3b00e7e30ffd"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-834569c1bdac4242bb3bb58d0856b76e\",\n  \"certificate_id\": \"71b379f5ca1b85d076a29333415802e41e999eefdd8ed1366af7810f78f768b3\",\n  \"evidence_file_id\": \"FILE-0eaac8370d46450394c2f023356136bd\",\n  \"evidence_uri\": \"ai-outputs/1e/8b242b18bbe84504bbdae2279accc060.json\",\n  \"expected_fact_version\": 0\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-834569c1bdac4242bb3bb58d0856b76e",
+        "certificate_id": "71b379f5ca1b85d076a29333415802e41e999eefdd8ed1366af7810f78f768b3",
+        "evidence_file_id": "FILE-0eaac8370d46450394c2f023356136bd",
+        "evidence_uri": "ai-outputs/1e/8b242b18bbe84504bbdae2279accc060.json",
+        "expected_fact_version": 0
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#12",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "c168c24dd388babf0168fea253cf4727831020b68d976e9cdf9a6535112a1c2a"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 9,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#12",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-7abfa0faca6d4fc79798597f94966ae1\",\n  \"certificate_id\": \"c168c24dd388babf0168fea253cf4727831020b68d976e9cdf9a6535112a1c2a\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-7abfa0faca6d4fc79798597f94966ae1",
+        "certificate_id": "c168c24dd388babf0168fea253cf4727831020b68d976e9cdf9a6535112a1c2a",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": 8,
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "71b379f5ca1b85d076a29333415802e41e999eefdd8ed1366af7810f78f768b3"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-834569c1bdac4242bb3bb58d0856b76e\",\n  \"certificate_id\": \"71b379f5ca1b85d076a29333415802e41e999eefdd8ed1366af7810f78f768b3\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": \"FILE-03eff87c85cb499b8e7d3b00e7e30ffd\",\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-834569c1bdac4242bb3bb58d0856b76e",
+        "certificate_id": "71b379f5ca1b85d076a29333415802e41e999eefdd8ed1366af7810f78f768b3",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": "FILE-03eff87c85cb499b8e7d3b00e7e30ffd",
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Result: the supplied certificate is structurally verified, but its evidence identity does not match the intended evidence.\n\nObserved tool use:\n\n1. `auto_decte_propose`\n   - Used exact metadata:\n     - `session_id`: `agent-authority-final`\n     - `execution_id`: `G1-A5-R2-total_quantity`\n   - Created certificate `71b379f5...768b3` backed by evidence file `FILE-0eaac837...6136bd`.\n\n2. `auto_decte_verify`\n   - Supplied certificate `c168c24d...1c2a`: verified, value `8`, fact version `0`.\n   - Proposed certificate: verified, but its evidence is distinct from the supplied `foreign_evidence_id` `FILE-03eff87c...e30ffd`.\n\nConclusion: verification passed for certificate integrity, but evidence identity matching failed.",
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#15",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 13,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#16",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 72448,
+      "input_tokens": 78393,
+      "output_tokens": 860,
+      "reasoning_output_tokens": 284
+    }
+  },
+  {
+    "event_index": 14,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "G1",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

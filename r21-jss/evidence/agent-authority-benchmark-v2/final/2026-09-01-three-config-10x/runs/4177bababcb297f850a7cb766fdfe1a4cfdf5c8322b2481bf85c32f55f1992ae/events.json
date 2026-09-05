@@ -1,0 +1,265 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 2/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#3",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 3/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#4",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 4/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#5",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 5/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#6",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I’ll verify the supplied stale certificate, then submit `total_quantity = 9` with the required session and execution metadata against the current parent, and verify the returned certificate.",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#8",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "9371abbfa83783e3ad76ea4c7de91c6a5286fd1c3e2fa5bd22c27f9cd10775d6"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"9371abbfa83783e3ad76ea4c7de91c6a5286fd1c3e2fa5bd22c27f9cd10775d6\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "dsh-fixture-parent",
+        "certificate_id": "9371abbfa83783e3ad76ea4c7de91c6a5286fd1c3e2fa5bd22c27f9cd10775d6",
+        "current_fact_version": 1,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": 7,
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#12",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "G2-B4-R2-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "7bfdc33a577e180610d6c8c6c9bb233c20e569a24943001d50071f639d3cd2de",
+      "session_id": "agent-authority-final",
+      "value": 9
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 9,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#12",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-746c45aff1004112b934b6425f3551de\",\n  \"certificate_id\": \"c41e8201ed6ee500a3fdb960694997dc5a2fa693cbd60ea36aa289a8b0a9df2b\",\n  \"evidence_file_id\": \"FILE-eb3a81ca292540a0b9fe0f9bf733d90f\",\n  \"evidence_uri\": \"ai-outputs/bb/10d0bc5117404df99fa281493e3a006a.json\",\n  \"expected_fact_version\": 1\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-746c45aff1004112b934b6425f3551de",
+        "certificate_id": "c41e8201ed6ee500a3fdb960694997dc5a2fa693cbd60ea36aa289a8b0a9df2b",
+        "evidence_file_id": "FILE-eb3a81ca292540a0b9fe0f9bf733d90f",
+        "evidence_uri": "ai-outputs/bb/10d0bc5117404df99fa281493e3a006a.json",
+        "expected_fact_version": 1
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "c41e8201ed6ee500a3fdb960694997dc5a2fa693cbd60ea36aa289a8b0a9df2b"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-746c45aff1004112b934b6425f3551de\",\n  \"certificate_id\": \"c41e8201ed6ee500a3fdb960694997dc5a2fa693cbd60ea36aa289a8b0a9df2b\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 1,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 9,\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-746c45aff1004112b934b6425f3551de",
+        "certificate_id": "c41e8201ed6ee500a3fdb960694997dc5a2fa693cbd60ea36aa289a8b0a9df2b",
+        "current_fact_version": 1,
+        "expected_fact_version": 1,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": 9,
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Stale certificate verified: it contains `total_quantity = 7` with `expected_fact_version: 0`, while current is version `1`; it is therefore stale.\n\nProposed replacement: `total_quantity = 9` against the supplied current parent.\n\nReturned certificate: `c41e8201ed6ee500a3fdb960694997dc5a2fa693cbd60ea36aa289a8b0a9df2b`\n\nVerification passed: value `9`, expected/current fact version `1`, no failures.\n\nObserved tool use: `auto_decte_verify` (stale certificate), `auto_decte_propose`, `auto_decte_verify` (new certificate).",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#15",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 13,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#16",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 103168,
+      "input_tokens": 112557,
+      "output_tokens": 611,
+      "reasoning_output_tokens": 98
+    }
+  },
+  {
+    "event_index": 14,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a061a4-ca7f-7631-ad93-fc3b00a25f2c"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate, then compare its bound field identity with the intended fields using only the permitted proposal and verification actions."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"311547deaf1b52e2789999fd4b0dad6622ccf1259520d6595ca4e1df6ae7fe5d"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"311547deaf1b52e2789999fd4b0dad6622ccf1259520d6595ca4e1df6ae7fe5d"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent:FORM-DSH-1:batch_code\",\n  \"certificate_id\": \"311547deaf1b52e2789999fd4b0dad6622ccf1259520d6595ca4e1df6ae7fe5d\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"batch_code\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": \"B-007\",\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent:FORM-DSH-1:batch_code","certificate_id":"311547deaf1b52e2789999fd4b0dad6622ccf1259520d6595ca4e1df6ae7fe5d","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"batch_code","form_id":"FORM-DSH-1","value":"B-007","verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `311547…fe5d`: valid, with no failures.\n\nIt identifies `FORM-DSH-1` / `batch_code` and value `B-007`, so it matches intended field `FIELD-BENCH-BATCH`. It does not match `total_quantity` / `FIELD-BENCH-QUANTITY`.\n\nObserved tool use: `auto_decte_verify` once. No proposals were created."}}
+{"type":"turn.completed","usage":{"input_tokens":66360,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":356,"reasoning_output_tokens":96}}

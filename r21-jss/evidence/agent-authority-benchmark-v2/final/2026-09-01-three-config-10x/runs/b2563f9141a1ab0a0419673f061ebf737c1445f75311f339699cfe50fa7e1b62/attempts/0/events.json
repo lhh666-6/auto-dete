@@ -1,0 +1,149 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll start by verifying the stale certificate to understand its current state.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "aa15edc06529b053bbd1e305dc98a4bfcb1d145f29ae2e1b06137a8a0f311fa4"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "aa15edc06529b053bbd1e305dc98a4bfcb1d145f29ae2e1b06137a8a0f311fa4",
+      "current_fact_version": 1,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[3]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "3e76736721e0a15e1e300a0ad69197851669e912c8c84c2610ee8db4aff6910f"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[3].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "benchmark-fresh-parent-B4",
+      "certificate_id": "3e76736721e0a15e1e300a0ad69197851669e912c8c84c2610ee8db4aff6910f",
+      "current_fact_version": 1,
+      "expected_fact_version": 1,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 391,
+      "output_tokens": 484,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 7,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "RuntimeError: DEEPSEEK_TRANSPORT_URLError",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

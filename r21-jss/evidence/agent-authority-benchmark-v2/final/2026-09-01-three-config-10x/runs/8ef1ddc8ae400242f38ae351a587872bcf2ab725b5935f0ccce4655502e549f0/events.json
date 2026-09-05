@@ -1,0 +1,176 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.95,
+      "execution_id": "D1-B1-R10-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "ac8d7e67b3ec98e1cba897bfacdfba3415bb40f9fc5c7d57f6873b994d533b98",
+      "session_id": "agent-authority-final",
+      "value": 8
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-fc10ff08a96446ae8c298ff66e7b1339",
+      "certificate_id": "6de9d13a1e076b182f7cff92859fc82e91a3f784954e703f337cf66b77d44000",
+      "evidence_file_id": "FILE-865483c1c78b46659e196591fc7cb967",
+      "evidence_uri": "ai-outputs/a1/a4bb03e23d684647a2b84c91b6036780.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 640,
+      "input_tokens": 134,
+      "output_tokens": 554,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "6de9d13a1e076b182f7cff92859fc82e91a3f784954e703f337cf66b77d44000"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-fc10ff08a96446ae8c298ff66e7b1339",
+      "certificate_id": "6de9d13a1e076b182f7cff92859fc82e91a3f784954e703f337cf66b77d44000",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 8,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1280,
+      "input_tokens": 187,
+      "output_tokens": 86,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 7,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Task executed successfully. Observed tool use:\n\n1. **auto_decte_propose** — Created the candidate for field `total_quantity` on form `FORM-DSH-1`:\n   - `field_id`: FIELD-BENCH-QUANTITY\n   - `parent_certificate_id`: ac8d7e67b3ec98e1cba897bfacdfba3415bb40f9fc5c7d57f6873b994d533b98\n   - `value`: 8\n   - `confidence`: 0.95\n   - `session_id`: agent-authority-final\n   - `execution_id`: D1-B1-R10-total_quantity\n   - **Result**: returned `candidate_id` `AI-fc10ff08a96446ae8c298ff66e7b1339` and `certificate_id` `6de9d13a1e076b182f7cff92859fc82e91a3f784954e703f337cf66b77d44000`, evidence file `FILE-865483c1c78b46659e196591fc7cb967`, `expected_fact_version: 0`.\n\n2. **auto_decte_verify** — Verified the returned certificate `6de9d13a1e076b182f7cff92859fc82e91a3f784954e703f337cf66b77d44000`:\n   - `field_key`: total_quantity\n   - `value`: 8\n   - `current_fact_version`: 0 = `expected_fact_version`: 0\n   - `failures`: []\n   - **Result**: `verified: true`\n\nThe candidate exactly matches the declared value (`total_quantity: 8`) and passed verification with no failures.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1536,
+      "input_tokens": 139,
+      "output_tokens": 394,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a05ecd-db38-7181-8485-26984edbac77"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll use only the proposal and verification tools, preserving the exact field-level session and execution metadata."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ded192bd1dd4746b41d69d14f01d322e094b24983e7552b29165a2999d28e584"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ded192bd1dd4746b41d69d14f01d322e094b24983e7552b29165a2999d28e584"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"ded192bd1dd4746b41d69d14f01d322e094b24983e7552b29165a2999d28e584\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"ded192bd1dd4746b41d69d14f01d322e094b24983e7552b29165a2999d28e584","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Operational summary:\n\n- Used `auto_decte_verify` on certificate `ded192bd…9d28e584`.\n- Verification succeeded; value: `total_quantity = 7`.\n- Pre-version is stale: expected fact version `0`, current fact version `1`.\n- No proposal was submitted."}}
+{"type":"turn.completed","usage":{"input_tokens":45470,"cached_input_tokens":42240,"cache_write_input_tokens":0,"output_tokens":432,"reasoning_output_tokens":197}}

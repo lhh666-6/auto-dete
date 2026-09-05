@@ -1,0 +1,47 @@
+\section{Introduction}
+\label{sec:introduction}
+
+AI systems increasingly produce candidate updates that may enter persistent operational records. Before admission, an output is a proposal whose origin, context, and uncertainty remain open to inspection. After admission, a value may drive reporting, payment, scheduling, or later automated decisions as a durable fact. The central systems question is therefore not merely whether a model produced a plausible value, but which authority made which value authoritative from which persisted proposal and record state.
+
+An AI candidate, a human-authorized value, and an authoritative fact are distinct authority roles. Authorized mutation changes an object that is already authoritative; admission constructs a new authoritative successor from an untrusted candidate and a separate authorization decision. The distinction becomes observable under human Correction. If a recognizer proposes \code{quantity=100} and a reviewer authorizes 101, then the machine-origin statement is $x_c=100$, the human-authority statement is $x_a=101$, and the committed field value is 101. Rewriting the candidate would falsely attribute 101 to the model; storing only the final value would erase what the model proposed. A faithful admission history must therefore allow
+\begin{equation}
+x_c\neq x_a
+\label{eq:intro-correction}
+\end{equation}
+while retaining both roles.
+
+Existing systems address adjacent layers of this transition. Continuity Kernel separates off-commit candidates from atomic authoritative activation; LatticeMind treats conflict-aware claim selection and supersession as a write-time memory primitive; authority-collapse work studies loss of source authority during memory consolidation; MutMem binds cryptographically authorized changes to predecessor history; and MemTxn provides source-supported update and recovery boundaries \citep{he2026continuity,zhou2026latticemind,zhan2026authoritycollapse,saidi2026mutmem,cui2026memtxn}. Together, these mechanisms establish transaction, provenance, freshness, activation, and governed-memory foundations. This paper isolates correction-aware admission as the unit of analysis: an exact field candidate prompts a human decision that may authorize a different value, after which the system must construct a complete attributable record successor.
+
+We introduce that relation as a correction-aware, field-level specialization of authoritative-state admission. Its semantic chain is
+\begin{equation}
+\begin{aligned}
+\textit{exact candidate}
+&\rightarrow\textit{candidate-bound human authorization}\\
+&\rightarrow\textit{explicit authorized value}
+\rightarrow\textit{complete successor}\\
+&\rightarrow\textit{total field-source attribution}.
+\end{aligned}
+\label{eq:admission-chain}
+\end{equation}
+The candidate remains non-authoritative historical evidence; the authorization supplies authority for the value; and a trusted transaction constructs the successor. This representation-independent formulation specifies the observable distinctions a mechanism must preserve to separate the failure families considered here.
+
+Five families define that characterization. Candidate identity and context distinguish equal-valued proposals that belong to different records, fields, evidence, or producers. Dual-value attribution distinguishes legitimate Correction from candidate erasure or false machine attribution. A freshness discriminator separates a current authorization from the same bytes replayed after supersession. A batch boundary distinguishes a complete successor from a partial one. Finally, a total per-field source relation distinguishes value-identical successors whose lineage is complete from successors whose sources are missing, replaced, duplicated, or ambiguous. We call this the \emph{failure-distinguishability} view of admission.
+
+Our research question is:
+
+\begin{quote}
+Which authority-relevant distinctions let a system admit an AI-derived field candidate through an attributable human decision while preserving Correction, freshness, complete-record atomicity, and exact successor lineage?
+\end{quote}
+
+We study this question through \system{}, a Python/SQLite reference realization, and make four dependent contributions:
+
+\begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
+  \item \textbf{Correction-aware authoritative-state admission.} We define a field-level relation from an exact persisted AI candidate and candidate-bound human authorization to a complete authoritative successor. The relation separates proposal origin, committed-value authority, and the admitted value, including $x_c\neq x_a$ under Correction.
+  \item \textbf{Failure-distinguishability characterization.} Under a declared history, observation, and outcome model, we characterize five information classes and give paired safe/unsafe histories showing that each class is individually irredundant for its corresponding failure family. The Full basis provides bounded sufficiency-like separation for the encoded failure model.
+  \item \textbf{Relational and transactional realization.} We map the information classes to Alloy relations and ablations, a compare-and-swap-protected admission transaction, selected formal--concrete projections, and a production-facing fault catalogue.
+  \item \textbf{Behavioral validation of the admission boundary under agent variation.} We evaluate a restricted proposal/verification surface across three qualified model configurations, three prompt variants, fourteen scenarios, and ten repetitions per cell. Agent-level completion and recognition vary descriptively, while host-side authority outcomes are evaluated separately against the same admission contract.
+\end{enumerate}
+
+The evaluation follows this dependency chain. Two bounded Alloy profiles test legal histories, selected unsafe histories, and per-conjunct ablations. Concrete projection, stateful, rollback, concurrency, lifecycle, and trace tests then assess one implementation. A repeated live-agent benchmark asks whether behavioral variation reaches authoritative state when fact admission remains host-only. Fixed-grid measurements characterize the cost of the realization without turning performance into the novelty claim.
+
+The remainder of the paper positions the abstraction against its nearest neighbors (\cref{sec:related}), defines the observation model and admission contract (\cref{sec:contract}), presents the bounded and concrete realizations (\cref{sec:alloy,sec:realization}), explains their selected correspondence (\cref{sec:conformance}), and reports the evaluation (\cref{sec:evaluation,sec:results}) before discussing inference boundaries (\cref{sec:discussion}).

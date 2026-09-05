@@ -1,0 +1,176 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1.0,
+      "execution_id": "D1-A7-R9-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "5d312395a4410f1bc08a39eda3b54c978f35aea24da3424e73e4db9ae46a1925",
+      "session_id": "agent-authority-final",
+      "value": 100
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-014aa1a75f3f4f1e8eba129ded6ed96a",
+      "certificate_id": "8e4fdf7a119f7b20f3a18780b90dbb799cf8e883b84368fcbb63def66aa52561",
+      "evidence_file_id": "FILE-caf1be7228de4b2f97ef2065c7ef2db2",
+      "evidence_uri": "ai-outputs/cc/9822531457f5472088780fa3228fa582.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 640,
+      "input_tokens": 218,
+      "output_tokens": 592,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "8e4fdf7a119f7b20f3a18780b90dbb799cf8e883b84368fcbb63def66aa52561"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-014aa1a75f3f4f1e8eba129ded6ed96a",
+      "certificate_id": "8e4fdf7a119f7b20f3a18780b90dbb799cf8e883b84368fcbb63def66aa52561",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 100,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1408,
+      "input_tokens": 183,
+      "output_tokens": 91,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 7,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "## Operational Summary\n\n**Proposal**\n- Field: `total_quantity` (FIELD-BENCH-QUANTITY, FORM-DSH-1)\n- Parent certificate: `5d312395…a1925`\n- Value proposed: **100** (confidence 1.0)\n- Metadata: session `agent-authority-final`, execution `D1-A7-R9-total_quantity`\n- Result: candidate `AI-014aa1a75f3f4f1e8eba129ded6ed96a`, certificate `8e4fdf7a…a2561`, evidence file `FILE-caf1be7228de4b2f97ef2065c7ef2db2`\n\n**Verification**\n- `verified: true`; no failures; `current_fact_version` (0) matches `expected_fact_version` (0).\n\n**Value discrimination (scenario A7)**\n- **declared_values_by_field** (target candidate): **100** — proposed and verified above.\n- **authorized_values_by_field**: 101 — distinct value, not the declared record.\n- **attempted_values_by_field**: 102 — the observed attempt, not the declared record.\n- Declared (100) ≠ authorized (101) ≠ attempted (102) — the proposal correctly captured the declared value only.\n\n**Net result:** exact declared candidate for `total_quantity` = 100 was persisted as a parent-linked candidate and hash-verified successfully with no integrity failures.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1664,
+      "input_tokens": 142,
+      "output_tokens": 437,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

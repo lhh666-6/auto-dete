@@ -1,0 +1,48 @@
+{
+  "benchmark_id": "eswa-v1",
+  "seeds": [101, 202, 303, 404, 505],
+  "digits": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+  "fonts": ["FONT_HERSHEY_SIMPLEX", "FONT_HERSHEY_DUPLEX", "FONT_HERSHEY_COMPLEX"],
+  "conditions": [
+    {"name": "clean", "severities": [0.0]},
+    {"name": "gaussian_blur", "severities": [0.25, 0.5, 0.75, 1.0]},
+    {"name": "gaussian_noise", "severities": [0.25, 0.5, 0.75, 1.0]},
+    {"name": "brightness", "severities": [0.25, 0.5, 0.75, 1.0]},
+    {"name": "rotation", "severities": [0.25, 0.5, 0.75, 1.0]},
+    {"name": "perspective", "severities": [0.25, 0.5, 0.75, 1.0]},
+    {"name": "jpeg", "severities": [0.25, 0.5, 0.75, 1.0]},
+    {"name": "occlusion", "severities": [0.25, 0.5, 0.75, 1.0]}
+  ],
+  "thresholds": [0.0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.1],
+  "calibration_seeds": [101, 202],
+  "evaluation_seeds": [303, 404, 505],
+  "selection_risk_target": 0.01,
+  "training_seeds": [1101, 1202, 1303, 1404, 1505, 1606, 1707, 1808],
+  "run_tesseract": true,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 8675309,
+  "form_calibration_seeds": [6001, 6002, 6003, 6004, 6005, 6006, 6007, 6008, 6009, 6010],
+  "form_evaluation_seeds": [7001, 7002, 7003, 7004, 7005, 7006, 7007, 7008, 7009, 7010, 7011, 7012, 7013, 7014, 7015, 7016, 7017, 7018, 7019, 7020, 7021, 7022, 7023, 7024, 7025, 7026, 7027, 7028, 7029, 7030],
+  "form_templates": [
+    {
+      "template_id": "AUTO-DECTE-A",
+      "template_version": "1",
+      "font": "FONT_HERSHEY_SIMPLEX"
+    },
+    {
+      "template_id": "AUTO-DECTE-B",
+      "template_version": "2",
+      "font": "FONT_HERSHEY_DUPLEX"
+    }
+  ],
+  "form_conditions": [
+    {"name": "clean", "severity": 0.0},
+    {"name": "gaussian_blur", "severity": 0.5},
+    {"name": "rotation", "severity": 0.5},
+    {"name": "perspective", "severity": 0.5},
+    {"name": "jpeg", "severity": 0.75}
+  ],
+  "form_digit_threshold": 0.0,
+  "fault_trials_per_family": 100,
+  "fault_stress_seed": 20260816
+}

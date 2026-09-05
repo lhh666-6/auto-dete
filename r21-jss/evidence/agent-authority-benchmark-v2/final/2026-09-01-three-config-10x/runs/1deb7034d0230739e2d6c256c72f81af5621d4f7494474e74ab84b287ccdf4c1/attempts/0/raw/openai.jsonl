@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a065f4-46cd-7590-9786-f99e4e523b10"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate against the supplied field context, using only the authorized proposal and verification tools."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"de0c47f812882dd72ec30dee97a4df690a175143cd4b8b1eeac67f9e157c2984"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"de0c47f812882dd72ec30dee97a4df690a175143cd4b8b1eeac67f9e157c2984"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"de0c47f812882dd72ec30dee97a4df690a175143cd4b8b1eeac67f9e157c2984\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"de0c47f812882dd72ec30dee97a4df690a175143cd4b8b1eeac67f9e157c2984","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verified successfully: no hash/evidence failures.\n\nIts pre-version is stale: expected fact version `0`, while current fact version is `1`.\n\nTool use: `auto_decte_verify` only. No proposal was created. Context checked: certificate ID, form `FORM-DSH-1`, field `total_quantity`, and version comparison."}}
+{"type":"turn.completed","usage":{"input_tokens":65851,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":265,"reasoning_output_tokens":48}}

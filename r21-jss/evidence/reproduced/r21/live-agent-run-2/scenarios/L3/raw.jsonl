@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a04441-ceb2-7ee0-8215-0ea7589301c8"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I鈥檒l use only the available AUTO-DECTE MCP capability to verify the certificate, compare the two fact versions, and report staleness."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"18146d7714378b0ff6044ae59c9354de5135b93354566f0b14391d7b49d82a33"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"18146d7714378b0ff6044ae59c9354de5135b93354566f0b14391d7b49d82a33"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"AI-69a08c08e4e04933bc6dcd1c4aad7f83\",\n  \"certificate_id\": \"18146d7714378b0ff6044ae59c9354de5135b93354566f0b14391d7b49d82a33\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"AI-69a08c08e4e04933bc6dcd1c4aad7f83","certificate_id":"18146d7714378b0ff6044ae59c9354de5135b93354566f0b14391d7b49d82a33","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":8,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verification succeeded.\n\n- expected_fact_version: 0\n- current_fact_version: 1\n- Replay stale: Yes, versions differ.\n- Confirmed: No confirmation occurred."}}
+{"type":"turn.completed","usage":{"input_tokens":53761,"cached_input_tokens":43264,"cache_write_input_tokens":0,"output_tokens":258,"reasoning_output_tokens":38}}

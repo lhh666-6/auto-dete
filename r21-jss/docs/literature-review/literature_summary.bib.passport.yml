@@ -1,0 +1,31 @@
+artifact: docs/literature-review/literature_summary.bib
+origin_skill: literature
+origin_mode: pipeline-autonomous
+version: bib_v2
+produced: 2026-08-27T03:44:27+08:00
+verified: 2026-08-27T03:44:27+08:00
+status: VERIFIED
+upstream:
+  - artifact: .checkpoints/literature/merged_candidates.json
+    version: v1
+    sha256: ac929d6a8efc8cfd4136e0ef537baa171a2803af7b5fa23d89843a1df0f9b753
+  - artifact: .checkpoints/literature/doi_verification-v3.json
+    version: v3
+    sha256: 518cf90f04a3714afb608ac7466de0d04e0ad85e77669025c22c57ee65f3f9ff
+  - artifact: .checkpoints/literature/deep-verify/full_report.json
+    version: v1
+    sha256: 569c0214b54be1e1eaeba73a3f76942612e5c93f391e8d849bd263c6bc9ba57b
+  - artifact: R18 provenance-foundations supplement
+    version: v1
+    sources: W3C-PROV-DM plus Crossref DOIs 10.1007/3-540-44503-X_20, 10.1016/j.future.2010.07.005, and 10.1561/1900000006
+verification:
+  report: reviews/bib-validate/2026-08-27.md
+  report_sha256: 5fa2626b6f465595df518e5fe26fa13472ffe04af9faad7e0293cfe9188f4022
+  checks:
+    - 44/44 Crossref, DataCite, or official stable-source identities passed
+    - 40 cited keys and 40 filtered entries with zero missing or unused keys
+    - 44 unique literature-pool keys and zero duplicate keys
+    - BibTeX emitted all 40 cited entries with zero warnings
+    - Paperpile membership unavailable and explicitly unconfirmed
+downstream:
+  - docs/literature-review/literature_summary.md@synthesis_v2

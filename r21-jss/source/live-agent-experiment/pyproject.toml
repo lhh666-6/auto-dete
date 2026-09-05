@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "auto-decte-live-agent-experiment"
+version = "0.1.0"
+description = "Locked two-tool hosted-agent experiment for AUTO-DECTE R21"
+requires-python = ">=3.11,<3.12"
+dependencies = ["mcp==1.27.0"]
+
+[dependency-groups]
+dev = ["pytest==9.0.3", "ruff==0.15.21"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.setuptools.packages.find]
+include = ["auto_decte_live_agent*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+  "ignore::pydantic_settings.exceptions.IncompleteFieldDefinitionWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

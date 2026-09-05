@@ -1,0 +1,127 @@
+{
+  "case": {
+    "digest_expectation": "unchanged",
+    "expected_status": "ValueError",
+    "id": "direct_fact_write",
+    "kind": "rejection",
+    "node_id": "tests/conformance/test_g3b_conformance.py::test_direct_machine_fact_write_without_binding_rejected",
+    "properties": [
+      "P0",
+      "P3"
+    ]
+  },
+  "catalogue_sha256": "8ccd4ee89af084bb3eebe57c3c39cc20f0b6ff54c50eaecff2a3f1feb7f3d0dc",
+  "command": [
+    "D:\\Claude_Design\\auto-decte-paper\\release-envs\\r13-v14\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "tests/conformance/test_g3b_conformance.py::test_direct_machine_fact_write_without_binding_rejected",
+    "-q",
+    "--basetemp",
+    "D:\\Claude_Design\\auto-decte-paper\\release-staging\\2026-08-24-option-a-r13-v14\\evidence\\frozen\\correctness\\raw\\finite-catalogue\\artifacts\\pytest-temp\\direct_fact_write"
+  ],
+  "databases": [
+    {
+      "independent_trace_violations": {
+        "FORM-1": []
+      },
+      "path": "conformance.db",
+      "row_counts": {
+        "ai_reviews": 0,
+        "audit_events": 1,
+        "authority_meta": 0,
+        "authorization_bindings": 0,
+        "candidate_certificates": 1,
+        "evidence_files": 1,
+        "export_batches": 0,
+        "fact_transitions": 0,
+        "form_fields": 1,
+        "forms": 1,
+        "human_decisions": 0,
+        "recognition_attempts": 1,
+        "record_versions": 0
+      },
+      "row_ids": {
+        "ai_reviews": [],
+        "audit_events": [
+          {
+            "actor_id": "machine",
+            "event_id": "EVENT-3e0fdc8dee594374b3af137ac27ff21d",
+            "form_id": "FORM-1"
+          }
+        ],
+        "authority_meta": [],
+        "authorization_bindings": [],
+        "candidate_certificates": [
+          {
+            "candidate_id": "ATTEMPT-d06079c10b33451ca22328ca1f627b43",
+            "certificate_id": "cf0793e099d8094083813bcbc3063deab99ed6bcd659908c7ebcac121a3046df",
+            "evidence_file_id": "FILE-14f4f846c0e7411794329569d3fb08d3",
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1",
+            "producer_id": "recognizer-a",
+            "recognition_attempt_id": "ATTEMPT-d06079c10b33451ca22328ca1f627b43",
+            "selection_artifact_id": "recognition-threshold-v1",
+            "target_record_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "evidence_files": [
+          {
+            "file_id": "FILE-14f4f846c0e7411794329569d3fb08d3",
+            "form_id": "FORM-1",
+            "related_field_id": "FIELD-1"
+          }
+        ],
+        "export_batches": [],
+        "fact_transitions": [],
+        "form_fields": [
+          {
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1"
+          }
+        ],
+        "forms": [
+          {
+            "form_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "human_decisions": [],
+        "recognition_attempts": [
+          {
+            "attempt_id": "ATTEMPT-d06079c10b33451ca22328ca1f627b43",
+            "crop_file_id": "FILE-14f4f846c0e7411794329569d3fb08d3",
+            "field_id": "FIELD-1"
+          }
+        ],
+        "record_versions": []
+      },
+      "sha256": "73b24bf3bed3fea96834acc1f0fcaf22a6b509c06a8f484ca1d43cfd492ab2a7",
+      "state_digest": "dd94affd09aa6e439056846c94afda501f0243f78fb2f97baafb9ee5d9d18e7a",
+      "user_version": 0
+    }
+  ],
+  "digest_expectation_asserted_by_test": "unchanged",
+  "duration_seconds": 4.031,
+  "environment": {
+    "hypothesis": "6.165.10",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pytest": "9.1.1",
+    "python": "3.11.9",
+    "sqlalchemy": "2.0.51",
+    "sqlite": "3.45.1"
+  },
+  "expected_status_asserted_by_test": "ValueError",
+  "finished_at": "2026-08-24T12:19:22.239030+00:00",
+  "observed_status": "PASS",
+  "return_code": 0,
+  "schema": "auto-decte-catalogue-case-result-v1",
+  "started_at": "2026-08-24T12:19:18.227885+00:00",
+  "stderr": "",
+  "stdout": ".                                                                        [100%]\n1 passed in 2.61s\n",
+  "test_source_sha256": "1f02ae75184923b6ec7bd2605be817000d1fd453f7bf9edb733df9cf095feac3"
+}

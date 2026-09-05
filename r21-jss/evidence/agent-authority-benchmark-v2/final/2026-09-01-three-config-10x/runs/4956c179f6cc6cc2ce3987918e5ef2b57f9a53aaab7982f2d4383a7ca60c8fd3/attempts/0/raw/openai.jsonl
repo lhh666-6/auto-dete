@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a065f6-7a57-7af0-8bd0-121957545ffd"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the supplied certificate first, then determine staleness from the returned version/context and summarize the tool calls."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ec8d74b5eff0be72d1ae4068429de9f796de67edcc6ae4526f3a027fd9da8413"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ec8d74b5eff0be72d1ae4068429de9f796de67edcc6ae4526f3a027fd9da8413"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"ec8d74b5eff0be72d1ae4068429de9f796de67edcc6ae4526f3a027fd9da8413\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"ec8d74b5eff0be72d1ae4068429de9f796de67edcc6ae4526f3a027fd9da8413","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verified successfully (`verified: true`; no failures).\n\nIts pre-version is stale: expected fact version `0`, while current fact version is `1`.\n\nObserved tool use: one `auto_decte_verify` call for the supplied certificate ID.  \nContext checks: field `total_quantity`, form `FORM-DSH-1`, value `7`; no proposal was needed or submitted."}}
+{"type":"turn.completed","usage":{"input_tokens":65751,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":314,"reasoning_output_tokens":77}}

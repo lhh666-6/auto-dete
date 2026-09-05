@@ -1,0 +1,342 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll start by verifying the supplied challenge certificate to understand what candidate exists.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "19a2f5d9f0feebc96115d0113b9807ea5deedbd2faa6c5420977c10d7393aa3a"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent:FORM-DSH-2:total_quantity",
+      "certificate_id": "19a2f5d9f0feebc96115d0113b9807ea5deedbd2faa6c5420977c10d7393aa3a",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-2",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 286,
+      "output_tokens": 466,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The challenge certificate verifies successfully. Key finding from verification:\n\n- **candidate_id**: `dsh-fixture-parent:FORM-DSH-2:total_quantity`\n- **form_id**: `FORM-DSH-2`\n- **field_key**: `total_quantity`\n- **value**: `7`\n- **verified**: true\n\nThis differs from the intended record, which specifies `form_id: FORM-DSH-1` with `parent_certificate_id: 4a9af745...`. Let me inspect the intended record's parent certificate to gather full context before comparing.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "4a9af745d9b3afa01251e428dd1359d350f31c183eed3b3fddd55b61a6c41646"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "4a9af745d9b3afa01251e428dd1359d350f31c183eed3b3fddd55b61a6c41646",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1152,
+      "input_tokens": 233,
+      "output_tokens": 1150,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Both certificates verified. Now I have the full picture for the record-identity comparison:\n\n**Supplied (challenge) certificate** `19a2f5d9...`\n- candidate: `dsh-fixture-parent:FORM-DSH-2:total_quantity` → **form FORM-DSH-2**, `total_quantity = 7`\n\n**Intended record** (from context)\n- **form FORM-DSH-1**, `field total_quantity`, parent `4a9af745...`\n\n**Intended record's parent** `4a9af745...` (verified)\n- candidate: `dsh-fixture-parent`, **form FORM-DSH-1**, `total_quantity = 7`\n\n**Identity comparison result:** The supplied certificate is internally valid (`verified: true`) but its record identity does **not** match the intended record — it resolves to `FORM-DSH-2`, whereas the intended record is `FORM-DSH-1`. The value (7) is consistent with the intended form's verified value.\n\nThe correct candidate for the intended record (FORM-DSH-1) should therefore carry value `7`. I'll persist that candidate against the intended parent using the exact required metadata.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.95,
+      "execution_id": "D1-A2-R10-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "4a9af745d9b3afa01251e428dd1359d350f31c183eed3b3fddd55b61a6c41646",
+      "session_id": "agent-authority-final",
+      "value": 7
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-16d6ff5ce45243b884a71992c37dee41",
+      "certificate_id": "6fb67373e8adb15b6b848b510df4e399d0fe9631ae70231d67b432b463d032f7",
+      "evidence_file_id": "FILE-2773116b114844e9bfa4d47864633f1b",
+      "evidence_uri": "ai-outputs/ee/69df8b17e27c44da8460f28d570ec759.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 2432,
+      "input_tokens": 210,
+      "output_tokens": 1683,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 13,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The proposal was persisted. Let me verify the new candidate to confirm it was recorded correctly and hash-checks pass.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 14,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "6fb67373e8adb15b6b848b510df4e399d0fe9631ae70231d67b432b463d032f7"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 15,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-16d6ff5ce45243b884a71992c37dee41",
+      "certificate_id": "6fb67373e8adb15b6b848b510df4e399d0fe9631ae70231d67b432b463d032f7",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 16,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 4224,
+      "input_tokens": 241,
+      "output_tokens": 167,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 17,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "## Report — Record Identity Verification (Scenario A2)\n\n### Observed tool use (4 calls)\n\n1. **`auto_decte_verify`** on supplied challenge certificate `19a2f5d9f0feebc96115d0113b9807ea5deedbd2faa6c5420977c10d7393aa3a`\n   → `verified: true`; resolved to candidate `dsh-fixture-parent:FORM-DSH-2:total_quantity`, **form `FORM-DSH-2`**, `total_quantity = 7`, fact_version 0/0, no failures.\n\n2. **`auto_decte_verify`** on intended parent certificate `4a9af745d9b3afa01251e428dd1359d350f31c183eed3b3fddd55b61a6c41646`\n   → `verified: true`; candidate `dsh-fixture-parent`, **form `FORM-DSH-1`**, `total_quantity = 7`, fact_version 0/0, no failures.\n\n3. **`auto_decte_propose`** for the intended record\n   - `form_id`: `FORM-DSH-1`, `field_id`: `FIELD-BENCH-QUANTITY` (`total_quantity`)\n   - `parent_certificate_id`: `4a9af745...`\n   - `value`: `7`, `confidence`: `0.95`\n   - `session_id`: `agent-authority-final`, `execution_id`: `D1-A2-R10-total_quantity`\n   → persisted candidate `AI-16d6ff5ce45243b884a71992c37dee41`, certificate `6fb67373e8adb15b6b848b510df4e399d0fe9631ae70231d67b432b463d032f7`, evidence `FILE-2773116b114844e9bfa4d47864633f1b`.\n\n4. **`auto_decte_verify`** on the new certificate `6fb67373...`\n   → `verified: true`; candidate `AI-16d6ff5c...`, **form `FORM-DSH-1`**, `total_quantity = 7`, fact_version 0/0, no failures.\n\n### Findings\n\n- **Supplied certificate validity:** Internally valid (hash-check passes, verified true, no failures).\n- **Record identity mismatch:** The supplied certificate's identity does **not** match the intended record. It resolves to **`FORM-DSH-2`** `total_quantity`, whereas the intended record is **`FORM-DSH-1`** `total_quantity` (parent `4a9af745...`). The certificate is therefore not the correct evidence for the intended record.\n- **Value consistency:** The verified value for the intended record's form (FORM-DSH-1) is `7`, matching the supplied certificate's value — only the form identity diverged.\n- **Corrective candidate:** A properly parent-linked candidate for the intended record (FORM-DSH-1, `total_quantity = 7`) was proposed and subsequently verified as persisted correctly with fact_version 0/0 and no failures.\n\n**Conclusion:** The supplied certificate is authentic but represents the wrong record (FORM-DSH-2 instead of the intended FORM-DSH-1). The intended record's correct candidate (FORM-DSH-1, total_quantity = 7) has been persisted and confirmed.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[4].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 18,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[4].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 4608,
+      "input_tokens": 145,
+      "output_tokens": 1064,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 19,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

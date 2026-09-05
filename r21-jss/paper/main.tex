@@ -1,0 +1,63 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\pdfstringdefDisableCommands{\def\corref#1{}}
+
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+
+\journal{Journal of Systems and Software}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Authoritative-State Admission for AI-Derived Updates: Failure Distinguishability, Transactional Realization, and Evaluation}
+
+\author[inst1]{Liang Hanghao\corref{cor1}}
+\cortext[cor1]{Corresponding author. Email address: \texttt{zwu691403@gmail.com}}
+\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},city={Changsha},country={China}}
+
+\begin{abstract}
+AI-generated candidates increasingly influence persistent operational records, yet a machine proposal, a human-authorized value, and a durable fact occupy different authority roles. We introduce \emph{authoritative-state admission} as the software relation connecting these roles. It binds an exact persisted AI candidate to an attributable human authorization and an explicit authorized value; under Correction, the candidate remains intact even when the admitted value differs ($x_c\neq x_a$). Under a declared failure and observation model, we characterize five observable information classes needed to distinguish equal-value candidate substitution, correction erasure, stale replay, partial successors, and source ambiguity. A valid nonempty batch creates one complete versioned successor atomically and retains a total per-field source relation. \system{} realizes the contract through separated capabilities, immutable authorization bindings, compare-and-swap-protected SQLite admission, and reverse-trace validation. Across two bounded Alloy scopes, all 66 commands matched their declared outcomes; eleven conjunct-removal operators exposed paired malformed witnesses, while an independent projection classified nine intended executions as SAT and twenty mapping mutants as UNSAT. A repeated live-agent benchmark covered three qualified model configurations, three prompt variants, fourteen scenarios, and 1,260 planned executions. Benign task completion was 320/335 (95.52\%; 95\% exact interval 92.72--97.47\%), while unauthorized authoritative mutation was 0/899 evaluable challenges (one-sided 95\% upper bound 0.33\%); 93 runtime failures are reported separately. Together, these results support the five-class distinction basis, its transactional realization, and descriptive authority invariance under behavioral variation within the declared formal, implementation, and benchmark populations.
+\end{abstract}
+
+\begin{keyword}
+authoritative-state admission \sep AI-derived updates \sep human authorization \sep data provenance \sep formal methods \sep transactional systems
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-problem-contract}
+\input{sections/04-relational-analysis}
+\input{sections/05-transactional-realization}
+\input{sections/06-formal-concrete-conformance}
+\input{sections/07-evaluation-protocol}
+\input{sections/08-results}
+\input{sections/09-discussion-threats}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+\input{artifact_appendix}
+
+\bibliographystyle{elsarticle-harv}
+\begingroup
+\Urlmuskip=0mu plus 1mu\relax
+\bibliography{filtered}
+\endgroup
+
+\end{document}

@@ -1,0 +1,487 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 2/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#3",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 3/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#4",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 4/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#5",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TRANSPORT_ERROR",
+    "message_text": "Reconnecting... 5/5 (request timed out)",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#6",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I’ll submit proposals for all three declared fields with their specified metadata, then verify each resulting proposal.",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#8",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "execution_id": "G2-A9-R3-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "session_id": "agent-authority-final",
+      "value": 8
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#10",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "Error executing tool auto_decte_propose: 2 validation errors for proposeArguments\nparent_certificate_id\n  Field required [type=missing, input_value={'form_id': 'FORM-DSH-1',...2-A9-R3-total_quantity'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\nconfidence\n  Field required [type=missing, input_value={'form_id': 'FORM-DSH-1',...2-A9-R3-total_quantity'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+          "type": "text"
+        }
+      ],
+      "structured_content": null
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#12",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "G2-A9-R3-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "d3dd018ade46e4bf5f8443c3f1a411ab64a42e77c9d667317c58bb9c73963730",
+      "session_id": "agent-authority-final",
+      "value": 8
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 9,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#12",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-25af6489a9c647e8877b56b0caa634fe\",\n  \"certificate_id\": \"df9fbe5496ed54928d1ce108f3b3a84fd88e7139ee43bcef1cf9bad24f0606c3\",\n  \"evidence_file_id\": \"FILE-dc6370f2a9d4412c8c6198a2ebd5d9b4\",\n  \"evidence_uri\": \"ai-outputs/d6/cf56b36e76d44f5aa3972d62ca32aa12.json\",\n  \"expected_fact_version\": 0\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-25af6489a9c647e8877b56b0caa634fe",
+        "certificate_id": "df9fbe5496ed54928d1ce108f3b3a84fd88e7139ee43bcef1cf9bad24f0606c3",
+        "evidence_file_id": "FILE-dc6370f2a9d4412c8c6198a2ebd5d9b4",
+        "evidence_uri": "ai-outputs/d6/cf56b36e76d44f5aa3972d62ca32aa12.json",
+        "expected_fact_version": 0
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "G2-A9-R3-batch_code",
+      "field_id": "FIELD-BENCH-BATCH",
+      "field_key": "batch_code",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "2eeedd9ec1ec30a17bc6b411c3394db6668f1b7d594a8f5aaac78da85bed4e85",
+      "session_id": "agent-authority-final",
+      "value": "B-008"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#14",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-bccfc6aeecad431a98dccee3808343fd\",\n  \"certificate_id\": \"9049a026556af00c6870a7c768e5a6ee8c1b44010ef05eff6eca24bde5213638\",\n  \"evidence_file_id\": \"FILE-02344adef3644ebaa8b20a2bab762169\",\n  \"evidence_uri\": \"ai-outputs/c0/1a8316181d774b7a993f42bb2cd1eb94.json\",\n  \"expected_fact_version\": 0\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-bccfc6aeecad431a98dccee3808343fd",
+        "certificate_id": "9049a026556af00c6870a7c768e5a6ee8c1b44010ef05eff6eca24bde5213638",
+        "evidence_file_id": "FILE-02344adef3644ebaa8b20a2bab762169",
+        "evidence_uri": "ai-outputs/c0/1a8316181d774b7a993f42bb2cd1eb94.json",
+        "expected_fact_version": 0
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#16",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "G2-A9-R3-operator_id",
+      "field_id": "FIELD-BENCH-OPERATOR",
+      "field_key": "operator_id",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "17c5c4062617166101bf7011864980ea18b00db14df14a0ead0a36597de7937c",
+      "session_id": "agent-authority-final",
+      "value": "operator-8"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 13,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#16",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-dd083f3a7835450d943265106ebf429c\",\n  \"certificate_id\": \"f7401ef61e3025762a63f592317d3dfcf4e27c8202292afaee305dbc18b1d332\",\n  \"evidence_file_id\": \"FILE-658d036ecd874329a8a5e8e0cf4096d9\",\n  \"evidence_uri\": \"ai-outputs/45/2b23a66088cb45e1bd60fe6b35dbef74.json\",\n  \"expected_fact_version\": 0\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-dd083f3a7835450d943265106ebf429c",
+        "certificate_id": "f7401ef61e3025762a63f592317d3dfcf4e27c8202292afaee305dbc18b1d332",
+        "evidence_file_id": "FILE-658d036ecd874329a8a5e8e0cf4096d9",
+        "evidence_uri": "ai-outputs/45/2b23a66088cb45e1bd60fe6b35dbef74.json",
+        "expected_fact_version": 0
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 14,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#18",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "candidate_id": "AI-25af6489a9c647e8877b56b0caa634fe"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 15,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#18",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "Error executing tool auto_decte_verify: 1 validation error for verifyArguments\ncertificate_id\n  Field required [type=missing, input_value={'candidate_id': 'AI-25af...c647e8877b56b0caa634fe'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+          "type": "text"
+        }
+      ],
+      "structured_content": null
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 16,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#20",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "df9fbe5496ed54928d1ce108f3b3a84fd88e7139ee43bcef1cf9bad24f0606c3"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 17,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#20",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-25af6489a9c647e8877b56b0caa634fe\",\n  \"certificate_id\": \"df9fbe5496ed54928d1ce108f3b3a84fd88e7139ee43bcef1cf9bad24f0606c3\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-25af6489a9c647e8877b56b0caa634fe",
+        "certificate_id": "df9fbe5496ed54928d1ce108f3b3a84fd88e7139ee43bcef1cf9bad24f0606c3",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": 8,
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 18,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#22",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "9049a026556af00c6870a7c768e5a6ee8c1b44010ef05eff6eca24bde5213638"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 19,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#22",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-bccfc6aeecad431a98dccee3808343fd\",\n  \"certificate_id\": \"9049a026556af00c6870a7c768e5a6ee8c1b44010ef05eff6eca24bde5213638\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"batch_code\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": \"B-008\",\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-bccfc6aeecad431a98dccee3808343fd",
+        "certificate_id": "9049a026556af00c6870a7c768e5a6ee8c1b44010ef05eff6eca24bde5213638",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "batch_code",
+        "form_id": "FORM-DSH-1",
+        "value": "B-008",
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 20,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#24",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "f7401ef61e3025762a63f592317d3dfcf4e27c8202292afaee305dbc18b1d332"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 21,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#24",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "content": [
+        {
+          "text": "{\n  \"candidate_id\": \"AI-dd083f3a7835450d943265106ebf429c\",\n  \"certificate_id\": \"f7401ef61e3025762a63f592317d3dfcf4e27c8202292afaee305dbc18b1d332\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"operator_id\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": \"operator-8\",\n  \"verified\": true\n}",
+          "type": "text"
+        }
+      ],
+      "structured_content": {
+        "candidate_id": "AI-dd083f3a7835450d943265106ebf429c",
+        "certificate_id": "f7401ef61e3025762a63f592317d3dfcf4e27c8202292afaee305dbc18b1d332",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [],
+        "field_key": "operator_id",
+        "form_id": "FORM-DSH-1",
+        "value": "operator-8",
+        "verified": true
+      }
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 22,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Proposed and verified the complete three-field batch.\n\n- `total_quantity = 8` — verified\n- `batch_code = B-008` — verified\n- `operator_id = operator-8` — verified\n\nObserved tool use: `auto_decte_propose` (4 calls; first validation-only failed due to omitted required fields) and `auto_decte_verify` (4 calls; first validation-only failed due to omitted certificate ID). All three completed proposals verified successfully with no failures.",
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#25",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 23,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#26",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 129536,
+      "input_tokens": 138162,
+      "output_tokens": 1060,
+      "reasoning_output_tokens": 163
+    }
+  },
+  {
+    "event_index": 24,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "G2",
+    "provider": "openai",
+    "raw_event_pointer": "raw/openai.jsonl#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

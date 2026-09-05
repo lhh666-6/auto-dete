@@ -1,0 +1,55 @@
+\appendix
+\section{Artifact and evidence boundary}
+\label{app:artifact}
+
+The paper draws on separately manifested evidence layers: the formal/concrete and fixed-grid
+baseline, an AI-origin lifecycle fixture, a pinned agent-harness integration, performance
+extensions, and the repeated live-agent Final. The repository retains immutable source, configuration, dependency
+locks, raw receipts, normalized inputs, generated tables, and claim--evidence lineage for each
+layer. Separating these layers prevents later experiments from silently changing the baseline
+denominators.
+
+Baseline quantitative and pass/fail statements are generated from exactly the ten normalized
+inputs in \cref{tab:paper-inputs}. The AI-origin and harness studies add
+\code{ai_origin_lifecycle_summary.json} and \code{dsh_plugin_integration_summary.json},
+respectively. The performance extensions add
+\code{r21_feature_baseline_summary.json} and \code{r21_trace_optimization_summary.json}.
+The repeated benchmark enters through the no-overwrite staging bundle
+\code{2026-09-03-three-config-10x}, whose status is
+\code{READY\_FOR\_MANUSCRIPT\_INTEGRATION}. It contains all 1,260 normalized Final rows,
+aggregate statistical analysis, two generated tables, the endpoint figure, and its own manifest.
+Each layer retains raw-source references and claim lineage.
+
+\begin{table}[t]
+\centering
+\caption{Exact ten-input baseline set. Roles and per-file lineage are recorded in the artifact repository.}
+\label{tab:paper-inputs}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Inputs 1--5 & Inputs 6--10 \\
+\midrule
+\code{run_summary.json} & \code{lifecycle_summary.json} \\
+\code{quality_summary.json} & \code{cost_summary.json} \\
+\code{alloy_results.json} & \code{cost_run_metadata.json} \\
+\code{formal_refinement_summary.json} & \code{correctness_environment.json} \\
+\code{conformance_summary.json} & \code{performance_environment.json} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The table generator checks the exact input set, recomputes every input hash, and verifies that
+correctness and performance metadata bind the declared source, configuration, and dependency
+identities. The extension manifests bind performance modules and configurations. The repeated-
+benchmark Final binds the runner, model/matrix configuration, tool surface, raw attempts, host
+actions, normalized rows, generated tables/figure, and direct source dependencies. Its verified
+parent-manifest SHA-256 is
+\code{6e41df602fab195bedbfa5ec97d152b5921b0ef0cace6f8da7c5204b6cd433ec}.
+Whole-package manifests are non-self-referential and detect missing, extra, or modified files.
+
+Per-file SHA-256 values, receipt paths, clean-extraction checks, and one-byte tamper-probe outputs
+are maintained in the artifact repository rather than repeated in the manuscript. Diagnostic and
+failed runs remain available as provenance but are excluded from normalized paper inputs. The
+repository README, Final report, and manuscript-input status identify the citable runs and provide
+the regeneration and verification commands.
+
+The public project repository is available at \url{https://github.com/lhh666-6/auto-dete}; the R21 submission package is governed by the revision manifest supplied with the manuscript because the public repository currently retains an earlier release.

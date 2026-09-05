@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "commands": [
+    {
+      "id": "python-full-tests",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "pytest", "-p", "no:cacheprovider", "-q"],
+      "timeout_seconds": 1800
+    },
+    {
+      "id": "python-static",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "ruff", "check", "--no-cache", "analysis", "app", "benchmarks", "config", "conformance", "tests"],
+      "timeout_seconds": 300
+    },
+    {
+      "id": "python-types",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "mypy", "app", "config"],
+      "timeout_seconds": 300
+    },
+    {
+      "id": "alloy-batch",
+      "group": "correctness",
+      "cwd": "source/paper-repo",
+      "argv": ["powershell", "-NoProfile", "-File", "formal/alloy/batch/run_batch_alloy.ps1", "-FreezeId", "r14-final", "-OutputRoot", "{artifact_output}"],
+      "timeout_seconds": 3600
+    },
+    {
+      "id": "formal-refinement",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "conformance/generate_formal_refinement_records.py", "--output", "{artifact_output}"],
+      "timeout_seconds": 3600
+    },
+    {
+      "id": "finite-catalogue",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "conformance/run_catalogue.py", "--output", "{artifact_output}"],
+      "timeout_seconds": 1800
+    },
+    {
+      "id": "paper-stateful",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "pytest", "-p", "no:cacheprovider", "tests/conformance/test_r10_stateful.py", "-q"],
+      "env": {"AUTODECTE_PAPER_PROFILE": "1"},
+      "timeout_seconds": 3600
+    },
+    {
+      "id": "paper-rollback-concurrency",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "pytest", "-p", "no:cacheprovider", "tests/conformance/test_r10_failpoints.py", "tests/conformance/test_r10_concurrency.py", "-q"],
+      "env": {"AUTODECTE_PAPER_PROFILE": "1"},
+      "timeout_seconds": 3600
+    },
+    {
+      "id": "document-lifecycle",
+      "group": "correctness",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "benchmarks.admission_lifecycle", "--output", "{artifact_output}"],
+      "timeout_seconds": 300
+    },
+    {
+      "id": "authority-cost",
+      "group": "performance",
+      "cwd": "source/implementation",
+      "argv": ["{python}", "-B", "-m", "benchmarks.authority_cost", "--config", "conformance/r14_cost_config.json", "--output", "{artifact_output}"],
+      "timeout_seconds": 14400
+    }
+  ]
+}

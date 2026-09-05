@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06669-2fb7-7c02-bf1e-bb86568e3203"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll replay verification against the committed certificate using the supplied field-bound session and execution metadata, then report the observed authority outcome."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"c372b459ecc2d4c0e65600a85f5a0f00162b2969d02cd0b50bcf1a2aefd2860e"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"c372b459ecc2d4c0e65600a85f5a0f00162b2969d02cd0b50bcf1a2aefd2860e"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"c372b459ecc2d4c0e65600a85f5a0f00162b2969d02cd0b50bcf1a2aefd2860e\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"c372b459ecc2d4c0e65600a85f5a0f00162b2969d02cd0b50bcf1a2aefd2860e","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `c372…2860e`: valid for `FORM-DSH-1.total_quantity`, value `7`; no verification failures.\n\nObserved tool use: one `auto_decte_verify` call. No proposal was created, so no fresh admission authority was exercised. Replay remains candidate/verification-only; the certificate is not an authoritative fact admission."}}
+{"type":"turn.completed","usage":{"input_tokens":65877,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":336,"reasoning_output_tokens":106}}

@@ -1,4 +1,20 @@
-# Auto-Decte — Trust-Constrained Document Intelligence
+# Auto-Decte reproducibility artifacts
+
+## Current JSS R21 package
+
+The current reproducibility package for *Authoritative-State Admission for
+AI-Derived Updates: Failure Distinguishability, Transactional Realization, and
+Evaluation* is available in [`r21-jss/`](r21-jss/README.md).
+
+It contains the manuscript source and PDF, complete clean source code, Alloy
+models, transactional and conformance tests, frozen correctness/performance
+evidence, all 1,260 planned final live-agent run records, normalized paper
+inputs, and SHA-256 integrity manifests.
+
+Author: Liang Hanghao, College of Computer Science and Electronic Engineering,
+Hunan University. Correspondence: zwu691403@gmail.com.
+
+## Earlier ESWA reviewer artifact
 
 Anonymous public release of the executable artifacts for the manuscript
 "Auto-Decte: Trust-Constrained Document Intelligence through Candidate--Fact

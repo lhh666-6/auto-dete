@@ -1,0 +1,80 @@
+{
+  "schema_version": "auto-decte.paper-input.dsh-plugin-integration.v1",
+  "source_receipt": "evidence/reproduced/r19-dsh-2026-08-27-final/receipt.json",
+  "dsh_tag": "dsh-v0.1.1-rc.2",
+  "dsh_commit": "b150a551b",
+  "execution_mode": "deterministic keyless calls through pinned Cordis/DSH ToolRuntime",
+  "denominator": 10,
+  "passed_count": 10,
+  "all_passed": true,
+  "registered_model_tools": [
+    "auto_decte_propose",
+    "auto_decte_verify"
+  ],
+  "model_callable_fact_write_tools": 0,
+  "clean_manifest_verified": true,
+  "tamper_manifest_verified": false,
+  "tamper_exact_changed_path": [
+    "receipt.json"
+  ],
+  "cases": [
+    {
+      "case_id": "D1",
+      "passed": true,
+      "tool_names": [
+        "auto_decte_propose",
+        "auto_decte_verify"
+      ],
+      "exact_tool_count": 2
+    },
+    {
+      "case_id": "D2",
+      "passed": true,
+      "current_fact_version": 0
+    },
+    {
+      "case_id": "D3",
+      "passed": true
+    },
+    {
+      "case_id": "D4",
+      "passed": true,
+      "proposed_value": 8,
+      "authorized_value": 9
+    },
+    {
+      "case_id": "D5",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case_id": "D6",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case_id": "D7",
+      "passed": true
+    },
+    {
+      "case_id": "D8",
+      "passed": true
+    },
+    {
+      "case_id": "D9",
+      "passed": true,
+      "schemas_after_unload": []
+    },
+    {
+      "case_id": "D10",
+      "passed": true,
+      "exact_changed_path": [
+        "receipt.json"
+      ]
+    }
+  ],
+  "claim_limits": [
+    "No live model accuracy, usability, security isolation, or production effectiveness claim.",
+    "Host authentication and actor identity are preconditions outside this experiment."
+  ]
+}

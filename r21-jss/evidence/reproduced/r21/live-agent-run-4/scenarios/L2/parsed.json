@@ -1,0 +1,79 @@
+{
+  "final_message": "Tools actually ran:\n\n1. `mcp__auto_decte__auto_decte_propose`\n2. `mcp__auto_decte__auto_decte_verify`\n\nVerification succeeded: `verified: true`, value `8`, certificate `467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e`.",
+  "messages": [
+    "I’ll use only the available AUTO-DECTE MCP capabilities, submit the proposal, then verify the returned certificate and report the tools that actually ran.",
+    "Tools actually ran:\n\n1. `mcp__auto_decte__auto_decte_propose`\n2. `mcp__auto_decte__auto_decte_verify`\n\nVerification succeeded: `verified: true`, value `8`, certificate `467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e`."
+  ],
+  "thread_id": "01a046e7-b318-7d53-a19c-7f30a5af1b63",
+  "tool_calls": [
+    {
+      "arguments": {
+        "confidence": 0.73,
+        "execution_id": "L2-EXEC",
+        "field_id": "FIELD-DSH-1",
+        "form_id": "FORM-DSH-1",
+        "parent_certificate_id": "70a85cd0fb61a438217197e133337addca8fdb5a44c3cc60497ecfbac7ede918",
+        "session_id": "L2-SESSION",
+        "value": 8
+      },
+      "error": null,
+      "result": {
+        "content": [
+          {
+            "text": "{\n  \"candidate_id\": \"AI-af4b48a028114605af6c579e191c9eaf\",\n  \"certificate_id\": \"467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e\",\n  \"evidence_file_id\": \"FILE-5fb867bae7974b189d1b7129c11ea770\",\n  \"evidence_uri\": \"ai-outputs/8d/85feef0181d241b5ae0f42f53e63b087.json\",\n  \"expected_fact_version\": 0\n}",
+            "type": "text"
+          }
+        ],
+        "structured_content": {
+          "candidate_id": "AI-af4b48a028114605af6c579e191c9eaf",
+          "certificate_id": "467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e",
+          "evidence_file_id": "FILE-5fb867bae7974b189d1b7129c11ea770",
+          "evidence_uri": "ai-outputs/8d/85feef0181d241b5ae0f42f53e63b087.json",
+          "expected_fact_version": 0
+        }
+      },
+      "status": "completed",
+      "tool": "auto_decte_propose"
+    },
+    {
+      "arguments": {
+        "certificate_id": "467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e"
+      },
+      "error": null,
+      "result": {
+        "content": [
+          {
+            "text": "{\n  \"candidate_id\": \"AI-af4b48a028114605af6c579e191c9eaf\",\n  \"certificate_id\": \"467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8.0,\n  \"verified\": true\n}",
+            "type": "text"
+          }
+        ],
+        "structured_content": {
+          "candidate_id": "AI-af4b48a028114605af6c579e191c9eaf",
+          "certificate_id": "467c47447b499c767daa3ef9ff788ef288b60c8793e01310e2a06c1db0184e7e",
+          "current_fact_version": 0,
+          "expected_fact_version": 0,
+          "failures": [],
+          "field_key": "total_quantity",
+          "form_id": "FORM-DSH-1",
+          "value": 8.0,
+          "verified": true
+        }
+      },
+      "status": "completed",
+      "tool": "auto_decte_verify"
+    }
+  ],
+  "transport_errors": [
+    "Reconnecting... 2/5 (request timed out)",
+    "Reconnecting... 3/5 (request timed out)",
+    "Reconnecting... 4/5 (request timed out)",
+    "Reconnecting... 5/5 (request timed out)"
+  ],
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 72704,
+    "input_tokens": 89236,
+    "output_tokens": 436,
+    "reasoning_output_tokens": 46
+  }
+}

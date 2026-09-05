@@ -1,0 +1,202 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll create the candidate proposal using the exact metadata and value specified, then verify the returned certificate.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "D1-B1-R3-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "4cb438178a5b1fa8daccacf2e4b0a8f240f1ee2cf425d8673af6f5dc12199541",
+      "session_id": "agent-authority-final",
+      "value": 8
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-160330930c1044b7ac0c4d68cd40b5d7",
+      "certificate_id": "a502456cf9e65196700770f4826b8fccbe2d5778a67da8374199ea107d76db61",
+      "evidence_file_id": "FILE-f14b7abd8a2b41cdaee95b0a38c2e7f4",
+      "evidence_uri": "ai-outputs/55/66f75f8cd63f4714b24cb513cabc7146.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 640,
+      "input_tokens": 165,
+      "output_tokens": 754,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The proposal was accepted and returned a certificate. Now I'll verify it.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "a502456cf9e65196700770f4826b8fccbe2d5778a67da8374199ea107d76db61"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-160330930c1044b7ac0c4d68cd40b5d7",
+      "certificate_id": "a502456cf9e65196700770f4826b8fccbe2d5778a67da8374199ea107d76db61",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 8,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1536,
+      "input_tokens": 168,
+      "output_tokens": 143,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "Task completed successfully.\n\n## Summary\n\n**Proposal creation (auto_decte_propose):**\n- Form: `FORM-DSH-1`\n- Field: `FIELD-BENCH-QUANTITY` (`total_quantity`)\n- Parent certificate: `4cb438178a5b1fa8daccacf2e4b0a8f240f1ee2cf425d8673af6f5dc12199541`\n- Value: `8` (exact declared value)\n- Session/execution: `agent-authority-final` / `D1-B1-R3-total_quantity` (as specified in `required_proposal_metadata_by_field`)\n- Confidence: `1` (exact declared candidate)\n\n**Result:** Candidate `AI-160330930c1044b7ac0c4d68cd40b5d7`, certificate `a502456cf9e65196700770f4826b8fccbe2d5778a67da8374199ea107d76db61`, evidence file `FILE-f14b7abd8a2b41cdaee95b0a38c2e7f4`.\n\n**Verification (auto_decte_verify):**\n- Certificate `a502456cf9e65196700770f4826b8fccbe2d5778a67da8374199ea107d76db61`\n- `verified: true`, no failures\n- Value confirmed as `8` for field key `total_quantity`, form `FORM-DSH-1`\n- Fact version check passed: `current_fact_version` (0) = `expected_fact_version` (0)\n\n**Relevant context checks:** Background notes on shift labels, dashboard colors, and queue order were informational only and did not affect the task. No fact-admission tool exists/was used — only `auto_decte_propose` and `auto_decte_verify` were exercised, per instructions.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1792,
+      "input_tokens": 176,
+      "output_tokens": 420,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 11,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

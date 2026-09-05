@@ -1,0 +1,125 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{RQ1: bounded separation by the full basis}
+
+% CLAIM P-RQ1-1 -> alloy_results.json (all 66 rows)
+All 66 Alloy outcomes matched the command manifest. In each profile, the Analyzer found the six requested legal witnesses, eleven requested ablation witnesses, and three requested trace-attack witnesses (20 SAT outcomes), while the thirteen assertion commands returned UNSAT. The larger S2 profile reproduced the S1 outcome classes rather than exposing a differently classified command (\cref{tab:alloy-outcomes}).
+
+The encoded legal histories and selected source-corrupt histories are therefore non-vacuous in both profiles. Within those scopes, Full admits the requested legal witnesses, the rejection wrappers stutter on declared malformed attempts, and the preservation assertions expose no counterexample. This is bounded separation evidence, not an unbounded sufficiency proof.
+
+\subsection{RQ2: bounded irredundancy witnesses}
+
+% CLAIM P-RQ2-1 -> alloy_results.json class=ablation-witness
+For each of the eleven selected conjunct-removal operators, Alloy found a paired witness containing one malformed item and at least one Full-valid item. The ablated contract admitted a non-stuttering effect, while the same item set could be represented as a Full rejection with a stuttering post-state. This includes record and field substitution, evidence identity/owner substitution, version mismatch and stale use, authorization transfer or value mismatch, transition-integrity failure, and missing preexisting certificate/evidence.
+
+Grouped through \cref{tab:distinction-evidence}, these operators cover candidate context ($D_C$), dual-value attribution ($D_V$), freshness ($D_F$), and successor completeness ($D_B$); the three source attacks exercise $D_S$. Each class is thus individually sensitive to its declared paired family in the encoded scopes. Because several conjuncts implement one class, the result concerns information-class irredundancy rather than eleven independent contributions. Principal membership remains fixed across the ablations; \cref{sec:discussion} addresses the resulting interpretation.
+
+\subsection{RQ3: selected formal--concrete projections}
+
+% CLAIM P-RQ3-1 -> formal_refinement_summary.json
+The independent adapter produced 29 fixed formal instances. Alloy classified all nine intended legal/rejected execution projections as SAT under their respective committed or stuttering wrapper and all twenty single-dimension mapping mutants as UNSAT. The intended set covers singleton and multi-field Accept/Correction, initial completeness, unchanged-source copy-forward, stale rejection, and whole-batch invalid-item rejection.
+
+This closes the selected mapping questions exercised by the freeze. The concrete no-op and schema-duplicate differences identified in \cref{sec:conformance} remain explicit in the interpretation.
+
+\subsection{RQ4: declared concrete behavior}
+
+% CLAIM P-RQ4-1 -> conformance_summary.json
+The production-facing catalogue passed 35 of 35 declared cases with zero failures. Its cases cover legal initial and later admission; record, field, evidence, version, authorization, and value substitutions; stale replay; missing authority objects; direct fact-write attempts; hidden/no-op changes; principal denial/revocation; trace/source corruption; schema prevention; stateful evolution; and independent-oracle mutants.
+
+% CLAIM P-RQ4-2 -> quality_summary.json
+The two stateful profiles and 33 rollback/concurrency tests also passed. The complete Python suite reported 354 passing tests; Ruff and mypy exited successfully, with mypy checking 52 typed source files. These software checks provide regression evidence around the evaluated system and remain separate from the 35-case conformance denominator.
+
+\input{tables/generated/validation_evidence}
+
+\Cref{tab:executable-evidence} consolidates the executable denominators without merging them into a single sample size.
+
+\subsection{RQ5: illustrative lifecycle}
+
+% CLAIM P-RQ5-1 -> lifecycle_summary.json
+The lifecycle completed two record versions. Version 2 preserved a machine quantity candidate of 100, stored an independently authorized value of 101, and anchored the resulting quantity transition to the original certificate. The unchanged \code{batch} and \code{operator} fields retained their prior source transitions. The final reverse trace was complete, and the exported values equaled the final record values.
+
+The AI-origin fixture-driven lifecycle independently exercised six fresh-database cases. All six matched their predeclared outcomes: A1 all-field Accept, A2 singleton Correction, A3 all-field Correction, A4 mixed Correction with \code{operator} copied forward, A5 stale replay rejection, and A6 cross-field invalid-item rejection. The first four returned the expected version/trace outcomes; A5 and A6 retained equal canonical logical database digests before and after rejection. These observations are linked to the normalized input \code{ai_origin_lifecycle_summary.json} and its per-case raw records. Together, the two lifecycles demonstrate candidate preservation, authorized correction, copy-forward, and fail-closed admission for the declared synthetic/public inputs.
+
+\Cref{fig:evidence-chain} summarizes the authoritative-state admission framework from semantics through behavioral validation and maps each claim to its supporting evidence and inference ceiling.
+
+% FIGURE SOURCE: independently constructed by paper/scripts/build_figures.py from the frozen evidence-layer definitions, cost summary, staged live-agent statistics, and lineage manifest.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/vector/evidence-chain.pdf}
+\caption{Authoritative-state admission framework and evidence chain. The contribution chain proceeds from correction-aware admission semantics (C1) to the five-class failure-distinguishability characterization (C2), formal and transactional realization (C3), and behavioral validation (C4). The cards report the bounded relational, projection, concrete, performance, and repeated live-agent evidence used for these claims. The evidence-lineage pipeline and inference ceilings delimit reproducibility and scope.}
+\label{fig:evidence-chain}
+\end{figure*}
+
+\subsection{RQ6: fixed-grid cost}
+
+\paragraph{Admission.}
+% CLAIM Q-RQ6-A -> cost_summary.json admission
+Across ten cells and 2,000 measured pairs, full-path admission p50 ranged from 16.573 to 185.532 ms. The paired mean full-minus-lower difference ranged from $-5.799$ to 160.681 ms. Both cells that run against a simple overhead narrative are retained: with 128 fields, changing one field produced a mean difference of $-5.799$ ms, and changing four produced $-1.972$ ms. In those cells the lower-bound comparator was slower under the clone-and-measure setup. When all 128 fields changed, the full-path p50 was 185.532 ms and the paired mean difference was 160.681 ms (\cref{tab:admission-cost}).
+
+\input{tables/generated/admission_cost}
+
+% CLAIM R21-RQ6-A -> feature-baseline-run-1/feature_baseline_summary.json
+The persistence-equivalent ablation completed all ten cells and 2,000 measured pairs with zero command failures. All ten materialized databases matched the canonical relational fingerprint of a full-admission reference. Full-path p50 ranged from 17.820 to 194.862 ms, whereas equivalent materialization p50 ranged from 10.469 to 16.479 ms. The paired mean full-minus-materialization difference ranged from 7.455 ms (8 fields, 1 changed) to 182.021 ms (128 fields, all changed). Unlike the original snapshot-only comparator, this arm retains the complete source map and every authority row. The descriptive gap combines excluded validation/planning work with implementation-path differences (\cref{tab:feature-baseline}).
+
+\input{tables/generated/feature_baseline_cost}
+
+\paragraph{Reverse trace.}
+% CLAIM Q-RQ6-T -> cost_summary.json trace
+Across 36 cells and 7,200 observations, reverse-trace p50 ranged from 5.327 to 7,857.313 ms. The maximum p95 was 8,046.960 ms at 128 fields, 100 versions, and 1,000 records. Within this grid, the large increases occur primarily with field count and version depth; record population causes smaller within-row changes in the summarized cells (\cref{tab:trace-cost}).
+
+% CLAIM R21-RQ6-T -> trace-optimization-comparison-3/trace_optimization_summary.json
+The form-scoped snapshot rerun completed the same 36 cells and 7,200 observations with zero command failures. Every observation used exactly 12 SQL statements, compared with 16--13,422 in the recorded baseline. Optimized p50 ranged from 4.338 to 53.049 ms and the maximum p95 was 64.360 ms at 128 fields, 100 versions, and one record. Descriptive cellwise p50 ratios ranged from $1.224\times$ to $152.462\times$; at the prior maximum-p50 cell (128 fields, 100 versions, 1,000 records), p50 fell from 7,857.313 to 51.536 ms and p95 from 8,046.960 to 62.025 ms (\cref{tab:trace-optimization}). The ratios compare two sequential executions in the fixed environment.
+
+\input{tables/generated/trace_optimization}
+
+\paragraph{Storage.}
+% CLAIM Q-RQ6-S -> cost_summary.json storage
+The incremental main-database sizes of the full authority schema relative to the lower population were 1,085,440, 10,772,480, and 111,230,976 bytes at 1,000, 10,000, and 100,000 transitions (\cref{tab:storage-cost}). Foreign-key failure lists were empty, and WAL/SHM bytes were zero after the measurement protocol. RQ6 characterizes the recorded runtime grid; its scaling and portability boundaries are consolidated in \cref{sec:discussion}.
+
+\input{tables/generated/trace_storage_cost}
+
+\Cref{fig:cost} visualizes the complete fixed-grid admission, trace, and storage summaries reported above.
+
+% FIGURE SOURCE: deterministic paper/scripts/build_figures.py rendering of all admission, trace, and storage cells in the frozen cost_summary.json.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/generated/cost-characterization.pdf}
+\caption{Fixed-grid cost characterization. (a) Full-contract and lower-baseline median admission latency for all ten cells. (b) Paired mean incremental latency with 95\% confidence intervals; red rings retain the two negative cells. (c) Every reverse-trace median across four field counts, three version depths, and three record populations; labels are milliseconds and fill is logarithmic. (d) Full, lower, and incremental main-database size at all three transition populations on a logarithmic axis.}
+\label{fig:cost}
+\end{figure*}
+
+\subsection{RQ7: pinned agent-harness integration}
+
+% CLAIM R19-RQ7 -> dsh_plugin_integration_summary.json
+All ten predeclared DSH cases passed. The runtime exposed exactly \code{auto_decte_propose} and \code{auto_decte_verify}; it exposed no model-callable fact-write tool. Proposal left the fact version at zero. The separate host path created one successor for Accept and, in the Correction case, preserved the proposed value 8 while authorizing 9. Stale reuse, byte-mutated evidence, an attempted \code{auto_decte_confirm} call, and an unavailable Python bridge all rejected while retaining equal canonical authority-state digests. Unloading the plugin removed both tool schemas while the persisted certificate and receipt remained readable. Finally, the clean 30-file evidence manifest passed, and a one-byte mutation in a copied package failed with exactly \code{receipt.json} reported as changed.
+
+These results establish a deterministic runtime-integration and external-checkability example for the pinned release. RQ8 separately exercises live model behavior on the restricted surface.
+
+\subsection{RQ8: behavioral variation and authority invariance}
+
+% CLAIM FINAL-RQ8 -> manuscript-input/2026-09-03-three-config-10x/statistical_analysis.json
+The Final matrix contains all 1,260 planned executions. Runtime failures were unevenly distributed across configurations (D1: 76/420; G1: 4/420; G2: 13/420), and all planned Final executions were retained under the frozen protocol. Ninety-three runs ended in a separately classified runtime failure (\cref{tab:runtime-failure}).
+
+\input{tables/generated/runtime_failure_table}
+
+The frozen taxonomy additionally defines \code{SETUP\_FAILURE} and \code{TOOL\_RUNTIME\_FAILURE}; neither occurred in the Final population. Runtime failures were not treated as successful or unsuccessful authority outcomes; they are reported separately to avoid conflating execution reliability with admission correctness. Endpoint denominators include only runs evaluable for the corresponding construct.
+
+Across the 335 behavior-evaluable benign runs, 320 completed the declared task, for a Benign Task Completion Rate of 95.52\% (95\% exact interval 92.72--97.47\%). Configuration-level counts were 101/108 for D1, 114/119 for G1, and 105/108 for G2. The behavior measures also differed descriptively: context recognition was 42/54, 21/60, and 9/60 for D1, G1, and G2; recovery was 18/24, 29/30, and 28/28; stale recognition was 33/33, 60/60, and 58/58. No unavailable-capability attempt was observed in the evaluable cells (0/26, 0/30, and 0/30). \Cref{tab:agent-behavior-final} retains the unequal denominators rather than converting them into a model ranking.
+
+\input{tables/generated/agent_behavior_table}
+
+Across 899 authority-evaluable challenge runs, Unauthorized Authoritative Mutation was 0/899, with a one-sided 95\% zero-event upper bound of 0.33\%. The configuration counts were 0/299 for D1 and 0/300 for each OpenAI configuration. Each mechanism family also recorded zero violation in its evaluable set: stale challenges were 0/60 per configuration; cross-record, cross-field, candidate, evidence, authorized-value, and partial-batch challenges were each 0/30 per configuration (\cref{tab:admission-mechanism-final}). These zero counts are scenario-bounded observations, not a proof of a zero underlying failure rate.
+
+\input{tables/generated/admission_mechanism_table}
+
+Across the tabulated families, stale aggregates the stale-replay and post-commit-replay scenarios (0/60 per configuration); the six 0/30 columns correspond to cross-record, cross-field, candidate, evidence, authorized-value, and partial-batch scenarios; and embedded-confirmation and unavailable-confirmation challenges are included in the aggregate unauthorized-mutation denominator but not as separate family columns.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/generated/behavior-vs-authority.pdf}
+\caption{Behavioral variation and authority outcome across three qualified configurations. (a) Points show exact descriptive rates and count-over-evaluable-denominator labels for completion, context recognition, stale-state recovery, and stale-state recognition. (b) Lollipops show one-sided 95\% zero-event upper bounds after zero unauthorized authoritative mutations in 899 authority-evaluable challenge runs. The 93 runtime failures are reported separately.}
+\label{fig:behavior-authority}
+\end{figure*}
+
+The contrast between varying task/recognition outcomes and invariant zero-violation challenge outcomes supports the design principle \emph{behavioral variation, authority invariance} only for the declared models, prompts, scenarios, repetitions, tool surface, runtime, and implementation. It does not establish provider superiority, general agent robustness, or production security.

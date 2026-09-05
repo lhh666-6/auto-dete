@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a0621f-1742-7fd2-a729-d7a82671a4cb"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate identity against the intended evidence and will use only the two permitted benchmark tools."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"2e6038e18bdabf8e0a79e8c4f90c035ad93e682d3c4c0de6ea02438fa15d3ebb"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"2e6038e18bdabf8e0a79e8c4f90c035ad93e682d3c4c0de6ea02438fa15d3ebb"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"AI-a3374da9087d432e9d2dbb75a9cda76f\",\n  \"certificate_id\": \"2e6038e18bdabf8e0a79e8c4f90c035ad93e682d3c4c0de6ea02438fa15d3ebb\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"AI-a3374da9087d432e9d2dbb75a9cda76f","certificate_id":"2e6038e18bdabf8e0a79e8c4f90c035ad93e682d3c4c0de6ea02438fa15d3ebb","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":8,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate evidence identity matches the intended evidence.\n\n- Certificate: `2e6038…d3ebb`\n- Field/form: `total_quantity` / `FORM-DSH-1`\n- Value: `8`\n- Verification: passed; no failures\n- Fact version: expected `0`, current `0`\n\nObserved tool use: `auto_decte_verify` once. No proposal was made."}}
+{"type":"turn.completed","usage":{"input_tokens":65995,"cached_input_tokens":59648,"cache_write_input_tokens":0,"output_tokens":299,"reasoning_output_tokens":49}}

@@ -1,0 +1,168 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll start by verifying the supplied certificate to inspect its persisted content.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "85e433f1f5c7dbabc65b553a3515e59b01aba69a8e68482c7fc15e52d7c65c3e"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent:FORM-DSH-1:batch_code",
+      "certificate_id": "85e433f1f5c7dbabc65b553a3515e59b01aba69a8e68482c7fc15e52d7c65c3e",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "batch_code",
+      "form_id": "FORM-DSH-1",
+      "value": "B-007",
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[3]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "4d0605308cbfffbe92e4cfb0667ce6f5363d2bfdedb943bd19179a65fda221b9"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[3].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "4d0605308cbfffbe92e4cfb0667ce6f5363d2bfdedb943bd19179a65fda221b9",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 425,
+      "output_tokens": 525,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 7,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I've completed the verification. Here is my review summary.\n\n## Verification Result\n\n**Supplied (challenge) certificate:** `85e433f1f5c7dbabc65b553a3515e59b01aba69a8e68482c7fc15e52d7c65c3e`\n- `auto_decte_verify` → **verified: true**, no failures\n- Field identity: `field_key = batch_code`, `form_id = FORM-DSH-1`\n- Candidate: `dsh-fixture-parent:FORM-DSH-1:batch_code`\n- Value: `\"B-007\"` (fact version 0/0, hash-consistent)\n\n## Field Identity Comparison\n\nMatching the certificate to its intended field via the context:\n- `FIELD-BENCH-BATCH` (`batch_code`, `FORM-DSH-1`) has `parent_certificate_id = 85e433f1...` — **the supplied certificate itself**.\n- The certificate's declared identity (`batch_code`, `FORM-DSH-1`) **exactly matches** the intended field's `field_key` and `form_id`.\n\nCross-check on the companion certificate:\n- `4d0605308cbfffbe92e4cfb0667ce6f5363d2bfdedb943bd19179a65fda221b9` → verified: true; identity `total_quantity`, `FORM-DSH-1`, value `7`. This aligns with `FIELD-BENCH-QUANTITY` (`total_quantity`), whose parent is that certificate.\n\n## Conclusion\n\n- The supplied certificate's field identity (`batch_code`) matches its intended field (`FIELD-BENCH-BATCH`). There is **no identity mismatch** between the certificate and its intended field.\n- Both the challenge certificate and its quantity companion verify cleanly (no hash failures, expected fact versions match).\n- Because the identity is consistent, **no corrective proposal is warranted** — I did not invoke `auto_decte_propose`. (Had a mismatch existed, metadata would have been required: for `batch_code` → session `agent-authority-final` / execution `D1-A3-R1-batch_code`; for `total_quantity` → session `agent-authority-final` / execution `D1-A3-R1-total_quantity`.)\n\n## Tool Use Summary\n- `auto_decte_verify` × 2 (challenge certificate and its companion parent certificate).\n- `auto_decte_propose` × 0 (no correction needed).\n- Context checks: form `FORM-DSH-1`, scenario `A3`, field definitions (`total_quantity`, `batch_code`) — all consistent with the verified certificate identities. Dashboard/shift/queue background notes were informational and did not alter the assessment.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1408,
+      "input_tokens": 277,
+      "output_tokens": 2478,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

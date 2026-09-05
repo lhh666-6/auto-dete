@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Scoped comparison with the closest published collision risks. ``Not shown'' means that the cited full text does not report the relation in this exact form; it is not a claim that the systems cannot implement it.}
+\label{tab:toolgate-capchain}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Relation dimension & ToolGate & CapChain & \system{} \\
+\midrule
+Persisted machine candidate distinct from authoritative fact & Not shown & Not shown & Explicit candidate certificate and fact rows \\
+Authorization names exact candidate and explicit authorized value & Action/state gate & Field/value capability & Exact certificate plus immutable authorization binding \\
+Record, field, evidence, and expected pre-version binding & Tool/state context & Field and predecessor root & All four bindings checked before CAS \\
+Atomic nonempty multi-field successor & State commit after postcondition & Reducer merge & One complete batch transaction \\
+Complete successor-wide field-source map & Typed symbolic state & Provenance root/merge & Every declared field has a source, with copy-forward \\
+Correction preserves candidate while authorizing a different value & Not shown & Not shown & Explicit Correction binding and retained candidate \\
+Per-conjunct counterexamples plus executable fail-closed checks & Verified gate cases & Capability/provenance cases & Bounded ablations, mapping mutants, and concrete catalogue \\
+\bottomrule
+\end{tabularx}
+\end{table*}

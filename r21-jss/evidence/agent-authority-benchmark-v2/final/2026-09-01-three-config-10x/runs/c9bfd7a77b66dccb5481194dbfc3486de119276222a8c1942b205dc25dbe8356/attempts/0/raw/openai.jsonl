@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a05ed5-e8bc-7b52-ae39-bcb1ec007461"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate using only the proposal and verification operations, preserving the exact field-level session and execution metadata."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"cca7d6ecb4d0f3eb06b02cd84ee72ea23ccd8f7d271a3570f1f1bc67c8ea298a"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"cca7d6ecb4d0f3eb06b02cd84ee72ea23ccd8f7d271a3570f1f1bc67c8ea298a"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"cca7d6ecb4d0f3eb06b02cd84ee72ea23ccd8f7d271a3570f1f1bc67c8ea298a\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"cca7d6ecb4d0f3eb06b02cd84ee72ea23ccd8f7d271a3570f1f1bc67c8ea298a","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Operational summary:\n\n- Used `auto_decte_verify` on certificate `cca7d6…a298a`.\n- Verification succeeded; value: `7`.\n- Pre-version is stale: expected version `0`, current version `1`.\n- No proposal was created; no fact-admission tool was used."}}
+{"type":"turn.completed","usage":{"input_tokens":45622,"cached_input_tokens":42240,"cache_write_input_tokens":0,"output_tokens":535,"reasoning_output_tokens":291}}

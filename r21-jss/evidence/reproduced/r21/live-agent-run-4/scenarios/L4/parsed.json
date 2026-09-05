@@ -1,0 +1,50 @@
+{
+  "final_message": "Certificate verification succeeded with no failures.\n\nRecord mismatch: returned `form_id` is `FORM-DSH-2`, but the intended form is `FORM-DSH-1`. No confirmation occurred.",
+  "messages": [
+    "I’ll use only the available AUTO-DECTE MCP capability to verify the certificate, then compare its returned `form_id` against `FORM-DSH-1` and report any mismatch.",
+    "Certificate verification succeeded with no failures.\n\nRecord mismatch: returned `form_id` is `FORM-DSH-2`, but the intended form is `FORM-DSH-1`. No confirmation occurred."
+  ],
+  "thread_id": "01a046eb-cdcd-7da3-8ffa-8f1ca56d6336",
+  "tool_calls": [
+    {
+      "arguments": {
+        "certificate_id": "bdc9378f8750373af6f5436d76e8cac1358a0df2e4d5aac0ebd826ec887f1207"
+      },
+      "error": null,
+      "result": {
+        "content": [
+          {
+            "text": "{\n  \"candidate_id\": \"dsh-fixture-parent:FORM-DSH-2:total_quantity\",\n  \"certificate_id\": \"bdc9378f8750373af6f5436d76e8cac1358a0df2e4d5aac0ebd826ec887f1207\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-2\",\n  \"value\": 7,\n  \"verified\": true\n}",
+            "type": "text"
+          }
+        ],
+        "structured_content": {
+          "candidate_id": "dsh-fixture-parent:FORM-DSH-2:total_quantity",
+          "certificate_id": "bdc9378f8750373af6f5436d76e8cac1358a0df2e4d5aac0ebd826ec887f1207",
+          "current_fact_version": 0,
+          "expected_fact_version": 0,
+          "failures": [],
+          "field_key": "total_quantity",
+          "form_id": "FORM-DSH-2",
+          "value": 7,
+          "verified": true
+        }
+      },
+      "status": "completed",
+      "tool": "auto_decte_verify"
+    }
+  ],
+  "transport_errors": [
+    "Reconnecting... 2/5 (request timed out)",
+    "Reconnecting... 3/5 (request timed out)",
+    "Reconnecting... 4/5 (request timed out)",
+    "Reconnecting... 5/5 (request timed out)"
+  ],
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 46336,
+    "input_tokens": 57581,
+    "output_tokens": 248,
+    "reasoning_output_tokens": 38
+  }
+}

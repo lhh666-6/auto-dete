@@ -1,0 +1,44 @@
+\section{Transactional realization}
+\label{sec:realization}
+
+\subsection{Narrow capabilities and persisted authority objects}
+
+\system{} is implemented in Python with SQLAlchemy and SQLite. The application exposes three separate authority interfaces: \code{CandidateWritePort} appends an evidence/candidate unit, \code{AuthorityReadPort} loads persisted objects for review and trace, and \code{FactAdmissionPort} admits a complete transition bundle. Recognition receives the candidate facade but not the fact-admission facade; review receives the latter. The external generator, including the hosted-AI session used for the AI-origin fixture, is outside this trusted application boundary: its output is treated as an untrusted candidate until the persisted certificate and human admission checks succeed. This boundary provides application-level capability separation within one process.
+
+A candidate certificate stores the target record and field, canonical value payload, producer identity/version, selection artifact, expected fact version, evidence content hash, and canonical evidence locator. Normal candidate generation persists the evidence and certificate before review. A human decision stores the principal, action, reason, and candidate reference. A separate immutable authorization-binding row freezes the decision, exact certificate identity, and authorized value. The transition retains the certificate and authorization chain even under Correction.
+
+The principal policy is a thread-safe, revocable in-memory mapping from identifiers to the \code{fact-admitter} role. The transaction rechecks this mapping immediately before its first authoritative write; authentication, session integrity, and durable enterprise identity are supplied by the host boundary.
+
+\subsection{Canonical evidence identity}
+
+At certificate construction, admission, and trace, the same function rebuilds the persisted locator as canonical JSON. It normalizes Unicode to NFC, converts path separators, rejects absolute, drive-prefixed, empty, dot, and traversal segments, percent-decodes then canonically re-encodes path components, and incorporates the form identifier, related field identifier, normalized URI, locator version, and optional crop. Admission independently reloads the evidence row and compares its owner, content hash, related-field/URI-derived locator, and the certificate fields. Thus copying a certificate's locator string into a transition is insufficient when the persisted evidence disagrees.
+
+\subsection{Admission transaction}
+
+The application first loads the current form and validates obvious certificate mappings for useful rejection messages. The database adapter nevertheless repeats the authoritative checks inside the transaction. Its sequence is:
+
+\begin{enumerate}[leftmargin=*]
+  \item reload the declared field set, current record version, previous complete values/source map, certificates, evidence, and principal policy;
+  \item derive the initial full domain or later canonical changed-field set and reject empty later changes, deletions, hidden changes, extra transitions, duplicate fields, or an incomplete prior snapshot;
+  \item validate unused identities and the complete decision--binding--certificate--evidence--transition relation, including
+  $x_{\mathrm{authorized}}=x_{\mathrm{transition}}=x_{\mathrm{successor}}$;
+  \item issue a conditional update whose predicate is the expected current version;
+  \item construct one source transition for every admitted field, copy the exact old source for every unchanged field, and require value/source domains to be identical;
+  \item insert the decision, authorization binding, transitions, complete record-version row, field projections, and audit event before one commit.
+\end{enumerate}
+
+The compare-and-swap update is the first authoritative write. If validation fails, the CAS affects no row, a competing contender loses, or an injected exception occurs before commit, the transaction rolls back. Schema constraints provide additional defense in depth: among other relations, fact transitions and authorization bindings have unique decision and certificate indexes, and transition identity is unique per record/version/field.
+
+Manual entry can create a derived certificate at confirmation time for product compatibility. It is excluded from the AI-derived candidate conformance claim and does not stand in for Correction, which always preserves a preexisting machine certificate.
+
+\subsection{Agent-harness adapter}
+
+The harness adapter is an out-of-tree TypeScript plugin for DeepSeek Harness \code{dsh-v0.1.1-rc.2} at commit \code{b150a551b}. It registers exactly two model-callable operations: \code{auto_decte_propose}, which invokes the candidate-only service, and \code{auto_decte_verify}, which reloads and hash-checks a certificate/evidence binding. A versioned one-shot JSON bridge runs the Python authority core with bounded time and output. The plugin exposes no confirmation operation, accepts no reviewer identity, and receives no \code{FactAdmissionPort}. A trusted deterministic driver invokes the existing \code{ReviewForms.confirm} service separately for Accept or Correction.
+
+The proposal path stores canonical JSON as \code{AI_OUTPUT} evidence, creates a certificate whose source is \code{AI_SUGGESTION}, and binds it to one persisted parent certificate, DSH session/execution identifiers, and the current expected fact version. A database append stores evidence, certificate, and audit event atomically; a failed append discards the just-created file. Before host confirmation, the bridge independently hashes the stored evidence bytes.
+
+\subsection{Reverse trace and complete source evolution}
+
+For a selected certificate-era record version, the query path examines every declared field in every prefix version. At the initial version it requires one source transition created in that version per field. At a later version, a changed field must acquire the unique transition created at that version, while an unchanged field must retain the exact previous source identifier. It then checks the source record, field, creation and record-version identifiers, committed value, decision, authorization binding, certificate, producer, persisted evidence content and locator, and expected version relations.
+
+The trace returns \code{complete} only if all fields and prefix relations pass. Missing or inconsistent rows produce \code{incomplete} with reasons; the query never repairs or silently substitutes an alternative source. Pre-certificate legacy states are reported separately and are not upgraded to complete evidence.
