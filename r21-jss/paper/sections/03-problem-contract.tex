@@ -99,6 +99,14 @@ O(h_s)\neq O(h_u)
 \end{equation}
 Any admission decision based only on that reduced observation cannot separate the pair.
 
+For the executable construction below, each finite history is represented by the complete tuple
+\begin{equation}
+\widehat h=\langle r,C,A,B,v_{\mathrm{exp}},v_{\mathrm{obs}},
+F_{\mathrm{decl}},F_{\mathrm{commit}},V_v,V_{v'},S_{v'},n_{\mathrm{succ}}\rangle,
+\label{eq:witness-history}
+\end{equation}
+containing the target, candidate and authorization registries, batch references, expected and observed pre-versions, declared and committed effect domains, predecessor and successor values, successor source relation, and successor count. The witness-domain predicate requires unique candidate and authorization keys; resolvable batch and authorization references; nonempty declared fields; committed fields contained in that domain; schema-valid candidate and source fields; and predecessor and successor value maps that each cover the declared fields exactly once. These are structural realizability conditions only: exact candidate/context binding, human value attribution, freshness, batch completeness, and successor-source totality remain semantic admission predicates whose failure defines the unsafe histories.
+
 \subsection{Conditional failure-distinguishability characterization}
 
 Table~\ref{tab:distinctions} states the five information classes of the declared basis. Each concerns an information class, not a mandatory physical representation.
@@ -115,7 +123,7 @@ Class & Safe/unsafe pair & Required distinction & Failure if omitted \\
 $D_C$ & exact candidate / equal-valued cross-context substitute & persisted candidate identity plus record, field, evidence, and producer context & candidate substitution \\
 $D_V$ & preserved Correction / erased or false role attribution with the candidate unchanged & separate machine proposal $x_c$, human-authorized value $x_a$, committed value, and role relation & correction erasure or false machine attribution \\
 $D_F$ & current authorization / same authorization after supersession & commit-time freshness discriminator tied to the observed pre-state & stale replay \\
-$D_B$ & complete batch / subset of declared field effects & declared batch domain, exact changed-field framing, and one atomic successor & partial successor \\
+$D_B$ & complete declared batch / subset of declared field effects & declared batch domain, exact changed-field framing, and one atomic successor & partial successor \\
 $D_S$ & total trace / equal-valued successor with missing or conflicting source & total per-field source relation and exact unchanged-source copy-forward & source ambiguity \\
 \bottomrule
 \end{tabularx}
@@ -128,7 +136,7 @@ For each information class $d_i\in\mathcal D$, the declared failure model contai
 For each declared failure family associated with $d_i\in\mathcal D$, Table~\ref{tab:distinctions} provides a paired construction consisting of a safe history $h_s^{(i)}$ and an unsafe history $h_u^{(i)}$ such that
 $O(h_s^{(i)})\neq O(h_u^{(i)})$ while
 $\pi_{\mathcal D\setminus\{d_i\}}(h_s^{(i)})=\pi_{\mathcal D\setminus\{d_i\}}(h_u^{(i)})$.
-The five constructions are as follows. For $D_C$, hold the proposal, authorization, temporal, batch, and source observations constant but substitute an equal-valued candidate carrying another identity or non-temporal context. For $D_V$, retain the same candidate---including its identity and proposal value 100---and the same committed value 101, but erase or falsely relabel the fact that 101 was human-authorized rather than machine-proposed. For $D_F$, replay the same candidate and authorization bytes before and after another transaction advances the record, leaving the four non-temporal projections unchanged. For $D_B$, retain the same candidate/value, freshness, and total source observations but commit only a subset of the declared effect domain. For $D_S$, hold the candidate, values, freshness, batch domain, and successor values constant while deleting, replacing, or duplicating a field source. Thus each pair differs in exactly one declared observation coordinate and in its full-history outcome label.
+The five constructions are as follows. For $D_C$, hold the proposal, authorization, temporal, batch, and source observations constant but substitute an equal-valued candidate carrying another identity or non-temporal context. For $D_V$, retain the same candidate---including its identity and proposal value 100---and the same committed value 101, but erase or falsely relabel the fact that 101 was human-authorized rather than machine-proposed. For $D_F$, replay the same candidate and authorization bytes before and after another transaction advances the record, leaving the four non-temporal projections unchanged. For $D_B$, retain the same candidates, values, freshness, successor count, and total source observations but record only a subset of the declared effect domain, so the batch becomes a partial successor. For $D_S$, hold the candidate, values, freshness, batch domain, and successor values constant while deleting, replacing, or duplicating a field source. Thus each pair differs in exactly one declared observation coordinate and in its full-history outcome label.
 
 Formally, for each $d_i\in\mathcal D$, the construction seeks histories $h_s^{(i)}$ and $h_u^{(i)}$ such that
 \begin{equation}
@@ -141,7 +149,7 @@ O(h_s^{(i)})\neq O(h_u^{(i)}).
 \end{equation}
 Therefore, removing the corresponding information class eliminates the ability to distinguish at least one declared failure family.
 
-The five concrete tuples and a projection checker are included in \texttt{source/formal/observation\_witnesses.py}. The checker verifies for every pair that the full observations differ, the four-class projections are equal, and the full-history outcome labels differ. This executable construction is separate from the Alloy analysis: it establishes Eq.~\eqref{eq:irredundancy} for the declared observation model, whereas the Alloy ablations test sensitivity of selected relational encodings in finite scopes.
+The five complete history pairs and their projection checker are included in \texttt{source/formal/observation\_witnesses.py}. The script stores neither observations nor outcome labels in a witness. Instead, it validates the domain predicate over each $\widehat h$, derives every $\operatorname{obs}_d(\widehat h)$ from its candidate, authorization, version, effect-domain, successor-value, and source relations, and derives $O(\widehat h)$ by evaluating the five admission predicates. It then verifies that each safe/unsafe pair is domain-valid, has different derived outcomes, has equal derived four-class projections, and differs under the full projection. The generated record \texttt{evidence/formal/observation-witness-report.json} exposes the raw histories and all derived values. This executable construction is separate from the Alloy analysis: it establishes Eq.~\eqref{eq:irredundancy} for these five constructions in the declared observation model, whereas the Alloy ablations test sensitivity of selected relational encodings in finite scopes.
 
 \paragraph{Scope of the result.}
 Proposition 1 establishes class-wise irredundancy relative to the five declared failure families and the declared history, observation, and outcome model. It does not establish universal minimality, schema uniqueness, or completeness over all possible admission failures. The Full Alloy checks provide sufficiency-like evidence only in the encoded finite scopes; the ablations provide bounded witnesses for selected encodings of the five classes.
@@ -180,7 +188,7 @@ f\notin\Delta(V_v,V_{v+1})\Rightarrow
 V_{v+1}(f)=V_v(f)\land S_{v+1}(f)=S_v(f).
 \label{eq:copy-forward}
 \end{equation}
-The Alloy relation permits same-value admission for correspondence with the historical singleton model. The concrete service rejects a post-initial batch with an empty changed-field set; accepted concrete events are therefore a strict value-changing subset of formal legal events.
+The Alloy relation permits same-value admission for correspondence with the historical singleton model. The concrete service rejects a post-initial batch with an empty changed-field set; accepted concrete events are therefore a strict value-changing subset of formal legal events. For a post-initial batch that mixes changed and unchanged declared items, the concrete planner neither rejects nor rewrites the batch: it admits exactly the changed subset, requires at least one changed field, copies each unchanged item's value and exact source forward, and records no transition or authorization binding for that unchanged item.
 
 \subsection{Operational properties and trust boundary}
 
@@ -195,7 +203,7 @@ Property & Requirement & Operational interpretation \\
 P0 & Direct-write exclusion & Machine/candidate capability cannot change authoritative values, versions, sources, transitions, or authorizations. \\
 P1 & Candidate non-substitutability & Authority refers to the same canonical persisted certificate, not merely an equal value or analogous candidate. \\
 P2 & Context-bound admission & Record, field, persisted evidence content and locator, and expected version agree across the item and certificate. \\
-P3 & Authorization integrity & The principal is allowed at commit and the authorization names the exact certificate and explicit committed value. \\
+P3 & Authorization integrity & The principal is allowed at the in-transaction policy check before the compare-and-swap, and the authorization names the exact certificate and explicit committed value; in-flight revocation semantics are stated in Section~5.3. \\
 P4 & Freshness & The expected version equals the transactionally observed current version; stale or competing decisions fail closed. \\
 P5 & Successor integrity & One atomic successor has an item--transition bijection, exact changed-field effects, and complete changed/unchanged framing. \\
 P6 & Trace soundness & Each committed field resolves through its exact source transition to consistent authorization, certificate, evidence, producer, and version relations. \\

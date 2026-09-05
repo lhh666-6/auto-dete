@@ -1,6 +1,6 @@
 # FINAL CODEX HANDOFF — AUTO-DECTE R21 JSS revision
 
-Date: 2026-09-05 (Asia/Shanghai)
+Date: 2026-09-06 (Asia/Shanghai)
 
 ## 1. Final research question
 
@@ -31,8 +31,11 @@ The frozen formal/conformance baseline is preserved. Across two bounded Alloy sc
 20 mapping-mutant UNSAT cases; the executable catalogue passes 35/35. The recorded
 implementation quality summary contains 354 Python tests, Ruff exit 0, strict mypy exit 0
 over 52 typed files, 2 stateful tests, and 33 rollback/concurrency tests. Proposition 1 now
-has five explicit safe/unsafe history pairs and an executable checker showing that each pair
-has unequal normative outcomes but equal reduced observations when its target class is removed.
+has five explicit safe/unsafe history pairs. The checker stores neither observations nor
+outcomes: it validates each complete finite history, derives all five observations and the
+normative outcome from its relations, and shows that each pair has unequal derived outcomes
+but equal reduced observations when its target class is removed. The generated JSON report
+records every raw history and derived result.
 
 ## 5. New experiments and results
 
@@ -69,14 +72,15 @@ collects the detailed limitations while each experiment retains one local bounda
 
 ## 8. Test, citation, and build results
 
-Twenty-four focused proof, semantic-audit, evidence, figure, and runtime-table tests pass. Citation audit finds 53 active
+Six focused C2 witness tests and all 364 implementation regression tests pass; the witness
+source also passes the focused static check. Citation audit finds 53 active
 keys matched one-to-one with 53 bibliography entries. The current JSS manuscript rebuild is
-57 pages with zero undefined citations/references, zero LaTeX/package warnings, zero overfull
+58 pages with zero undefined citations/references, zero LaTeX/package warnings, zero overfull
 boxes, and zero underfull boxes. Section float barriers keep every table near its first-use
 section instead of collecting tables after the references. Visual QA passed on the C2,
 workflow, evidence-chain, authority-dataflow, and RQ8 pages. The canonical reviewer PDF is
-`paper/main-r21-submission-ready-2026-09-05.pdf` (57 pages, 1,096,983 bytes); its final SHA-256 is
-`7e346c535da35d3247d75b4d9546788d91956419a52644233142f038ee9fc527`.
+`paper/main-r21-submission-ready-2026-09-06.pdf` (58 pages, 1,108,298 bytes); its final SHA-256 is
+`0983b11e17e4602913745a1da139676b985433547696be248320ecb01863e9da`.
 
 ## 9. Evidence and integrity identity
 
@@ -95,7 +99,7 @@ The standalone overlay includes source, formal, tools, runner, frozen evidence, 
 repository, locked live-agent `pyproject.toml`/`uv.lock`, and documented Windows/MiKTeX/
 Poppler prerequisites. Copied baseline directories were byte-identity checked against
 the prior locked release. The manuscript points to the immutable Git tag
-`r21-jss-2026-09-05-v2`, whose package manifest covers the deposited files after the
+`r21-jss-2026-09-06-v3`, whose package manifest covers the deposited files after the
 submission-freeze update.
 
 ## 11. Venue, figure, and author-controlled items

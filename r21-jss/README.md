@@ -12,7 +12,7 @@ manuscript source, final PDF, and integrity manifests used by the paper.
 
 ## Start here
 
-- `paper/main-r21-submission-ready-2026-09-05.pdf`: compiled 57-page manuscript.
+- `paper/main-r21-submission-ready-2026-09-06.pdf`: compiled 58-page manuscript with the derived C2 witness construction.
 - `source/implementation/`: Python/SQLite implementation and regression suite.
 - `source/formal/`: Alloy models, batch command manifest, and executable C2 witnesses.
 - `source/agent-authority-benchmark/`: repeated live-agent benchmark code.
@@ -28,6 +28,7 @@ manuscript source, final PDF, and integrity manifests used by the paper.
 - `evidence/reproduced/`: retained R19/R21 rerun receipts and outputs.
 - `evidence/r21-paper-input-manifest.json`: paper-input lineage.
 - `evidence/r21-revision-manifest.json`: revision-level integrity record.
+- `evidence/formal/observation-witness-report.json`: raw C2 histories and all derived observations/outcomes.
 - `PACKAGE_MANIFEST.json`: SHA-256 inventory of this deposited package.
 
 ## Main reported evidence
@@ -48,8 +49,10 @@ From `r21-jss/`:
 
 ```powershell
 python scripts/build_r21_inputs.py verify
+python source/formal/observation_witnesses.py `
+  --json evidence/formal/observation-witness-report.json
 python scripts/build_r21_manifest.py verify `
-  --paper-pdf paper/main-r21-submission-ready-2026-09-05.pdf --paper-pages 57
+  --paper-pdf paper/main-r21-submission-ready-2026-09-06.pdf --paper-pages 58
 python scripts/verify_package_manifest.py
 python source/dsh-plugin-auto-decte/experiment/verify_receipt.py verify `
   evidence/reproduced/r19-dsh-2026-08-27-final
@@ -99,7 +102,7 @@ Correspondence: zwu691403@gmail.com
 
 ## Version
 
-This submission-freeze package is pinned by Git tag `r21-jss-2026-09-05-v2`.
+This C2-closure package is pinned by Git tag `r21-jss-2026-09-06-v3`.
 
 ## License
 

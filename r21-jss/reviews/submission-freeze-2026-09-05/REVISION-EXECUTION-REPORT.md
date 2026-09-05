@@ -1,12 +1,13 @@
 # Submission-freeze revision execution report
 
-Date: 2026-09-05  
+Date: 2026-09-06  
 Manuscript: `revisions/2026-08-27-jss-r21-live-agent-performance/paper/main.tex`
 
 ## Verdict
 
-The scientific and technical stop conditions in `REVISION-PLAN.md` are satisfied. The
-revision closes the C2 construction, replaces lexical recognition proxies with a
+The scientific and technical stop conditions in `REVISION-PLAN.md` are satisfied after a
+second C2 closure pass. The revision closes the C2 construction without externally supplied
+observation or outcome labels, replaces lexical recognition proxies with a
 row-complete semantic acknowledgment audit, decomposes the 0/899 authority aggregate,
 states revocation timing precisely, and synchronizes the manuscript, generators, evidence,
 and claim ledger. No additional hosted-model run was required.
@@ -16,10 +17,15 @@ and claim ledger. No additional hosted-model run was required.
 ### C2 characterization
 
 - Defined five observation functions and the reduced projection used by Proposition 1.
-- Added five safe/unsafe history pairs with different normative authority outcomes and
-  identical observations after removal of the targeted class.
-- Added `source/formal/observation_witnesses.py` and its tests as executable checks of the
-  construction.
+- Replaced the original pre-filled witness tuples with complete finite histories containing
+  candidates, authorizations, batch references, version observations, declared/committed
+  effect domains, predecessor/successor values, source relations, and successor count.
+- Observations and normative outcomes are derived from those histories; neither is stored as
+  witness input. Both members of every pair pass structural-domain validation.
+- Added `evidence/formal/observation-witness-report.json`, which records the raw histories,
+  domain-validation results, derived observations, derived outcomes, and projection checks.
+- Added six focused tests, including a negative domain-reference case and JSON audit-report
+  serialization.
 - Kept the theorem conditional on the declared five failure families and observation model;
   it does not claim universal minimality, schema uniqueness, or failure completeness.
 - Kept Alloy ablations as bounded sensitivity evidence rather than using them as the proof.
@@ -58,9 +64,9 @@ and claim ledger. No additional hosted-model run was required.
 
 ## Verification
 
-- Focused tests: 24 passed.
+- C2 witness tests: 6 passed; implementation regression: 364 passed; focused static check: pass.
 - Citation closure: 53 cited keys, 53 bibliography entries, 0 missing, 0 unused.
-- LaTeX: 57 pages; 0 undefined citations/references; 0 LaTeX/package warnings; 0 overfull
+- LaTeX: 58 pages; 0 undefined citations/references; 0 LaTeX/package warnings; 0 overfull
   boxes; 0 underfull boxes.
 - Source lint: no `resizebox`, `scriptsize`, `tiny`, forced `[H]`, negative spacing, or
   `scalebox` in manuscript TeX.
@@ -68,8 +74,8 @@ and claim ledger. No additional hosted-model run was required.
   after the bibliography.
 - Visual QA: inspected the nearest-neighbor, C2 definition/proposition, author-approved Canva
   workflow, evidence-chain, authority-dataflow, runtime/behavior, and authority-result pages.
-- Canonical PDF: `paper/main-r21-submission-ready-2026-09-05.pdf`.
-- PDF SHA-256: `7e346c535da35d3247d75b4d9546788d91956419a52644233142f038ee9fc527`.
+- Canonical PDF: `paper/main-r21-submission-ready-2026-09-06.pdf`.
+- PDF SHA-256: `0983b11e17e4602913745a1da139676b985433547696be248320ecb01863e9da`.
 - Revision manifest rebuilt and verified successfully for the 57-page PDF.
 
 ## Remaining non-manuscript inputs
@@ -77,4 +83,3 @@ and claim ledger. No additional hosted-model run was required.
 The manuscript itself contains no empty author or artifact URL. The cover-letter template
 still requires the submission date, originality/not-under-review confirmation, and a postal
 address only if the journal portal requires it. Optional acknowledgments can be added later.
-
