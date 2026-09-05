@@ -30,14 +30,20 @@ The frozen formal/conformance baseline is preserved. Across two bounded Alloy sc
 66 outcomes match their declarations. The selected projection contains 9 intended SAT and
 20 mapping-mutant UNSAT cases; the executable catalogue passes 35/35. The recorded
 implementation quality summary contains 354 Python tests, Ruff exit 0, strict mypy exit 0
-over 52 typed files, 2 stateful tests, and 33 rollback/concurrency tests.
+over 52 typed files, 2 stateful tests, and 33 rollback/concurrency tests. Proposition 1 now
+has five explicit safe/unsafe history pairs and an executable checker showing that each pair
+has unequal normative outcomes but equal reduced observations when its target class is removed.
 
 ## 5. New experiments and results
 
 The repeated live-agent Final retains all 1,260 planned executions across three qualified
 configurations, three prompt variants, fourteen scenarios, and ten repetitions per cell.
-Benign completion is 320/335; unauthorized authoritative mutation is 0/899 authority-evaluable
-challenges; 93 runtime failures (D1 76, G1 4, G2 13) are reported separately. The earlier
+Benign completion is 320/335. The authority aggregate is 0/899 and is explicitly decomposed
+into 0/720 fixed host-constructed invalid-tuple calls and 0/179 capability-unavailable branches;
+it is not described as 899 model-generated attacks. Ninety-three runtime failures (D1 76,
+G1 4, G2 13) are reported separately, including 64 with a complete authority verdict and
+three with a behavior verdict. A row-complete semantic audit changed the lexical proxies to
+117/174 context-mismatch and 150/151 stale-state acknowledgments. The earlier
 canonical six-scenario live-agent run remains an integration example. The feature-equivalent baseline covers ten cells and
 2,000 pairs; all relational fingerprints match, with full-path p50 17.820–194.862 ms
 and prevalidated materialization p50 10.469–16.479 ms. The optimized trace comparison
@@ -63,15 +69,14 @@ collects the detailed limitations while each experiment retains one local bounda
 
 ## 8. Test, citation, and build results
 
-Fourteen paper evidence/figure/runtime generator tests pass. Citation audit finds 53 active
+Twenty-four focused proof, semantic-audit, evidence, figure, and runtime-table tests pass. Citation audit finds 53 active
 keys matched one-to-one with 53 bibliography entries. The current JSS manuscript rebuild is
-54 pages with zero undefined citations/references, zero LaTeX/package warnings, zero overfull
-boxes, and zero underfull boxes. Visual QA passed on the final Figure 1 and Figure 2 pages.
-The canonical reviewer PDF is
-`paper/main-r21-submission-ready-2026-09-05.pdf` (54 pages). It includes the
-confirmed sole author, affiliation, corresponding-author email, declaration
-statements, and the public repository URL. Its deposited digest is recorded in
-`PACKAGE_MANIFEST.json`.
+57 pages with zero undefined citations/references, zero LaTeX/package warnings, zero overfull
+boxes, and zero underfull boxes. Section float barriers keep every table near its first-use
+section instead of collecting tables after the references. Visual QA passed on the C2,
+workflow, evidence-chain, authority-dataflow, and RQ8 pages. The canonical reviewer PDF is
+`paper/main-r21-submission-ready-2026-09-05.pdf` (57 pages, 1,096,983 bytes); its final SHA-256 is
+`7e346c535da35d3247d75b4d9546788d91956419a52644233142f038ee9fc527`.
 
 ## 9. Evidence and integrity identity
 
@@ -86,12 +91,12 @@ remained valid. Historical failed runs are retained and excluded from citable in
 
 ## 10. Reproducibility and package boundary
 
-The deposited overlay includes clean source, formal models, bundled tools, runner,
-frozen citable evidence, the complete 1,260-run Final, manuscript source/PDF,
-locked `pyproject.toml`/`uv.lock` files, and documented Windows/MiKTeX/Poppler
-prerequisites. Local environments, caches, duplicate source snapshots, superseded
-pilots, and connectivity diagnostics are excluded because they are neither inputs
-to nor evidence for the reported results.
+The standalone overlay includes source, formal, tools, runner, frozen evidence, paper
+repository, locked live-agent `pyproject.toml`/`uv.lock`, and documented Windows/MiKTeX/
+Poppler prerequisites. Copied baseline directories were byte-identity checked against
+the prior locked release. The manuscript points to the immutable Git tag
+`r21-jss-2026-09-05-v2`, whose package manifest covers the deposited files after the
+submission-freeze update.
 
 ## 11. Venue, figure, and author-controlled items
 
@@ -100,13 +105,12 @@ export of the author-approved editable Canva design `DAHUNAr-imw`; a matching SV
 from that PDF is retained beside it. Canva rasterized some decorative layers, so this is a
 hybrid export. The independently reconstructed pure vector is explicitly a fallback,
 not represented as the same Canva file. The AI-generated concept raster is retained only as
-non-submitted ideation provenance. The sole author (Liang Hanghao), affiliation,
-corresponding-author email, CRediT roles, no-funding statement, no-conflict
-statement, ethics non-applicability statement, AI-use disclosure, and GitHub URL
-are now recorded. Acknowledgments remain intentionally omitted until supplied.
+non-submitted ideation provenance. The single author is Liang Hanghao, College of Computer
+Science and Electronic Engineering, Hunan University; the corresponding address is
+`zwu691403@gmail.com`. Funding is none, ethics review is recorded as not applicable because
+there are no human participants or personal data, and acknowledgments may be added later.
 
 ## 12. READINESS VERDICT
 
-TECHNICALLY READY; AUTHOR-VERIFIED FIGURES AND THE COMPLETE R21 GITHUB DEPOSIT
-ARE INCLUDED. ONLY JOURNAL-PORTAL ADMINISTRATIVE CONFIRMATIONS AND ANY LATER
-ACKNOWLEDGMENTS REMAIN OUTSIDE THE SCIENTIFIC PACKAGE.
+SCIENTIFIC AND TECHNICAL FREEZE PASSED. ONLY JOURNAL-PORTAL AND COVER-LETTER CONFIRMATIONS
+REMAIN OUTSIDE THE MANUSCRIPT.

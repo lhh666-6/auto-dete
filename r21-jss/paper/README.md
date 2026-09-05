@@ -35,14 +35,19 @@ repeated live-agent Final is staged separately under
 Its `MANUSCRIPT_INPUT_STATUS.json` records
 `READY_FOR_MANUSCRIPT_INTEGRATION`; the bundle contains all 1,260 normalized
 runs, statistical analysis, generated tables and figure, and a manifest tied
-to the verified Final root.
+to the verified Final root. The post-hoc semantic acknowledgment audit is
+retained separately under
+`../evidence/agent-authority-benchmark-v2/analysis/2026-09-05-recognition-semantic-audit/`;
+it preserves every audited assistant output, the original lexical label, the
+semantic label, the coding rule, confusion matrices, and a derived statistics
+file used by the manuscript figure and behavior table.
 
 Generate the independently constructed submission figures from `paper/`:
 
 ```powershell
 python scripts/build_figures.py `
   --cost-input ../evidence/final-rerun-paper/paper_inputs/cost_summary.json `
-  --agent-stats-input ../evidence/agent-authority-benchmark-v2/manuscript-input/2026-09-03-three-config-10x/statistical_analysis.json `
+  --agent-stats-input ../evidence/agent-authority-benchmark-v2/analysis/2026-09-05-recognition-semantic-audit/statistical_analysis_semantic.json `
   --output-root figures
 python -m unittest discover -s scripts -p "test_*.py" -v
 ```

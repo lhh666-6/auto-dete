@@ -75,7 +75,7 @@ def build_table(input_path: Path) -> str:
     )
     return (
         header
-        + "\\begin{table*}[t]\n"
+        + "\\begin{table}[t]\n"
         + "\\centering\n"
         + "\\footnotesize\n"
         + "\\caption{Runtime-failure terminal classes in the repeated benchmark.}\n"
@@ -92,7 +92,7 @@ def build_table(input_path: Path) -> str:
         + " \\\\\n"
         + "\\bottomrule\n"
         + "\\end{tabularx}\n"
-        + "\\end{table*}\n"
+        + "\\end{table}\n"
     )
 
 

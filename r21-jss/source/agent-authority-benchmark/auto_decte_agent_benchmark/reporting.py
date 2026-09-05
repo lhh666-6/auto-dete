@@ -179,7 +179,7 @@ def _latex_table(title: str, columns: Sequence[tuple[str, str]], rows: Sequence[
     )
     return (
         "% Generated from the frozen final normalized run records.\n"
-        "\\begin{table*}[t]\n"
+        "\\begin{table}[t]\n"
         "\\centering\n"
         "\\scriptsize\n"
         f"\\caption{{{title}}}\n"
@@ -188,7 +188,7 @@ def _latex_table(title: str, columns: Sequence[tuple[str, str]], rows: Sequence[
         + header
         + "\n\\midrule\n"
         + body
-        + "\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
+        + "\n\\bottomrule\n\\end{tabular}\n\\end{table}\n"
     )
 
 

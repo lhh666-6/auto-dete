@@ -12,7 +12,7 @@ For one selected event, $\alpha$ reads SQLite through query methods and serializ
 
 \Cref{tab:abstraction} states the relation-by-relation mapping used by the executable projection.
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{Principal elements of the executable abstraction.}
 \label{tab:abstraction}
@@ -30,7 +30,7 @@ transition rows at successor & AdmissionItem transitions & exact item--transitio
 current-version/CAS unit & BatchAdmissionEvent envelope & one record, principal, pre-version, successor, and atomic pre/post \\
 \bottomrule
 \end{tabularx}
-\end{table*}
+\end{table}
 
 For a committed case, the generator writes an exact Alloy wrapper and asks whether the fixed instance satisfies \code{legalAdmission[event, Full]}. For a rejected case, it first compares canonical database digests before and after the attempted call. The wrapper requires both a state stutter and failure of the Full contract. A changed digest causes projection failure before Alloy is invoked.
 

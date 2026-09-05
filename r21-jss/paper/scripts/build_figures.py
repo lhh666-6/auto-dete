@@ -706,9 +706,9 @@ def build_behavior_authority(data: dict[str, Any], stem: Path) -> None:
     }
     metrics = [
         ("Benign task\ncompletion", "benign_completion"),
-        ("Context\nrecognition", "context_recognition"),
+        ("Context-mismatch\nacknowledgment", "context_recognition"),
         ("Recovery after\nstale state", "recovery"),
-        ("Stale-state\nrecognition", "stale_recognition"),
+        ("Stale-state\nacknowledgment", "stale_recognition"),
     ]
     y_base = np.arange(len(metrics))[::-1]
     for model_id, (color, marker, offset) in model_styles.items():

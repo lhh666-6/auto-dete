@@ -48,7 +48,7 @@ Build command from `paper/`:
 ```powershell
 python scripts/build_figures.py `
   --cost-input ../evidence/final-rerun-paper/paper_inputs/cost_summary.json `
-  --agent-stats-input ../evidence/agent-authority-benchmark-v2/manuscript-input/2026-09-03-three-config-10x/statistical_analysis.json `
+  --agent-stats-input ../evidence/agent-authority-benchmark-v2/analysis/2026-09-05-recognition-semantic-audit/statistical_analysis_semantic.json `
   --output-root figures
 ```
 
@@ -84,7 +84,9 @@ The build manifest is `figures/figure-build-manifest.json`, SHA-256
 
 - Fourteen paper-generator tests pass: six evidence-table tests, four figure
   tests, and four runtime-table tests. Figure tests enforce both frozen input contracts, exact 10/36/3 and
-  1,260/93/320-of-335/0-of-899 totals, the four-figure semantic structure,
+  1,260/93/320-of-335 totals, the 0-of-720 fixed-challenge and 0-of-179
+  capability-unavailable decomposition, the semantically audited 117-of-174
+  context and 150-of-151 stale acknowledgment counts, the four-figure semantic structure,
   the deterministic Figure 1 fallback hash, vector PDF output, editable SVG text,
   and absence of SVG raster images in the independently constructed figures.
 - Every SVG contains title/description accessibility elements, ARIA linkage,

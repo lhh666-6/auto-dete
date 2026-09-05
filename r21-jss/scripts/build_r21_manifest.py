@@ -23,6 +23,7 @@ EXCLUDED_PARTS = {
     "out",
 }
 EXCLUDED_NAMES = {
+    "PACKAGE_MANIFEST.json",
     "main.aux",
     "main.bbl",
     "main.blg",

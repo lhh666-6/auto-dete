@@ -28,9 +28,9 @@ AGENT_STATS_INPUT = (
     PACKAGE_ROOT
     / "evidence"
     / "agent-authority-benchmark-v2"
-    / "manuscript-input"
-    / "2026-09-03-three-config-10x"
-    / "statistical_analysis.json"
+    / "analysis"
+    / "2026-09-05-recognition-semantic-audit"
+    / "statistical_analysis_semantic.json"
 )
 APPROVED_WORKFLOW_PNG_SHA256 = (
     "1bf03fd87c9b10edad196f8ce703b93ec1ae9af6d80d03300160cc9b4de68eb7"
@@ -51,9 +51,9 @@ class FigureDataTests(unittest.TestCase):
         self.assertEqual(
             stats["behavior_counts"],
             {
-                "D1": ("101/108", "42/54", "18/24", "33/33"),
-                "G1": ("114/119", "21/60", "29/30", "60/60"),
-                "G2": ("105/108", "9/60", "28/28", "58/58"),
+                "D1": ("101/108", "32/54", "18/24", "32/33"),
+                "G1": ("114/119", "44/60", "29/30", "60/60"),
+                "G2": ("105/108", "41/60", "28/28", "58/58"),
             },
         )
 

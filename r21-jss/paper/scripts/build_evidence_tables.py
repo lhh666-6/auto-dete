@@ -302,7 +302,7 @@ def render_validation_evidence(inputs: dict[str, Any], digest: dict[str, Any]) -
             digest["source_root"],
             "quality_summary.json, formal_refinement_summary.json, conformance_summary.json, lifecycle_summary.json",
         ),
-        "\\begin{table*}[t]\n",
+        "\\begin{table}[t]\n",
         "\\centering\n",
         "\\caption{Frozen executable evidence. Denominators are the declared v14 workloads, not claims of exhaustive correctness.}\n",
         "\\label{tab:executable-evidence}\n",
@@ -312,7 +312,7 @@ def render_validation_evidence(inputs: dict[str, Any], digest: dict[str, Any]) -
         "\\midrule\n",
     ]
     lines.extend(f"{name} & {value} \\\\\n" for name, value in rows)
-    lines.extend(["\\bottomrule\n", "\\end{tabularx}\n", "\\end{table*}\n"])
+    lines.extend(["\\bottomrule\n", "\\end{tabularx}\n", "\\end{table}\n"])
     return "".join(lines)
 
 
@@ -320,7 +320,7 @@ def render_admission_cost(inputs: dict[str, Any], digest: dict[str, Any]) -> str
     rows = inputs["cost_summary.json"]["admission"]
     lines = [
         _header(digest["source_root"], "cost_summary.json"),
-        "\\begin{table*}[t]\n",
+        "\\begin{table}[t]\n",
         "\\centering\n",
         "\\caption{Paired admission measurements on the frozen configuration (200 measured pairs per cell). Negative deltas are retained.}\n",
         "\\label{tab:admission-cost}\n",
@@ -340,7 +340,7 @@ def render_admission_cost(inputs: dict[str, Any], digest: dict[str, Any]) -> str
             f"{_f3(row['paired_mean_delta_ms'])} & "
             f"[{_f3(low)}, {_f3(high)}] \\\\\n"
         )
-    lines.extend(["\\bottomrule\n", "\\end{tabular}\n", "\\end{table*}\n"])
+    lines.extend(["\\bottomrule\n", "\\end{tabular}\n", "\\end{table}\n"])
     return "".join(lines)
 
 
