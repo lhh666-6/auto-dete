@@ -17,13 +17,9 @@ provides or confirms them.
       synthetic/public lifecycle inputs and involves no human participants,
       personal data collection, or animal subjects.
 - [ ] Acknowledgments will be added later; the section is omitted from the current manuscript.
-- [x] Public project URL: `https://github.com/lhh666-6/auto-dete`.
-      The author supplied `https://github.com/lhh666-6/auto-dete`, which was
-      publicly reachable on 2026-08-28, but its current main branch describes
-      an earlier ESWA artifact (239 tests, source snapshot `68f7b93`) rather
-      than this R21 JSS package. Upload and pin the R21 release before citing
-      that URL for the present manuscript; a Zenodo/OSF DOI remains preferable
-      for archival stability.
+- [x] Complete R21 package deposited and pinned at
+      `https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-05/r21-jss`.
+      A Zenodo/OSF DOI can still be added later for archival persistence.
 - [ ] Whether the manuscript is to be anonymous at initial submission.
 - [x] Current factual generative-AI assistance disclosure retained for the sole author.
 - [ ] Confirmation that the independently constructed vector figures, not the

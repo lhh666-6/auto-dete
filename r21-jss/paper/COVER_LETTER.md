@@ -43,9 +43,13 @@ raw receipts, normalized paper inputs, and deterministic tables and figures.
 [AUTHOR INPUT NEEDED: confirm that the manuscript is original, is not under review elsewhere, and
 has been approved by all authors.]
 
-[AUTHOR INPUT NEEDED: insert stable artifact DOI/URL and access statement.]
+The complete reproducibility package is publicly available at
+https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-05/r21-jss. It includes
+the manuscript source and PDF, clean implementation and experiment code, formal
+models, all final run records, normalized inputs, and SHA-256 manifests.
 
-[AUTHOR INPUT NEEDED: confirm conflicts of interest, funding, and the final AI-use disclosure.]
+The author declares no competing interests and no external funding. The manuscript
+contains the final factual disclosure of generative-AI assistance.
 
 Thank you for considering this manuscript. We believe it will interest JSS readers working on
 software architecture, formal and empirical validation, AI-enabled systems, transactional
@@ -53,4 +57,8 @@ software, and reproducible software-engineering evidence.
 
 Sincerely,
 
-[AUTHOR INPUT NEEDED: corresponding author name, affiliation, postal address, and email]
+Liang Hanghao  
+College of Computer Science and Electronic Engineering, Hunan University  
+Changsha, China  
+Email: zwu691403@gmail.com  
+[AUTHOR INPUT NEEDED: postal address and postcode, if required by the submission system]
