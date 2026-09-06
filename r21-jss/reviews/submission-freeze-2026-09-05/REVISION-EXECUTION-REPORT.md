@@ -86,7 +86,7 @@ and claim ledger. No additional hosted-model run was required.
 - Visual QA: inspected the nearest-neighbor, C2 definition/proposition, author-approved Canva
   workflow, evidence-chain, authority-dataflow, runtime/behavior, and authority-result pages.
 - Canonical PDF: `paper/main-r21-submission-ready-2026-09-06.pdf`.
-- PDF SHA-256: `f1bf55b1302608b48c1518dfbeda1b6817e1e28968f3647f8bb6c6b8a55e23be`.
+- PDF SHA-256: `4553fefdd94f65b67af70cad96ce823b3fd18e4c6dfe0141f6a3cfcdbcec5869`.
 - Revision manifest rebuilt and verified successfully for the 58-page PDF.
 
 ## Remaining non-manuscript inputs

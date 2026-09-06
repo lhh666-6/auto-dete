@@ -18,7 +18,7 @@ provides or confirms them.
       personal data collection, or animal subjects.
 - [ ] Acknowledgments will be added later; the section is omitted from the current manuscript.
 - [x] Complete R21 package deposited and pinned at
-      `https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v4/r21-jss`.
+      `https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v5/r21-jss`.
       A Zenodo/OSF DOI can still be added later for archival persistence.
 - [ ] Whether the manuscript is to be anonymous at initial submission.
 - [x] Current factual generative-AI assistance disclosure retained for the sole author.

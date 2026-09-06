@@ -44,7 +44,7 @@ raw receipts, normalized paper inputs, and deterministic tables and figures.
 has been approved by all authors.]
 
 The complete reproducibility package is publicly available at
-https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v4/r21-jss. It includes
+https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v5/r21-jss. It includes
 the manuscript source and PDF, clean implementation and experiment code, formal
 models, all final run records, normalized inputs, and SHA-256 manifests.
 

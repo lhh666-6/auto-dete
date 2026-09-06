@@ -103,7 +103,7 @@ Correspondence: zwu691403@gmail.com
 ## Version
 
 This C2-closure and semantic-audit clarification package is pinned by Git tag
-`r21-jss-2026-09-06-v4`.
+`r21-jss-2026-09-06-v5`.
 
 ## License
 
