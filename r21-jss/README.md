@@ -10,9 +10,13 @@ and conformance tests, performance experiments, repeated live-agent benchmark,
 raw run records, normalized paper inputs, semantic acknowledgment audit,
 manuscript source, final PDF, and integrity manifests used by the paper.
 
+## Current version
+
+Pinned revision: `r21-jss-2026-09-06-v6`. C1–C2 contain the core contract and conditional characterization; C3–C4 supply realization and evaluation evidence. The witness correction derives commit effects from connected snapshots and resolves local field sources. Frozen experimental records are retained. See `paper/AUTHOR_INPUT_NEEDED.md` for author/portal confirmations; independent human annotation is still optional and uncompleted.
+
 ## Start here
 
-- `paper/main-r21-submission-ready-2026-09-06.pdf`: compiled 58-page manuscript with the derived C2 witness construction.
+- `paper/main-r21-submission-coherent-2026-09-06.pdf`: compiled 59-page manuscript with synchronized contributions, highlights, and corrected commit/source witnesses.
 - `source/implementation/`: Python/SQLite implementation and regression suite.
 - `source/formal/`: Alloy models, batch command manifest, and executable C2 witnesses.
 - `source/agent-authority-benchmark/`: repeated live-agent benchmark code.
@@ -52,7 +56,7 @@ python scripts/build_r21_inputs.py verify
 python source/formal/observation_witnesses.py `
   --json evidence/formal/observation-witness-report.json
 python scripts/build_r21_manifest.py verify `
-  --paper-pdf paper/main-r21-submission-ready-2026-09-06.pdf --paper-pages 58
+  --paper-pdf paper/main-r21-submission-coherent-2026-09-06.pdf --paper-pages 59
 python scripts/verify_package_manifest.py
 python source/dsh-plugin-auto-decte/experiment/verify_receipt.py verify `
   evidence/reproduced/r19-dsh-2026-08-27-final

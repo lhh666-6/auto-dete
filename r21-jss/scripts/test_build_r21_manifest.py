@@ -6,6 +6,23 @@ from pathlib import Path
 import build_r21_manifest as manifest
 
 
+def test_manifest_excludes_local_package_metadata(tmp_path: Path) -> None:
+    metadata = tmp_path / "source" / "demo.egg-info" / "PKG-INFO"
+    metadata.parent.mkdir(parents=True)
+    metadata.write_text("local installation metadata", encoding="utf-8")
+    assert manifest.build(tmp_path)["files"] == []
+
+
+def test_manifest_excludes_runner_caches_but_keeps_evidence(tmp_path: Path) -> None:
+    for relative in ["runner-state/hypothesis/constants/cache", "runner-state/mypy/cache.db",
+                     "runner-state/receipts/result.json", "hypothesis/evidence.json"]:
+        path = tmp_path / "evidence" / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("retained", encoding="utf-8")
+    assert {item["path"] for item in manifest.build(tmp_path)["files"]} == {
+        "evidence/runner-state/receipts/result.json", "evidence/hypothesis/evidence.json"}
+
+
 def test_verify_rejects_exact_one_byte_change_and_extra_file(tmp_path: Path) -> None:
     (tmp_path / "payload.txt").write_bytes(b"locked\n")
     payload = manifest.build(tmp_path)

@@ -14,13 +14,13 @@ used by downstream software. We therefore study the architecture, verification, 
 the admission boundary itself: which persisted candidate was authorized, for which record context
 and version, which value became durable, and how that decision can be traced later.
 
-The paper identifies correction-aware authoritative-state admission as distinct from authorized
-mutation. It characterizes five observable information classes needed to distinguish candidate
-substitution, correction erasure, stale replay, partial successors, and source ambiguity. The
-transactional Python/SQLite realization binds a human authorization to the exact persisted
-candidate and an explicit authorized value, commits one complete multi-field successor atomically,
-and preserves both the machine proposal and exact per-field source history when the reviewer
-authorizes a different value.
+The central contribution is a correction-aware admission contract jointly relating an exact
+persisted proposal, a human-authorized value, and an atomic record successor with complete
+field-source attribution. Under the declared observation model, paired histories identify
+information needed to distinguish candidate substitution, false value attribution, stale replay,
+fragmented commits, and missing sources. Equal final values can conceal these authority and
+history differences. The implementation and evaluation establish how the contract is realized
+and checked in the studied system.
 
 The validation connects several evidence layers to this same authoritative-state relation. Bounded
 Alloy analysis exercises legal, ablated, and attack states; a separate projection checks selected
@@ -28,25 +28,26 @@ persisted executions; an independent catalogue covers declared implementation fa
 stateful, concurrency, lifecycle, harness, and repeated live-agent experiments test the implemented
 capability boundary. The Final live-agent matrix covers three qualified model configurations,
 three prompt variants, fourteen scenarios, and 1,260 planned executions. Benign task completion
-was 320/335, while no unauthorized authoritative mutation occurred in 899 evaluable challenges
-(one-sided 95% upper bound 0.33%); 93 runtime failures remain separately reported. A
+was 320/335 behavior-evaluable runs, while no unauthorized authoritative mutation occurred across
+720 fixed host-constructed invalid-tuple admission calls and 179 capability-unavailable checks;
+93 runtime failures remain separately reported. A
 persistence-equivalent comparator confirms matching relational post-states, while form-scoped
 trace loading reduces the measured database-query shape without changing the tested trace results.
 
 This contribution aligns directly with JSS topics in Software Engineering for AI systems and in
 methods and tools for software architecture, verification and validation, and testing. Its focus is
-software architecture and evidence for admission integrity in AI-assisted record systems—not a
-claim of general AI safety, model accuracy, or prompt-injection security. The manuscript also
+software architecture and evidence for admission integrity in AI-assisted record systems. The manuscript also
 provides a documented artifact structure linking source, formal models, experiment configuration,
 raw receipts, normalized paper inputs, and deterministic tables and figures.
 
 [AUTHOR INPUT NEEDED: confirm that the manuscript is original, is not under review elsewhere, and
 has been approved by all authors.]
 
-The complete reproducibility package is publicly available at
-https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v5/r21-jss. It includes
-the manuscript source and PDF, clean implementation and experiment code, formal
-models, all final run records, normalized inputs, and SHA-256 manifests.
+The complete current reproducibility package is publicly available at
+https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v6/r21-jss. It includes the revised
+manuscript and observation witnesses, implementation and experiment code, frozen run records,
+normalized inputs, and package/revision SHA-256 manifests. Frozen-record inspection does not
+require repeating paid hosted-model calls.
 
 The author declares no competing interests and no external funding. The manuscript
 contains the final factual disclosure of generative-AI assistance.

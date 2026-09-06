@@ -17,11 +17,85 @@ from observation_witnesses import (  # noqa: E402
     observe,
     paired_histories,
     project,
+    SourceAnchor,
+    SourceTransition,
+    CommitStep,
+    FieldValue,
     validate_history_domain,
 )
 
 
 class ObservationWitnessTests(unittest.TestCase):
+    def test_effect_domain_matches_actual_changes(self) -> None:
+        for safe, unsafe in paired_histories().values():
+            for history in (safe, unsafe):
+                before = {v.field_id: v.value for v in history.predecessor_values}
+                after = {v.field_id: v.value for v in history.successor_values}
+                self.assertEqual(history.committed_fields,
+                                 frozenset(f for f in before if before[f] != after[f]))
+
+    def test_unresolvable_source_is_not_a_complete_trace(self) -> None:
+        safe, _ = paired_histories()["D_S"]
+        changed = replace(safe, sources=(SourceAnchor("score", "missing-transition"),))
+        self.assertEqual(validate_history_domain(changed), ())
+        self.assertEqual(normative_outcome(changed)[0], "inadmissible")
+        self.assertEqual(normative_outcome(changed)[2], "incomplete-trace")
+
+    def test_batch_fragmentation_has_connected_real_intermediate_state(self) -> None:
+        safe, unsafe = paired_histories()["D_B"]
+        self.assertEqual(safe.successor_count, 1)
+        self.assertEqual(unsafe.successor_count, 2)
+        self.assertEqual(unsafe.commits[0].after, unsafe.commits[1].before)
+        self.assertEqual(unsafe.commits[0].changed_fields, frozenset({"score"}))
+        self.assertEqual(unsafe.commits[1].changed_fields, frozenset({"status"}))
+        self.assertEqual(normative_outcome(unsafe),
+                         ("inadmissible", "fragmented-successor", "complete-trace"))
+        stored = {f.name for f in fields(History)}
+        self.assertNotIn("committed_fields", stored)
+        self.assertNotIn("successor_count", stored)
+
+    def test_disconnected_commit_sequence_is_rejected(self) -> None:
+        _, unsafe = paired_histories()["D_B"]
+        broken = replace(unsafe.commits[1], before=unsafe.predecessor_values)
+        self.assertIn("disconnected commit sequence",
+                      validate_history_domain(replace(unsafe, commits=(unsafe.commits[0], broken))))
+
+    def test_source_wrong_value_wrong_field_and_ambiguity_are_rejected(self) -> None:
+        safe, _ = paired_histories()["D_B"]
+        original = safe.source_transitions[-1]
+        variants = (
+            safe.source_transitions[:-1] + (replace(original, value=999),),
+            safe.source_transitions[:-1] + (replace(original, field_id="score"),),
+            safe.source_transitions + (original,),
+        )
+        for transitions in variants:
+            changed = replace(safe, source_transitions=transitions)
+            self.assertEqual(validate_history_domain(changed), ())
+            self.assertEqual(normative_outcome(changed)[2], "incomplete-trace")
+
+    def test_unchanged_field_requires_exact_source_copy_forward(self) -> None:
+        safe, _ = paired_histories()["D_B"]
+        before = (FieldValue("score", 90), FieldValue("status", 50))
+        same_source = replace(
+            safe, predecessor_values=before,
+            commits=(CommitStep("successor-1", before, safe.successor_values),),
+            predecessor_sources=(SourceAnchor("score", "prior-score"),
+                                 SourceAnchor("status", "transition-status")))
+        self.assertEqual(validate_history_domain(same_source), ())
+        self.assertEqual(normative_outcome(same_source)[2], "complete-trace")
+        changed_source = replace(
+            same_source,
+            sources=(SourceAnchor("score", "transition-score"),
+                     SourceAnchor("status", "replacement-status")),
+            source_transitions=same_source.source_transitions +
+                              (SourceTransition("replacement-status", "status", 50),))
+        self.assertEqual(normative_outcome(changed_source)[2], "incomplete-trace")
+
+    def test_context_observation_includes_actual_target(self) -> None:
+        safe, _ = paired_histories()["D_C"]
+        wrong_target = replace(safe, target_record_id="record-B")
+        self.assertNotEqual(observe(safe, "D_C"), observe(wrong_target, "D_C"))
+
     def test_observations_and_outcomes_are_derived_not_stored(self) -> None:
         stored_fields = {field.name for field in fields(History)}
         self.assertNotIn("observations", stored_fields)

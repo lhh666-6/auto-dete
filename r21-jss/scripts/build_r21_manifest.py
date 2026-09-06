@@ -58,6 +58,12 @@ def selected_files(root: Path = ROOT) -> list[Path]:
         portable = relative.as_posix()
         if EXCLUDED_PARTS.intersection(relative.parts):
             continue
+        if any(part.endswith(".egg-info") for part in relative.parts):
+            continue
+        if any(relative.parts[i:i + 2] in {
+            ("runner-state", "hypothesis"), ("runner-state", "mypy")
+        } for i in range(len(relative.parts) - 1)):
+            continue
         if path.name in EXCLUDED_NAMES or "visual-check-" in portable:
             continue
         if portable.startswith(EXCLUDED_PREFIXES):

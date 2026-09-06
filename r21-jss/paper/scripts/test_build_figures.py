@@ -167,17 +167,19 @@ class FigureDataTests(unittest.TestCase):
 
             cost = (output_root / "generated/cost-characterization.svg").read_text(encoding="utf-8")
             for title in (
-                "Absolute admission latency",
-                "Paired incremental latency",
-                "Reverse-trace latency",
-                "Storage scaling",
+                "Equivalent admission comparison",
+                "Paired full-minus-materialization gap",
+                "Optimized reverse-trace latency",
+                "Trace comparison: all 36 cells",
             ):
                 self.assertIn(title, cost)
 
             behavior = (output_root / "generated/behavior-vs-authority.svg").read_text(encoding="utf-8")
             self.assertIn("Behavioral variation", behavior)
-            self.assertIn("Authority outcome", behavior)
-            self.assertIn("0/899", behavior)
+            self.assertIn("Host-operation outcomes", behavior)
+            self.assertIn("0/720", behavior)
+            self.assertIn("0/179", behavior)
+            self.assertNotIn("zero-event upper bound", behavior)
 
 
 if __name__ == "__main__":

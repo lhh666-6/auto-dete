@@ -1,3 +1,9 @@
+# Current manuscript: submission-coherence revision (2026-09-06)
+
+The current PDF is `main-r21-submission-coherent-2026-09-06.pdf`. Earlier named PDFs are historical snapshots. The latest package is pinned at https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v6/r21-jss.
+
+C1–C2 state the core contract and conditional information requirements; C3–C4 provide realization and evaluation evidence. Highlights, cover letter, availability statements, and the author-input checklist are synchronized. The formal witness correction is included; experimental observations and Figure 1 are unchanged.
+
 # JSS manuscript
 
 This is the evidence-locked Journal of Systems and Software manuscript for the
@@ -75,7 +81,7 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 Run it from this directory. On the current Windows/MiKTeX host, `latexmk`
 cannot start because Perl is absent; the equivalent `pdflatex → bibtex →
-pdflatex → pdflatex` chain is recorded in the R21 verification summary and
+pdflatex → pdflatex` chain (repeat until cross-references stabilize) is recorded in the R21 verification summary and
 pre-submission report.
 
 The recorded Windows build uses MiKTeX/pdfTeX with `elsarticle`, `natbib`,
@@ -97,8 +103,4 @@ alongside it. The independently constructed pure-vector version under
 
 ## Submission-administration status
 
-The manuscript source contains no author-input placeholders. Confirmed author,
-affiliation, correspondence, funding, conflict, ethics, AI-use, and repository
-statements are recorded. `AUTHOR_INPUT_NEEDED.md` now lists only remaining
-journal-portal or cover-letter confirmations and the author's optional future
-acknowledgments.
+The manuscript retains the recorded author and declarations. `AUTHOR_INPUT_NEEDED.md` distinguishes author/portal confirmations from optional independent annotation. `COVER_LETTER.md` deliberately retains the submission-date and originality/approval fields for the author to complete. These fields must not be filled using inferred metadata.

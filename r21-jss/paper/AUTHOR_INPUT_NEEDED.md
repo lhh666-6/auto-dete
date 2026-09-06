@@ -1,30 +1,26 @@
-# Author input needed before submission
+# Submission status and author input
 
-The scientific draft can be compiled and audited without these items, but the
-submission cannot be represented as complete until the corresponding author
-provides or confirms them.
+## Recorded manuscript information
 
-- [x] Core author name: Liang Hanghao.
-- [x] Sole author confirmed: Liang Hanghao.
-- [x] Core affiliation: College of Computer Science and Electronic Engineering,
-      Hunan University, Changsha, China; author status: undergraduate student.
-- [ ] Confirm whether the submission requires a full postal address and postcode.
-- [x] Corresponding-author email: `zwu691403@gmail.com`.
-- [x] CRediT roles recorded for the sole author.
-- [x] No external funding.
-- [x] No competing interests declared.
-- [x] Ethics approval and consent are not applicable because the study uses only
-      synthetic/public lifecycle inputs and involves no human participants,
-      personal data collection, or animal subjects.
-- [ ] Acknowledgments will be added later; the section is omitted from the current manuscript.
-- [x] Complete R21 package deposited and pinned at
-      `https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v5/r21-jss`.
-      A Zenodo/OSF DOI can still be added later for archival persistence.
-- [ ] Whether the manuscript is to be anonymous at initial submission.
-- [x] Current factual generative-AI assistance disclosure retained for the sole author.
-- [ ] Confirmation that the independently constructed vector figures, not the
-      internal AI concept, are the only figures submitted.
-- [ ] Approval of the final title, highlights, keywords, cover letter, and
-      suggested reviewers.
+- Author and corresponding author: Liang Hanghao.
+- Affiliation: College of Computer Science and Electronic Engineering, Hunan University, Changsha, China.
+- Corresponding email: zwu691403@gmail.com.
+- The current source retains the previously recorded sole-author CRediT, funding, conflict, ethics, and AI-assistance statements. No new coauthor or approval has been inferred.
+- Current package target: https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v6/r21-jss.
+- Figure 1 remains the author-approved Canva export; Figures 2–4 use the existing independently generated publication assets. The internal AI concept is not a manuscript figure.
 
-Do not replace these items with plausible metadata.
+## Required author/portal inputs
+
+- [ ] Submission date.
+- [ ] Confirm originality, no concurrent submission, and approval of the final manuscript by every listed author.
+- [ ] Provide any changes to the recorded author list, order, corresponding author, or CRediT based on actual contributions and consent.
+- [ ] Supply postal address/postcode if required by the submission system.
+- [ ] Check the portal's current anonymity and file-format requirements; supply reviewer suggestions only if requested.
+
+## Optional scientific enhancement
+
+- A second independent human annotator has not been obtained. The manuscript retains its explicit single-rubric, deterministic coding limitation.
+- No new deployment study or head-to-head empirical comparison has been claimed.
+- Acknowledgments and a persistent archival DOI can be added if available; neither has been invented.
+
+This checklist is separate from technical compilation and artifact verification. It does not assert that the submission has been sent or accepted.

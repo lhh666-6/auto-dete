@@ -3,7 +3,7 @@
 # | admission-workflow | Author-approved Canva composition matches the locked contract | Reconstruct the approved composition as one-tool vector artwork from verified text semantics; embed no raster payload |
 # | evidence-chain | No evidence-layer schematic template is available | Build one-tool vector schematic from frozen lineage semantics |
 # | cost-characterization | LineTrend/heatmap are only pattern-level references; neither matches the 10/36/3 mixed grid | Param inherit; plot every frozen cell in four non-redundant panels |
-# | behavior-vs-authority | BarComparison is only a spacing/marker reference and is semantically incompatible with proportions and zero-event bounds | Param inherit; grouped dots plus upper-bound lollipops |
+# | behavior-vs-authority | BarComparison is only a spacing/marker reference and is semantically incompatible with proportions and zero-event bounds | Param inherit; grouped dots plus separate host-operation counts |
 # Neither the internal AI raster nor the Canva preview is an input to this script.
 
 # Academic Figure Skill Typography Baseline — COPY VERBATIM, place at TOP of script
@@ -565,7 +565,7 @@ def build_evidence_chain(stem: Path) -> None:
          "frozen config-specific measurements",
          CATEGORICAL[2], "#F4F8F4"),
         (0.805, 0.330, 0.180, 0.405, "Repeated live-agent\nevidence",
-         "1,260 planned runs\n\n0/899 unauthorized\nauthoritative mutations\n\nbehavior varies;\nauthority remains\nadmission-governed",
+         "1,260 planned runs\n\n0/720 admission calls\n0/179 capability checks\nunauthorized mutations\n\nhost-governed admission",
          "320/335 benign completion\nRuntime reliability: 93 failures\nreported separately",
          CATEGORICAL_EXTENDED[9], LIGHT_ORANGE),
     ]
@@ -684,17 +684,19 @@ def _parse_fraction(value: str) -> tuple[int, int]:
 
 
 def build_behavior_authority(data: dict[str, Any], stem: Path) -> None:
-    """Contrast descriptive agent behavior with zero-event authority outcomes."""
+    """Contrast descriptive agent behavior with two observed host operations."""
+    from figure_narrative_data import authority_operation_counts
+    operations = authority_operation_counts()
     stats = validate_agent_statistics(data)
     behavior_rows = {
         row["model_config_id"]: row for row in data["agent_behavior"]
     }
     configurations = data["primary"]["per_configuration"]
 
-    fig = plt.figure(figsize=(183 * MM_TO_INCH, 86 * MM_TO_INCH))
+    fig = plt.figure(figsize=(183 * MM_TO_INCH, 96 * MM_TO_INCH))
     grid = fig.add_gridspec(
-        1, 2, width_ratios=[1.48, 0.92],
-        left=0.105, right=0.985, top=0.84, bottom=0.24, wspace=0.44,
+        1, 2, width_ratios=[1.35, 1.10],
+        left=0.105, right=0.985, top=0.84, bottom=0.24, wspace=0.30,
     )
     ax_behavior = fig.add_subplot(grid[0, 0])
     ax_authority = fig.add_subplot(grid[0, 1])
@@ -751,43 +753,27 @@ def build_behavior_authority(data: dict[str, Any], stem: Path) -> None:
         fontsize=6.0, color=DARK_GREY,
     )
 
-    authority_labels = ["D1", "G1", "G2", "Pooled"]
-    authority_y = np.arange(len(authority_labels))[::-1]
-    denominators = {
-        model_id: configurations[model_id]["unauthorized_authoritative_mutation"]["denominator"]
-        for model_id in model_styles
-    }
-    denominators["Pooled"] = stats["unauthorized_mutation"][1]
-    upper_bounds = {
-        **stats["zero_event_upper"],
-        "Pooled": stats["pooled_zero_event_upper"],
-    }
-    for y_value, label in zip(authority_y, authority_labels, strict=True):
-        if label == "Pooled":
-            color, marker = BLACK, "D"
-        else:
-            color, marker, _ = model_styles[label]
-        upper_percent = 100 * upper_bounds[label]
-        ax_authority.hlines(y_value, 0, upper_percent, color=color, linewidth=1.2)
-        ax_authority.scatter(
-            [upper_percent], [y_value], color=color, marker=marker,
-            s=25, edgecolor="white", linewidth=0.35, zorder=3,
-        )
-        ax_authority.annotate(
-            f"0/{denominators[label]}", (upper_percent, y_value), xytext=(5, 0),
-            textcoords="offset points", ha="left", va="center", fontsize=5.6,
-        )
-    ax_authority.set_yticks(authority_y, authority_labels)
-    ax_authority.set_xlim(0, 1.12)
-    ax_authority.set_xticks([0, 0.25, 0.50, 0.75, 1.00])
-    ax_authority.set_xlabel("One-sided 95% zero-event upper bound (%)")
-    ax_authority.set_title("b  Authority outcome", loc="left", fontweight="bold")
-    ax_authority.axvline(0, color=BLACK, linewidth=0.55)
-    ax_authority.text(
-        0.0, -0.22, "Observed unauthorized mutation: 0/899",
-        transform=ax_authority.transAxes, ha="left", va="top",
-        fontsize=6.0, color=DARK_GREY,
-    )
+    ax_authority.set_axis_off()
+    ax_authority.set_title("b  Host-operation outcomes", loc="left", fontweight="bold")
+    for bottom, name, heading, detail, color, fill in (
+        (0.52, "admission_calls", "Fixed invalid-tuple admission calls",
+         "A2-A9: admission invoked", CATEGORICAL[0], LIGHT_BLUE),
+        (0.02, "capability_checks", "Capability-unavailable checks",
+         "A1/A10: no admission call", CATEGORICAL[2], LIGHT_GREEN),
+    ):
+        group = operations[name]
+        ax_authority.add_patch(FancyBboxPatch((0.01, bottom), 0.98, 0.43,
+            boxstyle="round,pad=0.008", transform=ax_authority.transAxes,
+            facecolor=fill, edgecolor="none"))
+        ax_authority.text(0.06, bottom + 0.35, heading, transform=ax_authority.transAxes,
+            fontsize=6.6, fontweight="bold", color=color)
+        ax_authority.text(0.06, bottom + 0.21,
+            f"{group['violations']}/{group['count']}", transform=ax_authority.transAxes,
+            fontsize=17, fontweight="bold", color=color)
+        ax_authority.text(0.06, bottom + 0.12, "unauthorized mutations / checks",
+            transform=ax_authority.transAxes, fontsize=6.4, color=BLACK)
+        ax_authority.text(0.06, bottom + 0.04, detail, transform=ax_authority.transAxes,
+            fontsize=6.2, color=DARK_GREY)
 
     fig.text(
         0.50, 0.035,
@@ -801,14 +787,14 @@ def build_behavior_authority(data: dict[str, Any], stem: Path) -> None:
         title="Behavioral variation with authority invariance",
         description=(
             "Panel a shows exact count-over-evaluable-denominator behavior rates for three "
-            "qualified configurations. Panel b shows one-sided 95 percent zero-event upper "
-            "bounds after zero unauthorized authoritative mutations in 899 evaluable challenges. "
+            "qualified configurations. Panel b separately shows 720 fixed invalid-tuple admission "
+            "calls and 179 capability-unavailable checks, each with zero unauthorized mutations. "
             "Ninety-three runtime failures are reported separately."
         ),
     )
 
 
-def build_cost_characterization(data: dict[str, Any], stem: Path) -> None:
+def build_historical_cost_characterization(data: dict[str, Any], stem: Path) -> None:
     """Plot every frozen admission, trace, and storage cell."""
     admission = sorted(data["admission"], key=lambda row: (row["fields"], row["changed"]))
     trace = data["trace"]
@@ -988,11 +974,90 @@ def build_cost_characterization(data: dict[str, Any], stem: Path) -> None:
     )
 
 
+def build_cost_characterization(data: dict[str, Any], stem: Path) -> None:
+    """Plot all frozen equivalent-admission and optimized-trace cells."""
+    from figure_narrative_data import load_cost_extensions
+
+    feature, optimized = load_cost_extensions()
+    admission = sorted(feature["results"], key=lambda r: (r["fields"], r["changed"]))
+    trace = optimized["results"]
+    fig, axes = plt.subplots(2, 2, figsize=(183 * MM_TO_INCH, 142 * MM_TO_INCH))
+    fig.subplots_adjust(left=0.10, right=0.98, top=0.93, bottom=0.22, hspace=0.80, wspace=0.40)
+    aa, ab, ac, ad = axes.flat
+    x = np.arange(len(admission))
+    labels = [f"{r['fields']}/{r['changed']}" for r in admission]
+    aa.plot(x, [r["full_p50_ms"] for r in admission], color=CATEGORICAL[0], marker="o",
+            markersize=3, linewidth=1, label="Full admission")
+    aa.plot(x, [r["materialization_p50_ms"] for r in admission], color=CATEGORICAL[2],
+            marker="s", markersize=3, linewidth=1, label="Equivalent materialization")
+    aa.set_title("a  Equivalent admission comparison", loc="left", fontweight="bold", fontsize=7.4)
+    aa.set_ylabel("Median latency (ms)")
+    aa.set_ylim(0, 215)
+    aa.legend(loc="upper left", fontsize=6.2)
+    ab.bar(x, [r["paired_mean_validation_and_planning_delta_ms"] for r in admission],
+           color=CATEGORICAL[0], width=0.58)
+    ab.set_title("b  Paired full-minus-materialization gap", loc="left", fontweight="bold", fontsize=7.4)
+    ab.set_ylabel("Paired mean difference (ms)")
+    ab.set_ylim(0, 205)
+    ab.text(0.02, 0.94, "Validation/planning + path differences",
+            transform=ab.transAxes, va="top", fontsize=6.0, color=DARK_GREY)
+    for ax in (aa, ab):
+        ax.set_xticks(x, labels, rotation=42, ha="right")
+        ax.set_xlabel("Total/changed fields")
+        ax.grid(axis="y", color="#e5e5e5", linewidth=0.45)
+        ax.set_axisbelow(True)
+
+    fields = [1, 8, 32, 128]
+    combinations = [(v, r) for v in (1, 10, 100) for r in (1, 100, 1000)]
+    lookup = {(r["fields"], r["versions"], r["records"]): r for r in trace}
+    matrix = np.array([[lookup[(f, v, r)]["current_p50_ms"] for v, r in combinations] for f in fields])
+    cmap = LinearSegmentedColormap.from_list("optimized-trace", SEQUENTIAL)
+    ac.pcolormesh(np.arange(10), np.arange(5), matrix, cmap=cmap,
+                  vmin=0, vmax=55, edgecolors="white", linewidth=0.5)
+    ac.set_ylim(4, 0)
+    ac.set_yticks(np.arange(4) + 0.5, [str(f) for f in fields])
+    ac.set_xticks(np.arange(9) + 0.5, [f"{v}/{r}" for v, r in combinations], rotation=42, ha="right")
+    ac.set_xlabel("Versions/records")
+    ac.set_ylabel("Fields")
+    ac.set_title("c  Optimized reverse-trace latency", loc="left", fontweight="bold", fontsize=7.4, pad=22)
+    for i in range(4):
+        for j in range(9):
+            ac.text(j + 0.5, i + 0.5, f"{matrix[i,j]:.1f}", ha="center", va="center",
+                    fontsize=5.5, color="white" if matrix[i,j] > 30 else BLACK)
+    ac.text(0, 1.04, "p50 ms; 12 SQL statements per observation",
+            transform=ac.transAxes, fontsize=6, color=DARK_GREY)
+    for f, color, marker in zip(fields, CATEGORICAL[:4], ("o", "s", "^", "D"), strict=True):
+        cells = [r for r in trace if r["fields"] == f]
+        ad.scatter([r["baseline_p50_ms"] for r in cells], [r["current_p50_ms"] for r in cells],
+                   s=20, color=color, marker=marker, label=f"{f} field" + ("s" if f != 1 else ""), edgecolors="white", linewidth=0.3)
+    ad.plot([3, 10000], [3, 10000], linestyle=":", color=GREY, linewidth=0.9)
+    ad.set_xscale("log")
+    ad.set_yscale("log")
+    ad.set_xlim(3, 10000)
+    ad.set_ylim(3, 10000)
+    ad.set_xticks([10, 100, 1000, 10000], ["10", "100", "1,000", "10,000"])
+    ad.set_yticks([10, 100, 1000, 10000], ["10", "100", "1,000", "10,000"])
+    ad.set_xlabel("Historical p50 (ms; log scale)")
+    ad.set_ylabel("Optimized p50 (ms; log scale)")
+    ad.set_title("d  Trace comparison: all 36 cells", loc="left", fontweight="bold", fontsize=7.4)
+    ad.legend(loc="upper left", fontsize=5.8, ncol=2, handletextpad=0.3, columnspacing=0.6)
+    ad.text(0.99, 0.06, "dotted line: equal latency", transform=ad.transAxes,
+            ha="right", fontsize=5.8, color=DARK_GREY)
+    fig.text(0.5, 0.015, "Frozen grid: 2,000 admission pairs; 7,200 observations per trace execution.\n"
+             "Trace arms were recorded in separate executions; every frozen cell is shown.",
+             ha="center", va="bottom", fontsize=6.2, color=DARK_GREY)
+    _save_submission_figure(fig, stem, title="Equivalent admission and optimized reverse trace",
+        description="All ten persistence-equivalent admission cells and all 36 optimized trace cells, "
+        "with paired admission differences and historical trace comparison. No new experiment was run.")
+
+
 def build_all_figures(
     cost_input: Path,
     agent_stats_input: Path,
     output_root: Path,
 ) -> dict[str, Any]:
+    from figure_narrative_data import FEATURE_INPUT, TRACE_INPUT, RUNS_INPUT, authority_operation_counts
+
     cost_input = Path(cost_input).resolve()
     agent_stats_input = Path(agent_stats_input).resolve()
     output_root = Path(output_root).resolve()
@@ -1001,7 +1066,9 @@ def build_all_figures(
     stats = validate_cost_summary(data)
     agent_stats = validate_agent_statistics(agent_data)
 
-    build_admission_workflow(output_root / "vector" / "admission-workflow")
+    workflow = output_root / "vector" / "admission-workflow"
+    if not all(workflow.with_suffix(suffix).exists() for suffix in (".pdf", ".svg", ".png")):
+        build_admission_workflow(workflow)
     build_evidence_chain(output_root / "vector" / "evidence-chain")
     build_cost_characterization(data, output_root / "generated" / "cost-characterization")
     build_behavior_authority(
@@ -1020,13 +1087,20 @@ def build_all_figures(
         for suffix in ("svg", "pdf", "png")
     ]
     manifest = {
-        "schema": "auto-decte-jss-figure-build-v2",
+        "schema": "auto-decte-jss-figure-build-v3",
         "generator": "paper/scripts/build_figures.py",
         "source": str(cost_input),
         "source_sha256": _sha256(cost_input),
         "agent_stats_source": str(agent_stats_input),
         "agent_stats_source_sha256": _sha256(agent_stats_input),
         "data_stats": {**stats, "agent": agent_stats},
+        "narrative_inputs": {
+            str(path.relative_to(Path(__file__).resolve().parents[2])): _sha256(path)
+            for path in (FEATURE_INPUT, TRACE_INPUT, RUNS_INPUT)
+        },
+        "authority_operations": authority_operation_counts(),
+        "generator_sha256": _sha256(Path(__file__)),
+        "data_helper_sha256": _sha256(Path(__file__).with_name("figure_narrative_data.py")),
         "outputs": outputs,
         "output_sha256": {
             relative: _sha256(output_root / relative) for relative in outputs

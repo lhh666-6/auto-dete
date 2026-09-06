@@ -25,13 +25,13 @@ Class & Safe/unsafe witness & Alloy support & Concrete support \\
 $D_C$ & exact candidate / equal-valued contextual substitute & field, evidence-identity, evidence-owner, record, authorization-certificate, certificate-preexistence, and evidence-preexistence ablations & record, field, evidence, and certificate substitution cases \\
 $D_V$ & retained Correction / wrong attribution of the same final value & legal Correction witnesses and authorization-value ablation & singleton, all-field, and mixed Correction lifecycles with immutable candidate checks \\
 $D_F$ & current / superseded authorization & certificate-version and freshness ablations; stale-rejection assertions & stale replay, contending confirmation, and compare-and-swap rejection \\
-$D_B$ & complete / partial successor & transition-bijection ablation and whole-batch framing assertions & exact changed-field validation, failpoints, rollback, and concurrency cases \\
+$D_B$ & atomic / partial or fragmented successor & transition-bijection ablation and whole-batch framing assertions & exact changed-field validation, failpoints, rollback, and concurrency cases \\
 $D_S$ & complete / missing, replaced, or duplicate source & source-anchor attack witnesses and P6 trace assertions & source-corruption catalogue and reverse-trace validation \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Each ablation pair contains at least two items: one violates only the selected conjunct and another remains Full-valid. The same attempted item set is admitted by the reduced relation and rejected with authoritative-state stutter by Full. In the observation terminology, the witness shows that removing one encoded component of $D_i$ allows histories with different intended outcomes to pass through the same reduced admission relation. It does not prove universal information minimality.
+Each ablation pair contains at least two items: one violates only the selected conjunct and another remains Full-valid. The same attempted item set is admitted by the reduced relation and rejected with authoritative-state stutter by Full. This tests the sensitivity of the selected relational conjunct. The observation-level irredundancy argument is the separate paired-history construction in \cref{sec:contract}.
 
 \subsection{Legal, unsafe, and preservation commands}
 
@@ -39,7 +39,7 @@ Six legal-witness commands exercise multi-field Accept, Correction, mixed Accept
 
 Three source-attack commands start from a legal Full prefix and then remove a source anchor, replace it with another transition atom, or add a duplicate source-version transition; each requires the trace to become incomplete. Thirteen assertions per scope cover invariant preservation, P0/P1/P3/P4/P5 regressions, whole-batch effect and rejection framing, bidirectional singleton correspondence, Full rejection of an ablated attempt, and P6 incompleteness.
 
-This command set supports two bounded claims. First, the full encoded basis separates the declared legal and unsafe histories within each scope: requested legal and attack witnesses are reachable, while preservation assertions expose no counterexample. Second, each selected conjunct is sensitive to a paired malformed history that Full rejects. The first is sufficiency-like; the second is irredundancy-like. Neither is unbounded or representation-unique.
+This command set checks reachability and preservation within each scope: the Analyzer searches for the requested legal and attack witnesses and for counterexamples to the preservation assertions. The conjunct-removal commands separately test whether each selected constraint rejects a malformed history that becomes admissible when that constraint is removed.
 
 \subsection{Scopes and interpretation}
 
