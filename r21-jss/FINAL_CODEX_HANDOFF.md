@@ -79,8 +79,8 @@ keys matched one-to-one with 53 bibliography entries. The current JSS manuscript
 boxes, and zero underfull boxes. Section float barriers keep every table near its first-use
 section instead of collecting tables after the references. Visual QA passed on the C2,
 workflow, evidence-chain, authority-dataflow, and RQ8 pages. The canonical reviewer PDF is
-`paper/main-r21-submission-ready-2026-09-06.pdf` (58 pages, 1,108,298 bytes); its final SHA-256 is
-`0983b11e17e4602913745a1da139676b985433547696be248320ecb01863e9da`.
+`paper/main-r21-submission-ready-2026-09-06.pdf` (58 pages, 1,113,375 bytes); its final SHA-256 is
+`f1bf55b1302608b48c1518dfbeda1b6817e1e28968f3647f8bb6c6b8a55e23be`.
 
 ## 9. Evidence and integrity identity
 
@@ -99,8 +99,8 @@ The standalone overlay includes source, formal, tools, runner, frozen evidence, 
 repository, locked live-agent `pyproject.toml`/`uv.lock`, and documented Windows/MiKTeX/
 Poppler prerequisites. Copied baseline directories were byte-identity checked against
 the prior locked release. The manuscript points to the immutable Git tag
-`r21-jss-2026-09-06-v3`, whose package manifest covers the deposited files after the
-submission-freeze update.
+`r21-jss-2026-09-06-v4`, whose package manifest covers the deposited files after the
+semantic-audit and mixed-batch clarification update.
 
 ## 11. Venue, figure, and author-controlled items
 

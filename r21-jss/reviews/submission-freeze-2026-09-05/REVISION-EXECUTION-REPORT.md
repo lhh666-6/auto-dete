@@ -35,6 +35,13 @@ and claim ledger. No additional hosted-model run was required.
 - Audited all 325 behavior-evaluable A2/A3/B4/A6 outputs under one documented rubric.
 - Context-mismatch acknowledgment changed from the lexical 72/174 to 117/174.
 - Stale-state acknowledgment changed from 151/151 to 150/151.
+- Clarified that one author specified the rubric and a deterministic script assigned all
+  row labels; no AI model or independent annotator assigned row-level labels. Model identity
+  and the old lexical label were withheld during assignment, while the endpoint-specific
+  rubric was necessarily fixed.
+- Reported that the context correction changes the descriptive configuration order from
+  D1--G1--G2 under the lexical counts to G1--G2--D1 under the audited counts, without treating
+  that order as a provider ranking.
 - Preserved assistant text, old/new labels, coding rule, run identity, and confusion matrices
   under `evidence/agent-authority-benchmark-v2/analysis/2026-09-05-recognition-semantic-audit/`.
 - Renamed manuscript endpoints from general recognition to explicit acknowledgment.
@@ -61,6 +68,10 @@ and claim ledger. No additional hosted-model run was required.
   before that check rejects, while an overlapping revocation after a successful check does
   not cancel the in-flight transaction. Stronger semantics require a policy epoch or
   equivalent discriminator inside the admission CAS.
+- Closed the mixed-batch boundary by distinguishing submitted decision items $U$ from the
+  admitted changed-item batch $B$: a nonempty changed subset is admitted, unchanged values
+  and exact sources are copied forward, and unchanged items create no transition or
+  authorization binding.
 
 ## Verification
 
@@ -75,8 +86,8 @@ and claim ledger. No additional hosted-model run was required.
 - Visual QA: inspected the nearest-neighbor, C2 definition/proposition, author-approved Canva
   workflow, evidence-chain, authority-dataflow, runtime/behavior, and authority-result pages.
 - Canonical PDF: `paper/main-r21-submission-ready-2026-09-06.pdf`.
-- PDF SHA-256: `0983b11e17e4602913745a1da139676b985433547696be248320ecb01863e9da`.
-- Revision manifest rebuilt and verified successfully for the 57-page PDF.
+- PDF SHA-256: `f1bf55b1302608b48c1518dfbeda1b6817e1e28968f3647f8bb6c6b8a55e23be`.
+- Revision manifest rebuilt and verified successfully for the 58-page PDF.
 
 ## Remaining non-manuscript inputs
 

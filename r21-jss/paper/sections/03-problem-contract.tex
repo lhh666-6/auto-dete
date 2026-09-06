@@ -188,7 +188,7 @@ f\notin\Delta(V_v,V_{v+1})\Rightarrow
 V_{v+1}(f)=V_v(f)\land S_{v+1}(f)=S_v(f).
 \label{eq:copy-forward}
 \end{equation}
-The Alloy relation permits same-value admission for correspondence with the historical singleton model. The concrete service rejects a post-initial batch with an empty changed-field set; accepted concrete events are therefore a strict value-changing subset of formal legal events. For a post-initial batch that mixes changed and unchanged declared items, the concrete planner neither rejects nor rewrites the batch: it admits exactly the changed subset, requires at least one changed field, copies each unchanged item's value and exact source forward, and records no transition or authorization binding for that unchanged item.
+The Alloy relation permits same-value admission for correspondence with the historical singleton model. The concrete service rejects a post-initial submission with an empty changed-field set; accepted concrete events are therefore a strict value-changing subset of formal legal events. More precisely, let $U$ denote the submitted decision items and let $B=\{i\in U\mid i.x\neq V_v(i.f)\}$ denote the admitted batch used in Eq.~\eqref{eq:changed-fields}. If $U$ mixes changed and unchanged items, the planner requires $B\neq\varnothing$, admits exactly $B$, and copies every field in $U\setminus B$ with its exact prior source into the complete successor. It neither rejects the mixed submission nor creates a transition or authorization binding for an unchanged item. Thus ``batch fields'' in Eq.~\eqref{eq:changed-fields} means admitted change effects, not every submitted review item.
 
 \subsection{Operational properties and trust boundary}
 
