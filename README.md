@@ -1,6 +1,6 @@
 # Current JSS manuscript and package
 
-The current JSS manuscript and complete reproducibility package are in [`r21-jss/`](r21-jss/README.md), pinned at `r21-jss-2026-09-07-v7`. Start with `r21-jss/paper/main-r21-readability-2026-09-07.pdf` (56 pages). Earlier root-level artifact descriptions below concern historical work and are retained for provenance.
+The current JSS manuscript and complete reproducibility package are in [`r21-jss/`](r21-jss/README.md), pinned at `r21-jss-2026-09-07-v8`. Start with `r21-jss/paper/main-r21-design-checklist-2026-09-07.pdf` (57 pages). Earlier root-level artifact descriptions below concern historical work and are retained for provenance.
 
 ---
 

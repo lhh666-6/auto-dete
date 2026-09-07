@@ -7,13 +7,13 @@ C1 makes the 90/100/101 history reconstructible: the candidate retains 100, the 
 
 \subsection{Design implications}
 
-For systems admitting human-corrected AI candidates, \cref{tab:distinctions} can guide inspection of five relations: does authorization identify the exact candidate and target; are proposed, authorized, and committed values separately recoverable; is the predecessor checked at admission; does one commit cover the declared batch; and does every successor field retain the required source? The paired histories explain why inspecting only final values cannot settle these questions.
+\Cref{tab:design-checklist} turns C1--C2 into an implementation inspection aid. For each class, map the required information to persisted objects, locate the enforcement point, and run a legal control and the corresponding failure probe. Record the expected outcome, actual outcome, and evidence location; mark an item untested until that evidence exists. The package provides a reusable worksheet in \code{docs/admission-design-checklist.md}.
 
-These questions concern preserved and checked information. A capability, content-addressed certificate, or database key can represent candidate identity; a version, digest, or epoch can represent freshness. A design using existing transaction and audit facilities can implement the relation if it records and enforces the specified bindings. Their names alone are insufficient: the bindings must be recoverable from persisted state and checked at admission.
+Candidate handles and freshness discriminators may use different representations. The checks concern the relations they preserve, not a required schema. For $D_B$, identify the admitted change set explicitly: the reference service copies unchanged submitted fields forward rather than admitting them as new transitions. For $D_S$, local field-source checks are distinct from full P6 authorization--candidate--evidence trace validation.
 
-Value changes and source evolution must be validated together: changed fields acquire their authorized transitions, while unchanged fields retain exact prior sources. The concrete conformance checks exercise both obligations.
+\input{tables/design_checklist}
 
-Expose proposal generation and fact admission as separate capabilities. The evaluated host checks preserve authority despite varying completion and acknowledgment outcomes. This provides a restricted-interface integration example; effects on real reviewers' audit and correction work still require deployment studies.
+The worksheet is a design aid derived from the declared model, not a validated cross-system assessment instrument or a sufficient correctness certificate. Principal policy, authentication assumptions, capability separation, and revocation timing still require separate review (\cref{sec:authorization-timing}). Effects on operational reviewers' correction and audit work remain a deployment question.
 
 \subsection{Formal and construct validity}
 
@@ -21,7 +21,7 @@ Alloy results are limited to the encoded scopes and selected mutations; the cond
 
 Projection covers nine intended instances and twenty mutants, subject to the concrete no-op and schema-uniqueness differences in \cref{sec:conformance}. Independent projection and database oracles reduce shared-code risk but cannot exclude defects shared with the runner, normalizer, model, or benchmark.
 
-Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment. 
+Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment.
 
 \subsection{Concrete and performance validity}
 
