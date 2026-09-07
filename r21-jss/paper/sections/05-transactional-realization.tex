@@ -11,7 +11,7 @@ The principal policy is a thread-safe, revocable in-memory mapping from identifi
 
 \subsection{Canonical evidence identity}
 
-At certificate construction, admission, and trace, the same function rebuilds the persisted locator as canonical JSON. It normalizes Unicode to NFC, converts path separators, rejects absolute, drive-prefixed, empty, dot, and traversal segments, percent-decodes then canonically re-encodes path components, and incorporates the form identifier, related field identifier, normalized URI, locator version, and optional crop. Admission independently reloads the evidence row and compares its owner, content hash, related-field/URI-derived locator, and the certificate fields. Thus copying a certificate's locator string into a transition is insufficient when the persisted evidence disagrees.
+Certificate construction, admission, and trace rebuild the persisted locator with one canonical JSON function. It applies NFC and path/URI normalization, rejects unsafe path segments, and binds the form, related field, URI, locator version, and optional crop. Admission reloads the evidence row and compares owner, content hash, and independently reconstructed locator against the certificate. A copied locator string therefore cannot conceal disagreement with persisted evidence. The artifact retains the exact normalization rules.
 
 \subsection{Admission transaction}
 

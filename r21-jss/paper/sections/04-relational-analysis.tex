@@ -35,11 +35,11 @@ Each ablation pair contains at least two items: one violates only the selected c
 
 \subsection{Legal, unsafe, and preservation commands}
 
-Six legal-witness commands exercise multi-field Accept, Correction, mixed Accept/Correction, same-value admission, initial snapshot, and singleton admission. Eleven paired ablation commands remove field binding, evidence-identity binding, evidence-owner binding, record binding, certificate-version binding, freshness, authorization-certificate binding, transition integrity/bijection, authorization-value binding, certificate preexistence, or evidence preexistence. Principal membership remains in every variant; the unused \code{ABL\_7} marker is excluded because host identity trust is an external assumption, not a mechanism whose removal we evaluate.
+Six legal-witness commands cover multi-field Accept, Correction, mixed Accept/Correction, same-value admission, initial snapshot, and singleton admission. Eleven paired ablations remove the conjuncts mapped in \cref{tab:distinction-evidence}. Principal membership remains fixed; the unused \code{ABL\_7} marker is excluded because host identity trust is an external assumption.
 
 Three source-attack commands start from a legal Full prefix and then remove a source anchor, replace it with another transition atom, or add a duplicate source-version transition; each requires the trace to become incomplete. Thirteen assertions per scope cover invariant preservation, P0/P1/P3/P4/P5 regressions, whole-batch effect and rejection framing, bidirectional singleton correspondence, Full rejection of an ablated attempt, and P6 incompleteness.
 
-This command set checks reachability and preservation within each scope: the Analyzer searches for the requested legal and attack witnesses and for counterexamples to the preservation assertions. The conjunct-removal commands separately test whether each selected constraint rejects a malformed history that becomes admissible when that constraint is removed.
+The command set tests legal and attack reachability, preservation, and sensitivity to individual conjunct removal within each scope.
 
 \subsection{Scopes and interpretation}
 

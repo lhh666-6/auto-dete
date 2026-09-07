@@ -6,8 +6,10 @@
 - Affiliation: College of Computer Science and Electronic Engineering, Hunan University, Changsha, China.
 - Corresponding email: zwu691403@gmail.com.
 - The current source retains the previously recorded sole-author CRediT, funding, conflict, ethics, and AI-assistance statements. No new coauthor or approval has been inferred.
-- Current package target: https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v6/r21-jss.
-- Figure 1 remains the author-approved Canva export; Figures 2–4 use the existing independently generated publication assets. The internal AI concept is not a manuscript figure.
+- Current package target: https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v7/r21-jss.
+- Figures 1 and 2 are vector redraws with Codex assistance, preserving the verified workflow and contribution definitions; Figures 3 and 4 retain the frozen quantitative assets.
+
+Author-list freeze is pending explicit confirmation. Existing sole-author information is retained; no coauthor contribution or consent is inferred.
 
 ## Required author/portal inputs
 

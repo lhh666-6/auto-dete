@@ -1,0 +1,128 @@
+--- before/artifact_appendix.tex
++++ after/artifact_appendix.tex
+@@ -52,7 +52,7 @@
+ repository README, Final report, and manuscript-input status identify the citable runs and provide
+ the regeneration and verification commands.
+ 
+-The revised observation witnesses and frozen R21 experimental evidence are deposited at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v6/r21-jss}. Its package-level and revision-level manifests identify the deposited version, including the preceding manuscript. This editorial revision uses the same experimental records and table values, with Figures 1 and 2 redrawn for presentation; the deposit does not yet contain this revised manuscript.
++The revised observation witnesses and frozen R21 experimental evidence are deposited at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v7/r21-jss}. Its package-level and revision-level manifests identify this manuscript and its evidence. The editorial revision preserves the experimental records and table values; Figures 1 and 2 present the admission workflow and contribution map.
+ 
+ 
+ \subsection{Reference zero-event calculation}
+--- before/sections\01-introduction.tex
++++ after/sections\01-introduction.tex
+@@ -35,7 +35,7 @@
+ Which authority-relevant distinctions let a system admit an AI-derived field candidate through an attributable human decision while preserving Correction, freshness, complete-record atomicity, and exact successor lineage?
+ \end{quote}
+ 
+-The central contribution is the joint relation among proposal identity, human value authority, and complete successor attribution, together with paired histories that expose the consequences of omitting its observation classes. This supplies design checks beyond comparing final values. We study the relation through \system{}, a Python/SQLite reference realization. C1--C2 specify the contract and its conditional information requirements; C3--C4 provide implementation and evaluation evidence:
++The central contribution is the joint relation among proposal identity, human value authority, and complete successor attribution, together with paired histories that expose the consequences of omitting its observation classes. For the 90/100/101 case, these checks distinguish a human correction from model acceptance and preserve the sources of fields left unchanged. We study the relation through \system{}, a Python/SQLite reference realization. C1--C2 specify the contract and its conditional information requirements; C3--C4 provide implementation and evaluation evidence:
+ 
+ \begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
+   \item \textbf{Correction-aware admission contract.} The contract keeps the machine's proposal and the human's permitted value separately attributable when $x_c\neq x_a$, binds authorization to the exact candidate, and retains sources for both changed and unchanged fields in one complete successor.
+@@ -44,7 +44,7 @@
+   \item \textbf{Cost and agent-integration evaluation.} We measure persistence-equivalent admission costs and trace access, then evaluate a restricted proposal/verification surface across three qualified model configurations. Agent completion, acknowledgment, and recovery are assessed separately from host-enforced authority outcomes.
+ \end{enumerate}
+ 
+-The evaluation follows three questions in this dependency chain: which information is needed to distinguish admission failures (RQ1--RQ2), whether the transaction preserves these relations in persisted executions (RQ3--RQ5), and what costs and agent-integration behavior arise in the reference realization (RQ6--RQ8). Two bounded Alloy profiles, concrete projections and fault tests, fixed-grid measurements, and a repeated live-agent benchmark supply the corresponding evidence. \Cref{fig:admission-workflow} gives an overview of the proposal, review, and admission boundary.
++The evaluation follows three questions in this dependency chain: which information is needed to distinguish admission failures (RQ1--RQ2), whether the transaction preserves these relations in persisted executions (RQ3--RQ5), and what costs and agent-integration behavior arise in the reference realization (RQ6--RQ8). \Cref{fig:admission-workflow} gives an overview of the proposal, review, and admission boundary.
+ 
+ % FIGURE SOURCE: scripts/build_flowcharts.py; vector redraw preserving the author-approved workflow semantics.
+ \begin{figure*}[t]
+--- before/sections\02-related-work.tex
++++ after/sections\02-related-work.tex
+@@ -41,7 +41,7 @@
+ 
+ Alloy searches finite relational scopes through SAT-based model finding \citep{jackson2002alloy,torlak2007kodkod}. TestEra maps Alloy-generated inputs to Java executions and abstracts their outputs back to Alloy; bounded program checkers similarly translate annotated programs into finite relational or propositional searches \citep{marinov2001testera,dennis2006sat,galeotti2013taco}. We distinguish the abstract admission relation, a test-side projection from persisted rows, and the production validator.
+ 
+-Mutation analysis asks whether checks distinguish deliberately altered constraints \citep{sullivan2017alloymutation,jia2011mutation,just2014mutants}. Our per-conjunct ablations use that idea to test the characterization: each provides a bounded witness that removing one encoded distinction allows an operationally malformed history that Full rejects.
++Mutation analysis asks whether checks distinguish deliberately altered constraints \citep{sullivan2017alloymutation,jia2011mutation,just2014mutants}. Our per-conjunct ablations apply this idea to the finite encoding: each provides a bounded witness that removing one encoded constraint allows an operationally malformed history that Full rejects. The paired-history argument establishes the separate observation-class result.
+ 
+ \subsection{Stateful, concurrent, and reproducible evidence}
+ 
+--- before/sections\08-results.tex
++++ after/sections\08-results.tex
+@@ -43,11 +43,11 @@
+ 
+ \Cref{fig:evidence-chain} maps the contract and conditional characterization to the implementation checks and experimental observations, with separate inference limits.
+ 
+-% FIGURE SOURCE: scripts/build_flowcharts.py; verified contribution definitions and frozen evidence counts.
++% FIGURE SOURCE: scripts/build_flowcharts.py; verified contribution definitions; numerical evidence remains in the result tables.
+ \begin{figure*}[t]
+ \centering
+ \includegraphics[width=0.96\textwidth]{figures/refined/figure-2-evidence-map.pdf}
+-\caption{Contribution and evidence map. C1 defines the admission contract; C2 supplies a paired-history argument conditional on the declared observation model. C3 reports bounded model and implementation checks, while C4 reports cost and live-agent observations. These evidence types retain distinct inference limits. The 179 capability-unavailable checks made no admission call. The bottom row records the reproducibility path across evidence layers.}
++\caption{Contribution and evidence map. The top row states the admission relation and its conditional observation requirements; the bottom row connects these to bounded implementation checks and workload-specific evaluation. Detailed counts remain in the corresponding result tables. The final line identifies the reproducibility path.}
+ \label{fig:evidence-chain}
+ \end{figure*}
+ 
+--- before/sections\09-discussion-threats.tex
++++ after/sections\09-discussion-threats.tex
+@@ -3,25 +3,25 @@
+ 
+ \subsection{What the evidence supports}
+ 
+-The evidence connects correction-aware information requirements to an executable admission boundary (\cref{fig:evidence-chain}). Paired histories establish the conditional observation result; Alloy tests finite encoding sensitivity; projection checks selected persisted correspondences; and concrete and agent tests exercise the implementation and restricted interface. The lifecycle illustrates the consequence: a proposal of 100 remains attributable after a human authorizes 101.
++C1 makes the 90/100/101 history reconstructible: the candidate retains 100, the human authorization supplies 101, and unchanged fields keep their prior sources. C2 explains why equal final values cannot reveal omissions of the declared observation classes. C3 connects these obligations to model checks and persisted executions. C4 characterizes their measured cost and shows why agent task outcomes must be assessed separately from host authority outcomes (\cref{fig:evidence-chain}). Together, these results provide an inspectable admission contract and a checked reference realization.
+ 
+ \subsection{Design implications}
+ 
+ For systems admitting human-corrected AI candidates, \cref{tab:distinctions} can guide inspection of five relations: does authorization identify the exact candidate and target; are proposed, authorized, and committed values separately recoverable; is the predecessor checked at admission; does one commit cover the declared batch; and does every successor field retain the required source? The paired histories explain why inspecting only final values cannot settle these questions.
+ 
+-These questions concern preserved and checked information. A capability, content-addressed certificate, or database key can represent candidate identity; a version, digest, or epoch can represent freshness. A design using existing transaction and audit facilities can implement the relation if it records and enforces the specified bindings. The five classes do not prescribe five storage objects or certify an implementation merely because it names five corresponding checks.
++These questions concern preserved and checked information. A capability, content-addressed certificate, or database key can represent candidate identity; a version, digest, or epoch can represent freshness. A design using existing transaction and audit facilities can implement the relation if it records and enforces the specified bindings. Their names alone are insufficient: the bindings must be recoverable from persisted state and checked at admission.
+ 
+-Value changes and source evolution must be validated together: changed fields acquire their authorized transitions, while unchanged fields retain exact prior sources. Our concrete conformance checks exercise these obligations; their portability remains a validation question for other implementations.
++Value changes and source evolution must be validated together: changed fields acquire their authorized transitions, while unchanged fields retain exact prior sources. The concrete conformance checks exercise both obligations.
+ 
+ Expose proposal generation and fact admission as separate capabilities. The evaluated host checks preserve authority despite varying completion and acknowledgment outcomes. This provides a restricted-interface integration example; effects on real reviewers' audit and correction work still require deployment studies.
+ 
+ \subsection{Formal and construct validity}
+ 
+-Alloy establishes bounded separation and encoding sensitivity, not global minimality, unique representation, or unbounded sufficiency. High-level classes and low-level conjuncts are not one-to-one; source attribution is exercised through trace attacks rather than the eleven admission ablations.
++Alloy results are limited to the encoded scopes and selected mutations; the conditional observation argument is established separately in Proposition~1. High-level classes and low-level conjuncts are not one-to-one; source attribution is exercised through trace attacks rather than the eleven admission ablations.
+ 
+ Projection covers nine intended instances and twenty mutants, subject to the concrete no-op and schema-uniqueness differences in \cref{sec:conformance}. Independent projection and database oracles reduce shared-code risk but cannot exclude defects shared with the runner, normalizer, model, or benchmark.
+ 
+-Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment. Task completion, authority preservation, and runtime reliability remain distinct constructs.
++Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment. 
+ 
+ \subsection{Concrete and performance validity}
+ 
+@@ -45,4 +45,4 @@
+ 
+ The deposit and verification procedure in \cref{app:artifact} permit frozen-record inspection without new hosted-model calls. Independent reproduction in another environment remains separate validation.
+ 
+-The related-work comparison is bounded by the public disclosures available at its stated cutoff. The contribution concerns correction-aware field admission and its declared failure-distinguishability model; the transaction, authorization, freshness, and provenance mechanisms it builds on are established foundations.
++The related-work comparison covers public disclosures available at its stated cutoff. It establishes a relation-level distinction, not an empirical superiority claim over the compared systems.
+--- before/sections\10-conclusion.tex
++++ after/sections\10-conclusion.tex
+@@ -1,8 +1,8 @@
+ \section{Conclusion}
+ \label{sec:conclusion}
+ 
+-Correction-aware authoritative-state admission makes the relation between proposal origin, human value authority, and complete successor lineage explicit. Equal final values can conceal different authority roles, incomplete sources, or fragmented commits. Under the declared observation model, five paired histories show which omissions prevent these failures from being distinguished, making the contract's information requirements inspectable.
++Correction-aware authoritative-state admission connects proposal origin, human value authority, and complete successor lineage. Its practical test is the 90/100/101 history: can a later reader recover what the machine proposed, what the human authorized, and which sources the resulting record inherited? Under the declared observation model, five paired histories identify omissions that make the corresponding admission failures indistinguishable.
+ 
+-The paired-history construction supports conditional information-class irredundancy. Alloy checks separately assess finite relational encodings and their sensitivity to selected constraint removals. Selected formal--concrete projections, the fault catalogue, and transaction tests connect these relations to the Python/SQLite realization. The repeated benchmark illustrates the integration boundary: benign completion was 320/335 behavior-evaluable runs, while 720 fixed invalid-tuple admission calls and 179 capability-unavailable checks recorded no unauthorized authoritative mutation. These are complementary observations about task behavior and host enforcement on the executed surface.
++The reference realization connects this contract to bounded model checks, persisted-state projections, and transaction tests. Cost measurements characterize the evaluated implementation; repeated-agent observations distinguish task behavior from host-enforced authority. These results support implementation and inspection of the contract within the evaluated scope.
+ 
+-Developers can use the contract to check whether their chosen mechanisms retain the exact proposal, bind the permitted value to human authorization, revalidate policy and freshness at admission, and commit a complete successor with exact field-source evolution. This turns the 90/100/101 case into a check of who proposed and authorized what, rather than a check of the final quantity alone. Other databases, authenticated reviewer workflows, and operational workloads require further validation.
++Developers applying the contract should preserve the exact candidate, record the human-authorized value separately, recheck policy and predecessor freshness inside admission, and atomically commit the complete successor with sources for every field. Changed fields receive their authorized transitions; unchanged fields retain exact prior sources. These obligations can be implemented with existing transaction and audit facilities. Other database engines and operational reviewer workflows require further validation.
+--- before/sections\declarations.tex
++++ after/sections\declarations.tex
+@@ -2,7 +2,7 @@
+ 
+ \subsection*{Data and software availability}
+ 
+-The study uses synthetic/public lifecycle input and a versioned software/evidence package containing formal models and observation witnesses, implementation and experiment code, dependency locks, raw receipts, normalized inputs, and verification commands. The deposited package is available at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-06-v6/r21-jss}; its manifests identify the files, including the preceding manuscript. This editorial revision preserves the deposited experimental evidence and is not yet included in that package.
++The study uses synthetic/public lifecycle input and a versioned software/evidence package containing formal models and observation witnesses, implementation and experiment code, dependency locks, raw receipts, normalized inputs, and verification commands. The deposited package is available at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v7/r21-jss}; its manifests identify this manuscript and the frozen experimental evidence.
+ 
+ \subsection*{Ethics approval and consent to participate}
+ 
+@@ -22,4 +22,4 @@
+ 
+ \subsection*{Declaration of generative AI and AI-assisted technologies}
+ 
+-During manuscript preparation, OpenAI Codex assisted with literature organization, evidence-linked drafting, deterministic table code, observation-witness checking, and language editing. The repeated benchmark exercised two requested OpenAI configurations through Codex CLI and one requested DeepSeek configuration through its API; model identifiers, prompts, raw events, tool calls, host actions, runtime classes, and usage metadata are retained. Research decisions, source verification, interpretation, and final responsibility remain with the author. An AI-generated raster was used only for internal ideation and is not included. Figures 1 and 2 were programmatically redrawn with Codex assistance from the author-approved workflow, verified contract, and frozen evidence counts. Figures 3 and 4 retain the plots generated from frozen data.
++During manuscript preparation, OpenAI Codex assisted with literature organization, evidence-linked drafting, deterministic table code, observation-witness checking, and language editing. The repeated benchmark exercised two requested OpenAI configurations through Codex CLI and one requested DeepSeek configuration through its API; model identifiers, prompts, raw events, tool calls, host actions, runtime classes, and usage metadata are retained. Research decisions, source verification, interpretation, and final responsibility remain with the author. An AI-generated raster was used only for internal ideation and is not included. Figures 1 and 2 were programmatically redrawn with Codex assistance from the author-approved workflow, verified contract, and contribution definitions. Figures 3 and 4 retain the plots generated from frozen data.

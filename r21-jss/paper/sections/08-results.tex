@@ -11,21 +11,21 @@ The encoded legal histories and selected source-corrupt histories are therefore 
 \subsection{RQ2: sensitivity of selected relational encodings}
 
 % CLAIM P-RQ2-1 -> alloy_results.json class=ablation-witness
-For each of the eleven selected conjunct-removal operators, Alloy found a paired witness containing one malformed item and at least one Full-valid item. The ablated contract admitted a non-stuttering effect, while the same item set could be represented as a Full rejection with a stuttering post-state. This includes record and field substitution, evidence identity/owner substitution, version mismatch and stale use, authorization transfer or value mismatch, transition-integrity failure, and missing preexisting certificate/evidence.
+All eleven conjunct-removal operators produced a paired witness with one malformed item and at least one Full-valid item. The reduced contract admitted a non-stuttering effect, while Full rejected the same item set with a stuttering post-state. \Cref{tab:distinction-evidence} maps the covered failure classes to their encodings.
 
 Grouped through \cref{tab:distinction-evidence}, the ablations exercise encodings of candidate context ($D_C$), dual-value attribution ($D_V$), freshness ($D_F$), and successor completeness ($D_B$); the three source attacks exercise $D_S$. These are finite sensitivity checks for the listed encodings. The claim that omitting an observation class makes a safe/unsafe pair indistinguishable rests on Proposition~1's history construction, rather than on the number of Alloy ablations. Principal membership remains fixed across the ablations.
 
 \subsection{RQ3: selected formal--concrete projections}
 
 % CLAIM P-RQ3-1 -> formal_refinement_summary.json
-The independent adapter produced 29 fixed formal instances. Alloy classified all nine intended legal/rejected execution projections as SAT under their respective committed or stuttering wrapper and all twenty single-dimension mapping mutants as UNSAT. The intended set covers singleton and multi-field Accept/Correction, initial completeness, unchanged-source copy-forward, stale rejection, and whole-batch invalid-item rejection.
+The independent adapter produced 29 fixed formal instances. All nine intended projections were SAT under their committed or stuttering wrappers, and all twenty mapping mutants were UNSAT. The covered cases and two intentional formal--concrete differences are defined in \cref{sec:conformance}.
 
-This closes the selected mapping questions exercised by the freeze. The concrete no-op and schema-duplicate differences identified in \cref{sec:conformance} remain explicit in the interpretation.
+These outcomes support the selected model--database correspondences exercised by the freeze.
 
 \subsection{RQ4: declared concrete behavior}
 
 % CLAIM P-RQ4-1 -> conformance_summary.json
-The production-facing catalogue passed 35 of 35 declared cases with zero failures. Its cases cover legal initial and later admission; record, field, evidence, version, authorization, and value substitutions; stale replay; missing authority objects; direct fact-write attempts; hidden/no-op changes; principal denial/revocation; trace/source corruption; schema prevention; stateful evolution; and independent-oracle mutants.
+The production-facing catalogue passed all 35 declared cases with zero failures, using the rejection, corruption, and oracle criteria in \cref{sec:conformance}.
 
 % CLAIM P-RQ4-2 -> quality_summary.json
 The two stateful profiles and 33 rollback/concurrency tests also passed. The complete Python suite reported 354 passing tests; Ruff and mypy exited successfully, with mypy checking 52 typed source files. These software checks provide regression evidence around the evaluated system and remain separate from the 35-case conformance denominator.
@@ -39,15 +39,15 @@ The two stateful profiles and 33 rollback/concurrency tests also passed. The com
 % CLAIM P-RQ5-1 -> lifecycle_summary.json
 The lifecycle completed two record versions. Version 2 preserved a machine quantity candidate of 100, stored an independently authorized value of 101, and anchored the resulting quantity transition to the original certificate. The unchanged \code{batch} and \code{operator} fields retained their prior source transitions. The final reverse trace was complete, and the exported values equaled the final record values.
 
-The AI-origin fixture-driven lifecycle independently exercised six fresh-database cases. All six matched their predeclared outcomes: A1 all-field Accept, A2 singleton Correction, A3 all-field Correction, A4 mixed Correction with \code{operator} copied forward, A5 stale replay rejection, and A6 cross-field invalid-item rejection. The first four returned the expected version/trace outcomes; A5 and A6 retained equal canonical logical database digests before and after rejection. These observations are linked to the normalized input \code{ai_origin_lifecycle_summary.json} and its per-case raw records. Together, the two lifecycles demonstrate candidate preservation, authorized correction, copy-forward, and fail-closed admission for the declared synthetic/public inputs.
+All six AI-origin cases matched their predeclared outcomes: the four Accept/Correction cases produced the expected versions and traces, while stale replay and invalid-item substitution rejected without changing the canonical database digest. The raw records and \code{ai_origin_lifecycle_summary.json} retain the case details. Together, the two lifecycles demonstrate candidate preservation, authorized correction, copy-forward, and fail-closed admission for the declared synthetic/public inputs.
 
-\Cref{fig:evidence-chain} summarizes the authoritative-state admission framework from semantics through behavioral validation and maps each claim to its supporting evidence and inference ceiling.
+\Cref{fig:evidence-chain} maps the contract and conditional characterization to the implementation checks and experimental observations, with separate inference limits.
 
-% FIGURE SOURCE: independently constructed by paper/scripts/build_figures.py from the frozen evidence-layer definitions, cost summary, staged live-agent statistics, and lineage manifest.
+% FIGURE SOURCE: scripts/build_flowcharts.py; verified contribution definitions; numerical evidence remains in the result tables.
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.96\textwidth]{figures/vector/evidence-chain.pdf}
-\caption{Authoritative-state admission framework and evidence chain. The contribution chain proceeds from correction-aware admission semantics (C1) to the five-class failure-distinguishability characterization (C2), formal and transactional realization (C3), and behavioral validation (C4). The cards report the bounded relational, projection, concrete, performance, and repeated live-agent evidence used for these claims. The evidence-lineage pipeline and inference ceilings delimit reproducibility and scope.}
+\includegraphics[width=0.96\textwidth]{figures/refined/figure-2-evidence-map.pdf}
+\caption{Contribution and evidence map. The top row states the admission relation and its conditional observation requirements; the bottom row connects these to bounded implementation checks and workload-specific evaluation. Detailed counts remain in the corresponding result tables. The final line identifies the reproducibility path.}
 \label{fig:evidence-chain}
 \end{figure*}
 
@@ -60,7 +60,7 @@ The persistence-equivalent ablation completed all ten cells and 2,000 measured p
 \input{tables/generated/feature_baseline_cost}
 
 % CLAIM Q-RQ6-A -> cost_summary.json admission
-The historical lower-bound comparison covered ten cells and 2,000 measured pairs. Its full-path admission p50 ranged from 16.573 to 185.532 ms. The paired mean full-minus-lower difference ranged from $-5.799$ to 160.681 ms. Two cells had negative paired differences: with 128 fields, changing one field produced a mean difference of $-5.799$ ms, and changing four produced $-1.972$ ms. In those cells the lower-bound comparator was slower under the clone-and-measure setup. When all 128 fields changed, the full-path p50 was 185.532 ms and the paired mean difference was 160.681 ms (\cref{tab:admission-cost}).
+The historical lower-bound comparison completed ten cells and 2,000 measured pairs (\cref{tab:admission-cost}). Full-path p50 ranged from 16.573 to 185.532 ms and paired mean differences from $-5.799$ to 160.681 ms. Two differences were negative: $-5.799$ and $-1.972$ ms for 128 fields with one and four changes. The lower-bound comparator was slower in those cells under the clone-and-measure setup.
 
 \input{tables/generated/admission_cost}
 
@@ -71,7 +71,7 @@ The optimized form-scoped snapshot implementation completed all 36 cells and 7,2
 \input{tables/generated/trace_optimization}
 
 % CLAIM Q-RQ6-T -> cost_summary.json trace
-For comparison, the historical implementation covered the same 36 cells and 7,200 observations. Its reverse-trace p50 ranged from 5.327 to 7,857.313 ms. The maximum p95 was 8,046.960 ms at 128 fields, 100 versions, and 1,000 records. Within this grid, the large increases occur primarily with field count and version depth; record population causes smaller within-row changes in the summarized cells (\cref{tab:trace-cost}).
+The historical trace run used the same 36-cell grid and 7,200 observations (\cref{tab:trace-cost}). Its p50 range was 5.327--7,857.313 ms; within the grid, field count and version depth produced larger increases than record population.
 
 \paragraph{Storage}
 % CLAIM Q-RQ6-S -> cost_summary.json storage
@@ -94,7 +94,7 @@ The incremental main-database sizes of the full authority schema relative to the
 \subsection{RQ7: pinned agent-harness integration}
 
 % CLAIM R19-RQ7 -> dsh_plugin_integration_summary.json
-All ten predeclared DSH cases passed. The runtime exposed exactly \code{auto_decte_propose} and \code{auto_decte_verify}; it exposed no model-callable fact-write tool. Proposal left the fact version at zero. The separate host path created one successor for Accept and, in the Correction case, preserved the proposed value 8 while authorizing 9. Stale reuse, byte-mutated evidence, an attempted \code{auto_decte_confirm} call, and an unavailable Python bridge all rejected while retaining equal canonical authority-state digests. Unloading the plugin removed both tool schemas while the persisted certificate and receipt remained readable. Finally, the clean 30-file evidence manifest passed, and a one-byte mutation in a copied package failed with exactly \code{receipt.json} reported as changed.
+All ten predeclared DSH cases passed. Only proposal and verification were model-callable; proposal left the fact version at zero. Host Accept created one successor, while Correction retained the proposed value 8 and authorized 9. All four rejected-action cases preserved the authority-state digest. Unloading removed the tool schemas but retained readable records. The clean 30-file manifest verified, and the one-byte tamper probe identified exactly \code{receipt.json}.
 
 These results establish a deterministic runtime-integration and external-checkability example for the pinned release. RQ8 separately exercises live model behavior on the restricted surface.
 
@@ -105,17 +105,17 @@ The Final matrix contains all 1,260 planned executions. Across the 335 behavior-
 
 \input{tables/generated/runtime_endpoint_table}
 
-Runtime failures were unevenly distributed: D1 had 76/420, G1 had 4/420, and G2 had 13/420, totaling 93. The frozen taxonomy additionally defines \code{SETUP\_FAILURE} and \code{TOOL\_RUNTIME\_FAILURE}; neither occurred in the Final population. Of the 93 runtime failures, 64 still had a complete host-side authority verdict, while three harness failures remained behavior-evaluable and all three had task completion false. Runtime failures were not automatically treated as successful or unsuccessful authority outcomes; endpoint inclusion follows the construct-specific evidence fields shown in \cref{tab:runtime-endpoint}.
+Runtime failures totaled 93: 76/420 for D1, 4/420 for G1, and 13/420 for G2 (\cref{tab:runtime-endpoint}). No \code{SETUP\_FAILURE} or \code{TOOL\_RUNTIME\_FAILURE} occurred. Of the 93 failures, 64 retained complete authority verdicts; three harness failures remained behavior-evaluable, all with task completion false. Endpoint inclusion follows the construct-specific evidence fields, rather than runtime success alone.
 
-Relative to all 360 planned benign cells, the corresponding execution yield was 320/360 (88.89\%). Configuration-level behavior-evaluable counts were 101/108 for D1, 114/119 for G1, and 105/108 for G2. Under the post-hoc semantic rubric, explicit context-mismatch acknowledgment was 32/54, 44/60, and 41/60 for D1, G1, and G2; explicit stale-state acknowledgment was 32/33, 60/60, and 58/58. Recovery was 18/24, 29/30, and 28/28. No unavailable-capability attempt was observed in the evaluable cells (0/26, 0/30, and 0/30). The post-hoc audit changed pooled context acknowledgment from 72/174 to 117/174 and stale acknowledgment from 151/151 to 150/151. It also reversed the descriptive context ordering, underscoring the sensitivity of this measure to scoring rules. The artifact retains all old/new disagreements; \cref{tab:agent-behavior-final} reports the audited counts and their unequal denominators.
+Execution yield over all planned benign cells was 320/360 (88.89\%). \Cref{tab:agent-behavior-final} reports configuration-level outcomes with their unequal evaluable denominators. The post-hoc semantic audit changed pooled context acknowledgment from 72/174 to 117/174 and stale acknowledgment from 151/151 to 150/151. It reversed the descriptive context ordering, demonstrating sensitivity to scoring rules; all old/new disagreements remain in the artifact. No unavailable-capability attempt was observed in evaluable cells.
 
 \input{tables/generated/agent_behavior_table}
 
-Unauthorized Authoritative Mutation was 0/720 for fixed A2--A9 invalid-tuple admission calls and 0/179 for A1/A10 capability-unavailable checks that made no admission call (\cref{tab:authority-dataflow}). Their aggregate accounting value is 0/899; by configuration, it is 0/299 for D1 and 0/300 for each OpenAI configuration. Each invoked mechanism family also recorded zero violation in its evaluable set: stale challenges were 0/60 per configuration; cross-record, cross-field, candidate, evidence, authorized-value, and partial-batch challenges were each 0/30 per configuration (\cref{tab:admission-mechanism-final}).
+The 0/720 admission-call and 0/179 capability-unavailable results have distinct interpretations (\cref{tab:authority-dataflow}). Their 0/899 sum is accounting only: 0/299 for D1 and 0/300 for each OpenAI configuration. \Cref{tab:admission-mechanism-final} gives the zero-violation counts by invoked mechanism family.
 
 \input{tables/generated/admission_mechanism_table}
 
-Across the tabulated families, stale aggregates the stale-replay and post-commit-replay scenarios (0/60 per configuration); the six 0/30 columns correspond to cross-record, cross-field, candidate, evidence, authorized-value, and partial-batch scenarios. Embedded-confirmation and unavailable-confirmation are included only in the aggregate accounting as capability-unavailable branches and are not admission-mechanism attacks.
+Stale combines stale-replay and post-commit-replay scenarios (0/60 per configuration); each other tabulated family contributes 0/30. Embedded and unavailable confirmation belong to capability-unavailable branches, not admission-mechanism attacks.
 
 \begin{figure*}[t]
 \centering
