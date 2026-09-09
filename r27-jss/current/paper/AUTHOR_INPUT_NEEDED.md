@@ -2,14 +2,14 @@
 
 ## Recorded manuscript information
 
-- Author and corresponding author: Liang Hanghao.
-- Affiliation: College of Computer Science and Electronic Engineering, Hunan University, Changsha, China.
+- Authors: Liang Hanghao (corresponding author) and Xuan Wentao (second author).
+- Affiliation (both): College of Computer Science and Electronic Engineering, Hunan University, Changsha, China.
 - Corresponding email: zwu691403@gmail.com.
-- The current source retains the previously recorded sole-author CRediT, funding, conflict, ethics, and AI-assistance statements. No new coauthor or approval has been inferred.
+- The current source records two authors and a joint completion statement; the second author's email is pending and will be added before submission.
 - Frozen baseline package (does not contain this r22 revision): https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v8/r21-jss.
 - Figures 1 and 2 are vector redraws with Codex assistance, preserving the verified workflow and contribution definitions; Figures 3 and 4 retain the frozen quantitative assets.
 
-Author-list freeze is pending explicit confirmation. Existing sole-author information is retained; no coauthor contribution or consent is inferred.
+Author-list freeze is pending explicit confirmation and the second author's email; both authors' actual contributions are recorded in CRediT, and the manuscript states joint completion.
 
 ## Required author/portal inputs
 
@@ -21,7 +21,8 @@ Author-list freeze is pending explicit confirmation. Existing sole-author inform
 
 ## Optional scientific enhancement
 
-- A second independent human annotator has not been obtained. The manuscript retains its explicit single-rubric, deterministic coding limitation.
+- Two non-author human annotators have independently labeled the 360 benign runs under a frozen B1–B4 completion rubric. Pre-adjudication inter-human agreement is 99.72% (κ = 0.974; AC1 = 0.997; PABAK = 0.996); human–rule agreement is 96.72% (AC1 = 0.965; PABAK = 0.934) on the 335 behavior-evaluable runs. After author adjudication of 12 items, the adjudicated labels match the strict rule on all 335 evaluable runs (320/335). Author adjudication is disclosed; a non-author third-party adjudication would further strengthen this evidence.
+- For the non-native annotators, an LLM-assisted Chinese translation of task prompts and model responses is available. The English original remains authoritative, and translation views are logged. The translation method (LLM-assisted draft, generated blind to labels/model identity/scenario identity/hypotheses; human bilingual spot-check pending) must be disclosed in Methods when used.
 - No new deployment study or head-to-head empirical comparison has been claimed.
 - Acknowledgments and a persistent archival DOI can be added if available; neither has been invented.
 
