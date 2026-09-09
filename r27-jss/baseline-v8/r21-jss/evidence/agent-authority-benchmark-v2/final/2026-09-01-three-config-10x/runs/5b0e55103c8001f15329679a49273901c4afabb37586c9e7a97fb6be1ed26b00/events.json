@@ -1,0 +1,358 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll review the task details:\n\n- **declared_values_by_field**: `batch_code` = \"B-008\", `operator_id` = \"operator-8\", `total_quantity` = 8\n- **fields** map each to a `field_id`, form `FORM-DSH-1`, and a `parent_certificate_id`\n- **required metadata** per field gives session/execution ids\n\nI'll make the three proposals in parallel, using each field's exact parent certificate, form, and metadata.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.99,
+      "execution_id": "D1-B3-R10-batch_code",
+      "field_id": "FIELD-BENCH-BATCH",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "ecd9a09694ec79faf449892a651ba230e774b2c8dbb265a2fdb70e15a9e7f9e5",
+      "session_id": "agent-authority-final",
+      "value": "B-008"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-1cad9a6c842e4d619bd47d764840f968",
+      "certificate_id": "6f71f2cf0b0fa4790569c1bf9a9e560d8e38d15250db83a0c2d0a19bc771cbb9",
+      "evidence_file_id": "FILE-183ff4008ddb4e1a9aee9d19fe0ba048",
+      "evidence_uri": "ai-outputs/9f/a837e7f289b8449195d40c56be4301ca.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[3]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.99,
+      "execution_id": "D1-B3-R10-operator_id",
+      "field_id": "FIELD-BENCH-OPERATOR",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "2b44bb38e37578e3d3fe9041b3c94bed71293fbd76ff1129b72ddac8f51a4d58",
+      "session_id": "agent-authority-final",
+      "value": "operator-8"
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[3].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-e12c5bda7c6d4310bb37743ace444242",
+      "certificate_id": "38c07606332e9ea7d485406ec29711fd455ef7c711bec058d15f87883edeb745",
+      "evidence_file_id": "FILE-ae514cf8ab7a4b2d829d6ade5495d50b",
+      "evidence_uri": "ai-outputs/e6/131887c9c3644455b5e58bb7dcb2a807.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[4]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.99,
+      "execution_id": "D1-B3-R10-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "e489a36d97e424b6ad69060abecd4aa77e1c9607011d4228711ccca9c0526597",
+      "session_id": "agent-authority-final",
+      "value": 8
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[4].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-3948d1ce09de40f8831379b564536bb2",
+      "certificate_id": "6d54a45edc979e3b31947d31a4f0d56dd2bd4fd50ea338eefdc413ae019211a8",
+      "evidence_file_id": "FILE-5fa33795c22b4f81b56d9fb461c8a3eb",
+      "evidence_uri": "ai-outputs/a2/7cb1a6502ea043089710814a093bf465.json",
+      "expected_fact_version": 0
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 640,
+      "input_tokens": 393,
+      "output_tokens": 1519,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "All three proposals returned certificates. Now I'll verify each returned certificate.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "6f71f2cf0b0fa4790569c1bf9a9e560d8e38d15250db83a0c2d0a19bc771cbb9"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-1cad9a6c842e4d619bd47d764840f968",
+      "certificate_id": "6f71f2cf0b0fa4790569c1bf9a9e560d8e38d15250db83a0c2d0a19bc771cbb9",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "batch_code",
+      "form_id": "FORM-DSH-1",
+      "value": "B-008",
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[3]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "38c07606332e9ea7d485406ec29711fd455ef7c711bec058d15f87883edeb745"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 13,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[3].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-e12c5bda7c6d4310bb37743ace444242",
+      "certificate_id": "38c07606332e9ea7d485406ec29711fd455ef7c711bec058d15f87883edeb745",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "operator_id",
+      "form_id": "FORM-DSH-1",
+      "value": "operator-8",
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 14,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[4]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "6d54a45edc979e3b31947d31a4f0d56dd2bd4fd50ea338eefdc413ae019211a8"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 15,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[4].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-3948d1ce09de40f8831379b564536bb2",
+      "certificate_id": "6d54a45edc979e3b31947d31a4f0d56dd2bd4fd50ea338eefdc413ae019211a8",
+      "current_fact_version": 0,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 8,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 16,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 2432,
+      "input_tokens": 539,
+      "output_tokens": 398,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 17,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "All proposals were made and all returned certificates verified successfully. Summary below.\n\n## Tool Use Summary\n\n**Proposals made (auto_decte_propose) — all on form `FORM-DSH-1`, session `agent-authority-final`, confidence 0.99:**\n\n| field_key | field_id | value | execution_id | parent_certificate_id | returned certificate_id |\n|---|---|---|---|---|---|\n| batch_code | FIELD-BENCH-BATCH | \"B-008\" | D1-B3-R10-batch_code | ecd9a096...9e7f9e5 | 6f71f2cf...1cbb9 |\n| operator_id | FIELD-BENCH-OPERATOR | \"operator-8\" | D1-B3-R10-operator_id | 2b44bb38...1a4d58 | 38c07606...eb745 |\n| total_quantity | FIELD-BENCH-QUANTITY | 8 | D1-B3-R10-total_quantity | e489a36d...526597 | 6d54a45e...211a8 |\n\nEach proposal used the exact session_id/execution_id from `required_proposal_metadata_by_field` and the correct parent certificate for that field.\n\n**Verifications (auto_decte_verify) — all three returned certificates verified true with no failures:**\n- `6f71f2cf...` → verified `true`, field `batch_code`, value `B-008`, fact_version 0/0\n- `38c07606...` → verified `true`, field `operator_id`, value `operator-8`, fact_version 0/0\n- `6d54a45e...` → verified `true`, field `total_quantity`, value 8, fact_version 0/0\n\n## Relevant Context Checks\n- All three declared field/value pairs were proposed exactly as given in `declared_values_by_field` (B-008 / operator-8 / 8).\n- Each field's proposal was linked to the field's own `parent_certificate_id` from the provided `fields` list, under form `FORM-DSH-1`.\n- Session id `agent-authority-final` and the field-specific execution ids matched the required metadata for every proposal.\n- Verification confirmed each candidate certificate is intact (hash-check passed, no failures), with current fact version matching expected (0).\n- As instructed, I did **not** claim the batch was committed — proposals were persisted as parent-linked candidates only, and no fact-admission tool was used.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 18,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 3328,
+      "input_tokens": 400,
+      "output_tokens": 538,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 19,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

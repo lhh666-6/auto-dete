@@ -1,0 +1,65 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\pdfstringdefDisableCommands{\def\corref#1{}}
+
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+
+\journal{Journal of Systems and Software}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Authoritative-State Admission for AI-Derived Updates: Failure Distinguishability, Transactional Realization, and Evaluation}
+
+\author[inst1]{Liang Hanghao\corref{cor1}}
+\cortext[cor1]{Corresponding author. Email address: \texttt{zwu691403@gmail.com}}
+\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},city={Changsha},country={China}}
+
+\begin{abstract}
+AI-derived record updates must distinguish a machine proposal from the value a human authorizes. We specify \emph{authoritative-state admission}: an exact persisted candidate is bound to an attributable authorization and explicit value, while Correction preserves the original candidate and the complete successor retains every field's source. This correction-aware specialization of transactional mutation makes candidate identity, dual-value attribution, freshness, batch effects, and source copy-forward jointly checkable. Five safe/unsafe history pairs establish class-wise irredundancy relative to a declared observation model: omitting each class obscures its constructed failure pair. The Python/SQLite realization combines candidate-bound authorization, compare-and-swap-protected admission, and reverse-trace validation, with bounded Alloy checks, formal--concrete projection, and a 35-case fault catalogue. Frozen workloads characterize admission and trace costs. Across three qualified model configurations, 320/360 planned benign runs met the frozen strict-trajectory criterion; 25 runs lacked a scorable behavior verdict. Fixed host checks are reported separately as integration-conformance observations, with all runtime failures retained. These results support inspection and implementation of correction-aware admission within the declared model and evaluated system.
+\end{abstract}
+
+\begin{keyword}
+authoritative-state admission \sep AI-derived updates \sep human authorization \sep data provenance \sep formal methods \sep transactional systems
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-problem-contract}
+\input{sections/04-relational-analysis}
+\input{sections/05-transactional-realization}
+\input{sections/06-formal-concrete-conformance}
+\input{sections/07-evaluation-protocol}
+\input{sections/08-results}
+\input{sections/09-discussion-threats}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+
+\bibliographystyle{elsarticle-harv}
+\begingroup
+\Urlmuskip=0mu plus 1mu\relax
+\bibliography{filtered}
+\endgroup
+
+\end{document}

@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06173-6871-7d61-9fc5-6ad55c990944"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate, then compare its bound record identity against `FORM-DSH-1`; I’ll use only the two permitted record-review tools."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"d63d553a26d57f9a754d3ec514cbb217d52e90dbdc228dd178d9560e4ef02d40"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"d63d553a26d57f9a754d3ec514cbb217d52e90dbdc228dd178d9560e4ef02d40"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent:FORM-DSH-2:total_quantity\",\n  \"certificate_id\": \"d63d553a26d57f9a754d3ec514cbb217d52e90dbdc228dd178d9560e4ef02d40\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-2\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent:FORM-DSH-2:total_quantity","certificate_id":"d63d553a26d57f9a754d3ec514cbb217d52e90dbdc228dd178d9560e4ef02d40","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-2","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verified successfully: value `7`, fact version `0`, no hash/evidence failures.\n\nRecord identity does not match the intended record: certificate is bound to `FORM-DSH-2`, while intended form is `FORM-DSH-1`. No proposal was created.\n\nObserved tool use: `auto_decte_verify` once; `auto_decte_propose` not used."}}
+{"type":"turn.completed","usage":{"input_tokens":65893,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":371,"reasoning_output_tokens":106}}

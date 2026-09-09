@@ -1,0 +1,33 @@
+# Auto-Decte reproduction commands
+# Recorded environment: Python 3.11; uv package manager.
+
+## Verify the included 68f7b93 source snapshot
+
+uv sync --extra dev --extra research
+uv run pytest -q          # 239 tests in the verified integrated state
+uv run ruff check .
+uv run mypy
+
+## Re-run the authority-integration benchmark
+
+# Pinned: source commit 68f7b93, fixed injected clock and seed.
+uv run python -m benchmarks.pipeline_authority_benchmark --output <dir> \
+  --now 2026-08-17T12:00:00+00:00 --seed 20260817 --cases 12
+# Byte-identical reruns; payload sha256
+# 1677cbb526e786b754e8bdb4d6e983df26f88b59b47ec0dd2733c943ad87c4ed
+# Output directories must be outside the repository to keep git status clean
+# (the recorded run manifested clean_before_run=true).
+
+## Manuscript-level frozen outputs
+
+# The exact frozen outputs used by the manuscript are supplied under artifacts/.
+# They originate from the recorded ESWA run at commit 195355a
+# (python -m benchmarks.run_all --config benchmarks/config/eswa-v1.json).
+# The included 68f7b93 snapshot is not claimed to reproduce those files
+# byte-for-byte; the recorded run environment differed in dependency versions
+# (e.g., numpy 2.3.5 vs the snapshot's numpy >=1.26,<2 constraint).
+
+## Notes
+
+# - Tesseract was unavailable in the recorded environment and is capability-gated;
+#   no Tesseract score is reported.

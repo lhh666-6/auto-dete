@@ -1,0 +1,187 @@
+{
+  "alloy": {
+    "profiles": {
+      "S1": {
+        "SAT": 20,
+        "UNSAT": 13,
+        "classes": {
+          "ablation-witness": 11,
+          "attack-witness": 3,
+          "legal-witness": 6,
+          "preservation": 3,
+          "regression": 10
+        }
+      },
+      "S2": {
+        "SAT": 20,
+        "UNSAT": 13,
+        "classes": {
+          "ablation-witness": 11,
+          "attack-witness": 3,
+          "legal-witness": 6,
+          "preservation": 3,
+          "regression": 10
+        }
+      }
+    },
+    "total": 66
+  },
+  "bindings": {
+    "config_sha256": "32383f25468d768a4b3e418b242df21ffb0b00e01a2ec2290fb6ac300be6f329",
+    "dependency_lock_sha256": "698e7fc510a93c15bc2dc69d2a1f4ade1ceba3f8beda2e54ee9b05e643a477ad",
+    "source_manifest_sha256": "9ed1fdd1a6969675b742756944910d298edbc39cf456538334b9efd702ad4547"
+  },
+  "conformance": {
+    "catalogue_version": "auto-decte-r9-v1",
+    "denominator": 35,
+    "failed": 0,
+    "passed": 35
+  },
+  "cost": {
+    "admission": {
+      "cells": 10,
+      "full_p50_max_ms": 185.53185000000002,
+      "full_p50_min_ms": 16.5731,
+      "negative_cells": [
+        {
+          "changed": 1,
+          "fields": 128,
+          "paired_mean_delta_ms": -5.798784499999999
+        },
+        {
+          "changed": 4,
+          "fields": 128,
+          "paired_mean_delta_ms": -1.9720995000000001
+        }
+      ],
+      "negative_delta_cells": 2,
+      "observations": 2000,
+      "paired_delta_max_ms": 160.680826,
+      "paired_delta_min_ms": -5.798784499999999
+    },
+    "config": {
+      "admission_changed": [
+        1,
+        4,
+        "all"
+      ],
+      "admission_fields": [
+        1,
+        8,
+        32,
+        128
+      ],
+      "cache_policy": "persistent connection per trace cell; fresh cloned database and connection per admission arm",
+      "interval": "paired nonparametric bootstrap, 2000 draws, 95 percent",
+      "pair_order": "randomized within pair and across cells",
+      "schema_version": 1,
+      "seed": 20260823,
+      "sqlite": {
+        "busy_timeout_ms": 5000,
+        "foreign_keys": true,
+        "implicit_retries": 0,
+        "journal_mode": "WAL",
+        "synchronous": "NORMAL"
+      },
+      "storage_transitions": [
+        1000,
+        10000,
+        100000
+      ],
+      "trace_fields": [
+        1,
+        8,
+        32,
+        128
+      ],
+      "trace_records": [
+        1,
+        100,
+        1000
+      ],
+      "trace_versions": [
+        1,
+        10,
+        100
+      ],
+      "trials": 200,
+      "warmups": 5
+    },
+    "storage": {
+      "incremental_bytes": [
+        1085440,
+        10772480,
+        111230976
+      ],
+      "populations": 3,
+      "transitions": [
+        1000,
+        10000,
+        100000
+      ]
+    },
+    "trace": {
+      "cells": 36,
+      "max_p95_cell": {
+        "fields": 128,
+        "records": 1000,
+        "versions": 100
+      },
+      "max_p95_ms": 8046.9595,
+      "observations": 7200,
+      "p50_max_ms": 7857.31275,
+      "p50_min_ms": 5.32725
+    }
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "sqlite": "3.45.1"
+  },
+  "input_count": 10,
+  "input_sha256": {
+    "alloy_results.json": "169a3c66e1a4351ae570df7335d566189425f90d7618e37f81e22e237162f93d",
+    "conformance_summary.json": "6e14fcb2767b3f045b5595659bf1ed9025caa281a0f7934fb67c89e2e8b7d19d",
+    "correctness_environment.json": "10ac2c3aa62dd35c13c9e42197ba895e32976faf1f55ae755bc45106c7c2597d",
+    "cost_run_metadata.json": "e8c5149ab8d2d879c2f790416129b72807283e879707239bc60d4185d847793a",
+    "cost_summary.json": "705c4e647447d4aea8bf28f15f002d62ea80bee3f15aa4df4dc6ea79fb3fdd3b",
+    "formal_refinement_summary.json": "792e97449cd75526137c498bad2b1b9357ef168042a04508e209c72ab4e6c661",
+    "lifecycle_summary.json": "e3b764a6fc12fc4ecf7481d040efbd5d8b9ece48bfb85932b3e9225532b0e501",
+    "performance_environment.json": "d64abaa5bd35e1c1616262542b57cd3397d2b5d4fdaa0652a610eaea522799bc",
+    "quality_summary.json": "b9197124a1f752c9ec20c3e1c45fb1ca279d394d89d872d076897da2f0b0c26c",
+    "run_summary.json": "9a1447afce561844e6f7b5f3258f5e47d1ac5b6c13e67be3dc793e7c648ab996"
+  },
+  "lifecycle": {
+    "authorized_value": 101,
+    "complete": true,
+    "copy_forward_fields": [
+      "batch",
+      "operator"
+    ],
+    "machine_candidate": 100,
+    "versions": [
+      1,
+      2
+    ]
+  },
+  "quality": {
+    "mypy_exit_code": 0,
+    "python_tests": 354,
+    "rollback_concurrency_tests": 33,
+    "ruff_exit_code": 0,
+    "stateful_tests": 2,
+    "typed_source_files": 52
+  },
+  "refinement": {
+    "SAT": 9,
+    "UNSAT": 20,
+    "total": 29
+  },
+  "run": {
+    "failed": 0,
+    "passed": 10,
+    "total": 10
+  },
+  "schema": "auto-decte-jss-evidence-digest-v1",
+  "source_root": "D:/AUTO-DECTE-E10/2026-08-26-rc4-extract/2026-08-26-option-a-r17-rc4/evidence/reproduced/e10-2026-08-26-rc4/paper-from-new-all/paper_inputs"
+}

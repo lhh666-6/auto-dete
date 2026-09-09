@@ -1,0 +1,17 @@
+{
+  "schema": "auto-decte-r18-paper-input-v1",
+  "source_run": "evidence/reproduced/r18-ai-origin-lifecycle-2026-08-27-corrected",
+  "source_receipt": "evidence/reproduced/r18-ai-origin-lifecycle-2026-08-27-corrected/receipt.json",
+  "source_aggregate": "evidence/reproduced/r18-ai-origin-lifecycle-2026-08-27-corrected/raw/ai_origin_lifecycle.json",
+  "fixture_record_id": "SYN-AI-2026-001",
+  "fixture_manifest_sha256": "eec592cde645344061b81bc3ff93bd8d31519ab2c1f77b7381aa148f4d0ba328",
+  "cases": [
+    {"id": "A1_all_accept", "observation": "accepted", "versions": [1], "trace_status": "complete", "evidence": "raw/A1_all_accept.json"},
+    {"id": "A2_singleton_correction", "observation": "corrected", "versions": [1, 2], "copy_forward_fields": ["batch", "operator"], "evidence": "raw/A2_singleton_correction.json"},
+    {"id": "A3_all_correction", "observation": "corrected", "versions": [1, 2], "copy_forward_fields": [], "evidence": "raw/A3_all_correction.json"},
+    {"id": "A4_mixed_copy_forward", "observation": "mixed_committed", "versions": [1, 2], "copy_forward_fields": ["operator"], "evidence": "raw/A4_mixed_copy_forward.json"},
+    {"id": "A5_stale_replay", "observation": "rejected_stale", "digest_unchanged": true, "evidence": "raw/A5_stale_replay.json"},
+    {"id": "A6_invalid_item_atomic_rejection", "observation": "rejected_invalid_item", "digest_unchanged": true, "evidence": "raw/A6_invalid_item_atomic_rejection.json"}
+  ],
+  "claim_boundary": "These are bounded lifecycle observations for one archived hosted-AI candidate fixture; they are not accuracy, usability, production, or deterministic-regeneration estimates."
+}

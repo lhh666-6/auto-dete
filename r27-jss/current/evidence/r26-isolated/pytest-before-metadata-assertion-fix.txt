@@ -1,0 +1,24 @@
+.....................................F.................................. [ 18%]
+........................................................................ [ 37%]
+........................................................................ [ 55%]
+........................................................................ [ 74%]
+........................................................................ [ 92%]
+.............................                                            [100%]
+================================== FAILURES ===================================
+____________________________ test_manifest_fields _____________________________
+
+tmp_path = WindowsPath('C:/Users/lenovo/AppData/Local/Temp/pytest-of-lenovo/pytest-1193/test_manifest_fields0')
+
+    def test_manifest_fields(tmp_path: Path) -> None:
+        output = tmp_path / "run"
+        _run(output)
+        manifest_path = output / "manifest.json"
+        assert manifest_path.exists()
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+>       assert manifest["clean_before_run"] in (True, False)
+E       assert None in (True, False)
+
+tests\benchmarks\test_pipeline_authority.py:57: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/benchmarks/test_pipeline_authority.py::test_manifest_fields - as...
+1 failed, 388 passed in 200.88s (0:03:20)

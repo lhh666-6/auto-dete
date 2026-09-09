@@ -1,0 +1,90 @@
+{
+  "method": "paper-critic",
+  "paper_slug": "auto-decte-r21-jss",
+  "anchor_version": 1,
+  "round": 1,
+  "verdict": "BLOCKED",
+  "score": 0,
+  "overall_feedback": "Technical LaTeX gates pass, and R21 numbers, literature coverage, scoped necessity, and limitation centralization are strong. Submission is blocked because the executed live-agent, comparator, and trace protocols depart from the explicitly approved R21 design. The paper also misstates the admission timing boundary and retains author-input placeholders.",
+  "comments": [
+    {
+      "id": "C1",
+      "tier": "C",
+      "category": "Internal Consistency",
+      "title": "Live-agent cases L3--L5 do not execute the locked scenarios",
+      "quote": "L3 requires the returned current version to exceed the certificate pre-version without a further state change; L4--L5 require one failed proposal and equal full canonical database digests",
+      "explanation": "The approved design requires stale host confirmation and host-confirmation rejection for L3--L5; the reported run performs verification or proposal rejection instead. This is a Stage-0 specification violation.",
+      "fix": "Execute L3--L5 exactly as locked, regenerate the normalized input, and update Sections 7--9 from those results.",
+      "comment_type": "spec_violation",
+      "location": "paper/sections/07-evaluation-protocol.tex:40",
+      "deduction": 100,
+      "paragraph_index": null
+    },
+    {
+      "id": "C2",
+      "tier": "C",
+      "category": "Causal Overclaiming",
+      "title": "Comparator is not the locked same-plan ablation",
+      "quote": "The comparison therefore isolates validation/planning cost from equivalent persistence; it is not an alternative safe admission path.",
+      "explanation": "The locked design requires the same atomic persistence plan plus phase timers and bootstrap intervals. The implementation instead uses a generic relational-delta applier, so code-path and SQL-emission differences remain confounded.",
+      "fix": "Implement the same-plan timed ablation with phase timers and intervals, or remove the isolation claim and formally revise the locked design.",
+      "comment_type": "spec_violation",
+      "location": "paper/sections/07-evaluation-protocol.tex:49",
+      "deduction": 0,
+      "paragraph_index": null
+    },
+    {
+      "id": "C3",
+      "tier": "C",
+      "category": "Internal Consistency",
+      "title": "Trace comparison violates the locked paired protocol",
+      "quote": "These are sequential fixed-environment executions rather than paired trials, so the ratios characterize the two recorded runs and are not hardware-independent speedup guarantees.",
+      "explanation": "The approved R21 design requires identical fixtures and paired invocation order. The manuscript instead adopts a historical baseline and a later sequential run. Honest caveating does not satisfy the locked protocol.",
+      "fix": "Rerun baseline and optimized trace paths as paired invocations on identical cloned fixtures, then regenerate the comparison and manuscript values.",
+      "comment_type": "spec_violation",
+      "location": "paper/sections/08-results.tex:68",
+      "deduction": 0,
+      "paragraph_index": null
+    },
+    {
+      "id": "M1",
+      "tier": "M",
+      "category": "Internal Consistency",
+      "title": "Admission timing description incorrectly includes reverse trace",
+      "quote": "The full arm executes the review service, complete authority transaction, and a successful post-admission trace.",
+      "explanation": "The benchmark stops the timer after confirm; QueryForms.trace runs afterward as an untimed validity assertion. The paper therefore misdefines what its admission latency measures.",
+      "fix": "State that latency times confirmation only and that the successful trace is an untimed post-measurement validity check.",
+      "comment_type": "methodology",
+      "location": "paper/sections/07-evaluation-protocol.tex:47",
+      "deduction": 10,
+      "paragraph_index": null
+    },
+    {
+      "id": "M2",
+      "tier": "M",
+      "category": "LaTeX-Specific",
+      "title": "Submission PDF still contains author-input placeholders",
+      "quote": "\\authorinput{provide the artifact DOI/URL and confirm access terms before submission}",
+      "explanation": "The compiled manuscript still exposes unresolved author-controlled placeholders for availability, ethics, authorship, funding, conflicts, acknowledgments, AI disclosure, and the appendix artifact URL.",
+      "fix": "Replace every authorinput call with approved final text and rebuild before uploading the manuscript.",
+      "comment_type": "submission_readiness",
+      "location": "paper/sections/declarations.tex:5",
+      "deduction": 8,
+      "paragraph_index": null
+    },
+    {
+      "id": "m1",
+      "tier": "m",
+      "category": "Internal Consistency",
+      "title": "Research-question count is stale",
+      "quote": "The evaluation addresses seven questions fixed before interpreting the final run:",
+      "explanation": "The list immediately contains RQ1 through RQ8. This visible count error weakens confidence in revision control.",
+      "fix": "Change seven to eight.",
+      "comment_type": "consistency",
+      "location": "paper/sections/07-evaluation-protocol.tex:6",
+      "deduction": 2,
+      "paragraph_index": null
+    }
+  ],
+  "num_comments": 6
+}

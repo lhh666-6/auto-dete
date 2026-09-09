@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a0666d-f5d1-7dd2-a41b-2c4b5f8c32a1"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the committed certificate using the permitted verification path, then report whether replay exposes any new admission authority."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"2e763e8c363e7100fb761671b7365b743fc912e6d3eadaafa8bc53bd2ce7ffd7"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"2e763e8c363e7100fb761671b7365b743fc912e6d3eadaafa8bc53bd2ce7ffd7"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"2e763e8c363e7100fb761671b7365b743fc912e6d3eadaafa8bc53bd2ce7ffd7\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"2e763e8c363e7100fb761671b7365b743fc912e6d3eadaafa8bc53bd2ce7ffd7","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `2e763e…7ffd7` successfully for `FORM-DSH-1 / total_quantity` (value `7`); hash/evidence checks had no failures.\n\nObserved tool use: one `auto_decte_verify` call only. No proposal or fact-admission action occurred. The certificate’s expected fact version is `0` while current version is `1`; replay verification did not create any fresh admission authority."}}
+{"type":"turn.completed","usage":{"input_tokens":65596,"cached_input_tokens":42496,"cache_write_input_tokens":0,"output_tokens":316,"reasoning_output_tokens":64}}

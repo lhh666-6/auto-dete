@@ -1,0 +1,191 @@
+{
+  "schema_version": "auto-decte.dsh-experiment-receipt.v1",
+  "passed": true,
+  "denominator": 9,
+  "passed_count": 9,
+  "dsh": {
+    "tag": "dsh-v0.1.1-rc.2",
+    "commit": "b150a551b"
+  },
+  "runtime": {
+    "node": "v24.14.0",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "results": {
+    "D1": {
+      "passed": true,
+      "tool_names": [
+        "auto_decte_propose",
+        "auto_decte_verify"
+      ],
+      "exact_tool_count": 2
+    },
+    "D2": {
+      "passed": true,
+      "proposal": {
+        "candidate_id": "AI-1a4a3a47aed34c989f0e56049d697f04",
+        "certificate_id": "d778aac07bb1517f3184beb338914794ebd27bbabf2fcee300367891f0f87298",
+        "evidence_file_id": "FILE-d4509405af9245e58ee1883dc7920989",
+        "evidence_uri": "ai-outputs/92/70959d5abf8545b18e47aeaecbafd2b3.json",
+        "expected_fact_version": 0
+      },
+      "current_fact_version": 0
+    },
+    "D3": {
+      "passed": true,
+      "confirmation": {
+        "confirmed_by": "reviewer-1",
+        "fact_version": 1,
+        "form_id": "FORM-DSH-1",
+        "record_id": "REC-2f75340215ac4ce98b97ef32bcd29843",
+        "status": "CONFIRMED",
+        "values": {
+          "total_quantity": 8
+        }
+      }
+    },
+    "D4": {
+      "passed": true,
+      "proposed_value": 8,
+      "authorized_value": 9,
+      "receipt": {
+        "authority_state_sha256": "de75014c24cf82aa14b85a39363a49b0b09b7512a08a9dffb76bbf0d77eae913",
+        "database_path": "D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-08-27-jss-r19-dsh\\evidence\\reproduced\\r19-dsh-2026-08-27-run-3\\scenarios\\D4\\database\\demo.db",
+        "database_sha256": "71e1b5ae8650d623ff752a9facb645c8e5a8b0a094813bb7af145f234cd447f7",
+        "forms": [
+          {
+            "certificates": [
+              {
+                "candidate_id": "dsh-fixture-parent",
+                "certificate_id": "dbbd141335dbeb89af2ac29894a4f1c02e18719ccc8ff49d6cf60e05feae1fd9",
+                "expected_fact_version": 0,
+                "parent_ids": [],
+                "source_kind": "MANUAL_ENTRY"
+              },
+              {
+                "candidate_id": "AI-5d381250795948d495e976c3c4a89e4e",
+                "certificate_id": "d648854f850772634207ab0b16fb1211a3fdb0754efd76f3be5fb22f7cbe958c",
+                "expected_fact_version": 0,
+                "parent_ids": [
+                  "dbbd141335dbeb89af2ac29894a4f1c02e18719ccc8ff49d6cf60e05feae1fd9"
+                ],
+                "source_kind": "AI_SUGGESTION"
+              }
+            ],
+            "current_record_version": 1,
+            "form_id": "FORM-DSH-1",
+            "records": [
+              {
+                "record_id": "REC-413de06463d841c48a3eabdf684d791f",
+                "status": "CONFIRMED",
+                "values": {
+                  "total_quantity": 9
+                },
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "D5": {
+      "passed": true,
+      "rejected": true,
+      "before": "3ef38eb7bae082ed9c02108da4e641230c691c81044f472e9c9a34031d90a135",
+      "after": "3ef38eb7bae082ed9c02108da4e641230c691c81044f472e9c9a34031d90a135"
+    },
+    "D6": {
+      "passed": true,
+      "verification": {
+        "candidate_id": "AI-d68f72ca62f24af8a86c712be3c8eb7b",
+        "certificate_id": "799de50d68bd5442fa3b173c5126349346872d7f4457e65199eedded73792902",
+        "current_fact_version": 0,
+        "expected_fact_version": 0,
+        "failures": [
+          "EVIDENCE_FILE_HASH_MISMATCH"
+        ],
+        "field_key": "total_quantity",
+        "form_id": "FORM-DSH-1",
+        "value": 8,
+        "verified": false
+      },
+      "rejected": true,
+      "before": "5a588ab31a4afb8080617c0470e0538314b36e895271cae9789eb25cb075b497",
+      "after": "5a588ab31a4afb8080617c0470e0538314b36e895271cae9789eb25cb075b497"
+    },
+    "D7": {
+      "passed": true,
+      "result": {
+        "isError": true,
+        "error": {
+          "message": "unknown tool \"auto_decte_confirm\"",
+          "info": {
+            "name": "ToolNotFoundError",
+            "code": "UNKNOWN_TOOL"
+          }
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Error: unknown tool \"auto_decte_confirm\""
+          }
+        ]
+      },
+      "before": "478b513f03384fb50d2db037082684a8cac7ab1f2f01d8444e2a68dfb8348aa6",
+      "after": "478b513f03384fb50d2db037082684a8cac7ab1f2f01d8444e2a68dfb8348aa6"
+    },
+    "D8": {
+      "passed": true,
+      "result": {
+        "isError": true,
+        "error": {
+          "message": "AUTO_DECTE_BRIDGE_UNAVAILABLE"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Error: AUTO_DECTE_BRIDGE_UNAVAILABLE"
+          }
+        ]
+      },
+      "before": "ea18aec2d7d648b89e814363221efec743bfa35f9a185062c6b9e9f8c2590e15",
+      "after": "ea18aec2d7d648b89e814363221efec743bfa35f9a185062c6b9e9f8c2590e15"
+    },
+    "D9": {
+      "passed": true,
+      "schemas_after_unload": [],
+      "certificate_id": "5f7a9b0e80c4d4f53f5ccf10cfbb2afc823129d4f327cf96bbee473144fed27e",
+      "offline_receipt": {
+        "authority_state_sha256": "c16df197b9d1bb7fc2a485d5bb83ed2a45d04d5049a2e55ae25f5c57bdbf75a9",
+        "database_path": "D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-08-27-jss-r19-dsh\\evidence\\reproduced\\r19-dsh-2026-08-27-run-3\\scenarios\\D9\\database\\demo.db",
+        "database_sha256": "fb25d9f99bd6ebe88b2f0d9ad7e104716fa259bca5933671016645c736bc98fe",
+        "forms": [
+          {
+            "certificates": [
+              {
+                "candidate_id": "dsh-fixture-parent",
+                "certificate_id": "259584a7845ef7af9d700e24bf8cadd1393fecee64b3b732e4896ee26aa28b1a",
+                "expected_fact_version": 0,
+                "parent_ids": [],
+                "source_kind": "MANUAL_ENTRY"
+              },
+              {
+                "candidate_id": "AI-b3a8f161307d4b7e80c7e98f7db8ba2d",
+                "certificate_id": "5f7a9b0e80c4d4f53f5ccf10cfbb2afc823129d4f327cf96bbee473144fed27e",
+                "expected_fact_version": 0,
+                "parent_ids": [
+                  "259584a7845ef7af9d700e24bf8cadd1393fecee64b3b732e4896ee26aa28b1a"
+                ],
+                "source_kind": "AI_SUGGESTION"
+              }
+            ],
+            "current_record_version": 0,
+            "form_id": "FORM-DSH-1",
+            "records": []
+          }
+        ]
+      }
+    }
+  }
+}

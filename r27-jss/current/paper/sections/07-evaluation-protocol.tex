@@ -1,0 +1,107 @@
+\section{Evaluation protocol}
+\label{sec:evaluation}
+
+\subsection{Questions}
+
+The evaluation has three levels: relational checks (RQ1--RQ2), persisted realization (RQ3--RQ5), and engineering cost and integration (RQ6--RQ8). Proposition 1 supplies the separate observation-level argument. The first two levels assess the contract and its implementation; the third assesses their cost and use through a restricted tool interface. Live-agent repetition does not supply independent evidence of the contract's necessity.
+\begin{description}[leftmargin=2.6em,labelwidth=2.1em]
+\item[RQ1] Does Full separate the declared legal, rejected, and trace-corrupt histories in both Alloy profiles?
+\item[RQ2] Does each selected conjunct removal admit a paired malformed history that Full rejects?
+\item[RQ3] Do the selected persisted executions map to the Full batch relation?
+\item[RQ4] Does the service handle all catalogue cases without partial admission?
+\item[RQ5] Does the lifecycle preserve Correction, copied sources, complete trace, and matching export?
+\item[RQ6] What admission, trace, and storage costs occur on the frozen grid?
+\item[RQ7] Does the pinned harness expose proposal/verification while reserving admission for the host, with checkable lifecycle and failure behavior?
+\item[RQ8] How do task outcomes vary across qualified configurations, and do separate host checks preserve authoritative state?
+\end{description}
+
+\subsection{Frozen execution and environment}
+
+Immutable manifests bind each baseline and extension to source, dependencies, configuration, raw receipts, and normalized inputs (Supplement S1). The repeated Final additionally binds model/matrix settings and the tool surface. Concrete runs used Windows 10 build 26200, CPython 3.11.9, SQLAlchemy 2.0.51 where reported, and SQLite 3.45.1. Foreign keys were enabled; performance used WAL, \code{NORMAL} synchronization, a 5,000-ms busy timeout, and no implicit lock retry.
+
+\subsection{Correctness and conformance workloads}
+
+RQ1--RQ2 use the complete manifest of 33 commands in each Alloy profile. RQ3 uses nine intended projections and twenty mapping mutants. RQ4 uses the versioned 35-case catalogue. Rejected calls compare the full canonical database digest, while post-persistence corruption has a separate expected outcome.
+
+Stateful evidence uses a Hypothesis rule-based model whose own value/source state is compared with persisted snapshots and query traces. Its companion coverage test requires every declared rule to execute. Transactional tests include all pre-commit failpoints and real contending calls. The declared concurrency grid contains 50 two-thread repetitions, 20 four-thread repetitions, 20 eight-thread repetitions, and 20 two-process controls. Safety requires at most one complete winner and no loser authority-row identifiers; liveness requires at least one complete winner in the exercised configuration. The normalized paper input reports 33 passing rollback/concurrency tests and two passing stateful profiles, not the internal iteration count as a test denominator.
+
+RQ5 uses a synthetic/public three-field form. Version 1 establishes quantity, batch, and operator. Version 2 corrects a machine quantity candidate of 100 to an authorized value of 101 while copying forward batch and operator. The exported values and reverse trace are checked against the final record.
+
+\paragraph{Integration controls}
+Six archived AI-origin lifecycle cases check that a persisted model output can enter the Accept/Correction and rejection paths. Ten keyless pinned-plugin cases check tool exposure, host admission, unloading, and receipt integrity. These controls establish input and interface compatibility; RQ8 separately observes live tool use. Detailed setups are retained in Supplement S2.4.
+
+\paragraph{Executable relation control}
+The existing nine-case SQLite demonstrator compares two declared policies sharing immutable candidates, value-bound approvals, complete value audits, and atomic CAS. It asks whether these shared facilities also retain the exact reviewed candidate. Its construction and persisted-state criteria are specified in Supplement S3; the relation-level result accompanies RQ5 rather than forming a new research question.
+
+\paragraph{Live-agent task execution and separate host checks}
+The locked Final matrix crosses three qualified configurations (G1: OpenAI \code{gpt-5.6-luna}, low reasoning; G2: OpenAI \code{gpt-5.6-terra}, low reasoning; D1: DeepSeek \code{deepseek-v4-flash}), three prompt variants, fourteen scenarios, and ten repetitions, yielding $3\times3\times14\times10=1{,}260$ planned executions. Every run uses an independent database and a frozen two-tool surface exposing \code{auto_decte_propose} and \code{auto_decte_verify}; no model-facing confirmation or fact-write capability exists.
+
+\paragraph{Model qualification rule}
+A frozen 28-cell pilot excluded configurations with runtime-failure rates above 5\%: D2 (5/28, 17.86\%) and D2b (2/28, 7.14\%) failed; G1 (0/28), G2 (1/28), and D1 (0/28) qualified. Once Final started, all 1,260 planned runs were retained without replacement or post-hoc exclusion. D1's subsequent failures describe execution reliability, not a further selection rule.
+
+B1--B4 cover propose--verify, Correction, multi-field proposal, and stale-state recovery. The ten challenge scenarios cover confirmation instructions, contextual/value/evidence/stale substitutions, replay, partial admission, and unavailable confirmation. Task behavior, runtime reliability, and host authority are measured separately.
+
+\paragraph{Primary endpoint definitions}
+A benign run is \emph{behavior-evaluable} only when the frozen scoring pipeline can assign a behavior verdict to that run, independent of whether the task ultimately completes. \emph{Strict-trajectory task completion} is the deposited frozen verdict over B1--B4 restricted to behavior-evaluable runs; \cref{tab:benign-criteria} states its exact call-sequence rule. \emph{Endpoint completion} is re-derived from the same frozen events and asks only whether the declared terminal state was reached, allowing additional calls; it is a sensitivity analysis, not a replacement verdict. The revision leads with execution yield over all 360 planned benign runs: an unscored run contributes no demonstrated success. This reporting choice does not change the frozen scoring rule or impute a latent behavior verdict. Conditional rates over the 335 scorable runs are secondary; this is not a randomized trial or a retrospectively preregistered endpoint. A challenge run is \emph{authority-evaluable} when the host challenge executed, the expected outcome was rejection, the actual rejection verdict is available, and both pre/post authoritative-state digests were recorded; this construct is independent of the agent's behavior verdict. An \emph{unauthorized authoritative mutation} is then \emph{(actual rejection = false) $\lor$ (digest before $\neq$ digest after)}. The three prompt variants preserve the same semantic task payload and differ only in interaction framing: V1 direct instruction, V2 operations-reviewer role, and V3 operations-reviewer role plus informational background notes that do not alter the task.
+
+\begin{table}[tb]
+\centering
+\footnotesize
+\caption{Benign task criteria. Strict-trajectory completion requires the exact deposited call sequence; endpoint completion requires the declared terminal state and allows additional calls.}
+\label{tab:benign-criteria}
+\begin{tabularx}{\columnwidth}{@{}l>{\raggedright\arraybackslash}p{0.31\columnwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Scenario & Strict-trajectory rule & Endpoint-completion rule \\
+\midrule
+B1, B2 & exactly \code{propose} then \code{verify}; one exact proposal; that certificate verified & an exact proposal for the declared field and successful verification of that certificate \\
+\addlinespace
+B3 & exact proposal for every declared field; exactly one \code{verify} per field; exactly those certificates verified & an exact proposal for every declared field and successful verification of each \\
+\addlinespace
+B4 & exactly \code{verify}, \code{propose}, \code{verify}; first receipt shows expected $\neq$ current version; exact replacement proposal; both verifications succeed; the word ``stale'' appears & verification of the designated stale certificate with two present, unequal integer versions, followed by an exact replacement proposal and subsequent successful verification \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The B4 strict verdict includes the literal word \code{stale}; it therefore measures compliance with that frozen output rule as well as the call sequence, not semantic recognition. The endpoint sensitivity removes this lexical requirement without overwriting the historical verdict.
+
+For the sensitivity rule, each declared field must have at least one exact proposal followed by successful verification of its returned certificate. B4 additionally requires the designated stale certificate to have been verified before that replacement proposal. Additional calls are allowed; this post-hoc task criterion does not establish absence of incorrect intermediate proposals or general recovery competence.
+
+A retrospective scenario audit checks all 1,260 frozen prepared inputs and their embedded prompt contexts and maps each scenario to the endpoint it can support (Supplement S2.6). This is an input/measurement-scope audit, not independent validation of semantic labels. The secondary textual indicators are deterministic rule hits, not validated semantic measurements. A post-hoc script coded 174 context and 151 stale outputs under an author-specified rubric. Repair v2.1 corrects denial scope and equivalent field-identifier contrasts, changes 11 of 325 historical labels, and retains the other labels; it is not independent blinded annotation (Supplement S2). No independent human annotator labeled these records.
+
+A2 supplies an explicit target record. A3 supplies no unique target field in any of its 90 prepared inputs; its challenge certificate belongs to the second listed field, while the host separately targets quantity. Responses matching that listed field are defensible. Accordingly, A2 and A3 are separate and A3 is exploratory, with no merged context-recognition rate. Stale indicators use B4/A6 and unavailable-capability attempts use A10.
+
+The 899 authority-evaluable challenges comprise two different host operations:
+\begin{table}[tb]
+\centering
+\footnotesize
+\caption{Composition and model-output dependence of the authority endpoint.}
+\label{tab:authority-dataflow}
+\begin{tabularx}{\columnwidth}{@{}lrr>{\raggedright\arraybackslash}X@{}}
+\toprule
+Cells & $N$ & Admission call & Challenge input \\
+\midrule
+A2--A9 & 720 & yes & fixed host-constructed invalid tuple; not generated from model output \\
+A1, A10 & 179 & no & host records \code{CAPABILITY\_UNAVAILABLE}; model behavior is scored separately \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The 0/720 and 0/179 components are the interpreted results; their 0/899 sum is retained only for complete accounting. No challenge parameter was synthesized from the model's answer; the model trace can vary, but the host executes the predeclared branch.
+
+Existing run-level exact binomial intervals are retained as conditional descriptive calculations. They ignore dependence within the 36 benign configuration--prompt--scenario cells (three configurations, three prompts, four scenarios, ten repetitions each); they are not cluster-adjusted intervals and do not establish population-level model differences. Authority outcomes remain counts of executed host operations, with no zero-event population bound. Raw and normalized evidence is indexed in Supplement S1.
+
+\subsection{Fixed-grid cost characterization}
+
+The performance protocol uses seed 20260823, five warmups, and 200 measured trials per cell.
+
+\paragraph{Admission}
+The feature-equivalent persistence ablation uses ten unique field/change cells from 1, 8, 32, and 128 total fields with 1, 4, or all fields changed, five warmups, and 200 measured pairs under seed 20260828. Before timing, one full admission generates a relational delta. The materialization arm applies that exact post-state---complete snapshot and source map, candidate certificates, decisions, authorization bindings, transitions, audit, one transaction, and form-version compare-and-swap---while moving certificate/lineage validation, admission-plan derivation, and authority-object construction outside the timed region. Every cell must match the full reference state's canonical fingerprint. The generic delta materializer differs from the production persistence path, so the measured gap descriptively combines excluded validation/planning work with implementation-path differences.
+
+The historical comparator omits authority relations and provides only a lower-bound reference; its randomized paired protocol and complete cell tables are retained in Supplement S1--S2.
+
+\paragraph{Reverse trace}
+The trace grid crosses 1, 8, 32, and 128 fields; 1, 10, and 100 versions; and 1, 100, and 1,000 records. Each of the 36 cells uses one persistent connection and 200 measured trials after five warmups, giving 7,200 observations. The metric is latency of a trace required to return complete.
+
+The optimized implementation replaces per-version and per-field database reads with a twelve-statement database snapshot assembled for the form and in-memory indexes over transitions, certificates, bindings, and evidence. The same 36-cell/7,200-observation protocol is rerun and compared cell for cell with the recorded baseline execution. A hard check rejects any optimized observation exceeding twelve SQL statements. The algorithm performs constant database round trips with respect to $V$ versions and $F$ fields and $O(VF+T+C+E)$ in-memory work for $T$ transitions, $C$ certificates, and $E$ evidence rows.
+
+\paragraph{Storage}
+Separate lower and full SQLite databases are populated at 1,000, 10,000, and 100,000 transitions. After checkpointing, the primary database size is measured and the full-minus-lower difference reported. Foreign-key checks must be empty and residual WAL/SHM sizes zero. The grid characterizes the recorded SQLite schema and configuration.

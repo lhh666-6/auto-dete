@@ -1,0 +1,346 @@
+FFFFFF....                                                               [100%]
+================================== FAILURES ===================================
+_______ test_missing_git_metadata_is_unknown[error0-benchmarks.run_all] _______
+
+module = <module 'benchmarks.run_all' from 'D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-09-r26-review-fixed\\code\\implementation-fixed\\benchmarks\\run_all.py'>
+error = FileNotFoundError('git unavailable')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C979F335D0>
+
+    @pytest.mark.parametrize("module", [run_all, pipeline_authority_benchmark])
+    @pytest.mark.parametrize("error", [
+        FileNotFoundError("git unavailable"),
+        subprocess.CalledProcessError(128, ["git"]),
+        subprocess.TimeoutExpired(["git"], 30),
+    ])
+    def test_missing_git_metadata_is_unknown(module, error, monkeypatch):
+        def unavailable(*args, **kwargs):
+            raise error
+        monkeypatch.setattr(module.subprocess, "run", unavailable)
+>       assert module._git("rev-parse", "HEAD") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\benchmarks\test_optional_git_metadata.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+benchmarks\run_all.py:28: in _git
+    completed = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'check': True, 'capture_output': True, 'text': True, 'timeout': 30}
+
+    def unavailable(*args, **kwargs):
+>       raise error
+E       FileNotFoundError: git unavailable
+
+tests\benchmarks\test_optional_git_metadata.py:17: FileNotFoundError
+_ test_missing_git_metadata_is_unknown[error0-benchmarks.pipeline_authority_benchmark] _
+
+module = <module 'benchmarks.pipeline_authority_benchmark' from 'D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-09-r26-review-fixed\\code\\implementation-fixed\\benchmarks\\pipeline_authority_benchmark.py'>
+error = FileNotFoundError('git unavailable')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C97A6F4990>
+
+    @pytest.mark.parametrize("module", [run_all, pipeline_authority_benchmark])
+    @pytest.mark.parametrize("error", [
+        FileNotFoundError("git unavailable"),
+        subprocess.CalledProcessError(128, ["git"]),
+        subprocess.TimeoutExpired(["git"], 30),
+    ])
+    def test_missing_git_metadata_is_unknown(module, error, monkeypatch):
+        def unavailable(*args, **kwargs):
+            raise error
+        monkeypatch.setattr(module.subprocess, "run", unavailable)
+>       assert module._git("rev-parse", "HEAD") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\benchmarks\test_optional_git_metadata.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+benchmarks\pipeline_authority_benchmark.py:75: in _git
+    completed = subprocess.run(
+tests\benchmarks\test_optional_git_metadata.py:17: in unavailable
+    raise error
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:250: in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\logging.py:865: in pytest_runtest_call
+    yield
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\capture.py:900: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_callers.py:53: in run_old_style_hookwrapper
+    return result.get_result()
+           ^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_callers.py:38: in run_old_style_hookwrapper
+    res = yield
+          ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\skipping.py:268: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:184: in pytest_runtest_call
+    item.runtest()
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\python.py:1707: in runtest
+    self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\python.py:167: in pytest_pyfunc_call
+    result = testfunction(**testargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+tests\benchmarks\test_optional_git_metadata.py:19: in test_missing_git_metadata_is_unknown
+    assert module._git("rev-parse", "HEAD") is None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+benchmarks\run_all.py:28: in _git
+    completed = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'check': True, 'capture_output': True, 'text': True, 'timeout': 30}
+
+    def unavailable(*args, **kwargs):
+>       raise error
+E       FileNotFoundError: git unavailable
+
+tests\benchmarks\test_optional_git_metadata.py:17: FileNotFoundError
+_______ test_missing_git_metadata_is_unknown[error1-benchmarks.run_all] _______
+
+module = <module 'benchmarks.run_all' from 'D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-09-r26-review-fixed\\code\\implementation-fixed\\benchmarks\\run_all.py'>
+error = CalledProcessError(128, ['git'])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C97ACC3B50>
+
+    @pytest.mark.parametrize("module", [run_all, pipeline_authority_benchmark])
+    @pytest.mark.parametrize("error", [
+        FileNotFoundError("git unavailable"),
+        subprocess.CalledProcessError(128, ["git"]),
+        subprocess.TimeoutExpired(["git"], 30),
+    ])
+    def test_missing_git_metadata_is_unknown(module, error, monkeypatch):
+        def unavailable(*args, **kwargs):
+            raise error
+        monkeypatch.setattr(module.subprocess, "run", unavailable)
+>       assert module._git("rev-parse", "HEAD") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\benchmarks\test_optional_git_metadata.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+benchmarks\run_all.py:28: in _git
+    completed = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'check': True, 'capture_output': True, 'text': True, 'timeout': 30}
+
+    def unavailable(*args, **kwargs):
+>       raise error
+E       subprocess.CalledProcessError: Command '['git']' returned non-zero exit status 128.
+
+tests\benchmarks\test_optional_git_metadata.py:17: CalledProcessError
+_ test_missing_git_metadata_is_unknown[error1-benchmarks.pipeline_authority_benchmark] _
+
+module = <module 'benchmarks.pipeline_authority_benchmark' from 'D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-09-r26-review-fixed\\code\\implementation-fixed\\benchmarks\\pipeline_authority_benchmark.py'>
+error = CalledProcessError(128, ['git'])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C97AC4CBD0>
+
+    @pytest.mark.parametrize("module", [run_all, pipeline_authority_benchmark])
+    @pytest.mark.parametrize("error", [
+        FileNotFoundError("git unavailable"),
+        subprocess.CalledProcessError(128, ["git"]),
+        subprocess.TimeoutExpired(["git"], 30),
+    ])
+    def test_missing_git_metadata_is_unknown(module, error, monkeypatch):
+        def unavailable(*args, **kwargs):
+            raise error
+        monkeypatch.setattr(module.subprocess, "run", unavailable)
+>       assert module._git("rev-parse", "HEAD") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\benchmarks\test_optional_git_metadata.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+benchmarks\pipeline_authority_benchmark.py:75: in _git
+    completed = subprocess.run(
+tests\benchmarks\test_optional_git_metadata.py:17: in unavailable
+    raise error
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:250: in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\logging.py:865: in pytest_runtest_call
+    yield
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\capture.py:900: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_callers.py:53: in run_old_style_hookwrapper
+    return result.get_result()
+           ^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_callers.py:38: in run_old_style_hookwrapper
+    res = yield
+          ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\skipping.py:268: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:184: in pytest_runtest_call
+    item.runtest()
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\python.py:1707: in runtest
+    self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\python.py:167: in pytest_pyfunc_call
+    result = testfunction(**testargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+tests\benchmarks\test_optional_git_metadata.py:19: in test_missing_git_metadata_is_unknown
+    assert module._git("rev-parse", "HEAD") is None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+benchmarks\run_all.py:28: in _git
+    completed = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'check': True, 'capture_output': True, 'text': True, 'timeout': 30}
+
+    def unavailable(*args, **kwargs):
+>       raise error
+E       subprocess.CalledProcessError: Command '['git']' returned non-zero exit status 128.
+
+tests\benchmarks\test_optional_git_metadata.py:17: CalledProcessError
+_______ test_missing_git_metadata_is_unknown[error2-benchmarks.run_all] _______
+
+module = <module 'benchmarks.run_all' from 'D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-09-r26-review-fixed\\code\\implementation-fixed\\benchmarks\\run_all.py'>
+error = TimeoutExpired(['git'], 30)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C97AB6D410>
+
+    @pytest.mark.parametrize("module", [run_all, pipeline_authority_benchmark])
+    @pytest.mark.parametrize("error", [
+        FileNotFoundError("git unavailable"),
+        subprocess.CalledProcessError(128, ["git"]),
+        subprocess.TimeoutExpired(["git"], 30),
+    ])
+    def test_missing_git_metadata_is_unknown(module, error, monkeypatch):
+        def unavailable(*args, **kwargs):
+            raise error
+        monkeypatch.setattr(module.subprocess, "run", unavailable)
+>       assert module._git("rev-parse", "HEAD") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\benchmarks\test_optional_git_metadata.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+benchmarks\run_all.py:28: in _git
+    completed = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'check': True, 'capture_output': True, 'text': True, 'timeout': 30}
+
+    def unavailable(*args, **kwargs):
+>       raise error
+E       subprocess.TimeoutExpired: Command '['git']' timed out after 30 seconds
+
+tests\benchmarks\test_optional_git_metadata.py:17: TimeoutExpired
+_ test_missing_git_metadata_is_unknown[error2-benchmarks.pipeline_authority_benchmark] _
+
+module = <module 'benchmarks.pipeline_authority_benchmark' from 'D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-09-r26-review-fixed\\code\\implementation-fixed\\benchmarks\\pipeline_authority_benchmark.py'>
+error = TimeoutExpired(['git'], 30)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C97AD59550>
+
+    @pytest.mark.parametrize("module", [run_all, pipeline_authority_benchmark])
+    @pytest.mark.parametrize("error", [
+        FileNotFoundError("git unavailable"),
+        subprocess.CalledProcessError(128, ["git"]),
+        subprocess.TimeoutExpired(["git"], 30),
+    ])
+    def test_missing_git_metadata_is_unknown(module, error, monkeypatch):
+        def unavailable(*args, **kwargs):
+            raise error
+        monkeypatch.setattr(module.subprocess, "run", unavailable)
+>       assert module._git("rev-parse", "HEAD") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\benchmarks\test_optional_git_metadata.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+benchmarks\pipeline_authority_benchmark.py:75: in _git
+    completed = subprocess.run(
+tests\benchmarks\test_optional_git_metadata.py:17: in unavailable
+    raise error
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:361: in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:250: in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\logging.py:865: in pytest_runtest_call
+    yield
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\capture.py:900: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_callers.py:53: in run_old_style_hookwrapper
+    return result.get_result()
+           ^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_callers.py:38: in run_old_style_hookwrapper
+    res = yield
+          ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\skipping.py:268: in pytest_runtest_call
+    return (yield)
+            ^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\runner.py:184: in pytest_runtest_call
+    item.runtest()
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\python.py:1707: in runtest
+    self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_hooks.py:512: in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\pluggy\_manager.py:120: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\release-staging\auto-dete-r21-github-2026-09-05\r21-jss\source\implementation\.venv\Lib\site-packages\_pytest\python.py:167: in pytest_pyfunc_call
+    result = testfunction(**testargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+tests\benchmarks\test_optional_git_metadata.py:19: in test_missing_git_metadata_is_unknown
+    assert module._git("rev-parse", "HEAD") is None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+benchmarks\run_all.py:28: in _git
+    completed = subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'check': True, 'capture_output': True, 'text': True, 'timeout': 30}
+
+    def unavailable(*args, **kwargs):
+>       raise error
+E       subprocess.TimeoutExpired: Command '['git']' timed out after 30 seconds
+
+tests\benchmarks\test_optional_git_metadata.py:17: TimeoutExpired
+=========================== short test summary info ===========================
+FAILED tests/benchmarks/test_optional_git_metadata.py::test_missing_git_metadata_is_unknown[error0-benchmarks.run_all]
+FAILED tests/benchmarks/test_optional_git_metadata.py::test_missing_git_metadata_is_unknown[error0-benchmarks.pipeline_authority_benchmark]
+FAILED tests/benchmarks/test_optional_git_metadata.py::test_missing_git_metadata_is_unknown[error1-benchmarks.run_all]
+FAILED tests/benchmarks/test_optional_git_metadata.py::test_missing_git_metadata_is_unknown[error1-benchmarks.pipeline_authority_benchmark]
+FAILED tests/benchmarks/test_optional_git_metadata.py::test_missing_git_metadata_is_unknown[error2-benchmarks.run_all]
+FAILED tests/benchmarks/test_optional_git_metadata.py::test_missing_git_metadata_is_unknown[error2-benchmarks.pipeline_authority_benchmark]
+6 failed, 4 passed in 14.44s

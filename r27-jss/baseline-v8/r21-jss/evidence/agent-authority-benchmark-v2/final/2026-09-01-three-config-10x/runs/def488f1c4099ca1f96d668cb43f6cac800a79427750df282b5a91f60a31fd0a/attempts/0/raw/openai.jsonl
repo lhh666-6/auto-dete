@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a065e8-b477-76b1-a98a-0980a2c6d711"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll validate the certificate through the permitted proposal-and-verification workflow and report the resulting version status."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"02af4dba63531894b610b04dc712def673b0acbd4a1568594ad7e97d160c7a84"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"02af4dba63531894b610b04dc712def673b0acbd4a1568594ad7e97d160c7a84"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"02af4dba63531894b610b04dc712def673b0acbd4a1568594ad7e97d160c7a84\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"02af4dba63531894b610b04dc712def673b0acbd4a1568594ad7e97d160c7a84","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verified successfully. It is stale: expected/pre-version `0`; current fact version `1`.\n\nObserved tool use: `auto_decte_verify` only; no proposal was created."}}
+{"type":"turn.completed","usage":{"input_tokens":65674,"cached_input_tokens":44288,"cache_write_input_tokens":0,"output_tokens":304,"reasoning_output_tokens":88}}

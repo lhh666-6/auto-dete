@@ -1,0 +1,250 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\pdfstringdefDisableCommands{\def\corref#1{}}
+
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+
+\journal{Journal of Systems and Software}
+
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\begin{document}
+\begin{center}
+{\Large Supplementary material}\par\medskip
+Authoritative-State Admission for AI-Derived Updates\par
+Artifact details, revision checks, and checklist example
+\end{center}
+The companion main manuscript retains the admission contract, Proposition 1,
+primary evaluation methods and results, and validity limits. Section and table
+numbers beginning with S refer to this supplement.
+\section{Artifact and evidence boundary}
+\label{app:artifact}
+
+The paper draws on separately manifested evidence layers: the formal/concrete and fixed-grid
+baseline, an AI-origin lifecycle fixture, a pinned agent-harness integration, performance
+extensions, and the repeated live-agent Final. The repository retains immutable source, configuration, dependency
+locks, raw receipts, normalized inputs, generated tables, and claim--evidence lineage for each
+layer. Separating these layers prevents later experiments from silently changing the baseline
+denominators.
+
+Baseline quantitative and pass/fail statements are generated from exactly the ten normalized
+inputs in \cref{tab:paper-inputs}. The AI-origin and harness studies add
+\code{ai_origin_lifecycle_summary.json} and \code{dsh_plugin_integration_summary.json},
+respectively. The performance extensions add
+\code{r21_feature_baseline_summary.json} and \code{r21_trace_optimization_summary.json}.
+The repeated benchmark enters through the no-overwrite staging bundle
+\code{2026-09-03-three-config-10x}, whose status is
+\code{READY\_FOR\_MANUSCRIPT\_INTEGRATION}. It contains all 1,260 normalized Final rows,
+aggregate statistical analysis, two generated tables, the endpoint figure, and its own manifest.
+Each layer retains raw-source references and claim lineage.
+
+\begin{table}[bp]
+\centering
+\caption{Exact ten-input baseline set. Roles and per-file lineage are recorded in the artifact repository.}
+\label{tab:paper-inputs}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Inputs 1--5 & Inputs 6--10 \\
+\midrule
+\code{run_summary.json} & \code{lifecycle_summary.json} \\
+\code{quality_summary.json} & \code{cost_summary.json} \\
+\code{alloy_results.json} & \code{cost_run_metadata.json} \\
+\code{formal_refinement_summary.json} & \code{correctness_environment.json} \\
+\code{conformance_summary.json} & \code{performance_environment.json} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The table generator checks the exact input set, recomputes every input hash, and verifies that
+correctness and performance metadata bind the declared source, configuration, and dependency
+identities. The extension manifests bind performance modules and configurations. The repeated-
+benchmark Final binds the runner, model/matrix configuration, tool surface, raw attempts, host
+actions, normalized rows, generated tables/figure, and direct source dependencies. Its verified
+parent-manifest SHA-256 is
+\code{6e41df602fab195bedbfa5ec97d152b5921b0ef0cace6f8da7c5204b6cd433ec}.
+Whole-package manifests are non-self-referential and detect missing, extra, or modified files.
+
+Per-file SHA-256 values, receipt paths, clean-extraction checks, and one-byte tamper-probe outputs
+are maintained in the artifact repository rather than repeated in the manuscript. Diagnostic and
+failed runs remain available as provenance but are excluded from normalized paper inputs. The
+repository README, Final report, and manuscript-input status identify the citable runs and provide
+the regeneration and verification commands.
+
+The v8 observation witnesses and frozen R21 experimental evidence are deposited at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v8/r21-jss}. Its package-level and revision-level manifests identify the v8 manuscript and evidence. The accompanying submission candidate places the current manuscript, repaired code, witnesses, and derived analyses under its current manifest and groups this revision with an unchanged v8 export under a release-level manifest. The cited v8 URL is historical; the current candidate has not yet been published. Figures 1 and 2 present the admission workflow and contribution map.
+
+The r22 review-response revision adds four versioned evidence items without replacing the frozen v8 records: the canonical value-equality repair with thirteen regression tests (\code{evidence/r1-value-equality/}), the minimal-repair rule re-score of the frozen acknowledgment audit (\code{evidence/r3-audit-verified/}), the strict-versus-endpoint task sensitivity analysis over the frozen events (\code{evidence/r4-endpoint-verified/}), and the corrected observation-witness report with the copy-forward control (\code{evidence/r5-witness/}). The baseline copy of the v8 manuscript and its PDF are retained byte-identically in the revision directory. The frozen performance measurements describe the v8 implementation and were not rerun for the value-equality repair.
+
+
+\subsection{Historical cost details}
+\label{app:historical-cost}
+
+The main text reports the frozen v8 persistence-equivalent and optimized measurements. For complete accounting, \cref{tab:admission-cost} retains the historical lower-bound admission comparison and \cref{tab:trace-cost} the historical reverse-trace summary. These tables describe the frozen v8 measurements and are not used to isolate the cost of any single check.
+
+\input{tables/generated/admission_cost}
+
+\input{tables/generated/trace_historical_cost}
+
+\subsection{Historical zero-event calculation not used for inference}
+\label{app:zero-event}
+The historical analysis file retains an arithmetic zero-event calculation over 899 operations. This revision does not interpret it as a population bound: the workload mixes fixed admission probes and capability-unavailable branches and does not establish independent Bernoulli sampling. The manuscript reports operation counts separately.
+
+\section{Revision checks and historical protocol}
+\subsection{Value equality and witness domains}
+
+A cross-layer review of the previous build found that the planner and trace validator decided whether a field changed with Python equality, while the independent oracle and formal projection used canonical JSON equality. Because Python identifies $2$ with $2.0$ and $1$ with \code{true}, a submission through the public confirmation API could commit a new serialized value while reusing the predecessor source, after which the trace immediately reported \code{incomplete}. The repair routes every changed-field decision through one canonical-equality relation. Thirteen regression tests cover an unchanged equal-value control, integer-to-float and integer-to-boolean changes, a nested-value change, a single-field change, and a fail-closed pure no-op; seven fail against the previous implementation and all pass against the repaired one, and the affected conformance workloads were rerun with the complete suite green. The observation-witness checker was corrected in the same revision to separate the schema field domain from the declared item field domain: an ordinary single-field update with another field copied forward is now a complete successor rather than a partial one, while the five original pairs retain their derived outcomes. The checker validates the five declared constructions plus one copy-forward control; it is not a general admission oracle.
+
+
+The current checker additionally isolates candidate identity in a separate $D_C$ pair while retaining all five original pairs and the copy-forward control. Its versioned report is \code{evidence/r27-witness/observation-witness-report-v5.json}; the earlier report remains historical. Nineteen focused witness tests pass, including three new checks of identity isolation and report coverage.
+
+\subsection{Textual rule audit}
+The original recognition fields used lexical indicators (\code{mismatch}/\code{different record} and \code{stale}), which can miss synonyms or count negated and identifier-only occurrences. A post-hoc rule-based audit rescored all behavior-evaluable A2/A3/B4/A6 outputs: 174 context and 151 stale outputs. One author specified the rubric; a deterministic script assigned every label from assistant text with model configuration and old labels withheld. No AI model or independent human annotator assigned row labels, so these are \emph{rule-hit counts}, not validated semantic measurements. A review of the previous build found two rule defects: an explicit denial (``no mismatch'', ``no cross-field conflict arises'') could be counted as a positive hit, and synonymous assertions (``matches $X$, not $Y$'' versus ``$X$ does not match $Y$'') could receive opposite labels. A versioned minimal-repair re-score (v2.1) addresses those two defect classes, including denial scope and case-normalized field identifiers and otherwise retains the previous rule outcome; it changes 11 of 325 rows and leaves the stale count unchanged. The repair uses the historical rule labels as input; it is not an independent blinded annotation. We report the historical and repaired counts and retain every disagreement in the artifact.
+
+The A2 and A3 context scenarios are reported separately. A2 supplies a cross-record challenge whose intended record is explicit. A3's frozen prompt did not name a unique intended target field: all 90 prepared A3 inputs omit an explicit intended/target key, and the challenge certificate equals the parent of the second listed field while the host separately targets quantity. An A3 response that matches the listed field is therefore a defensible reading of the task, and A3 is reported as an exploratory response count rather than a context-mismatch acknowledgment rate. The A2 and A3 counts are not merged. These textual indicators record rule matches related to context and freshness; they do not establish semantic acknowledgment or general recognition ability. Complete row coverage by a single-rubric post-hoc script does not establish measurement validity. Unavailable-capability attempt remains A10, and recovery is covered by B4.
+
+
+\subsection{Historical admission comparator}
+For the historical lower-bound comparison, the full-arm latency ends when the review service's complete authority transaction commits; a successful post-admission trace is then checked outside the timed region. Its paired lower-bound comparator performs only a minimal version CAS, record-snapshot insert with an empty source map, and field-value updates. The arms run in randomized order on fresh clones of one initialized database per pair. Unique combinations of 1, 8, 32, and 128 fields with 1, 4, or all fields changed yield ten cells and 2,000 pairs. We report full p50/p95 and the paired mean latency difference with a 2,000-draw nonparametric 95\% bootstrap interval. Differences are interpreted within this lower-bound comparator design.
+
+
+\subsection{Lifecycle and pinned-plugin controls}
+These controls distinguish archived-input compatibility from runtime-interface conformance. They complement the main manuscript's lifecycle and live-agent results.
+
+\paragraph{AI-origin lifecycle probe}
+One archived hosted-AI fixture retains the prompt, response, normalized candidate, generation metadata, and a five-file manifest; backend revision and decoding settings are unavailable. Confidence is uncalibrated and excluded from admission. Six fresh-database cases run once: all-field Accept, singleton/all-field/mixed Correction, stale replay, and cross-field substitution. The first four require expected versions and complete traces; the latter two require rejection and an unchanged independent database digest.
+
+\paragraph{DeepSeek Harness plugin probe}
+The pinned plugin and dependency lock are driven keylessly through Cordis and DSH \code{ToolRuntime}. Ten cases cover tool composition, proposal, host Accept/Correction, stale and evidence rejection, absent confirmation/bridge, unloading, and manifest verification. Four rejection cases require unchanged authority digests; a one-byte receipt mutation must be localized exactly.
+
+All six AI-origin cases matched their predeclared outcomes: the four Accept/Correction cases produced the expected versions and traces, while stale replay and invalid-item substitution rejected without changing the canonical database digest. The raw records and \code{ai_origin_lifecycle_summary.json} retain the case details. Together, the two lifecycles demonstrate candidate preservation, authorized correction, copy-forward, and fail-closed admission for the declared synthetic/public inputs.
+
+All ten predeclared DSH cases passed. Only proposal and verification were model-callable; proposal left the fact version at zero. Host Accept created one successor, while Correction retained the proposed value 8 and authorized 9. All four rejected-action cases preserved the authority-state digest. Unloading removed the tool schemas but retained readable records. The clean 30-file manifest verified, and the one-byte tamper probe identified exactly \code{receipt.json}.
+
+These results establish a deterministic runtime-integration and external-checkability example for the pinned release. RQ8 separately exercises live model behavior on the restricted surface.
+
+\subsection{Export reproducibility and observation scope}
+\label{sec:export-reproducibility}
+The historical normalized quality summary records 354 tests for its own snapshot; later v8 source collection and revised development-suite counts are different versioned inventories, not replacements for that summary. The prior 377-test result depended on ancestor-repository Alloy resources and Git metadata. The current export includes the Alloy model and portable Windows Java/Alloy runtime, and benchmark metadata records unavailable Git state as unknown rather than failing or claiming a clean checkout. Its isolated verification report records the actual test inventory and environment; no tests are skipped to conceal missing dependencies.
+
+Proposition 1 concerns five declared observation classes with principal membership fixed. It does not establish that these exhaust authentication or dynamic-policy failures. The following inspection matrix separates abstract histories from operational probes. A rejected public call produces a stutter, not the unsafe persisted history itself.
+
+\begin{table}[tb]
+\centering
+\footnotesize
+\caption{Interpretation of constructed histories and concrete probes.}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Ordinary-interface probe & Unsafe-history interpretation \\
+\midrule
+$D_C$ & Submit a substituted candidate; binding checks reject & A committed mismatch describes a missing/bypassed check, not an accepted Full execution. \\
+$D_V$ & Legal Correction preserves proposal and authorization & Erased or relabeled roles are observation loss or corrupted representation; legal Correction is not itself unsafe. \\
+$D_F$ & Replay after a newer version; CAS rejects & A stale commit requires loss/bypass of the stated freshness enforcement. \\
+$D_B$ & Inject an intermediate failure; transaction rolls back & Fragmented commits describe a weakened transaction path, not partial success of the full one. \\
+$D_S$ & Check exact source resolution and copy-forward & Corrupt-source fixtures use isolated storage; schema prevention and post-storage detection are distinct outcomes. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Two controlled revocation schedules exercise the stated policy boundary: a second thread completes revocation after the successful policy check, at the before-CAS or before-commit failpoint. The in-flight admission remains permitted under commit-entry semantics. These checks do not claim linearizable revocation; the existing pre-check revocation control requires rejection. No sixth observation class or stronger policy contract is inferred.
+
+\subsection{Retrospective scenario and endpoint audit}
+The input audit checks all 90 inputs per scenario: each prompt embeds its corresponding prepared context, field keys are unique, and declared proposal fields belong to the listed field set. The following source-level interpretation also reads the frozen prompt tasks, scoring rules, and host branches. Passing these mechanical checks does not establish natural-language construct validity. A5, like A3, does not supply a uniquely designated intended-evidence key; no A5 semantic-recognition rate is inferred. A6/A8 list stale field metadata, so freshness must be resolved through the tool against current state rather than inferred from that list alone.
+
+\begin{table}[tb]
+\centering
+\footnotesize
+\caption{Scope of the fourteen frozen scenarios; host challenge tuples are fixed independently of the model answer.}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Scenario & Visible task anchor & Supported endpoint and limitation \\
+\midrule
+B1 & One declared field/value & Proposal/verification completion; strict sequence may reject extra calls. \\
+B2 & Proposal and authorized value separated & Model proposes/verifies; the host performs Correction, not the model. \\
+B3 & Three declared field/value pairs & Multi-field proposal/verification, not model-controlled atomic admission. \\
+B4 & Designated stale and fresh certificates & Ordered recovery endpoint; strict also requires the word stale. \\
+A1 & Declared proposal plus untrusted confirmation text & Tool-boundary behavior; unavailable host branch makes no admission call. \\
+A2 & One intended record and challenge certificate & Cross-record text indicator plus separate host rejection; no validated semantic rate. \\
+A3 & Two fields, no unique intended target & Exploratory text only; host-selected target cannot supply a model-visible answer key. \\
+A4 & Authorized and attempted candidate identifiers & Host candidate-binding probe; verification alone does not measure full identity reasoning. \\
+A5 & Challenge and foreign-evidence identifiers & Host evidence-substitution probe; intended-evidence semantics not independently validated. \\
+A6 & Designated stale certificate & Stale text rule hits and separate host replay rejection; current state comes from verification. \\
+A7 & Proposal/authorized/attempted values explicit & Host authorized-value check; model output is not the invalid host tuple. \\
+A8 & Previously committed challenge certificate & Host replay check; not a standalone semantic-recognition measure. \\
+A9 & Full declared proposal set, partial host challenge & Host batch-integrity probe; no model-generated partial-admission attack. \\
+A10 & Confirmation requested only if exposed & Capability absence and attempted-use behavior; no admission call or security population estimate. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The less restrictive endpoint criterion removes sequence/lexical restrictions while checking the declared terminal events. Its higher observed count is not an independent validation of the frozen strict measure. The manuscript retains the comparison as post-hoc sensitivity and removes it from the abstract. No score or frozen model response is overwritten by this audit.
+
+\section{Executable design comparison}
+\label{sec:supp-executable}
+
+Two SQLite policies make the checklist inspectable through nine fixed cases.
+The standard-library Python demonstrator makes no hosted-model calls, leaves
+prior frozen experiments unchanged, and measures no performance.
+
+Both policies preserve immutable candidate rows, complete version snapshots,
+principal/value/domain-bound approvals, atomic compare-and-swap (CAS), and
+complete before/after value audits. The rejection and rollback controls in
+\cref{tab:executable-checklist} compare every application table before and after
+submission, with approvals already persisted. The
+\emph{value-audit} policy stores the approved values and the expected version
+but omits which persisted candidate was inspected. The \emph{candidate-bound}
+policy additionally persists the reviewed candidate identity, rechecks it on
+submission, and stores one exact source reference per authoritative field,
+copying unchanged-field sources forward.
+
+\input{tables/generated/checklist_example}
+
+\Cref{tab:executable-checklist} reports the nine fixed cases. The two policies
+agree on the accept/reject outcome in seven of the eight single-run cases and
+diverge in one: under equal-valued candidate substitution, the value-audit
+policy commits the approved value because the substituted candidate has the
+same record, field, and value, whereas the candidate-bound policy rejects the
+submission with \code{candidate_binding}. The paired histories are the sharper
+observation. Two runs review candidate 100 and candidate 101 and both approve
+and commit 101 with identical candidate pools, values, actor, and expected
+version. The complete logical application-table state is identical across the two
+value-audit runs and differs across the two candidate-bound runs; the
+difference is exactly the persisted reviewed-candidate identity. This shows
+omitted review linkage in the conventional policy, not the absence of
+candidate values, which both policies retain. The candidate-bound policy also
+reconstructs the proposed value by joining the persisted candidate rather than
+duplicating it, so the proposed value 100 and the authorized value 101 remain
+separately attributable. Both policies reconstruct the same per-field sources
+from the audit history in the two-step case; only the candidate-bound policy
+persists the source map. This control demonstrates no source-reconstruction
+advantage for the added map: the complete baseline audit already supports that
+observation. The demonstrated increment is exact reviewed-candidate binding and
+the resulting proposal/authorized-value attribution, not a requirement that
+$D_S$ use an explicitly stored pointer.
+
+The demonstrator is an illustrative specialization, not a second production
+implementation of the Auto-Decte contract. It does not implement cryptographic
+evidence verification, enterprise authentication, distributed revocation, race
+stress, or performance measurement, and it is not evidence that any deployed
+system is defective. The nine cases are a deterministic construction; the
+counts are not a statistical or superiority claim. The runner, raw SQLite
+observations, and derived table are retained in the package.
+\end{document}

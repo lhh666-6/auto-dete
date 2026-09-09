@@ -1,0 +1,40 @@
+{
+  "pilot_manifest_sha256": "a95e3d994747e2433055e1956ae14d5fefc77fbbfe3f484df1ec2ad1f5298af7",
+  "pilot_normalized_summary_sha256": "3d40136d22b1187902070f4490d6c98a0011c6d68001a7667bb49f0a2c424b7d",
+  "pilot_qualification_sha256": "bf220b5e55dd0ad368043d89239638a182944cea45a0f0687b08302d3ab1e978",
+  "pilot_root": "evidence/agent-authority-benchmark-v2/pilot/2026-08-29-pilot-1",
+  "qualification": {
+    "models": [
+      {
+        "model_config_id": "G1",
+        "provider": "openai",
+        "qualification_pass": false
+      },
+      {
+        "model_config_id": "G2",
+        "provider": "openai",
+        "qualification_pass": false
+      },
+      {
+        "model_config_id": "D1",
+        "provider": "deepseek",
+        "qualification_pass": true
+      },
+      {
+        "model_config_id": "D2",
+        "provider": "deepseek",
+        "qualification_pass": false
+      }
+    ]
+  },
+  "resource_policy_sha256": "b1add3053f452ef5f7173f560eb89ed66ba3742061a1f6a38fc54faeef07c446",
+  "resources": {
+    "D1": {
+      "mean_total_latency_seconds": 16.25892857142857,
+      "provider_credit_sufficient": false,
+      "runtime_failure_rate": 0.03571428571428571
+    }
+  },
+  "schema_version": "agent-authority-resource-inputs.v2",
+  "scientific_outcomes_in_resources": false
+}

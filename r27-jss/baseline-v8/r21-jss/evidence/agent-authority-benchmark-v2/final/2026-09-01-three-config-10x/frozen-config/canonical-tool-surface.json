@@ -1,0 +1,63 @@
+{
+  "schema_version": "auto-decte.logical-tool-surface.v2",
+  "tools": [
+    {
+      "authority_effect": "candidate_only",
+      "description": "Persist an AI suggestion as a parent-linked candidate; never commits a fact.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "execution_id": {
+            "type": "string"
+          },
+          "field_id": {
+            "type": "string"
+          },
+          "form_id": {
+            "type": "string"
+          },
+          "parent_certificate_id": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "value": {}
+        },
+        "required": [
+          "form_id",
+          "field_id",
+          "parent_certificate_id",
+          "value",
+          "confidence",
+          "session_id",
+          "execution_id"
+        ],
+        "type": "object"
+      },
+      "name": "auto_decte_propose"
+    },
+    {
+      "authority_effect": "read_only",
+      "description": "Read and hash-check a persisted candidate and its evidence.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "certificate_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "certificate_id"
+        ],
+        "type": "object"
+      },
+      "name": "auto_decte_verify"
+    }
+  ]
+}

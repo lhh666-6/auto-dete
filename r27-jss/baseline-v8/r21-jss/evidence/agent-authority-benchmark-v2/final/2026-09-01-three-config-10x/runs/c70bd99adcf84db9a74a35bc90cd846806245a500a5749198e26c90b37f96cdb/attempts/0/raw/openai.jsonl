@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06667-0082-7b90-be06-0a6a3752feae"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the committed certificate using the constrained verification workflow, then summarize the observed authority outcome."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"78abf650029464897ba487aa68483d02322c81ad31d0e2804cffeb3e2beac78d"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"78abf650029464897ba487aa68483d02322c81ad31d0e2804cffeb3e2beac78d"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"78abf650029464897ba487aa68483d02322c81ad31d0e2804cffeb3e2beac78d\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"78abf650029464897ba487aa68483d02322c81ad31d0e2804cffeb3e2beac78d","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `78ab…78d`: hash/evidence checks passed (`verified: true`), with no failures.\n\nObserved tool use: `auto_decte_verify` only. Replay confirmed the candidate but created no fresh admission authority; no fact-admission action exists or was performed."}}
+{"type":"turn.completed","usage":{"input_tokens":65600,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":221,"reasoning_output_tokens":12}}

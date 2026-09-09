@@ -1,0 +1,19 @@
+{
+  "schema": "auto-decte-r10-concurrency-config-v1",
+  "sqlite": {
+    "journal_mode": "WAL",
+    "synchronous": "NORMAL",
+    "isolation": "SERIALIZABLE (sqlite default deferred transaction)",
+    "busy_timeout_ms": 5000,
+    "declared_lock_retries": 0
+  },
+  "threads": [
+    {"contenders": 2, "repetitions": 50},
+    {"contenders": 4, "repetitions": 20},
+    {"contenders": 8, "repetitions": 20}
+  ],
+  "multiprocess_control": {"contenders": 2, "repetitions": 20},
+  "activation": "AUTODECTE_PAPER_PROFILE=1",
+  "safety": "at most one complete winner; no loser authority row ids",
+  "liveness": "at least one complete winner"
+}

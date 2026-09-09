@@ -1,0 +1,1 @@
+"""Optional semantic retrieval adapters."""

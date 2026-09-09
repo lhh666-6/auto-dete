@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a061fb-d9ab-7930-a9d1-349f7f390d84"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the candidate certificate against the authorized identity and record the field-specific metadata exactly as supplied."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ec561298c3214fa8da2fcd4fd53d6aca4c806ae4ab3fb9dc71f4e908d18af5eb"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ec561298c3214fa8da2fcd4fd53d6aca4c806ae4ab3fb9dc71f4e908d18af5eb"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"AI-b4c21148e96b4dc1a650a11c57aed3ef\",\n  \"certificate_id\": \"ec561298c3214fa8da2fcd4fd53d6aca4c806ae4ab3fb9dc71f4e908d18af5eb\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"AI-b4c21148e96b4dc1a650a11c57aed3ef","certificate_id":"ec561298c3214fa8da2fcd4fd53d6aca4c806ae4ab3fb9dc71f4e908d18af5eb","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":8,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified `ec561…f5eb`: valid candidate for `total_quantity = 8` at fact version 0; no verification failures.\n\nIts identity differs from the authorized certificate (`a87e…064b`). A matching value would not make the candidates identical, and no authoritative fact was admitted. No proposal was created."}}
+{"type":"turn.completed","usage":{"input_tokens":66146,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":513,"reasoning_output_tokens":293}}

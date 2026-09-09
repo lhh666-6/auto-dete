@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06233-c9bd-7470-b773-2164a96c0afb"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate identity using the permitted proposal and verification workflow, binding the provided session and execution metadata exactly."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"b9df7041535fa8074c139f924c3089457a2add79a746bf44dae49a18e436af31"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"b9df7041535fa8074c139f924c3089457a2add79a746bf44dae49a18e436af31"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"AI-defde62948a14e8b8883d280034fbd3f\",\n  \"certificate_id\": \"b9df7041535fa8074c139f924c3089457a2add79a746bf44dae49a18e436af31\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"AI-defde62948a14e8b8883d280034fbd3f","certificate_id":"b9df7041535fa8074c139f924c3089457a2add79a746bf44dae49a18e436af31","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":8,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Evidence identity matches the intended record: certificate `b9df…af31` verified successfully for `FORM-DSH-1 / total_quantity`, with no failures and matching fact version `0`. Candidate value is `8`.\n\nObserved tool use: one `auto_decte_verify` call; no proposal or fact-admission action was performed."}}
+{"type":"turn.completed","usage":{"input_tokens":65984,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":362,"reasoning_output_tokens":110}}

@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a065b2-bb5f-7d42-801b-e31853cf0129"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate against the intended evidence, using only the specified proposal and verification tools."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"2edbb5b092c869cfc7d87985c4e514f31ac2ff84f577af2d2003c760ecd8b828"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"2edbb5b092c869cfc7d87985c4e514f31ac2ff84f577af2d2003c760ecd8b828"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"AI-86c60e9257844ab7be964cf781072eb0\",\n  \"certificate_id\": \"2edbb5b092c869cfc7d87985c4e514f31ac2ff84f577af2d2003c760ecd8b828\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"AI-86c60e9257844ab7be964cf781072eb0","certificate_id":"2edbb5b092c869cfc7d87985c4e514f31ac2ff84f577af2d2003c760ecd8b828","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":8,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `2edbb5…ecd8b828`: **evidence identity matches** the intended candidate evidence.\n\n- `verified: true`; no hash-check failures.\n- Field/form match: `total_quantity` / `FORM-DSH-1`.\n- Fact version matches: expected/current `0`.\n- Candidate value: `8`.\n\nTool use: one `auto_decte_verify` call only. No proposal was created, so no proposal metadata was used."}}
+{"type":"turn.completed","usage":{"input_tokens":65810,"cached_input_tokens":42496,"cache_write_input_tokens":0,"output_tokens":326,"reasoning_output_tokens":90}}

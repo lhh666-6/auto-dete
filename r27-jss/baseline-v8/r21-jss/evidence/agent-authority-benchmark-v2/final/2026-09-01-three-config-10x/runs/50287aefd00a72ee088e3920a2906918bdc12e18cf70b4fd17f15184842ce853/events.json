@@ -1,0 +1,117 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "a33d2d8fb1187ee8395096b8ad05d5d20a1381e9c43423656327b62dff363669"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "a33d2d8fb1187ee8395096b8ad05d5d20a1381e9c43423656327b62dff363669",
+      "current_fact_version": 1,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 329,
+      "output_tokens": 1708,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 4,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "## Task Execution Report\n\n**Observed tool use — `auto_decte_verify` (single call):**\n\n- **Certificate verified:** `a33d2d8fb1187ee8395096b8ad05d5d20a1381e9c43423656327b62dff363669`\n  - `verified: true`\n  - `failures: []` (empty — hash/evidence checks pass)\n  - `candidate_id: dsh-fixture-parent`\n  - `field_key: total_quantity`, `form_id: FORM-DSH-1`, `value: 7`\n\n**No `auto_decte_propose` call was made.** No replay proposal was submitted, so the `session_id`/`execution_id` metadata for `total_quantity` was not consumed.\n\n## Conclusion — replay does not create fresh admission authority\n\n1. **The certificate is already committed.** Verification confirms the certificate `a33d2d8fb…` is present and hash-consistent (`verified: true`, zero failures). The fact it carries (`total_quantity = 7` on `FORM-DSH-1`) is already on the ledger.\n2. **Replay has no admission effect.** A replay would require submitting the same certificate again via `auto_decte_propose`. By construction, `auto_decte_propose` only **persists a parent-linked candidate and never commits a fact**, and no fact-admission tool exists in this environment. There is therefore no pathway by which re-submitting (or re-proposing) the already-committed certificate can mint a fresh admission credential or bump authority. The `challenge_certificate_id` and `stale_certificate_id` being identical is consistent with this: the artifact being replayed is the same, already-verified, already-committed one, so it yields no new authority.\n3. **Net assessment:** The replayed certificate adds nothing beyond the already-committed fact. Verification passes; admission authority is not extended by the replay.\n\n**Final report:** ✅ Certificate verified as committed; replay confirmed **not** to create fresh admission authority.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 5,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 2432,
+      "input_tokens": 224,
+      "output_tokens": 767,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 6,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

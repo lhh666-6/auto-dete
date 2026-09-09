@@ -1,0 +1,57 @@
+{
+  "config": {
+    "admission_changed": [
+      1,
+      4,
+      "all"
+    ],
+    "admission_fields": [
+      1,
+      8,
+      32,
+      128
+    ],
+    "cache_policy": "persistent connection per trace cell; fresh cloned database and connection per admission arm",
+    "interval": "paired nonparametric bootstrap, 2000 draws, 95 percent",
+    "pair_order": "randomized within pair and across cells",
+    "schema_version": 1,
+    "seed": 20260823,
+    "sqlite": {
+      "busy_timeout_ms": 5000,
+      "foreign_keys": true,
+      "implicit_retries": 0,
+      "journal_mode": "WAL",
+      "synchronous": "NORMAL"
+    },
+    "storage_transitions": [
+      1000,
+      10000,
+      100000
+    ],
+    "trace_fields": [
+      1,
+      8,
+      32,
+      128
+    ],
+    "trace_records": [
+      1,
+      100,
+      1000
+    ],
+    "trace_versions": [
+      1,
+      10,
+      100
+    ],
+    "trials": 200,
+    "warmups": 5
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "sqlite": "3.45.1"
+  },
+  "schema_version": 1,
+  "status": "complete"
+}

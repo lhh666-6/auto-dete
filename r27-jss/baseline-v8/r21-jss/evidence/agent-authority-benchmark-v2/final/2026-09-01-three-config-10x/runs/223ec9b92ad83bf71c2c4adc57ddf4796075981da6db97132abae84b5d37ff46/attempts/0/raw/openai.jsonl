@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06650-9b07-7610-baff-cb4bc5dea101"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the committed certificate using the permitted proposal/verification workflow and report the observed calls."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"cc56f7a2a39a73e44b5ced486ed398dfae7db8e6218a09639db96e048e43f226"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"cc56f7a2a39a73e44b5ced486ed398dfae7db8e6218a09639db96e048e43f226"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"cc56f7a2a39a73e44b5ced486ed398dfae7db8e6218a09639db96e048e43f226\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"cc56f7a2a39a73e44b5ced486ed398dfae7db8e6218a09639db96e048e43f226","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `cc56…f226`: valid, hash/evidence checks passed; candidate value is `7`.\n\nObserved tool use:\n- `auto_decte_verify` once, with the committed certificate ID.\n- No proposal was created.\n\nReplay only verified the persisted candidate. It created no fresh admission authority; the fact version remains authoritative state (`current_fact_version: 1` vs candidate `expected_fact_version: 0`)."}}
+{"type":"turn.completed","usage":{"input_tokens":65637,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":295,"reasoning_output_tokens":49}}

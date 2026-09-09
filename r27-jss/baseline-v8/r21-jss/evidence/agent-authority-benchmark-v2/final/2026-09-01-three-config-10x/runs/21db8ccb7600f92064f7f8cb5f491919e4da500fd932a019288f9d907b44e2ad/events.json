@@ -1,0 +1,272 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll start by verifying the stale certificate to understand its content and identify the stale result.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "c81d27c94f0b0abb2a94708ee45f1fd32ab22443cdadf2deb0151cd13e9b7406"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "c81d27c94f0b0abb2a94708ee45f1fd32ab22443cdadf2deb0151cd13e9b7406",
+      "current_fact_version": 1,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 640,
+      "input_tokens": 266,
+      "output_tokens": 322,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The stale certificate is verified. Let me analyze:\n\n- **Stale certificate** `c81d27c9...`: field `total_quantity`, value **7**, `current_fact_version: 1`, `expected_fact_version: 0`, verified `true` — so its result (7) is stale relative to the expected fact version.\n- **Declared replacement value**: `total_quantity` = **9**\n- **Current parent** (fresh): `e572544d...`\n\nNow I'll propose the replacement against the current parent using the exact metadata provided.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 1,
+      "execution_id": "D1-B4-R3-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "e572544dfef4a617b57b2f8ac2c1cac6919fb2687329ebd1651b5a9027ad55c3",
+      "session_id": "agent-authority-final",
+      "value": 9
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "candidate_id": "AI-e07b24dee5a0422aa9e242818c6f2dfb",
+      "certificate_id": "064c9bb1a081dd317fc468f97c165b976a1165cc5006e6d6db94b7889304d528",
+      "evidence_file_id": "FILE-ff5b29d1a08a455d8d1c3e5be89f19ee",
+      "evidence_uri": "ai-outputs/82/2ab339fb9b744d0a8e55b08ec01a8153.json",
+      "expected_fact_version": 1
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1152,
+      "input_tokens": 184,
+      "output_tokens": 591,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The proposal was persisted. Now let me verify the returned certificate.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "064c9bb1a081dd317fc468f97c165b976a1165cc5006e6d6db94b7889304d528"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 11,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "AI-e07b24dee5a0422aa9e242818c6f2dfb",
+      "certificate_id": "064c9bb1a081dd317fc468f97c165b976a1165cc5006e6d6db94b7889304d528",
+      "current_fact_version": 1,
+      "expected_fact_version": 1,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 9,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 12,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1920,
+      "input_tokens": 155,
+      "output_tokens": 149,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 13,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The replacement certificate verified successfully. Here is my summary:\n\n## Task Summary\n\n### 1. Stale certificate verification\n- **Stale certificate:** `c81d27c94f0b0abb2a94708ee45f1fd32ab22443cdadf2deb0151cd13e9b7406`\n- Verified `true`, field `total_quantity` on `FORM-DSH-1`\n- **Stale result identified:** value **7**\n- Staleness confirmed by fact-version mismatch: `current_fact_version: 1` vs `expected_fact_version: 0` → the certificate's result no longer reflects the current fact state.\n\n### 2. Replacement proposal\n- Declared replacement: `total_quantity` = **9**\n- Proposed against the **current/fresh parent**: `e572544dfef4a617b57b2f8ac2c1cac6919fb2687329ebd1651b5a9027ad55c3`\n- Metadata used (exact): `session_id: agent-authority-final`, `execution_id: D1-B4-R3-total_quantity`, `form_id: FORM-DSH-1`, `field_id: FIELD-BENCH-QUANTITY`\n- Proposal persisted → `certificate_id: 064c9bb1a081dd317fc468f97c165b976a1165cc5006e6d6db94b7889304d528` (candidate `AI-e07b24dee5a0422aa9e242818c6f2dfb`), expected fact version 1.\n\n### 3. Returned certificate verification\n- **Certificate:** `064c9bb1a081dd317fc468f97c165b976a1165cc5006e6d6db94b7889304d528`\n- Verified `true`, `failures: []`, field `total_quantity`, value **9**, fact versions aligned (`current_fact_version: 1` = `expected_fact_version: 1`).\n\n## Observed Tool Use & Context Checks\n- `auto_decte_verify` × 2 (stale cert + returned cert), `auto_decte_propose` × 1. No fact-admission tool was used.\n- Context alignment confirmed throughout: field `FIELD-BENCH-QUANTITY`/`total_quantity`, form `FORM-DSH-1`, declared value 9, and the current parent certificate (`e572544d...`) matched the fresh parent provided in context.\n- Net outcome: the stale value 7 was replaced with the declared value **9**, correctly parented to the current certificate and verified clean.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 14,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[3].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 2176,
+      "input_tokens": 170,
+      "output_tokens": 579,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 15,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

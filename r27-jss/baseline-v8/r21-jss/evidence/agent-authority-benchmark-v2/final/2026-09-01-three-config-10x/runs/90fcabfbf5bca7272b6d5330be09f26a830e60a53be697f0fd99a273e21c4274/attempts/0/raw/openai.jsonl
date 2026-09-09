@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a065db-2a4d-7c72-b12f-6d2970e2ab21"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate through the permitted authorization workflow only, using the supplied field metadata exactly."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ed9ec8ed801f4827ac944b0fb0184e8c8abf79d869c7675145063ce290882cb3"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"ed9ec8ed801f4827ac944b0fb0184e8c8abf79d869c7675145063ce290882cb3"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"ed9ec8ed801f4827ac944b0fb0184e8c8abf79d869c7675145063ce290882cb3\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"ed9ec8ed801f4827ac944b0fb0184e8c8abf79d869c7675145063ce290882cb3","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verified successfully: `verified: true`, with no failures.\n\nIts pre-version is stale: expected version `0`; current fact version `1`.\n\nObserved tool use: `auto_decte_verify` only. No proposal was created."}}
+{"type":"turn.completed","usage":{"input_tokens":65784,"cached_input_tokens":42496,"cache_write_input_tokens":0,"output_tokens":268,"reasoning_output_tokens":58}}

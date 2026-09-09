@@ -1,3 +1,18 @@
+# Current shared manuscript: r27
+
+**第一作者：梁航豪；第二作者：宣文涛（xuanwentao）。本次修订由两位作者共同完成。**
+
+This revision was jointly revised by Liang Hanghao and xuanwentao.
+
+- [Main manuscript — 56 pages](r27-jss/current/paper/main.pdf)
+- [Supplement — 11 pages](r27-jss/current/paper/supplement.pdf)
+- [Complete r27 candidate, source and frozen baseline](r27-jss/)
+- [Joint revision credit, verification and publication status](R27-COLLABORATION.md)
+
+Pinned version: `r27-jss-2026-09-09`. Use Git LFS when cloning the complete package. Earlier descriptions below are historical.
+
+---
+
 # Auto-Decte reproducibility artifacts
 
 ## Current JSS R21 package

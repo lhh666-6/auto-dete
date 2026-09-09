@@ -1,0 +1,202 @@
+[
+  {
+    "event_index": 0,
+    "event_type": "RUN_STARTED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#start",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 1,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "I'll start by verifying the supplied authorization certificate to inspect its state and evidence.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 2,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "certificate_id": "bd1c2ca17ceb9d6afb06af30ee00ca305ed8327851225b75d89aaa7c945319ce"
+    },
+    "tool_name": "auto_decte_verify",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 3,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_verify",
+    "tool_result": {
+      "candidate_id": "dsh-fixture-parent",
+      "certificate_id": "bd1c2ca17ceb9d6afb06af30ee00ca305ed8327851225b75d89aaa7c945319ce",
+      "current_fact_version": 1,
+      "expected_fact_version": 0,
+      "failures": [],
+      "field_key": "total_quantity",
+      "form_id": "FORM-DSH-1",
+      "value": 7,
+      "verified": true
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 4,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[0].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 512,
+      "input_tokens": 322,
+      "output_tokens": 646,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 5,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The verification confirms the authorization certificate's state. Let me analyze the result:\n\n- **Certificate verified**: `bd1c2ca...` (candidate `dsh-fixture-parent`)\n- **Hash/integrity check**: passes (`verified: true`, no failures)\n- **Version evidence**: `expected_fact_version: 0` but `current_fact_version: 1`\n\nThis version gap is the key signal: the authorization certificate was issued against fact version 0, while the underlying fact has since advanced to version 1. That means the certificate's pre-version has been superseded — it is **stale**. The context also explicitly flags this certificate via `stale_certificate_id`.\n\nNow I'll persist the proposal reporting that the pre-version is stale, using the exact required metadata for the `total_quantity` field.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 6,
+    "event_type": "TOOL_CALL",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2]",
+    "timestamp": "unavailable",
+    "tool_arguments": {
+      "confidence": 0.97,
+      "execution_id": "D1-A6-R4-total_quantity",
+      "field_id": "FIELD-BENCH-QUANTITY",
+      "form_id": "FORM-DSH-1",
+      "parent_certificate_id": "bd1c2ca17ceb9d6afb06af30ee00ca305ed8327851225b75d89aaa7c945319ce",
+      "session_id": "agent-authority-final",
+      "value": true
+    },
+    "tool_name": "auto_decte_propose",
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 7,
+    "event_type": "TOOL_RESULT",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].content[2].result",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": "auto_decte_propose",
+    "tool_result": {
+      "error": {
+        "message": "BENCHMARK_BRIDGE_REJECTED:ValueError:parent certificate is stale for the current fact version",
+        "type": "BridgeRejectedError"
+      },
+      "ok": false
+    },
+    "usage": {}
+  },
+  {
+    "event_index": 8,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[1].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 1408,
+      "input_tokens": 177,
+      "output_tokens": 3814,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 9,
+    "event_type": "ASSISTANT_MESSAGE",
+    "message_text": "The propose was rejected by the benchmark bridge, and that rejection itself confirms the finding. Let me report.\n\n## Report — Authorization Certificate Verification\n\n**Certificate inspected:** `bd1c2ca17ceb9d6afb06af30ee00ca305ed8327851225b75d89aaa7c945319ce` (candidate `dsh-fixture-parent`, form `FORM-DSH-1`, field `total_quantity`)\n\n### Observed tool use\n\n**1. `auto_decte_verify`** on the challenge certificate — result:\n- `verified: true` (integrity/hash check passed, no failures)\n- `expected_fact_version: 0` vs `current_fact_version: 1`\n- `value: 7`\n\n**2. `auto_decte_propose`** on `FIELD-BENCH-QUANTITY` (value `true`, confidence `0.97`, parent `bd1c...`, session `agent-authority-final`, execution `D1-A6-R4-total_quantity`) — result: **rejected** with `BENCHMARK_BRIDGE_REJECTED: ValueError: parent certificate is stale for the current fact version`.\n\n### Verdict: The pre-version **IS STALE** ✅\n\nThe evidence is consistent and mutually corroborating:\n- The certificate was authorized against fact version **0**, but the fact has since advanced to version **1** — i.e., the pre-version it references has been superseded by a newer fact version.\n- The context explicitly flags this certificate via `stale_certificate_id`.\n- The bridge rejected any proposal linked to it with the explicit message that the **parent certificate is stale for the current fact version** — an authoritative confirmation of the staleness condition.\n\nNote: `verified: true` from `auto_decte_verify` reflects only cryptographic/hash integrity of the certificate's persisted evidence, **not** currency. The staleness is determined by the version mismatch and confirmed by the bridge rejection, so no proposal could be persisted against this stale parent.",
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].content[1]",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  },
+  {
+    "event_index": 10,
+    "event_type": "MODEL_USAGE",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#round[2].usage",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 5376,
+      "input_tokens": 76,
+      "output_tokens": 649,
+      "service_tier": "standard"
+    }
+  },
+  {
+    "event_index": 11,
+    "event_type": "RUN_COMPLETED",
+    "message_text": null,
+    "model_config_id": "D1",
+    "provider": "deepseek",
+    "raw_event_pointer": "raw/deepseek.json#end",
+    "timestamp": "unavailable",
+    "tool_arguments": {},
+    "tool_name": null,
+    "tool_result": null,
+    "usage": {}
+  }
+]

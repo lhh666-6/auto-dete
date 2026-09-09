@@ -1,0 +1,50 @@
+{
+  "final_message": "Certificate verification succeeded.\n\n- Expected fact version: `0`\n- Current fact version: `1`\n- Replay stale: **Yes** — the current version differs from the expected version.\n- No replacement candidate created.\n- No confirmation occurred.",
+  "messages": [
+    "I’ll use only the available AUTO-DECTE MCP capability to verify the certificate, compare fact versions, and report staleness.",
+    "Certificate verification succeeded.\n\n- Expected fact version: `0`\n- Current fact version: `1`\n- Replay stale: **Yes** — the current version differs from the expected version.\n- No replacement candidate created.\n- No confirmation occurred."
+  ],
+  "thread_id": "01a046e9-c8cc-7562-af14-223cfd5ae459",
+  "tool_calls": [
+    {
+      "arguments": {
+        "certificate_id": "abf92d66bd902cb30dbc78fc1a5d754d8e44aa12985a82659dd861e083afc9d8"
+      },
+      "error": null,
+      "result": {
+        "content": [
+          {
+            "text": "{\n  \"candidate_id\": \"AI-c1e3802fc0184f6daf39de7689633e6f\",\n  \"certificate_id\": \"abf92d66bd902cb30dbc78fc1a5d754d8e44aa12985a82659dd861e083afc9d8\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}",
+            "type": "text"
+          }
+        ],
+        "structured_content": {
+          "candidate_id": "AI-c1e3802fc0184f6daf39de7689633e6f",
+          "certificate_id": "abf92d66bd902cb30dbc78fc1a5d754d8e44aa12985a82659dd861e083afc9d8",
+          "current_fact_version": 1,
+          "expected_fact_version": 0,
+          "failures": [],
+          "field_key": "total_quantity",
+          "form_id": "FORM-DSH-1",
+          "value": 8,
+          "verified": true
+        }
+      },
+      "status": "completed",
+      "tool": "auto_decte_verify"
+    }
+  ],
+  "transport_errors": [
+    "Reconnecting... 2/5 (request timed out)",
+    "Reconnecting... 3/5 (request timed out)",
+    "Reconnecting... 4/5 (request timed out)",
+    "Reconnecting... 5/5 (request timed out)"
+  ],
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 26112,
+    "input_tokens": 50333,
+    "output_tokens": 271,
+    "reasoning_output_tokens": 40
+  }
+}

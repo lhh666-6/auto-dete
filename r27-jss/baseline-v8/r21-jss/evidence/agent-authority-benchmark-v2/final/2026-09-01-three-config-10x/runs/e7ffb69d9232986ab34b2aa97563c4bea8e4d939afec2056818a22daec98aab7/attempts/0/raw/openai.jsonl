@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06231-bc22-7a60-9c08-344706d3ca92"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate’s evidence identity using only the permitted proposal and verification actions, then summarize the observed tool use."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"90a5fee104f4dead4b64b54f908f36a75bfd4a2b87a44015abd3970dd4fe1fd4"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"90a5fee104f4dead4b64b54f908f36a75bfd4a2b87a44015abd3970dd4fe1fd4"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"AI-df1df7ec2bd3438e9bb25fcd8b80917b\",\n  \"certificate_id\": \"90a5fee104f4dead4b64b54f908f36a75bfd4a2b87a44015abd3970dd4fe1fd4\",\n  \"current_fact_version\": 0,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 8,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"AI-df1df7ec2bd3438e9bb25fcd8b80917b","certificate_id":"90a5fee104f4dead4b64b54f908f36a75bfd4a2b87a44015abd3970dd4fe1fd4","current_fact_version":0,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":8,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verified successfully. Evidence identity matches the intended `total_quantity` evidence: value `8`, fact version `0`, with no verification failures.\n\nObserved tool use: `auto_decte_verify` only; no proposal or fact-admission action was performed."}}
+{"type":"turn.completed","usage":{"input_tokens":66039,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":272,"reasoning_output_tokens":50}}

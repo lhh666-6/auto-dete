@@ -1,0 +1,85 @@
+{
+  "schema": "auto-decte-r21-claim-evidence-ledger-v1",
+  "claims": [
+    {
+      "claim_id": "R18-C1",
+      "claim": "One archived hosted-AI candidate can traverse the production import, recognition, and human-confirmation path with all three declared fields accepted.",
+      "evidence": "reproduced/r18-ai-origin-lifecycle-2026-08-27-corrected/raw/A1_all_accept.json",
+      "json_paths": ["$.observed_outcome", "$.versions", "$.trace_status"]
+    },
+    {
+      "claim_id": "R18-C2",
+      "claim": "The same path records singleton, all-field, and mixed corrections while preserving declared copy-forward fields.",
+      "evidence": "paper-inputs/ai_origin_lifecycle_summary.json",
+      "json_paths": ["$.cases[1]", "$.cases[2]", "$.cases[3]"]
+    },
+    {
+      "claim_id": "R18-C3",
+      "claim": "Stale replay and cross-field certificate substitution are rejected without changing the canonical logical database state.",
+      "evidence": "paper-inputs/ai_origin_lifecycle_summary.json",
+      "json_paths": ["$.cases[4].digest_unchanged", "$.cases[5].digest_unchanged"]
+    },
+    {
+      "claim_id": "R19-C1",
+      "claim": "The pinned DSH runtime exposes exactly two AUTO-DECTE tools and no model-callable fact-write tool.",
+      "evidence": "paper-inputs/dsh_plugin_integration_summary.json",
+      "json_paths": ["$.registered_model_tools", "$.model_callable_fact_write_tools", "$.cases[0]"]
+    },
+    {
+      "claim_id": "R19-C2",
+      "claim": "Candidate proposal leaves fact version zero; separate host Accept and Correction create the declared successor while preserving the proposal.",
+      "evidence": "paper-inputs/dsh_plugin_integration_summary.json",
+      "json_paths": ["$.cases[1]", "$.cases[2]", "$.cases[3]"]
+    },
+    {
+      "claim_id": "R19-C3",
+      "claim": "Stale, tampered-evidence, unavailable-confirmation, and unavailable-bridge paths fail closed under the normalized authority-state comparison.",
+      "evidence": "paper-inputs/dsh_plugin_integration_summary.json",
+      "json_paths": ["$.cases[4]", "$.cases[5]", "$.cases[6]", "$.cases[7]"]
+    },
+    {
+      "claim_id": "R19-C4",
+      "claim": "Plugin unload removes the tools while persisted evidence remains readable, and offline verification detects the exact one-byte mutation path.",
+      "evidence": "paper-inputs/dsh_plugin_integration_summary.json",
+      "json_paths": ["$.cases[8]", "$.cases[9]", "$.clean_manifest_verified", "$.tamper_exact_changed_path"]
+    },
+    {
+      "claim_id": "R21-C1",
+      "claim": "A real hosted agent completed all six locked tool-use scenarios while the authoritative-state safety check passed in all six.",
+      "evidence": "paper-inputs/r21_live_agent_summary.json",
+      "json_paths": ["$.denominator", "$.tool_completion_count", "$.authority_safety_count", "$.sources_unchanged_during_run"]
+    },
+    {
+      "claim_id": "R21-C2",
+      "claim": "The embedded confirmation instruction did not alter the propose-verify sequence; stale, cross-record, cross-field, and unavailable-confirmation cases produced their declared outcomes.",
+      "evidence": "paper-inputs/r21_live_agent_summary.json",
+      "json_paths": ["$.scenarios[1]", "$.scenarios[2]", "$.scenarios[3]", "$.scenarios[4]", "$.scenarios[5]"]
+    },
+    {
+      "claim_id": "R21-C3",
+      "claim": "The prevalidated materialization arm matched the full-admission relational post-state in all ten cells and completed 2,000 measured pairs.",
+      "evidence": "paper-inputs/r21_feature_baseline_summary.json",
+      "json_paths": ["$.cells", "$.observations", "$.equivalence_verified_cells", "$.results"]
+    },
+    {
+      "claim_id": "R21-C4",
+      "claim": "The optimized reverse trace completed the same 36 cells and 7,200 observations with exactly 12 SQL statements per observation and the reported latency range.",
+      "evidence": "paper-inputs/r21_trace_optimization_summary.json",
+      "json_paths": ["$.cells", "$.baseline_observations", "$.current_observations", "$.statement_budget", "$.results"]
+    }
+  ],
+  "excluded_claims": [
+    "model accuracy",
+    "usability",
+    "production throughput",
+    "deterministic regeneration of hosted-model output",
+    "external validity beyond the archived fixture",
+    "live-model task accuracy or planning behavior",
+    "host authentication or process isolation",
+    "production effectiveness of the DSH integration",
+    "prompt-injection robustness rate from six single-run scenarios",
+    "immutable hosted-model weights behind the requested alias",
+    "hardware-independent trace speedup",
+    "safe use of the prevalidated materialization arm as a production admission path"
+  ]
+}

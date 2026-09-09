@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a06657-8365-7171-b190-fcf9972954df"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll replay-verify the committed certificate using the provided authority metadata, then report the exact tool calls observed."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"da68c5c32a106ec24fb81c07287ae183312cd2e9b76e34d2af3ebb205e94c8af"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"da68c5c32a106ec24fb81c07287ae183312cd2e9b76e34d2af3ebb205e94c8af"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"da68c5c32a106ec24fb81c07287ae183312cd2e9b76e34d2af3ebb205e94c8af\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"da68c5c32a106ec24fb81c07287ae183312cd2e9b76e34d2af3ebb205e94c8af","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Verified certificate `da68…c8af` successfully: `total_quantity = 7`, no failures.\n\nReplay did not create fresh admission authority: verification is read/hash-check only and the fact version remains separate (`expected 0`, current `1`). No proposal was made.\n\nObserved tool use:\n\n- `auto_decte_verify` — 1 call\n- `auto_decte_propose` — 0 calls"}}
+{"type":"turn.completed","usage":{"input_tokens":65849,"cached_input_tokens":61696,"cache_write_input_tokens":0,"output_tokens":397,"reasoning_output_tokens":142}}

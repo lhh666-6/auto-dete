@@ -1,0 +1,12 @@
+{"type":"thread.started","thread_id":"01a05ed9-fb16-7842-a965-1d211980588c"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 3/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 4/5 (request timed out)"}
+{"type":"error","message":"Reconnecting... 5/5 (request timed out)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. request timed out"}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"I’ll verify the certificate using only the authorized proposal and verification tools, preserving the exact required metadata for `total_quantity`."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"7b260c5c3f98a48b97eb632702f4d7add5b5cac643bca254952632739383f495"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"auto_decte","tool":"auto_decte_verify","arguments":{"certificate_id":"7b260c5c3f98a48b97eb632702f4d7add5b5cac643bca254952632739383f495"},"result":{"content":[{"type":"text","text":"{\n  \"candidate_id\": \"dsh-fixture-parent\",\n  \"certificate_id\": \"7b260c5c3f98a48b97eb632702f4d7add5b5cac643bca254952632739383f495\",\n  \"current_fact_version\": 1,\n  \"expected_fact_version\": 0,\n  \"failures\": [],\n  \"field_key\": \"total_quantity\",\n  \"form_id\": \"FORM-DSH-1\",\n  \"value\": 7,\n  \"verified\": true\n}"}],"structured_content":{"candidate_id":"dsh-fixture-parent","certificate_id":"7b260c5c3f98a48b97eb632702f4d7add5b5cac643bca254952632739383f495","current_fact_version":1,"expected_fact_version":0,"failures":[],"field_key":"total_quantity","form_id":"FORM-DSH-1","value":7,"verified":true}},"error":null,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Certificate verification succeeded.\n\nThe pre-version is stale: expected fact version `0`, current fact version `1`.\n\n- Field: `total_quantity`\n- Verified value: `7`\n- Form: `FORM-DSH-1`\n- Failures: none\n- Tool used: `auto_decte_verify`\n- No proposal was created; proposal metadata was therefore not invoked."}}
+{"type":"turn.completed","usage":{"input_tokens":45575,"cached_input_tokens":42240,"cache_write_input_tokens":0,"output_tokens":497,"reasoning_output_tokens":243}}

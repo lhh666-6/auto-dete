@@ -1,0 +1,18 @@
+--- ../../evidence/codex-handoff/test_value_audit_demo.codex.py	2026-09-09 00:02:51.408394700 +0800
++++ test_value_audit_demo.py	2026-09-09 00:03:01.571166300 +0800
+@@ -1,5 +1,6 @@
+ """Black-box behavior contracts for the deliberately specified two-arm example."""
+ import json
++from contextlib import closing
+ from pathlib import Path
+ import sqlite3
+ import tempfile
+@@ -12,7 +13,7 @@
+ 
+ 
+ def persisted(path):
+-    with sqlite3.connect(path) as con:
++    with closing(sqlite3.connect(path)) as con:
+         names = [r[0] for r in con.execute(
+             "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")]
+         return {name: con.execute(f'SELECT * FROM "{name}" ORDER BY rowid').fetchall()

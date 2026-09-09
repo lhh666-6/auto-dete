@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "seed": 20260823,
+  "warmups": 5,
+  "trials": 200,
+  "admission_fields": [1, 8, 32, 128],
+  "admission_changed": [1, 4, "all"],
+  "trace_fields": [1, 8, 32, 128],
+  "trace_versions": [1, 10, 100],
+  "trace_records": [1, 100, 1000],
+  "storage_transitions": [1000, 10000, 100000],
+  "sqlite": {
+    "foreign_keys": true,
+    "journal_mode": "WAL",
+    "synchronous": "NORMAL",
+    "busy_timeout_ms": 5000,
+    "implicit_retries": 0
+  },
+  "cache_policy": "persistent connection per trace cell; fresh cloned database and connection per admission arm",
+  "pair_order": "randomized within pair and across cells",
+  "interval": "paired nonparametric bootstrap, 2000 draws, 95 percent"
+}

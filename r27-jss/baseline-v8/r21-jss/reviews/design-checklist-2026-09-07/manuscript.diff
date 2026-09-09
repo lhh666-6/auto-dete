@@ -1,0 +1,59 @@
+--- before/artifact_appendix.tex
++++ after/artifact_appendix.tex
+@@ -52,7 +52,7 @@
+ repository README, Final report, and manuscript-input status identify the citable runs and provide
+ the regeneration and verification commands.
+ 
+-The revised observation witnesses and frozen R21 experimental evidence are deposited at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v7/r21-jss}. Its package-level and revision-level manifests identify this manuscript and its evidence. The editorial revision preserves the experimental records and table values; Figures 1 and 2 present the admission workflow and contribution map.
++The revised observation witnesses and frozen R21 experimental evidence are deposited at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v8/r21-jss}. Its package-level and revision-level manifests identify this manuscript and its evidence. The editorial revision preserves the experimental records and table values; Figures 1 and 2 present the admission workflow and contribution map.
+ 
+ 
+ \subsection{Reference zero-event calculation}
+--- before/sections/09-discussion-threats.tex
++++ after/sections/09-discussion-threats.tex
+@@ -7,13 +7,13 @@
+ 
+ \subsection{Design implications}
+ 
+-For systems admitting human-corrected AI candidates, \cref{tab:distinctions} can guide inspection of five relations: does authorization identify the exact candidate and target; are proposed, authorized, and committed values separately recoverable; is the predecessor checked at admission; does one commit cover the declared batch; and does every successor field retain the required source? The paired histories explain why inspecting only final values cannot settle these questions.
++\Cref{tab:design-checklist} turns C1--C2 into an implementation inspection aid. For each class, map the required information to persisted objects, locate the enforcement point, and run a legal control and the corresponding failure probe. Record the expected outcome, actual outcome, and evidence location; mark an item untested until that evidence exists. The package provides a reusable worksheet in \code{docs/admission-design-checklist.md}.
+ 
+-These questions concern preserved and checked information. A capability, content-addressed certificate, or database key can represent candidate identity; a version, digest, or epoch can represent freshness. A design using existing transaction and audit facilities can implement the relation if it records and enforces the specified bindings. Their names alone are insufficient: the bindings must be recoverable from persisted state and checked at admission.
++Candidate handles and freshness discriminators may use different representations. The checks concern the relations they preserve, not a required schema. For $D_B$, identify the admitted change set explicitly: the reference service copies unchanged submitted fields forward rather than admitting them as new transitions. For $D_S$, local field-source checks are distinct from full P6 authorization--candidate--evidence trace validation.
+ 
+-Value changes and source evolution must be validated together: changed fields acquire their authorized transitions, while unchanged fields retain exact prior sources. The concrete conformance checks exercise both obligations.
++\input{tables/design_checklist}
+ 
+-Expose proposal generation and fact admission as separate capabilities. The evaluated host checks preserve authority despite varying completion and acknowledgment outcomes. This provides a restricted-interface integration example; effects on real reviewers' audit and correction work still require deployment studies.
++The worksheet is a design aid derived from the declared model, not a validated cross-system assessment instrument or a sufficient correctness certificate. Principal policy, authentication assumptions, capability separation, and revocation timing still require separate review (\cref{sec:authorization-timing}). Effects on operational reviewers' correction and audit work remain a deployment question.
+ 
+ \subsection{Formal and construct validity}
+ 
+@@ -21,7 +21,7 @@
+ 
+ Projection covers nine intended instances and twenty mutants, subject to the concrete no-op and schema-uniqueness differences in \cref{sec:conformance}. Independent projection and database oracles reduce shared-code risk but cannot exclude defects shared with the runner, normalizer, model, or benchmark.
+ 
+-Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment. 
++Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment.
+ 
+ \subsection{Concrete and performance validity}
+ 
+--- before/sections/10-conclusion.tex
++++ after/sections/10-conclusion.tex
+@@ -5,4 +5,4 @@
+ 
+ The reference realization connects this contract to bounded model checks, persisted-state projections, and transaction tests. Cost measurements characterize the evaluated implementation; repeated-agent observations distinguish task behavior from host-enforced authority. These results support implementation and inspection of the contract within the evaluated scope.
+ 
+-Developers applying the contract should preserve the exact candidate, record the human-authorized value separately, recheck policy and predecessor freshness inside admission, and atomically commit the complete successor with sources for every field. Changed fields receive their authorized transitions; unchanged fields retain exact prior sources. These obligations can be implemented with existing transaction and audit facilities. Other database engines and operational reviewer workflows require further validation.
++Developers applying the contract should preserve the exact candidate, record the human-authorized value separately, recheck policy and predecessor freshness inside admission, and atomically commit the complete successor with sources for every field. Changed fields receive their authorized transitions; unchanged fields retain exact prior sources. The checklist in \cref{tab:design-checklist} connects these obligations to implementation inspection and failure probes using existing transaction and audit facilities. Other database engines and operational reviewer workflows require further validation.
+--- before/sections/declarations.tex
++++ after/sections/declarations.tex
+@@ -2,7 +2,7 @@
+ 
+ \subsection*{Data and software availability}
+ 
+-The study uses synthetic/public lifecycle input and a versioned software/evidence package containing formal models and observation witnesses, implementation and experiment code, dependency locks, raw receipts, normalized inputs, and verification commands. The deposited package is available at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v7/r21-jss}; its manifests identify this manuscript and the frozen experimental evidence.
++The study uses synthetic/public lifecycle input and a versioned software/evidence package containing formal models and observation witnesses, implementation and experiment code, dependency locks, raw receipts, normalized inputs, and verification commands. The deposited package is available at \url{https://github.com/lhh666-6/auto-dete/tree/r21-jss-2026-09-07-v8/r21-jss}; its manifests identify this manuscript and the frozen experimental evidence.
+ 
+ \subsection*{Ethics approval and consent to participate}
+ 

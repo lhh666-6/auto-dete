@@ -1,0 +1,48 @@
+{
+  "schema_version": "auto-decte.r19-verification.v1",
+  "date": "2026-08-27",
+  "python": {
+    "dependency_install": "uv sync --frozen --extra dev --extra research",
+    "pytest": {
+      "command": "uv run pytest -q",
+      "passed": 363,
+      "failed": 0,
+      "duration_seconds": 266.72
+    },
+    "ruff": {
+      "command": "uv run ruff check app tests",
+      "passed": true
+    },
+    "mypy": {
+      "command": "uv run mypy app",
+      "files_checked": 53,
+      "passed": true
+    }
+  },
+  "typescript": {
+    "strict_typecheck": true,
+    "canonical_overlay_plugin_equal": true,
+    "canonical_overlay_driver_equal": true,
+    "plugin_sha256": "7e89b11986fa25b7b5e344e7d355fc4b4a4a27c3405db4210a9718c13b909596",
+    "driver_sha256": "70386287c54eb6a84f95d5d02cb7af873a36eed0067e05235cdd2a1574f1d880"
+  },
+  "experiment": {
+    "cases_passed": 10,
+    "cases_total": 10,
+    "clean_manifest_verified": true,
+    "one_byte_probe_rejected": true,
+    "one_byte_probe_exact_changed_path": "receipt.json"
+  },
+  "paper": {
+    "build": "pdflatex -> bibtex -> pdflatex x2 (latexmk unavailable because Perl is not installed)",
+    "pages": 41,
+    "citations": 42,
+    "undefined_citations": 0,
+    "undefined_references": 0,
+    "overfull_boxes": 0,
+    "blocking_warnings": 0,
+    "nonblocking_underfull_boxes": 4,
+    "visual_pages_checked": [1, 12, 25, 41],
+    "pdf_sha256": "344092c36775fd59e6fac7e9f6b2634a06860231f6f0cd0dc3add7249bea7d27"
+  }
+}
