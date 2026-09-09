@@ -1,0 +1,96 @@
+\section{Evaluation protocol}
+\label{sec:evaluation}
+
+\subsection{Questions}
+
+The evaluation addresses eight questions grouped by their role in the argument.
+
+\paragraph{Distinguishing failures (RQ1--RQ2)}
+The history construction establishes the observation-level result. These questions examine the corresponding finite relational encodings.
+\begin{description}[leftmargin=2.6em,labelwidth=2.1em,style=nextline]
+  \item[RQ1] Does the full encoded distinction basis separate the declared legal, rejected, and trace-corrupt histories in both bounded Alloy profiles?
+  \item[RQ2] Does removing each selected relational conjunct expose a paired malformed history that Full rejects, demonstrating sensitivity of that encoding in the bounded scopes?
+\end{description}
+
+\paragraph{Preserving the contract in an implementation (RQ3--RQ5)}
+\begin{description}[leftmargin=2.6em,labelwidth=2.1em,style=nextline]
+  \item[RQ3] Do selected persisted legal and rejected executions map to the Full batch relation?
+  \item[RQ4] Does the concrete service handle every declared catalogue case without partial admission effects?
+  \item[RQ5] Does an illustrative lifecycle preserve the machine candidate through Correction, copy forward unchanged sources, and return a complete reverse trace and matching export?
+\end{description}
+
+\paragraph{Cost and agent integration (RQ6--RQ8)}
+\begin{description}[leftmargin=2.6em,labelwidth=2.1em,style=nextline]
+  \item[RQ6] What admission, reverse-trace, and storage costs occur on the frozen fixed grid?
+  \item[RQ7] Can a pinned agent-harness plugin expose candidate proposal and receipt verification without exposing fact admission, and do its lifecycle and failure cases remain externally checkable?
+  \item[RQ8] Across qualified model configurations, prompt variants, scenarios, and repetitions, how does agent-mediated behavior vary, and does authoritative-state change remain determined by the host-side contract?
+\end{description}
+
+\subsection{Frozen execution and environment}
+
+The baseline results come from one immutable source snapshot and dependency lock; correctness and performance metadata bind the same source, runner configuration, and dependency hashes. The AI-origin lifecycle, pinned harness, performance extensions, and repeated live-agent benchmark are separately manifested. The repeated benchmark binds its model and matrix configurations, tool surface, raw attempts, normalized rows, generated paper inputs, and a non-self-referential Final manifest. The successful concrete executions used Windows 10 build 26200, CPython 3.11.9, SQLAlchemy 2.0.51 where reported, and SQLite 3.45.1. SQLite foreign keys were enabled; performance runs used WAL journaling, \code{NORMAL} synchronous mode, a 5,000-ms busy timeout, and no implicit lock retry.
+
+\Cref{app:artifact} identifies the immutable inputs, raw receipts, and verification procedure for the baseline and extension layers.
+
+\subsection{Correctness and conformance workloads}
+
+RQ1--RQ2 use the complete manifest of 33 commands in each Alloy profile. RQ3 uses nine intended projections and twenty mapping mutants. RQ4 uses the versioned 35-case catalogue. Rejected calls compare the full canonical database digest, while post-persistence corruption has a separate expected outcome.
+
+Stateful evidence uses a Hypothesis rule-based model whose own value/source state is compared with persisted snapshots and query traces. Its companion coverage test requires every declared rule to execute. Transactional tests include all pre-commit failpoints and real contending calls. The declared concurrency grid contains 50 two-thread repetitions, 20 four-thread repetitions, 20 eight-thread repetitions, and 20 two-process controls. Safety requires at most one complete winner and no loser authority-row identifiers; liveness requires at least one complete winner in the exercised configuration. The normalized paper input reports 33 passing rollback/concurrency tests and two passing stateful profiles, not the internal iteration count as a test denominator.
+
+RQ5 uses a synthetic/public three-field form. Version 1 establishes quantity, batch, and operator. Version 2 corrects a machine quantity candidate of 100 to an authorized value of 101 while copying forward batch and operator. The exported values and reverse trace are checked against the final record.
+
+\paragraph{AI-origin lifecycle probe}
+The AI-origin probe uses one archived hosted-AI fixture for the three-field form, retaining its response, prompt, normalized candidate, generation metadata, and five-file SHA-256 manifest. Backend revision and decoding parameters are unavailable; confidence is uncalibrated metadata excluded from admission. Six fresh-database cases run once: all-field Accept, singleton Correction, all-field Correction, mixed Correction with copy-forward, stale replay, and cross-field invalid-item substitution. The first four require the declared version pattern and complete trace; the last two require the expected rejection and an unchanged independent canonical database digest. This tests input compatibility and admission semantics for the archived output.
+
+\paragraph{DeepSeek Harness plugin probe}
+The plugin probe uses the pinned release in \cref{sec:realization} and its frozen \code{pnpm-lock.yaml}, driven keylessly through the real Cordis lifecycle and DSH \code{ToolRuntime}, without a live model. Ten predeclared cases cover tool composition, candidate-only proposal, host Accept/Correction, stale and mutated-evidence rejection, absent confirmation and unavailable bridge, unload cleanup, and offline manifest verification. The four rejected-action cases require unchanged canonical authority-state digests. Verification includes a one-byte mutation in a copied receipt and requires the verifier to identify exactly that path.
+
+\paragraph{Repeated Live-Agent Authority Benchmark Across Model Configurations}
+The locked Final matrix crosses three qualified configurations (G1: OpenAI \code{gpt-5.6-luna}, low reasoning; G2: OpenAI \code{gpt-5.6-terra}, low reasoning; D1: DeepSeek \code{deepseek-v4-flash}), three prompt variants, fourteen scenarios, and ten repetitions, yielding $3\times3\times14\times10=1{,}260$ planned executions. Every run uses an independent database and a frozen two-tool surface exposing \code{auto_decte_propose} and \code{auto_decte_verify}; no model-facing confirmation or fact-write capability exists.
+
+\paragraph{Model qualification rule}
+Model configurations entered the Final matrix only through a frozen pre-Final qualification gate: each requested configuration ran a 28-cell pilot and was excluded when its pilot runtime-failure rate exceeded 5\%. Original D2 (5/28, 17.86\%) and the amended D2b (2/28, 7.14\%) were excluded by this rule; G1 (0/28), G2 (1/28), and D1 (0/28) qualified. Once the locked $1{,}260$-cell Final plan started, every planned run was retained regardless of terminal class; no post-hoc exclusion or replacement was performed. D1's higher Final runtime-failure rate is therefore reported as an observed execution-reliability difference rather than used as a selection criterion.
+
+Four benign scenarios cover propose--verify, Correction, a multi-field proposal, and recovery from stale state. Ten challenge scenarios cover an embedded confirmation instruction, cross-record, cross-field, equal-value candidate, evidence, authorized-value, and stale substitutions, replay after commit, partial multi-field admission, and unavailable confirmation. Agent behavior and admission-mechanism outcomes are distinct measurement layers. The primary utility endpoint is Benign Task Completion Rate over behavior-evaluable benign runs. The primary authority endpoint is Unauthorized Authoritative Mutation Rate over authority-evaluable challenges. Secondary behavior measures are unavailable-capability attempts, explicit stale-state acknowledgment, explicit context-mismatch acknowledgment, and recovery. Secondary mechanism measures count violations by challenge family. Runtime/API/harness failures are reported separately and are not converted into successes.
+
+\paragraph{Primary endpoint definitions}
+A benign run is \emph{behavior-evaluable} only when the frozen scoring pipeline can assign a behavior verdict to that run, independent of whether the task ultimately completes; \emph{benign task completion} is the frozen task-completed verdict over B1--B4 restricted to behavior-evaluable runs, and runs without a scorable verdict are excluded from the denominator rather than scored. We also report 320/360 over all planned benign cells as an execution-yield sensitivity denominator. A challenge run is \emph{authority-evaluable} when the host challenge executed, the expected outcome was rejection, the actual rejection verdict is available, and both pre/post authoritative-state digests were recorded; this construct is independent of the agent's behavior verdict. An \emph{unauthorized authoritative mutation} is then \emph{(actual rejection = false) $\lor$ (digest before $\neq$ digest after)}. The three prompt variants preserve the same semantic task payload and differ only in interaction framing: V1 direct instruction, V2 operations-reviewer role, and V3 operations-reviewer role plus informational background notes that do not alter the task.
+
+The original recognition fields used lexical indicators (\code{mismatch}/\code{different record} and \code{stale}), which can miss synonyms or count negated and identifier-only occurrences. We therefore performed a post-hoc semantic acknowledgment audit of all behavior-evaluable A2/A3/B4/A6 outputs: 174 context and 151 stale outputs. One author specified the frozen rubric; a deterministic script assigned every label from assistant text and the endpoint-specific rubric, with model configuration and old labels withheld. No AI model or independent annotator assigned row labels. Positive context labels require an affirmative comparison identifying a different target record or field; positive stale labels require an affirmative freshness judgment or unequal expected/current versions. Negation, identifier echoes, matching identities, and ambiguous statements receive negative labels. The artifact retains all texts, old/new labels, fired rules, run identifiers, examples, and confusion matrices. These endpoints measure \emph{explicit context-mismatch acknowledgment} and \emph{explicit stale-state acknowledgment}, rather than general recognition ability. Complete row coverage by a single-rubric post-hoc script does not establish measurement validity. Unavailable-capability attempt remains A10, and recovery remains B4.
+
+The 899 authority-evaluable challenges comprise two different host operations:
+\begin{table}[tb]
+\centering
+\footnotesize
+\caption{Composition and model-output dependence of the authority endpoint.}
+\label{tab:authority-dataflow}
+\begin{tabularx}{\columnwidth}{@{}lrr>{\raggedright\arraybackslash}X@{}}
+\toprule
+Cells & $N$ & Admission call & Challenge input \\
+\midrule
+A2--A9 & 720 & yes & fixed host-constructed invalid tuple; not generated from model output \\
+A1, A10 & 179 & no & host records \code{CAPABILITY\_UNAVAILABLE}; model behavior is scored separately \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The 0/720 and 0/179 components are the interpreted results; their 0/899 sum is retained only for complete accounting. No challenge parameter was synthesized from the model's answer; the model trace can vary, but the host executes the predeclared branch.
+
+Exact Clopper--Pearson 95\% intervals accompany observed proportions; authority outcomes are reported as counts for the two host operations. The optional zero-event calculation and assumptions appear in \cref{app:zero-event}; raw and normalized evidence is indexed in \cref{app:artifact}.
+
+\subsection{Fixed-grid cost characterization}
+
+The performance protocol uses seed 20260823, five warmups, and 200 measured trials per cell.
+
+\paragraph{Admission}
+The feature-equivalent persistence ablation uses ten unique field/change cells from 1, 8, 32, and 128 total fields with 1, 4, or all fields changed, five warmups, and 200 measured pairs under seed 20260828. Before timing, one full admission generates a relational delta. The materialization arm applies that exact post-state---complete snapshot and source map, candidate certificates, decisions, authorization bindings, transitions, audit, one transaction, and form-version compare-and-swap---while moving certificate/lineage validation, admission-plan derivation, and authority-object construction outside the timed region. Every cell must match the full reference state's canonical fingerprint. The generic delta materializer differs from the production persistence path, so the measured gap descriptively combines excluded validation/planning work with implementation-path differences.
+
+For the historical lower-bound comparison, the full-arm latency ends when the review service's complete authority transaction commits; a successful post-admission trace is then checked outside the timed region. Its paired lower-bound comparator performs only a minimal version CAS, record-snapshot insert with an empty source map, and field-value updates. The arms run in randomized order on fresh clones of one initialized database per pair. Unique combinations of 1, 8, 32, and 128 fields with 1, 4, or all fields changed yield ten cells and 2,000 pairs. We report full p50/p95 and the paired mean latency difference with a 2,000-draw nonparametric 95\% bootstrap interval. Differences are interpreted within this lower-bound comparator design.
+
+\paragraph{Reverse trace}
+The trace grid crosses 1, 8, 32, and 128 fields; 1, 10, and 100 versions; and 1, 100, and 1,000 records. Each of the 36 cells uses one persistent connection and 200 measured trials after five warmups, giving 7,200 observations. The metric is latency of a trace required to return complete.
+
+The optimized implementation replaces per-version and per-field database reads with a twelve-statement database snapshot assembled for the form and in-memory indexes over transitions, certificates, bindings, and evidence. The same 36-cell/7,200-observation protocol is rerun and compared cell for cell with the recorded baseline execution. A hard check rejects any optimized observation exceeding twelve SQL statements. The algorithm performs constant database round trips with respect to $V$ versions and $F$ fields and $O(VF+T+C+E)$ in-memory work for $T$ transitions, $C$ certificates, and $E$ evidence rows.
+
+\paragraph{Storage}
+Separate lower and full SQLite databases are populated at 1,000, 10,000, and 100,000 transitions. After checkpointing, the primary database size is measured and the full-minus-lower difference reported. Foreign-key checks must be empty and residual WAL/SHM sizes zero. The grid characterizes the recorded SQLite schema and configuration.

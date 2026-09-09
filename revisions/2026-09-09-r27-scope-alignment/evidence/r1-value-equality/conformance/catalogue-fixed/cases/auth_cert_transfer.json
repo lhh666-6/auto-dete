@@ -1,0 +1,157 @@
+{
+  "case": {
+    "digest_expectation": "unchanged",
+    "expected_status": "ValueError",
+    "id": "auth_cert_transfer",
+    "kind": "rejection",
+    "node_id": "tests/conformance/test_g3b_conformance.py::test_abl5_auth_certificate_transfer_rejected",
+    "properties": [
+      "P3"
+    ]
+  },
+  "catalogue_sha256": "8ccd4ee89af084bb3eebe57c3c39cc20f0b6ff54c50eaecff2a3f1feb7f3d0dc",
+  "command": [
+    "D:\\Claude_Design\\auto-decte-paper\\release-staging\\auto-dete-r21-github-2026-09-05\\r21-jss\\source\\implementation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "tests/conformance/test_g3b_conformance.py::test_abl5_auth_certificate_transfer_rejected",
+    "-q",
+    "--basetemp",
+    "D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-08-r22-review-response\\evidence\\r1-value-equality\\conformance\\catalogue-fixed.json\\pytest-temp\\auth_cert_transfer"
+  ],
+  "databases": [
+    {
+      "independent_trace_violations": {
+        "FORM-1": []
+      },
+      "path": "conformance.db",
+      "row_counts": {
+        "ai_reviews": 0,
+        "audit_events": 2,
+        "authority_meta": 0,
+        "authorization_bindings": 0,
+        "candidate_certificates": 2,
+        "evidence_files": 2,
+        "export_batches": 0,
+        "fact_transitions": 0,
+        "form_fields": 2,
+        "forms": 1,
+        "human_decisions": 0,
+        "recognition_attempts": 2,
+        "record_versions": 0
+      },
+      "row_ids": {
+        "ai_reviews": [],
+        "audit_events": [
+          {
+            "actor_id": "machine",
+            "event_id": "EVENT-c355687fdf0d4a6cb288c8d981b60dab",
+            "form_id": "FORM-1"
+          },
+          {
+            "actor_id": "machine",
+            "event_id": "EVENT-52f174e7fae646169487c46de2ed602b",
+            "form_id": "FORM-1"
+          }
+        ],
+        "authority_meta": [],
+        "authorization_bindings": [],
+        "candidate_certificates": [
+          {
+            "candidate_id": "ATTEMPT-9cbd7a0f64404cf9b958830799d03369",
+            "certificate_id": "93f3c6b8d3a8691bbe3dd50ec81353e8e6491f483c0279fae87b9d97464a2477",
+            "evidence_file_id": "FILE-97055884b3544ab0824d9e592438d414",
+            "field_id": "FIELD-2",
+            "form_id": "FORM-1",
+            "producer_id": "recognizer-a",
+            "recognition_attempt_id": "ATTEMPT-9cbd7a0f64404cf9b958830799d03369",
+            "selection_artifact_id": "recognition-threshold-v1",
+            "target_record_id": "FORM-1",
+            "template_id": "T1"
+          },
+          {
+            "candidate_id": "ATTEMPT-f72deade76b44f518ef28124a709f363",
+            "certificate_id": "9960c5442c5e04e3414b9073c2daa52271ffb3d3e95ae58e8cda94584594bc52",
+            "evidence_file_id": "FILE-bbbcf5237f7b4bda9b26ac91fd69005c",
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1",
+            "producer_id": "recognizer-a",
+            "recognition_attempt_id": "ATTEMPT-f72deade76b44f518ef28124a709f363",
+            "selection_artifact_id": "recognition-threshold-v1",
+            "target_record_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "evidence_files": [
+          {
+            "file_id": "FILE-bbbcf5237f7b4bda9b26ac91fd69005c",
+            "form_id": "FORM-1",
+            "related_field_id": "FIELD-1"
+          },
+          {
+            "file_id": "FILE-97055884b3544ab0824d9e592438d414",
+            "form_id": "FORM-1",
+            "related_field_id": "FIELD-2"
+          }
+        ],
+        "export_batches": [],
+        "fact_transitions": [],
+        "form_fields": [
+          {
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1"
+          },
+          {
+            "field_id": "FIELD-2",
+            "form_id": "FORM-1"
+          }
+        ],
+        "forms": [
+          {
+            "form_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "human_decisions": [],
+        "recognition_attempts": [
+          {
+            "attempt_id": "ATTEMPT-9cbd7a0f64404cf9b958830799d03369",
+            "crop_file_id": "FILE-97055884b3544ab0824d9e592438d414",
+            "field_id": "FIELD-2"
+          },
+          {
+            "attempt_id": "ATTEMPT-f72deade76b44f518ef28124a709f363",
+            "crop_file_id": "FILE-bbbcf5237f7b4bda9b26ac91fd69005c",
+            "field_id": "FIELD-1"
+          }
+        ],
+        "record_versions": []
+      },
+      "sha256": "b6bcd8d511098dc0b38203596fb1c0d6e7d3f3b0886e75efd23cdd88ef76f449",
+      "state_digest": "b8747ad1ed94fa05639c98dd33be784c53db2a5cb5a70735bb419b85b37c4b2e",
+      "user_version": 0
+    }
+  ],
+  "digest_expectation_asserted_by_test": "unchanged",
+  "duration_seconds": 1.359,
+  "environment": {
+    "hypothesis": "6.165.10",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pytest": "9.1.1",
+    "python": "3.11.9",
+    "sqlalchemy": "2.0.51",
+    "sqlite": "3.45.1"
+  },
+  "expected_status_asserted_by_test": "ValueError",
+  "finished_at": "2026-09-08T14:50:29.719907+00:00",
+  "observed_status": "PASS",
+  "return_code": 0,
+  "schema": "auto-decte-catalogue-case-result-v1",
+  "started_at": "2026-09-08T14:50:28.373541+00:00",
+  "stderr": "",
+  "stdout": ".                                                                        [100%]\n1 passed in 0.84s\n",
+  "test_source_sha256": "1f02ae75184923b6ec7bd2605be817000d1fd453f7bf9edb733df9cf095feac3"
+}

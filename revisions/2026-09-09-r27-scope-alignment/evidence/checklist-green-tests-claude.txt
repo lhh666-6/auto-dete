@@ -1,0 +1,32 @@
+# Claude test run: Codex behavior tests (connection leak fixed) + Claude runner tests
+# command: python -m unittest -v test_value_audit_demo test_run_example
+# python: Python 3.11.9
+# date: 2026-09-08T16:14:46Z
+
+test_candidate_rows_cannot_be_rewritten (test_value_audit_demo.DemoTests.test_candidate_rows_cannot_be_rewritten) ... ok
+test_canonical_value_comparison_does_not_merge_integer_and_float (test_value_audit_demo.DemoTests.test_canonical_value_comparison_does_not_merge_integer_and_float) ... ok
+test_complete_audit_reconstructs_exact_unchanged_source_in_both_arms (test_value_audit_demo.DemoTests.test_complete_audit_reconstructs_exact_unchanged_source_in_both_arms) ... ok
+test_cross_record_candidate_rejected_in_both_arms (test_value_audit_demo.DemoTests.test_cross_record_candidate_rejected_in_both_arms) ... ok
+test_failure_after_sql_writes_rolls_back_every_table (test_value_audit_demo.DemoTests.test_failure_after_sql_writes_rolls_back_every_table) ... ok
+test_identical_persisted_baseline_hides_which_candidate_was_reviewed (test_value_audit_demo.DemoTests.test_identical_persisted_baseline_hides_which_candidate_was_reviewed) ... ok
+test_legal_correction_keeps_candidate_and_complete_successor (test_value_audit_demo.DemoTests.test_legal_correction_keeps_candidate_and_complete_successor) ... ok
+test_partial_approved_batch_rejected_in_both_arms (test_value_audit_demo.DemoTests.test_partial_approved_batch_rejected_in_both_arms) ... ok
+test_same_context_equal_value_substitution_separates_arms (test_value_audit_demo.DemoTests.test_same_context_equal_value_substitution_separates_arms) ... ok
+test_stale_approval_rejected_and_state_unchanged (test_value_audit_demo.DemoTests.test_stale_approval_rejected_and_state_unchanged) ... ok
+test_unauthorized_approval_is_rejected_without_writes (test_value_audit_demo.DemoTests.test_unauthorized_approval_is_rejected_without_writes) ... ok
+test_wrong_authorized_value_rejected_in_both_arms (test_value_audit_demo.DemoTests.test_wrong_authorized_value_rejected_in_both_arms) ... ok
+test_all_nine_cases_execute_and_meet_declared_expectations (test_run_example.RunnerTests.test_all_nine_cases_execute_and_meet_declared_expectations) ... ok
+test_candidate_bound_reconstructs_both_value_roles_by_join (test_run_example.RunnerTests.test_candidate_bound_reconstructs_both_value_roles_by_join) ... ok
+test_copy_forward_sources_are_reconstructed_in_both_arms (test_run_example.RunnerTests.test_copy_forward_sources_are_reconstructed_in_both_arms) ... ok
+test_derived_table_covers_every_case_and_marks_divergences (test_run_example.RunnerTests.test_derived_table_covers_every_case_and_marks_divergences) ... ok
+test_every_record_carries_action_snapshots_and_database_file (test_run_example.RunnerTests.test_every_record_carries_action_snapshots_and_database_file) ... ok
+test_only_equal_value_substitution_diverges_in_outcome (test_run_example.RunnerTests.test_only_equal_value_substitution_diverges_in_outcome) ... ok
+test_paired_history_separates_the_two_policies (test_run_example.RunnerTests.test_paired_history_separates_the_two_policies) ... ok
+test_raw_inspection_uses_a_fresh_connection (test_run_example.RunnerTests.test_raw_inspection_uses_a_fresh_connection) ... ok
+test_rejection_controls_leave_the_post_approval_state_unchanged (test_run_example.RunnerTests.test_rejection_controls_leave_the_post_approval_state_unchanged) ... ok
+test_runner_refuses_to_overwrite_a_database (test_run_example.RunnerTests.test_runner_refuses_to_overwrite_a_database) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 9.559s
+
+OK

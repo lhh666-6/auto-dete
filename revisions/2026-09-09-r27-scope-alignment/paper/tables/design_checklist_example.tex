@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{Worked checklist example for a conventional design: a versioned row store with an append-only audit table, an approval flag, and compare-and-swap on the row version. The example is an inspection exercise, not a cross-system implementation or validation.}
+\label{tab:design-checklist-example}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Conventional status & Gap and minimal repair \\
+\midrule
+$D_C$ & Approval references a value, not the persisted candidate. & An equal-valued candidate from another record can substitute. Persist candidate identity with record, field, evidence, and producer context; bind the decision to that identity and recheck it inside admission. \\
+\addlinespace
+$D_V$ & One ``approved value'' column. & Proposal and authorized value are not separately attributable. Store them as separate roles and retain the candidate and its identity under Correction. \\
+\addlinespace
+$D_F$ & CAS provides a freshness mechanism. & Bind the expected version to the reviewed predecessor and compare it inside admission; CAS alone does not establish that binding. \\
+\addlinespace
+$D_B$ & One transaction provides atomic persistence. & Also check that the actual changed-field domain equals the declared item domain and that exactly one complete successor is constructed. Atomicity alone can commit an incomplete declared batch. \\
+\addlinespace
+$D_S$ & The audit table records approval events, not per-field sources. & An equal-valued successor with a missing or replaced source is indistinguishable from a complete one. Add one source-transition reference per authoritative field and copy exact prior sources forward for unchanged fields. \\
+\bottomrule
+\end{tabularx}
+\end{table}

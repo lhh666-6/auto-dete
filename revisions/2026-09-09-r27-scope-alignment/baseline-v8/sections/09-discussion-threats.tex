@@ -1,0 +1,48 @@
+\section{Discussion and threats to validity}
+\label{sec:discussion}
+
+\subsection{What the evidence supports}
+
+C1 makes the 90/100/101 history reconstructible: the candidate retains 100, the human authorization supplies 101, and unchanged fields keep their prior sources. C2 explains why equal final values cannot reveal omissions of the declared observation classes. C3 connects these obligations to model checks and persisted executions. C4 characterizes their measured cost and shows why agent task outcomes must be assessed separately from host authority outcomes (\cref{fig:evidence-chain}). Together, these results provide an inspectable admission contract and a checked reference realization.
+
+\subsection{Design implications}
+
+\Cref{tab:design-checklist} turns C1--C2 into an implementation inspection aid. For each class, map the required information to persisted objects, locate the enforcement point, and run a legal control and the corresponding failure probe. Record the expected outcome, actual outcome, and evidence location; mark an item untested until that evidence exists. The package provides a reusable worksheet in \code{docs/admission-design-checklist.md}.
+
+Candidate handles and freshness discriminators may use different representations. The checks concern the relations they preserve, not a required schema. For $D_B$, identify the admitted change set explicitly: the reference service copies unchanged submitted fields forward rather than admitting them as new transitions. For $D_S$, local field-source checks are distinct from full P6 authorization--candidate--evidence trace validation.
+
+\input{tables/design_checklist}
+
+The worksheet is a design aid derived from the declared model, not a validated cross-system assessment instrument or a sufficient correctness certificate. Principal policy, authentication assumptions, capability separation, and revocation timing still require separate review (\cref{sec:authorization-timing}). Effects on operational reviewers' correction and audit work remain a deployment question.
+
+\subsection{Formal and construct validity}
+
+Alloy results are limited to the encoded scopes and selected mutations; the conditional observation argument is established separately in Proposition~1. High-level classes and low-level conjuncts are not one-to-one; source attribution is exercised through trace attacks rather than the eleven admission ablations.
+
+Projection covers nine intended instances and twenty mutants, subject to the concrete no-op and schema-uniqueness differences in \cref{sec:conformance}. Independent projection and database oracles reduce shared-code risk but cannot exclude defects shared with the runner, normalizer, model, or benchmark.
+
+Reverse-trace completeness establishes consistency among persisted values and authority relations, not evidence truth, candidate accuracy, or sound human judgment.
+
+\subsection{Concrete and performance validity}
+
+The finite catalogue and declared SQLite schedules do not cover every interleaving or database engine. The trusted implementation includes serialization, hashing, admission, the database adapter and transaction semantics, and principal policy. Porting requires new adapter and conformance evidence.
+
+The empty-source historical comparator is only a lower bound. Even the persistence-equivalent gap combines excluded validation/planning with implementation-path differences, so it cannot isolate one check's cost. Optimized and baseline traces ran sequentially: fewer queries follow from the access shape, but latency ratios can reflect caching, scheduling, checkpointing, and runtime noise.
+
+Authorization is rechecked inside the transaction before CAS (\cref{sec:realization}). Revocation visible then rejects; revocation after the check does not cancel an in-flight transaction. This is commit-entry revalidation, not linearizable or distributed revocation.
+
+Synthetic/public inputs and a scripted principal leave usability, reviewer error, authentication workflows, operational workloads, deletion, redaction, retention expiry, and tombstones untested. Manual entry is outside the AI-derived candidate claim.
+
+\subsection{Repeated-agent validity}
+
+The three configurations from two provider families form a finite convenience population. Endpoint identifiers and reasoning settings do not identify immutable weights; provider revisions, load, decoding, and network conditions may change.
+
+Pilot qualification did not predict Final stability: D1 rose from 0/28 pilot failures to 76/420 Final failures. The locked protocol retained every planned run, and the runtime/evaluability cross-tabulation in \cref{tab:runtime-endpoint} prevents treating failure as a verdict on every endpoint. The study was not powered for provider ranking; descriptive differences are not stable model traits. The post-hoc acknowledgment audit remains deterministic single-rubric coding without independent human annotation. The unavailable-tool-attempt measure was uniformly zero and supplies no evidence of behavioral heterogeneity.
+
+Authority checks used fixed host-constructed inputs: 720 invalid-tuple calls and 179 capability-unavailable branches. They do not test model-generated attack search, compromised hosts or identity providers, administrator access, or model access to admission. Zero violations describe these checks, not production failure rates or general prompt-injection security (\cref{app:zero-event}).
+
+\subsection{Lifecycle, reproducibility, and novelty validity}
+
+The deposit and verification procedure in \cref{app:artifact} permit frozen-record inspection without new hosted-model calls. Independent reproduction in another environment remains separate validation.
+
+The related-work comparison covers public disclosures available at its stated cutoff. It establishes a relation-level distinction, not an empirical superiority claim over the compared systems.

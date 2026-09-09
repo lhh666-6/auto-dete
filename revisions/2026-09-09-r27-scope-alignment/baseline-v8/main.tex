@@ -1,0 +1,64 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\pdfstringdefDisableCommands{\def\corref#1{}}
+
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+
+\journal{Journal of Systems and Software}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Authoritative-State Admission for AI-Derived Updates: Failure Distinguishability, Transactional Realization, and Evaluation}
+
+\author[inst1]{Liang Hanghao\corref{cor1}}
+\cortext[cor1]{Corresponding author. Email address: \texttt{zwu691403@gmail.com}}
+\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},city={Changsha},country={China}}
+
+\begin{abstract}
+AI-generated candidates increasingly influence persistent operational records, yet a machine proposal, a human-authorized value, and a durable fact occupy different authority roles. We introduce \emph{authoritative-state admission} as the software relation connecting these roles: an exact persisted AI candidate is bound to an attributable human authorization and an explicit authorized value, and under Correction the candidate remains intact even when the admitted value differs ($x_c\neq x_a$). Under a declared failure and observation model, we characterize five observable information classes and construct safe/unsafe history pairs showing that removing any one class makes its failure family indistinguishable: candidate substitution, correction erasure, stale replay, fragmented successors, and source ambiguity. \system{} realizes the relation through candidate-bound authorization, compare-and-swap-protected SQLite admission, total per-field source copy-forward, and reverse-trace validation, supported by bounded Alloy analysis, formal--concrete projection, and a 35-case fault catalogue. A repeated live-agent benchmark over three qualified model configurations and 1,260 planned executions found benign task completion of 320/335 behavior-evaluable runs (95.52\%) and no unauthorized authoritative mutation across 720 fixed invalid-tuple admission calls or 179 capability-unavailable checks; 93 runtime failures are reported separately. The evidence supports admission designs preserving proposal origin, human value authority, and complete successor lineage within the declared model and evaluated implementation.
+\end{abstract}
+
+\begin{keyword}
+authoritative-state admission \sep AI-derived updates \sep human authorization \sep data provenance \sep formal methods \sep transactional systems
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-problem-contract}
+\input{sections/04-relational-analysis}
+\input{sections/05-transactional-realization}
+\input{sections/06-formal-concrete-conformance}
+\input{sections/07-evaluation-protocol}
+\input{sections/08-results}
+\input{sections/09-discussion-threats}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+\input{artifact_appendix}
+
+\bibliographystyle{elsarticle-harv}
+\begingroup
+\Urlmuskip=0mu plus 1mu\relax
+\bibliography{filtered}
+\endgroup
+
+\end{document}

@@ -1,0 +1,13 @@
+--- /d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/implementation/tests/conformance/oracle.py	2026-08-23 23:11:02.000000000 +0800
++++ code/implementation-fixed/tests/conformance/oracle.py	2026-09-08 22:20:41.104168800 +0800
+@@ -201,7 +201,9 @@
+             previous_values = previous_values if isinstance(previous_values, dict) else {}
+             previous_sources = previous_sources if isinstance(previous_sources, dict) else {}
+             changed = {
+-                field for field in declared if values.get(field) != previous_values.get(field)
++                field
++                for field in declared
++                if _canonical_json(values.get(field)) != _canonical_json(previous_values.get(field))
+             }
+             for field in declared - changed:
+                 if sources.get(field) != previous_sources.get(field):

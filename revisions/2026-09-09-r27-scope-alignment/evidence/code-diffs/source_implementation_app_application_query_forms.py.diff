@@ -1,0 +1,19 @@
+--- /d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/implementation/app/application/query_forms.py	2026-08-28 00:42:16.752649900 +0800
++++ code/implementation-fixed/app/application/query_forms.py	2026-09-08 22:20:39.416995500 +0800
+@@ -12,6 +12,7 @@
+     TraceHop,
+     build_provenance_trace,
+     canonical_json,
++    canonical_values_equal,
+ )
+ from app.domain.evidence_identity import locator_from_evidence
+ from app.domain.models import (
+@@ -461,7 +462,7 @@
+                     for field_key in declared
+                     if field_key in values
+                     and field_key in previous_values
+-                    and values[field_key] != previous_values[field_key]
++                    and not canonical_values_equal(values[field_key], previous_values[field_key])
+                 }
+                 previous_sources = dict(previous.fact_sources or {})
+                 for field_key in declared & source_fields & set(previous_sources):

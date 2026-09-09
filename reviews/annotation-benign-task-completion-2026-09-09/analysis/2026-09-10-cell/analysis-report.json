@@ -1,0 +1,434 @@
+{
+  "tool": "analyze_annotation_return.py",
+  "generated_at": "2026-09-10T01:33:39",
+  "key": {
+    "path": "D:\\Claude_Design\\auto-decte-paper\\reviews\\annotation-benign-task-completion-2026-09-09\\annotation-author-key-benign.csv",
+    "sha256": "736470a3b3fe08377688d9c2a43a7032df0dc59e4a2cba662bd0f9a9a0be9e4e"
+  },
+  "human1": {
+    "name": "第一(非作者)",
+    "path": "D:\\Claude_Design\\auto-decte-paper\\reviews\\annotation-benign-task-completion-2026-09-09\\returns\\FIRST-HUMAN-第一-补0修正版.xlsx",
+    "sha256": "f95582e7ce38f73fa1a23b6d46f259c39be911813353b99dd47a79fc6f737dbe"
+  },
+  "human2": {
+    "name": "第二(非作者)",
+    "path": "D:\\Claude_Design\\auto-decte-paper\\reviews\\annotation-benign-task-completion-2026-09-09\\returns\\SECOND-HUMAN-第二-补全版.xlsx",
+    "sha256": "47265d16e3bd0531d2000fff3e8292e6991c78840cb1b9cf0e3e1e03f33d89ab"
+  },
+  "bootstrap": {
+    "n": 5000,
+    "cluster_key": "cell",
+    "seed": 20260910
+  },
+  "rule_baseline": {
+    "total": 360,
+    "evaluable": 335,
+    "strict_completion": 320,
+    "strict_non_completion": 15,
+    "non_evaluable": 25,
+    "non_evaluable_terminal_counts": {
+      "MODEL_API_FAILURE": 17,
+      "HARNESS_FAILURE": 7,
+      "TIMEOUT": 1
+    }
+  },
+  "blocks": {
+    "A1_rule": {
+      "label": "第一(非作者) vs 严格规则",
+      "categories": [
+        "0",
+        "1"
+      ],
+      "n": 335,
+      "po": 0.9671641791044776,
+      "pe": 0.9443528625529071,
+      "kappa": 0.4099279423538834,
+      "ac1": 0.9652491265129832,
+      "pabak": 0.9343283582089552,
+      "confusion": [
+        [
+          4,
+          0
+        ],
+        [
+          11,
+          320
+        ]
+      ],
+      "row_marginal": [
+        4,
+        331
+      ],
+      "col_marginal": [
+        15,
+        320
+      ],
+      "po_ci": {
+        "ci_low": 0.9283489096573209,
+        "ci_high": 0.991304347826087,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "kappa_ci": {
+        "ci_low": 0.0,
+        "ci_high": 0.8311425484131609,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "ac1_ci": {
+        "ci_low": 0.9213165665781133,
+        "ci_high": 0.9908627954163023,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "pabak_ci": {
+        "ci_low": 0.8541033434650456,
+        "ci_high": 0.9825581395348837,
+        "n_valid": 5000,
+        "n_boot": 5000
+      }
+    },
+    "A2_rule": {
+      "label": "第二(非作者) vs 严格规则",
+      "categories": [
+        "0",
+        "1"
+      ],
+      "n": 335,
+      "po": 0.9671641791044776,
+      "pe": 0.9443528625529071,
+      "kappa": 0.4099279423538834,
+      "ac1": 0.9652491265129832,
+      "pabak": 0.9343283582089552,
+      "confusion": [
+        [
+          4,
+          0
+        ],
+        [
+          11,
+          320
+        ]
+      ],
+      "row_marginal": [
+        4,
+        331
+      ],
+      "col_marginal": [
+        15,
+        320
+      ],
+      "po_ci": {
+        "ci_low": 0.928125,
+        "ci_high": 0.9913294797687862,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "kappa_ci": {
+        "ci_low": 0.0,
+        "ci_high": 0.8192142932106805,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "ac1_ci": {
+        "ci_low": 0.9221601470366185,
+        "ci_high": 0.9909433313381304,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "pabak_ci": {
+        "ci_low": 0.8548895899053628,
+        "ci_high": 0.982608695652174,
+        "n_valid": 5000,
+        "n_boot": 5000
+      }
+    },
+    "A1_A2": {
+      "label": "第一(非作者) vs 第二(非作者)",
+      "categories": [
+        "0",
+        "1",
+        "9"
+      ],
+      "n": 360,
+      "po": 0.9972222222222222,
+      "pe": 0.8913194444444444,
+      "kappa": 0.9744408945686902,
+      "ac1": 0.9970626092597163,
+      "pabak": 0.9958333333333333,
+      "confusion": [
+        [
+          5,
+          0,
+          0
+        ],
+        [
+          1,
+          339,
+          0
+        ],
+        [
+          0,
+          0,
+          15
+        ]
+      ],
+      "row_marginal": [
+        5,
+        340,
+        15
+      ],
+      "col_marginal": [
+        6,
+        339,
+        15
+      ],
+      "po_ci": {
+        "ci_low": 0.9916666666666667,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "kappa_ci": {
+        "ci_low": 0.9352416037152386,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "ac1_ci": {
+        "ci_low": 0.9909066989422723,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "pabak_ci": {
+        "ci_low": 0.9875,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      }
+    },
+    "A1_A2_01": {
+      "label": "第一(非作者) vs 第二(非作者)（双方 0/1）",
+      "categories": [
+        "0",
+        "1"
+      ],
+      "n": 345,
+      "po": 0.9971014492753624,
+      "pe": 0.9686200378071833,
+      "kappa": 0.9076305220883553,
+      "ac1": 0.9970075591657597,
+      "pabak": 0.9942028985507247,
+      "confusion": [
+        [
+          5,
+          0
+        ],
+        [
+          1,
+          339
+        ]
+      ],
+      "row_marginal": [
+        5,
+        340
+      ],
+      "col_marginal": [
+        6,
+        339
+      ],
+      "po_ci": {
+        "ci_low": 0.990990990990991,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "kappa_ci": {
+        "ci_low": 0.39712057588482275,
+        "ci_high": 1.0,
+        "n_valid": 4948,
+        "n_boot": 5000
+      },
+      "ac1_ci": {
+        "ci_low": 0.9906864230029615,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "pabak_ci": {
+        "ci_low": 0.9819819819819819,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      }
+    },
+    "adjudicated_rule": {
+      "label": "仲裁后人工 vs 严格规则",
+      "categories": [
+        "0",
+        "1"
+      ],
+      "n": 335,
+      "po": 1.0,
+      "pe": 0.9144575629316106,
+      "kappa": 1.0,
+      "ac1": 1.0,
+      "pabak": 1.0,
+      "confusion": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          320
+        ]
+      ],
+      "row_marginal": [
+        15,
+        320
+      ],
+      "col_marginal": [
+        15,
+        320
+      ],
+      "po_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "kappa_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "ac1_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "pabak_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      }
+    }
+  },
+  "n_disagreements": {
+    "A1_rule": 11,
+    "A2_rule": 11,
+    "A1_A2": 1
+  },
+  "adjudication_templates": {
+    "A1_A2": 1,
+    "human_rule": 11
+  },
+  "adjudicated": {
+    "counts_evaluable": {
+      "1": 320,
+      "0": 15,
+      "9": 0,
+      "blank": 0
+    },
+    "sources": {
+      "adjudicated": 12,
+      "consensus": 348,
+      "single": 0,
+      "unresolved": 0
+    },
+    "block": {
+      "label": "仲裁后人工 vs 严格规则",
+      "categories": [
+        "0",
+        "1"
+      ],
+      "n": 335,
+      "po": 1.0,
+      "pe": 0.9144575629316106,
+      "kappa": 1.0,
+      "ac1": 1.0,
+      "pabak": 1.0,
+      "confusion": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          320
+        ]
+      ],
+      "row_marginal": [
+        15,
+        320
+      ],
+      "col_marginal": [
+        15,
+        320
+      ],
+      "po_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "kappa_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "ac1_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      },
+      "pabak_ci": {
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "n_valid": 5000,
+        "n_boot": 5000
+      }
+    }
+  },
+  "assisted_audit": {
+    "h1": {
+      "name": "第一(非作者)",
+      "assisted_rows": 0,
+      "independent_rows": 0,
+      "with_suggestion": 0,
+      "accepted": 0,
+      "overridden": 0,
+      "override_matches_rule": 0,
+      "override_differs_from_rule": 0,
+      "override_rule_na": 0,
+      "highlight_on": 0,
+      "modes": {
+        "(blank)": 360
+      },
+      "scenarios": {}
+    },
+    "h2": {
+      "name": "第二(非作者)",
+      "assisted_rows": 0,
+      "independent_rows": 0,
+      "with_suggestion": 0,
+      "accepted": 0,
+      "overridden": 0,
+      "override_matches_rule": 0,
+      "override_differs_from_rule": 0,
+      "override_rule_na": 0,
+      "highlight_on": 0,
+      "modes": {
+        "(blank)": 360
+      },
+      "scenarios": {}
+    }
+  }
+}

@@ -1,0 +1,789 @@
+{
+  "baseline_observations": 7200,
+  "baseline_sha256": "fec36ef9278e8976a92c525a698d0a11a1be53bc7d58a26d1f63cb478b5cf8e3",
+  "cells": 36,
+  "command_failures": 0,
+  "comparison": "frozen_preoptimization_vs_form_scoped_snapshot",
+  "comparison_only": true,
+  "complexity": {
+    "database_round_trips": "constant in versions and fields (12 in this implementation)",
+    "in_memory_work": "O(V*F + T + C + E)",
+    "symbols": {
+      "C": "form certificates",
+      "E": "form evidence rows",
+      "F": "declared fields",
+      "T": "form transitions",
+      "V": "selected history versions"
+    }
+  },
+  "config_sha256": "b5aebc5741a7d9730d27a3c33fca08066dce9fe543477f89ccec0c9e21562468",
+  "current_measurement_receipt_sha256": "04585e4bbfe2834e6eba155ac86689bede2764f7233e6aa36acb3006cf553973",
+  "current_measurement_source_sha256": "fc4629c6179a82f4b9b1f6949729c6019f3cad1ff6a9ce19015f6a1801b7e0a0",
+  "current_observations": 7200,
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "sqlite": "3.45.1"
+  },
+  "results": [
+    {
+      "baseline_p50_ms": 5.35815,
+      "baseline_p95_ms": 5.7906,
+      "baseline_sql_statements": [
+        16,
+        16
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 4.3776,
+      "current_p95_ms": 4.9463,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 1.2239925986842106,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 5.3452,
+      "baseline_p95_ms": 5.773,
+      "baseline_sql_statements": [
+        16,
+        16
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 4.34605,
+      "current_p95_ms": 4.9418,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 1.2298984135019155,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 5.32725,
+      "baseline_p95_ms": 5.9683,
+      "baseline_sql_statements": [
+        16,
+        16
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 4.337949999999999,
+      "current_p95_ms": 4.8047,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 1.2280570315471597,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 11.7991,
+      "baseline_p95_ms": 12.4611,
+      "baseline_sql_statements": [
+        34,
+        34
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 4.9358,
+      "current_p95_ms": 5.4274,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 2.39051420235828,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 12.06565,
+      "baseline_p95_ms": 12.7532,
+      "baseline_sql_statements": [
+        34,
+        34
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 5.06095,
+      "current_p95_ms": 5.5996,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 2.3840682085379226,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 12.4383,
+      "baseline_p95_ms": 12.9242,
+      "baseline_sql_statements": [
+        34,
+        34
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 5.1305,
+      "current_p95_ms": 5.5951,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 2.424383588344216,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 77.4269,
+      "baseline_p95_ms": 80.4961,
+      "baseline_sql_statements": [
+        214,
+        214
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 11.60775,
+      "current_p95_ms": 13.6504,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 6.670276324007668,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 78.5212,
+      "baseline_p95_ms": 81.2352,
+      "baseline_sql_statements": [
+        214,
+        214
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 11.51125,
+      "current_p95_ms": 12.886,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 6.821257465522857,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 79.5224,
+      "baseline_p95_ms": 82.0763,
+      "baseline_sql_statements": [
+        214,
+        214
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 11.43215,
+      "current_p95_ms": 12.7008,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 1,
+      "p50_speedup": 6.956031892513657,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 17.34805,
+      "baseline_p95_ms": 18.2172,
+      "baseline_sql_statements": [
+        51,
+        51
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 4.8747,
+      "current_p95_ms": 5.325,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 3.558793361642768,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 17.72485,
+      "baseline_p95_ms": 18.533,
+      "baseline_sql_statements": [
+        51,
+        51
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 5.025,
+      "current_p95_ms": 5.7044,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 3.527333333333333,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 17.899900000000002,
+      "baseline_p95_ms": 18.7701,
+      "baseline_sql_statements": [
+        51,
+        51
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 5.2173,
+      "current_p95_ms": 5.9165,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 3.430874206965289,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 44.60065,
+      "baseline_p95_ms": 46.9039,
+      "baseline_sql_statements": [
+        132,
+        132
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 6.0493500000000004,
+      "current_p95_ms": 6.8132,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 7.372800383512278,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 45.10855,
+      "baseline_p95_ms": 47.1163,
+      "baseline_sql_statements": [
+        132,
+        132
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 6.058450000000001,
+      "current_p95_ms": 6.6522,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 7.445559507794898,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 46.20295,
+      "baseline_p95_ms": 47.977,
+      "baseline_sql_statements": [
+        132,
+        132
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 6.0779499999999995,
+      "current_p95_ms": 6.7607,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 7.601732492040902,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 319.76054999999997,
+      "baseline_p95_ms": 328.8385,
+      "baseline_sql_statements": [
+        942,
+        942
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 13.97385,
+      "current_p95_ms": 15.5662,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 22.88278105175023,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 324.6377,
+      "baseline_p95_ms": 346.507,
+      "baseline_sql_statements": [
+        942,
+        942
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 13.822849999999999,
+      "current_p95_ms": 14.9859,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 23.48558365315402,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 324.38419999999996,
+      "baseline_p95_ms": 334.6678,
+      "baseline_sql_statements": [
+        942,
+        942
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 14.07765,
+      "current_p95_ms": 18.0651,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 8,
+      "p50_speedup": 23.042496439391513,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 58.40385,
+      "baseline_p95_ms": 60.4414,
+      "baseline_sql_statements": [
+        171,
+        171
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 6.8069500000000005,
+      "current_p95_ms": 7.8561,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 8.580032172999655,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 59.01535,
+      "baseline_p95_ms": 60.5136,
+      "baseline_sql_statements": [
+        171,
+        171
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 6.822649999999999,
+      "current_p95_ms": 7.3693,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 8.649916088323453,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 59.98585,
+      "baseline_p95_ms": 62.5507,
+      "baseline_sql_statements": [
+        171,
+        171
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 6.8618500000000004,
+      "current_p95_ms": 7.3474,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 8.741935483870966,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 156.02435,
+      "baseline_p95_ms": 159.9957,
+      "baseline_sql_statements": [
+        468,
+        468
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 8.129249999999999,
+      "current_p95_ms": 8.8524,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 19.192957529907435,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 159.61194999999998,
+      "baseline_p95_ms": 162.5588,
+      "baseline_sql_statements": [
+        468,
+        468
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 8.184149999999999,
+      "current_p95_ms": 8.8195,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 19.502568990060055,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 161.1233,
+      "baseline_p95_ms": 164.6198,
+      "baseline_sql_statements": [
+        468,
+        468
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 8.37515,
+      "current_p95_ms": 9.2435,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 19.238258419252194,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 1127.00515,
+      "baseline_p95_ms": 1156.7065,
+      "baseline_sql_statements": [
+        3438,
+        3438
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 21.58345,
+      "current_p95_ms": 23.9077,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 52.21617257667333,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 1155.5456,
+      "baseline_p95_ms": 1184.1448,
+      "baseline_sql_statements": [
+        3438,
+        3438
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 21.685499999999998,
+      "current_p95_ms": 22.9264,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 53.286555532498674,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 1175.9992,
+      "baseline_p95_ms": 1199.629,
+      "baseline_sql_statements": [
+        3438,
+        3438
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 21.5957,
+      "current_p95_ms": 23.5522,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 32,
+      "p50_speedup": 54.455248035488545,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 222.45344999999998,
+      "baseline_p95_ms": 228.8018,
+      "baseline_sql_statements": [
+        651,
+        651
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 14.030149999999999,
+      "current_p95_ms": 14.8205,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 15.855386435640389,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 227.09629999999999,
+      "baseline_p95_ms": 259.9345,
+      "baseline_sql_statements": [
+        651,
+        651
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 14.501750000000001,
+      "current_p95_ms": 16.0918,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 15.659923802299721,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 253.6165,
+      "baseline_p95_ms": 284.4981,
+      "baseline_sql_statements": [
+        651,
+        651
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 14.8682,
+      "current_p95_ms": 16.7158,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 17.057646520762432,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 1
+    },
+    {
+      "baseline_p50_ms": 651.4815000000001,
+      "baseline_p95_ms": 672.3301,
+      "baseline_sql_statements": [
+        1812,
+        1812
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 18.445050000000002,
+      "current_p95_ms": 20.7596,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 35.320126538014264,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 659.63265,
+      "baseline_p95_ms": 683.5314,
+      "baseline_sql_statements": [
+        1812,
+        1812
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 17.96425,
+      "current_p95_ms": 19.2055,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 36.719186718065046,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 672.7626,
+      "baseline_p95_ms": 689.2308,
+      "baseline_sql_statements": [
+        1812,
+        1812
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 17.753749999999997,
+      "current_p95_ms": 18.6589,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 37.89411251144125,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 10
+    },
+    {
+      "baseline_p50_ms": 4794.9676500000005,
+      "baseline_p95_ms": 5336.8455,
+      "baseline_sql_statements": [
+        13422,
+        13422
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 53.0486,
+      "current_p95_ms": 64.3595,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 90.38820345871522,
+      "records": 1,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 4850.99525,
+      "baseline_p95_ms": 7970.9154,
+      "baseline_sql_statements": [
+        13422,
+        13422
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 52.4654,
+      "current_p95_ms": 63.5679,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 92.46084562397313,
+      "records": 100,
+      "same_cell_and_trials": true,
+      "versions": 100
+    },
+    {
+      "baseline_p50_ms": 7857.31275,
+      "baseline_p95_ms": 8046.9595,
+      "baseline_sql_statements": [
+        13422,
+        13422
+      ],
+      "baseline_trials": 200,
+      "current_p50_ms": 51.53635,
+      "current_p95_ms": 62.025,
+      "current_sql_statements": [
+        12,
+        12
+      ],
+      "current_trials": 200,
+      "fields": 128,
+      "p50_speedup": 152.4615683881377,
+      "records": 1000,
+      "same_cell_and_trials": true,
+      "versions": 100
+    }
+  ],
+  "schema": "auto-decte.r21-trace-optimization-paper-input.v1",
+  "statement_budget": 12,
+  "status": "complete"
+}

@@ -1,0 +1,120 @@
+{
+  "case": {
+    "digest_expectation": "unchanged",
+    "expected_status": "EVIDENCE_BINDING_MISSING",
+    "id": "missing_evidence",
+    "kind": "rejection",
+    "node_id": "tests/conformance/test_g3b_conformance.py::test_missing_evidence_rejected",
+    "properties": [
+      "P2"
+    ]
+  },
+  "catalogue_sha256": "8ccd4ee89af084bb3eebe57c3c39cc20f0b6ff54c50eaecff2a3f1feb7f3d0dc",
+  "command": [
+    "D:\\Claude_Design\\auto-decte-paper\\release-staging\\auto-dete-r21-github-2026-09-05\\r21-jss\\source\\implementation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "tests/conformance/test_g3b_conformance.py::test_missing_evidence_rejected",
+    "-q",
+    "--basetemp",
+    "D:\\Claude_Design\\auto-decte-paper\\revisions\\2026-09-08-r22-review-response\\evidence\\r1-value-equality\\conformance\\catalogue-fixed.json\\pytest-temp\\missing_evidence"
+  ],
+  "databases": [
+    {
+      "independent_trace_violations": {
+        "FORM-1": []
+      },
+      "path": "conformance.db",
+      "row_counts": {
+        "ai_reviews": 0,
+        "audit_events": 1,
+        "authority_meta": 0,
+        "authorization_bindings": 0,
+        "candidate_certificates": 1,
+        "evidence_files": 0,
+        "export_batches": 0,
+        "fact_transitions": 0,
+        "form_fields": 1,
+        "forms": 1,
+        "human_decisions": 0,
+        "recognition_attempts": 1,
+        "record_versions": 0
+      },
+      "row_ids": {
+        "ai_reviews": [],
+        "audit_events": [
+          {
+            "actor_id": "machine",
+            "event_id": "EVENT-a9d1a837d16448178c97b3cd8cdc5c0b",
+            "form_id": "FORM-1"
+          }
+        ],
+        "authority_meta": [],
+        "authorization_bindings": [],
+        "candidate_certificates": [
+          {
+            "candidate_id": "ATTEMPT-e7af2691055442f4895b21558ee09391",
+            "certificate_id": "6c2e947154bbba500967de2f9ba2a0780ccfaffbf6ecc1e0388df45f6d48b812",
+            "evidence_file_id": "FILE-e6a5c1d7a42c40eda85f7719c4514505",
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1",
+            "producer_id": "recognizer-a",
+            "recognition_attempt_id": "ATTEMPT-e7af2691055442f4895b21558ee09391",
+            "selection_artifact_id": "recognition-threshold-v1",
+            "target_record_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "evidence_files": [],
+        "export_batches": [],
+        "fact_transitions": [],
+        "form_fields": [
+          {
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1"
+          }
+        ],
+        "forms": [
+          {
+            "form_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "human_decisions": [],
+        "recognition_attempts": [
+          {
+            "attempt_id": "ATTEMPT-e7af2691055442f4895b21558ee09391",
+            "crop_file_id": "FILE-e6a5c1d7a42c40eda85f7719c4514505",
+            "field_id": "FIELD-1"
+          }
+        ],
+        "record_versions": []
+      },
+      "sha256": "5813381493349fa898a562d38ff86806e2b178fdc82d65376f68e523ccad13cf",
+      "state_digest": "38c25122eaf26d90f7f5cb34271ec3356ddfe7ac1ded4c987ed140a92a19251b",
+      "user_version": 0
+    }
+  ],
+  "digest_expectation_asserted_by_test": "unchanged",
+  "duration_seconds": 1.359,
+  "environment": {
+    "hypothesis": "6.165.10",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pytest": "9.1.1",
+    "python": "3.11.9",
+    "sqlalchemy": "2.0.51",
+    "sqlite": "3.45.1"
+  },
+  "expected_status_asserted_by_test": "EVIDENCE_BINDING_MISSING",
+  "finished_at": "2026-09-08T14:50:33.765148+00:00",
+  "observed_status": "PASS",
+  "return_code": 0,
+  "schema": "auto-decte-catalogue-case-result-v1",
+  "started_at": "2026-09-08T14:50:32.424867+00:00",
+  "stderr": "",
+  "stdout": ".                                                                        [100%]\n1 passed in 0.83s\n",
+  "test_source_sha256": "1f02ae75184923b6ec7bd2605be817000d1fd453f7bf9edb733df9cf095feac3"
+}

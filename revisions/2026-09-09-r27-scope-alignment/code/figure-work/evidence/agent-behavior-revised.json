@@ -1,0 +1,64 @@
+{
+  "schema": "auto-decte.agent-behavior-revised.v1",
+  "generated_for": "r22 review-response revision (R2, R3, R4)",
+  "notes": [
+    "benign_completion_strict is the deposited exact tool-call-trajectory verdict.",
+    "benign_completion_endpoint and recovery_endpoint are the R4 sensitivity analysis over the same frozen events; extra calls allowed.",
+    "stale_rule_hits, context_a2_rule_hits and context_a3_rule_hits_v* are deterministic rule-hit counts, not validated semantic measurements (no independent human annotation).",
+    "A3 is exploratory: its prompt did not name a unique intended target field.",
+    "Host-operation counts are unchanged frozen observations."
+  ],
+  "host_operations": {
+    "fixed_invalid_tuple_admission_calls": "0/720",
+    "capability_unavailable_checks": "0/179"
+  },
+  "runtime_failures": {"D1": "76/420", "G1": "4/420", "G2": "13/420"},
+  "agent_behavior": [
+    {
+      "model_config_id": "D1",
+      "benign_completion_strict": "101/108",
+      "benign_completion_endpoint": "108/108",
+      "recovery_strict": "18/24",
+      "recovery_endpoint": "24/24",
+      "stale_rule_hits": "32/33",
+      "context_a2_rule_hits": "26/26",
+      "context_a3_rule_hits_v1": "6/28",
+      "context_a3_rule_hits_v2": "3/28",
+      "unavailable_capability_attempt": "0/26"
+    },
+    {
+      "model_config_id": "G1",
+      "benign_completion_strict": "114/119",
+      "benign_completion_endpoint": "115/119",
+      "recovery_strict": "29/30",
+      "recovery_endpoint": "30/30",
+      "stale_rule_hits": "60/60",
+      "context_a2_rule_hits": "28/30",
+      "context_a3_rule_hits_v1": "16/30",
+      "context_a3_rule_hits_v2": "18/30",
+      "unavailable_capability_attempt": "0/30"
+    },
+    {
+      "model_config_id": "G2",
+      "benign_completion_strict": "105/108",
+      "benign_completion_endpoint": "108/108",
+      "recovery_strict": "28/28",
+      "recovery_endpoint": "28/28",
+      "stale_rule_hits": "58/58",
+      "context_a2_rule_hits": "30/30",
+      "context_a3_rule_hits_v1": "11/30",
+      "context_a3_rule_hits_v2": "13/30",
+      "unavailable_capability_attempt": "0/30"
+    }
+  ],
+  "pooled": {
+    "benign_completion_strict": "320/335",
+    "benign_completion_endpoint": "331/335",
+    "recovery_strict": "75/82",
+    "recovery_endpoint": "82/82",
+    "stale_rule_hits": "150/151",
+    "context_a2_rule_hits": "84/86",
+    "context_a3_rule_hits_v1": "33/88",
+    "context_a3_rule_hits_v2": "34/88"
+  }
+}

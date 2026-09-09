@@ -1,0 +1,22 @@
+% Editorial design aid derived from C1--C2; no new experimental results.
+\begin{table}[p]
+\centering
+\caption{Design checklist derived from C1--C2. Adapt the probes to the target implementation and retain persisted evidence for each outcome.}
+\label{tab:design-checklist}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Retain and check & Failure probe and expected evidence \\
+\midrule
+$D_C$ & Exact candidate, target, evidence and producer; bind the decision at review and recheck context inside admission. & Substitute an equal-valued candidate from another context: reject without authority writes. Reload the binding to verify candidate identity. \\
+\addlinespace
+$D_V$ & Proposal, human-authorized value and committed value with separate roles; preserve the candidate and check the latter two values at admission. & Authorize 101 from proposal 100: commit 101, retain 100 and its identity. Reconstruction must expose false machine attribution. \\
+\addlinespace
+$D_F$ & Expected and observed predecessor discriminator; compare within the transaction and protect it against races. & Supersede the predecessor before replay: reject without changing the new current state. Competing admissions from one predecessor must not both commit. \\
+\addlinespace
+$D_B$ & Admitted field domain, actual effects and commit grouping; validate the planned successor and commit it atomically. & Change two fields; interrupt between writes. Recovery must expose all or none of that admission, never an intermediate or fragmented successor. \\
+\addlinespace
+$D_S$ & One resolving source per successor field; validate changed-field sources and exact unchanged-source retention before commit and on trace. & Keep values fixed but remove, duplicate or replace a source. Reject invalid construction; diagnose incomplete trace after persisted corruption. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+

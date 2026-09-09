@@ -1,0 +1,134 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{RQ1: bounded separation by the full basis}
+
+% CLAIM P-RQ1-1 -> alloy_results.json (all 66 rows)
+All 66 Alloy outcomes matched the command manifest. In each profile, the Analyzer found the six requested legal witnesses, eleven requested ablation witnesses, and three requested trace-attack witnesses (20 SAT outcomes), while the thirteen assertion commands returned UNSAT. The larger S2 profile reproduced the S1 outcome classes rather than exposing a differently classified command (\cref{tab:alloy-outcomes}).
+
+The encoded legal histories and selected source-corrupt histories are therefore non-vacuous in both profiles. Within those scopes, Full admits the requested legal witnesses, the rejection wrappers stutter on declared malformed attempts, and the preservation assertions expose no counterexample. These outcomes provide bounded separation evidence for the encoded command set.
+
+\subsection{RQ2: sensitivity of selected relational encodings}
+
+% CLAIM P-RQ2-1 -> alloy_results.json class=ablation-witness
+All eleven conjunct-removal operators produced a paired witness with one malformed item and at least one Full-valid item. The reduced contract admitted a non-stuttering effect, while Full rejected the same item set with a stuttering post-state. \Cref{tab:distinction-evidence} maps the covered failure classes to their encodings.
+
+Grouped through \cref{tab:distinction-evidence}, the ablations exercise encodings of candidate context ($D_C$), dual-value attribution ($D_V$), freshness ($D_F$), and successor completeness ($D_B$); the three source attacks exercise $D_S$. These are finite sensitivity checks for the listed encodings. The claim that omitting an observation class makes a safe/unsafe pair indistinguishable rests on Proposition~1's history construction, rather than on the number of Alloy ablations. Principal membership remains fixed across the ablations.
+
+\subsection{RQ3: selected formal--concrete projections}
+
+% CLAIM P-RQ3-1 -> formal_refinement_summary.json
+The independent adapter produced 29 fixed formal instances. All nine intended projections were SAT under their committed or stuttering wrappers, and all twenty mapping mutants were UNSAT. The covered cases and two intentional formal--concrete differences are defined in \cref{sec:conformance}.
+
+\subsection{RQ4: declared concrete behavior}
+
+% CLAIM P-RQ4-1 -> conformance_summary.json
+The production-facing catalogue passed all 35 declared cases with zero failures, using the rejection, corruption, and oracle criteria in \cref{sec:conformance}.
+
+% CLAIM P-RQ4-2 -> quality_summary.json + r22 value-equality regression
+The two stateful profiles and 33 rollback/concurrency tests also passed. The frozen quality summary for the evaluated snapshot reports 354 passing tests; the revision adds 13 value-equality regressions, and the earlier 377-test result was obtained in the development repository. The current isolated export passes all 389 tests, including ten optional-Git metadata checks and two controlled revocation schedules added in this revision (Supplement S2.5). The earlier Ruff and mypy checks exited successfully, with mypy checking 55 typed source files. These software checks provide regression evidence around the evaluated system and remain separate from the 35-case conformance denominator.
+
+\input{tables/generated/validation_evidence}
+
+\subsection{RQ5: illustrative lifecycle}
+
+% CLAIM P-RQ5-1 -> lifecycle_summary.json
+The lifecycle completed two record versions. Version 2 preserved a machine quantity candidate of 100, stored an independently authorized value of 101, and anchored the resulting quantity transition to the original certificate. The unchanged \code{batch} and \code{operator} fields retained their prior source transitions. The final reverse trace was complete, and the exported values equaled the final record values.
+
+The six archived AI-origin cases also matched their declared lifecycle outcomes (Supplement S2.4). They check compatibility with a persisted model output, rather than add an independent test of the admission relation.
+
+\paragraph{What complete value audits leave unspecified}
+\label{sec:executable-relation-result}
+The nine-case executable control makes the relation-level increment explicit. Both SQLite policies retain immutable candidates, complete value audits, value-bound approvals, and CAS. They agree on seven of eight single-history outcomes. Only equal-valued candidate substitution separates their admission outcomes: the value-audit policy accepts a different candidate with the same record, field, and value, while the candidate-bound policy rejects it.
+
+The paired histories isolate the attribution question: one reviews a proposal of 100, the other a proposal of 101, and both approve and commit 101 from the same candidate pool. Their logical application-table states are identical only under the value-audit policy; the candidate-bound histories differ in the persisted reviewed-candidate identity. Both policies reconstruct unchanged-field sources from complete audits, so this control shows no source-reconstruction benefit from an explicit source map. The demonstrated increment is exact review linkage and proposal/authorized-value attribution. These are constructed policy comparisons, not independent external-system validation; full case records are in Supplement S3.
+
+\Cref{fig:evidence-chain} maps the contract and conditional characterization to the implementation checks and experimental observations, with separate inference limits.
+
+% FIGURE SOURCE: scripts/build_flowcharts.py; verified contribution definitions; numerical evidence remains in the result tables.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/refined/figure-2-evidence-map.pdf}
+\caption{Contribution and evidence map. The top row states the admission relation and its conditional observation requirements; the bottom row connects these to bounded implementation checks and workload-specific evaluation. Detailed counts remain in the corresponding result tables. The final line identifies the reproducibility path.}
+\label{fig:evidence-chain}
+\end{figure*}
+
+\subsection{RQ6: fixed-grid cost}
+
+\paragraph{Admission}
+% CLAIM R21-RQ6-A -> feature-baseline-run-1/feature_baseline_summary.json
+The persistence-equivalent ablation completed all ten cells and 2,000 measured pairs with zero command failures. All ten materialized databases matched the canonical relational fingerprint of a full-admission reference. Full-path p50 ranged from 17.820 to 194.862 ms, whereas equivalent materialization p50 ranged from 10.469 to 16.479 ms. The paired mean full-minus-materialization difference ranged from 7.455 ms (8 fields, 1 changed) to 182.021 ms (128 fields, all changed). Both arms retain the complete source map and every authority row. The descriptive gap combines excluded validation/planning work with implementation-path differences (\cref{tab:feature-baseline}).
+
+\input{tables/generated/feature_baseline_cost}
+
+% CLAIM Q-RQ6-A -> cost_summary.json admission
+The historical lower-bound admission comparison, including its two negative paired differences, is retained in Supplement S1.1.
+
+\paragraph{Reverse trace}
+% CLAIM R21-RQ6-T -> trace-optimization-comparison-3/trace_optimization_summary.json
+The optimized form-scoped snapshot implementation completed all 36 cells and 7,200 observations with zero command failures. Every observation used exactly 12 SQL statements, compared with 16--13,422 in the recorded baseline. Optimized p50 ranged from 4.338 to 53.049 ms and the maximum p95 was 64.360 ms at 128 fields, 100 versions, and one record. Descriptive cellwise p50 ratios ranged from $1.224\times$ to $152.462\times$; at the prior maximum-p50 cell (128 fields, 100 versions, 1,000 records), p50 fell from 7,857.313 to 51.536 ms and p95 from 8,046.960 to 62.025 ms (\cref{tab:trace-optimization}). The ratios compare two sequential executions in the fixed environment.
+
+\input{tables/generated/trace_optimization}
+
+% CLAIM Q-RQ6-T -> cost_summary.json trace
+Historical trace cell values are retained in Supplement S1.1.
+
+\paragraph{Storage}
+% CLAIM Q-RQ6-S -> cost_summary.json storage
+The incremental main-database sizes of the full authority schema relative to the lower population were 1,085,440, 10,772,480, and 111,230,976 bytes at 1,000, 10,000, and 100,000 transitions (\cref{tab:storage-cost}). Foreign-key failure lists were empty, and WAL/SHM bytes were zero after the measurement protocol. RQ6 characterizes the recorded runtime grid; its scaling and portability boundaries are consolidated in \cref{sec:discussion}.
+
+\input{tables/generated/storage_cost}
+
+\Cref{fig:cost} foregrounds persistence-equivalent admission and optimized reverse trace. Historical admission and trace measurements are reported in Supplement S1.1; storage is reported in \cref{tab:storage-cost}.
+
+% FIGURE SOURCE: paper/scripts/build_figures_revised.py reads the frozen r21_feature_baseline_summary.json and r21_trace_optimization_summary.json; all 10 admission and 36 trace cells are retained. The dense heatmap values remain in Table~\ref{tab:trace-optimization}.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/generated/cost-characterization.pdf}
+\caption{Cost of the reference realization on the frozen grid. (a) Median full-admission and prevalidated persistence-equivalent materialization latency for all ten field/change cells. (b) Paired mean differences, combining excluded validation/planning work with implementation-path differences. (c) All 36 optimized reverse-trace medians; color encodes median latency and the exact values remain in \cref{tab:trace-optimization}. Every optimized observation used 12 SQL statements. (d) Cellwise historical and optimized trace medians on logarithmic axes; the diagonal denotes equal latency. Trace comparisons use two sequential executions in the fixed environment.}
+\label{fig:cost}
+\end{figure*}
+
+\FloatBarrier
+
+\subsection{RQ7: pinned agent-harness integration}
+
+% CLAIM R19-RQ7 -> dsh_plugin_integration_summary.json
+All ten pinned-plugin cases passed: the interface exposed proposal and verification while retaining host admission, and its rejection and receipt-integrity controls matched the declared outcomes. Supplement S2.4 retains the lifecycle, unloading, and tamper details. This is interface-conformance evidence; the following live runs examine task execution on that interface.
+
+\subsection{RQ8: live task outcomes and separate host checks}
+
+% CLAIM FINAL-RQ8 -> frozen normalized runs + 2026-09-05 rule audit + R4 endpoint sensitivity
+The Final matrix contains all 1,260 planned executions. Among 360 planned benign runs, execution yield was 320/360 (88.89\%) under the frozen strict rule and 331/360 (91.94\%) under the post-hoc endpoint rule. Twenty-five runs had no scorable behavior verdict. Conditional on the 335 behavior-evaluable runs, strict-trajectory completion was 320/335 (95.52\%; 95\% exact interval 92.72--97.47\%). Re-deriving the declared endpoint from the same frozen events raises this to 331/335 (98.81\%): 11 runs reached the correct terminal state but failed the exact call-sequence rule, comprising seven B4 runs with one extra parent verification and four B1--B3 runs with one extra proposal. No run that satisfied the strict rule failed the endpoint check, and stale-state recovery rose from 75/82 to 82/82 under the endpoint rule. This observed increase is a consequence of a more permissive alternative criterion, not an unbiased correction or independent corroboration of completion. Across the two host operations, no unauthorized mutation was recorded in 720 fixed invalid-tuple admission calls or 179 capability-unavailable checks. The following tables separate task endpoints, rule-hit acknowledgment counts, host operations, and runtime reliability.
+
+\input{tables/generated/runtime_endpoint_table}
+
+\paragraph{Independent human annotation of the benign endpoint}
+Two non-author annotators coded all 360 benign runs under the frozen B1--B4 rubric. On the full set, inter-human agreement was 359/360 (99.72\%; Cohen's $\kappa=0.974$, 95\% CI $[0.910,1.000]$; AC1 $=0.997$; PABAK $=0.996$); the single disagreement (T153) was adjudicated to 0 because the response verified the stale certificate but did not report the replacement proposal or the final verification. Against the strict-trajectory rule on the 335 behavior-evaluable runs, both annotators agreed on 324/335 (96.72\%; AC1 $=0.965$; PABAK $=0.934$; $\kappa=0.410$, 95\% CI $[0.106,0.660]$) before adjudication; all 11 disagreements were cases in which both humans judged completion while the strict rule did not. After author adjudication of these 11 cases and T153, the adjudicated human labels matched the strict rule on all 335 behavior-evaluable runs, giving 320/335 completions. The 25 unscored runs were handled separately: both annotators labeled 15 as 9, both labeled 8 as 1, both labeled one as 0, and one (T153) was adjudicated to 0. Because the adjudicator was the author, this is disclosed as author adjudication rather than independent third-party adjudication; the 11 pre-adjudication human--rule disagreements remain visible and are not hidden or converted into a claim of independent proof. Cluster-robust case-, model-, and cell-level bootstrap intervals are retained in the supplementary analysis archive; the intervals reported here are case-level.
+
+Runtime failures totaled 93: 76/420 for D1, 4/420 for G1, and 13/420 for G2 (\cref{tab:runtime-endpoint}). No \code{SETUP\_FAILURE} or \code{TOOL\_RUNTIME\_FAILURE} occurred. Of the 93 failures, 64 retained complete authority verdicts; three harness failures remained behavior-evaluable, all with task completion false. Endpoint inclusion follows the construct-specific evidence fields, rather than runtime success alone.
+
+\Cref{tab:agent-behavior-final} retains configuration-specific evaluable denominators. Repaired textual rule hits were A2 84/86, exploratory A3 38/88, and stale 150/151. The repair changed 11 of 325 historical labels, all in A3; version comparisons remain in Supplement S2 and the artifact. No unavailable-capability attempt was observed in evaluable cells.
+
+\input{tables/generated/agent_behavior_table}
+
+\input{tables/generated/benign_unscored}
+
+All 25 unscored benign runs belong to recorded runtime-failure classes (\cref{tab:benign-unscored}); the remaining 68 of the 93 runtime failures occur outside this unscored benign subset. If the 25 unknown behavior outcomes were assigned all failures or all successes, the strict proportion would lie between 320/360 and 345/360 (88.89--95.83\%); the endpoint range would be 331/360 to 356/360 (91.94--98.89\%). These are logical extreme-case bounds, not confidence intervals, recovered outcomes, or a missing-at-random assumption. Configuration-specific missingness is retained, so conditional rates do not establish a model ranking.
+
+
+
+The 0/720 admission-call and 0/179 capability-unavailable results have distinct interpretations (\cref{tab:authority-dataflow}). Their 0/899 sum is accounting only: 0/299 for D1 and 0/300 for each OpenAI configuration. \Cref{tab:admission-mechanism-final} gives the zero-violation counts by invoked mechanism family.
+
+\input{tables/generated/admission_mechanism_table}
+
+Stale combines stale-replay and post-commit-replay scenarios (0/60 per configuration); each other tabulated family contributes 0/30. Embedded and unavailable confirmation belong to capability-unavailable branches, not admission-mechanism attacks.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/generated/behavior-vs-authority.pdf}
+\caption{Task endpoints and authority outcome across three qualified configurations. (a) Each dumbbell pairs the deposited strict-trajectory verdict (hollow marker) with the endpoint-completion sensitivity verdict (filled marker) for benign completion and stale-state recovery, labeled count-over-evaluable-denominator. (b) Two operation groups report zero unauthorized mutations in 720 fixed invalid-tuple admission calls and 179 capability-unavailable checks; the latter made no admission call. Acknowledgment rule-hit counts are reported in \cref{tab:agent-behavior-final}, not as validated semantics. The 93 runtime failures are reported separately.}
+\label{fig:behavior-authority}
+\end{figure*}
+
+Task outcomes varied across the qualified configurations. Separately, the predeclared host checks preserved authoritative state in the recorded operations. Because their invalid parameters did not depend on model output, repeating these checks across configurations is integration evidence, not independent model-generated stress testing of the contract. The restricted tool surface and the admission service define the exercised boundary (\cref{sec:discussion}).

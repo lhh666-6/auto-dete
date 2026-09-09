@@ -1,0 +1,50 @@
+\section{Bounded relational characterization}
+\label{sec:alloy}
+
+\subsection{Model structure}
+
+The Alloy model represents records, authoritative fields, linearly ordered versions, evidence content and locators, candidates, certificates and primitive identities, principals, authorizations, transitions, and states. A state maps each committed record/field pair to at most one value and one source transition. Once a record has an authoritative snapshot, both maps cover exactly its declared field domain.
+
+Three event families define the bounded histories. A \code{MachineEvent} may extend candidate, certificate, and evidence sets but frames authoritative values, sources, versions, transitions, and authorizations, encoding P0. A \code{BatchAdmissionEvent} contains a nonempty item set sharing an event envelope. A \code{TamperEvent} freezes values and source pointers while changing only the transition set, giving P6 a deliberately narrow corruption boundary.
+
+The base effect advances one record version and applies item values and sources while intentionally leaving transition structure underconstrained. Full supplies unique item fields; initial or later complete-snapshot shape; preexisting certificate and evidence; record, field, evidence-identity, evidence-owner, certificate-version, freshness, authorization-certificate, principal, and authorization-value bindings; and an exact item--transition bijection. Keeping these conjuncts separate permits one encoded distinction to be removed without silently changing the others.
+
+\subsection{From information classes to Alloy checks}
+
+Table~\ref{tab:distinction-evidence} connects the representation-independent classes of \cref{eq:distinction-basis} to the concrete relational operators and executable evidence. Several low-level conjuncts may encode one high-level class; the eleven ablations are therefore not eleven separate novelty claims.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Mapping from failure-distinguishing information classes to bounded and concrete evidence.}
+\label{tab:distinction-evidence}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Safe/unsafe witness & Alloy support & Concrete support \\
+\midrule
+$D_C$ & exact candidate / equal-valued contextual substitute & field, evidence-identity, evidence-owner, record, authorization-certificate, certificate-preexistence, and evidence-preexistence ablations & record, field, evidence, and certificate substitution cases \\
+$D_V$ & retained Correction / wrong attribution of the same final value & legal Correction witnesses and authorization-value ablation & singleton, all-field, and mixed Correction lifecycles with immutable candidate checks \\
+$D_F$ & current / superseded authorization & certificate-version and freshness ablations; stale-rejection assertions & stale replay, contending confirmation, and compare-and-swap rejection \\
+$D_B$ & atomic / partial or fragmented successor & transition-bijection ablation and whole-batch framing assertions & exact changed-field validation, failpoints, rollback, and concurrency cases \\
+$D_S$ & complete / missing, replaced, or duplicate source & source-anchor attack witnesses and P6 trace assertions & source-corruption catalogue and reverse-trace validation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Each ablation pair contains at least two items: one violates only the selected conjunct and another remains Full-valid. The same attempted item set is admitted by the reduced relation and rejected with authoritative-state stutter by Full. This tests the sensitivity of the selected relational conjunct. The observation-level irredundancy argument is the separate paired-history construction in \cref{sec:contract}.
+
+\subsection{Legal, unsafe, and preservation commands}
+
+Six legal-witness commands cover multi-field Accept, Correction, mixed Accept/Correction, same-value admission, initial snapshot, and singleton admission. Eleven paired ablations remove the conjuncts mapped in \cref{tab:distinction-evidence}. Principal membership remains fixed; the unused \code{ABL\_7} marker is excluded because host identity trust is an external assumption.
+
+Three source-attack commands start from a legal Full prefix and then remove a source anchor, replace it with another transition atom, or add a duplicate source-version transition; each requires the trace to become incomplete. Thirteen assertions per scope cover invariant preservation, P0/P1/P3/P4/P5 regressions, whole-batch effect and rejection framing, bidirectional singleton correspondence, Full rejection of an ablated attempt, and P6 incompleteness.
+
+The command set tests legal and attack reachability, preservation, and sensitivity to individual conjunct removal within each scope.
+
+\subsection{Scopes and interpretation}
+
+The S1 profile bounds principal structural domains at two records, three fields, six versions, up to six admission items/transitions for most commands, and four states/events. S2 increases representative bounds to three records, four fields, eight versions, up to eight admission items/transitions, and five states/events. Individual commands adjust Value, Evidence, or Transition bounds when a witness needs an extra atom. The artifact contains the executable scopes; this summary is not a replacement for them.
+
+\input{tables/generated/formal_evidence}
+
+An UNSAT assertion means that the Analyzer found no counterexample within the encoded command scope. A SAT run means that it found the requested witness \citep{jackson2002alloy,torlak2007kodkod}. Singleton contract/effect checks additionally guard the batch lift against silently changing the historical one-item semantics.

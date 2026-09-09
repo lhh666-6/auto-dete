@@ -1,0 +1,22 @@
+--- /d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/implementation/app/domain/admission.py	2026-08-23 21:56:28.000000000 +0800
++++ code/implementation-fixed/app/domain/admission.py	2026-09-08 22:20:35.952936300 +0800
+@@ -6,6 +6,8 @@
+ from dataclasses import dataclass
+ from typing import Any
+ 
++from app.domain.authority import canonical_values_equal
++
+ 
+ class AdmissionShapeError(ValueError):
+     def __init__(self, code: str, message: str) -> None:
+@@ -66,7 +68,9 @@
+     complete_values = dict(previous_values)
+     complete_values.update(proposed_values)
+     changed = frozenset(
+-        field for field in declared_fields if complete_values[field] != previous_values[field]
++        field
++        for field in declared_fields
++        if not canonical_values_equal(complete_values[field], previous_values[field])
+     )
+     if not changed:
+         raise AdmissionShapeError(
