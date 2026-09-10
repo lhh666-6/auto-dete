@@ -1,0 +1,1099 @@
+[
+  {
+    "case_id": "legal-correction",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "state_unchanged": false,
+    "observations": {
+      "successor_values": {
+        "batch": "A",
+        "quantity": 101
+      },
+      "audit_rows": 1,
+      "stored_sources": {
+        "batch": "v1:batch",
+        "quantity": "v1:quantity"
+      },
+      "reconstructed_sources": {
+        "quantity": "v1:quantity",
+        "batch": "v0:batch"
+      },
+      "proposal_attribution": {
+        "authorized_value": {
+          "quantity": 101
+        },
+        "reviewed_candidate_persisted": false,
+        "candidate_ids_for_record": {
+          "quantity": [
+            "CERT-35E313ABCEA6F098",
+            "CERT-B39BF196A5072CBF",
+            "CERT-AF6A671D90A76500"
+          ],
+          "batch": [
+            "CERT-F566DF74C1808487"
+          ]
+        },
+        "unique_proposal_reconstruction": false
+      }
+    },
+    "database_file": "legal-correction__B2.db"
+  },
+  {
+    "case_id": "equal-value-substitution",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100b"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "state_unchanged": false,
+    "observations": {
+      "successor_values": {
+        "batch": "A",
+        "quantity": 101
+      },
+      "audit_rows": 1,
+      "stored_sources": {
+        "batch": "v1:batch",
+        "quantity": "v1:quantity"
+      },
+      "reconstructed_sources": {
+        "quantity": "v1:quantity",
+        "batch": "v0:batch"
+      },
+      "proposal_attribution": {
+        "authorized_value": {
+          "quantity": 101
+        },
+        "reviewed_candidate_persisted": false,
+        "candidate_ids_for_record": {
+          "quantity": [
+            "CERT-35E313ABCEA6F098",
+            "CERT-B39BF196A5072CBF",
+            "CERT-AF6A671D90A76500"
+          ],
+          "batch": [
+            "CERT-F566DF74C1808487"
+          ]
+        },
+        "unique_proposal_reconstruction": false
+      },
+      "reviewed_candidate": "q100a",
+      "submitted_candidate": "q100b",
+      "reviewed_candidate_persisted": false,
+      "accepted_substitute": true
+    },
+    "database_file": "equal-value-substitution__B2.db"
+  },
+  {
+    "case_id": "cross-record-candidate",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "other100"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "observed": {
+      "accepted": false,
+      "reason": "candidate_context"
+    },
+    "state_unchanged": true,
+    "observations": {
+      "reviewed_candidate": "q100a",
+      "submitted_candidate": "other100",
+      "submitted_record": "R2"
+    },
+    "database_file": "cross-record-candidate__B2.db"
+  },
+  {
+    "case_id": "stale-version",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "intervening commit",
+        "candidate": {
+          "batch": "batchB"
+        },
+        "values": {
+          "batch": "B"
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        },
+        "note": "approved at version 0"
+      }
+    ],
+    "observed": {
+      "accepted": false,
+      "reason": "stale_version"
+    },
+    "state_unchanged": true,
+    "observations": {
+      "intervening_commit_accepted": true,
+      "expected_version": 0,
+      "version_after_intervening": 1
+    },
+    "database_file": "stale-version__B2.db"
+  },
+  {
+    "case_id": "wrong-value",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 102
+        }
+      }
+    ],
+    "observed": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "state_unchanged": true,
+    "observations": {
+      "approved_value": 101,
+      "submitted_value": 102
+    },
+    "database_file": "wrong-value__B2.db"
+  },
+  {
+    "case_id": "partial-batch",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a",
+          "batch": "batchB"
+        },
+        "values": {
+          "quantity": 101,
+          "batch": "B"
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "observed": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "state_unchanged": true,
+    "observations": {
+      "approved_fields": [
+        "quantity",
+        "batch"
+      ],
+      "submitted_fields": [
+        "quantity"
+      ],
+      "omitted_field": "batch"
+    },
+    "database_file": "partial-batch__B2.db"
+  },
+  {
+    "case_id": "injected-failure",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        },
+        "note": "injected failure after writes, before commit"
+      }
+    ],
+    "observed": {
+      "accepted": false,
+      "reason": "injected_failure"
+    },
+    "state_unchanged": true,
+    "observations": {
+      "injected_after": "CAS update, version insert, audit insert, source map, consumption and attempt rows",
+      "tables_compared": [
+        "admission_attempts",
+        "approval_consumption",
+        "approvals",
+        "audits",
+        "candidates",
+        "fact_sources",
+        "principals",
+        "records",
+        "schema_meta",
+        "tx_log",
+        "versions"
+      ]
+    },
+    "database_file": "injected-failure__B2.db"
+  },
+  {
+    "case_id": "two-step-copy-forward",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "commit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "commit",
+        "candidate": {
+          "batch": "batchB"
+        },
+        "values": {
+          "batch": "B"
+        },
+        "note": "quantity is unchanged and must copy forward"
+      }
+    ],
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "state_unchanged": false,
+    "observations": {
+      "successor_values": {
+        "batch": "B",
+        "quantity": 101
+      },
+      "audit_rows": 2,
+      "stored_sources": {
+        "batch": "v2:batch",
+        "quantity": "v2:quantity"
+      },
+      "reconstructed_sources": {
+        "quantity": "v1:quantity",
+        "batch": "v2:batch"
+      },
+      "proposal_attribution": {
+        "authorized_value": {
+          "quantity": 101
+        },
+        "reviewed_candidate_persisted": false,
+        "candidate_ids_for_record": {
+          "quantity": [
+            "CERT-35E313ABCEA6F098",
+            "CERT-B39BF196A5072CBF",
+            "CERT-AF6A671D90A76500"
+          ],
+          "batch": [
+            "CERT-F566DF74C1808487"
+          ]
+        },
+        "unique_proposal_reconstruction": false
+      },
+      "first_step_accepted": true,
+      "second_step_accepted": true,
+      "stored_matches_reconstruction": false,
+      "successor_versions": [
+        0,
+        1,
+        2
+      ]
+    },
+    "database_file": "two-step-copy-forward__B2.db"
+  },
+  {
+    "case_id": "paired-reviewed-candidate",
+    "policy": "B2",
+    "requested_action": [
+      {
+        "action": "approve+submit",
+        "candidate": "q100a",
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "approve+submit",
+        "candidate": "q101",
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "note": "identical candidate pools, values, actor, and expected version"
+      }
+    ],
+    "observed": {
+      "states_equal": false,
+      "differing_tables": [
+        "approvals"
+      ]
+    },
+    "state_unchanged": null,
+    "observations": {
+      "reviewed_candidates": [
+        "q100a",
+        "q101"
+      ],
+      "candidate_proposed_values": {
+        "q100a": 100,
+        "q101": 101
+      },
+      "authorized_value": 101,
+      "reviewed_candidate_persisted": false,
+      "paired_histories_distinguishable": true
+    },
+    "database_file": [
+      "paired-reviewed-candidate__B2-q100a.db",
+      "paired-reviewed-candidate__B2-q101.db"
+    ],
+    "runs": {
+      "q100a": {
+        "observed": {
+          "accepted": true,
+          "reason": "committed"
+        },
+        "state": {
+          "tables": {
+            "admission_attempts": {
+              "columns": [
+                "attempt_seq",
+                "tx_id",
+                "approval_id",
+                "outcome",
+                "reason",
+                "observed_version",
+                "attempted_values_json",
+                "recorded_at"
+              ],
+              "rows": [
+                [
+                  1,
+                  "TX-0001",
+                  "review-1",
+                  "accepted",
+                  "committed",
+                  0,
+                  "{\"quantity\":101}",
+                  "2026-09-10T00:00:10.000000+00:00"
+                ]
+              ]
+            },
+            "approval_consumption": {
+              "columns": [
+                "approval_id",
+                "consumed_version",
+                "consumed_at",
+                "tx_id"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  1,
+                  "2026-09-10T00:00:09.000000+00:00",
+                  "TX-0001"
+                ]
+              ]
+            },
+            "approvals": {
+              "columns": [
+                "approval_id",
+                "record_id",
+                "expected_version",
+                "principal",
+                "approved_values_json",
+                "scope_json",
+                "policy_version",
+                "requested_at",
+                "reviewed_context_json",
+                "reviewed_per_field_json"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  "R1",
+                  0,
+                  "reviewer-1",
+                  "{\"quantity\":101}",
+                  "[\"quantity\"]",
+                  "auto-decte.strong-baseline.b1.v1",
+                  "2026-09-10T00:00:07.000000+00:00",
+                  "{\"evidence_hash\":\"3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+                  "{\"quantity\":{\"evidence_hash\":\"3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}}"
+                ]
+              ]
+            },
+            "audits": {
+              "columns": [
+                "audit_seq",
+                "tx_id",
+                "version",
+                "approval_id",
+                "principal",
+                "before_json",
+                "after_json",
+                "changed_fields_json",
+                "before_digest",
+                "after_digest",
+                "prev_row_digest",
+                "row_digest"
+              ],
+              "rows": [
+                [
+                  1,
+                  "TX-0001",
+                  1,
+                  "review-1",
+                  "reviewer-1",
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  "[\"quantity\"]",
+                  "29abf61dddd42f55fc2994a08c206ae2ff7a393e7465a8a1d85571c4836d671f",
+                  "18c14198ca81174ddfaf709ecb6fc7f7f442298ea15c83768fb05172915c5e64",
+                  "GENESIS",
+                  "4a9225ccfb559dc2869e4184638d39b9a2806b0243bce8b686cb691e9430e34e"
+                ]
+              ]
+            },
+            "candidates": {
+              "columns": [
+                "candidate_id",
+                "record_id",
+                "field",
+                "proposed_json",
+                "producer_id",
+                "producer_version",
+                "selection_artifact_id",
+                "expected_fact_version",
+                "evidence_hash",
+                "evidence_locator",
+                "created_at",
+                "content_hash"
+              ],
+              "rows": [
+                [
+                  "CERT-35E313ABCEA6F098",
+                  "R1",
+                  "quantity",
+                  "100",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-1",
+                  0,
+                  "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+                  "blob://evidence/q100a",
+                  "2026-09-09T12:00:01.000000+00:00",
+                  "35e313abcea6f0981fe7951343d0cbb5293cddb3a57d52537bd81817502e7d19"
+                ],
+                [
+                  "CERT-B39BF196A5072CBF",
+                  "R1",
+                  "quantity",
+                  "100",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-1",
+                  0,
+                  "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+                  "blob://evidence/q100b",
+                  "2026-09-09T12:00:02.000000+00:00",
+                  "b39bf196a5072cbf334a05974aaf8d01aad568c6fdb29a78b3bc240f95d5015b"
+                ],
+                [
+                  "CERT-AF6A671D90A76500",
+                  "R1",
+                  "quantity",
+                  "101",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-1",
+                  0,
+                  "c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda",
+                  "blob://evidence/q101",
+                  "2026-09-09T12:00:03.000000+00:00",
+                  "af6a671d90a765004d25b3f014a055e2e8c47cd42c1f896f0ad9cbaa7e01d96f"
+                ],
+                [
+                  "CERT-CFC03F03286A0CE7",
+                  "R2",
+                  "quantity",
+                  "100",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-2",
+                  0,
+                  "8501213546b2f8bf430a5647e0066a1044781abd8f6b9583faca0f2a6d0ace45",
+                  "blob://evidence/other100",
+                  "2026-09-09T12:00:04.000000+00:00",
+                  "cfc03f03286a0ce70de642d5e0f4824bb1758fa1af7ff9ebfd860dcb90a73dee"
+                ],
+                [
+                  "CERT-F566DF74C1808487",
+                  "R1",
+                  "batch",
+                  "\"B\"",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-3",
+                  0,
+                  "0c9bdb28ed18d5cefe84927c3821a9599caeed22b64ccc97d4e058415dcc4ed1",
+                  "blob://evidence/batchB",
+                  "2026-09-09T12:00:05.000000+00:00",
+                  "f566df74c1808487cd1e9c1bb18f6df0092e5d638d06f7fa28740c2880efc065"
+                ]
+              ]
+            },
+            "fact_sources": {
+              "columns": [
+                "record_id",
+                "field",
+                "source_version",
+                "source_kind",
+                "approval_id"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  "batch",
+                  1,
+                  "human_authorized",
+                  "review-1"
+                ],
+                [
+                  "R1",
+                  "quantity",
+                  1,
+                  "human_authorized",
+                  "review-1"
+                ]
+              ]
+            },
+            "principals": {
+              "columns": [
+                "principal_id",
+                "role",
+                "authorized_fields_json",
+                "active"
+              ],
+              "rows": [
+                [
+                  "reviewer-1",
+                  "reviewer",
+                  "[\"quantity\",\"batch\"]",
+                  1
+                ]
+              ]
+            },
+            "records": {
+              "columns": [
+                "record_id",
+                "version",
+                "values_json"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "schema_meta": {
+              "columns": [
+                "policy",
+                "schema_name",
+                "schema_version",
+                "created_at"
+              ],
+              "rows": [
+                [
+                  "B2",
+                  "auto-decte.strong-baseline.B2",
+                  1,
+                  "2026-09-10T00:00:06.000000+00:00"
+                ]
+              ]
+            },
+            "tx_log": {
+              "columns": [
+                "tx_id",
+                "opened_at",
+                "settled_at",
+                "status"
+              ],
+              "rows": [
+                [
+                  "TX-0001",
+                  "2026-09-10T00:00:08.000000+00:00",
+                  "2026-09-10T00:00:11.000000+00:00",
+                  "committed"
+                ]
+              ]
+            },
+            "versions": {
+              "columns": [
+                "version",
+                "values_json",
+                "sources_json"
+              ],
+              "rows": [
+                [
+                  0,
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+                ],
+                [
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+                ]
+              ]
+            }
+          },
+          "triggers": [
+            "freeze_admission_attempts_DELETE",
+            "freeze_admission_attempts_UPDATE",
+            "freeze_approval_consumption_DELETE",
+            "freeze_approval_consumption_UPDATE",
+            "freeze_approvals_DELETE",
+            "freeze_approvals_UPDATE",
+            "freeze_audits_DELETE",
+            "freeze_audits_UPDATE",
+            "freeze_candidates_DELETE",
+            "freeze_candidates_UPDATE",
+            "freeze_principals_DELETE",
+            "freeze_principals_UPDATE",
+            "freeze_schema_meta_DELETE",
+            "freeze_schema_meta_UPDATE",
+            "freeze_versions_DELETE",
+            "freeze_versions_UPDATE"
+          ]
+        },
+        "database_file": "paired-reviewed-candidate__B2-q100a.db"
+      },
+      "q101": {
+        "observed": {
+          "accepted": true,
+          "reason": "committed"
+        },
+        "state": {
+          "tables": {
+            "admission_attempts": {
+              "columns": [
+                "attempt_seq",
+                "tx_id",
+                "approval_id",
+                "outcome",
+                "reason",
+                "observed_version",
+                "attempted_values_json",
+                "recorded_at"
+              ],
+              "rows": [
+                [
+                  1,
+                  "TX-0001",
+                  "review-1",
+                  "accepted",
+                  "committed",
+                  0,
+                  "{\"quantity\":101}",
+                  "2026-09-10T00:00:10.000000+00:00"
+                ]
+              ]
+            },
+            "approval_consumption": {
+              "columns": [
+                "approval_id",
+                "consumed_version",
+                "consumed_at",
+                "tx_id"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  1,
+                  "2026-09-10T00:00:09.000000+00:00",
+                  "TX-0001"
+                ]
+              ]
+            },
+            "approvals": {
+              "columns": [
+                "approval_id",
+                "record_id",
+                "expected_version",
+                "principal",
+                "approved_values_json",
+                "scope_json",
+                "policy_version",
+                "requested_at",
+                "reviewed_context_json",
+                "reviewed_per_field_json"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  "R1",
+                  0,
+                  "reviewer-1",
+                  "{\"quantity\":101}",
+                  "[\"quantity\"]",
+                  "auto-decte.strong-baseline.b1.v1",
+                  "2026-09-10T00:00:07.000000+00:00",
+                  "{\"evidence_hash\":\"c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"101\"}",
+                  "{\"quantity\":{\"evidence_hash\":\"c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"101\"}}"
+                ]
+              ]
+            },
+            "audits": {
+              "columns": [
+                "audit_seq",
+                "tx_id",
+                "version",
+                "approval_id",
+                "principal",
+                "before_json",
+                "after_json",
+                "changed_fields_json",
+                "before_digest",
+                "after_digest",
+                "prev_row_digest",
+                "row_digest"
+              ],
+              "rows": [
+                [
+                  1,
+                  "TX-0001",
+                  1,
+                  "review-1",
+                  "reviewer-1",
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  "[\"quantity\"]",
+                  "29abf61dddd42f55fc2994a08c206ae2ff7a393e7465a8a1d85571c4836d671f",
+                  "18c14198ca81174ddfaf709ecb6fc7f7f442298ea15c83768fb05172915c5e64",
+                  "GENESIS",
+                  "4a9225ccfb559dc2869e4184638d39b9a2806b0243bce8b686cb691e9430e34e"
+                ]
+              ]
+            },
+            "candidates": {
+              "columns": [
+                "candidate_id",
+                "record_id",
+                "field",
+                "proposed_json",
+                "producer_id",
+                "producer_version",
+                "selection_artifact_id",
+                "expected_fact_version",
+                "evidence_hash",
+                "evidence_locator",
+                "created_at",
+                "content_hash"
+              ],
+              "rows": [
+                [
+                  "CERT-35E313ABCEA6F098",
+                  "R1",
+                  "quantity",
+                  "100",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-1",
+                  0,
+                  "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+                  "blob://evidence/q100a",
+                  "2026-09-09T12:00:01.000000+00:00",
+                  "35e313abcea6f0981fe7951343d0cbb5293cddb3a57d52537bd81817502e7d19"
+                ],
+                [
+                  "CERT-B39BF196A5072CBF",
+                  "R1",
+                  "quantity",
+                  "100",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-1",
+                  0,
+                  "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+                  "blob://evidence/q100b",
+                  "2026-09-09T12:00:02.000000+00:00",
+                  "b39bf196a5072cbf334a05974aaf8d01aad568c6fdb29a78b3bc240f95d5015b"
+                ],
+                [
+                  "CERT-AF6A671D90A76500",
+                  "R1",
+                  "quantity",
+                  "101",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-1",
+                  0,
+                  "c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda",
+                  "blob://evidence/q101",
+                  "2026-09-09T12:00:03.000000+00:00",
+                  "af6a671d90a765004d25b3f014a055e2e8c47cd42c1f896f0ad9cbaa7e01d96f"
+                ],
+                [
+                  "CERT-CFC03F03286A0CE7",
+                  "R2",
+                  "quantity",
+                  "100",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-2",
+                  0,
+                  "8501213546b2f8bf430a5647e0066a1044781abd8f6b9583faca0f2a6d0ace45",
+                  "blob://evidence/other100",
+                  "2026-09-09T12:00:04.000000+00:00",
+                  "cfc03f03286a0ce70de642d5e0f4824bb1758fa1af7ff9ebfd860dcb90a73dee"
+                ],
+                [
+                  "CERT-F566DF74C1808487",
+                  "R1",
+                  "batch",
+                  "\"B\"",
+                  "detector-v1",
+                  "1.0.0",
+                  "SEL-3",
+                  0,
+                  "0c9bdb28ed18d5cefe84927c3821a9599caeed22b64ccc97d4e058415dcc4ed1",
+                  "blob://evidence/batchB",
+                  "2026-09-09T12:00:05.000000+00:00",
+                  "f566df74c1808487cd1e9c1bb18f6df0092e5d638d06f7fa28740c2880efc065"
+                ]
+              ]
+            },
+            "fact_sources": {
+              "columns": [
+                "record_id",
+                "field",
+                "source_version",
+                "source_kind",
+                "approval_id"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  "batch",
+                  1,
+                  "human_authorized",
+                  "review-1"
+                ],
+                [
+                  "R1",
+                  "quantity",
+                  1,
+                  "human_authorized",
+                  "review-1"
+                ]
+              ]
+            },
+            "principals": {
+              "columns": [
+                "principal_id",
+                "role",
+                "authorized_fields_json",
+                "active"
+              ],
+              "rows": [
+                [
+                  "reviewer-1",
+                  "reviewer",
+                  "[\"quantity\",\"batch\"]",
+                  1
+                ]
+              ]
+            },
+            "records": {
+              "columns": [
+                "record_id",
+                "version",
+                "values_json"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "schema_meta": {
+              "columns": [
+                "policy",
+                "schema_name",
+                "schema_version",
+                "created_at"
+              ],
+              "rows": [
+                [
+                  "B2",
+                  "auto-decte.strong-baseline.B2",
+                  1,
+                  "2026-09-10T00:00:06.000000+00:00"
+                ]
+              ]
+            },
+            "tx_log": {
+              "columns": [
+                "tx_id",
+                "opened_at",
+                "settled_at",
+                "status"
+              ],
+              "rows": [
+                [
+                  "TX-0001",
+                  "2026-09-10T00:00:08.000000+00:00",
+                  "2026-09-10T00:00:11.000000+00:00",
+                  "committed"
+                ]
+              ]
+            },
+            "versions": {
+              "columns": [
+                "version",
+                "values_json",
+                "sources_json"
+              ],
+              "rows": [
+                [
+                  0,
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+                ],
+                [
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+                ]
+              ]
+            }
+          },
+          "triggers": [
+            "freeze_admission_attempts_DELETE",
+            "freeze_admission_attempts_UPDATE",
+            "freeze_approval_consumption_DELETE",
+            "freeze_approval_consumption_UPDATE",
+            "freeze_approvals_DELETE",
+            "freeze_approvals_UPDATE",
+            "freeze_audits_DELETE",
+            "freeze_audits_UPDATE",
+            "freeze_candidates_DELETE",
+            "freeze_candidates_UPDATE",
+            "freeze_principals_DELETE",
+            "freeze_principals_UPDATE",
+            "freeze_schema_meta_DELETE",
+            "freeze_schema_meta_UPDATE",
+            "freeze_versions_DELETE",
+            "freeze_versions_UPDATE"
+          ]
+        },
+        "database_file": "paired-reviewed-candidate__B2-q101.db"
+      }
+    }
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "schema": "auto-decte.strong-baseline.full-cases.v1",
+  "policy_tag": "Full",
+  "policy": "candidate_bound",
+  "variant": null,
+  "policy_version": "auto-decte.strong-baseline.b1.v1",
+  "cases": 9,
+  "runs": 9,
+  "accepted_runs": 2,
+  "rejected_runs": 6,
+  "agreement_with_candidate_bound": [
+    "legal-correction",
+    "equal-value-substitution",
+    "cross-record-candidate",
+    "stale-version",
+    "wrong-value",
+    "partial-batch",
+    "injected-failure",
+    "two-step-copy-forward",
+    "paired-reviewed-candidate"
+  ],
+  "divergence_from_candidate_bound": [],
+  "observed_vs_reference": {
+    "legal-correction": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "equal-value-substitution": {
+      "accepted": false,
+      "reason": "candidate_binding"
+    },
+    "cross-record-candidate": {
+      "accepted": false,
+      "reason": "candidate_context"
+    },
+    "stale-version": {
+      "accepted": false,
+      "reason": "stale_version"
+    },
+    "wrong-value": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "partial-batch": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "injected-failure": {
+      "accepted": false,
+      "reason": "injected_failure"
+    },
+    "two-step-copy-forward": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "paired-reviewed-candidate": {
+      "states_equal": false
+    }
+  }
+}

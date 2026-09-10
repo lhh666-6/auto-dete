@@ -1,0 +1,141 @@
+{
+  "B1": {
+    "policy": "transactional_value_audit",
+    "variant": null,
+    "candidate_identity_relations": {
+      "foreign_keys_into_candidates": [],
+      "tables_referencing_candidates": [],
+      "implements_exact_candidate_relation": false
+    },
+    "declared_approval_columns": [
+      "approval_id",
+      "record_id",
+      "expected_version",
+      "principal",
+      "approved_values_json",
+      "scope_json",
+      "policy_version",
+      "requested_at",
+      "reviewed_context_json",
+      "reviewed_per_field_json"
+    ],
+    "review_origin_diagnostic_on_equal_value_substitution": {
+      "status": "AMBIGUOUS",
+      "candidates": [
+        "CERT-35E313ABCEA6F098",
+        "CERT-AF6A671D90A76500",
+        "CERT-B39BF196A5072CBF"
+      ],
+      "basis": "record+field join admits more than one candidate"
+    },
+    "implements_exact_candidate_obligation": false,
+    "section_20_used_candidate_recorded": false
+  },
+  "B2": {
+    "policy": "transactional_value_audit",
+    "variant": "B2",
+    "candidate_identity_relations": {
+      "foreign_keys_into_candidates": [],
+      "tables_referencing_candidates": [],
+      "implements_exact_candidate_relation": false
+    },
+    "declared_approval_columns": [
+      "approval_id",
+      "record_id",
+      "expected_version",
+      "principal",
+      "approved_values_json",
+      "scope_json",
+      "policy_version",
+      "requested_at",
+      "reviewed_context_json",
+      "reviewed_per_field_json"
+    ],
+    "review_origin_diagnostic_on_equal_value_substitution": {
+      "status": "AMBIGUOUS",
+      "candidates": [
+        "CERT-35E313ABCEA6F098",
+        "CERT-AF6A671D90A76500",
+        "CERT-B39BF196A5072CBF"
+      ],
+      "basis": "record+field join admits more than one candidate"
+    },
+    "implements_exact_candidate_obligation": false,
+    "section_20_used_candidate_recorded": false
+  },
+  "B2plus": {
+    "policy": "transactional_value_audit",
+    "variant": "B2plus",
+    "candidate_identity_relations": {
+      "foreign_keys_into_candidates": [],
+      "tables_referencing_candidates": [],
+      "implements_exact_candidate_relation": false
+    },
+    "declared_approval_columns": [
+      "approval_id",
+      "record_id",
+      "expected_version",
+      "principal",
+      "approved_values_json",
+      "scope_json",
+      "policy_version",
+      "requested_at",
+      "reviewed_context_json",
+      "reviewed_per_field_json"
+    ],
+    "review_origin_diagnostic_on_equal_value_substitution": {
+      "status": "AMBIGUOUS",
+      "candidates": [
+        "CERT-35E313ABCEA6F098",
+        "CERT-AF6A671D90A76500",
+        "CERT-B39BF196A5072CBF"
+      ],
+      "basis": "record+field join admits more than one candidate"
+    },
+    "implements_exact_candidate_obligation": false,
+    "section_20_used_candidate_recorded": true
+  },
+  "Full": {
+    "policy": "candidate_bound",
+    "variant": null,
+    "candidate_identity_relations": {
+      "foreign_keys_into_candidates": [
+        {
+          "from_table": "decisions",
+          "from_column": "candidate_id",
+          "to_table": "candidates",
+          "to_column": "candidate_id"
+        },
+        {
+          "from_table": "authorization_bindings",
+          "from_column": "certificate_id",
+          "to_table": "candidates",
+          "to_column": "candidate_id"
+        }
+      ],
+      "tables_referencing_candidates": [
+        "authorization_bindings",
+        "decisions"
+      ],
+      "implements_exact_candidate_relation": true
+    },
+    "declared_approval_columns": [
+      "decision_id",
+      "principal",
+      "action",
+      "reason",
+      "expected_version",
+      "candidate_id",
+      "created_at"
+    ],
+    "review_origin_diagnostic_on_equal_value_substitution": {
+      "status": "EXPLICITLY_BOUND",
+      "candidates": [
+        "CERT-35E313ABCEA6F098"
+      ],
+      "basis": "immutable authorization binding names the exact certificate"
+    },
+    "implements_exact_candidate_obligation": true,
+    "section_20_used_candidate_recorded": false
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "auto-decte.strong-baseline.manifest.v1",
+  "policy_version": "auto-decte.strong-baseline.b1.v1",
+  "stamp": "2026-09-10",
+  "repository": "resolved at run time (AUTODECTE_REPO or module ancestors)",
+  "anchor_commit": "cf09d0999f45d4130eebe99920021b5811bda374",
+  "frozen_artifact_pins": {
+    "latest/evidence/r27-standard-practice-baseline/run_baseline.py": {
+      "pinned": "279a27a4a1ba1b81bfafb6b276df0c141d3a157e4de9a3eeb26806b1d3ba6c1c",
+      "observed": "279a27a4a1ba1b81bfafb6b276df0c141d3a157e4de9a3eeb26806b1d3ba6c1c",
+      "match": true
+    },
+    "latest/code/checklist-example/value_audit_demo.py": {
+      "pinned": "3d94a2f2ec2d45425ba747a2f01d53502c6b00f45b98125cff7ac11ed032ec89",
+      "observed": "3d94a2f2ec2d45425ba747a2f01d53502c6b00f45b98125cff7ac11ed032ec89",
+      "match": true
+    },
+    "latest/code/checklist-example/run_example.py": {
+      "pinned": "a66dff0c6dd20a1752856d047a171fcf9b65006338f6257c6ece8b1fbd225ecb",
+      "observed": "a66dff0c6dd20a1752856d047a171fcf9b65006338f6257c6ece8b1fbd225ecb",
+      "match": true
+    },
+    "latest/code/formal-fixed/observation_witnesses.py": {
+      "pinned": "32bed3ae1aed344c3bf5c57c7f7e545e4e05836a154ae14d278be3aebd6b7832",
+      "observed": "32bed3ae1aed344c3bf5c57c7f7e545e4e05836a154ae14d278be3aebd6b7832",
+      "match": true
+    }
+  },
+  "b1_extends": "latest/evidence/r27-standard-practice-baseline/run_baseline.py",
+  "policies": {
+    "B1": {
+      "policy": "transactional_value_audit",
+      "variant": null
+    },
+    "B2": {
+      "policy": "transactional_value_audit",
+      "variant": "B2"
+    },
+    "B2plus": {
+      "policy": "transactional_value_audit",
+      "variant": "B2plus"
+    },
+    "Full": {
+      "policy": "candidate_bound",
+      "variant": null
+    }
+  },
+  "sections_implemented": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "55"
+  ],
+  "not_implemented_by_design": {
+    "34_event_sourcing": "deferred by section 34 (scope control)",
+    "35_performance": "deferred by sections 35-36 (framing risk)",
+    "22_real_world_incident": "section 32: constructed scenario only"
+  },
+  "counts": {
+    "case_suites": 4,
+    "case_runs": 36,
+    "e1_records": 16,
+    "database_files": 72
+  },
+  "artifacts": {
+    "raw": "raw\\2026-09-10",
+    "normalized": "normalized",
+    "paper": "paper"
+  }
+}

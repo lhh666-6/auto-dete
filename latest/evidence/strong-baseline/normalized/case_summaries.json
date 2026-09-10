@@ -1,0 +1,245 @@
+{
+  "B1": {
+    "schema": "auto-decte.strong-baseline.b1-cases.v1",
+    "policy_tag": "B1",
+    "policy": "transactional_value_audit",
+    "variant": null,
+    "policy_version": "auto-decte.strong-baseline.b1.v1",
+    "cases": 9,
+    "runs": 9,
+    "accepted_runs": 3,
+    "rejected_runs": 5,
+    "agreement_with_candidate_bound": [
+      "legal-correction",
+      "cross-record-candidate",
+      "stale-version",
+      "wrong-value",
+      "partial-batch",
+      "injected-failure",
+      "two-step-copy-forward"
+    ],
+    "divergence_from_candidate_bound": [
+      "equal-value-substitution",
+      "paired-reviewed-candidate"
+    ],
+    "observed_vs_reference": {
+      "legal-correction": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "equal-value-substitution": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "cross-record-candidate": {
+        "accepted": false,
+        "reason": "candidate_context"
+      },
+      "stale-version": {
+        "accepted": false,
+        "reason": "stale_version"
+      },
+      "wrong-value": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "partial-batch": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "injected-failure": {
+        "accepted": false,
+        "reason": "injected_failure"
+      },
+      "two-step-copy-forward": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "paired-reviewed-candidate": {
+        "states_equal": true
+      }
+    }
+  },
+  "B2": {
+    "schema": "auto-decte.strong-baseline.b2-cases.v1",
+    "policy_tag": "B2",
+    "policy": "transactional_value_audit",
+    "variant": "B2",
+    "policy_version": "auto-decte.strong-baseline.b1.v1",
+    "cases": 9,
+    "runs": 9,
+    "accepted_runs": 3,
+    "rejected_runs": 5,
+    "agreement_with_candidate_bound": [
+      "legal-correction",
+      "cross-record-candidate",
+      "stale-version",
+      "wrong-value",
+      "partial-batch",
+      "injected-failure",
+      "two-step-copy-forward",
+      "paired-reviewed-candidate"
+    ],
+    "divergence_from_candidate_bound": [
+      "equal-value-substitution"
+    ],
+    "observed_vs_reference": {
+      "legal-correction": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "equal-value-substitution": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "cross-record-candidate": {
+        "accepted": false,
+        "reason": "candidate_context"
+      },
+      "stale-version": {
+        "accepted": false,
+        "reason": "stale_version"
+      },
+      "wrong-value": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "partial-batch": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "injected-failure": {
+        "accepted": false,
+        "reason": "injected_failure"
+      },
+      "two-step-copy-forward": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "paired-reviewed-candidate": {
+        "states_equal": false
+      }
+    }
+  },
+  "B2plus": {
+    "schema": "auto-decte.strong-baseline.b2plus-cases.v1",
+    "policy_tag": "B2plus",
+    "policy": "transactional_value_audit",
+    "variant": "B2plus",
+    "policy_version": "auto-decte.strong-baseline.b1.v1",
+    "cases": 9,
+    "runs": 9,
+    "accepted_runs": 3,
+    "rejected_runs": 5,
+    "agreement_with_candidate_bound": [
+      "legal-correction",
+      "cross-record-candidate",
+      "stale-version",
+      "wrong-value",
+      "partial-batch",
+      "injected-failure",
+      "two-step-copy-forward",
+      "paired-reviewed-candidate"
+    ],
+    "divergence_from_candidate_bound": [
+      "equal-value-substitution"
+    ],
+    "observed_vs_reference": {
+      "legal-correction": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "equal-value-substitution": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "cross-record-candidate": {
+        "accepted": false,
+        "reason": "candidate_context"
+      },
+      "stale-version": {
+        "accepted": false,
+        "reason": "stale_version"
+      },
+      "wrong-value": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "partial-batch": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "injected-failure": {
+        "accepted": false,
+        "reason": "injected_failure"
+      },
+      "two-step-copy-forward": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "paired-reviewed-candidate": {
+        "states_equal": false
+      }
+    }
+  },
+  "Full": {
+    "schema": "auto-decte.strong-baseline.full-cases.v1",
+    "policy_tag": "Full",
+    "policy": "candidate_bound",
+    "variant": null,
+    "policy_version": "auto-decte.strong-baseline.b1.v1",
+    "cases": 9,
+    "runs": 9,
+    "accepted_runs": 2,
+    "rejected_runs": 6,
+    "agreement_with_candidate_bound": [
+      "legal-correction",
+      "equal-value-substitution",
+      "cross-record-candidate",
+      "stale-version",
+      "wrong-value",
+      "partial-batch",
+      "injected-failure",
+      "two-step-copy-forward",
+      "paired-reviewed-candidate"
+    ],
+    "divergence_from_candidate_bound": [],
+    "observed_vs_reference": {
+      "legal-correction": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "equal-value-substitution": {
+        "accepted": false,
+        "reason": "candidate_binding"
+      },
+      "cross-record-candidate": {
+        "accepted": false,
+        "reason": "candidate_context"
+      },
+      "stale-version": {
+        "accepted": false,
+        "reason": "stale_version"
+      },
+      "wrong-value": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "partial-batch": {
+        "accepted": false,
+        "reason": "approved_values"
+      },
+      "injected-failure": {
+        "accepted": false,
+        "reason": "injected_failure"
+      },
+      "two-step-copy-forward": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "paired-reviewed-candidate": {
+        "states_equal": false
+      }
+    }
+  }
+}

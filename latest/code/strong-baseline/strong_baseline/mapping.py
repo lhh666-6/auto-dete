@@ -1,0 +1,98 @@
+"""Section 38: explicit mapping between the formal identity witness and E1."""
+
+from __future__ import annotations
+
+MAPPING = [
+    {
+        "formal_component": "candidate registry",
+        "formal_value": "candidate-1, candidate-2 (distinct primitive ids, identical content)",
+        "concrete_e1": "table candidates, two rows whose content-addressed ids differ; "
+                       "value/record/field/producer/selection artifact/expected version/evidence "
+                       "content are equal",
+        "correspondence": "concrete approximation",
+        "note": "Concrete identity is content-addressed over 17 fields including created_at "
+                "(app/domain/authority.py:251-273), so a pair that is byte-identical except for "
+                "its identity cannot coexist (Phase 1 R1).",
+    },
+    {
+        "formal_component": "record",
+        "formal_value": "record-A",
+        "concrete_e1": "records.record_id = 'R1'",
+        "correspondence": "exact",
+        "note": "",
+    },
+    {
+        "formal_component": "field",
+        "formal_value": "score",
+        "concrete_e1": "candidates.field = 'quantity'",
+        "correspondence": "exact",
+        "note": "field name only; no semantic role of the name is used.",
+    },
+    {
+        "formal_component": "evidence",
+        "formal_value": "evidence_id = evidence-1 (shared by both candidates)",
+        "concrete_e1": "candidates.evidence_hash (content) + candidates.evidence_locator (storage "
+                       "handle). Variant (a): both hashes coincide. Variant (b): hashes differ.",
+        "correspondence": "concrete approximation",
+        "note": "The formal model has one evidence identifier, i.e. variant (a). Variant (b) is "
+                "the unfavourable case required by the unverified PNG-encoding question (O1).",
+    },
+    {
+        "formal_component": "producer",
+        "formal_value": "producer_id = model-A",
+        "concrete_e1": "candidates.producer_id / producer_version / selection_artifact_id",
+        "correspondence": "exact",
+        "note": "",
+    },
+    {
+        "formal_component": "proposal value",
+        "formal_value": "proposal_value = 100",
+        "concrete_e1": "candidates.proposed_json = '100'",
+        "correspondence": "exact",
+        "note": "",
+    },
+    {
+        "formal_component": "authorization",
+        "formal_value": "authorizations = [{auth-1, candidate-1, 101}]",
+        "concrete_e1": "Full: decisions (candidate_id) + authorization_bindings (certificate_id, "
+                       "authorized value). B1/B2/B2+: approvals (principal, record, expected "
+                       "version, authorized values) with no candidate reference.",
+        "correspondence": "exact for Full, deliberately reduced for B1/B2",
+        "note": "The reduction is the semantic difference under test (sections 6, 9).",
+    },
+    {
+        "formal_component": "selected candidate",
+        "formal_value": "batch_items[*].candidate_id (candidate-1 in SAFE, candidate-2 in UNSAFE)",
+        "concrete_e1": "the candidate handle passed to submit(); never persisted by B1/B2/B2+",
+        "correspondence": "exact",
+        "note": "It is the only input that varies between the two histories (section 37).",
+    },
+    {
+        "formal_component": "outcome",
+        "formal_value": "normative_outcome = [admissible, complete-successor, complete-trace] "
+                        "in SAFE; differs in UNSAFE",
+        "concrete_e1": "observed.accepted/reason plus the successor state in records, versions, "
+                       "audits, fact_sources",
+        "correspondence": "concrete approximation",
+        "note": "The formal outcome is a three-element trace predicate; the concrete outcome is "
+                "accept/reject plus the persisted successor.",
+    },
+    {
+        "formal_component": "reduced projection equality",
+        "formal_value": "reduced_projection_equal = true, changed_observation_classes = ['D_C']",
+        "concrete_e1": "declared semantic projection of the SAFE and UNSAFE post-states",
+        "correspondence": "exact",
+        "note": "Computed by strong_baseline.analysis.project(state, declared=True).",
+    },
+]
+
+BOUNDARIES = [
+    "E1 is an analogue of the formal additional identity pair, not a proof that "
+    "byte-identical duplicate certificates exist in production.",
+    "The concrete identity pair is a baseline-observation-equivalent pair: the two "
+    "candidates differ only in fields that no baseline-visible observation depends on, "
+    "and additionally in evidence content in the unfavourable variant (b).",
+    "No production identity scheme, uniqueness constraint or case was modified to "
+    "construct the pair; the pair is generated through the ordinary candidate-recording "
+    "path (two record_candidate() calls, Phase 1 section 13.2).",
+]

@@ -223,7 +223,7 @@ On the full 360-run set, inter-human agreement was 359/360 (99.72\%; Cohen's $\k
 \section{Executable design comparison}
 \label{sec:supp-executable}
 
-The original executable comparison declares two SQLite policies over nine fixed cases, and this section adds a third minimal ordinary approval/audit-log baseline.
+The original executable comparison declares two SQLite policies over nine fixed cases; the constructed conventional controls below add further policies over the same cases, and their runner outputs are versioned separately from the frozen experiment.
 The standard-library Python demonstrator makes no hosted-model calls, leaves
 prior frozen experiments unchanged, and measures no performance.
 
@@ -259,35 +259,108 @@ separately attributable. Both policies reconstruct the same per-field sources
 from the audit history in the two-step case; only the candidate-bound policy
 persists the source map. This control demonstrates no source-reconstruction
 advantage for the added map: the complete baseline audit already supports that
-observation. The demonstrated increment is exact reviewed-candidate binding and
-the resulting proposal/authorized-value attribution, not a requirement that
-$D_S$ use an explicitly stored pointer.
+observation. The demonstrated increment of this two-policy comparison is exact
+reviewed-candidate binding and the resulting proposal/authorized-value
+attribution under this value-bound approval representation, not a requirement
+that $D_S$ use an explicitly stored pointer; the strengthened and enriched
+controls in S3.2--S3.4 bound how far that attribution increment extends beyond
+this representation.
 
-\subsection{Minimal ordinary approval/audit-log baseline}
+\subsection{Frozen value-audit control (B0)}
 \label{app:approval-log-baseline}
 
-A third, deliberately conventional SQLite policy was executed on the same nine
-cases as an external standard-practice comparator. It stores approved values,
-expected version, principal, immutable candidates, and a complete before/after
-audit log, but no reviewed-candidate binding and no explicit source map. It
-validates candidate record/field context, approved-value equality,
-changed-field domain, and version compare-and-swap, and it can reconstruct every
-field's source by diffing the complete audit history. It agrees with the
-candidate-bound policy on the accept/reject outcome in seven of the eight
-single-history cases and diverges only on equal-valued candidate substitution:
-approving candidate \code{q100a} and submitting the equal-valued \code{q100b}
-is accepted by the ordinary policy and rejected by the candidate-bound policy.
-In the paired reviewed-candidate histories, the ordinary policy's persisted
-state is identical for \code{q100a} and \code{q101}, whereas the
-candidate-bound state differs in the approval binding. Its
-proposal/authorized-value attribution is also ambiguous because the approval row
-stores no candidate identity and the registry contains equal-valued candidates
-for the same field. The baseline therefore isolates the demonstrated increment
-to exact reviewed-candidate binding and unique proposal/authorized-value
-attribution; it does not compare against event-sourcing/CQRS,
-temporal/bitemporal tables, or four-eyes approval systems. Its runner, nine
-per-case SQLite databases, and summary are retained under
-\code{evidence/r27-standard-practice-baseline/}.
+A constructed conventional SQLite policy was executed on the same nine cases as a
+standard-practice comparator. It stores approved values, expected version,
+principal, immutable candidates, and a complete before/after audit log, but no
+reviewed-candidate binding and no explicit source map. It validates candidate
+record/field context, approved-value equality, changed-field domain, and version
+compare-and-swap, and it can reconstruct every field's source by diffing the
+complete audit history. It agrees with the candidate-bound policy on the
+accept/reject outcome in seven of the eight single-history cases and diverges only
+on equal-valued candidate substitution: approving candidate \code{q100a} and
+submitting the equal-valued \code{q100b} is accepted by this policy and rejected
+by the candidate-bound policy. Its proposal/authorized-value attribution is
+ambiguous because the approval row stores no candidate identity and the registry
+contains equal-valued candidates for the same field. It does not compare against
+event-sourcing/CQRS, temporal/bitemporal tables, or four-eyes approval systems.
+Its runner, nine per-case SQLite databases, and summary are retained under
+\code{evidence/r27-standard-practice-baseline/}. This control is frozen: the
+retained runner reproduces its declared case outcomes and persisted-state
+criteria, while the deposited databases and summary remain immutable evidence for
+the reported run.
+
+\subsection{Strengthened transactional value-audit control (B1)}
+\label{app:strengthened-baseline}
+
+A second constructed conventional policy extends the frozen control. Its
+authorization remains value-bound: it is a function of principal, record,
+expected version, authorized values, and declared scope only, and no authority
+relation names a persisted candidate. It adds schema versioning, a principal
+registry with role and authorized-field sets, candidate records carrying
+producer, producer version, selection artifact, expected version, evidence content
+hash, and evidence locator, a content-addressed candidate identity, an explicit
+per-field source map checked against the audit reconstruction, an explicit
+approval-consumption guard, an admission decision log that records no candidate
+identity, transaction grouping, and a tamper-evident audit chain over
+before/after digests. The added mechanisms are conventional: none establishes a
+relation between an authorization and the exact reviewed candidate, and none
+records which candidate admission used.
+
+On the same nine cases the strengthened control reproduces the frozen control's
+outcomes case for case: the same seven-of-eight single-history agreement pattern,
+the same equal-valued substitution divergence, and the same authority-relevant
+paired-history state. For both the frozen and the strengthened control, whose
+approvals remain value-bound and contain no review-context snapshot, the paired
+reviewed-candidate histories retain identical persisted authority-relevant state;
+this equality is not claimed for the enriched review-context control of S3.4. A
+capability-level comparison separating the safeguards the frozen control already
+provides from those the strengthened control adds is retained under
+\code{evidence/strong-baseline/paper/table-capability-3col.md}.
+
+\subsection{Identity-isolation control (E1) and its production analogue}
+\label{app:identity-isolation}
+
+The identity-isolation control pairs two histories over the same fixed candidate
+pool. Candidate-internal metadata may differ between the two candidates, but the
+complete pool is present symmetrically in both histories, and the strengthened
+control binds its authorization to neither candidate's identity nor any
+candidate-specific review metadata. Subject to that, the two histories share the
+target record, field, authorized value, expected predecessor version, reviewer,
+producer, and recorded evidence content, and differ only in which equal-valued
+candidate admission selects. A test-side human-review oracle names the reviewed
+candidate; it is never written into a policy database. Under the strengthened
+control the two histories are indistinguishable: with injected deterministic
+surrogates they produce byte-identical databases, and when runtime-generated
+physical metadata is permitted to differ, their declared authority-relevant
+projection remains equal. A test-side diagnostic reconstruction therefore reports
+several candidates compatible with the recorded authorization, whereas
+candidate-bound admission retains an explicit authorization-to-certificate
+relation. The constructed candidate pair is an analogue of the formal additional
+identity pair, not a demonstration that byte-identical duplicate certificates
+occur in production: the production certificate identity is content-addressed
+over fields that include the creation timestamp and the evidence locator, so two
+independently generated candidates for the same crop and field cannot be
+byte-identical. The pair is generated through the content-addressed constructor,
+and no production identity scheme, uniqueness constraint, or case was modified.
+Whether two recognition attempts for the same crop produce identical evidence
+content is not verified; the control is therefore evaluated both with identical
+and with distinct recorded evidence content.
+
+\subsection{Enriched review-context boundary (B2)}
+\label{app:review-context-boundary}
+
+An enriched review-context variant snapshots the reviewed proposal value,
+producer, producer version, and evidence content hash with the approval and
+rechecks that snapshot at admission, while still persisting no exact candidate
+identity. This variant separates the two candidates whenever their recorded
+review observations differ, and it also makes the paired reviewed-candidate
+histories distinguishable; it does not separate candidates whose recorded review
+observations coincide. It is a boundary control, not an alternative standard
+practice, and it is not evidence that transactional auditing cannot preserve
+review context. The corresponding schemas, semantic projections, fairness checks,
+the formal-to-concrete mapping, and every per-case record are retained under
+\code{evidence/strong-baseline/}; the strengthened controls and identity-isolation
+outputs are versioned separately from the frozen experiment.
 
 The demonstrator is an illustrative specialization, not a second production
 implementation of the Auto-Decte contract. It does not implement cryptographic

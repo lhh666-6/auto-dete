@@ -1,0 +1,1100 @@
+{
+  "experiment_family": "E1_IDENTITY_ISOLATION",
+  "case_id": "identity-isolation-substitution",
+  "policy": "transactional_value_audit",
+  "variant": null,
+  "clock": "wallclock",
+  "expected_outcome": {
+    "safe": "accept",
+    "unsafe": "dependent on the exact binding"
+  },
+  "actual_outcome": {
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    }
+  },
+  "authoritative_state_changed": {
+    "safe": true,
+    "unsafe": true
+  },
+  "before_version": {
+    "safe": 0,
+    "unsafe": 0
+  },
+  "after_version": {
+    "safe": 1,
+    "unsafe": 1
+  },
+  "authorized_value": {
+    "quantity": 101
+  },
+  "committed_value": {
+    "safe": {
+      "batch": "A",
+      "quantity": 101
+    },
+    "unsafe": {
+      "batch": "A",
+      "quantity": 101
+    }
+  },
+  "candidate_pool": [
+    "candidate_id",
+    "content_hash",
+    "created_at",
+    "evidence_hash",
+    "evidence_locator",
+    "expected_fact_version",
+    "field",
+    "producer_id",
+    "producer_version",
+    "proposed_json",
+    "record_id",
+    "selection_artifact_id"
+  ],
+  "selected_candidate_if_recorded": {
+    "safe": "NOT_RECORDED",
+    "unsafe": "NOT_RECORDED"
+  },
+  "review_origin_status": {
+    "safe": {
+      "status": "AMBIGUOUS",
+      "candidates": [
+        "CERT-35E313ABCEA6F098",
+        "CERT-AF6A671D90A76500",
+        "CERT-F7A4BC39B021BEDD"
+      ],
+      "basis": "record+field join admits more than one candidate"
+    },
+    "unsafe": {
+      "status": "AMBIGUOUS",
+      "candidates": [
+        "CERT-35E313ABCEA6F098",
+        "CERT-AF6A671D90A76500",
+        "CERT-F7A4BC39B021BEDD"
+      ],
+      "basis": "record+field join admits more than one candidate"
+    }
+  },
+  "source_reconstruction_status": {
+    "safe": {
+      "batch": "v1:batch",
+      "quantity": "v1:quantity"
+    },
+    "unsafe": {
+      "batch": "v1:batch",
+      "quantity": "v1:quantity"
+    }
+  },
+  "trace_status": {
+    "safe": "complete",
+    "unsafe": "complete"
+  },
+  "database_digest_before": {
+    "safe": "e6a1dbbdbe40874101106d15d711919968b3cafb73769bb20a3a1cfa5e2bf4ea",
+    "unsafe": "3646d9b53e3988a71d974079febe598c00947db155d004ecd9b64bec333f7af2"
+  },
+  "database_digest_after": {
+    "safe": "0a72a9d6f1a586e5a57b973f685f88470c049ce407cb2f3f32c9204cffc6d04a",
+    "unsafe": "9535ef0c57da6d8d6a3f3f5224aaaa32a15fc59b0c82ebd1d13e6a7b0f24d5fb"
+  },
+  "semantic_projection_hash": {
+    "declared": {
+      "safe": "b6e727d775e6e125e23108cd5413794e6c6c710dfadfc389fb2652ca10f00776",
+      "unsafe": "b6e727d775e6e125e23108cd5413794e6c6c710dfadfc389fb2652ca10f00776"
+    },
+    "full": {
+      "safe": "2c4d84f338e0d8981185b3403f79e81492d5147eea7f226dade643c3b15521cb",
+      "unsafe": "d8b2718d9bb6d4dbc4c9cb214859a412e9d16205dc274cb21ef0f94415ddd5b0"
+    }
+  },
+  "histories": {
+    "safe": {
+      "reviewed_candidate": "CERT-35E313ABCEA6F098",
+      "admission_selected_candidate": "CERT-35E313ABCEA6F098",
+      "reviewed_handle": "q100a",
+      "admission_selected_handle": "q100a",
+      "expected_predecessor_version": 0,
+      "observed_predecessor_version": 0,
+      "observed": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "state_unchanged": false,
+      "post_state": {
+        "tables": {
+          "admission_attempts": {
+            "columns": [
+              "attempt_seq",
+              "tx_id",
+              "approval_id",
+              "outcome",
+              "reason",
+              "observed_version",
+              "attempted_values_json",
+              "recorded_at"
+            ],
+            "rows": [
+              [
+                1,
+                "TX-0001",
+                "review-1",
+                "accepted",
+                "committed",
+                0,
+                "{\"quantity\":101}",
+                "2026-09-10T13:06:34.877611+00:00"
+              ]
+            ]
+          },
+          "approval_consumption": {
+            "columns": [
+              "approval_id",
+              "consumed_version",
+              "consumed_at",
+              "tx_id"
+            ],
+            "rows": [
+              [
+                "review-1",
+                1,
+                "2026-09-10T13:06:34.877611+00:00",
+                "TX-0001"
+              ]
+            ]
+          },
+          "approvals": {
+            "columns": [
+              "approval_id",
+              "record_id",
+              "expected_version",
+              "principal",
+              "approved_values_json",
+              "scope_json",
+              "policy_version",
+              "requested_at",
+              "reviewed_context_json",
+              "reviewed_per_field_json"
+            ],
+            "rows": [
+              [
+                "review-1",
+                "R1",
+                0,
+                "reviewer-1",
+                "{\"quantity\":101}",
+                "[\"quantity\"]",
+                "auto-decte.strong-baseline.b1.v1",
+                "2026-09-10T13:06:34.858488+00:00",
+                null,
+                null
+              ]
+            ]
+          },
+          "audits": {
+            "columns": [
+              "audit_seq",
+              "tx_id",
+              "version",
+              "approval_id",
+              "principal",
+              "before_json",
+              "after_json",
+              "changed_fields_json",
+              "before_digest",
+              "after_digest",
+              "prev_row_digest",
+              "row_digest"
+            ],
+            "rows": [
+              [
+                1,
+                "TX-0001",
+                1,
+                "review-1",
+                "reviewer-1",
+                "{\"batch\":\"A\",\"quantity\":90}",
+                "{\"batch\":\"A\",\"quantity\":101}",
+                "[\"quantity\"]",
+                "29abf61dddd42f55fc2994a08c206ae2ff7a393e7465a8a1d85571c4836d671f",
+                "18c14198ca81174ddfaf709ecb6fc7f7f442298ea15c83768fb05172915c5e64",
+                "GENESIS",
+                "4a9225ccfb559dc2869e4184638d39b9a2806b0243bce8b686cb691e9430e34e"
+              ]
+            ]
+          },
+          "candidates": {
+            "columns": [
+              "candidate_id",
+              "record_id",
+              "field",
+              "proposed_json",
+              "producer_id",
+              "producer_version",
+              "selection_artifact_id",
+              "expected_fact_version",
+              "evidence_hash",
+              "evidence_locator",
+              "created_at",
+              "content_hash"
+            ],
+            "rows": [
+              [
+                "CERT-35E313ABCEA6F098",
+                "R1",
+                "quantity",
+                "100",
+                "detector-v1",
+                "1.0.0",
+                "SEL-1",
+                0,
+                "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+                "blob://evidence/q100a",
+                "2026-09-09T12:00:01.000000+00:00",
+                "35e313abcea6f0981fe7951343d0cbb5293cddb3a57d52537bd81817502e7d19"
+              ],
+              [
+                "CERT-F7A4BC39B021BEDD",
+                "R1",
+                "quantity",
+                "100",
+                "detector-v1",
+                "1.0.0",
+                "SEL-1",
+                0,
+                "31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2",
+                "blob://evidence/q100b",
+                "2026-09-09T12:00:02.000000+00:00",
+                "f7a4bc39b021bedd9197e3727530fc17ba8447576e8fdb2bffff31e7753aad1c"
+              ],
+              [
+                "CERT-AF6A671D90A76500",
+                "R1",
+                "quantity",
+                "101",
+                "detector-v1",
+                "1.0.0",
+                "SEL-1",
+                0,
+                "c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda",
+                "blob://evidence/q101",
+                "2026-09-09T12:00:03.000000+00:00",
+                "af6a671d90a765004d25b3f014a055e2e8c47cd42c1f896f0ad9cbaa7e01d96f"
+              ],
+              [
+                "CERT-CFC03F03286A0CE7",
+                "R2",
+                "quantity",
+                "100",
+                "detector-v1",
+                "1.0.0",
+                "SEL-2",
+                0,
+                "8501213546b2f8bf430a5647e0066a1044781abd8f6b9583faca0f2a6d0ace45",
+                "blob://evidence/other100",
+                "2026-09-09T12:00:04.000000+00:00",
+                "cfc03f03286a0ce70de642d5e0f4824bb1758fa1af7ff9ebfd860dcb90a73dee"
+              ],
+              [
+                "CERT-F566DF74C1808487",
+                "R1",
+                "batch",
+                "\"B\"",
+                "detector-v1",
+                "1.0.0",
+                "SEL-3",
+                0,
+                "0c9bdb28ed18d5cefe84927c3821a9599caeed22b64ccc97d4e058415dcc4ed1",
+                "blob://evidence/batchB",
+                "2026-09-09T12:00:05.000000+00:00",
+                "f566df74c1808487cd1e9c1bb18f6df0092e5d638d06f7fa28740c2880efc065"
+              ]
+            ]
+          },
+          "fact_sources": {
+            "columns": [
+              "record_id",
+              "field",
+              "source_version",
+              "source_kind",
+              "approval_id"
+            ],
+            "rows": [
+              [
+                "R1",
+                "batch",
+                1,
+                "human_authorized",
+                "review-1"
+              ],
+              [
+                "R1",
+                "quantity",
+                1,
+                "human_authorized",
+                "review-1"
+              ]
+            ]
+          },
+          "principals": {
+            "columns": [
+              "principal_id",
+              "role",
+              "authorized_fields_json",
+              "active"
+            ],
+            "rows": [
+              [
+                "reviewer-1",
+                "reviewer",
+                "[\"quantity\",\"batch\"]",
+                1
+              ]
+            ]
+          },
+          "records": {
+            "columns": [
+              "record_id",
+              "version",
+              "values_json"
+            ],
+            "rows": [
+              [
+                "R1",
+                1,
+                "{\"batch\":\"A\",\"quantity\":101}"
+              ]
+            ]
+          },
+          "schema_meta": {
+            "columns": [
+              "policy",
+              "schema_name",
+              "schema_version",
+              "created_at"
+            ],
+            "rows": [
+              [
+                "transactional_value_audit",
+                "auto-decte.strong-baseline.transactional_value_audit",
+                1,
+                "2026-09-10T13:06:34.737876+00:00"
+              ]
+            ]
+          },
+          "tx_log": {
+            "columns": [
+              "tx_id",
+              "opened_at",
+              "settled_at",
+              "status"
+            ],
+            "rows": [
+              [
+                "TX-0001",
+                "2026-09-10T13:06:34.876103+00:00",
+                "2026-09-10T13:06:34.877611+00:00",
+                "committed"
+              ]
+            ]
+          },
+          "versions": {
+            "columns": [
+              "version",
+              "values_json",
+              "sources_json"
+            ],
+            "rows": [
+              [
+                0,
+                "{\"batch\":\"A\",\"quantity\":90}",
+                "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+              ],
+              [
+                1,
+                "{\"batch\":\"A\",\"quantity\":101}",
+                "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+              ]
+            ]
+          }
+        },
+        "triggers": [
+          "freeze_admission_attempts_DELETE",
+          "freeze_admission_attempts_UPDATE",
+          "freeze_approval_consumption_DELETE",
+          "freeze_approval_consumption_UPDATE",
+          "freeze_approvals_DELETE",
+          "freeze_approvals_UPDATE",
+          "freeze_audits_DELETE",
+          "freeze_audits_UPDATE",
+          "freeze_candidates_DELETE",
+          "freeze_candidates_UPDATE",
+          "freeze_principals_DELETE",
+          "freeze_principals_UPDATE",
+          "freeze_schema_meta_DELETE",
+          "freeze_schema_meta_UPDATE",
+          "freeze_versions_DELETE",
+          "freeze_versions_UPDATE"
+        ]
+      },
+      "database_file": "identity-isolation-substitution__transactional_value_audit__safe.db",
+      "different_evidence_hash": true
+    },
+    "unsafe": {
+      "reviewed_candidate": "CERT-35E313ABCEA6F098",
+      "admission_selected_candidate": "CERT-F7A4BC39B021BEDD",
+      "reviewed_handle": "q100a",
+      "admission_selected_handle": "q100b",
+      "expected_predecessor_version": 0,
+      "observed_predecessor_version": 0,
+      "observed": {
+        "accepted": true,
+        "reason": "committed"
+      },
+      "state_unchanged": false,
+      "post_state": {
+        "tables": {
+          "admission_attempts": {
+            "columns": [
+              "attempt_seq",
+              "tx_id",
+              "approval_id",
+              "outcome",
+              "reason",
+              "observed_version",
+              "attempted_values_json",
+              "recorded_at"
+            ],
+            "rows": [
+              [
+                1,
+                "TX-0001",
+                "review-1",
+                "accepted",
+                "committed",
+                0,
+                "{\"quantity\":101}",
+                "2026-09-10T13:06:35.356346+00:00"
+              ]
+            ]
+          },
+          "approval_consumption": {
+            "columns": [
+              "approval_id",
+              "consumed_version",
+              "consumed_at",
+              "tx_id"
+            ],
+            "rows": [
+              [
+                "review-1",
+                1,
+                "2026-09-10T13:06:35.356346+00:00",
+                "TX-0001"
+              ]
+            ]
+          },
+          "approvals": {
+            "columns": [
+              "approval_id",
+              "record_id",
+              "expected_version",
+              "principal",
+              "approved_values_json",
+              "scope_json",
+              "policy_version",
+              "requested_at",
+              "reviewed_context_json",
+              "reviewed_per_field_json"
+            ],
+            "rows": [
+              [
+                "review-1",
+                "R1",
+                0,
+                "reviewer-1",
+                "{\"quantity\":101}",
+                "[\"quantity\"]",
+                "auto-decte.strong-baseline.b1.v1",
+                "2026-09-10T13:06:35.334731+00:00",
+                null,
+                null
+              ]
+            ]
+          },
+          "audits": {
+            "columns": [
+              "audit_seq",
+              "tx_id",
+              "version",
+              "approval_id",
+              "principal",
+              "before_json",
+              "after_json",
+              "changed_fields_json",
+              "before_digest",
+              "after_digest",
+              "prev_row_digest",
+              "row_digest"
+            ],
+            "rows": [
+              [
+                1,
+                "TX-0001",
+                1,
+                "review-1",
+                "reviewer-1",
+                "{\"batch\":\"A\",\"quantity\":90}",
+                "{\"batch\":\"A\",\"quantity\":101}",
+                "[\"quantity\"]",
+                "29abf61dddd42f55fc2994a08c206ae2ff7a393e7465a8a1d85571c4836d671f",
+                "18c14198ca81174ddfaf709ecb6fc7f7f442298ea15c83768fb05172915c5e64",
+                "GENESIS",
+                "4a9225ccfb559dc2869e4184638d39b9a2806b0243bce8b686cb691e9430e34e"
+              ]
+            ]
+          },
+          "candidates": {
+            "columns": [
+              "candidate_id",
+              "record_id",
+              "field",
+              "proposed_json",
+              "producer_id",
+              "producer_version",
+              "selection_artifact_id",
+              "expected_fact_version",
+              "evidence_hash",
+              "evidence_locator",
+              "created_at",
+              "content_hash"
+            ],
+            "rows": [
+              [
+                "CERT-35E313ABCEA6F098",
+                "R1",
+                "quantity",
+                "100",
+                "detector-v1",
+                "1.0.0",
+                "SEL-1",
+                0,
+                "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+                "blob://evidence/q100a",
+                "2026-09-09T12:00:01.000000+00:00",
+                "35e313abcea6f0981fe7951343d0cbb5293cddb3a57d52537bd81817502e7d19"
+              ],
+              [
+                "CERT-F7A4BC39B021BEDD",
+                "R1",
+                "quantity",
+                "100",
+                "detector-v1",
+                "1.0.0",
+                "SEL-1",
+                0,
+                "31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2",
+                "blob://evidence/q100b",
+                "2026-09-09T12:00:02.000000+00:00",
+                "f7a4bc39b021bedd9197e3727530fc17ba8447576e8fdb2bffff31e7753aad1c"
+              ],
+              [
+                "CERT-AF6A671D90A76500",
+                "R1",
+                "quantity",
+                "101",
+                "detector-v1",
+                "1.0.0",
+                "SEL-1",
+                0,
+                "c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda",
+                "blob://evidence/q101",
+                "2026-09-09T12:00:03.000000+00:00",
+                "af6a671d90a765004d25b3f014a055e2e8c47cd42c1f896f0ad9cbaa7e01d96f"
+              ],
+              [
+                "CERT-CFC03F03286A0CE7",
+                "R2",
+                "quantity",
+                "100",
+                "detector-v1",
+                "1.0.0",
+                "SEL-2",
+                0,
+                "8501213546b2f8bf430a5647e0066a1044781abd8f6b9583faca0f2a6d0ace45",
+                "blob://evidence/other100",
+                "2026-09-09T12:00:04.000000+00:00",
+                "cfc03f03286a0ce70de642d5e0f4824bb1758fa1af7ff9ebfd860dcb90a73dee"
+              ],
+              [
+                "CERT-F566DF74C1808487",
+                "R1",
+                "batch",
+                "\"B\"",
+                "detector-v1",
+                "1.0.0",
+                "SEL-3",
+                0,
+                "0c9bdb28ed18d5cefe84927c3821a9599caeed22b64ccc97d4e058415dcc4ed1",
+                "blob://evidence/batchB",
+                "2026-09-09T12:00:05.000000+00:00",
+                "f566df74c1808487cd1e9c1bb18f6df0092e5d638d06f7fa28740c2880efc065"
+              ]
+            ]
+          },
+          "fact_sources": {
+            "columns": [
+              "record_id",
+              "field",
+              "source_version",
+              "source_kind",
+              "approval_id"
+            ],
+            "rows": [
+              [
+                "R1",
+                "batch",
+                1,
+                "human_authorized",
+                "review-1"
+              ],
+              [
+                "R1",
+                "quantity",
+                1,
+                "human_authorized",
+                "review-1"
+              ]
+            ]
+          },
+          "principals": {
+            "columns": [
+              "principal_id",
+              "role",
+              "authorized_fields_json",
+              "active"
+            ],
+            "rows": [
+              [
+                "reviewer-1",
+                "reviewer",
+                "[\"quantity\",\"batch\"]",
+                1
+              ]
+            ]
+          },
+          "records": {
+            "columns": [
+              "record_id",
+              "version",
+              "values_json"
+            ],
+            "rows": [
+              [
+                "R1",
+                1,
+                "{\"batch\":\"A\",\"quantity\":101}"
+              ]
+            ]
+          },
+          "schema_meta": {
+            "columns": [
+              "policy",
+              "schema_name",
+              "schema_version",
+              "created_at"
+            ],
+            "rows": [
+              [
+                "transactional_value_audit",
+                "auto-decte.strong-baseline.transactional_value_audit",
+                1,
+                "2026-09-10T13:06:35.211891+00:00"
+              ]
+            ]
+          },
+          "tx_log": {
+            "columns": [
+              "tx_id",
+              "opened_at",
+              "settled_at",
+              "status"
+            ],
+            "rows": [
+              [
+                "TX-0001",
+                "2026-09-10T13:06:35.355343+00:00",
+                "2026-09-10T13:06:35.356346+00:00",
+                "committed"
+              ]
+            ]
+          },
+          "versions": {
+            "columns": [
+              "version",
+              "values_json",
+              "sources_json"
+            ],
+            "rows": [
+              [
+                0,
+                "{\"batch\":\"A\",\"quantity\":90}",
+                "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+              ],
+              [
+                1,
+                "{\"batch\":\"A\",\"quantity\":101}",
+                "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+              ]
+            ]
+          }
+        },
+        "triggers": [
+          "freeze_admission_attempts_DELETE",
+          "freeze_admission_attempts_UPDATE",
+          "freeze_approval_consumption_DELETE",
+          "freeze_approval_consumption_UPDATE",
+          "freeze_approvals_DELETE",
+          "freeze_approvals_UPDATE",
+          "freeze_audits_DELETE",
+          "freeze_audits_UPDATE",
+          "freeze_candidates_DELETE",
+          "freeze_candidates_UPDATE",
+          "freeze_principals_DELETE",
+          "freeze_principals_UPDATE",
+          "freeze_schema_meta_DELETE",
+          "freeze_schema_meta_UPDATE",
+          "freeze_versions_DELETE",
+          "freeze_versions_UPDATE"
+        ]
+      },
+      "database_file": "identity-isolation-substitution__transactional_value_audit__unsafe.db",
+      "different_evidence_hash": true
+    }
+  },
+  "comparison": {
+    "raw_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "approvals",
+      "schema_meta",
+      "tx_log"
+    ],
+    "declared_projection_differing_tables": [],
+    "histories_indistinguishable_under_declared_projection": true,
+    "candidate_identity_relations": {
+      "foreign_keys_into_candidates": [],
+      "tables_referencing_candidates": [],
+      "implements_exact_candidate_relation": false
+    }
+  },
+  "candidate_pair_difference_table": {
+    "candidate_id": {
+      "A": "CERT-35E313ABCEA6F098",
+      "B": "CERT-F7A4BC39B021BEDD",
+      "equal": false
+    },
+    "content_hash": {
+      "A": "35e313abcea6f0981fe7951343d0cbb5293cddb3a57d52537bd81817502e7d19",
+      "B": "f7a4bc39b021bedd9197e3727530fc17ba8447576e8fdb2bffff31e7753aad1c",
+      "equal": false
+    },
+    "created_at": {
+      "A": "2026-09-09T12:00:01.000000+00:00",
+      "B": "2026-09-09T12:00:02.000000+00:00",
+      "equal": false
+    },
+    "evidence_hash": {
+      "A": "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+      "B": "31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2",
+      "equal": false
+    },
+    "evidence_locator": {
+      "A": "blob://evidence/q100a",
+      "B": "blob://evidence/q100b",
+      "equal": false
+    },
+    "expected_fact_version": {
+      "A": 0,
+      "B": 0,
+      "equal": true
+    },
+    "field": {
+      "A": "quantity",
+      "B": "quantity",
+      "equal": true
+    },
+    "producer_id": {
+      "A": "detector-v1",
+      "B": "detector-v1",
+      "equal": true
+    },
+    "producer_version": {
+      "A": "1.0.0",
+      "B": "1.0.0",
+      "equal": true
+    },
+    "proposed_json": {
+      "A": "100",
+      "B": "100",
+      "equal": true
+    },
+    "record_id": {
+      "A": "R1",
+      "B": "R1",
+      "equal": true
+    },
+    "selection_artifact_id": {
+      "A": "SEL-1",
+      "B": "SEL-1",
+      "equal": true
+    }
+  },
+  "candidate_pair_field_visibility": {
+    "candidate_id": {
+      "differs_in_pair": true,
+      "stored_by_policy": true,
+      "owner_tables": [
+        "candidates"
+      ],
+      "discriminates_histories": false,
+      "verdict": "no candidate-level discriminating power: the field is stored only inside a registry that is identical in both histories"
+    },
+    "content_hash": {
+      "differs_in_pair": true,
+      "stored_by_policy": true,
+      "owner_tables": [
+        "candidates"
+      ],
+      "discriminates_histories": false,
+      "verdict": "no candidate-level discriminating power: the field is stored only inside a registry that is identical in both histories"
+    },
+    "created_at": {
+      "differs_in_pair": true,
+      "stored_by_policy": true,
+      "owner_tables": [
+        "candidates",
+        "schema_meta"
+      ],
+      "discriminates_histories": false,
+      "verdict": "no candidate-level discriminating power: the field is stored only inside a registry that is identical in both histories"
+    },
+    "evidence_hash": {
+      "differs_in_pair": true,
+      "stored_by_policy": true,
+      "owner_tables": [
+        "candidates"
+      ],
+      "discriminates_histories": false,
+      "verdict": "no candidate-level discriminating power: the field is stored only inside a registry that is identical in both histories"
+    },
+    "evidence_locator": {
+      "differs_in_pair": true,
+      "stored_by_policy": true,
+      "owner_tables": [
+        "candidates"
+      ],
+      "discriminates_histories": false,
+      "verdict": "no candidate-level discriminating power: the field is stored only inside a registry that is identical in both histories"
+    },
+    "expected_fact_version": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    },
+    "field": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    },
+    "producer_id": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    },
+    "producer_version": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    },
+    "proposed_json": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    },
+    "record_id": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    },
+    "selection_artifact_id": {
+      "differs_in_pair": false,
+      "stored_by_policy": null,
+      "owner_tables": [],
+      "discriminates_histories": false,
+      "verdict": "identical in both candidates"
+    }
+  },
+  "ground_truth_review_target": "q100a",
+  "attempted_admission_candidate": "q100b",
+  "pass": true,
+  "notes": [],
+  "fairness": {
+    "all_invariants_equal": true,
+    "selected_candidate_differs": true,
+    "checks": [
+      {
+        "invariant": "candidate_registry_content",
+        "safe": [
+          "{\"evidence_hash\":\"0c9bdb28ed18d5cefe84927c3821a9599caeed22b64ccc97d4e058415dcc4ed1\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"\\\"B\\\"\"}",
+          "{\"evidence_hash\":\"31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+          "{\"evidence_hash\":\"3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+          "{\"evidence_hash\":\"8501213546b2f8bf430a5647e0066a1044781abd8f6b9583faca0f2a6d0ace45\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+          "{\"evidence_hash\":\"c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"101\"}"
+        ],
+        "unsafe": [
+          "{\"evidence_hash\":\"0c9bdb28ed18d5cefe84927c3821a9599caeed22b64ccc97d4e058415dcc4ed1\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"\\\"B\\\"\"}",
+          "{\"evidence_hash\":\"31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+          "{\"evidence_hash\":\"3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+          "{\"evidence_hash\":\"8501213546b2f8bf430a5647e0066a1044781abd8f6b9583faca0f2a6d0ace45\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"100\"}",
+          "{\"evidence_hash\":\"c317308b8599cea6fa5bfd4bc744a717488a8b272f4fda380a8c660e0a137cda\",\"producer_id\":\"detector-v1\",\"producer_version\":\"1.0.0\",\"proposed_json\":\"101\"}"
+        ],
+        "equal": true
+      },
+      {
+        "invariant": "target_record",
+        "safe": "R1",
+        "unsafe": "R1",
+        "equal": true
+      },
+      {
+        "invariant": "target_field",
+        "safe": "quantity",
+        "unsafe": "quantity",
+        "equal": true
+      },
+      {
+        "invariant": "authorized_value",
+        "safe": {
+          "quantity": 101
+        },
+        "unsafe": {
+          "quantity": 101
+        },
+        "equal": true
+      },
+      {
+        "invariant": "expected_predecessor_version",
+        "safe": 0,
+        "unsafe": 0,
+        "equal": true
+      },
+      {
+        "invariant": "observed_predecessor_version",
+        "safe": 0,
+        "unsafe": 0,
+        "equal": true
+      },
+      {
+        "invariant": "reviewer_principal",
+        "safe": "review-1",
+        "unsafe": "review-1",
+        "equal": true
+      },
+      {
+        "invariant": "baseline_visible_evidence",
+        "safe": {
+          "content_hash_shared": false,
+          "a": "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+          "b": "31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2"
+        },
+        "unsafe": {
+          "content_hash_shared": false,
+          "a": "3ec72b97d6220968ead970885234727fb67e245ca9802e3e9751255a32b5054d",
+          "b": "31bf10ee460b04f9603f93594451a4f2555963dd0080f5db44b7c180fcc1d3c2"
+        },
+        "equal": true
+      },
+      {
+        "invariant": "baseline_visible_producer",
+        "safe": {
+          "producer_id": "detector-v1",
+          "producer_version": "1.0.0",
+          "selection_artifact_id": "SEL-1"
+        },
+        "unsafe": {
+          "producer_id": "detector-v1",
+          "producer_version": "1.0.0",
+          "selection_artifact_id": "SEL-1"
+        },
+        "equal": true
+      },
+      {
+        "invariant": "batch_semantics",
+        "safe": "single-field batch {quantity: <candidate>}",
+        "unsafe": "single-field batch {quantity: <candidate>}",
+        "equal": true
+      },
+      {
+        "invariant": "intended_authoritative_value",
+        "safe": "{\"batch\":\"A\",\"quantity\":101}",
+        "unsafe": "{\"batch\":\"A\",\"quantity\":101}",
+        "equal": true
+      },
+      {
+        "invariant": "selected_exact_candidate",
+        "safe": "CERT-35E313ABCEA6F098",
+        "unsafe": "CERT-F7A4BC39B021BEDD",
+        "equal": false
+      }
+    ],
+    "evidence_hash_shared_between_pair": false,
+    "evidence_hash_variant_requested_distinct": true,
+    "pair_differs_only_in": [
+      "candidate_id",
+      "content_hash",
+      "created_at",
+      "evidence_hash",
+      "evidence_locator"
+    ],
+    "note": "SAFE and UNSAFE differ in exactly one input: the candidate handle passed to admission. Everything the baseline can observe about the two candidates (value, record, field, producer, producer version, selection artifact, expected version, and evidence content when the hashes coincide) is equal by construction."
+  },
+  "observation_equivalence": {
+    "pair_content_equivalent": false,
+    "pair_differs_only_in": [
+      "candidate_id",
+      "content_hash",
+      "created_at",
+      "evidence_hash",
+      "evidence_locator"
+    ],
+    "declared_projection_indistinguishable": true,
+    "reading": "The two candidates additionally differ in evidence content, so a baseline that snapshots reviewed content (B2) can separate them.  This is the unfavourable variant and the conclusion is reported separately."
+  },
+  "evidence_variant": "b",
+  "database_files": [
+    "identity-isolation-substitution__transactional_value_audit__safe.db",
+    "identity-isolation-substitution__transactional_value_audit__unsafe.db"
+  ],
+  "database_digests": {
+    "identity-isolation-substitution__transactional_value_audit__safe.db": "d4d87101fdeeabd1f28564fcbe2a3aae797d4f1af7359cc8e597962831a39632",
+    "identity-isolation-substitution__transactional_value_audit__unsafe.db": "51b5bd3bfb4246b42dfa1596cc71a16b5fc1b30638678db9c7a9fb2a3f3010a8"
+  }
+}

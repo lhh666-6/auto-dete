@@ -1,0 +1,394 @@
+{
+  "B1__evidence_a__clock_deterministic": {
+    "policy": "transactional_value_audit",
+    "evidence_variant": "a",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": true,
+    "declared_projection_differing_tables": [],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "B1__evidence_a__clock_wallclock": {
+    "policy": "transactional_value_audit",
+    "evidence_variant": "a",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": true,
+    "declared_projection_differing_tables": [],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "B1__evidence_b__clock_deterministic": {
+    "policy": "transactional_value_audit",
+    "evidence_variant": "b",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": true,
+    "declared_projection_differing_tables": [],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "B1__evidence_b__clock_wallclock": {
+    "policy": "transactional_value_audit",
+    "evidence_variant": "b",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": true,
+    "declared_projection_differing_tables": [],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "B2__evidence_a__clock_deterministic": {
+    "policy": "B2",
+    "evidence_variant": "a",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": true,
+    "declared_projection_differing_tables": [],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "B2__evidence_a__clock_wallclock": {
+    "policy": "B2",
+    "evidence_variant": "a",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": true,
+    "declared_projection_differing_tables": [],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "B2__evidence_b__clock_deterministic": {
+    "policy": "B2",
+    "evidence_variant": "b",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "reviewed_context"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "B2__evidence_b__clock_wallclock": {
+    "policy": "B2",
+    "evidence_variant": "b",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "reviewed_context"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "B2plus__evidence_a__clock_deterministic": {
+    "policy": "B2plus",
+    "evidence_variant": "a",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts"
+    ],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": [
+      "{\"quantity\":\"CERT-B39BF196A5072CBF\"}"
+    ],
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "B2plus__evidence_a__clock_wallclock": {
+    "policy": "B2plus",
+    "evidence_variant": "a",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts"
+    ],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": [
+      "{\"quantity\":\"CERT-B39BF196A5072CBF\"}"
+    ],
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "B2plus__evidence_b__clock_deterministic": {
+    "policy": "B2plus",
+    "evidence_variant": "b",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "reviewed_context"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": [],
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "B2plus__evidence_b__clock_wallclock": {
+    "policy": "B2plus",
+    "evidence_variant": "b",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "reviewed_context"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "AMBIGUOUS",
+    "implements_exact_candidate_relation": false,
+    "selected_candidate_recorded": [],
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "Full__evidence_a__clock_deterministic": {
+    "policy": "candidate_bound",
+    "evidence_variant": "a",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "candidate_binding"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "EXPLICITLY_BOUND",
+    "implements_exact_candidate_relation": true,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "Full__evidence_a__clock_wallclock": {
+    "policy": "candidate_bound",
+    "evidence_variant": "a",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "candidate_binding"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "EXPLICITLY_BOUND",
+    "implements_exact_candidate_relation": true,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": true
+  },
+  "Full__evidence_b__clock_deterministic": {
+    "policy": "candidate_bound",
+    "evidence_variant": "b",
+    "clock": "deterministic",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "candidate_binding"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "EXPLICITLY_BOUND",
+    "implements_exact_candidate_relation": true,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  },
+  "Full__evidence_b__clock_wallclock": {
+    "policy": "candidate_bound",
+    "evidence_variant": "b",
+    "clock": "wallclock",
+    "safe": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "unsafe": {
+      "accepted": false,
+      "reason": "candidate_binding"
+    },
+    "histories_indistinguishable_under_declared_projection": false,
+    "declared_projection_differing_tables": [
+      "admission_attempts",
+      "approval_consumption",
+      "audits",
+      "fact_sources",
+      "records",
+      "tx_log",
+      "versions"
+    ],
+    "review_origin_status": "EXPLICITLY_BOUND",
+    "implements_exact_candidate_relation": true,
+    "selected_candidate_recorded": "NOT_RECORDED",
+    "fairness_all_invariants_equal": true,
+    "pair_content_equivalent": false
+  }
+}
