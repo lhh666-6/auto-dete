@@ -4,12 +4,12 @@
 
 This revision was jointly revised by Liang Hanghao and xuanwentao.
 
-- [Main manuscript — 56 pages](r27-jss/current/paper/main.pdf)
-- [Supplement — 11 pages](r27-jss/current/paper/supplement.pdf)
+- [Main manuscript — 58 pages](r27-jss/current/paper/main.pdf)
+- [Supplement — 12 pages](r27-jss/current/paper/supplement.pdf)
 - [Complete r27 candidate, source and frozen baseline](r27-jss/)
 - [Joint revision credit, verification and publication status](R27-COLLABORATION.md)
 
-Pinned version: `r27-jss-2026-09-09`. Use Git LFS when cloning the complete package. Earlier descriptions below are historical.
+Pinned version: `r27-jss-2026-09-10`. The r27 candidate adds a conditional positive Alloy trace-completeness assertion and mutation control under `r27-jss/current/evidence/r27-trace-mutation/`. Use Git LFS when cloning the complete package. Earlier descriptions below are historical.
 
 ---
 

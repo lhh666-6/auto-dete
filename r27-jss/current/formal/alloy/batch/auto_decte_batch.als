@@ -718,6 +718,29 @@ assert P6DuplicateSourceVersionIncomplete {
       not traceComplete[s, r, f]
 }
 
+// The positive trace-completeness direction is conditional on a well-formed
+// pre-state. Without the two preconditions below, the deliberately permissive
+// base effect admits a legal Full admission from a state that already carries
+// a stray transition to the successor version, and traceComplete then fails
+// because the source version is no longer unique. The concrete service
+// enforces both preconditions through reverse-trace validation and CAS; this
+// assertion makes the dependency explicit rather than assuming it. A mutation
+// that deletes the post-state certificate binding flips this assertion to SAT
+// (evidence/r27-trace-mutation).
+assert LegalAdmissionTraceCompleteUnderWellFormedPre {
+  all e : BatchAdmissionEvent |
+    legalAdmission[e, Full] and
+    (all r : Record, f : Field |
+      some e.pre.committedSource[r][f] => traceComplete[e.pre, r, f]) and
+    (all i : e.items |
+      no t : e.pre.transitions |
+        t.targetRecord = i.targetRecord and
+        t.targetField = i.targetField and
+        t.toVersion = successor[e.pre.currentVersion[e.targetRecord]])
+    => all i : e.items |
+         traceComplete[e.post, i.targetRecord, i.targetField]
+}
+
 // ---------------------------------------------------------------------------
 // Reusable legal-witness predicates
 // ---------------------------------------------------------------------------
@@ -784,6 +807,7 @@ check SingletonEffectEquivalence for 2 Record, 3 Field, 6 Version, 5 Candidate, 
 check FullRejectsAblatedAttempt for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 check P6MissingAnchorIncomplete for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 check P6DuplicateSourceVersionIncomplete for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
+check LegalAdmissionTraceCompleteUnderWellFormedPre for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 
 run SAT_BATCH_accept_multi { some e : BatchAdmissionEvent | batchAcceptMulti[e] } for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 run SAT_BATCH_correction_multi { some e : BatchAdmissionEvent | batchCorrectionMulti[e] } for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 6 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator

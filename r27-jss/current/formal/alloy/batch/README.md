@@ -38,8 +38,9 @@ Full-contract P0–P5 checks are regression/consistency checks. The stronger sci
 - reachable multi-item Accept, Correction, mixed, same-value, initial-snapshot, and singleton witnesses;
 - eleven effective paired ablation witnesses, each with one corrupt item and one `fullItemOk` item;
 - `FullRejectsAblatedAttempt` and `FullNoPartialItemEffects`;
-- the explicit one-item historical-contract mapping; and
-- legal-prefix P6 attack witnesses.
+- the explicit one-item historical-contract mapping;
+- legal-prefix P6 attack witnesses; and
+- the r27 conditional positive assertion `LegalAdmissionTraceCompleteUnderWellFormedPre` plus its mutation control under `evidence/r27-trace-mutation/` (34 commands per profile, 68 total). The assertion is UNSAT with the production model and SAT when the post-state certificate-binding conjunct is removed; its explicit preconditions match the reverse-trace and compare-and-swap checks that the concrete service enforces.
 
 ## P6 boundary
 

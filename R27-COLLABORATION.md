@@ -1,19 +1,19 @@
-# r27 shared revision — 2026-09-09
+# r27 shared revision — 2026-09-10
 
 第一作者：梁航豪（Liang Hanghao）。第二作者：宣文涛（xuanwentao）。
 本次 r27 修订由梁航豪与宣文涛共同完成。
 This r27 revision was jointly revised by Liang Hanghao and xuanwentao.
 
-Author order is confirmed by the first author. Corresponding-author details and CRediT declarations remain subject to final submission approval.
+Author order is confirmed by the first author. The second author's email is still pending and must be added before submission; corresponding-author email remains zwu691403@gmail.com. CRediT declarations are recorded in the manuscript.
 
 The complete candidate is in [r27-jss/](r27-jss/). Start with [the manuscript](r27-jss/current/paper/main.pdf) and [supplement](r27-jss/current/paper/supplement.pdf). Edit current/ and retain baseline-v8/ unchanged. Preserve initial independent annotation labels before consulting old labels or aggregate results.
 
-The paper, code and evidence are byte-identical to the verified local r27 package. Publication fixes verify_release.py to include two historical cache files already listed in the manifest, and updates its manifest hash. Internal local/unpublished labels record the packaging status before this GitHub publication; this notice records the subsequent publication. The PDF author block is preserved from the verified candidate and must be aligned with the confirmed author order during final submission preparation.
+The 2026-09-10 package removes the two unintended `baseline-v8/**/__pycache__/*.pyc` files, regenerates `current/MANIFEST-r27.json` and `RELEASE-MANIFEST.json` from the current file set, and updates the page counts. `python verify_release.py` inside `r27-jss/` now passes on a clean extraction with **20,398 files**; the previous 2026-09-09 ZIP is superseded and retained only as `revisions/r27-unified-submission-candidate-2026-09-09-SUPERSEDED.zip`.
 
-Main: 57 pages; supplement: 12 pages; 54 citations; 19 witness tests passed. Two non-author human annotators independently coded the 360 benign completion runs: inter-human agreement 99.72% (κ=0.974, AC1=0.997, PABAK=0.996); human--rule agreement 96.72% on the 335 behavior-evaluable runs; after author adjudication of 12 items the adjudicated labels match the strict rule (320/335). Full confusion matrices, disagreement lists, and cluster-robust intervals are in `r27-jss/current/evidence/human-annotation-2026-09-10/`. Implementation and tests are unchanged from r26; the 389-test result is inherited from its isolated verification, not a new full-suite run.
+Main: **58 pages**; supplement: **12 pages**; 54 citations; 19 witness tests passed. The bounded Alloy catalogue now has 34 commands per profile (68 total), including `LegalAdmissionTraceCompleteUnderWellFormedPre` and its mutation control under `evidence/r27-trace-mutation/`. The assertion is conditional on a trace-complete pre-state with no stray successor-version transition; those are the preconditions the concrete service enforces through reverse-trace validation and compare-and-swap. Deleting the post-state certificate binding flips the assertion from UNSAT to SAT. Two non-author human annotators independently coded the 360 benign completion runs: inter-human agreement 99.72% (κ=0.974, AC1=0.997, PABAK=0.996); human--rule agreement 96.72% on the 335 behavior-evaluable runs; after author adjudication of 12 items the adjudicated labels match the strict rule (320/335). Full confusion matrices, disagreement lists, and cluster-robust intervals are in `r27-jss/current/evidence/human-annotation-2026-09-10/`. Implementation and tests are unchanged from r26; the 389-test result is inherited from its isolated verification, not a new full-suite run.
 
-Run `python verify_release.py` inside r27-jss/ to verify 20,240 files. Clone with Git LFS and run `git lfs pull` before verifying, because the historical baseline contains large files. GitHub-generated source ZIPs may contain LFS pointers instead of the underlying data.
+Run `python verify_release.py` inside r27-jss/ to verify 20,398 files. Clone with Git LFS and run `git lfs pull` before verifying, because the historical baseline contains large files. GitHub-generated source ZIPs may contain LFS pointers instead of the underlying data.
 
-Original local ZIP SHA-256: `df4437098ec52f56f27f5a18600cdd23896404c97258f4e44ed2caaecc0978ab`. This hash does not apply to GitHub-generated archives.
+2026-09-10 ZIP SHA-256: `6e7d1fc257901063c52ba2e47181f4cb75429396528e139d73f34e5eb4ba77de`. This hash applies to the local `r27-unified-submission-candidate-2026-09-10.zip`; it does not apply to GitHub-generated archives.
 
-Pinned tag: `r27-jss-2026-09-09`. Independent annotation results are recorded in this candidate (two non-author annotators; author adjudication disclosed); final submission approvals remain pending. This is a shared submission candidate, not a claim of journal acceptance or completed submission.
+Pinned tag: `r27-jss-2026-09-10`. Independent annotation results, the positive Alloy assertion, and the mutation control are recorded in this candidate. The second author's email, a DOI-pinned archival release, and final submission approvals remain pending. This is a shared submission candidate, not a claim of journal acceptance or completed submission.

@@ -21,7 +21,7 @@ Immutable manifests bind each baseline and extension to source, dependencies, co
 
 \subsection{Correctness and conformance workloads}
 
-RQ1--RQ2 use the complete manifest of 33 commands in each Alloy profile. RQ3 uses nine intended projections and twenty mapping mutants. RQ4 uses the versioned 35-case catalogue. Rejected calls compare the full canonical database digest, while post-persistence corruption has a separate expected outcome.
+RQ1--RQ2 use the complete manifest of 34 commands in each Alloy profile. RQ3 uses nine intended projections and twenty mapping mutants. RQ4 uses the versioned 35-case catalogue. Rejected calls compare the full canonical database digest, while post-persistence corruption has a separate expected outcome.
 
 Stateful evidence uses a Hypothesis rule-based model whose own value/source state is compared with persisted snapshots and query traces. Its companion coverage test requires every declared rule to execute. Transactional tests include all pre-commit failpoints and real contending calls. The declared concurrency grid contains 50 two-thread repetitions, 20 four-thread repetitions, 20 eight-thread repetitions, and 20 two-process controls. Safety requires at most one complete winner and no loser authority-row identifiers; liveness requires at least one complete winner in the exercised configuration. The normalized paper input reports 33 passing rollback/concurrency tests and two passing stateful profiles, not the internal iteration count as a test denominator.
 
