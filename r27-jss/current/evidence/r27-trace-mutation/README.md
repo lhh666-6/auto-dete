@@ -32,7 +32,7 @@ admission from a pre-state that already contains a stray transition to the
 successor version, after which the committed source is not unique and
 `traceComplete` fails. The two explicit preconditions are exactly the
 well-formedness properties that the concrete service enforces through
-reverse-trace validation and compare-and-swap. The r27 bounded catalogue
+predecessor trace validation, the unique (form_id, created_version, field_key) database constraint, and transactional compare-and-swap. The r27 bounded catalogue
 therefore records 34 commands per profile (68 total), with expected UNSAT for
 the new assertion.
 
@@ -56,7 +56,7 @@ absence the previous suite could not detect.
 
 ## Reproduction
 
-From the repository root, with the bundled JRE and Alloy jar:
+From `r27-jss/current/`, with the bundled JRE and Alloy jar:
 
 ```powershell
 & 'formal/alloy/batch/run_batch_alloy.ps1' -FreezeId '<new-freeze-id>'
@@ -66,7 +66,7 @@ The main catalogue is in `formal/alloy/batch/raw-results/2026-09-10-trace-positi
 To reproduce the mutation counterexample directly:
 
 ```powershell
-& 'tools/jre21/.../java.exe' -jar tools/alloy-6.2.0.jar exec -q `
+& 'tools/jre21/jdk-21.0.12.1+1-jre/bin/java.exe' -jar tools/alloy-6.2.0.jar exec -q `
   -c LegalAdmissionTraceCompleteUnderWellFormedPre `
   -t text -o <out-dir> evidence/r27-trace-mutation/trace_mutation_check.als
 ```

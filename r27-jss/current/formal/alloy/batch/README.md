@@ -33,14 +33,14 @@ The permissive base effect keeps attempted item fields, records, evidence, versi
 
 `StateInvariantPreserved` assumes only a structurally valid pre-state plus the base effect and `Full` contract, then checks the post-state invariant. It does not assume a post-state invariant or a globally well-formed trace.
 
-Full-contract P0–P5 checks are regression/consistency checks. The stronger scientific evidence is the combination of:
+Full-contract P0鈥揚5 checks are regression/consistency checks. The stronger scientific evidence is the combination of:
 
 - reachable multi-item Accept, Correction, mixed, same-value, initial-snapshot, and singleton witnesses;
 - eleven effective paired ablation witnesses, each with one corrupt item and one `fullItemOk` item;
 - `FullRejectsAblatedAttempt` and `FullNoPartialItemEffects`;
 - the explicit one-item historical-contract mapping;
 - legal-prefix P6 attack witnesses; and
-- the r27 conditional positive assertion `LegalAdmissionTraceCompleteUnderWellFormedPre` plus its mutation control under `evidence/r27-trace-mutation/` (34 commands per profile, 68 total). The assertion is UNSAT with the production model and SAT when the post-state certificate-binding conjunct is removed; its explicit preconditions match the reverse-trace and compare-and-swap checks that the concrete service enforces.
+- the r27 conditional positive assertion `LegalAdmissionTraceCompleteUnderWellFormedPre` plus its mutation control under `evidence/r27-trace-mutation/` (34 commands per profile, 68 total). The assertion is UNSAT with the production model and SAT when the post-state certificate-binding conjunct is removed; its explicit preconditions match the predecessor trace checks, unique (form_id, created_version, field_key) transitions, and transactional compare-and-swap checks that the concrete service enforces.
 
 ## P6 boundary
 
@@ -54,7 +54,7 @@ Persisted `fact_sources` pointer rebinding remains a concrete-only corruption fa
 
 ## Reproduction
 
-From the repository root in PowerShell:
+From `r27-jss/current/` in PowerShell:
 
 ```powershell
 & 'formal/alloy/batch/run_batch_alloy.ps1' -FreezeId '<new-freeze-id>'

@@ -71,7 +71,7 @@ declared cases.
 ## Reproduction
 
 ```bash
-python run_baseline.py --out-dir run-2026-09-10
+python run_baseline.py --out-dir <new-output-directory-outside-package>
 ```
 
 The runner refuses to overwrite an existing output directory. It requires only

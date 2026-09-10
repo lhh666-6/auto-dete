@@ -1,30 +1,15 @@
-# Unified r27 candidate (public, 2026-09-10 revision 2)
+# Unified manuscript package — r28 handoff
 
-Read current/paper/main.pdf with current/paper/supplement.pdf.
-The current revision includes repaired sources, formal dependencies, derived
-analyses, versioned witness v5, the r27 positive trace-completeness assertion
-and its mutation control under `current/evidence/r27-trace-mutation/`, the
-annotation analysis under `current/evidence/human-annotation-2026-09-10/`
-(one author coder and one non-author volunteer; author adjudication disclosed;
-normalized per-run labels, a standard-library recomputation script, and the
-unused third-party adjudication protocol and blank template), and the minimal
-ordinary approval/audit-log baseline under
-`current/evidence/r27-standard-practice-baseline/`.
+第一作者：梁航豪；第二作者：宣文涛。两位作者共同完成本次修订。
 
-`baseline-v8/` is the exact historical Git export already verified for r26,
-retained byte for byte; it is not modified and its historical logs may contain
-author-local paths.
+- [Second-author handoff](SECOND-AUTHOR-HANDOFF-zh.md)
+- [Main manuscript (58 pages)](current/paper/main.pdf)
+- [Supplement (15 pages)](current/paper/supplement.pdf)
+- [Verified current sources and evidence](current/)
 
-`SOURCE-CROSSWALK.json` covers the current paper, implementation, formal
-sources, tools and derived evidence by declared path correspondence. Files
-without a same-path baseline counterpart are explicit; historical manifests
-retain lineage.
+Fixed tag: `r28-jss-2026-09-10`. Directory name r27-jss/ is retained for compatibility.
+Clone with Git LFS, run `git lfs pull`, then `python verify_release.py` here. Generated GitHub archives may contain LFS pointers; the locally supplied unified ZIP contains the actual files.
 
-Verify every delivered file with `python verify_release.py` after extraction;
-this revision passes with 20,417 files. The packaged
-`current/formal/alloy/batch/verify_batch_package.ps1 -RequireRawResults` gate
-also passes against the delivered package. Local absolute paths in the current
-package logs were normalized to `<PROJECT_ROOT>`.
+Historical baseline-v8 research files are unchanged. Two unintended Python bytecode cache files were removed by the preceding DSH revision, so this tree is not literally a byte-for-byte export including those caches. Raw scientific evidence and source bytes are preserved. SOURCE-CROSSWALK.json records declared path correspondence, not universal semantic equivalence.
 
-No paid calls are needed for record inspection. Dependencies remain necessary
-for actual code execution. The second author's email and a DOI remain pending.
+This is a verified technical handoff, pending the author confirmations and adjudication-interpretation review in the handoff document. It is not a completed journal submission.

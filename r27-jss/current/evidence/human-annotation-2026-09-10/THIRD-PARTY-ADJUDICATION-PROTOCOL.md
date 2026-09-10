@@ -52,3 +52,7 @@ overwriting this template.
 author and that the 11 pre-adjudication human--rule disagreements remain
 visible. Those statements remain accurate. This protocol is the documented path
 to a stronger claim, not evidence that the stronger claim has been made.
+
+## Blinding correction for any future use
+
+The supplied CSV contains previous labels, rationales, configuration identifiers and adjudication fields; it is an internal comparison sheet, NOT a blinded form to send to an adjudicator. A blank third-party-label column does not hide the other columns. Prepare a separate case-ID/task/response/rubric-only form with fresh label and rationale fields before any independent coding. No such third-party coding is claimed here. In particular, adjudicate terminal completion separately from strict sequence compliance and retain any disagreement.

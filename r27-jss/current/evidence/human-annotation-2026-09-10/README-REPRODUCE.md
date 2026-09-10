@@ -23,7 +23,7 @@ reported in the manuscript and supplement.
 
 ```bash
 python recompute_irr.py --labels labels-A1-A2-normalized.csv \
-    --out recomputed-irr.json --replicates 5000 --seed 20260910
+    --out <new-output-file-outside-package.json> --replicates 5000 --seed 20260910
 ```
 
 The script takes about 6 seconds on a standard laptop.
@@ -80,3 +80,5 @@ adjudication is disclosed as author-involved annotation and author
 adjudication, not independent third-party adjudication; one coder is an author
 and the adjudicator is the other author; the pre-adjudication disagreements remain visible in the
 `disagreements-*.csv` files.
+
+Use a fresh output path outside the sealed package; compare the result with recomputed-irr.json. Do not overwrite frozen evidence. Three model clusters and twelve model-by-scenario clusters provide sensitivity analyses, not population-calibrated cluster intervals.

@@ -1,21 +1,9 @@
-# r27 shared revision — 2026-09-10
+# Joint revision and handoff — r28
 
-第一作者：梁航豪（Liang Hanghao）。第二作者：宣文涛（xuanwentao）。
-本次 r27 修订由梁航豪与宣文涛共同完成。
-This r27 revision was jointly revised by Liang Hanghao and xuanwentao.
+第一作者：梁航豪（Liang Hanghao）。第二作者：宣文涛（Xuan Wentao，xuanwentao）。本次论文修订由两位作者共同完成。
 
-Author order is confirmed by the first author. The second author's email is still pending and must be added before submission; corresponding-author email remains zwu691403@gmail.com. CRediT declarations are recorded in the manuscript.
+This revision was jointly revised by Liang Hanghao and Xuan Wentao. The manuscript lists these authors in that order. No AI system is listed as an author. The existing manuscript disclosure of assistance and experimental model provenance is preserved.
 
-The complete candidate is in [r27-jss/](r27-jss/). Start with [the manuscript](r27-jss/current/paper/main.pdf) and [supplement](r27-jss/current/paper/supplement.pdf). Edit current/ and retain baseline-v8/ unchanged. Preserve initial independent annotation labels before consulting old labels or aggregate results.
+The current fixed tag is `r28-jss-2026-09-10`; the compatible package path remains r27-jss/. Main 58 pages, supplement 15 pages. See [the handoff](r27-jss/SECOND-AUTHOR-HANDOFF-zh.md) and [verification](r27-jss/current/evidence/r28-handoff-verification/verification.json).
 
-The 2026-09-10 package removes the two unintended `baseline-v8/**/__pycache__/*.pyc` files, regenerates `current/MANIFEST-r27.json` and `RELEASE-MANIFEST.json` from the current file set, and updates the page counts. `python verify_release.py` inside `r27-jss/` now passes on a clean extraction with **20,421 files**; the previous 2026-09-09 ZIP is superseded and retained only as `revisions/r27-unified-submission-candidate-2026-09-09-SUPERSEDED.zip`.
-
-Main: **58 pages**; supplement: **14 pages**; 54 citations; 19 witness tests passed. The bounded Alloy catalogue now has 34 commands per profile (68 total), including `LegalAdmissionTraceCompleteUnderWellFormedPre` and its mutation control under `evidence/r27-trace-mutation/`. The assertion is conditional on a trace-complete pre-state with no stray successor-version transition; those are the preconditions the concrete service enforces through reverse-trace validation and compare-and-swap. Deleting the post-state certificate binding flips the assertion from UNSAT to SAT. Two non-author human annotators independently coded the 360 benign completion runs: inter-human agreement 99.72% (κ=0.974, AC1=0.997, PABAK=0.996); human--rule agreement 96.72% on the 335 behavior-evaluable runs; after author adjudication of 12 items the adjudicated labels match the strict rule (320/335). Full confusion matrices, disagreement lists, per-model missingness, and case-/model-/cell-level intervals are in `r27-jss/current/evidence/human-annotation-2026-09-10/` and Supplement S2.7; the 360-row normalized labels and the standard-library recomputation script are published there as well.
-
-The r27 revision also adds a minimal ordinary approval/audit-log baseline under `evidence/r27-standard-practice-baseline/`. It agrees with the candidate-bound policy on seven of eight single-history cases, diverges only on equal-valued candidate substitution, reconstructs per-field sources from the audit log, but cannot uniquely attribute the reviewed candidate or the proposed value. The manuscript now states this standard-practice boundary explicitly in the abstract, introduction, and Section 9, and it states that host authentication and review-channel integrity are external assumptions. A non-author third-party adjudication protocol and blank template are included; the third-party adjudication itself has not been performed. Implementation and tests are unchanged from r26; the 389-test result is inherited from its isolated verification, not a new full-suite run.
-
-Run `python verify_release.py` inside r27-jss/ to verify 20,421 files. Clone with Git LFS and run `git lfs pull` before verifying, because the historical baseline contains large files. GitHub-generated source ZIPs may contain LFS pointers instead of the underlying data.
-
-2026-09-10 ZIP SHA-256: `c055f85cde4e578efe0f121923d084cbb3f4a4dceb64583ef5c9872d512694fe`. This hash applies to the local `r27-unified-submission-candidate-2026-09-10.zip`; it does not apply to GitHub-generated archives.
-
-Pinned tag: `r27-jss-2026-09-10-b`. Independent annotation results, the positive Alloy assertion, the mutation control, the standard-practice baseline, and the per-model/cluster-robust reporting additions are recorded in this candidate. The second author's email, a completed non-author third-party adjudication, a DOI-pinned archival release, and final submission approvals remain pending. This is a shared submission candidate, not a claim of journal acceptance or completed submission.
+Correction of earlier notices: A1 is the second author, A2 a non-author volunteer, and adjudication involved the first author. Earlier descriptions of two non-author coders were incorrect. The 11 pre-adjudication human–rule disagreements remain available and are not independent confirmation of the strict rule. Final author approvals and second-author contact details remain to be completed.

@@ -9,7 +9,7 @@ def delivered(p):
     rel = p.relative_to(r)
     if rel.as_posix() == 'RELEASE-MANIFEST.json':
         return False
-    if '__pycache__' in rel.parts or p.suffix == '.pyc':
+    if {'__pycache__', '.pytest_cache', '.ruff_cache', '.hypothesis'}.intersection(rel.parts) or p.suffix == '.pyc' or rel.as_posix().startswith('current/paper/out/'):
         return False  # runtime bytecode is not part of the sealed release
     return True
 
