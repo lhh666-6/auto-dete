@@ -1,6 +1,6 @@
 # Joint revision and handoff — r28
 
-第一作者：梁航豪（Liang Hanghao）。第二作者：宣文涛（Xuan Wentao，xuanwentao）。本次论文修订由两位作者共同完成。
+第一作者：梁航豪（Liang Hanghao）。第二作者：宣文韬（Xuan Wentao，xuanwentao）。本次论文修订由两位作者共同完成。
 
 This revision was jointly revised by Liang Hanghao and Xuan Wentao. The manuscript lists these authors in that order. No AI system is listed as an author. The existing manuscript disclosure of assistance and experimental model provenance is preserved.
 

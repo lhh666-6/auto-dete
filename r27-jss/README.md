@@ -1,6 +1,6 @@
 # Unified manuscript package — r28 handoff
 
-第一作者：梁航豪；第二作者：宣文涛。两位作者共同完成本次修订。
+第一作者：梁航豪；第二作者：宣文韬。两位作者共同完成本次修订。
 
 - [Second-author handoff](SECOND-AUTHOR-HANDOFF-zh.md)
 - [Main manuscript (58 pages)](current/paper/main.pdf)

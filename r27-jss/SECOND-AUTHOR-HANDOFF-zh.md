@@ -1,6 +1,6 @@
 # 第二作者接手说明 — r28，2026-09-10
 
-第一作者：梁航豪（Liang Hanghao）；第二作者：宣文涛（Xuan Wentao，xuanwentao）。本次论文修订由两位作者共同完成。
+第一作者：梁航豪（Liang Hanghao）；第二作者：宣文韬（Xuan Wentao，xuanwentao）。本次论文修订由两位作者共同完成。
 
 ## 从哪里开始
 

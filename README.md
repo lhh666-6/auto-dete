@@ -1,6 +1,6 @@
 # Auto-Decte — current manuscript handoff
 
-**第一作者：梁航豪；第二作者：宣文涛（xuanwentao）。本次修订由两位作者共同完成。**
+**第一作者：梁航豪；第二作者：宣文韬（xuanwentao）。本次修订由两位作者共同完成。**
 
 Current fixed version: `r28-jss-2026-09-10`.
 
