@@ -205,10 +205,15 @@ Two non-author annotators independently coded all 360 planned benign runs under 
 
 On the full 360-run set, inter-human agreement was 359/360 (99.72\%; Cohen's $\kappa=0.974$, 95\% CI $[0.910,1.000]$; AC1 $=0.997$; PABAK $=0.996$). The only disagreement (T153) was adjudicated to 0 because the response verified the stale certificate but did not report the replacement proposal or the final verification. Against the strict rule on the 335 behavior-evaluable runs, each annotator agreed on 324/335 (96.72\%; AC1 $=0.965$; PABAK $=0.934$; $\kappa=0.410$, 95\% CI $[0.106,0.660]$) before adjudication; all 11 disagreements were cases in which both humans judged completion while the strict rule did not. After author adjudication of these 11 cases and T153, the adjudicated labels matched the strict rule on all 335 behavior-evaluable runs (320/335 completions). Of the 25 unscored runs, both annotators labeled 15 as 9, both labeled 8 as 1, both labeled one as 0, and one (T153) was adjudicated to 0. The adjudicator was the author, so this is author adjudication rather than independent third-party adjudication; the 11 pre-adjudication human--rule disagreements remain in the disagreement lists and are not overwritten. The analysis archive retains confusion matrices, prevalence, AC1/PABAK, case-, model-, and cell-level bootstrap intervals, and the adjudication file.
 
+\Cref{tab:human-annotation-intervals} reports the case-, model-, and cell-level bootstrap intervals. The human--rule $\kappa$ interval widens from $[0.106,0.660]$ at the case level to $[0.000,0.885]$ under model-level resampling and $[0.000,0.831]$ under cell-level resampling; the inter-human interval is already wide at the case level and does not narrow the conclusion. \Cref{tab:benign-model-missingness} reports the benign strict-trajectory completion count and the missingness extremes for each configuration. G1 has 1 unscored run, G2 and D1 each have 12; their planned-run bounds overlap, so the aggregate endpoint does not establish a model ranking.
+
+\input{tables/generated/human_annotation_intervals}
+\input{tables/generated/benign_model_missingness}
+
 \section{Executable design comparison}
 \label{sec:supp-executable}
 
-Two SQLite policies make the checklist inspectable through nine fixed cases.
+The original executable comparison declares two SQLite policies over nine fixed cases, and this section adds a third minimal ordinary approval/audit-log baseline.
 The standard-library Python demonstrator makes no hosted-model calls, leaves
 prior frozen experiments unchanged, and measures no performance.
 
@@ -247,6 +252,32 @@ advantage for the added map: the complete baseline audit already supports that
 observation. The demonstrated increment is exact reviewed-candidate binding and
 the resulting proposal/authorized-value attribution, not a requirement that
 $D_S$ use an explicitly stored pointer.
+
+\subsection{Minimal ordinary approval/audit-log baseline}
+\label{app:approval-log-baseline}
+
+A third, deliberately conventional SQLite policy was executed on the same nine
+cases as an external standard-practice comparator. It stores approved values,
+expected version, principal, immutable candidates, and a complete before/after
+audit log, but no reviewed-candidate binding and no explicit source map. It
+validates candidate record/field context, approved-value equality,
+changed-field domain, and version compare-and-swap, and it can reconstruct every
+field's source by diffing the complete audit history. It agrees with the
+candidate-bound policy on the accept/reject outcome in seven of the eight
+single-history cases and diverges only on equal-valued candidate substitution:
+approving candidate \code{q100a} and submitting the equal-valued \code{q100b}
+is accepted by the ordinary policy and rejected by the candidate-bound policy.
+In the paired reviewed-candidate histories, the ordinary policy's persisted
+state is identical for \code{q100a} and \code{q101}, whereas the
+candidate-bound state differs in the approval binding. Its
+proposal/authorized-value attribution is also ambiguous because the approval row
+stores no candidate identity and the registry contains equal-valued candidates
+for the same field. The baseline therefore isolates the demonstrated increment
+to exact reviewed-candidate binding and unique proposal/authorized-value
+attribution; it does not compare against event-sourcing/CQRS,
+temporal/bitemporal tables, or four-eyes approval systems. Its runner, nine
+per-case SQLite databases, and summary are retained under
+\code{evidence/r27-standard-practice-baseline/}.
 
 The demonstrator is an illustrative specialization, not a second production
 implementation of the Auto-Decte contract. It does not implement cryptographic

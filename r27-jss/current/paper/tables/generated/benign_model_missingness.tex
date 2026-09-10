@@ -1,0 +1,19 @@
+% Derived from annotation-author-key-benign.csv (360 planned B1--B4 runs).
+% Bounds assume every unscored run is a failure or a success; they are logical
+% extreme-case bounds, not confidence intervals.
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Benign B1--B4 strict-trajectory completion by model configuration. The planned-run bound treats the unscored runs as all failures or all successes; it is not a confidence interval and does not establish a model ranking.}
+\label{tab:benign-model-missingness}
+\begin{tabularx}{\linewidth}{@{}lrrrr>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Configuration & Planned & Evaluable & Unscored & Strict complete & Strict/evaluable & Strict/planned bound \\
+\midrule
+G1 (gpt-5.6-luna) & 120 & 119 & 1 & 114 & 95.80\% & 95.00--95.83\% \\
+G2 (gpt-5.6-terra) & 120 & 108 & 12 & 105 & 97.22\% & 87.50--97.50\% \\
+D1 (deepseek-v4-flash) & 120 & 108 & 12 & 101 & 93.52\% & 84.17--94.17\% \\
+All configurations & 360 & 335 & 25 & 320 & 95.52\% & 88.89--95.83\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
