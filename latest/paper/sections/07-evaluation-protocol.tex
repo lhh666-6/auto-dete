@@ -17,7 +17,7 @@ The evaluation has three levels: relational checks (RQ1--RQ2), persisted realiza
 
 \subsection{Frozen execution and environment}
 
-Immutable manifests bind each baseline and extension to source, dependencies, configuration, raw receipts, and normalized inputs (Supplement S1). The repeated Final additionally binds model/matrix settings and the tool surface. Concrete runs used Windows 10 build 26200, CPython 3.11.9, SQLAlchemy 2.0.51 where reported, and SQLite 3.45.1. Foreign keys were enabled; performance used WAL, \code{NORMAL} synchronization, a 5,000-ms busy timeout, and no implicit lock retry.
+Immutable manifests bind each baseline and extension to source, dependencies, configuration, raw receipts, and normalized inputs (Supplement S1). The repeated Final additionally binds model/matrix settings and the tool surface. Concrete runs used Windows 10 build 26200, CPython 3.11.9, SQLAlchemy 2.0.51 where reported, and SQLite 3.45.1. Foreign keys and a 5,000-ms busy timeout were enabled on every connection; the performance runs additionally used WAL and \code{NORMAL} synchronization, with no implicit lock retry.
 
 \subsection{Correctness and conformance workloads}
 

@@ -351,7 +351,13 @@ construction, the two persisted certificates differ only in the attempt
 identifier, creation timestamp, and evidence storage locator, all of which
 participate in the seventeen-field content address; the other fourteen
 certificate fields, including proposal value, producer context, selection
-artifact, expected version, and evidence content hash, are equal. This probe
+artifact, expected version, and evidence content hash, are equal. The retained per-field candidate-pair difference table compares twelve columns of the control's
+candidate row rather than the seventeen fields of the production certificate, so it reports a
+different decomposition of the corresponding identity-level divergence: in that schema two primitive
+candidate-content inputs, the creation timestamp and the canonical evidence locator, differ, and the
+derived content hash together with the content-addressed candidate identifier computed from it differ
+consequently, giving four differing columns. The evidence content hash is equal in both
+representations. This probe
 establishes encoder-level reproducibility for the recorded build; it does not
 establish cross-version encoder determinism or deterministic model-side
 confidence and selection behavior. The control additionally retains the
