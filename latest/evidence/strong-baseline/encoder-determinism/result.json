@@ -1,0 +1,43 @@
+{
+  "probe": "recognition-encoder-determinism",
+  "question": "Is sha256(cv2.imencode('.png', crop).tobytes()) reproducible, so that two recognition attempts over the same crop record the same evidence hash?",
+  "environment": {
+    "opencv": "4.11.0",
+    "numpy": "2.3.5",
+    "python": "3.11.9"
+  },
+  "observations": {
+    "same_object_repeats": 200,
+    "same_object_distinct_hashes": 1,
+    "equal_content_repeats": 50,
+    "equal_content_distinct_hashes": 1,
+    "independent_processes": 3,
+    "independent_process_distinct_hashes": 1,
+    "encoder_thread_counts": [
+      1,
+      4,
+      0
+    ],
+    "thread_count_distinct_hashes": 1,
+    "png_chunk_sequence": [
+      "IHDR",
+      "IDAT",
+      "IDAT",
+      "IEND"
+    ],
+    "png_time_varying_chunks": [],
+    "perspective_warp_rederivation": {
+      "arrays_equal": true,
+      "hashes_equal": true
+    }
+  },
+  "all_observed_hashes": [
+    "acadf93e828b19c8116a300d3f666180822248ccd141a74c19089604588a9445"
+  ],
+  "verdict": "DETERMINISTIC",
+  "consequences": [
+    "evidence_hash is identical for two recognition attempts over the same crop, so the field is not a review-context discriminator in the production recognition path.",
+    "The two candidates differ only in fields that constitute the content-addressed certificate identity and the evidence storage locator: candidate_id, created_at, evidence file id, and evidence locator.",
+    "Reproducibility is established for one encoder build; a different OpenCV or libpng build is not covered."
+  ]
+}

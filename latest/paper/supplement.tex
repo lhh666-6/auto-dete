@@ -342,9 +342,21 @@ over fields that include the creation timestamp and the evidence locator, so two
 independently generated candidates for the same crop and field cannot be
 byte-identical. The pair is generated through the content-addressed constructor,
 and no production identity scheme, uniqueness constraint, or case was modified.
-Whether two recognition attempts for the same crop produce identical evidence
-content is not verified; the control is therefore evaluated both with identical
-and with distinct recorded evidence content.
+Repeated encoding of the same fixed crop and field in the recorded environment
+produced identical evidence content: the field-crop encoder emitted no
+time-varying PNG chunk, and the resulting content hash was stable across repeated
+calls, independent processes, and encoder thread counts (probe retained under
+\code{evidence/strong-baseline/encoder-determinism/}). In the resulting paired
+construction, the two persisted certificates differ only in the attempt
+identifier, creation timestamp, and evidence storage locator, all of which
+participate in the seventeen-field content address; the other fourteen
+certificate fields, including proposal value, producer context, selection
+artifact, expected version, and evidence content hash, are equal. This probe
+establishes encoder-level reproducibility for the recorded build; it does not
+establish cross-version encoder determinism or deterministic model-side
+confidence and selection behavior. The control additionally retains the
+distinct-evidence variant to bound cases in which re-derived evidence content
+differs.
 
 \subsection{Enriched review-context boundary (B2)}
 \label{app:review-context-boundary}

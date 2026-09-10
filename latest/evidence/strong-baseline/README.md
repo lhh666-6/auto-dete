@@ -26,6 +26,11 @@ It is versioned separately from the frozen standard-practice baseline in
 - `paper/` — derived tables: parity, E1 matrix, the three-column capability
   table, the per-field judgement, the evidence anchors, and the completion
   checklist.
+- `encoder-determinism/` — probe for the recorded evidence content hash
+  (`probe.py`, `result.json`, `probe-output.txt`). It establishes that the
+  field-crop PNG encoding is reproducible, so two recognition attempts over the
+  same crop and field record the same evidence content hash and the two
+  certificates differ only in content-addressed fields.
 
 ## Reproducing
 
