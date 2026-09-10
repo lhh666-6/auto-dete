@@ -1,0 +1,22 @@
+--- <PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/implementation/app/domain/authority.py	2026-08-27 11:19:00.000000000 +0800
++++ code/implementation-fixed/app/domain/authority.py	2026-09-08 22:20:32.416516500 +0800
+@@ -55,6 +55,19 @@
+     return json.dumps(value, sort_keys=True, separators=(",", ":"), default=_json_default)
+ 
+ 
++def canonical_values_equal(left: Any, right: Any) -> bool:
++    """Value equality under the contract's canonical JSON semantics.
++
++    Python equality treats ``2 == 2.0`` and ``1 == True`` as true, whereas the
++    admission contract, reverse-trace validation, independent oracle, and
++    formal projection all compare canonical JSON payloads.  Every boundary that
++    decides whether a field changed must use this single relation; otherwise a
++    successful admission can commit a new value while reusing the old source
++    and then be reported immediately as an incomplete trace.
++    """
++    return canonical_json(left) == canonical_json(right)
++
++
+ # Non-predictive sentinel: manual entry has no model confidence score; the
+ # fixed value is documented and never interpreted as a prediction.
+ MANUAL_ENTRY_CONFIDENCE = 0.0

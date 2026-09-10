@@ -1,0 +1,218 @@
+{
+  "annotation": {
+    "adjudicated": false,
+    "annotator": "second author Xuan Wentao",
+    "design": "author-involved blinded manual annotation",
+    "human_human_reliability": false,
+    "rows": 325,
+    "third_party_independent": false,
+    "uncertainty_notes": 1
+  },
+  "bootstrap": {
+    "base_seed": 20260910,
+    "file": "bootstrap-intervals.csv",
+    "replicates": 5000,
+    "units": [
+      "case",
+      "model",
+      "model-by-scenario cell"
+    ]
+  },
+  "inputs": {
+    "completed_workbook": {
+      "file": "completed-blind-annotation.xlsx",
+      "sha256": "32ba806ee92386434d046d811ffd358ecebe21a61a56c1d3d5e8f3702ca4bc06"
+    },
+    "repaired_v2_audit": {
+      "file": "recognition_semantic_audit_v2.csv",
+      "sha256": "908e548adc282765b25967cdfd9e4d23e65b19a2bf1ee1ac213f112889a7c920"
+    },
+    "source_semantic_audit": {
+      "file": "frozen-semantic-audit-with-text.csv",
+      "sha256": "40b910944423cc0cf4e837f998519b3c6d5744d71ed577bc1b61ec7eb2b0af53"
+    }
+  },
+  "interpretation": {
+    "a3_is_exploratory": true,
+    "overall_is_descriptive": true,
+    "reason": "A3 did not specify a unique intended target field.",
+    "rule_labels_overwritten": false
+  },
+  "join": {
+    "ambiguous": 0,
+    "matched": 325,
+    "method": "exact assistant_text after line-ending normalization and trim",
+    "missing": 0
+  },
+  "primary_comparison": {
+    "by_endpoint": {
+      "context": {
+        "agreement_count": 137,
+        "cohen_kappa": 0.5625764370158989,
+        "gwet_ac1": 0.5970835810620521,
+        "human_positive": 93,
+        "human_positive_rate": 0.5344827586206896,
+        "n": 174,
+        "pabak": 0.5747126436781609,
+        "percent_agreement": 0.7873563218390804,
+        "rule_0_human_0": 48,
+        "rule_0_human_1": 4,
+        "rule_1_human_0": 33,
+        "rule_1_human_1": 89,
+        "rule_positive": 122,
+        "rule_positive_rate": 0.7011494252873564
+      },
+      "stale": {
+        "agreement_count": 149,
+        "cohen_kappa": 0.4949832775919757,
+        "gwet_ac1": 0.9863994595811755,
+        "human_positive": 148,
+        "human_positive_rate": 0.9801324503311258,
+        "n": 151,
+        "pabak": 0.9735099337748345,
+        "percent_agreement": 0.9867549668874173,
+        "rule_0_human_0": 1,
+        "rule_0_human_1": 0,
+        "rule_1_human_0": 2,
+        "rule_1_human_1": 148,
+        "rule_positive": 150,
+        "rule_positive_rate": 0.9933774834437086
+      }
+    },
+    "by_model_config": {
+      "D1": {
+        "agreement_count": 78,
+        "cohen_kappa": 0.7708516242317822,
+        "gwet_ac1": 0.8125224470250211,
+        "human_positive": 54,
+        "human_positive_rate": 0.6206896551724138,
+        "n": 87,
+        "pabak": 0.7931034482758621,
+        "percent_agreement": 0.896551724137931,
+        "rule_0_human_0": 25,
+        "rule_0_human_1": 1,
+        "rule_1_human_0": 8,
+        "rule_1_human_1": 53,
+        "rule_positive": 61,
+        "rule_positive_rate": 0.7011494252873564
+      },
+      "G1": {
+        "agreement_count": 106,
+        "cohen_kappa": 0.5731707317073171,
+        "gwet_ac1": 0.8409392160575648,
+        "human_positive": 94,
+        "human_positive_rate": 0.7833333333333333,
+        "n": 120,
+        "pabak": 0.7666666666666666,
+        "percent_agreement": 0.8833333333333333,
+        "rule_0_human_0": 12,
+        "rule_0_human_1": 0,
+        "rule_1_human_0": 14,
+        "rule_1_human_1": 94,
+        "rule_positive": 108,
+        "rule_positive_rate": 0.9
+      },
+      "G2": {
+        "agreement_count": 102,
+        "cohen_kappa": 0.5244332493702771,
+        "gwet_ac1": 0.8112754898040786,
+        "human_positive": 93,
+        "human_positive_rate": 0.788135593220339,
+        "n": 118,
+        "pabak": 0.728813559322034,
+        "percent_agreement": 0.864406779661017,
+        "rule_0_human_0": 12,
+        "rule_0_human_1": 3,
+        "rule_1_human_0": 13,
+        "rule_1_human_1": 90,
+        "rule_positive": 103,
+        "rule_positive_rate": 0.8728813559322034
+      }
+    },
+    "by_scenario": {
+      "A2": {
+        "agreement_count": 81,
+        "cohen_kappa": 0.423592493297588,
+        "gwet_ac1": 0.9354596622889306,
+        "human_positive": 79,
+        "human_positive_rate": 0.9186046511627907,
+        "n": 86,
+        "pabak": 0.8837209302325582,
+        "percent_agreement": 0.9418604651162791,
+        "rule_0_human_0": 2,
+        "rule_0_human_1": 0,
+        "rule_1_human_0": 5,
+        "rule_1_human_1": 79,
+        "rule_positive": 84,
+        "rule_positive_rate": 0.9767441860465116
+      },
+      "A3": {
+        "agreement_count": 56,
+        "cohen_kappa": 0.19817767653758553,
+        "gwet_ac1": 0.3769911504424779,
+        "human_positive": 14,
+        "human_positive_rate": 0.1590909090909091,
+        "n": 88,
+        "pabak": 0.2727272727272727,
+        "percent_agreement": 0.6363636363636364,
+        "rule_0_human_0": 46,
+        "rule_0_human_1": 4,
+        "rule_1_human_0": 28,
+        "rule_1_human_1": 10,
+        "rule_positive": 38,
+        "rule_positive_rate": 0.4318181818181818
+      },
+      "A6": {
+        "agreement_count": 69,
+        "cohen_kappa": 1.0,
+        "gwet_ac1": 1.0,
+        "human_positive": 68,
+        "human_positive_rate": 0.9855072463768116,
+        "n": 69,
+        "pabak": 1.0,
+        "percent_agreement": 1.0,
+        "rule_0_human_0": 1,
+        "rule_0_human_1": 0,
+        "rule_1_human_0": 0,
+        "rule_1_human_1": 68,
+        "rule_positive": 68,
+        "rule_positive_rate": 0.9855072463768116
+      },
+      "B4": {
+        "agreement_count": 80,
+        "cohen_kappa": 0.0,
+        "gwet_ac1": 0.9750076196281621,
+        "human_positive": 80,
+        "human_positive_rate": 0.975609756097561,
+        "n": 82,
+        "pabak": 0.9512195121951219,
+        "percent_agreement": 0.975609756097561,
+        "rule_0_human_0": 0,
+        "rule_0_human_1": 0,
+        "rule_1_human_0": 2,
+        "rule_1_human_1": 80,
+        "rule_positive": 82,
+        "rule_positive_rate": 1.0
+      }
+    },
+    "disagreements": 39,
+    "label": "manual label versus repaired v2.1 rule label",
+    "overall": {
+      "agreement_count": 286,
+      "cohen_kappa": 0.6441705735380815,
+      "gwet_ac1": 0.8201732295752967,
+      "human_positive": 241,
+      "human_positive_rate": 0.7415384615384616,
+      "n": 325,
+      "pabak": 0.76,
+      "percent_agreement": 0.88,
+      "rule_0_human_0": 49,
+      "rule_0_human_1": 4,
+      "rule_1_human_0": 35,
+      "rule_1_human_1": 237,
+      "rule_positive": 272,
+      "rule_positive_rate": 0.8369230769230769
+    }
+  },
+  "schema": "auto-decte.human-acknowledgment-annotation.v1"
+}

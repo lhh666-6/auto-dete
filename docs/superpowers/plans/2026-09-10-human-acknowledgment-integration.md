@@ -28,6 +28,7 @@
 **Files:**
 - Create: `latest/` as a mechanical copy of `r27-jss/current/`
 - Create: `latest/evidence/human-acknowledgment-annotation-2026-09-10/completed-blind-annotation.xlsx`
+- Create: `latest/evidence/human-acknowledgment-annotation-2026-09-10/frozen-semantic-audit-with-text.csv`
 
 **Interfaces:**
 - Consumes: sealed r28 tree and the completed external workbook.
@@ -41,7 +42,7 @@ Expected: source is `True`, destination is `False`, and the only pending file is
 
 - [ ] **Step 2: Copy the sealed candidate and workbook**
 
-Run a literal-path recursive `Copy-Item` from `r27-jss/current` to `latest`, create the evidence directory, and copy the workbook under the stable ASCII filename.
+Run a literal-path recursive `Copy-Item` from `r27-jss/current` to `latest`, create the evidence directory, copy the workbook under the stable ASCII filename, and copy the frozen r21 semantic audit with assistant text into the evidence module. The latter is required because the sealed r28 candidate carries only the paper snapshot under `baseline-v8/`, not this analysis input.
 
 - [ ] **Step 3: Verify the source tree was not changed**
 

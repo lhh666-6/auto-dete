@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Representative cells from the reverse-trace optimization. Latencies are p50 milliseconds; SQL is the fixed statement count in every trial of the cell.}
+\label{tab:trace-optimization}
+\footnotesize
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}rrrrrrr@{}}
+\toprule
+Fields & Versions & Records & Base p50 & Opt. p50 & Base SQL & Opt. SQL \\
+\midrule
+1 & 1 & 1 & 5.358 & 4.378 & 16 & 12 \\
+8 & 10 & 1 & 44.601 & 6.049 & 132 & 12 \\
+32 & 100 & 1 & 1127.005 & 21.583 & 3438 & 12 \\
+128 & 100 & 1000 & 7857.313 & 51.536 & 13422 & 12 \\
+\bottomrule
+\end{tabular*}
+\end{table}

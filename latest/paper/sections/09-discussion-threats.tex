@@ -1,0 +1,40 @@
+\section{Discussion and threats to validity}
+\label{sec:discussion}
+
+\subsection{Design implications}
+
+The contribution is an inspectable relation among exact proposal origin, human value authority, and complete successor attribution. \Cref{tab:design-checklist} turns C1--C2 into an implementation aid: map each class to persisted objects and an enforcement point, then retain evidence from a legal control and a failure probe. Mark a check untested until that evidence exists. The reusable worksheet is in \code{docs/admission-design-checklist.md}.
+
+\input{tables/design_checklist}
+
+Candidate handles and freshness discriminators may use different representations. The obligations concern their relations: $D_B$ checks the admitted change domain and complete successor, while $D_S$ checks changed-field sources and exact unchanged-source retention. Full P6 trace validation additionally follows authorization, candidate, and evidence bindings.
+
+The executable control in \cref{sec:executable-relation-result} identifies a concrete inspection question: do stored approvals name the reviewed candidate, or only its authorized value? Complete value audits can reconstruct sources while leaving that review relation unspecified. The checklist therefore asks developers to demonstrate the required relations, rather than adopt a particular source-map representation. Its application to independent systems remains unvalidated.
+
+\subsection{Engineering trade-offs}
+
+Wider change sets cost more in the frozen grid, but the persistence-equivalent gap combines excluded validation/planning and implementation-path differences; it cannot identify the cost of one check. Consistent canonical value equality is required when deriving changes. The repair unifies that relation, without caching one computed change set across admission and trace. Form-scoped trace assembly trades 12 database round trips for in-memory indexing and prefix traversal; the best access shape remains workload-dependent.
+
+\subsection{Formal and concrete validity}
+
+Alloy outcomes are restricted to encoded scopes and selected mutations. Proposition 1 establishes the separate conditional observation result; the five class pairs, the identity pair, and the copy-forward control do not constitute a general admission oracle. The nine intended projections, twenty mapping mutants, finite catalogue, and declared SQLite schedules cover selected executions, not every state or interleaving. The no-op and schema-uniqueness differences are stated in \cref{sec:conformance}.
+
+Independent oracles reduce shared-code risk but cannot exclude shared semantic defects, as the repaired value-equality error illustrates. Trace completeness establishes consistency among persisted relations, not evidence truth, candidate accuracy, or sound human judgment. The admission adapter compares persisted evidence digests and canonical locators; it does not re-read and hash external evidence bytes at every admission or trace. An out-of-band file replacement that leaves stored metadata intact is therefore outside the detected relation failures. Deployments requiring byte-level integrity need immutable/content-addressed storage or separate integrity verification. Likewise, the study does not model manipulation of the reviewer-facing presentation, evidence rendering, or indirect instructions that could influence human approval. Candidate binding preserves the recorded decision; it does not certify an informed or unmanipulated review. The review channel is treated as part of the external host boundary: the study assumes an authenticated principal and a faithful, non-manipulated presentation, and it evaluates neither channel compromise nor adversarial confirmation input. The trusted boundary includes serialization, hashing, the adapter and transaction semantics, and principal policy; another database engine requires new conformance evidence.
+
+Authorization is rechecked before CAS. Revocation visible at that check rejects; later revocation does not cancel an in-flight transaction. This is commit-entry revalidation, not linearizable or distributed revocation (\cref{sec:authorization-timing}). Synthetic/public inputs and scripted principals leave usability, authentication workflows, operational reviewer error, deletion, redaction, retention expiry, and tombstones untested. Manual entry is outside the AI-derived candidate claim.
+
+\subsection{Performance and repeated-agent validity}
+
+The empty-source comparator is only a lower bound. Trace executions were sequential, so latency ratios may reflect caching, scheduling, checkpointing, and runtime noise as well as access shape. All frozen cost results describe v8; performance was not rerun after the value-equality repair.
+
+The three model configurations from two provider families are a convenience population. Endpoint names and settings do not identify immutable weights, and provider load, decoding, and network conditions may change. Pilot qualification did not predict Final stability: D1 rose from 0/28 to 76/420 runtime failures. All planned Final runs were retained; endpoint eligibility follows the cross-tabulation in \cref{tab:runtime-endpoint}. The study was not powered for provider ranking.
+
+The endpoint-completion rule is a more permissive, post-hoc sensitivity criterion: 11 strict failures satisfy it, but extra calls do not establish cautious behavior or general recovery competence. The B1--B4 benign completion endpoint has two human annotators, one author and one non-author volunteer (pre-adjudication inter-human agreement 99.72\%; human--rule agreement 96.72\%); the 11 pre-adjudication human--rule disagreements were adjudicated by the other author, not by an independent third party. Agreement after adjudication does not resolve the distinction between terminal completion and strict-trajectory compliance.
+
+The separate 325-output textual audit has one author annotator, no second semantic coder, and no adjudication. Its 88.00\% aggregate human--rule agreement is prevalence-sensitive and heterogeneous: A6 and B4 nearly coincide, whereas A3 accounts for 32/39 disagreements. Because A3 did not specify a unique target field, this heterogeneity limits the construct more than it validates the rule. Author involvement, incomplete blinding to the study purpose, and residual clues in response text preclude third-party validation claims; the manual audit does not overwrite the deterministic rule hits. Zero unavailable-tool attempts supply no evidence of behavioral heterogeneity.
+
+Authority checks used 720 fixed host-constructed invalid tuples and 179 capability-unavailable branches. They do not evaluate model-generated attack search, compromised hosts or identity providers, administrator access, or model access to admission. Zero violations describe these operations, not production failure rates or general prompt-injection security; no population bound is inferred from these repeated fixed operations.
+
+\subsection{Reproducibility and novelty boundary}
+
+Supplement S1 and the deposit permit inspection without new hosted-model calls; independent reproduction in another environment remains separate validation. The related-work comparison concerns public disclosures through its stated cutoff and establishes a relation-level distinction, not empirical superiority over those systems. A minimal ordinary approval/audit-log baseline was evaluated with the same nine executable probes. It agrees on seven of eight single-history cases and diverges only on equal-valued candidate substitution; its paired reviewed-candidate histories are identical, and it can reconstruct per-field sources from the audit log but cannot uniquely attribute the reviewed candidate or the proposed value. This isolates the demonstrated increment to exact reviewed-candidate binding and the resulting proposal/authorized-value attribution. We did not evaluate an independently developed event-sourcing/CQRS, temporal/bitemporal-table, or four-eyes approval system; the minimal baseline is not a substitute for that broader comparison.

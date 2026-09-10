@@ -1,0 +1,276 @@
+--- <PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/formal/observation_witnesses.py	2026-09-06 15:15:52.899851900 +0800
++++ code/formal-fixed/observation_witnesses.py	2026-09-08 22:33:11.173417300 +0800
+@@ -3,6 +3,14 @@
+ Observations and outcomes are DERIVED from raw histories, never stored.
+ ``observe`` applies the manuscript Table 2 observation functions;
+ ``normative_outcome`` applies the contract checks.
++
++Scope (review R5): the domain predicate separates the *schema* field domain
++(the record's authoritative field set, over which value and source maps must
++be total) from the *declared item* field domain (the fields named by the batch
++items, over which the committed effect domain is checked).  An ordinary
++single-field update with another field copied forward is therefore a complete
++successor.  The script validates the five declared constructions and the
++copy-forward control; it is not a general admission oracle.
+ """
+ 
+ from __future__ import annotations
+@@ -16,6 +24,19 @@
+ CLASSES = ("D_C", "D_V", "D_F", "D_B", "D_S")
+ 
+ 
++def _canonical_value(value: Any) -> str:
++    """Canonical JSON form used for every value-equality decision here.
++
++    Python equality treats ``2 == 2.0`` and ``1 == True`` as true; the
++    contract, trace, and formal projection compare canonical JSON payloads.
++    """
++    return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
++
++
++def _canonical_equal(left: Any, right: Any) -> bool:
++    return _canonical_value(left) == _canonical_value(right)
++
++
+ @dataclass(frozen=True)
+ class Candidate:
+     candidate_id: str
+@@ -69,7 +90,7 @@
+     def changed_fields(self) -> frozenset[str]:
+         before = {v.field_id: v.value for v in self.before}
+         after = {v.field_id: v.value for v in self.after}
+-        return frozenset(f for f in before if before[f] != after[f])
++        return frozenset(f for f in before if not _canonical_equal(before[f], after[f]))
+ 
+ 
+ @dataclass(frozen=True)
+@@ -88,6 +109,28 @@
+     sources: tuple[SourceAnchor, ...] = field(default_factory=tuple)
+     predecessor_sources: tuple[SourceAnchor, ...] = field(default_factory=tuple)
+     source_transitions: tuple[SourceTransition, ...] = field(default_factory=tuple)
++    schema_fields: frozenset[str] | None = None
++
++    @property
++    def schema_field_domain(self) -> frozenset[str]:
++        """Authoritative field set over which value and source maps are total.
++
++        Defaults to ``declared_fields`` so the five all-field constructions
++        are unchanged; a copy-forward witness sets it explicitly when the
++        submitted item domain is narrower than the schema.
++        """
++        return self.schema_fields if self.schema_fields is not None else self.declared_fields
++
++    @property
++    def declared_item_fields(self) -> frozenset[str]:
++        """Field domain named by the batch items (the declared effect domain)."""
++        candidates = {c.candidate_id: c for c in self.candidates}
++        derived = frozenset(
++            candidates[item.candidate_id].field_id
++            for item in self.batch_items
++            if item.candidate_id in candidates
++        )
++        return derived if derived else frozenset(self.declared_fields)
+ 
+     @property
+     def committed_fields(self) -> frozenset[str]:
+@@ -128,7 +171,7 @@
+         return (history.expected_version, history.observed_version)
+     if class_name == "D_B":
+         return (
+-            frozenset(history.declared_fields),
++            frozenset(history.declared_item_fields),
+             frozenset(history.committed_fields),
+             history.successor_count,
+             tuple(step.changed_fields for step in history.commits),
+@@ -159,10 +202,10 @@
+         errors.append("duplicate predecessor field value")
+     if len(successor_fields) != len(set(successor_fields)):
+         errors.append("duplicate successor field value")
+-    if set(predecessor_fields) != history.declared_fields:
+-        errors.append("predecessor values do not cover declared fields")
+-    if set(successor_fields) != history.declared_fields:
+-        errors.append("successor values do not cover declared fields")
++    if set(predecessor_fields) != history.schema_field_domain:
++        errors.append("predecessor values do not cover schema fields")
++    if set(successor_fields) != history.schema_field_domain:
++        errors.append("successor values do not cover schema fields")
+     current = {v.field_id: v.value for v in history.predecessor_values}
+     successor_ids: set[str] = set()
+     if not history.commits:
+@@ -171,8 +214,8 @@
+         before = {v.field_id: v.value for v in step.before}
+         after = {v.field_id: v.value for v in step.after}
+         if (len(before) != len(step.before) or len(after) != len(step.after)
+-                or set(before) != history.declared_fields
+-                or set(after) != history.declared_fields):
++                or set(before) != history.schema_field_domain
++                or set(after) != history.schema_field_domain):
+             errors.append("commit snapshots do not cover schema exactly once")
+         if before != current:
+             errors.append("disconnected commit sequence")
+@@ -190,14 +233,16 @@
+             errors.append(f"batch item {item.candidate_id} has no candidate")
+         if item.authorization_id not in authorization_ids:
+             errors.append(f"batch item has no authorization {item.authorization_id}")
+-    if not history.declared_fields:
+-        errors.append("empty declared field domain")
++    if not history.schema_field_domain:
++        errors.append("empty schema field domain")
++    if not history.declared_item_fields <= history.schema_field_domain:
++        errors.append("declared item fields are not a subset of the schema field domain")
+     for candidate in history.candidates:
+-        if candidate.field_id not in history.declared_fields:
++        if candidate.field_id not in history.schema_field_domain:
+             errors.append(f"candidate {candidate.candidate_id} targets undeclared field")
+     for source in (*history.sources, *history.predecessor_sources,
+                    *history.source_transitions):
+-        if source.field_id not in history.declared_fields:
++        if source.field_id not in history.schema_field_domain:
+             errors.append(f"source targets undeclared field {source.field_id}")
+     return tuple(errors)
+ 
+@@ -217,8 +262,10 @@
+     successor_values = {item.field_id: item.value for item in h.successor_values}
+     return all(
+         authorizations[item.authorization_id].role == "human-authorized"
+-        and successor_values[candidates[item.candidate_id].field_id]
+-        == authorizations[item.authorization_id].authorized_value
++        and _canonical_equal(
++            successor_values[candidates[item.candidate_id].field_id],
++            authorizations[item.authorization_id].authorized_value,
++        )
+         for item in h.batch_items
+     )
+ 
+@@ -228,7 +275,7 @@
+ 
+ 
+ def _batch_ok(h: History) -> bool:
+-    return h.committed_fields == h.declared_fields and h.successor_count == 1
++    return h.committed_fields == h.declared_item_fields and h.successor_count == 1
+ 
+ 
+ def _source_resolution(h: History) -> tuple[tuple[object, ...], ...]:
+@@ -247,9 +294,9 @@
+                    for t in h.source_transitions if t.source_id == s.source_id]
+         consistent = (len(anchors) == 1 and len(matches) == 1
+                       and matches[0].field_id == field_id
+-                      and matches[0].value == after[field_id])
++                      and _canonical_equal(matches[0].value, after[field_id]))
+         prior = [s for s in h.predecessor_sources if s.field_id == field_id]
+-        copy_ok = (before[field_id] != after[field_id]
++        copy_ok = (not _canonical_equal(before[field_id], after[field_id])
+                    or (len(prior) == 1 and anchors == prior))
+         results.append((field_id, len(anchors), len(matches), consistent, copy_ok))
+     return tuple(results)
+@@ -268,7 +315,7 @@
+     )
+     if h.successor_count != 1:
+         successor = "fragmented-successor"
+-    elif h.committed_fields != h.declared_fields:
++    elif h.committed_fields != h.declared_item_fields:
+         successor = "partial-successor"
+     else:
+         successor = "complete-successor"
+@@ -382,6 +429,56 @@
+     )
+     return pairs
+ 
++
++def copy_forward_control() -> History:
++    """Ordinary single-field update with another field copied forward.
++
++    Review R5 control: the submitted item domain is {score}, the schema domain
++    is {score, status}, and status keeps its prior value and exact prior
++    source.  This must be a complete successor, not a partial one.
++    """
++    base = dict(
++        target_record_id="record-A",
++        expected_version=7,
++        observed_version=7,
++        declared_fields=frozenset({"score", "status"}),
++        schema_fields=frozenset({"score", "status"}),
++        predecessor_values=(
++            FieldValue("score", 90),
++            FieldValue("status", "open"),
++        ),
++        successor_values=(
++            FieldValue("score", 101),
++            FieldValue("status", "open"),
++        ),
++        candidates=(_candidate(),),
++        authorizations=(_auth(),),
++        batch_items=(BatchItem("candidate-1", "auth-1"),),
++        sources=(
++            SourceAnchor("score", "transition-score"),
++            SourceAnchor("status", "prior-status"),
++        ),
++        predecessor_sources=(
++            SourceAnchor("score", "prior-score"),
++            SourceAnchor("status", "prior-status"),
++        ),
++        source_transitions=(
++            SourceTransition("prior-score", "score", 90),
++            SourceTransition("prior-status", "status", "open"),
++            SourceTransition("transition-score", "score", 101),
++        ),
++    )
++    return History(
++        name="single-field-update-with-copy-forward",
++        commits=(
++            CommitStep(
++                "successor-1", base["predecessor_values"], base["successor_values"]
++            ),
++        ),
++        **base,
++    )
++
++
+ def verify() -> None:
+     pairs = paired_histories()
+     assert set(pairs) == set(CLASSES)
+@@ -395,6 +492,12 @@
+         assert project(safe, remaining) == project(unsafe, remaining)
+         assert project(safe, CLASSES) != project(unsafe, CLASSES)
+ 
++    control = copy_forward_control()
++    assert validate_history_domain(control) == ()
++    assert control.declared_item_fields == frozenset({"score"})
++    assert control.schema_field_domain == frozenset({"score", "status"})
++    assert normative_outcome(control) == ("admissible", "complete-successor", "complete-trace")
++
+ 
+ def _json_safe(value: Any) -> Any:
+     if isinstance(value, dict):
+@@ -436,12 +539,30 @@
+             "normative_outcomes_differ": normative_outcome(safe)
+             != normative_outcome(unsafe),
+         }
++    control = copy_forward_control()
+     return _json_safe({
+-        "checker": "observation-witnesses-v3-commit-source-derived",
++        "checker": "observation-witnesses-v4-schema-item-domain",
+         "observations_and_outcomes_are_derived": True,
+         "source_scope": "local resolution cardinality, field/value consistency, exact unchanged-source retention; full P6 lineage is checked separately",
++        "domain_scope": (
++            "schema field domain governs total value/source maps; declared item "
++            "field domain governs committed effects and batch references"
++        ),
++        "validated_scope": (
++            "five declared all-field constructions plus one single-field "
++            "copy-forward control; not a general admission oracle"
++        ),
+         "information_classes": CLASSES,
+         "pairs": report_pairs,
++        "copy_forward_control": {
++            "history": asdict(control),
++            "derived_declared_item_fields": control.declared_item_fields,
++            "derived_schema_field_domain": control.schema_field_domain,
++            "derived_commit_effects": control.committed_fields,
++            "derived_successor_count": control.successor_count,
++            "domain_errors": validate_history_domain(control),
++            "normative_outcome": normative_outcome(control),
++        },
+     })
+ 
+ 

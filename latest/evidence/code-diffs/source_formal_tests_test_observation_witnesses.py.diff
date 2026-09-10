@@ -1,0 +1,39 @@
+--- <PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/formal/tests/test_observation_witnesses.py	2026-09-06 15:13:28.735774600 +0800
++++ code/formal-fixed/tests/test_observation_witnesses.py	2026-09-08 22:33:17.978883400 +0800
+@@ -12,6 +12,7 @@
+     CLASSES,
+     BatchItem,
+     build_report,
++    copy_forward_control,
+     History,
+     normative_outcome,
+     observe,
+@@ -145,6 +146,28 @@
+         )
+         self.assertTrue(validate_history_domain(malformed))
+ 
++    def test_copy_forward_control_is_a_complete_successor(self) -> None:
++        control = copy_forward_control()
++        self.assertEqual(validate_history_domain(control), ())
++        self.assertEqual(control.declared_item_fields, frozenset({"score"}))
++        self.assertEqual(control.schema_field_domain, frozenset({"score", "status"}))
++        self.assertEqual(control.committed_fields, frozenset({"score"}))
++        self.assertEqual(
++            normative_outcome(control),
++            ("admissible", "complete-successor", "complete-trace"),
++        )
++
++    def test_schema_and_declared_item_domains_are_distinguished(self) -> None:
++        control = copy_forward_control()
++        self.assertNotEqual(control.declared_item_fields, control.schema_field_domain)
++        self.assertNotEqual(normative_outcome(control)[1], "partial-successor")
++
++    def test_canonical_value_equality_drives_commit_effects(self) -> None:
++        step = CommitStep("s", (FieldValue("score", 2),), (FieldValue("score", 2.0),))
++        self.assertEqual(step.changed_fields, frozenset({"score"}))
++        unchanged = CommitStep("s", (FieldValue("score", 2),), (FieldValue("score", 2),))
++        self.assertEqual(unchanged.changed_fields, frozenset())
++
+     def test_audit_report_is_json_serializable(self) -> None:
+         json.dumps(build_report())
+ 

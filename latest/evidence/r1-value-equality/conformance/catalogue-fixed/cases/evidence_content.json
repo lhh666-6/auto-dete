@@ -1,0 +1,126 @@
+{
+  "case": {
+    "digest_expectation": "unchanged",
+    "expected_status": "EVIDENCE_HASH_MISMATCH",
+    "id": "evidence_content",
+    "kind": "rejection",
+    "node_id": "tests/conformance/test_g3b_conformance.py::test_evidence_identity_substitution_rejected",
+    "properties": [
+      "P2"
+    ]
+  },
+  "catalogue_sha256": "8ccd4ee89af084bb3eebe57c3c39cc20f0b6ff54c50eaecff2a3f1feb7f3d0dc",
+  "command": [
+    "<PROJECT_ROOT>\\release-staging\\auto-dete-r21-github-2026-09-05\\r21-jss\\source\\implementation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "tests/conformance/test_g3b_conformance.py::test_evidence_identity_substitution_rejected",
+    "-q",
+    "--basetemp",
+    "<PROJECT_ROOT>\\revisions\\2026-09-08-r22-review-response\\evidence\\r1-value-equality\\conformance\\catalogue-fixed.json\\pytest-temp\\evidence_content"
+  ],
+  "databases": [
+    {
+      "independent_trace_violations": {
+        "FORM-1": []
+      },
+      "path": "conformance.db",
+      "row_counts": {
+        "ai_reviews": 0,
+        "audit_events": 1,
+        "authority_meta": 0,
+        "authorization_bindings": 0,
+        "candidate_certificates": 1,
+        "evidence_files": 1,
+        "export_batches": 0,
+        "fact_transitions": 0,
+        "form_fields": 1,
+        "forms": 1,
+        "human_decisions": 0,
+        "recognition_attempts": 1,
+        "record_versions": 0
+      },
+      "row_ids": {
+        "ai_reviews": [],
+        "audit_events": [
+          {
+            "actor_id": "machine",
+            "event_id": "EVENT-73b4097702a348c68996be6357082a3d",
+            "form_id": "FORM-1"
+          }
+        ],
+        "authority_meta": [],
+        "authorization_bindings": [],
+        "candidate_certificates": [
+          {
+            "candidate_id": "ATTEMPT-4e8a02455b0146308ad60b0f459a54c1",
+            "certificate_id": "4b863ca9a38e63788fc1eecfcd491c875efa874f9ed0aec416ebe80a734d2b49",
+            "evidence_file_id": "FILE-c817d669bdb2420299699fa8dd2df44c",
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1",
+            "producer_id": "recognizer-a",
+            "recognition_attempt_id": "ATTEMPT-4e8a02455b0146308ad60b0f459a54c1",
+            "selection_artifact_id": "recognition-threshold-v1",
+            "target_record_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "evidence_files": [
+          {
+            "file_id": "FILE-c817d669bdb2420299699fa8dd2df44c",
+            "form_id": "FORM-1",
+            "related_field_id": "FIELD-1"
+          }
+        ],
+        "export_batches": [],
+        "fact_transitions": [],
+        "form_fields": [
+          {
+            "field_id": "FIELD-1",
+            "form_id": "FORM-1"
+          }
+        ],
+        "forms": [
+          {
+            "form_id": "FORM-1",
+            "template_id": "T1"
+          }
+        ],
+        "human_decisions": [],
+        "recognition_attempts": [
+          {
+            "attempt_id": "ATTEMPT-4e8a02455b0146308ad60b0f459a54c1",
+            "crop_file_id": "FILE-c817d669bdb2420299699fa8dd2df44c",
+            "field_id": "FIELD-1"
+          }
+        ],
+        "record_versions": []
+      },
+      "sha256": "449e298644e1cec0b08aa9fcb4cf0e9f7afa0da99c1b6688c3491789148e8fcf",
+      "state_digest": "7610ada225c7b0161f9c5e67e9d4c526fa7d8dfb623172951d7de78b00ec7b15",
+      "user_version": 0
+    }
+  ],
+  "digest_expectation_asserted_by_test": "unchanged",
+  "duration_seconds": 1.406,
+  "environment": {
+    "hypothesis": "6.165.10",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pytest": "9.1.1",
+    "python": "3.11.9",
+    "sqlalchemy": "2.0.51",
+    "sqlite": "3.45.1"
+  },
+  "expected_status_asserted_by_test": "EVIDENCE_HASH_MISMATCH",
+  "finished_at": "2026-09-08T14:50:24.228350+00:00",
+  "observed_status": "PASS",
+  "return_code": 0,
+  "schema": "auto-decte-catalogue-case-result-v1",
+  "started_at": "2026-09-08T14:50:22.837627+00:00",
+  "stderr": "",
+  "stdout": ".                                                                        [100%]\n1 passed in 0.85s\n",
+  "test_source_sha256": "1f02ae75184923b6ec7bd2605be817000d1fd453f7bf9edb733df9cf095feac3"
+}

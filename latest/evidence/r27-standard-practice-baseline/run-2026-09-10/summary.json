@@ -1,0 +1,31 @@
+{
+  "schema": "auto-decte.r27-standard-practice-baseline.v1",
+  "policy": "approval_log",
+  "cases": 9,
+  "runs": 9,
+  "single_history_records": 8,
+  "paired_history_records": 1,
+  "accepted_runs": 3,
+  "rejected_runs": 5,
+  "agreement_with_candidate_bound": [
+    "legal-correction",
+    "cross-record-candidate",
+    "stale-version",
+    "wrong-value",
+    "partial-batch",
+    "injected-failure",
+    "two-step-copy-forward"
+  ],
+  "divergence_from_candidate_bound": [
+    "equal-value-substitution",
+    "paired-reviewed-candidate"
+  ],
+  "capabilities_relative_to_candidate_bound": {
+    "reviewed_candidate_persisted": false,
+    "per_field_sources_stored": false,
+    "per_field_sources_reconstructable_from_audit": true,
+    "paired_histories_distinguishable": false,
+    "unique_proposal_reconstruction": false
+  },
+  "interpretation": "An ordinary approval/audit log agrees with the candidate-bound policy on the declared single-history cases except equal-valued candidate substitution. It can reconstruct per-field sources from the complete audit log, but it cannot distinguish which equal-valued candidate was reviewed, and the paired reviewed-candidate histories are identical in its persisted state. The demonstrated increment of candidate-bound admission is therefore exact reviewed-candidate binding and the resulting proposal/authorized-value attribution; this baseline is not a general event-sourcing/CQRS or temporal database comparison."
+}

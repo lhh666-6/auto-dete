@@ -1,0 +1,5140 @@
+[
+  {
+    "case_id": "legal-correction",
+    "database_file": "db/legal-correction__value_audit.db",
+    "expected": "both accept a complete successor",
+    "observations": {
+      "audit_rows": 1,
+      "candidate_retained": true,
+      "dual_value": {
+        "authorized_value": {
+          "quantity": 101
+        },
+        "proposal_reconstructable_by_join": false,
+        "proposed_value": null,
+        "reviewed_candidate": null
+      },
+      "immutability_triggers": 8,
+      "reconstructed_sources": {
+        "batch": "v0:batch",
+        "quantity": "v1:quantity"
+      },
+      "successor_values": {
+        "batch": "A",
+        "quantity": 101
+      }
+    },
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": false
+  },
+  {
+    "case_id": "legal-correction",
+    "database_file": "db/legal-correction__candidate_bound.db",
+    "expected": "both accept a complete successor",
+    "observations": {
+      "audit_rows": 1,
+      "candidate_retained": true,
+      "dual_value": {
+        "authorized_value": {
+          "quantity": 101
+        },
+        "proposal_reconstructable_by_join": true,
+        "proposed_value": {
+          "quantity": 100
+        },
+        "reviewed_candidate": {
+          "quantity": "q100a"
+        }
+      },
+      "immutability_triggers": 8,
+      "reconstructed_sources": {
+        "batch": "v0:batch",
+        "quantity": "v1:quantity"
+      },
+      "successor_values": {
+        "batch": "A",
+        "quantity": 101
+      }
+    },
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": false
+  },
+  {
+    "case_id": "equal-value-substitution",
+    "database_file": "db/equal-value-substitution__value_audit.db",
+    "expected": "value-audit accepts; candidate-bound rejects",
+    "observations": {
+      "authorized_value": 101,
+      "candidate_proposed_value": 100,
+      "reviewed_candidate": "q100a",
+      "reviewed_candidate_persisted": false,
+      "same_record_and_field": true,
+      "submitted_candidate": "q100b"
+    },
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100b"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": false
+  },
+  {
+    "case_id": "equal-value-substitution",
+    "database_file": "db/equal-value-substitution__candidate_bound.db",
+    "expected": "value-audit accepts; candidate-bound rejects",
+    "observations": {
+      "authorized_value": 101,
+      "candidate_proposed_value": 100,
+      "reviewed_candidate": "q100a",
+      "reviewed_candidate_persisted": true,
+      "same_record_and_field": true,
+      "submitted_candidate": "q100b"
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "candidate_binding"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100b"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "cross-record-candidate",
+    "database_file": "db/cross-record-candidate__value_audit.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "reviewed_candidate": "q100a",
+      "submitted_candidate": "other100",
+      "submitted_record": "R2"
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "candidate_context"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "other100"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "cross-record-candidate",
+    "database_file": "db/cross-record-candidate__candidate_bound.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "reviewed_candidate": "q100a",
+      "submitted_candidate": "other100",
+      "submitted_record": "R2"
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "candidate_context"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "other100"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "stale-version",
+    "database_file": "db/stale-version__value_audit.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "current_values": {
+        "batch": "B",
+        "quantity": 90
+      },
+      "expected_version": 0,
+      "intervening_commit_accepted": true,
+      "version_after_intervening": 1
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "stale_version"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ],
+            [
+              "intervening",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "intervening",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ],
+            [
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ],
+            [
+              "intervening",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "intervening",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ],
+            [
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "intervening commit",
+        "candidate": {
+          "batch": "batchB"
+        },
+        "values": {
+          "batch": "B"
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "note": "approved at version 0",
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "stale-version",
+    "database_file": "db/stale-version__candidate_bound.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "current_values": {
+        "batch": "B",
+        "quantity": 90
+      },
+      "expected_version": 0,
+      "intervening_commit_accepted": true,
+      "version_after_intervening": 1
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "stale_version"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ],
+            [
+              "intervening",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              "{\"batch\":\"batchB\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "intervening",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ],
+            [
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}",
+              "{\"batch\":\"v1:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ],
+            [
+              "intervening",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              "{\"batch\":\"batchB\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "intervening",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ],
+            [
+              1,
+              "{\"batch\":\"B\",\"quantity\":90}",
+              "{\"batch\":\"v1:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "intervening commit",
+        "candidate": {
+          "batch": "batchB"
+        },
+        "values": {
+          "batch": "B"
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "note": "approved at version 0",
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "wrong-value",
+    "database_file": "db/wrong-value__value_audit.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "approved_value": 101,
+      "submitted_value": 102
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 102
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "wrong-value",
+    "database_file": "db/wrong-value__candidate_bound.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "approved_value": 101,
+      "submitted_value": 102
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 102
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "partial-batch",
+    "database_file": "db/partial-batch__value_audit.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "approved_fields": [
+        "quantity",
+        "batch"
+      ],
+      "omitted_field": "batch",
+      "submitted_fields": [
+        "quantity"
+      ]
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\",\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\",\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "batch": "batchB",
+          "quantity": "q100a"
+        },
+        "values": {
+          "batch": "B",
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "partial-batch",
+    "database_file": "db/partial-batch__candidate_bound.db",
+    "expected": "both reject; state unchanged",
+    "observations": {
+      "approved_fields": [
+        "quantity",
+        "batch"
+      ],
+      "omitted_field": "batch",
+      "submitted_fields": [
+        "quantity"
+      ]
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "approved_values"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\",\"quantity\":101}",
+              "{\"batch\":\"batchB\",\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"batch\":\"B\",\"quantity\":101}",
+              "{\"batch\":\"batchB\",\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "batch": "batchB",
+          "quantity": "q100a"
+        },
+        "values": {
+          "batch": "B",
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "injected-failure",
+    "database_file": "db/injected-failure__value_audit.db",
+    "expected": "both roll back every table",
+    "observations": {
+      "injected_after": "CAS update, version insert, and audit insert",
+      "tables_compared": [
+        "approvals",
+        "audits",
+        "candidates",
+        "records",
+        "versions"
+      ]
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "injected_failure"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "note": "injected failure after writes, before commit",
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "injected-failure",
+    "database_file": "db/injected-failure__candidate_bound.db",
+    "expected": "both roll back every table",
+    "observations": {
+      "injected_after": "CAS update, version insert, and audit insert",
+      "tables_compared": [
+        "approvals",
+        "audits",
+        "candidates",
+        "records",
+        "versions"
+      ]
+    },
+    "observed": {
+      "accepted": false,
+      "reason": "injected_failure"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": []
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "approve",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "submit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "note": "injected failure after writes, before commit",
+        "values": {
+          "quantity": 101
+        }
+      }
+    ],
+    "state_unchanged": true
+  },
+  {
+    "case_id": "two-step-copy-forward",
+    "database_file": "db/two-step-copy-forward__value_audit.db",
+    "expected": "both reconstruct exact sources",
+    "observations": {
+      "first_step_accepted": true,
+      "reconstructed_sources": {
+        "batch": "v2:batch",
+        "quantity": "v1:quantity"
+      },
+      "second_step_accepted": true,
+      "stored_matches_reconstruction": null,
+      "stored_sources": null,
+      "successor_versions": [
+        0,
+        1,
+        2
+      ]
+    },
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "policy": "value_audit",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ],
+            [
+              "review-2",
+              "R1",
+              1,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ],
+            [
+              2,
+              "review-2",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":101}",
+              "{\"batch\":\"B\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              2,
+              "{\"batch\":\"B\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              null
+            ],
+            [
+              2,
+              "{\"batch\":\"B\",\"quantity\":101}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              null
+            ],
+            [
+              "review-2",
+              "R1",
+              1,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              null
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              null
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              null
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "commit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "commit",
+        "candidate": {
+          "batch": "batchB"
+        },
+        "note": "quantity is unchanged and must copy forward",
+        "values": {
+          "batch": "B"
+        }
+      }
+    ],
+    "state_unchanged": false
+  },
+  {
+    "case_id": "two-step-copy-forward",
+    "database_file": "db/two-step-copy-forward__candidate_bound.db",
+    "expected": "both reconstruct exact sources",
+    "observations": {
+      "first_step_accepted": true,
+      "reconstructed_sources": {
+        "batch": "v2:batch",
+        "quantity": "v1:quantity"
+      },
+      "second_step_accepted": true,
+      "stored_matches_reconstruction": true,
+      "stored_sources": {
+        "batch": "v2:batch",
+        "quantity": "v1:quantity"
+      },
+      "successor_versions": [
+        0,
+        1,
+        2
+      ]
+    },
+    "observed": {
+      "accepted": true,
+      "reason": "committed"
+    },
+    "policy": "candidate_bound",
+    "post_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ],
+            [
+              "review-2",
+              "R1",
+              1,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              "{\"batch\":\"batchB\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ],
+            [
+              2,
+              "review-2",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":101}",
+              "{\"batch\":\"B\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              2,
+              "{\"batch\":\"B\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+            ],
+            [
+              2,
+              "{\"batch\":\"B\",\"quantity\":101}",
+              "{\"batch\":\"v2:batch\",\"quantity\":\"v1:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "pre_state": {
+      "tables": {
+        "approvals": {
+          "columns": [
+            "approval_id",
+            "record_id",
+            "expected_version",
+            "principal",
+            "values_json",
+            "reviewed_candidates_json"
+          ],
+          "rows": [
+            [
+              "review-1",
+              "R1",
+              0,
+              "reviewer-1",
+              "{\"quantity\":101}",
+              "{\"quantity\":\"q100a\"}"
+            ],
+            [
+              "review-2",
+              "R1",
+              1,
+              "reviewer-1",
+              "{\"batch\":\"B\"}",
+              "{\"batch\":\"batchB\"}"
+            ]
+          ]
+        },
+        "audits": {
+          "columns": [
+            "version",
+            "approval_id",
+            "principal",
+            "before_json",
+            "after_json"
+          ],
+          "rows": [
+            [
+              1,
+              "review-1",
+              "reviewer-1",
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "candidates": {
+          "columns": [
+            "candidate_id",
+            "record_id",
+            "field",
+            "proposed_json"
+          ],
+          "rows": [
+            [
+              "q100a",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q100b",
+              "R1",
+              "quantity",
+              "100"
+            ],
+            [
+              "q101",
+              "R1",
+              "quantity",
+              "101"
+            ],
+            [
+              "other100",
+              "R2",
+              "quantity",
+              "100"
+            ],
+            [
+              "batchB",
+              "R1",
+              "batch",
+              "\"B\""
+            ]
+          ]
+        },
+        "records": {
+          "columns": [
+            "record_id",
+            "version",
+            "values_json"
+          ],
+          "rows": [
+            [
+              "R1",
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}"
+            ]
+          ]
+        },
+        "versions": {
+          "columns": [
+            "version",
+            "values_json",
+            "sources_json"
+          ],
+          "rows": [
+            [
+              0,
+              "{\"batch\":\"A\",\"quantity\":90}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+            ],
+            [
+              1,
+              "{\"batch\":\"A\",\"quantity\":101}",
+              "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+            ]
+          ]
+        }
+      },
+      "triggers": [
+        "freeze_approvals_DELETE",
+        "freeze_approvals_UPDATE",
+        "freeze_audits_DELETE",
+        "freeze_audits_UPDATE",
+        "freeze_candidates_DELETE",
+        "freeze_candidates_UPDATE",
+        "freeze_versions_DELETE",
+        "freeze_versions_UPDATE"
+      ]
+    },
+    "requested_action": [
+      {
+        "action": "commit",
+        "candidate": {
+          "quantity": "q100a"
+        },
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "commit",
+        "candidate": {
+          "batch": "batchB"
+        },
+        "note": "quantity is unchanged and must copy forward",
+        "values": {
+          "batch": "B"
+        }
+      }
+    ],
+    "state_unchanged": false
+  },
+  {
+    "case_id": "paired-reviewed-candidate",
+    "database_file": [
+      "db/paired-reviewed-candidate__value_audit-q100a.db",
+      "db/paired-reviewed-candidate__value_audit-q101.db"
+    ],
+    "expected": "value-audit states identical; candidate-bound differ",
+    "observations": {
+      "authorized_value": 101,
+      "candidate_proposed_values": {
+        "q100a": 100,
+        "q101": 101
+      },
+      "differing_tables": [],
+      "reviewed_candidate_persisted": false,
+      "reviewed_candidates": [
+        "q100a",
+        "q101"
+      ]
+    },
+    "observed": {
+      "differing_tables": [],
+      "states_equal": true
+    },
+    "policy": "value_audit",
+    "requested_action": [
+      {
+        "action": "approve+submit",
+        "candidate": "q100a",
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "approve+submit",
+        "candidate": "q101",
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "note": "identical candidate pools, values, actor, and expected version"
+      }
+    ],
+    "runs": {
+      "q100a": {
+        "database_file": "db/paired-reviewed-candidate__value_audit-q100a.db",
+        "observed": {
+          "accepted": true,
+          "reason": "committed"
+        },
+        "state": {
+          "tables": {
+            "approvals": {
+              "columns": [
+                "approval_id",
+                "record_id",
+                "expected_version",
+                "principal",
+                "values_json",
+                "reviewed_candidates_json"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  "R1",
+                  0,
+                  "reviewer-1",
+                  "{\"quantity\":101}",
+                  null
+                ]
+              ]
+            },
+            "audits": {
+              "columns": [
+                "version",
+                "approval_id",
+                "principal",
+                "before_json",
+                "after_json"
+              ],
+              "rows": [
+                [
+                  1,
+                  "review-1",
+                  "reviewer-1",
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "candidates": {
+              "columns": [
+                "candidate_id",
+                "record_id",
+                "field",
+                "proposed_json"
+              ],
+              "rows": [
+                [
+                  "q100a",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q100b",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q101",
+                  "R1",
+                  "quantity",
+                  "101"
+                ],
+                [
+                  "other100",
+                  "R2",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "batchB",
+                  "R1",
+                  "batch",
+                  "\"B\""
+                ]
+              ]
+            },
+            "records": {
+              "columns": [
+                "record_id",
+                "version",
+                "values_json"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "versions": {
+              "columns": [
+                "version",
+                "values_json",
+                "sources_json"
+              ],
+              "rows": [
+                [
+                  0,
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  null
+                ],
+                [
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  null
+                ]
+              ]
+            }
+          },
+          "triggers": [
+            "freeze_approvals_DELETE",
+            "freeze_approvals_UPDATE",
+            "freeze_audits_DELETE",
+            "freeze_audits_UPDATE",
+            "freeze_candidates_DELETE",
+            "freeze_candidates_UPDATE",
+            "freeze_versions_DELETE",
+            "freeze_versions_UPDATE"
+          ]
+        }
+      },
+      "q101": {
+        "database_file": "db/paired-reviewed-candidate__value_audit-q101.db",
+        "observed": {
+          "accepted": true,
+          "reason": "committed"
+        },
+        "state": {
+          "tables": {
+            "approvals": {
+              "columns": [
+                "approval_id",
+                "record_id",
+                "expected_version",
+                "principal",
+                "values_json",
+                "reviewed_candidates_json"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  "R1",
+                  0,
+                  "reviewer-1",
+                  "{\"quantity\":101}",
+                  null
+                ]
+              ]
+            },
+            "audits": {
+              "columns": [
+                "version",
+                "approval_id",
+                "principal",
+                "before_json",
+                "after_json"
+              ],
+              "rows": [
+                [
+                  1,
+                  "review-1",
+                  "reviewer-1",
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "candidates": {
+              "columns": [
+                "candidate_id",
+                "record_id",
+                "field",
+                "proposed_json"
+              ],
+              "rows": [
+                [
+                  "q100a",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q100b",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q101",
+                  "R1",
+                  "quantity",
+                  "101"
+                ],
+                [
+                  "other100",
+                  "R2",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "batchB",
+                  "R1",
+                  "batch",
+                  "\"B\""
+                ]
+              ]
+            },
+            "records": {
+              "columns": [
+                "record_id",
+                "version",
+                "values_json"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "versions": {
+              "columns": [
+                "version",
+                "values_json",
+                "sources_json"
+              ],
+              "rows": [
+                [
+                  0,
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  null
+                ],
+                [
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  null
+                ]
+              ]
+            }
+          },
+          "triggers": [
+            "freeze_approvals_DELETE",
+            "freeze_approvals_UPDATE",
+            "freeze_audits_DELETE",
+            "freeze_audits_UPDATE",
+            "freeze_candidates_DELETE",
+            "freeze_candidates_UPDATE",
+            "freeze_versions_DELETE",
+            "freeze_versions_UPDATE"
+          ]
+        }
+      }
+    },
+    "state_unchanged": null
+  },
+  {
+    "case_id": "paired-reviewed-candidate",
+    "database_file": [
+      "db/paired-reviewed-candidate__candidate_bound-q100a.db",
+      "db/paired-reviewed-candidate__candidate_bound-q101.db"
+    ],
+    "expected": "value-audit states identical; candidate-bound differ",
+    "observations": {
+      "authorized_value": 101,
+      "candidate_proposed_values": {
+        "q100a": 100,
+        "q101": 101
+      },
+      "differing_tables": [
+        "approvals"
+      ],
+      "reviewed_candidate_persisted": true,
+      "reviewed_candidates": [
+        "q100a",
+        "q101"
+      ]
+    },
+    "observed": {
+      "differing_tables": [
+        "approvals"
+      ],
+      "states_equal": false
+    },
+    "policy": "candidate_bound",
+    "requested_action": [
+      {
+        "action": "approve+submit",
+        "candidate": "q100a",
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "action": "approve+submit",
+        "candidate": "q101",
+        "values": {
+          "quantity": 101
+        }
+      },
+      {
+        "note": "identical candidate pools, values, actor, and expected version"
+      }
+    ],
+    "runs": {
+      "q100a": {
+        "database_file": "db/paired-reviewed-candidate__candidate_bound-q100a.db",
+        "observed": {
+          "accepted": true,
+          "reason": "committed"
+        },
+        "state": {
+          "tables": {
+            "approvals": {
+              "columns": [
+                "approval_id",
+                "record_id",
+                "expected_version",
+                "principal",
+                "values_json",
+                "reviewed_candidates_json"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  "R1",
+                  0,
+                  "reviewer-1",
+                  "{\"quantity\":101}",
+                  "{\"quantity\":\"q100a\"}"
+                ]
+              ]
+            },
+            "audits": {
+              "columns": [
+                "version",
+                "approval_id",
+                "principal",
+                "before_json",
+                "after_json"
+              ],
+              "rows": [
+                [
+                  1,
+                  "review-1",
+                  "reviewer-1",
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "candidates": {
+              "columns": [
+                "candidate_id",
+                "record_id",
+                "field",
+                "proposed_json"
+              ],
+              "rows": [
+                [
+                  "q100a",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q100b",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q101",
+                  "R1",
+                  "quantity",
+                  "101"
+                ],
+                [
+                  "other100",
+                  "R2",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "batchB",
+                  "R1",
+                  "batch",
+                  "\"B\""
+                ]
+              ]
+            },
+            "records": {
+              "columns": [
+                "record_id",
+                "version",
+                "values_json"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "versions": {
+              "columns": [
+                "version",
+                "values_json",
+                "sources_json"
+              ],
+              "rows": [
+                [
+                  0,
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+                ],
+                [
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+                ]
+              ]
+            }
+          },
+          "triggers": [
+            "freeze_approvals_DELETE",
+            "freeze_approvals_UPDATE",
+            "freeze_audits_DELETE",
+            "freeze_audits_UPDATE",
+            "freeze_candidates_DELETE",
+            "freeze_candidates_UPDATE",
+            "freeze_versions_DELETE",
+            "freeze_versions_UPDATE"
+          ]
+        }
+      },
+      "q101": {
+        "database_file": "db/paired-reviewed-candidate__candidate_bound-q101.db",
+        "observed": {
+          "accepted": true,
+          "reason": "committed"
+        },
+        "state": {
+          "tables": {
+            "approvals": {
+              "columns": [
+                "approval_id",
+                "record_id",
+                "expected_version",
+                "principal",
+                "values_json",
+                "reviewed_candidates_json"
+              ],
+              "rows": [
+                [
+                  "review-1",
+                  "R1",
+                  0,
+                  "reviewer-1",
+                  "{\"quantity\":101}",
+                  "{\"quantity\":\"q101\"}"
+                ]
+              ]
+            },
+            "audits": {
+              "columns": [
+                "version",
+                "approval_id",
+                "principal",
+                "before_json",
+                "after_json"
+              ],
+              "rows": [
+                [
+                  1,
+                  "review-1",
+                  "reviewer-1",
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "candidates": {
+              "columns": [
+                "candidate_id",
+                "record_id",
+                "field",
+                "proposed_json"
+              ],
+              "rows": [
+                [
+                  "q100a",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q100b",
+                  "R1",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "q101",
+                  "R1",
+                  "quantity",
+                  "101"
+                ],
+                [
+                  "other100",
+                  "R2",
+                  "quantity",
+                  "100"
+                ],
+                [
+                  "batchB",
+                  "R1",
+                  "batch",
+                  "\"B\""
+                ]
+              ]
+            },
+            "records": {
+              "columns": [
+                "record_id",
+                "version",
+                "values_json"
+              ],
+              "rows": [
+                [
+                  "R1",
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}"
+                ]
+              ]
+            },
+            "versions": {
+              "columns": [
+                "version",
+                "values_json",
+                "sources_json"
+              ],
+              "rows": [
+                [
+                  0,
+                  "{\"batch\":\"A\",\"quantity\":90}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v0:quantity\"}"
+                ],
+                [
+                  1,
+                  "{\"batch\":\"A\",\"quantity\":101}",
+                  "{\"batch\":\"v0:batch\",\"quantity\":\"v1:quantity\"}"
+                ]
+              ]
+            }
+          },
+          "triggers": [
+            "freeze_approvals_DELETE",
+            "freeze_approvals_UPDATE",
+            "freeze_audits_DELETE",
+            "freeze_audits_UPDATE",
+            "freeze_candidates_DELETE",
+            "freeze_candidates_UPDATE",
+            "freeze_versions_DELETE",
+            "freeze_versions_UPDATE"
+          ]
+        }
+      }
+    },
+    "state_unchanged": null
+  }
+]
