@@ -271,8 +271,8 @@ approval flag + CAS** 设计完成检查表。结论：
 以下命令使用冻结发布包的 Python 环境（Python 3.11.9 + SQLAlchemy 2.0.51 + SQLite 3.45.1）：
 
 ```bash
-PY=/d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/implementation/.venv/Scripts/python.exe
-R=/d/Claude_Design/auto-decte-paper/revisions/2026-09-08-r22-review-response
+PY=<PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/source/implementation/.venv/Scripts/python.exe
+R=<PROJECT_ROOT>/revisions/2026-09-08-r22-review-response
 
 # R1：回归测试（13 passed）
 cd $R/code/implementation-fixed && $PY -m pytest tests/unit/test_canonical_value_equality.py \
@@ -288,13 +288,13 @@ $PY -m conformance.run_catalogue --output $R/evidence/r1-value-equality/conforma
 
 # R3：v1/v2 rule-hit 对照
 $PY $R/code/code/scripts/audit_recognition_v2.py \
-  --audit-csv /d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/evidence/agent-authority-benchmark-v2/analysis/2026-09-05-recognition-semantic-audit/recognition_semantic_audit.csv \
+  --audit-csv <PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/evidence/agent-authority-benchmark-v2/analysis/2026-09-05-recognition-semantic-audit/recognition_semantic_audit.csv \
   --output-dir $R/evidence/r3-audit-v2
 
 # R4：strict vs endpoint 敏感性分析
 $PY $R/code/code/scripts/endpoint_sensitivity.py \
-  --runs-root /d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/evidence/agent-authority-benchmark-v2/final/2026-09-01-three-config-10x/runs \
-  --normalized /d/Claude_Design/auto-decte-paper/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/evidence/agent-authority-benchmark-v2/final/2026-09-01-three-config-10x/normalized/runs.json \
+  --runs-root <PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/evidence/agent-authority-benchmark-v2/final/2026-09-01-three-config-10x/runs \
+  --normalized <PROJECT_ROOT>/release-staging/auto-dete-r21-github-2026-09-05/r21-jss/evidence/agent-authority-benchmark-v2/final/2026-09-01-three-config-10x/normalized/runs.json \
   --output-dir $R/evidence/r4-endpoint
 
 # R5：见证检查器 + copy-forward control

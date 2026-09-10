@@ -32,17 +32,26 @@ The script takes about 6 seconds on a standard laptop.
 
 | Comparison | N | kappa | case-level 95% CI | model-level 95% CI | cell-level 95% CI | AC1 | PABAK |
 |---|---:|---:|---|---|---|---:|---:|
-| A1--A2 (1/0/9) | 360 | 0.974 | [0.910, 1.000] | [0.952, 1.000] | [0.935, 1.000] | 0.997 | 0.996 |
-| A1--rule (1/0) | 335 | 0.410 | [0.106, 0.660] | [0.000, 0.885] | [0.000, 0.831] | 0.965 | 0.934 |
-| A2--rule (1/0) | 335 | 0.410 | [0.106, 0.660] | [0.000, 0.885] | [0.000, 0.819] | 0.965 | 0.934 |
+| A1--A2 (1/0/9) | 360 | 0.974 | [0.911, 1.000] | [0.952, 1.000] | [0.937, 1.000] | 0.997 | 0.996 |
+| A1--rule (1/0) | 335 | 0.410 | [0.113, 0.661] | [0.000, 0.885] | [0.000, 0.831] | 0.965 | 0.934 |
+| A2--rule (1/0) | 335 | 0.410 | [0.113, 0.661] | [0.000, 0.885] | [0.000, 0.831] | 0.965 | 0.934 |
 
-The case- and model-level recomputed intervals agree with the reference values
-to Monte Carlo precision. The A1 cell-level interval reproduces
-`[0.000, 0.831]`; the A2 cell-level reference is `[0.000, 0.819]`, and the
-recomputation gives `[0.000, 0.831]` (both include zero, and the difference is
-within bootstrap variation). The A1--A2 row is inter-human agreement; the
-A1--rule and A2--rule rows are human--rule agreement, not inter-human
-agreement.
+All values in this table are produced by `recompute_irr.py` with seed 20260910
+and are the values reported in the manuscript and supplement. An earlier
+analysis implementation produced case-level human--rule `[0.106, 0.660]`,
+cell-level A2--rule `[0.000, 0.819]`, inter-human `[0.910, 1.000]`, and
+cell-level inter-human `[0.935, 1.000]`; those values are superseded by the
+reproducible script, and the archived per-unit reports were aligned to it.
+The A1--A2 row is inter-human agreement; the A1--rule and A2--rule rows are
+human--rule agreement, not inter-human agreement.
+
+## Coder identity
+
+A1 is the second author (X.W.); A2 is a non-author volunteer. The archival
+file names `FIRST-HUMAN-*` are retained for provenance and are not a claim of
+non-authorship. The author coder was not blind to the study hypotheses; the
+non-author coder was. The `第一(非作者)` / `第二(非作者)` column labels in
+older derived reports were renamed to `A1(作者)` / `A2(非作者)`.
 
 ## Raw-file hashes
 
@@ -67,6 +76,7 @@ extraction is consistent.
 The 12 author-adjudicated items (T153 and the 11 pre-adjudication human--rule
 disagreements) are recorded in `2026-09-10-case/adjudicated-labels.csv`. The
 `adjudicated_label` column in the normalized CSV reproduces that file. The
-adjudication is disclosed as author adjudication, not independent third-party
-adjudication; the pre-adjudication disagreements remain visible in the
+adjudication is disclosed as author-involved annotation and author
+adjudication, not independent third-party adjudication; one coder is an author
+and the adjudicator is the other author; the pre-adjudication disagreements remain visible in the
 `disagreements-*.csv` files.
