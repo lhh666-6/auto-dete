@@ -13,6 +13,9 @@ Target venue: Journal of Systems and Software. The integrated current manuscript
 
 Verify the package against its manifest with `cd latest && python verify_latest.py`.
 
+- [Independent reproducibility verification, 2026-09-11](reproduction/REPRODUCIBILITY-VERIFICATION-2026-09-11.md) — per-RQ verdict, environment, exact commands, and the items that are not bit-reproducible
+- [Verification probes](reproduction/tools/) — read-only scripts used for that report
+
 ## Earlier r28 handoff — `r27-jss/`
 
 - [Main manuscript (58 pages)](r27-jss/current/paper/main.pdf)

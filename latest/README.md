@@ -30,7 +30,12 @@ evidence untouched.
      pure canonical no-op being rejected fail-closed;
    - `python conformance/run_catalogue.py --output <fresh-dir>` runs the declared
      fault catalogue against the reference realization, and
-     `python conformance/verify_catalogue_results.py` checks the result.
+     `python conformance/verify_catalogue_results.py` checks the result;
+   - `python conformance/verify_formal_refinement_records.py` checks the deposited
+     29-case formal--concrete refinement freeze (nine SAT projections, twenty
+     UNSAT mapping mutants). To rebuild that freeze from source instead, run
+     `python conformance/generate_formal_refinement_records.py --output <fresh-dir>`
+     and point `conformance/ACTIVE_REFINEMENT_FREEZE.txt` at it.
 4. **Reproduce the annotation analysis.** From
    `evidence/human-annotation-2026-09-10/`: `python -B recompute_irr.py
    --labels labels-A1-A2-normalized.csv --out <fresh.json> --replicates 5000
@@ -45,4 +50,4 @@ Runtime verification in this package was performed on CPython 3.11.9; the
 implementation, the catalogue, and the analysis scripts all run in that
 environment.
 
-Use new output paths outside this sealed tree for reruns. Formal gate, from this directory: `./formal/alloy/batch/verify_batch_package.ps1 -RequireRawResults`. Witness tests, from code/formal-fixed/: `python -B -m unittest discover -s tests -v`. Full package verification against the manifest, from this directory: `python verify_latest.py`.
+Use new output paths outside this sealed tree for reruns. Formal gate, from this directory: `./formal/alloy/batch/verify_batch_package.ps1 -RequireRawResults`. To re-execute the Alloy batch rather than verify it, use `./formal/alloy/batch/run_batch_alloy.ps1 -FreezeId <new-id> -OutputRoot <dir-outside-this-tree>`, which runs the 72 commands on the bundled `tools/jre21` runtime and leaves the sealed tree untouched; omitting `-OutputRoot` writes a new freeze inside the tree. Witness tests, from code/formal-fixed/: `python -B -m unittest discover -s tests -v`. Full package verification against the manifest, from this directory: `python verify_latest.py`.
