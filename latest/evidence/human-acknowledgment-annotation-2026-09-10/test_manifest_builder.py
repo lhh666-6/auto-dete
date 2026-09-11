@@ -43,7 +43,10 @@ class ManifestBuilderTests(unittest.TestCase):
                 citations=54,
             )
 
-            self.assertEqual(manifest["revision"], "latest-post-r28-human-annotation-2026-09-10")
+            # Assert against the module's own revision so that a revision bump
+            # cannot leave this test asserting a stale value.
+            self.assertTrue(module.REVISION)
+            self.assertEqual(manifest["revision"], module.REVISION)
             self.assertEqual(manifest["pages"], {"main": 59, "supplement": 16})
             self.assertEqual(
                 list(manifest["files"]),
