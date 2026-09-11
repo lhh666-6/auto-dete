@@ -168,7 +168,7 @@ def build_cost_characterization(stem: Path) -> dict[str, object]:
     ac.set_ylabel("Fields", fontsize=FONT["label"])
     ac.set_title("c  Optimized trace", loc="left", fontweight="bold",
                  fontsize=FONT["title"], pad=18)
-    ac.text(0, 1.06, "p50 ms; 12 SQL statements; values in table",
+    ac.text(0, 1.06, "p50 ms; 12 SQL statements; values in supplement",
             transform=ac.transAxes, fontsize=FONT["legend"], color=DARK_GREY)
     colorbar = fig.colorbar(mesh, ax=ac, fraction=0.040, pad=0.02, aspect=18)
     colorbar.set_label("p50 (ms)", fontsize=FONT["legend"])
@@ -221,7 +221,7 @@ def build_behavior_authority(stats_path: Path, stem: Path) -> dict[str, object]:
     fig = plt.figure(figsize=(CANVAS_INCHES, 3.3))
     grid = fig.add_gridspec(
         1, 2, width_ratios=[1.45, 1.0],
-        left=0.125, right=0.985, top=0.80, bottom=0.30, wspace=0.22,
+        left=0.155, right=0.985, top=0.80, bottom=0.30, wspace=0.22,
     )
     ax_task = fig.add_subplot(grid[0, 0])
     ax_authority = fig.add_subplot(grid[0, 1])
@@ -282,7 +282,7 @@ def build_behavior_authority(stats_path: Path, stem: Path) -> dict[str, object]:
         (0.52, "Invalid-tuple admission calls", "A2--A9: admission invoked",
          data["host_operations"]["fixed_invalid_tuple_admission_calls"],
          CATEGORICAL[0], LIGHT_BLUE),
-        (0.02, "Capability-unavailable checks", "A1/A10: no admission call",
+        (0.02, "Unavailable capability", "A1/A10: no admission call",
          data["host_operations"]["capability_unavailable_checks"],
          CATEGORICAL[2], LIGHT_GREEN),
     ):

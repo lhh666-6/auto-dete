@@ -166,24 +166,24 @@ def workflow():
     arrow(ax,(65,34),(65,22),ACCENT_RED,True)
     arrow(ax,(115.5,34),(115.5,22),ACCENT_RED,True)
     label(ax,120,28,'Fail / CAS loss',9.5,color=ACCENT_RED,ha='left')
-    label(ax,90,3,'Solid: admission flow. Dashed: rejection or rollback.',9.5,color=MUTED)
+    label(ax,90,3,'Trusted review channel. Dashed: rejection or rollback.',9.5,color=MUTED)
     return export(fig,'figure-1-admission-workflow')
 
 
 def evidence():
-    fig,ax=canvas(112)
-    label(ax,90,107,'What each contribution establishes',10.5,True)
+    fig,ax=canvas(142)
+    label(ax,90,137,'What each contribution establishes',10.5,True)
     cards=[
-      (2,59,BLUE_BG,BLUE,'C1  Admission contract',
+      (2,89,BLUE_BG,BLUE,'C1  Admission contract',
        'Preserves proposal and human\nvalue authority in one successor.',
        'Exact candidate + authorized value\n+ complete field-source lineage'),
-      (95,59,PURPLE_BG,PURPLE,'C2  Conditional characterization',
+      (95,89,PURPLE_BG,PURPLE,'C2  Conditional characterization',
        'Shows which omissions hide\neach declared failure family.',
        'Paired histories / Proposition 1\nWithin the declared observation model'),
-      (2,17,GREEN_BG,GREEN,'C3  Realization checks',
+      (2,47,GREEN_BG,GREEN,'C3  Realization checks',
        'Checks the contract in a model\nand the persisted implementation.',
        'Alloy, projections and fault tests\nBounded; implementation-specific'),
-      (95,17,ORANGE_BG,'#995A14','C4  Cost and agent observations',
+      (95,47,ORANGE_BG,'#995A14','C4  Cost and agent observations',
        'Characterizes cost and separates\ntask behavior from host authority.',
        'Persistence / trace / agent workloads\nFixed environment and restricted tools')]
     for x,y,bg,col,title,claim,support in cards:
@@ -191,14 +191,18 @@ def evidence():
         label(ax,x+4,y+32,title,9.7,True,col,ha='left')
         label(ax,x+4,y+22,claim,9.5,ha='left')
         label(ax,x+4,y+9,support,9.5,color=MUTED,ha='left')
-    label(ax,90,8,'Reproducibility: raw records → normalized inputs → reported outputs',9.5)
+    box(ax,2,10,176,30,GREY_BG)
+    label(ax,6,34,'C5  Standard-practice boundary',9.7,True,INK,ha='left')
+    label(ax,6,24,'Value-audit and enriched-context controls isolate exact review linkage.',9.5,ha='left')
+    label(ax,6,15,'Distinct identities can remain equivalent under recorded review observations.',9.0,color=MUTED,ha='left')
+    label(ax,90,3,'Reproducibility: raw records -> normalized inputs -> reported outputs',9.0)
     return export(fig,'figure-2-evidence-map')
 
 
 if __name__=='__main__':
     # Values are inherited from the unchanged frozen paper tables and results.
     results=(ROOT/'sections/08-results.tex').read_text(encoding='utf-8')
-    for token in ['66','354','33','2,000','7,200','1,260','320','335','720','179','93']:
+    for token in ['72','354','33','2,000','7,200','1,260','320','335','720','179','93']:
         assert token in results, token
     audit={'figure_1':workflow(),'figure_2':evidence(),
            'statistics':'Frozen counts, not new experiments; separate denominators; no inferential test performed.',

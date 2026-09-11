@@ -6,8 +6,8 @@
 
 Target venue: Journal of Systems and Software. The integrated current manuscript, supplement, repaired source, and evidence are under [`latest/`](latest/).
 
-- [Main manuscript (62 pages)](latest/paper/main.pdf)
-- [Supplement (19 pages)](latest/paper/supplement.pdf)
+- [Main manuscript (63 pages)](latest/paper/main.pdf)
+- [Supplement (20 pages)](latest/paper/supplement.pdf)
 - [Package notes, reproduction commands, and verification summary](latest/README.md)
 - [Complete integrated package](latest/)
 

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 
-REVISION = "latest-post-r28-human-annotation-2026-09-10"
+REVISION = "latest-review-refinement-2026-09-11"
 STATUS = "INTEGRATED_CANDIDATE_PENDING_AUTHOR_CONFIRMATIONS"
 EXCLUDED_DIRECTORY_NAMES = {
     "out",
