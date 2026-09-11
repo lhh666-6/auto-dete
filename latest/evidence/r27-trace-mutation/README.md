@@ -33,7 +33,7 @@ successor version, after which the committed source is not unique and
 `traceComplete` fails. The two explicit preconditions are exactly the
 well-formedness properties that the concrete service enforces through
 predecessor trace validation, the unique (form_id, created_version, field_key) database constraint, and transactional compare-and-swap. The r27 bounded catalogue
-therefore records 34 commands per profile (68 total), with expected UNSAT for
+therefore records the assertion in a batch catalogue that now holds 36 commands per profile (72 total), with expected UNSAT for
 the new assertion.
 
 ## Mutation control
@@ -62,7 +62,7 @@ From `r27-jss/current/`, with the bundled JRE and Alloy jar:
 & 'formal/alloy/batch/run_batch_alloy.ps1' -FreezeId '<new-freeze-id>'
 ```
 
-The main catalogue is in `formal/alloy/batch/raw-results/2026-09-10-trace-positive/`.
+The main catalogue is in `formal/alloy/batch/raw-results/<id>/`, where `<id>` is named by `formal/alloy/batch/ACTIVE_FREEZE.txt` (currently `2026-09-11-trace-witness`).
 To reproduce the mutation counterexample directly:
 
 ```powershell

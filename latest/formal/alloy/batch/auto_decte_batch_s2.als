@@ -19,6 +19,15 @@ check P6MissingAnchorIncomplete for 3 Record, 4 Field, 8 Version, 7 Candidate, 7
 check P6DuplicateSourceVersionIncomplete for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 7 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator
 check LegalAdmissionTraceCompleteUnderWellFormedPre for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 7 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator
 
+// Non-empty witnesses for the antecedent of the positive trace assertion:
+// the antecedent is reachable, so the check above is not vacuously true.
+run SAT_TRACE_wellformed_pre_initial { some e : BatchAdmissionEvent |
+  wellFormedTracePrecondition[e] and
+  (no r : Record, f : Field | some e.pre.committedSource[r][f]) } for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 7 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator
+run SAT_TRACE_wellformed_pre_carryforward { some e : BatchAdmissionEvent |
+  wellFormedTracePrecondition[e] and
+  (some r : Record, f : Field | some e.pre.committedSource[r][f]) } for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 7 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator
+
 run SAT_BATCH_accept_multi { some e : BatchAdmissionEvent | batchAcceptMulti[e] } for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 7 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator
 run SAT_BATCH_correction_multi { some e : BatchAdmissionEvent | batchCorrectionMulti[e] } for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 8 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator
 run SAT_BATCH_mixed_accept_correction { some e : BatchAdmissionEvent | batchMixed[e] } for 3 Record, 4 Field, 8 Version, 7 Candidate, 7 Certificate, 7 Authorization, 7 Evidence, 8 Value, 4 Producer, 4 Principal, 7 CertId, 5 State, 5 Event, 8 AdmissionItem, 8 Transition, 3 EvidenceContent, 4 EvidenceLocator

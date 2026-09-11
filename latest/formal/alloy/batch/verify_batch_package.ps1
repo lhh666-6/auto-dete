@@ -77,7 +77,7 @@ if (Test-Path -LiteralPath $requiredFiles[2]) {
         if ($row.expected -notin @('SAT','UNSAT')) {
             $errors.Add("invalid expected result for $($row.command): $($row.expected)")
         }
-        if ($row.class -notin @('well-formedness','preservation','legal-witness','ablation-witness','attack-witness','regression')) {
+        if ($row.class -notin @('well-formedness','preservation','legal-witness','trace-witness','ablation-witness','attack-witness','regression')) {
             $errors.Add("invalid command class for $($row.command): $($row.class)")
         }
     }

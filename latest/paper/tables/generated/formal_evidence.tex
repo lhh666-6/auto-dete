@@ -1,16 +1,18 @@
 % Generated from the frozen r27 Alloy receipts.
-% Source: formal/alloy/batch/command_manifest.tsv and formal/alloy/batch/raw-results/2026-09-10-trace-positive/command_results.json
-% r27 extension: +1 positive trace-completeness assertion per profile (34 commands per profile; 68 total).
+% Source: formal/alloy/batch/command_manifest.tsv and formal/alloy/batch/raw-results/2026-09-11-trace-witness/command_results.json
+% r27 extension: +1 positive trace-completeness assertion per profile.
+% r31 extension: +2 non-empty well-formed-precondition witnesses per profile (36 commands per profile; 72 total).
 \begin{table}[t]
 \centering
-\caption{Bounded Alloy outcomes in the two declared scopes. SAT denotes a found witness; UNSAT denotes no instance within the encoded scope.}
+\footnotesize
+\caption{Bounded Alloy outcomes in the two declared scopes. SAT denotes a found witness; UNSAT denotes no instance within the encoded scope. Trace SAT counts witnesses to the antecedent of the conditional positive trace assertion.}
 \label{tab:alloy-outcomes}
-\begin{tabularx}{\linewidth}{@{}l*{5}{>{\centering\arraybackslash}X}>{\centering\arraybackslash}p{0.15\linewidth}@{}}
+\begin{tabularx}{\linewidth}{@{}l*{6}{>{\centering\arraybackslash}X}>{\centering\arraybackslash}p{0.13\linewidth}@{}}
 \toprule
-Profile & Legal SAT & Ablation SAT & Attack SAT & Total SAT & Total UNSAT & Commands \\
+Profile & Legal SAT & Ablation SAT & Attack SAT & Trace SAT & Total SAT & Total UNSAT & Commands \\
 \midrule
-S1 & 6 & 11 & 3 & 20 & 14 & 34 \\
-S2 & 6 & 11 & 3 & 20 & 14 & 34 \\
+S1 & 6 & 11 & 3 & 2 & 22 & 14 & 36 \\
+S2 & 6 & 11 & 3 & 2 & 22 & 14 & 36 \\
 \bottomrule
 \end{tabularx}
 \end{table}

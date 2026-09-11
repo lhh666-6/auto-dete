@@ -1,8 +1,19 @@
-Auto-Decte — Reviewer artifact (FINAL)
-======================================
+Auto-Decte — Reviewer artifact (historical ESWA-era package)
+============================================================
 
-Source code snapshot, frozen experiment outputs, and reproduction commands for
-the submitted manuscript (Expert Systems with Applications).
+CURRENT SUBMISSION CANDIDATE — Journal of Systems and Software
+--------------------------------------------------------------
+The file you are reading documents an earlier artifact package retained for
+provenance. It is NOT the current manuscript package.
+
+  latest/paper/main.pdf         current main manuscript (62 pages)
+  latest/paper/supplement.pdf   current supplement (19 pages)
+  latest/                       current sources, evidence, and manifest
+  latest/verify_latest.py       check the current package against its manifest
+
+The remainder of this file documents the earlier ESWA-era package: source code
+snapshot, frozen experiment outputs, and reproduction commands for the earlier
+submission to Expert Systems with Applications.
 
 Provenance
 ----------

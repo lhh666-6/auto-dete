@@ -8,7 +8,7 @@ The completed workbook is preserved without modification as `completed-blind-ann
 
 ## Requirements
 
-- Python 3.12 or newer
+- Python 3.11 or newer. The analysis uses only the standard library and was verified on CPython 3.11.9, which is also the version the reference implementation targets, so one environment covers both.
 - NumPy
 - openpyxl
 
@@ -59,5 +59,6 @@ python -B .\evidence\human-acknowledgment-annotation-2026-09-10\build_latest_man
 - `analysis-report.json`: machine-readable provenance, results, and interpretation constraints.
 - `analysis-report.md`: concise narrative summary.
 - `../../paper/tables/generated/acknowledgment_human_rule.tex`: generated supplement table.
+- `TEXTUAL-ACKNOWLEDGMENT-RUBRIC-2026-09-07.md`: the shared rubric issued with the blind package, byte-exact (SHA-256 `eb064e5f26d9d35157e248890d4283dfa00cf57e4337cb8b3090ddc1b579f3ee`). It states that a human--script agreement statistic is not two-human inter-rater reliability and that adjudicated agreement must not be described as pre-adjudication agreement.
 
 The script fails closed on missing or duplicate case IDs, non-binary labels, missing rationales, unexpected endpoint/scenario denominators, duplicate assistant text, missing matches, ambiguous matches, endpoint mismatches, and inconsistent frozen audit metadata.

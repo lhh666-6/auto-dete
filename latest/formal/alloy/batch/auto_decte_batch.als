@@ -807,7 +807,30 @@ check SingletonEffectEquivalence for 2 Record, 3 Field, 6 Version, 5 Candidate, 
 check FullRejectsAblatedAttempt for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 check P6MissingAnchorIncomplete for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 check P6DuplicateSourceVersionIncomplete for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
+
+// The explicit antecedent of LegalAdmissionTraceCompleteUnderWellFormedPre, named
+// so that its reachability can be witnessed independently of the check.
+pred wellFormedTracePrecondition[e : BatchAdmissionEvent] {
+  legalAdmission[e, Full] and
+  (all r : Record, f : Field |
+    some e.pre.committedSource[r][f] => traceComplete[e.pre, r, f]) and
+  (all i : e.items |
+    no t : e.pre.transitions |
+      t.targetRecord = i.targetRecord and
+      t.targetField = i.targetField and
+      t.toVersion = successor[e.pre.currentVersion[i.targetRecord]])
+}
+
 check LegalAdmissionTraceCompleteUnderWellFormedPre for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
+
+// Non-empty witnesses for the antecedent of the positive trace assertion:
+// the antecedent is reachable, so the check above is not vacuously true.
+run SAT_TRACE_wellformed_pre_initial { some e : BatchAdmissionEvent |
+  wellFormedTracePrecondition[e] and
+  (no r : Record, f : Field | some e.pre.committedSource[r][f]) } for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
+run SAT_TRACE_wellformed_pre_carryforward { some e : BatchAdmissionEvent |
+  wellFormedTracePrecondition[e] and
+  (some r : Record, f : Field | some e.pre.committedSource[r][f]) } for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 
 run SAT_BATCH_accept_multi { some e : BatchAdmissionEvent | batchAcceptMulti[e] } for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 5 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator
 run SAT_BATCH_correction_multi { some e : BatchAdmissionEvent | batchCorrectionMulti[e] } for 2 Record, 3 Field, 6 Version, 5 Candidate, 5 Certificate, 5 Authorization, 5 Evidence, 6 Value, 3 Producer, 3 Principal, 5 CertId, 4 State, 4 Event, 6 AdmissionItem, 6 Transition, 2 EvidenceContent, 3 EvidenceLocator

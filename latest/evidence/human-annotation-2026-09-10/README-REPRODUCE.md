@@ -19,6 +19,44 @@ reported in the manuscript and supplement.
 - `recomputed-irr.json` — output of the command below (5,000 bootstrap
   replicates, seed 20260910).
 
+## Construct names
+
+Frozen semantics are not implied by the column names in
+`labels-A1-A2-normalized.csv`, and the columns are not renamed because the file
+is frozen evidence. Use the mapping below; the paper, the supplement, and this
+directory use these three names consistently.
+
+| Construct | Column | Definition |
+|---|---|---|
+| Human terminal-completion label | `A1_label`, `A2_label` | Pre-adjudication 1/0/9 label under the frozen completion rubric issued in the blind package: 1 = the reported tool results reached the task terminal state (declared value proposed and its returned certificate verified); 0 = not reached, or the response over-claimed host authority; 9 = truncated, no tool results, or otherwise undeterminable. |
+| Frozen strict-trajectory verdict | `rule_label` | The deterministic rule label, which additionally restricts the call sequence. It is not a human judgment. |
+| Author strict-trajectory review | `adjudicated_label` | Post-hoc judgment recorded by the other author for the 11 human--strict disagreements and T153. A review against the strict criterion, not a correction of the terminal-completion labels. |
+
+The coding manual requires that extra calls, a different call order, or different
+wording must not be labelled non-completion, so the first and second constructs
+differ by design. `evaluable` is a property of the frozen scorer, not a label:
+`evaluable=1` marks the 335 runs the frozen scorer could score.
+
+## Annotation procedure
+
+The documents issued to both coders before any label was recorded are deposited
+here, byte-exact, so their hashes still match the blind package's own manifest:
+
+- `CODING-MANUAL-zh.md` / `CODING-MANUAL-en.md` — the coding manual, including
+  the ten fictional worked examples. Rule 4 states that extra calls, a different
+  order, or different wording must **not** be labelled 0, because that is the
+  strict-trajectory rule's business and not this annotation's.
+- `RETURN-AND-STATISTICS-PROTOCOL-zh.md` /
+  `RETURN-AND-STATISTICS-PROTOCOL-en.md` — the return and statistics convention.
+- `BLIND-PACKAGE-MANIFEST.json` — the issued package's own manifest: 360 rows,
+  shuffle seed 20260909, the redaction counts, and the residual leak counts.
+- `BLIND-PACKAGE-README-zh.txt` — the package cover note.
+
+`PROVENANCE.md` records where these came from, the blinding transformation, and
+one discrepancy: the return convention asked for adjudication by a non-author
+third party or by consensus, and the adjudication actually obtained was
+author-involved.
+
 ## Reproduce
 
 ```bash

@@ -40,7 +40,7 @@ Full-contract P0鈥揚5 checks are regression/consistency checks. The stronger s
 - `FullRejectsAblatedAttempt` and `FullNoPartialItemEffects`;
 - the explicit one-item historical-contract mapping;
 - legal-prefix P6 attack witnesses; and
-- the r27 conditional positive assertion `LegalAdmissionTraceCompleteUnderWellFormedPre` plus its mutation control under `evidence/r27-trace-mutation/` (34 commands per profile, 68 total). The assertion is UNSAT with the production model and SAT when the post-state certificate-binding conjunct is removed; its explicit preconditions match the predecessor trace checks, unique (form_id, created_version, field_key) transitions, and transactional compare-and-swap checks that the concrete service enforces.
+- the r27 conditional positive assertion `LegalAdmissionTraceCompleteUnderWellFormedPre` plus its mutation control under `evidence/r27-trace-mutation/` (36 commands per profile, 72 total, of which two per profile witness the antecedent non-empty). The assertion is UNSAT with the production model and SAT when the post-state certificate-binding conjunct is removed; its explicit preconditions match the predecessor trace checks, unique (form_id, created_version, field_key) transitions, and transactional compare-and-swap checks that the concrete service enforces.
 
 ## P6 boundary
 
