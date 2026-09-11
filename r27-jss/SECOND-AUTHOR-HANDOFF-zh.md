@@ -7,7 +7,7 @@
 - 主稿：`current/paper/main.pdf`（58 页），源文件 `current/paper/main.tex` 与 `sections/`。
 - 补充：`current/paper/supplement.pdf`（15 页），源文件 `current/paper/supplement.tex`。
 - 核查记录：`current/evidence/r28-handoff-verification/verification.json`。
-- 当前固定版本：`r28-jss-2026-09-10`。`r27-jss/` 为保留兼容的目录名，不表示仍使用旧论文。
+- 来源固定版本：`r28-jss-2026-09-10`。本目录是该交接包的**当前修订副本**，以 `latest/` 下的整合稿为准；tag 之后修正过标注者表述与第二作者姓名，故本副本与 tag 不逐字节相同。`r27-jss/` 为保留兼容的目录名，不表示仍使用旧论文。
 
 ## 核查结论
 

@@ -40,4 +40,4 @@ Then compile both LaTeX sources from `latest/paper`. Regeneration changes derive
 2. Both authors should approve the interpretation, authorship, consent/privacy statements, and final manuscript. Historical assistant versions not archived are disclosed as unavailable, not guessed.
 3. After approval, publish an immutable commit/tag for this final candidate and use that identifier in the submission; `main/latest` is a mutable navigation link.
 
-No original experiment outputs or manual labels were overwritten. This revision has not been committed or pushed by this task.
+No original experiment outputs or manual labels were overwritten. This revision was committed by the second author as `c5e891c4` and pushed to `main`; follow-up corrections were applied on top of it. No freeze tag has been cut yet.
