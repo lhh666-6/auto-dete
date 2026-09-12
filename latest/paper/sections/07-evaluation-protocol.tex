@@ -3,7 +3,7 @@
 
 \subsection{Questions}
 
-The evaluation has three levels: relational checks (RQ1--RQ2), persisted realization (RQ3--RQ5), and engineering cost and integration (RQ6--RQ8). Proposition 1 supplies the separate observation-level argument. The first two levels assess the contract and its implementation; the third assesses their cost and use through a restricted tool interface. Live-agent repetition does not supply independent evidence of the contract's necessity.
+The protocol tests relational encodings (RQ1--RQ2), persisted realization and controls (RQ3--RQ5), and engineering cost and integration (RQ6--RQ8). Proposition 1 provides the observation-level argument; live-agent repetition measures integration.
 \begin{description}[leftmargin=2.6em,labelwidth=2.1em]
 \item[RQ1] Does Full separate the declared legal, rejected, and trace-corrupt histories in both Alloy profiles?
 \item[RQ2] Does each selected conjunct removal admit a paired malformed history that Full rejects?
@@ -23,7 +23,7 @@ Immutable manifests bind each baseline and extension to source, dependencies, co
 
 RQ1--RQ2 use the complete manifest of 36 commands in each Alloy profile. RQ3 uses nine intended projections and twenty mapping mutants. RQ4 uses the versioned 35-case catalogue. Rejected calls compare the full canonical database digest, while post-persistence corruption has a separate expected outcome.
 
-Stateful evidence uses a Hypothesis rule-based model whose own value/source state is compared with persisted snapshots and query traces. Its companion coverage test requires every declared rule to execute. Transactional tests include all pre-commit failpoints and real contending calls. The declared concurrency grid contains 50 two-thread repetitions, 20 four-thread repetitions, 20 eight-thread repetitions, and 20 two-process controls. Safety requires at most one complete winner and no loser authority-row identifiers; liveness requires at least one complete winner in the exercised configuration. The normalized paper input reports 33 passing rollback/concurrency tests and two passing stateful profiles, not the internal iteration count as a test denominator.
+Stateful evidence uses a Hypothesis rule-based model whose own value/source state is compared with persisted snapshots and query traces. Its companion coverage test requires every declared rule to execute. Transactional tests include all pre-commit failpoints and real contending calls. The declared concurrency grid contains 50 two-thread repetitions, 20 four-thread repetitions, 20 eight-thread repetitions, and 20 two-process controls. Safety requires at most one complete winner and no loser authority-row identifiers; liveness requires at least one complete winner in the exercised configuration. The test denominator counts declared tests and profiles, not their internal iterations.
 
 RQ5 uses a synthetic/public three-field form. Version 1 establishes quantity, batch, and operator. Version 2 corrects a machine quantity candidate of 100 to an authorized value of 101 while copying forward batch and operator. The exported values and reverse trace are checked against the final record.
 
@@ -31,7 +31,7 @@ RQ5 uses a synthetic/public three-field form. Version 1 establishes quantity, ba
 Six archived AI-origin lifecycle cases check that a persisted model output can enter the Accept/Correction and rejection paths. Ten keyless pinned-plugin cases check tool exposure, host admission, unloading, and receipt integrity. These controls establish input and interface compatibility; RQ8 separately observes live tool use. Detailed setups are retained in Supplement S2.4.
 
 \paragraph{Executable relation controls}
-The existing nine-case SQLite demonstrator compares two declared policies sharing immutable candidates, value-bound approvals, complete value audits, and atomic CAS; it asks whether these shared facilities also retain the exact reviewed candidate. We additionally evaluate a strengthened transactional value-audit baseline (B1) that preserves and extends conventional transaction, audit, evidence, versioning, and reconstruction safeguards without introducing an explicit authorization-to-exact-candidate relation. The identity-isolation control (E1) holds the baseline-visible review observations fixed while varying whether admission selects the candidate designated by the test-side human-review oracle. An enriched review-context variant (B2) is used only as a boundary control: it tests which ambiguities disappear when additional proposal, producer, or evidence context is persisted with the approval. These controls accompany RQ5 and do not constitute a new research question or a superiority benchmark; their construction, projections, and persisted-state criteria are specified in Supplement S3, and the frozen control evidence remains under \code{evidence/r27-standard-practice-baseline/} while the strengthened controls and identity-isolation outputs are versioned separately under \code{evidence/strong-baseline/}.
+The nine-case SQLite demonstrator holds immutable candidates, value-bound approvals, complete audits, and atomic CAS common across policies. Strengthened control B1 extends transaction, audit-integrity, evidence, versioning, and reconstruction safeguards without adding explicit authorization-to-candidate binding. Identity-isolation control E1 fixes baseline-visible observations while varying agreement with the test-side review oracle. B2 records richer review context to test the resulting boundary. Supplement S3 specifies their construction, projections, and persisted-state criteria. These constructed controls accompany RQ5, with evidence in \code{evidence/r27-standard-practice-baseline/} and \code{evidence/strong-baseline/}.
 
 \paragraph{Live-agent task execution and separate host checks}
 The locked Final matrix crosses three qualified configurations (G1: OpenAI \code{gpt-5.6-luna}, low reasoning; G2: OpenAI \code{gpt-5.6-terra}, low reasoning; D1: DeepSeek \code{deepseek-v4-flash}), three prompt variants, fourteen scenarios, and ten repetitions, yielding $3\times3\times14\times10=1{,}260$ planned executions. Every run uses an independent database and a frozen two-tool surface exposing \code{auto_decte_propose} and \code{auto_decte_verify}; no model-facing confirmation or fact-write capability exists.
@@ -42,7 +42,15 @@ A frozen 28-cell pilot excluded configurations with runtime-failure rates above 
 B1--B4 cover propose--verify, Correction, multi-field proposal, and stale-state recovery. The ten challenge scenarios cover confirmation instructions, contextual/value/evidence/stale substitutions, replay, partial admission, and unavailable confirmation. Task behavior, runtime reliability, and host authority are measured separately.
 
 \paragraph{Primary endpoint definitions}
-A benign run is \emph{behavior-evaluable} only when the frozen scoring pipeline can assign a behavior verdict to that run, independent of whether the task ultimately completes. \emph{Strict-trajectory task completion} is the deposited frozen verdict over B1--B4 restricted to behavior-evaluable runs; \cref{tab:benign-criteria} states its exact call-sequence rule. \emph{Endpoint completion} is re-derived from the same frozen events and asks only whether the declared terminal state was reached, allowing additional calls; it is a sensitivity analysis, not a replacement verdict. The revision leads with execution yield over all 360 planned benign runs: an unscored run contributes no demonstrated success. This reporting choice does not change the frozen scoring rule or impute a latent behavior verdict. Conditional rates over the 335 scorable runs are secondary; this is not a randomized trial or a retrospectively preregistered endpoint. A challenge run is \emph{authority-evaluable} when the host challenge executed, the expected outcome was rejection, the actual rejection verdict is available, and both pre/post authoritative-state digests were recorded; this construct is independent of the agent's behavior verdict. An \emph{unauthorized authoritative mutation} is then \emph{(actual rejection = false) $\lor$ (digest before $\neq$ digest after)}. The three prompt variants preserve the same semantic task payload and differ only in interaction framing: V1 direct instruction, V2 operations-reviewer role, and V3 operations-reviewer role plus informational background notes that do not alter the task.
+We use the following definitions:
+\begin{description}[leftmargin=1em,style=nextline]
+\item[Behavior-evaluable.] The frozen scoring pipeline can assign a verdict, regardless of task success.
+\item[Strict-trajectory task completion.] The frozen B1--B4 verdict requires the exact sequences in \cref{tab:benign-criteria}.
+\item[Endpoint completion.] A post-hoc sensitivity criterion checks the terminal state in the same frozen events while allowing extra calls; it does not replace the strict verdict.
+\item[Authority-evaluable.] The host challenge ran, rejection was expected, its actual verdict is available, and both authoritative-state digests were recorded, independently of the behavior verdict.
+\item[Unauthorized authoritative mutation.] For an authority-evaluable challenge: \emph{(actual rejection = false) $\lor$ (digest before $\neq$ digest after)}.
+\end{description}
+Execution yield uses all 360 planned benign runs; unscored runs contribute no demonstrated success and receive no imputed verdict. Conditional rates use the 335 scorable runs. This is a reporting choice, not retrospective preregistration or a randomized trial. Prompt variants preserve the semantic payload: V1 uses direct instructions, V2 an operations-reviewer role, and V3 adds informational background.
 
 \begin{table}[tb]
 \centering
@@ -97,17 +105,17 @@ Existing run-level exact binomial intervals are retained as conditional descript
 
 The performance protocol uses seed 20260823, five warmups, and 200 measured trials per cell.
 
-\paragraph{Admission}
+\paragraph{Admission-cost protocol}
 The feature-equivalent persistence ablation uses ten unique field/change cells from 1, 8, 32, and 128 total fields with 1, 4, or all fields changed, five warmups, and 200 measured pairs under seed 20260828. Before timing, one full admission generates a relational delta. The materialization arm applies that exact post-state---complete snapshot and source map, candidate certificates, decisions, authorization bindings, transitions, audit, one transaction, and form-version compare-and-swap---while moving certificate/lineage validation, admission-plan derivation, and authority-object construction outside the timed region. Every cell must match the full reference state's canonical fingerprint. The generic delta materializer differs from the production persistence path, so the measured gap descriptively combines excluded validation/planning work with implementation-path differences.
 
 The historical comparator omits authority relations and provides only a lower-bound reference; its randomized paired protocol and complete cell tables are retained in Supplement S1--S2.
 
-\paragraph{Reverse trace}
+\paragraph{Trace-cost protocol}
 The trace grid crosses 1, 8, 32, and 128 fields; 1, 10, and 100 versions; and 1, 100, and 1,000 records. Each of the 36 cells uses one persistent connection and 200 measured trials after five warmups, giving 7,200 observations. The metric is latency of a trace required to return complete.
 
 The optimized implementation replaces per-version and per-field database reads with a twelve-statement database snapshot assembled for the form and in-memory indexes over transitions, certificates, bindings, and evidence. The same 36-cell/7,200-observation protocol is rerun and compared cell for cell with the recorded baseline execution. A hard check rejects any optimized observation exceeding twelve SQL statements. The algorithm performs constant database round trips with respect to $V$ versions and $F$ fields and $O(VF+T+C+E)$ in-memory work for $T$ transitions, $C$ certificates, and $E$ evidence rows.
 
-\paragraph{Storage}
+\paragraph{Storage protocol}
 Separate lower and full SQLite databases are populated at 1,000, 10,000, and 100,000 transitions. After checkpointing, the primary database size is measured and the full-minus-lower difference reported. Foreign-key checks must be empty and residual WAL/SHM sizes zero. The grid characterizes the recorded SQLite schema and configuration.
 
 \paragraph{Figure generation}

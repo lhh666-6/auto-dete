@@ -192,7 +192,7 @@ def evidence():
         label(ax,x+4,y+22,claim,9.5,ha='left')
         label(ax,x+4,y+9,support,9.5,color=MUTED,ha='left')
     box(ax,2,10,176,30,GREY_BG)
-    label(ax,6,34,'C5  Standard-practice boundary',9.7,True,INK,ha='left')
+    label(ax,6,34,'C5  Evaluated-control separation',9.7,True,INK,ha='left')
     label(ax,6,24,'Value-audit and enriched-context controls isolate exact review linkage.',9.5,ha='left')
     label(ax,6,15,'Distinct identities can remain equivalent under recorded review observations.',9.0,color=MUTED,ha='left')
     label(ax,90,3,'Reproducibility: raw records -> normalized inputs -> reported outputs',9.0)

@@ -1,6 +1,8 @@
 \section{Results}
 \label{sec:results}
 
+Results follow the protocol from bounded relational checks to persisted behavior, evaluated-control separation, and engineering cost and integration.
+
 \subsection{RQ1: bounded separation by the full basis}
 
 % CLAIM P-RQ1-1 -> formal/alloy/batch/raw-results/2026-09-11-trace-witness/command_results.json (72 rows)
@@ -49,7 +51,7 @@ The paired histories isolate the attribution question: one reviews a proposal of
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/refined/figure-2-evidence-map.pdf}
-\caption{Contribution and evidence map. C1--C2 define the relation and its conditional observation requirements; C3--C4 connect these to bounded implementation checks and workload-specific evaluation; C5 states the constructed value-audit comparison boundary. AI-assisted diagram scripting: OpenAI Codex (gpt-6-astra, OpenAI, September 2026 revision); deterministic vector rendering from the stated contribution definitions.}
+\caption{Research route from contract and conditional characterization through realization and workload evidence to evaluated-control separation. C1--C2 define the relation and its conditional observation requirements; C3--C4 connect these to bounded implementation checks and workload-specific evaluation; C5 states the constructed value-audit comparison boundary. AI-assisted diagram scripting: OpenAI Codex (gpt-6-astra, OpenAI, September 2026 revision); deterministic vector rendering from the stated contribution definitions.}
 \label{fig:evidence-chain}
 \end{figure*}
 
@@ -104,14 +106,14 @@ The Final matrix contains all 1,260 planned executions. Among 360 planned benign
 \input{tables/generated/runtime_endpoint_table}
 
 \paragraph{Author-involved human annotation of the benign endpoint}
-One author (X.W.) and one non-author volunteer coded all 360 benign runs under the terminal-completion rubric. Their original labels agreed on 359/360 runs (99.72\%; three-category $\kappa=0.974$, case-bootstrap 95\% CI $[0.911,1.000]$); excluding the 15 pairs with an unable-to-determine label gives 344/345 agreement and binary $\kappa=0.908$. On the 335 behavior-evaluable runs, both coders judged 331 terminally complete. Each agreed with the frozen strict-trajectory rule on 324/335 runs (96.72\%; $\kappa=0.410$, CI $[0.113,0.661]$). In all eleven disagreements, both humans judged completion although the strict rule rejected the call sequence. Extra calls or a different call order do not violate the issued terminal-completion rubric. The other author's subsequent review of these eleven runs against the strict criterion yields the recorded 320/335 strict completions; it is a post-hoc strict-trajectory judgment, not a correction of the original completion labels. T153, outside the 335-run comparison, was separately adjudicated as incomplete. Original labels remain the basis of the agreement analysis. Supplement~S2.8 gives the confusion matrices, unscored subset, procedure deviation, and clustering sensitivity. These author-involved measurements do not establish external measurement validity.
+One author (X.W.) and one non-author volunteer coded all 360 benign runs under the terminal-completion rubric. Original labels agreed on 359/360 runs (99.72\%; three-category $\kappa=0.974$, case-bootstrap 95\% CI $[0.911,1.000]$). Conditional on the 335 behavior-evaluable runs, both judged 331 terminally complete and each agreed with the strict rule on 324/335 (96.72\%). The eleven human-positive/strict-negative cases reflect different criteria: extra calls do not violate the issued completion rubric. The other author's subsequent strict-trajectory review yields 320/335 strict completions, without correcting the original completion labels. T153, outside that comparison, was adjudicated separately. Supplement~S2.8 retains binary sensitivity, confusion matrices, unscored cases, procedure deviations, and clustering sensitivity; these are author-involved measurements.
 
 Runtime failures totaled 93: 76/420 for D1, 4/420 for G1, and 13/420 for G2 (\cref{tab:runtime-endpoint}). No \code{SETUP\_FAILURE} or \code{TOOL\_RUNTIME\_FAILURE} occurred. Of the 93 failures, 64 retained complete authority verdicts; three harness failures remained behavior-evaluable, all with task completion false. Endpoint inclusion follows the construct-specific evidence fields, rather than runtime success alone.
 
 \Cref{tab:agent-behavior-final} retains configuration-specific evaluable denominators. Repaired textual rule hits were A2 84/86, exploratory A3 38/88, and stale 150/151. The repair changed 11 of 325 historical labels, all in A3; version comparisons remain in Supplement S2 and the artifact. No unavailable-capability attempt was observed in evaluable cells.
 
 \paragraph{Blinded author annotation of textual acknowledgment}
-X.W.'s manual labels agreed with the repaired v2.1 rule on 286/325 outputs (88.00\%; Cohen's $\kappa=0.644$, case-bootstrap 95\% CI $[0.543,0.741]$; AC1 $=0.820$; PABAK $=0.760$). Agreement was 81/86 for A2, 56/88 for exploratory A3, 69/69 for A6, and 80/82 for B4. Thus 32 of the 39 disagreements occurred in A3, whose prompt did not identify a unique target field; the weaker A3 agreement supports the existing construct-ambiguity limitation rather than a conclusion that either the annotator or model was wrong. The 39 disagreements remain unadjudicated, and the manual labels do not replace the frozen rule-hit counts. Supplement S2 reports confusion matrices, prevalence-sensitive coefficients, and case-, model-, and cell-resampling sensitivity.
+X.W.'s labels agreed with rule v2.1 on 286/325 outputs (88.00\%; $\kappa=0.644$, case-bootstrap 95\% CI $[0.543,0.741]$). A3 accounts for 32/39 disagreements and has no uniquely specified target field, supporting the construct-ambiguity limitation. All 39 disagreements remain unadjudicated and the frozen rule hits are retained. Supplement S2 gives per-scenario agreement, confusion matrices, additional coefficients, and resampling sensitivity.
 
 \input{tables/generated/agent_behavior_table}
 

@@ -8,7 +8,7 @@ The completed workbook is preserved without modification as `completed-blind-ann
 
 ## Requirements
 
-- Python 3.11 or newer. The analysis uses only the standard library and was verified on CPython 3.11.9, which is also the version the reference implementation targets, so one environment covers both.
+- Python 3.11 or newer. The analysis uses NumPy and openpyxl and was verified on CPython 3.11.9, which is also the version the reference implementation targets, so one environment covers both.
 - NumPy
 - openpyxl
 
@@ -21,8 +21,8 @@ python -B .\analyze_acknowledgment_annotation.py `
   --workbook .\completed-blind-annotation.xlsx `
   --source-audit .\frozen-semantic-audit-with-text.csv `
   --repaired-audit ..\r3-audit-verified\recognition_semantic_audit_v2.csv `
-  --output-dir . `
-  --latex-table ..\..\paper\tables\generated\acknowledgment_human_rule.tex `
+  --output-dir <fresh-output-directory-outside-package> `
+  --latex-table <fresh-table-path-outside-package.tex> `
   --bootstrap-replicates 5000 `
   --bootstrap-seed 20260910
 ```
@@ -39,14 +39,12 @@ Run the tests:
 python -B -m unittest discover -p "test_*.py" -v
 ```
 
-After compiling the two LaTeX PDFs and removing transient `paper/out/` and `tmp/` directories, regenerate and verify the package manifest from `latest/`:
+Only after an intentional revision and validation, regenerate the manifest from `latest/`; page counts are read from the PDFs. Ordinary verification uses `python verify_latest.py` and does not rewrite the manifest. Build directories are excluded automatically:
 
 ```powershell
 python -B .\evidence\human-acknowledgment-annotation-2026-09-10\build_latest_manifest.py `
   --root . `
   --manifest .\MANIFEST-r27.json `
-  --main-pages 59 `
-  --supplement-pages 16 `
   --citations 54
 ```
 

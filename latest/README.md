@@ -1,6 +1,8 @@
-# Current manuscript — post-r28 human-annotation integration
+# Current manuscript — r29 review integration
 
-Source handoff tag: `r28-jss-2026-09-10`. Current integrated candidate: main 63 pages; supplement 20 pages; 54 citations.
+R29 review report: [review and changes](docs/R29-REVIEW-INTEGRATION-zh.md). This revision integrates the coauthor's narrative recommendations; current checks are in [R29 verification](docs/R29-VERIFICATION.json).
+
+Source handoff tag: `r28-jss-2026-09-10`. Current integrated candidate: main 62 pages; supplement 20 pages; 54 citations.
 The submission PDFs are compiled from `paper/main.tex` and `paper/supplement.tex`; edit the LaTeX sources rather than the PDFs.
 
 Second author Xuan Wentao (X.W.) completed a blinded author annotation of all 325 textual-acknowledgment outputs and recorded a rationale for every label. The resulting human--rule agreement analysis is integrated into the manuscript and supplement, while the 39 disagreements remain unadjudicated and the frozen rule-hit labels are unchanged. The separate benign-endpoint annotation still comprises X.W. and one non-author volunteer, with adjudication by the first author; its 11 terminal-completion versus strict-trajectory disagreements remain visible. No hosted-model call was rerun.
@@ -15,8 +17,7 @@ The original 1,260 model-run records remain frozen. Performance describes the v8
 
 ## Short keyless reproduction path
 
-No credentials, no hosted-model access, and no network are needed to check the
-package. Every command below writes to a fresh path and leaves the frozen
+With the documented Python dependencies installed, no credentials, hosted-model access, or network are needed for these checks. Every command below writes to a fresh path and leaves the frozen
 evidence untouched.
 
 1. **Fetch the pinned version.** Clone the repository and check out the commit or
@@ -25,12 +26,12 @@ evidence untouched.
    re-hashes every shipped file and confirms the recorded page counts; it reports
    zero missing, extra, or mismatched entries.
 3. **Exercise the admission relation.** From `code/implementation-fixed/`:
-   - `python -m unittest tests.integration.test_value_equality_admission -v`
+   - `python -B -m pytest tests/integration/test_value_equality_admission.py -q -p no:cacheprovider`
      covers an equal-value unchanged submission copying its source forward and a
      pure canonical no-op being rejected fail-closed;
    - `python conformance/run_catalogue.py --output <fresh-dir>` runs the declared
      fault catalogue against the reference realization, and
-     `python conformance/verify_catalogue_results.py` checks the result;
+     `python conformance/verify_catalogue_results.py <fresh-dir>` checks the result;
    - `python conformance/verify_formal_refinement_records.py` checks the deposited
      29-case formal--concrete refinement freeze (nine SAT projections, twenty
      UNSAT mapping mutants). To rebuild that freeze from source instead, run
