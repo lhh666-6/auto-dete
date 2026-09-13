@@ -1,4 +1,4 @@
-# Reviewer guide — r30-jss-2026-09-13
+# Reviewer guide — r31-jss-2026-09-13
 
 ## Obtain the complete evidence
 
@@ -6,7 +6,7 @@ The reference environment is Windows, Python 3.11.9 and PowerShell. Java 21 and 
 
 ```powershell
 git lfs install
-git clone --branch r30-jss-2026-09-13 https://github.com/lhh666-6/auto-dete.git auto-dete-review
+git clone --branch r31-jss-2026-09-13 https://github.com/lhh666-6/auto-dete.git auto-dete-review
 Set-Location auto-dete-review
 git lfs pull
 python -B verify_freeze.py

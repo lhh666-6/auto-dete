@@ -1,8 +1,8 @@
-# Frozen manuscript — r30 JSS submission version
+# Frozen manuscript — r31 JSS submission version
 
-Final checks: [September 13 submission report](docs/FINAL-SUBMISSION-CHECK-2026-09-13.md). For complete raw-record reproduction use the repository-root [reviewer guide](../REVIEWER_GUIDE.md), including `r21-jss/` and Git LFS.
+Final checks: [September 13 submission report](docs/FINAL-TONE-2026-09-13.md). For complete raw-record reproduction use the repository-root [reviewer guide](../REVIEWER_GUIDE.md), including `r21-jss/` and Git LFS.
 
-R30: authors are Liang Hanghao, Xuan Wentao, and Peng Peng (sole corresponding author). [Contribution record](docs/AUTHORSHIP-AND-CREDIT-r30-zh.md), [closeout report](docs/R30-CLOSEOUT-zh.md), and [AI-assisted disagreement review](evidence/acknowledgment-ai-review-2026-09-12/README.md). Original annotation labels and reported statistics are unchanged. Fixed submission archive: https://github.com/lhh666-6/auto-dete/tree/r30-jss-2026-09-13/latest.
+R30: authors are Liang Hanghao, Xuan Wentao, and Peng Peng (sole corresponding author). [Contribution record](docs/AUTHORSHIP-AND-CREDIT-r30-zh.md), [closeout report](docs/R30-CLOSEOUT-zh.md), and [AI-assisted disagreement review](evidence/acknowledgment-ai-review-2026-09-12/README.md). Original annotation labels and reported statistics are unchanged. Fixed submission archive: https://github.com/lhh666-6/auto-dete/tree/r31-jss-2026-09-13/latest.
 
 R29 review report: [review and changes](docs/R29-REVIEW-INTEGRATION-zh.md). This revision integrates the coauthor's narrative recommendations; historical checks are in [R29 verification](docs/R29-VERIFICATION.json).
 

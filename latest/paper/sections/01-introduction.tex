@@ -26,16 +26,16 @@ The candidate remains historical evidence; human authorization supplies value au
 We ask which observable distinctions preserve that relation against candidate substitution, correction erasure, stale replay, fragmented successors, and source ambiguity. Under a declared failure and observation model, paired histories expose what becomes indistinguishable when each information class is omitted. We study the relation through the Python/SQLite reference realization \system{}:
 \begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
 \item \textbf{Correction-aware admission contract.} Bind authorization to the exact candidate, keep proposed and authorized values separately attributable, and retain total field sources in one complete successor.
-\item \textbf{Conditional failure distinguishability.} Five safe/unsafe history pairs establish class-wise irredundancy within the declared observation model, rather than a complete taxonomy of admission failures.
+\item \textbf{Conditional failure distinguishability.} Five safe/unsafe history pairs establish class-wise irredundancy within the declared failure and observation model.
 \item \textbf{Relational and transactional realization.} Connect the contract to bounded Alloy checks, a CAS-protected transaction, selected formal--concrete projections, and an executable fault catalogue.
 \item \textbf{Cost and integration evidence.} Characterize frozen v8 persistence-equivalent admission and trace costs, and separate restricted-agent task outcomes from host-enforced authority checks across three qualified configurations.
-\item \textbf{Evaluated-control separation.} Strengthening the evaluated transactional value-audit safeguards preserves agreement on seven of eight single-history cases but does not by itself entail an explicit authorization-to-exact-candidate relation. Equal-valued candidate substitution supplies the separating case; richer recorded review context narrows that separation.
+\item \textbf{Evaluated-control separation.} Equal-valued candidate substitution separates candidate-bound admission from both evaluated transactional value-audit controls, which agree with it on the other seven single-history cases. The separation persists with strengthened safeguards and narrows with richer recorded review context.
 \end{enumerate}
 
-\paragraph{Illustrative workflow (a constructed example, not a deployment study)}
-An operations team needs to identify which persisted proposal a reviewer inspected. Two extraction retries may have the same record, field, and authorized value but different timestamps and evidence locators. Value-level approval suffices when the audit question is whether a value was approved. Instance-level accountability additionally asks which artifact was reviewed; candidate-bound admission records that instance and rejects substitution. This is a policy-dependent requirement, not a universal need to distinguish retries. The current path records value-changing updates; renewed review without a value change needs a separate review-event path.
+\paragraph{Constructed workflow example}
+An operations team needs to identify which persisted proposal a reviewer inspected. Two extraction retries may have the same record, field, and authorized value but different timestamps and evidence locators. Value-level approval suffices when the audit question is whether a value was approved. Instance-level accountability additionally asks which artifact was reviewed; candidate-bound admission records that instance and rejects substitution. The need to distinguish retries depends on the accountability policy. The current path records value-changing updates; renewed review without a value change needs a separate review-event path.
 
-Host authentication and review-channel integrity remain external assumptions: the contract records and rechecks authority, but it does not implement a complete access-control or anti-prompt-injection system.
+The contract records and rechecks authority under externally supplied host authentication and review-channel integrity; the trust boundary is detailed in \cref{sec:contract}.
 
 The paper proceeds from the admission relation (\cref{sec:contract}) to relational encodings (RQ1--RQ2), persisted behavior and controls (RQ3--RQ5), and cost and integration (RQ6--RQ8). \Cref{fig:admission-workflow} shows the admission boundary.
 

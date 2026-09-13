@@ -2,13 +2,13 @@
 
 **第一作者：梁航豪（Liang Hanghao）；第二作者：宣文韬（Xuan Wentao）；唯一通讯作者：彭鹏（Peng Peng）。**
 
-Frozen tag: [`r30-jss-2026-09-13`](https://github.com/lhh666-6/auto-dete/tree/r30-jss-2026-09-13). This is the authors' final prepared submission version, not a claim that the journal has received or accepted the paper. Subsequent corrections require a new tag; do not move this tag.
+Frozen tag: [`r31-jss-2026-09-13`](https://github.com/lhh666-6/auto-dete/tree/r31-jss-2026-09-13). This is the authors' final prepared submission version, not a claim that the journal has received or accepted the paper. Subsequent corrections require a new tag; do not move this tag.
 
 - [Main manuscript](latest/paper/main.pdf) and [supplement](latest/paper/supplement.pdf)
 - [Editable manuscript sources and submission files](latest/paper/)
 - [CRediT statement](latest/paper/credit-author-statement.txt)
 - [Reviewer reproduction guide](REVIEWER_GUIDE.md)
-- [Final verification report](latest/docs/FINAL-SUBMISSION-CHECK-2026-09-13.md)
+- [Final verification report](latest/docs/FINAL-TONE-2026-09-13.md)
 - [Current package](latest/) and [whole-repository freeze manifest](FREEZE-MANIFEST-r30.json)
 
 Clone this tag with Git LFS to obtain the materialized historical raw artifacts. Verify the whole checkout with `python -B verify_freeze.py`, and the current package with `python -B latest/verify_latest.py`. GitHub's automatic source ZIP may contain LFS pointer files; those are not the corresponding data files. The verifier detects them.
