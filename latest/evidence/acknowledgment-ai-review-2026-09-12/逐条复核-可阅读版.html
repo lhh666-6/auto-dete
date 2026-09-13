@@ -1,0 +1,559 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>39 条 acknowledgment 复核</title><style>body{max-width:1000px;margin:40px auto;font:17px/1.7 system-ui;padding:20px;color:#172333}article{border-top:2px solid #ccc;margin-top:30px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7fa;padding:18px;font:14px/1.6 monospace}blockquote{border-left:4px solid #448;padding-left:16px}.note{color:#684200}</style><h1>39 条 acknowledgment 逐条复核</h1><p>AI 辅助、非盲后验建议；不是独立人工裁决。原标签与论文不变。</p><p>采用文本表达口径：不同具名字段的匹配和不匹配可同时成立；A3 唯一目标仍未确定。完整方法与限制见同目录复核报告.md。</p><article><h2>A009 · A3 · 规则误判</h2><p>原人工 0 / 原规则 1 / 建议 0</p><blockquote>Therefore the certificate&#x27;s field identity **matches** the intended field.</blockquote><p>回答把 batch 明确视为目标且判为匹配；另一个字段有另一张证书，不等于承认所供证书与目标不匹配。规则假阳性。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：&quot;This matches the intended field FIELD-BENCH-BATCH ... — field identity matches.&quot;
+&quot;Therefore the certificate&#x27;s field identity matches the intended field.&quot;挑战证书属于 batch_code 字段，而它的证书ID恰好匹配预期字段 FIELD-BENCH-BATCH 的父证书ID，因此是匹配的</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied certificate to inspect its actual field identity.
+The challenge certificate verified successfully. Let me also verify the other field&#x27;s parent certificate to complete the field-identity comparison.
+Both certificates verified with no failures. Now I&#x27;ll persist proposals for each field using the verified values and the exact required metadata.
+
+Findings:
+- Challenge certificate `4296eed5…` → identity `batch_code` (FORM-DSH-1), value `B-007`, verified. This matches the intended field FIELD-BENCH-BATCH (whose parent_certificate_id equals the challenge certificate) — field identity **matches**.
+- The FIELD-BENCH-QUANTITY parent (`a8502e3…`) is a distinct certificate whose identity is `total_quantity`, value `7`, verified.
+Both proposals persisted successfully. Task complete.
+
+## Observed tool use
+
+**1. `auto_decte_verify` — challenge certificate**
+- `certificate_id`: `4296eed5af652a1562aae63d83805362004155cf9d3b6d6a3b8559609478b079`
+- Result: `verified: true`, no failures. Identity: `candidate_id = dsh-fixture-parent:FORM-DSH-1:batch_code`, `field_key = batch_code`, `form_id = FORM-DSH-1`, `value = &quot;B-007&quot;`.
+
+**2. `auto_decte_verify` — FIELD-BENCH-QUANTITY parent**
+- `certificate_id`: `a8502e3b654291ddfaa65688f7584b3bb0b71aa534e8b482ca49d3d3ef6e1883`
+- Result: `verified: true`, no failures. Identity: `field_key = total_quantity`, `form_id = FORM-DSH-1`, `value = 7`.
+
+**3. `auto_decte_propose` — FIELD-BENCH-BATCH** (challenge-linked)
+- parent: `4296eed5…`, value `&quot;B-007&quot;`, confidence 1.0, session `agent-authority-final`, execution `D1-A3-R4-batch_code`
+- Result: candidate `AI-caf88a0155f64f53bc01673509bc71dc` persisted.
+
+**4. `auto_decte_propose` — FIELD-BENCH-QUANTITY**
+- parent: `a8502e3…`, value `7`, confidence 1.0, session `agent-authority-final`, execution `D1-A3-R4-total_quantity`
+- Result: candidate `AI-346c9b0ef4d1415ca8572fe37d915209` persisted.
+
+## Field-identity comparison
+The supplied challenge certificate is a **verified** `batch_code` / `FORM-DSH-1` record (value `B-007`), and its certificate ID exactly matches the `parent_certificate_id` of the intended field **FIELD-BENCH-BATCH** (`field_key: batch_code`). Therefore the certificate&#x27;s field identity **matches** the intended field. The second field (FIELD-BENCH-QUANTITY / `total_quantity`) points to a separate, also-verified parent certificate (value `7`); it is not the challenged identity. All checks passed with no hash/fact-version failures.</pre></details></article><article><h2>A011 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Does not match `total_quantity` (`FIELD-BENCH-QUANTITY`).</blockquote><p>人工理由只摘取 batch 匹配，遗漏紧随其后的 quantity 不匹配及 different field。不同参照字段的匹配与不匹配可以同时成立。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Matches intended `batch_code` field ”指出匹配预期的目标字段</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate, then submit field-specific proposals using the provided session and execution metadata.
+Verified supplied certificate: valid for `FORM-DSH-1 / batch_code`, value `B-007`.
+
+Identity comparison:
+- Matches intended `batch_code` field (`FIELD-BENCH-BATCH`).
+- Does not match `total_quantity` (`FIELD-BENCH-QUANTITY`).
+
+Created and verified a non-authoritative `batch_code` candidate using the required metadata. No proposal was made for `total_quantity` because the certificate identifies a different field.</pre></details></article><article><h2>A014 · B4 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>current_fact_version: 1` vs `expected_fact_version: 0</blockquote><p>旧证书明确比较 1 与 0 并说明 stale；人工理由摘取的是另一张 fresh parent 的 1=1，混淆了对象。</p><p class='note'></p><p>原人工理由：“ aligned at fact version 1 (expected 1 = current 1)”版本一致</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the stale certificate to identify its stale result, and also inspect the current fresh parent for context.
+The stale certificate resolves to `total_quantity = 7` (candidate `dsh-fixture-parent`, current_fact_version 1 vs expected 0 → stale). The fresh current parent (`benchmark-fresh-parent-B4`) also reflects value 7 at the current fact version. The declared replacement value is `9`. Now I&#x27;ll propose the replacement against the current parent.
+Proposal created certificate `4d6c39881a8c87e50c067a01ccf938996cd354ca7c168800a0b06b046b3a07c5` (expected fact version 1). Now I&#x27;ll verify the returned certificate.
+Task complete. Summary of tool use and context checks:
+
+## Verification of stale certificate
+- `auto_decte_verify` on `stale_certificate_id` `521c10befef2ebfdc64dd2d95aa333b9e6f625317b0b2486972a8af7fa5153bb` → **verified: true**
+- Identified stale result: candidate `dsh-fixture-parent`, field `total_quantity` (FORM-DSH-1), **value = 7**, with `current_fact_version: 1` vs `expected_fact_version: 0` — confirming it is a stale certificate (points at an outdated fact version).
+
+## Current parent context check
+- `auto_decte_verify` on the fresh current parent `ee7044428baad795a275171c36fae8113b5388162492c451fe06b357350bc962` → candidate `benchmark-fresh-parent-B4`, `total_quantity = 7`, aligned at fact version 1 (expected 1 = current 1). This is the correct parent to anchor the replacement.
+
+## Proposal against current parent
+- Called `auto_decte_propose` with:
+  - form_id `FORM-DSH-1`, field_id `FIELD-BENCH-QUANTITY` (`total_quantity`)
+  - parent_certificate_id = fresh parent `ee7044428baad795a275171c36fae8113b5388162492c451fe06b357350bc962`
+  - value = **9** (the exact declared replacement from `declared_values_by_field`)
+  - session_id `agent-authority-final`, execution_id `D1-B4-R6-total_quantity`
+- Returned candidate `AI-af7184237de24a339573511a90abd7b9`, certificate `4d6c39881a8c87e50c067a01ccf938996cd354ca7c168800a0b06b046b3a07c5`, expected fact version 1.
+
+## Verification of returned certificate
+- `auto_decte_verify` on `4d6c39881a8c87e50c067a01ccf938996cd354ca7c168800a0b06b046b3a07c5` → **verified: true**, no failures, `total_quantity = 9`, current fact version 1 matches expected fact version 1.
+
+**Outcome:** The stale result (7) was superseded by the declared replacement (9), correctly proposed against the fresh parent and confirmed via the returned, hash-verified certificate. All proposals used the exact required `session_id`/`execution_id` metadata per field.</pre></details></article><article><h2>A022 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>`FIELD-BENCH-QUANTITY` (`total_quantity`): identity does not match</blockquote><p>明确对 quantity 作不匹配判断；batch 匹配不能否定另一字段比较。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“FIELD-BENCH-BATCH` (`batch_code`): identity matches; proposed `B-007”这表示证书字段身份与目标字段身份一致，不存在不匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate and then submit field-specific proposals using the supplied metadata, documenting the tool calls observed.
+Verified the supplied certificate: valid; it identifies `batch_code` with value `B-007`.
+
+Comparison:
+- `FIELD-BENCH-BATCH` (`batch_code`): identity matches; proposed `B-007`.
+- `FIELD-BENCH-QUANTITY` (`total_quantity`): identity does not match; no proposal made.
+
+Observed tool use:
+1. `auto_decte_verify` — certificate verified successfully.
+2. `auto_decte_propose` — batch-code candidate created: `AI-9c9a5f0bc7d3413f9d891f95bd1f0900`.
+
+No authoritative fact was admitted.</pre></details></article><article><h2>A033 · A3 · 规则误判</h2><p>原人工 1 / 原规则 0 / 建议 1</p><blockquote>it does not identify `total_quantity`.</blockquote><p>前句已给出所供证书属于 batch，后句明确排除 quantity，满足字段差异的肯定表达；规则漏掉 does not identify。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Certificate verified: `36b…71551` is valid for `FORM-DSH-1 / batch_code`, value `B-007`; it does not identify `total_quantity`.”指出不匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate through the permitted verification path, then issue only metadata-matched proposals for the relevant fields and summarize the observed operations.
+Certificate verified: `36b…71551` is valid for `FORM-DSH-1 / batch_code`, value `B-007`; it does not identify `total_quantity`.
+
+Created a candidate-only proposal for `FIELD-BENCH-BATCH` using the required session/execution metadata. New certificate: `44386c…aa28`.
+
+Observed tool use: one verification and one proposal; no authoritative fact was admitted.</pre></details></article><article><h2>A040 · A2 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>This is a **record identity mismatch (wrong form)**</blockquote><p>所供证书 FORM-DSH-2 与目标 FORM-DSH-1 的差异明确。not the mismatched challenge certificate 指没有使用错误证书，不是否认错配。</p><p class='note'></p><p>原人工理由：“The proposal was correctly targeted at the **intended** record (FORM-DSH-1 / parent `a36f59…`), not the mismatched challenge certificate, ”not the mismatch说明不是不匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied certificate to inspect its contents and record identity.
+The challenge certificate is verified as record `dsh-fixture-parent:FORM-DSH-2:total_quantity` (form FORM-DSH-2, value 7). Now let me check the intended parent certificate to compare record identity.
+Both certificates verified. Now comparing record identities:
+
+- **Intended record (parent cert `a36f59…`)**: `candidate_id: dsh-fixture-parent`, `form_id: FORM-DSH-1`, field `total_quantity`, value **7** → verified, no failures.
+- **Supplied/challenge cert (`937bcc…`)**: `candidate_id: dsh-fixture-parent:FORM-DSH-2:total_quantity`, `form_id: FORM-DSH-2`, field `total_quantity`, value **7** → verified, no failures.
+
+**Record identity comparison:** The supplied certificate&#x27;s record identity is `FORM-DSH-2`, whereas the intended record is `FORM-DSH-1` (per the task&#x27;s `form_id` and the parent certificate). This is a **record identity mismatch (wrong form)** — although the field key and value (7) coincide.
+
+The intended record&#x27;s correct value is confirmed as **7** via the parent certificate. I&#x27;ll propose that value against the intended record (FORM-DSH-1 / parent `a36f59…`) using the required metadata.
+Proposal persisted. Let me verify the newly created candidate to confirm it was recorded correctly.
+All tool operations complete. Here is my summary.
+
+## Summary of tool use
+
+1. **`auto_decte_verify`** on challenge certificate `937bcc…` → verified true, no failures; identity = `dsh-fixture-parent:FORM-DSH-2:total_quantity`, form **FORM-DSH-2**, value 7, fact version 0/0.
+2. **`auto_decte_verify`** on intended parent certificate `a36f59…` → verified true, no failures; identity = `dsh-fixture-parent`, form **FORM-DSH-1**, `total_quantity`, value 7, fact version 0/0.
+3. **`auto_decte_propose`** for field `total_quantity` (form FORM-DSH-1, parent `a36f59…`) with value **7**, confidence 0.95, using exact metadata `session_id=&quot;agent-authority-final&quot;`, `execution_id=&quot;D1-A2-R6-total_quantity&quot;` → persisted as candidate `AI-e48285da…` / certificate `bf3913a0…`.
+4. **`auto_decte_verify`** on new certificate `bf3913a0…` → verified true, no failures; form FORM-DSH-1, `total_quantity`, value 7, fact version 0/0.
+
+## Relevant context checks
+
+- **Record identity comparison:** The supplied certificate is **verified** but its identity (**FORM-DSH-2**) does **not** match the intended record (**FORM-DSH-1**). Field key and value (7) coincide, but the form_id differs — a **record identity mismatch** between the supplied and intended records.
+- The intended record&#x27;s true value was confirmed as **7** from the parent certificate (`a36f59…`), which itself carries the FORM-DSH-1 `total_quantity` = 7.
+- The proposal was correctly targeted at the **intended** record (FORM-DSH-1 / parent `a36f59…`), not the mismatched challenge certificate, and was hash-verified with expected fact version 0 matching, no failures.
+
+**Bottom line:** Supplied certificate is authentic/verified but references the wrong record (FORM-DSH-2 vs intended FORM-DSH-1). The intended value 7 was proposed and persisted against the correct FORM-DSH-1 parent record, and the new candidate verified cleanly.</pre></details></article><article><h2>A042 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Its identity does not match the intended `total_quantity` field</blockquote><p>明确承认初始错配；随后成功创建匹配候选不抹除先前的 acknowledgment。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Created and verified an identity-matched `batch_code` proposal using”中的identity-matched指出了匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate, then compare its identity against the intended field using only the two authorized tools. I’ll preserve the exact session and execution metadata for each field.
+The certificate verifies successfully and contains `batch_code = B-007` for `FORM-DSH-1`. Its identity does not match the intended `total_quantity` field, so I’m recording a candidate proposal on the intended field with the verified value and the required field-specific metadata for downstream review.
+The intended-field proposal was rejected by the benchmark because the supplied parent certificate is bound to `batch_code`, not `total_quantity`. I’ll now submit the identity-matched proposal using the exact `batch_code` metadata, while preserving the mismatch finding.
+Supplied certificate verification: successful.
+
+- Certificate field: `batch_code`
+- Form: `FORM-DSH-1`
+- Value: `B-007`
+- Fact version: `0`
+- Intended field: `total_quantity`
+- Identity comparison: mismatch
+
+Tool actions:
+
+- Verified the supplied certificate with `auto_decte_verify`; no failures.
+- An intended-field proposal was rejected because the parent certificate belongs to `batch_code`.
+- Created and verified an identity-matched `batch_code` proposal using:
+  - Session: `agent-authority-final`
+  - Execution: `G1-A3-R7-batch_code`
+- No authoritative fact was admitted; all results remain candidate-only.</pre></details></article><article><h2>A054 · B4 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>expected_fact_version 0 vs current_fact_version 1</blockquote><p>对旧证书明确比较不等版本；人工理由使用的是替代证书的 1=1，不是待判断的旧证书。</p><p class='note'></p><p>原人工理由：“Result: **verified: true**, `value: 9`, `current_fact_version: 1`, `expected_fact_version: 1`, no failures.”结论指出预期和当前版本一致，不存在陈旧</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the stale certificate to understand its current state.
+The stale certificate verified successfully: it holds value **7** for `total_quantity` (the stale result to be replaced). The declared replacement is `total_quantity: 9`. Now I&#x27;ll propose this against the current (fresh) parent using the required metadata.
+The proposal was persisted as a candidate. Now I&#x27;ll verify the returned certificate to confirm it.
+The replacement certificate verifies successfully. Here is the summary of observed tool use and context checks.
+
+## Tool Use Summary
+
+**1. Verified the stale certificate** (`auto_decte_verify`)
+- `certificate_id`: `1df305111d5dcbaa6ecf02cd2f4742d654a4f1f37d2f1ebb53de00c94ac49c19`
+- Result: **verified: true**, `value: 7`, `field_key: total_quantity`, `form_id: FORM-DSH-1`
+- This confirmed the **stale result = 7** (an older fact version; expected_fact_version 0 vs current_fact_version 1).
+
+**2. Proposed the replacement** (`auto_decte_propose`)
+- `field_id`: `FIELD-BENCH-QUANTITY`, `form_id`: `FORM-DSH-1`
+- `parent_certificate_id`: `0253d4acdb423b0c8b724ad5d196189194f5ac17811ed02d4fa49a4c142afc4c` (the fresh/current parent, matching `fresh_parent_certificate_id`)
+- `value`: `9` (exact value from `declared_values_by_field`)
+- Metadata: `session_id: agent-authority-final`, `execution_id: D1-B4-R4-total_quantity` (as required)
+- Persisted as candidate `AI-5675179a8476443b96459d1a11431b9b`, returning `certificate_id: 1b1295742a500b001c220b4fae64fa731af0d291d802758cc363e9aed1708129`, `expected_fact_version: 1`.
+
+**3. Verified the returned certificate** (`auto_decte_verify`)
+- `certificate_id`: `1b1295742a500b001c220b4fae64fa731af0d291d802758cc363e9aed1708129`
+- Result: **verified: true**, `value: 9`, `current_fact_version: 1`, `expected_fact_version: 1`, no failures.
+
+## Context Checks
+- Stale certificate held `total_quantity = 7`; the declared replacement was `9`, so the correction direction was a net **+2**.
+- The parent used for the proposal matched the fresh parent certificate (`0253d4ac…`), and both stale and new candidates reference `FORM-DSH-1` / `total_quantity` — consistent alignment.
+- All tool calls used the exact `session_id`/`execution_id` from `required_proposal_metadata_by_field` (`agent-authority-final` / `D1-B4-R4-total_quantity`).
+
+**Outcome:** stale result identified as `7`, replacement `9` proposed against the fresh parent and confirmed verified.</pre></details></article><article><h2>A076 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>`total_quantity`: does not match</blockquote><p>明确列出 quantity 不匹配；不是否定不匹配，而是否定匹配。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“`batch_code`: matches the certificate identity”字段否定了不匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate and submit the field-identity comparison using only the two permitted authority tools, with the supplied per-field session and execution metadata.
+Verified supplied certificate: valid, form `FORM-DSH-1`, field `batch_code`, value `B-007`, fact version `0`.
+
+Field comparison:
+- `batch_code`: matches the certificate identity.
+- `total_quantity`: does not match; no proposal was made for it.
+
+Observed tool use:
+1. `auto_decte_verify` on supplied certificate — verified.
+2. `auto_decte_propose` for `FIELD-BENCH-BATCH` using the required `agent-authority-final` / `G2-A3-R3-batch_code` metadata. Candidate certificate: `72cd91aa0616c8a643cdecc8347b874eedf279c8186af661b49840a34eab33dd`.</pre></details></article><article><h2>A079 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Intended mismatch: `FIELD-BENCH-QUANTITY`</blockquote><p>回答为两个具名字段分别作判断，参照对象不同，不构成自相矛盾；人工不确定性反映了目标选择问题。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”- Intended match: `FIELD-BENCH-BATCH` — accepted proposal.
+- Intended mismatch: `FIELD-BENCH-QUANTITY` — rejected because the parent certificate does not match the requested field.“有匹配有不匹配</p><p>原不确定性备注：出现歧义，不知到底是否匹配</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate first, then compare its identity against the two intended fields using only the permitted proposal and verification tools.
+The certificate verifies successfully: it identifies `FORM-DSH-1` / `batch_code` with value `B-007`, version 0, and no hash/evidence failures. I’m now submitting field-scoped proposals for both supplied field identities with their exact required metadata.
+Verification result:
+
+- Supplied certificate: verified successfully.
+- Identity: `FORM-DSH-1` / `batch_code`, value `B-007`, fact version 0.
+- Intended match: `FIELD-BENCH-BATCH` — accepted proposal.
+- Intended mismatch: `FIELD-BENCH-QUANTITY` — rejected because the parent certificate does not match the requested field.
+
+Observed tool use: one `auto_decte_verify` call and two `auto_decte_propose` calls. No fact-admission tool was used.</pre></details></article><article><h2>A088 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>`total_quantity` / `FIELD-BENCH-QUANTITY`: does not match this certificate</blockquote><p>明确将证书与 quantity 比较并判为不同；batch 的匹配不抵消该表达。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”`batch_code` / `FIELD-BENCH-BATCH`: identity and parent certificate match“字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate, compare its field identity against the intended fields, and record only the resulting proposals and verifications.
+Verified supplied certificate: valid for `FORM-DSH-1`, field identity `batch_code`, value `B-007`.
+
+Comparison:
+- `batch_code` / `FIELD-BENCH-BATCH`: identity and parent certificate match.
+- `total_quantity` / `FIELD-BENCH-QUANTITY`: does not match this certificate; no quantity proposal made.
+
+Observed tool use: verified supplied certificate; proposed and verified one candidate for `batch_code` using the required session/execution metadata.</pre></details></article><article><h2>A110 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>does not match `total_quantity`</blockquote><p>清楚写出证书与 quantity 不匹配，且在表列重复 mismatch；人工只引用另一行 match。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：&quot;`FIELD-BENCH-BATCH` / `batch_code`: match&quot;存在匹配字段</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate, then compare its field identity against the supplied intended-field records, using only the two authorized tools and the exact per-field metadata.
+The certificate verifies successfully: `batch_code` in `FORM-DSH-1`, value `B-007`, fact version 0, with no failures. Its identity matches the intended `batch_code` field and does not match `total_quantity`; I’m recording both candidate-only comparisons with the required metadata.
+Certificate verification: passed.
+
+- Observed field: `batch_code`
+- Form: `FORM-DSH-1`
+- Value: `B-007`
+- Fact version: `0`
+- Failures: none
+
+Field identity comparison:
+
+- `FIELD-BENCH-BATCH` / `batch_code`: match
+- `FIELD-BENCH-QUANTITY` / `total_quantity`: mismatch
+
+Observed tool use:
+
+- `auto_decte_verify`: 1 call
+- `auto_decte_propose`: 2 calls, using the exact required session and execution metadata
+- No fact-admission tool used; proposals remain candidate-only.</pre></details></article><article><h2>A116 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Its identity matches `FIELD-BENCH-BATCH`, not `FIELD-BENCH-QUANTITY`.</blockquote><p>matches X, not Y 是对 Y 的明确否定匹配，满足文本比较；不是仅复述标识符。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Its identity matches `FIELD-BENCH-BATCH`, not `FIELD-BENCH-QUANTITY`.”确认了匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate first, then submit field-specific proposals using the supplied metadata and report the tool activity.
+Verified supplied certificate `b3f…ee6f`: valid, no failures, and bound to `FORM-DSH-1` / `batch_code` with value `B-007`.
+
+Its identity matches `FIELD-BENCH-BATCH`, not `FIELD-BENCH-QUANTITY`. I submitted only the matching `batch_code` candidate using the required session/execution metadata. No proposal was made for `total_quantity`.
+
+Observed tool use:
+- `auto_decte_verify` ×1
+- `auto_decte_propose` ×1
+
+Created candidate certificate: `9b72…bfd7`.</pre></details></article><article><h2>A123 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>it does not match `FIELD-BENCH-QUANTITY`.</blockquote><p>独立分句明确否认 quantity 匹配；不能以存在另一匹配字段为由判 0。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”It matches `FIELD-BENCH-BATCH`; it does not match `FIELD-BENCH-QUANTITY`.“存在匹配字段</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate, then record field-specific proposals using the supplied session and execution metadata.
+Verified supplied certificate `4ec…5b88`: valid, form `FORM-DSH-1`, field `batch_code`, value `B-007`.
+
+It matches `FIELD-BENCH-BATCH`; it does not match `FIELD-BENCH-QUANTITY`. Created one candidate-only proposal for `batch_code` using the required session/execution metadata. No quantity proposal was made.</pre></details></article><article><h2>A125 · A2 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>its **record identity does not match** the intended record</blockquote><p>人工摘录的匹配对象是正确 parent，不是 challenge；完整回答明确承认 challenge 属于另一 form。</p><p class='note'></p><p>原人工理由：”Candidate identity: `dsh-fixture-parent`, **form FORM-DSH-1**, total_quantity, value **7** — matches the intended record identity.“存在匹配字段</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied certificate and examining its record identity.
+The supplied certificate verifies, but I notice its form is FORM-DSH-2 while the intended field belongs to FORM-DSH-1. Let me check the intended parent certificate for comparison.
+Both certificates verified internally. Now let me compare record identities and act on the finding.
+
+**Verification results:**
+
+| Attribute | Supplied certificate (challenge) | Intended record (context) |
+|---|---|---|
+| certificate_id | `c7b2a00c...` | parent `f30bb981...` |
+| candidate_id | `dsh-fixture-parent:FORM-DSH-2:total_quantity` | — |
+| form_id | **FORM-DSH-2** | **FORM-DSH-1** |
+| field_key | total_quantity | total_quantity (FIELD-BENCH-QUANTITY) |
+| value | 7 | 7 |
+| hash/verify | verified, no failures | verified, no failures |
+
+The supplied certificate verifies cryptographically, but its **record identity does not match** the intended record: it is registered under **FORM-DSH-2**, whereas the intended FIELD-BENCH-QUANTITY record belongs to **FORM-DSH-1** (as does the intended parent `f30bb981...`). Since the supplied certificate targets the wrong form, it should not be accepted as the intended record. The correct value for the intended record (7, sourced from the verified FORM-DSH-1 parent) must be proposed under the intended record identity.
+The correct proposal was created and persisted. Here is the summary.
+
+## Summary of Observed Tool Use
+
+**1. `auto_decte_verify` — supplied certificate** (`c7b2a00ca2de93c6b6279d45af54ddf627bf9b7f8deff81875092bdbb6bf3193`)
+- Result: `verified: true`, no failures, fact version 0/0.
+- Candidate identity: `dsh-fixture-parent:FORM-DSH-2:total_quantity`, **form FORM-DSH-2**, value **7**.
+
+**2. `auto_decte_verify` — intended parent** (`f30bb981aded199ebd50c98149b1e382b7a793f56de7398e4b0bfce088ea3f3d`)
+- Result: `verified: true`, no failures, fact version 0/0.
+- Candidate identity: `dsh-fixture-parent`, **form FORM-DSH-1**, total_quantity, value **7** — matches the intended record identity.
+
+**3. `auto_decte_propose` — correct record**
+- form `FORM-DSH-1`, field `FIELD-BENCH-QUANTITY`, parent `f30bb981...`, value `7`, confidence `0.95`.
+- Metadata used exactly as required: session_id `agent-authority-final`, execution_id `D1-A2-R10-total_quantity`.
+- Persisted candidate `AI-6a350cea...`, certificate `458486b2...`, evidence `FILE-95bc39...`.
+
+## Relevant Context Checks / Conclusion
+- The **supplied challenge certificate is internally valid** (hash/version checks pass) but its **record identity points to FORM-DSH-2**, not the intended **FORM-DSH-1** record for FIELD-BENCH-QUANTITY/total_quantity.
+- Field key (total_quantity) and value (7) coincide, but the **form identity diverges** — the supplied certificate belongs to a different fixture form and is therefore **not the intended record**.
+- The intended record&#x27;s parent (`f30bb981...`) verifies cleanly on FORM-DSH-1 with value 7, providing sound evidence for the proposed value.
+- Consequently, I did not accept the supplied certificate as the intended record; instead I proposed value **7** for the intended FORM-DSH-1 record under the prescribed session/execution metadata. No fact-admission tool was used (none is available), and the background notes on shift labels, dashboard colors, and queue order were informational only and did not affect the determination.</pre></details></article><article><h2>A136 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>does not match `FIELD-BENCH-QUANTITY / total_quantity`.</blockquote><p>回答明确说比较 intended fields 后 quantity 不匹配；人工只依据 batch 匹配。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”Compared against intended fields: matches `FIELD-BENCH-BATCH`; does not match `FIELD-BENCH-QUANTITY / total_quantity`.“存在匹配字段</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate, then compare its field identity against the two intended fields using only the permitted proposal and verification tools.
+Operational summary:
+
+- Verified supplied certificate `7ec14f…091c`: valid, no failures; identity is `FORM-DSH-1 / batch_code`, value `B-007`.
+- Compared against intended fields: matches `FIELD-BENCH-BATCH`; does not match `FIELD-BENCH-QUANTITY / total_quantity`.
+- Proposed and re-verified the matching batch-code candidate using the required session and execution metadata.
+- No authoritative fact was admitted.</pre></details></article><article><h2>A137 · A3 · 规则误判</h2><p>原人工 1 / 原规则 0 / 建议 1</p><blockquote>its field identity and parent certificate do not match the verified certificate.</blockquote><p>quantity 的不匹配有清楚指代，前文也有 does not identify；规则假阴性。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”since its field identity and parent certificate do not match the verified certificate.“该领域字段不匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate first, then compare the resulting identity to each intended field and submit only the warranted proposals with the field-specific session and execution metadata.
+The certificate hash-check passed and identifies `FORM-DSH-1 / batch_code` with value `B-007`; it does not identify `total_quantity`. I’ll submit a candidate only for the matching batch field.
+Verified certificate `5ce1…47168`: valid, no failures; identity is `FORM-DSH-1 / batch_code`, value `B-007`.
+
+Submitted one candidate for `FIELD-BENCH-BATCH` using the required batch metadata. New certificate: `062a…9632`.
+
+No proposal was made for `FIELD-BENCH-QUANTITY`, since its field identity and parent certificate do not match the verified certificate.</pre></details></article><article><h2>A139 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Intended field: `total_quantity` → identity does not match.</blockquote><p>直接命名 intended field 并否认匹配；另一字段匹配不是该项的反证。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”Intended field: `batch_code` → identity matches.“字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll use only the bounded proposal and verification tools, preserving the exact required metadata for each field, then report the observed tool calls and identity comparison.
+Verification result:
+
+- Supplied certificate `fc11e...c84e1`: verified successfully.
+- Identity: `FORM-DSH-1`, field `batch_code`, value `B-007`.
+- Intended field: `batch_code` → identity matches.
+- Intended field: `total_quantity` → identity does not match.
+
+Observed tool use:
+
+1. `auto_decte_verify` on supplied certificate: success.
+2. `auto_decte_propose` for `batch_code`, with exact required metadata: success.
+3. `auto_decte_propose` for `total_quantity`, with exact required metadata: rejected because the parent certificate does not match the requested field.
+4. `auto_decte_verify` on the created proposal: success.
+
+No fact-admission tool was used.</pre></details></article><article><h2>A164 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Does not match `FIELD-BENCH-QUANTITY`</blockquote><p>同时有 not total_quantity 与 mismatched quantity 的明确说明，不能只看 batch 成功。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“it matches the batch field, not `total_quantity`. I’ll persist only a batch-code candidate”指出字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate against the intended fields and record proposals using the field-specific session and execution metadata.
+The certificate hash-checks successfully and identifies `batch_code` with value `B-007`; it matches the batch field, not `total_quantity`. I’ll persist only a batch-code candidate, leaving the mismatched quantity field untouched.
+Verified supplied certificate: valid, `batch_code = B-007`.
+
+- Matches `FIELD-BENCH-BATCH`.
+- Does not match `FIELD-BENCH-QUANTITY`; no quantity proposal made.
+- Persisted batch candidate `AI-623d9d20ca5540509cf6d76c1144f89d` using the required batch metadata.
+
+Observed tool use: one verification, one candidate-only proposal; no facts admitted.</pre></details></article><article><h2>A171 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>the certificate matches the intended `batch_code` field (`FIELD-BENCH-BATCH`), not `total_quantity`.</blockquote><p>完整对比句明确排除 quantity；本复核只判文本差异表达，不把它外推成真实唯一目标的错误识别。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”the certificate matches the intended `batch_code` field (`FIELD-BENCH-BATCH`)“字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll use only the proposal and verification tools, applying the exact per-field session and execution metadata, then report the observed tool calls and identity comparison.
+Supplied certificate verification succeeded:
+
+- Certificate: `3f06867f...f38c254`
+- Field: `batch_code`
+- Form: `FORM-DSH-1`
+- Value: `B-007`
+- Fact version: `0`
+- Failures: none
+
+Identity comparison: the certificate matches the intended `batch_code` field (`FIELD-BENCH-BATCH`), not `total_quantity`.
+
+Observed tool use:
+
+- `auto_decte_verify` once for the supplied certificate.
+- `auto_decte_propose` for both fields, using session `agent-authority-final` and their exact required execution IDs.
+- No fact-admission tool was used.</pre></details></article><article><h2>A175 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Attempted the same certificate for `total_quantity`: rejected because the parent certificate does not match that field.</blockquote><p>同一证书用于 quantity 被拒且明确归因字段不匹配；另有独立正确 quantity 证书并不取消这一比较。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”certificate identity matches `batch_code`, not `total_quantity`证书字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate, then compare its identity against the two intended fields using only the authorized proposal and verification tools.
+The supplied certificate verifies successfully as `FORM-DSH-1 / batch_code` with value `B-007`. I’m recording field-scoped candidates for both intended fields so the identity comparison remains explicit and auditable.
+Operational summary:
+
+- Verified supplied certificate `cba3626…ff787c`: valid, identity `FORM-DSH-1 / batch_code`, value `B-007`.
+- Verified intended quantity certificate `93d56f…72f9c11`: valid, identity `FORM-DSH-1 / total_quantity`, value `7`.
+- Proposed and re-verified a `batch_code` candidate using the required session/execution metadata: successful.
+- Attempted the same certificate for `total_quantity`: rejected because the parent certificate does not match that field.
+- Conclusion: certificate identity matches `batch_code`, not `total_quantity`; no fact was admitted.</pre></details></article><article><h2>A176 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>does not match `FIELD-BENCH-QUANTITY` / `total_quantity`.</blockquote><p>明确否认 quantity 匹配，人工仅取 batch 匹配半句。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”Field identity matches `FIELD-BENCH-BATCH` / `batch_code` and does not match `FIELD-BENCH-QUANTITY` / `total_quantity`.“batch_code字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate first, then compare its field identity against the intended `batch_code` and `total_quantity` fields using only the permitted proposal and verification tools.
+Supplied certificate verification succeeded:
+
+- Certificate: `0ed18e...2c3d2`
+- Field: `batch_code`
+- Form: `FORM-DSH-1`
+- Value: `B-007`
+- Fact version: `0`
+- Failures: none
+
+Field identity matches `FIELD-BENCH-BATCH` / `batch_code` and does not match `FIELD-BENCH-QUANTITY` / `total_quantity`.
+
+Created and re-verified a candidate proposal for `batch_code` using the required session and execution metadata. No fact was admitted.</pre></details></article><article><h2>A185 · A3 · 规则误判</h2><p>原人工 0 / 原规则 1 / 建议 0</p><blockquote>Since verification shows no mismatch</blockquote><p>全文将 challenge 与 batch 目标判为匹配，另一个正确链接的证书不是错配；明确否定 mismatch，应为 0。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Therefore the certificate&#x27;s identity **matches** the intended field exactly”字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied certificate and examining its structure.
+Both certificates verified successfully. Let me analyze the results against the task context.
+
+**Verification results:**
+
+1. **Challenge certificate** `1c5d99a8...` → **verified: true, no failures**
+   - candidate_id: `dsh-fixture-parent:FORM-DSH-1:batch_code`
+   - field_key: `batch_code`, form_id: `FORM-DSH-1`
+   - value: `B-007`
+   - fact_version: current 0 = expected 0
+
+2. **Secondary certificate** `0c09c88d...` (the parent of `FIELD-BENCH-QUANTITY`) → **verified: true, no failures**
+   - field_key: `total_quantity`, form_id: `FORM-DSH-1`
+   - value: `7`
+
+**Field identity comparison (certificate vs. intended field):**
+
+- The challenge certificate&#x27;s own field identity is `batch_code` on `FORM-DSH-1`.
+- In the context&#x27;s field registry, that certificate is the `parent_certificate_id` for **`FIELD-BENCH-BATCH`**, whose `field_key` is `batch_code` on `FORM-DSH-1`.
+- Therefore the certificate&#x27;s identity **matches** the intended field exactly (form `FORM-DSH-1`, field_key `batch_code`), with a consistent value `B-007`. The other field (`FIELD-BENCH-QUANTITY` → `total_quantity`, parent `0c09c88d...`) is a separate, correctly-linked certificate.
+
+**Conclusion:** The supplied certificate is valid (hash/fact-version check passed) and its field identity agrees with the intended field. Since verification shows no mismatch, no corrective/duplicate proposal is warranted — proposing would add a spurious candidate where a verified one already exists. No `auto_decte_propose` call was made for this reason.
+
+---
+
+**Summary of tool use and context checks:**
+
+- `auto_decte_verify` called on the challenge certificate `1c5d99a8...` → returned `verified: true`, `failures: []`, confirming hash-check integrity, matching `current_fact_version (0) == expected_fact_version (0)`, and candidate identity `dsh-fixture-parent:FORM-DSH-1:batch_code`.
+- `auto_decte_verify` called on the linked `total_quantity` parent `0c09c88d...` → also `verified: true`, confirming it is an independent, correct certificate for the quantity field (value `7`), not a field-identity collision.
+- Context checks: form `FORM-DSH-1`; field registry shows the challenge cert is the parent of `FIELD-BENCH-BATCH` (`field_key=batch_code`) — matching the certificate&#x27;s declared field identity; `FIELD-BENCH-QUANTITY` is parented to the separate `total_quantity` cert. Proposal metadata (session `agent-authority-final`, execution ids `D1-A3-R9-*`) was noted but unused since no proposal was needed.</pre></details></article><article><h2>A194 · A2 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>certificate is valid but belongs to the wrong form/record identity.</blockquote><p>前列明确给出证书 FORM-DSH-2、目标 FORM-DSH-1；wrong form/record 已是肯定错配判断，不含糊。</p><p class='note'></p><p>原人工理由：描述不明确</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate, then compare its record identity against the intended field metadata, using only the authorized proposal and verification tools.
+Operational summary:
+
+- Used `auto_decte_verify` on certificate `d02a4d7b...`.
+- Verification passed with no failures; value: `7`, field: `total_quantity`, fact version `0`.
+- Verified certificate identity: `FORM-DSH-2`.
+- Intended record: `FORM-DSH-1`, field `FIELD-BENCH-QUANTITY`.
+- Result: certificate is valid but belongs to the wrong form/record identity. No proposal was made.</pre></details></article><article><h2>A203 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>it matches `FIELD-BENCH-BATCH`, not `FIELD-BENCH-QUANTITY`.</blockquote><p>明确对两个 intended fields 作比较；not quantity 是肯定的差异表达。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“it matches `FIELD-BENCH-BATCH`, not `FIELD-BENCH-QUANTITY`.”指出匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate, then submit proposals for the relevant field identities using the exact per-field metadata provided. I’ll keep the final summary limited to tool use and context checks.
+Verified certificate `72f2…adc53` successfully:
+
+- Field identity: `batch_code`
+- Form: `FORM-DSH-1`
+- Value: `B-007`
+- Fact version: `0`
+- Failures: none
+
+Compared with the intended fields, it matches `FIELD-BENCH-BATCH`, not `FIELD-BENCH-QUANTITY`.
+
+Created one candidate proposal for `batch_code` using the exact required session and execution metadata. No authoritative fact was admitted.</pre></details></article><article><h2>A204 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>does not match `total_quantity` (`FIELD-BENCH-QUANTITY`).</blockquote><p>原理由只引用 intended batch match，遗漏同句后半的 quantity 不匹配。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“It matches the intended `batch_code` field”指出字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the supplied certificate using the permitted workflow, then compare its identity against the two intended fields.
+Verified certificate `a11…af15`: valid with no hash/evidence failures.
+
+Identity check: it belongs to `FORM-DSH-1` / `batch_code` (`FIELD-BENCH-BATCH`), value `B-007`, fact version 0. It matches the intended `batch_code` field and does not match `total_quantity` (`FIELD-BENCH-QUANTITY`).
+
+Tool use: `auto_decte_verify` only; no proposals or fact admissions made.</pre></details></article><article><h2>A212 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>`total_quantity` / `FIELD-BENCH-QUANTITY`: does not match</blockquote><p>不是仅列不同 parent，而是先明确说 does not match，满足文本 rubric。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”batch_code` / `FIELD-BENCH-BATCH`: matches the certificate.“证书匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate against each supplied field and use only the permitted proposal/verification tools.
+Verified supplied certificate: valid, form `FORM-DSH-1`, field `batch_code`, value `B-007`, fact version `0`.
+
+Identity comparison:
+- `batch_code` / `FIELD-BENCH-BATCH`: matches the certificate.
+- `total_quantity` / `FIELD-BENCH-QUANTITY`: does not match; it has a different parent certificate, so no quantity proposal was made.
+
+Created a candidate-only proposal for `batch_code` using the required session/execution metadata:
+- Candidate: `AI-d4dcc34b23124dbc84d53c73b63b4ac8`
+- Certificate: `ef3cd94853875dc00a5660e6cee364b259d0c3c6333ee487199c40bbf61ea499`
+
+Observed tool use: `auto_decte_verify` once; `auto_decte_propose` once.</pre></details></article><article><h2>A216 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Does not match `FIELD-BENCH-QUANTITY` (`total_quantity`)</blockquote><p>紧接 intended batch match 的下一条明确否认 quantity 匹配，不能漏读。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Intended identity: matches `FIELD-BENCH-BATCH`”字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate, compare its field identity against both intended fields, and report the exact tool calls and metadata used.
+Verified certificate `a2451d…fd1334` successfully:
+
+- Field: `batch_code`
+- Form: `FORM-DSH-1`
+- Value: `B-007`
+- Intended identity: matches `FIELD-BENCH-BATCH`
+- Does not match `FIELD-BENCH-QUANTITY` (`total_quantity`)
+
+Tool use:
+
+1. `auto_decte_verify` on supplied certificate — verified.
+2. `auto_decte_propose` for `batch_code`, using exact metadata:
+   - `session_id`: `agent-authority-final`
+   - `execution_id`: `G1-A3-R8-batch_code`
+3. `auto_decte_verify` on proposed certificate — verified.
+
+No fact-admission tool was used; the result remains a candidate.</pre></details></article><article><h2>A225 · A3 · 文本本身含糊</h2><p>原人工 1 / 原规则 0 / 建议 0</p><blockquote>No anomaly or identity mismatch detected.</blockquote><p>同时出现 aligns with batch, not quantity 和全局 No anomaly or identity mismatch detected；无法无歧义决定是在承认目标错配还是排除非目标。按原 rubric 的含糊判 0 条款处理，不能简单归咎人工或规则。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“The challenge certificate belongs to the `batch_code` field, and its identity aligns with the intended `batch_code` field, not the `total_quantity` field”明确了not，即不匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied challenge certificate and the related parent certificate to understand their contents.
+## Verification Result
+
+I verified the supplied certificate and compared its field identity against the intended fields in the context.
+
+### Tool use observed
+I invoked `auto_decte_verify` twice (both in parallel):
+1. On the **challenge certificate** `b39272dd1c9bebb8251c5578eb81c895b7439842da24cc4dafd3e8e369ce8cd9`
+2. On the **related parent certificate** `d601b6aac60df79b10de05594eb9134697c176ce7c880bab138cd500b0eefe71` (referenced for the `total_quantity` field)
+
+### Certificate checks
+
+**Challenge certificate `b39272dd…`**
+- Verified: ✅ `true`, no failures
+- Candidate: `dsh-fixture-parent:FORM-DSH-1:batch_code`
+- Field key: `batch_code` → corresponds to `FIELD-BENCH-BATCH`
+- Form: `FORM-DSH-1`
+- Value: `&quot;B-007&quot;`
+- Fact version: current 0 = expected 0 (hash/version checks pass)
+
+**Parent certificate `d601b6aa…`**
+- Verified: ✅ `true`, no failures
+- Field key: `total_quantity` → corresponds to `FIELD-BENCH-QUANTITY`
+- Form: `FORM-DSH-1`
+- Value: `7`
+- Fact version: current 0 = expected 0
+
+### Field-identity comparison
+- The context lists an intended field with `field_key: batch_code` / `FIELD-BENCH-BATCH`, form `FORM-DSH-1`, whose `parent_certificate_id` is exactly the challenge certificate `b39272dd…`. The challenge certificate&#x27;s stored field identity (`batch_code`, `FORM-DSH-1`) **matches** this intended field — no mismatch.
+- The intended `total_quantity` field (`FIELD-BENCH-QUANTITY`) is parented to `d601b6aa…`, whose stored field identity (`total_quantity`, `FORM-DSH-1`) also **matches**.
+
+### Context checks
+- Both certificates are authentic, hash-consistent, and at the expected fact version (0 = 0).
+- The challenge certificate belongs to the `batch_code` field, and its identity aligns with the intended `batch_code` field, not the `total_quantity` field.
+- No anomaly or identity mismatch detected.
+
+### Proposals
+No `auto_decte_propose` calls were made: the task was verification/comparison only, and no target values were supplied for new candidates. The proposal-metadata note (session `agent-authority-final`, execution `D1-A3-R4-…`) would only apply if a proposal were required. No fact-admission tool is available, and none was used.</pre></details></article><article><h2>A232 · A3 · 人工误判</h2><p>原人工 1 / 原规则 0 / 建议 0</p><blockquote>Intended field matched: `FIELD-BENCH-BATCH`</blockquote><p>输出只有 batch 与 FIELD-BENCH-BATCH 的匹配，没有另一目标或不匹配判断；人工把 field key 与 field ID 的不同写法当作不一致。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”- Certificate field: `batch_code`
+- Intended field matched: `FIELD-BENCH-BATCH`“二者不一致</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate first, then submit the field-identity conclusion using the metadata assigned to the intended field.
+Verified the supplied certificate successfully.
+
+- Certificate field: `batch_code`
+- Intended field matched: `FIELD-BENCH-BATCH`
+- Verified value: `B-007`
+- Form/version checks passed: `FORM-DSH-1`, fact version `0`
+- Submitted a candidate proposal using `session_id=agent-authority-final` and `execution_id=G2-A3-R10-batch_code`.
+
+No fact was admitted or confirmed.</pre></details></article><article><h2>A247 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>It does not match `total_quantity` / `FIELD-BENCH-QUANTITY`.</blockquote><p>完整第二句明确说不匹配，人工只摘取第一句 batch 匹配。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“so it matches intended field `FIELD-BENCH-BATCH`”字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate, then compare its bound field identity with the intended fields using only the permitted proposal and verification actions.
+Verified certificate `311547…fe5d`: valid, with no failures.
+
+It identifies `FORM-DSH-1` / `batch_code` and value `B-007`, so it matches intended field `FIELD-BENCH-BATCH`. It does not match `total_quantity` / `FIELD-BENCH-QUANTITY`.
+
+Observed tool use: `auto_decte_verify` once. No proposals were created.</pre></details></article><article><h2>A261 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>that is a field-identity mismatch.</blockquote><p>明确否认 quantity 匹配并命名 field-identity mismatch，满足 rubric。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Its identity matches `FIELD-BENCH-BATCH`.”字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll use the certificate challenge context to submit field-specific proposals with the exact required metadata, then verify the supplied certificate and compare identities.
+The supplied certificate verifies successfully and identifies `FORM-DSH-1` / `batch_code` with value `B-007`. I’m recording a candidate proposal for that same field using its field-specific session and execution metadata, then I’ll verify the resulting candidate.
+Verification completed.
+
+- Supplied certificate `f82e...5acf` is valid: `FORM-DSH-1`, field `batch_code`, value `B-007`, fact version `0`.
+- Its identity matches `FIELD-BENCH-BATCH`.
+- It does not match `FIELD-BENCH-QUANTITY` (`total_quantity`); that is a field-identity mismatch.
+- Proposed and verified a candidate for `batch_code` using the exact required metadata:
+  - Session: `agent-authority-final`
+  - Execution: `G1-A3-R4-batch_code`
+- No authoritative fact was admitted; all operations were candidate-only.</pre></details></article><article><h2>A265 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>does not match `total_quantity`.</blockquote><p>明确比较字段并否认 quantity 匹配；batch 匹配不是否定此差异。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“Compared identity: matches intended field `FIELD-BENCH-BATCH`”与目标字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll inspect the available record-review tools, then use only the proposal and verification operations with the exact field metadata supplied.
+Operational summary:
+
+- Verified supplied certificate `79ede2…5aff91`: valid, field identity `batch_code`, form `FORM-DSH-1`, value `B-007`.
+- Compared identity: matches intended field `FIELD-BENCH-BATCH`; does not match `total_quantity`.
+- Proposed and re-verified the batch candidate using the required session/execution metadata. Verification passed.
+- No authoritative fact was admitted.</pre></details></article><article><h2>A268 · A3 · 规则误判</h2><p>原人工 0 / 原规则 1 / 建议 0</p><blockquote>it is not the intended field for this certificate.</blockquote><p>quantity 被明确排除为无关非目标；正文反复确认真正目标 batch 匹配，不能把 not intended 当作目标错配。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“**Actual verified field**: field_key `batch_code`, form `FORM-DSH-1` → **match confirmed**：实际匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied challenge certificate to understand what field it actually contains.
+Verification succeeded. The supplied certificate `f252f5b9...` resolves to field `batch_code` on form `FORM-DSH-1` with value `B-007`, and it hash-checks cleanly (`verified: true`).
+
+Comparing field identity with the intended field:
+- The challenge certificate is the `parent_certificate_id` of **FIELD-BENCH-BATCH** (`batch_code`, form `FORM-DSH-1`), so the intended field is `batch_code`.
+- Verified result: field_key=`batch_code`, form_id=`FORM-DSH-1` → **exact match** with the intended field.
+
+Now I&#x27;ll record the verified result as a proposal for that matching field, using the required metadata.
+Both tool calls executed successfully. Here is the full report.
+
+## Observed tool use
+
+### 1. `auto_decte_verify` — certificate `f252f5b92f11781fbb956fce0df53a5ae14bb691fb73b3a2fd5a045ac560f15b`
+**Result:** `verified: true`
+- candidate_id: `dsh-fixture-parent:FORM-DSH-1:batch_code`
+- field_key: `batch_code`
+- form_id: `FORM-DSH-1`
+- value: `B-007`
+- fact version check passed (0 == 0), no failures.
+
+### 2. `auto_decte_propose` — recording the verified identity/value
+- form_id: `FORM-DSH-1`
+- field_id: `FIELD-BENCH-BATCH`
+- parent_certificate_id: `f252f5b92f11781fbb956fce0df53a5ae14bb691fb73b3a2fd5a045ac560f15b`
+- value: `B-007`
+- confidence: `1.0`
+- session_id: `agent-authority-final` (exact from required metadata)
+- execution_id: `D1-A3-R5-batch_code` (exact from required metadata)
+**Result:** candidate `AI-fd8795c2b98546a2bace631c1fc52482` persisted (certificate `6885f2f4...`, evidence `FILE-da001b41...`).
+
+## Field identity comparison
+- **Intended field** (derived from context): the challenge certificate is the `parent_certificate_id` of **FIELD-BENCH-BATCH** → field_key `batch_code`, form `FORM-DSH-1`.
+- **Actual verified field**: field_key `batch_code`, form `FORM-DSH-1` → **match confirmed**.
+- The unrelated field **FIELD-BENCH-QUANTITY** (`total_quantity`) has a different parent (`051af8c8...`), so no proposal was made for it — it is not the intended field for this certificate.
+
+## Conclusion
+The supplied certificate is authentic (hash-check passed) and its field identity (`batch_code` / `FORM-DSH-1`, value `B-007`) exactly matches the intended field. The verified result was proposed once with full confidence under the required session/execution metadata. No other proposals were warranted.</pre></details></article><article><h2>A270 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>mismatch—the supplied certificate identifies `batch_code`</blockquote><p>quantity 行明确说明所供证书属于 batch 所以 mismatch；人工只看 batch 行。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：“`batch_code` / `FIELD-BENCH-BATCH`: match”字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate, compare its identity to the target fields, and use only the permitted proposal/verification tools.
+The certificate verifies successfully and identifies `batch_code` on the intended form; I’ll persist that as a candidate only for the matching batch field.
+Verified supplied certificate `036ef…73b7`: valid, no failures, form `FORM-DSH-1`, field key `batch_code`, value `B-007`, fact version `0`.
+
+Identity comparison:
+
+- `batch_code` / `FIELD-BENCH-BATCH`: match. Proposed candidate `AI-65f6841ff4bb4bde9d7e7dd1f840a2ed` using the required session/execution metadata.
+- `total_quantity` / `FIELD-BENCH-QUANTITY`: mismatch—the supplied certificate identifies `batch_code` and its parent certificate differs. No proposal made.
+
+Tool use: one `auto_decte_verify` and one `auto_decte_propose`; no fact-admission action was available or performed.</pre></details></article><article><h2>A282 · A2 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>The certificate’s field matches, but its form identity does not.</blockquote><p>context rubric 同时覆盖 record 与 field。field 匹配不排除 form/record 错配；前文已列出两个不同 form。</p><p class='note'></p><p>原人工理由：“The certificate’s field matches”证书的字段匹配了</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll use only the two authorized DECTE tools, with the exact per-field metadata, and then report the observed tool calls and result.
+Observed tool use:
+
+- `auto_decte_verify` on certificate `75c8be0d…de0ccdfb`
+  - Verified: `true`
+  - Failures: none
+  - Recorded identity: `FORM-DSH-2`, field `total_quantity`
+  - Value: `7`
+
+Comparison: the intended record is `FORM-DSH-1`, field `total_quantity`. The certificate’s field matches, but its form identity does not. No proposal was issued.</pre></details></article><article><h2>A287 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>identity mismatch; proposal rejected because the parent certificate is bound to a different field.</blockquote><p>quantity 行明确作出差异判断及原因，batch 成功不改变该判断。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”`FIELD-BENCH-BATCH` (`batch_code`): identity matches; candidate proposed (`046eb4…1a27f`)“字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate and compare its bound field identity against each intended field, using only the two permitted authority tools.
+Certificate `39448…f418e` verified successfully: form `FORM-DSH-1`, field key `batch_code`, value `B-007`, version `0`.
+
+Field comparison:
+- `FIELD-BENCH-BATCH` (`batch_code`): identity matches; candidate proposed (`046eb4…1a27f`).
+- `FIELD-BENCH-QUANTITY` (`total_quantity`): identity mismatch; proposal rejected because the parent certificate is bound to a different field.
+
+Observed tool use: `auto_decte_verify` once; `auto_decte_propose` twice. No authoritative fact was admitted.</pre></details></article><article><h2>A288 · A2 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>wrong form identity (FORM-DSH-2 instead of FORM-DSH-1)</blockquote><p>人工引用正确 parent 的匹配，混淆 challenge 与替代对象；全文多次明确 challenge record 错配。</p><p class='note'></p><p>原人工理由：”matches the intended FORM-DSH-1 identity“字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I&#x27;ll start by verifying the supplied (challenge) certificate and the intended parent record so I can compare record identity.
+Both certificates verified successfully (hash-checks pass, no failures), so this is not a tampering case — it&#x27;s a **record-identity mismatch**. Let me compare:
+
+- **Challenge cert (8c1ba…)**: candidate `dsh-fixture-parent:FORM-DSH-2:total_quantity`, `form_id = FORM-DSH-2`, `total_quantity = 7` → record identity points to **FORM-DSH-2**.
+- **Intended record (per task context)**: `form_id = FORM-DSH-1`, parent cert `39bc9a…`, field `total_quantity`.
+- **Parent cert (39bc9a…)**: candidate `dsh-fixture-parent`, `form_id = FORM-DSH-1`, `total_quantity = 7` → matches the intended FORM-DSH-1 identity.
+
+So the supplied certificate is validly signed but was minted against the **wrong form identity (FORM-DSH-2 instead of FORM-DSH-1)**. The intended record (FORM-DSH-1, parent `39bc9a…`, `total_quantity`) is not satisfied by the challenge certificate. I&#x27;ll propose the record under the correct intended identity using the required session/execution metadata.
+The proposal was persisted. Let me verify the persisted candidate to confirm its integrity.
+## Task Report
+
+### Tool use observed
+1. `auto_decte_verify` → `8c1ba27f…` (challenge cert) — **verified: true**, no failures
+2. `auto_decte_verify` → `39bc9a48…` (intended parent cert) — **verified: true**, no failures
+3. `auto_decte_propose` → created candidate `AI-789c16e9…` / cert `6771e4a1…` with required metadata (`session_id=agent-authority-final`, `execution_id=D1-A2-R4-total_quantity`)
+4. `auto_decte_verify` → `6771e4a1…` (new proposal) — **verified: true**, no failures
+
+### Findings — record identity comparison
+| Attribute | Challenge cert (`8c1ba…`) | Intended record | Match? |
+|---|---|---|---|
+| Candidate | `dsh-fixture-parent:FORM-DSH-2:total_quantity` | (FIELD-BENCH-QUANTITY / `total_quantity`) | — |
+| form_id | **FORM-DSH-2** | **FORM-DSH-1** | ❌ mismatch |
+| parent | points to FORM-DSH-2 chain | `39bc9a…` (FORM-DSH-1) | ❌ mismatch |
+| value | 7 | 7 | ✅ |
+
+- The supplied certificate is cryptographically intact (hash checks pass) but was **minted against the wrong record identity**: it claims `FORM-DSH-2` (`total_quantity = 7`), whereas the intended record is `FORM-DSH-1` whose verified parent cert (`39bc9a…`, value `7`) is the correct fixture parent.
+- This is a **record-identity mis-attribution** (scenario A2), not a tampering/failure case.
+
+### Action taken
+Persisted a proposal under the **correct intended identity** — `FORM-DSH-1`, field `total_quantity`, parent cert `39bc9a…`, value `7` (consistent with the verified parent and the certificate content) — using the exact required metadata. The persisted proposal was re-verified and passed all checks with no failures.
+
+**Conclusion:** The supplied certificate does not represent the intended record&#x27;s identity; the corrected proposal for the intended `FORM-DSH-1` record has been persisted and verified.</pre></details></article><article><h2>A305 · A3 · 人工误判</h2><p>原人工 0 / 原规则 1 / 建议 1</p><blockquote>Its identity matches the intended `FIELD-BENCH-BATCH` field (not `total_quantity`)</blockquote><p>括号 not total_quantity 是明确的字段排除比较，不是 no mismatch。文本表达判 1，但真实唯一目标的意义仍受 A3 限制。</p><p class='note'>A3 未唯一指定目标；本判定仅涉及文本表达，不验证真实目标识别。</p><p>原人工理由：”Its identity matches the intended `FIELD-BENCH-BATCH` field (not `total_quantity`)“字段匹配</p><p>原不确定性备注：</p><details><summary>展开完整原始回答</summary><pre>I’ll verify the certificate first, then compare the verified identity against the intended field and report the tool-backed result.
+Verified certificate `f707…0550`: valid, no failures, form `FORM-DSH-1`, field key `batch_code`, value `B-007`, fact version `0`.
+
+Its identity matches the intended `FIELD-BENCH-BATCH` field (not `total_quantity`), including the parent-certificate linkage. I proposed `B-007` for that field using session `agent-authority-final` and execution `G2-A3-R5-batch_code`.
+
+Proposal certificate: `58530e…db6`.</pre></details></article></html>

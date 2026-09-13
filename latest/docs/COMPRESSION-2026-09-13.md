@@ -1,0 +1,7 @@
+# Final prose compression, 13 September 2026
+
+The main manuscript decreased from 62 to 60 pages; the supplement remains 20 pages. Fifteen prose spans were condensed, removing approximately 984 whitespace-delimited words. No font, margin, figure size, table, equation, proposition, citation, dataset, or label was changed by this compression. The final pass also replaced a slash-joined property list with commas to avoid an overfull line.
+
+The edits consolidate repeated checker explanations, distinguishability qualifications, control interpretations, annotation procedures, and transaction-configuration prose. The identity pair, class-level scope, same-value/no-op boundary, stronger-control limits, non-author versus author blinding differences, and external review-channel assumptions remain explicit. No content was relocated to inflate the supplement. Four representative pages were visually inspected after compilation. Both LaTeX logs are clean; citation and label sets are preserved.
+
+All 1071 protected preexisting code, model, evidence, table, figure and bibliography files match the r29 manifest. Compression changes exposition, not the stated contributions or results. Further large reductions would require a separate structural choice about relocating scientific content. The article remains long for submission; the cover letter gives the reason without claiming an exemption from journal requirements.

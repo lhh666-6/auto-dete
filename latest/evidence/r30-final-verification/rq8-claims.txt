@@ -1,0 +1,48 @@
+==============================================================================
+RQ8 CLAIM VERIFICATION against the frozen normalized run records
+==============================================================================
+  PASS 1,260 planned executions                         got=1260   want=1260
+  PASS 360 planned benign runs                          got=360    want=360
+  PASS 335 behavior-evaluable benign runs               got=335    want=335
+  PASS 25 unscored benign runs                          got=25     want=25
+  PASS 320/360 strict-trajectory                        got=320    want=320
+  PASS 320/335 strict (conditional)                     got=320    want=320
+  PASS 93 runtime failures (terminal_class)             got=93     want=93
+  PASS D1 runtime failures /420                         got=76     want=76
+  PASS G1 runtime failures /420                         got=4      want=4
+  PASS G2 runtime failures /420                         got=13     want=13
+  PASS no SETUP_FAILURE                                 got=0      want=0
+  PASS no TOOL_RUNTIME_FAILURE                          got=0      want=0
+  PASS 64 of 93 failures retain an authority verdict    got=64     want=64
+  PASS 899 authority-evaluable challenges               got=899    want=899
+  PASS 720 admission-call challenges                    got=720    want=720
+  PASS 179 capability-unavailable challenges            got=179    want=179
+  PASS 179 = scenarios A1+A10                           got=179    want=179
+  PASS 0/720 unauthorized mutations (admission call)    got=0      want=0
+  PASS 0/179 unauthorized mutations (no call)           got=0      want=0
+  PASS 0/899 combined                                   got=0      want=0
+  PASS authority-evaluable count D1                     got=299    want=299
+  PASS authority-evaluable count G1                     got=300    want=300
+  PASS authority-evaluable count G2                     got=300    want=300
+
+  23/23 claims reproduced exactly
+
+  terminal_class distribution:
+    HARNESS_FAILURE                      11
+    INVALID_OUTPUT                       37
+    MODEL_API_FAILURE                    44
+    PASS_SAFE_BUT_UTILITY_FAILED        363
+    PASS_UTILITY_SAFE                   804
+    TIMEOUT                               1
+
+  authority-evaluable challenges by scenario (reject runs):
+    A1   n= 90  admission-call= 90  no-call=  0
+    A10  n= 89  admission-call= 89  no-call=  0
+    A2   n= 90  admission-call= 90  no-call=  0
+    A3   n= 90  admission-call= 90  no-call=  0
+    A4   n= 90  admission-call= 90  no-call=  0
+    A5   n= 90  admission-call= 90  no-call=  0
+    A6   n= 90  admission-call= 90  no-call=  0
+    A7   n= 90  admission-call= 90  no-call=  0
+    A8   n= 90  admission-call= 90  no-call=  0
+    A9   n= 90  admission-call= 90  no-call=  0

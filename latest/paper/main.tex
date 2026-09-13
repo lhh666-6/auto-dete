@@ -30,10 +30,11 @@
 
 \title{Authoritative-State Admission for AI-Derived Updates: Failure Distinguishability, Transactional Realization, and Evaluation}
 
-\author[inst1]{Liang Hanghao\corref{cor1}}
+\author[inst1]{Liang Hanghao}
 \author[inst1]{Xuan Wentao}
-\cortext[cor1]{Corresponding author. Email address: \texttt{zwu691403@gmail.com}}
-\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},city={Changsha},country={China}}
+\author[inst1]{Peng Peng\corref{cor1}}
+\cortext[cor1]{Corresponding author. Email address: \texttt{hnu16pp@hnu.edu.cn}}
+\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},addressline={Lushan South Road, Yuelu District},city={Changsha},postcode={410082},country={China}}
 
 \begin{abstract}
 AI-derived record updates must distinguish a machine proposal from the value a human authorizes. We specify \emph{authoritative-state admission}: authorization binds an exact persisted candidate to an explicit value, Correction preserves the original proposal, and the complete successor retains every field's source. Five safe/unsafe history pairs establish class-wise irredundancy relative to a declared observation model. The Python/SQLite realization combines candidate-bound authorization, compare-and-swap-protected admission, and reverse-trace validation, checked through bounded Alloy analysis, formal--concrete projection, and a 35-case fault catalogue. The evaluated transactional value-audit safeguards do not by themselves entail an explicit authorization-to-exact-candidate relation. Both the frozen value-audit control and a strengthened transactional value-audit control agree with candidate-bound admission on seven of eight single-history cases; equal-valued candidate substitution separates them. Richer recorded review context narrows this distinction, while exact binding discriminates candidates equivalent under those observations. Frozen v8 workloads characterize admission and trace costs. Across three qualified model configurations, 320/360 planned benign runs met the strict-trajectory criterion; 25 lacked a scorable verdict. Fixed host checks supply separate integration-conformance observations, with all runtime failures retained. These results concern the declared model and evaluated system; host authentication and review-channel integrity remain external assumptions.

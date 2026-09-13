@@ -1,3 +1,5 @@
+Current frozen JSS reviewer entry: [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md).
+
 Auto-Decte — Reviewer artifact (historical ESWA-era package)
 ============================================================
 
@@ -7,7 +9,7 @@ The file you are reading documents an earlier artifact package retained for
 provenance. It is NOT the current manuscript package.
 
   latest/paper/main.pdf         current main manuscript (62 pages)
-  latest/paper/supplement.pdf   current supplement (19 pages)
+  latest/paper/supplement.pdf   current supplement (20 pages)
   latest/                       current sources, evidence, and manifest
   latest/verify_latest.py       check the current package against its manifest
 

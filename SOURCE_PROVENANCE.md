@@ -1,3 +1,5 @@
+> Historical ESWA-era provenance. For the final JSS freeze use [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md) and `FREEZE-MANIFEST-r30.json`.
+
 # SOURCE_PROVENANCE.md
 
 This artifact contains three provenance components derived from two source states.
