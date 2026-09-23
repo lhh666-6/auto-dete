@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\caption{Full admission versus prevalidated, relationally equivalent materialization (milliseconds; 200 pairs per cell). Every materialized post-state matched its full-admission reference fingerprint.}
+\label{tab:feature-baseline}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+Fields & Changed & Full p50 & Materialization p50 & Mean paired delta \\
+\midrule
+1   & 1   & 18.019 & 10.835 & 8.624 \\
+8   & 1   & 17.820 & 10.469 & 7.455 \\
+8   & 4   & 22.521 & 11.083 & 12.280 \\
+8   & 8   & 28.168 & 11.399 & 16.788 \\
+32  & 1   & 18.046 & 10.600 & 7.998 \\
+32  & 4   & 23.081 & 11.136 & 12.578 \\
+32  & 32  & 62.510 & 12.599 & 50.591 \\
+128 & 1   & 19.562 & 11.600 & 8.206 \\
+128 & 4   & 24.573 & 11.890 & 13.188 \\
+128 & 128 & 194.862 & 16.479 & 182.021 \\
+\bottomrule
+\end{tabular}
+\end{table}

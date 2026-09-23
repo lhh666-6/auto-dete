@@ -1,0 +1,676 @@
+--- r31/main.tex
++++ edited/main.tex
+@@ -37,7 +37,7 @@
+ \affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},addressline={Lushan South Road, Yuelu District},city={Changsha},postcode={410082},country={China}}
+ 
+ \begin{abstract}
+-AI-derived record updates must distinguish a machine proposal from the value a human authorizes. We specify \emph{authoritative-state admission}: authorization binds an exact persisted candidate to an explicit value, Correction preserves the original proposal, and the complete successor retains every field's source. Five safe/unsafe history pairs establish class-wise irredundancy relative to a declared observation model. The Python/SQLite realization combines candidate-bound authorization, compare-and-swap-protected admission, and reverse-trace validation, checked through bounded Alloy analysis, formal--concrete projection, and a 35-case fault catalogue. The evaluated transactional value-audit safeguards do not by themselves entail an explicit authorization-to-exact-candidate relation. Both the frozen value-audit control and a strengthened transactional value-audit control agree with candidate-bound admission on seven of eight single-history cases; equal-valued candidate substitution separates them. Richer recorded review context narrows this distinction, while exact binding discriminates candidates equivalent under those observations. Frozen v8 workloads characterize admission and trace costs. Across three qualified model configurations, 320/360 planned benign runs met the strict-trajectory criterion; 25 lacked a scorable verdict. Fixed host checks supply separate integration-conformance observations, with all runtime failures retained. These results concern the declared model and evaluated system; host authentication and review-channel integrity remain external assumptions.
++AI-derived updates can produce identical final values despite different proposal and authorization histories. We specify correction-aware authoritative-state admission: human authorization binds an exact persisted candidate to an explicit value, Correction preserves the original proposal, and complete successors retain every field's source. Within the declared observation model, five safe/unsafe history pairs establish class-wise irredundancy of five failure-distinguishing information classes. We realize the relation in Python/SQLite and evaluate it through bounded Alloy analysis, formal--concrete projection, and a 35-case fault catalogue. Both the frozen and strengthened transactional value-audit controls agree with candidate-bound admission on seven of eight single-history cases; equal-valued candidate substitution separates them. Their safeguards alone do not entail explicit authorization-to-exact-candidate binding. Richer recorded review context narrows this distinction, while exact binding distinguishes candidates equivalent under those observations. Frozen v8 workloads characterize admission and trace costs. Across three qualified model configurations, 320/360 planned benign runs met the frozen strict-trajectory criterion; 25 lacked scorable behavior verdicts. Fixed host checks separately assess integration conformance, retaining all runtime failures. Findings concern the declared model and evaluated system; host authentication and review-channel integrity remain external assumptions.
+ \end{abstract}
+ 
+ \begin{keyword}
+--- r31/sections/01-introduction.tex
++++ edited/sections/01-introduction.tex
+@@ -1,16 +1,16 @@
+ \section{Introduction}
+ \label{sec:introduction}
+ 
+-AI-generated updates can become persistent facts used for reporting, payment, scheduling, or later decisions. Admission must therefore establish which authority approved which value from which persisted proposal and record state.
++AI-generated updates can become persistent facts for reporting, payment, scheduling, or later decisions. Admission must establish which authority approved which value from which persisted proposal and record state.
+ 
+-Consider a record whose authoritative quantity is 90. A recognizer proposes 100, but a reviewer authorizes 101; an unchanged batch-code field should retain its earlier source. Accepting a machine proposal of 101 would produce the same final value with different attribution. Rewriting the candidate would falsely attribute the correction to the model, while dropping the unchanged field's source would preserve values but lose lineage. Admission must retain the predecessor 90, the proposal $x_c=100$, and the authorized value $x_a=101$, allowing
++Consider an authoritative quantity of 90: a recognizer proposes 100, but a reviewer authorizes 101. Accepting a machine proposal of 101 yields the same final value with different attribution. Rewriting the candidate falsely attributes the correction to the model; dropping an unchanged batch-code field's earlier source preserves values but loses lineage. Admission must retain the predecessor 90, proposal $x_c=100$, and authorized value $x_a=101$, allowing
+ \begin{equation}
+ x_c\neq x_a
+ \label{eq:intro-correction}
+ \end{equation}
+ with both value roles and the complete successor's sources intact.
+ 
+-The target systems permit human correction of AI-generated field candidates, persist accepted updates as operational facts, and require later reconstruction of authorization and origin. Existing activation, governed-memory, and transaction mechanisms provide adjacent foundations: Continuity Kernel separates candidates from atomic activation; LatticeMind handles claim selection and supersession; authority-collapse work studies lost source constraints; MutMem binds authorized changes to predecessor history; and MemTxn supports source-grounded updates and recovery \citep{he2026continuity,zhou2026latticemind,zhan2026authoritycollapse,saidi2026mutmem,cui2026memtxn}. We specialize this problem to the following correction-aware, field-level relation:
++The target systems permit human correction of AI-generated field candidates, persist accepted updates, and require reconstruction of authorization and origin. Prior work provides activation, governed-memory, and transaction foundations \citep{he2026continuity,zhou2026latticemind,zhan2026authoritycollapse,saidi2026mutmem,cui2026memtxn}, detailed in \cref{sec:related}. We specify the correction-aware, field-level relation:
+ \begin{equation}
+ \begin{aligned}
+ \textit{exact candidate}
+@@ -21,19 +21,19 @@
+ \end{aligned}
+ \label{eq:admission-chain}
+ \end{equation}
+-The candidate remains historical evidence; human authorization supplies value authority; a trusted transaction constructs the successor. Ordinary transaction and logging facilities can implement this relation. The engineering increment is their joint, checkable binding of proposal identity, a possibly different authorized value, and exact changed/unchanged field sources.
++The candidate remains historical evidence, human authorization supplies value authority, and a trusted transaction constructs the successor. Ordinary transaction and logging facilities can implement this joint, checkable binding of proposal identity, a possibly different authorized value, and exact changed/unchanged field sources.
+ 
+-We ask which observable distinctions preserve that relation against candidate substitution, correction erasure, stale replay, fragmented successors, and source ambiguity. Under a declared failure and observation model, paired histories expose what becomes indistinguishable when each information class is omitted. We study the relation through the Python/SQLite reference realization \system{}:
++We ask which observations distinguish candidate substitution, correction erasure, stale replay, fragmented successors, and source ambiguity. Paired histories expose distinctions lost when an information class is omitted. The Python/SQLite reference realization \system{} supports the following contributions:
+ \begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
+-\item \textbf{Correction-aware admission contract.} Bind authorization to the exact candidate, keep proposed and authorized values separately attributable, and retain total field sources in one complete successor.
+-\item \textbf{Conditional failure distinguishability.} Five safe/unsafe history pairs establish class-wise irredundancy within the declared failure and observation model.
+-\item \textbf{Relational and transactional realization.} Connect the contract to bounded Alloy checks, a CAS-protected transaction, selected formal--concrete projections, and an executable fault catalogue.
+-\item \textbf{Cost and integration evidence.} Characterize frozen v8 persistence-equivalent admission and trace costs, and separate restricted-agent task outcomes from host-enforced authority checks across three qualified configurations.
+-\item \textbf{Evaluated-control separation.} Equal-valued candidate substitution separates candidate-bound admission from both evaluated transactional value-audit controls, which agree with it on the other seven single-history cases. The separation persists with strengthened safeguards and narrows with richer recorded review context.
++\item \textbf{Correction-aware admission contract.} Bind human authorization to the exact persisted candidate and explicit authorized value, preserving the proposal and every field's source in a complete successor.
++\item \textbf{Conditional failure distinguishability.} Five safe/unsafe history pairs establish class-wise irredundancy of five failure-distinguishing information classes within the declared failure and observation model.
++\item \textbf{Relational and transactional realization.} Connect the contract to bounded Alloy checks, a CAS-protected transaction, selected formal--concrete projections, and the 35-case fault catalogue.
++\item \textbf{Cost and integration evidence.} Characterize frozen v8 persistence-equivalent admission and trace costs; separate restricted-agent task outcomes from host-enforced authority checks across three qualified configurations.
++\item \textbf{Evaluated-control separation.} Both frozen and strengthened transactional value-audit controls agree with candidate-bound admission on seven of eight single-history cases. Equal-valued candidate substitution separates them; richer recorded review context narrows the distinction.
+ \end{enumerate}
+ 
+ \paragraph{Constructed workflow example}
+-An operations team needs to identify which persisted proposal a reviewer inspected. Two extraction retries may have the same record, field, and authorized value but different timestamps and evidence locators. Value-level approval suffices when the audit question is whether a value was approved. Instance-level accountability additionally asks which artifact was reviewed; candidate-bound admission records that instance and rejects substitution. The need to distinguish retries depends on the accountability policy. The current path records value-changing updates; renewed review without a value change needs a separate review-event path.
++Two extraction retries may share a record, field, and authorized value but differ in timestamps and evidence locators. Value-level approval suffices to establish that a value was approved; instance-level accountability asks which persisted artifact was reviewed. When policy requires this distinction, candidate-bound admission records the reviewed instance and rejects substitution. The current path records value-changing updates; renewed review without a value change requires a separate review-event path.
+ 
+ The contract records and rechecks authority under externally supplied host authentication and review-channel integrity; the trust boundary is detailed in \cref{sec:contract}.
+ 
+--- r31/sections/02-related-work.tex
++++ edited/sections/02-related-work.tex
+@@ -1,47 +1,47 @@
+ \section{Background and related work}
+ \label{sec:related}
+ 
+-Authoritative-state admission sits at the intersection of agent-state governance, authorization, transactional provenance, and formal--concrete checking. We organize prior work by the software boundary it governs: memory activation and update, authorization and effects, provenance, or executable validation. The comparison includes public preprints available through 3 September 2026, with publication status recorded separately.
++We compare prior work by its governed boundary: memory activation and update, authorization and effects, provenance, or executable validation. The comparison includes public preprints through 3 September 2026, with publication status recorded separately.
+ 
+ \subsection{Authoritative state and governed memory}
+ 
+-Continuity Kernel is the closest general activation-boundary neighbor. It separates off-commit candidate evaluation from a short transaction that revalidates ownership, predecessor authority, freshness, and effect uniqueness before atomically installing a complete accepted unit \citep{he2026continuity}.
++Continuity Kernel separates off-commit candidate evaluation from a short transaction that revalidates ownership, predecessor authority, freshness, and effect uniqueness before installing a complete accepted unit atomically \citep{he2026continuity}. It is the closest general activation-boundary neighbor.
+ 
+-LatticeMind moves claim conflict handling into write-time structured memory. It represents proposed, confirmed, contested, and superseded items; reconciles slot-scoped claims using symbolic checks and selective model assistance; and retains losing claims with provenance \citep{zhou2026latticemind}. Its reviewed artifact focuses on conflict-aware claim selection and supersession.
++LatticeMind represents proposed, confirmed, contested, and superseded claims in write-time structured memory. It combines symbolic checks with selective model assistance for slot-scoped reconciliation and retains losing claims with provenance \citep{zhou2026latticemind}. Its reviewed artifact concerns claim selection and supersession.
+ 
+-When Memory Becomes Authority identifies \emph{authority collapse}: consolidation may preserve claim content while erasing source constraints governing later reuse \citep{zhan2026authoritycollapse}. Correct Is Not Governed similarly separates correct outcomes from governed execution through versioned authority/fact sets and dependency provenance \citep{salas2026governed}. These works establish that retaining content or reaching the right answer does not by itself preserve authority.
++When Memory Becomes Authority identifies \emph{authority collapse}: consolidation preserves content but may erase constraints on source reuse \citep{zhan2026authoritycollapse}. Correct Is Not Governed distinguishes correct outcomes from governed execution using versioned authority/fact sets and dependency provenance \citep{salas2026governed}. Both separate retained content or correct answers from retained authority.
+ 
+-MutMem cryptographically authorizes mutation of an already persistent memory property, binding old/new retrieval weights, signer epoch, provenance, and a no-fork predecessor \citep{saidi2026mutmem}. MemTX stages and validates belief writes, while the distinct MemTxn system places source-supported updates, conflict-conditioned visibility, and complete-state recovery behind an answer-model-external transaction boundary \citep{li2026memtx,cui2026memtxn}. SuperLocalMemory 4.0 adds governed admission, generation fencing, transaction verification, compensation, erasure ownership, and completion manifests \citep{bhardwaj2026superlocalmemory}. Together, these systems establish authorized mutation, update transactions, governed admission, source validation, and recovery as adjacent foundations.
++MutMem authorizes persistent-property mutation by binding old/new retrieval weights, signer epoch, provenance, and a no-fork predecessor cryptographically \citep{saidi2026mutmem}. MemTX stages and validates belief writes; the distinct MemTxn system places source-supported updates, conflict-conditioned visibility, and complete-state recovery behind an answer-model-external transaction boundary \citep{li2026memtx,cui2026memtxn}. SuperLocalMemory 4.0 adds governed admission, generation fencing, transaction verification, compensation, erasure ownership, and completion manifests \citep{bhardwaj2026superlocalmemory}. These provide adjacent mutation, transaction, source-validation, and recovery foundations.
+ 
+-Stored Is Not Supported separates persisted availability from warranted assertion through typed provenance, authorized projections, and a mediated release gate \citep{he2026stored}. It takes an authenticated accepted-state head as input and treats lower-level atomic storage as an assumption. The boundaries are complementary: valid admission alone does not establish that a later statement is supported or authorized for disclosure.
++Stored Is Not Supported distinguishes stored availability from warranted assertion through typed provenance, authorized projections, and a mediated release gate \citep{he2026stored}. It assumes authenticated accepted state and atomic storage. This complementary boundary concerns whether admitted information supports a later statement and its disclosure.
+ 
+ \Cref{tab:nearest-neighbors} compares reported admission relations. Atomicity and freshness alone do not bind a human-authorized value to its machine proposal or preserve unchanged-field sources. An unreported relation is not a demonstrated defect or an inability to extend the compared system.
+ 
+-When Stale Constraints Go Unchecked shows empirically that immutable provenance can remain reachable while an agent fails to revisit a superseded constraint under a verification budget \citep{nakayashiki2026staleconstraints}. It motivates the freshness distinction used in our declared admission model, but does not itself define a candidate-bound authoritative commit relation.
++When Stale Constraints Go Unchecked finds that agents under a verification budget may overlook superseded constraints despite reachable immutable provenance \citep{nakayashiki2026staleconstraints}. It motivates our freshness distinction rather than defining a candidate-bound commit relation.
+ 
+ \input{tables/generated/nearest_neighbor_matrix}
+ 
+ \subsection{Proof-carrying and transaction-bound authority}
+ 
+-Proof-carrying authentication places a machine-checkable proof on the requester and checks it at the server with a minimal trusted computing base \citep{appel1999pca}. DPoP sender-constrains OAuth tokens to a proof-of-possession key and the presenting HTTP request \citep{fett2023dpop}. The active OAuth Transaction Tokens draft propagates signed authorization and request context through one call chain, whereas the active individual SPT-Txn draft binds a short-lived token to a declared action and resource \citep{tulshibagwale2026txtokens,coetzee2026spttxn}. Both Internet-Drafts are works in progress. CapLease additionally treats authorization consumption as durable state for replay-resistant agent actions \citep{xu2026caplease}.
++Proof-carrying authentication checks requester-supplied proofs at a server with a minimal trusted computing base \citep{appel1999pca}. DPoP binds OAuth tokens to a proof-of-possession key and presenting request \citep{fett2023dpop}. The OAuth Transaction Tokens draft propagates signed authorization and request context through a call chain; the individual SPT-Txn draft binds a short-lived token to an action and resource \citep{tulshibagwale2026txtokens,coetzee2026spttxn}. Both drafts remain works in progress. CapLease makes authorization consumption durable for replay-resistant agent actions \citep{xu2026caplease}.
+ 
+ PCE separates proposed traces, certification, and execution; DTF derives execution authority from a structured intent, justification proof, and approval record; EBTE checks typed action claims against server-held intent, policy, payload, tool, risk, provenance, and freshness facts; and CAP+PCL composes provenance-bound context attestation with deterministic policy authorization \citep{liu2026pce,he2026dtf,zhu2026ebte,chitan2026cappcl}. CAGE shows that categorical source-binding uncertainty and numerical uncertainty in typed returns cannot safely be certified in isolation before authorizing a downstream action \citep{delattre2026cage}.
+ 
+ ToolGate checks preconditions and postconditions before symbolic-state updates; CapChain governs field/value updates through scoped capabilities and the current provenance predecessor root \citep{liu2026toolgate,choong2026capchain}.
+ 
+-Agent harnesses provide the extension boundary through which a model can reach such services. A source-level comparison of deepagents, pi, and DeepSeek Harness reports explicit extension seams as a convergent feature \citep{dai2026harnesses}; the pinned DeepSeek Harness architecture specifically registers model-facing capabilities on \code{ctx.tools} and routes execution through a guarded runtime pipeline \citep{deepseek2026architecture}.
++Agent harnesses expose service-extension boundaries. A comparison of deepagents, pi, and DeepSeek Harness identifies explicit extension seams as a convergent feature \citep{dai2026harnesses}. The pinned DeepSeek Harness registers model-facing capabilities on \code{ctx.tools} and uses a guarded execution pipeline \citep{deepseek2026architecture}.
+ 
+ Indirect prompt injection can cause integrated models to interpret untrusted content as instructions \citep{greshake2023indirect}. AgentDojo separates task utility from security over a dynamic tool-agent environment \citep{debenedetti2024agentdojo}.
+ 
+ \subsection{Versioned transaction provenance}
+ 
+-Why- and where-provenance distinguish why an output exists from where its values originated, and later surveys systematize why-, how-, and where-provenance \citep{buneman2001whywhere,cheney2009provenance}. The Open Provenance Model and W3C PROV provide technology-independent vocabularies for causal histories, entities, activities, agents, derivations, and responsibility \citep{moreau2011opm,moreau2013provdm}. Transaction reenactment and multi-version provenance reconstruct how database states arise from update histories \citep{arab2016rcsi,arab2018reenactment,arab2019thesis}.
++Why-, how-, and where-provenance describe output justification, derivation, and value origins \citep{buneman2001whywhere,cheney2009provenance}. The Open Provenance Model and W3C PROV represent causal histories, entities, activities, agents, derivations, and responsibility \citep{moreau2011opm,moreau2013provdm}. Transaction reenactment and multi-version provenance reconstruct database update histories \citep{arab2016rcsi,arab2018reenactment,arab2019thesis}.
+ 
+ These provenance vocabularies can represent the relevant relationships; adopting a vocabulary alone does not specify when admission must enforce candidate binding, authorized-value equality, or exact source copy-forward.
+ 
+ \subsection{Bounded analysis and executable projection}
+ 
+-Alloy searches finite relational scopes through SAT-based model finding \citep{jackson2002alloy,torlak2007kodkod}. TestEra maps Alloy-generated inputs to Java executions and abstracts their outputs back to Alloy; bounded program checkers similarly translate annotated programs into finite relational or propositional searches \citep{marinov2001testera,dennis2006sat,galeotti2013taco}.
++Alloy checks finite relational scopes by SAT-based model finding \citep{jackson2002alloy,torlak2007kodkod}. TestEra connects Alloy-generated inputs, Java execution, and abstraction back to Alloy; bounded program checkers translate annotated programs into finite relational or propositional searches \citep{marinov2001testera,dennis2006sat,galeotti2013taco}.
+ 
+ Mutation analysis asks whether checks distinguish deliberately altered constraints \citep{sullivan2017alloymutation,jia2011mutation,just2014mutants}.
+ 
+@@ -49,8 +49,8 @@
+ 
+ Property-based state machines and controlled schedule exploration reveal history-dependent and concurrent failures that examples may miss \citep{claessen2000quickcheck,claessen2009pulse,musuvathi2008chess}. Elle illustrates the value of an independent checker over observed histories \citep{kingsbury2020elle}.
+ 
+-Collberg and Proebsting distinguish disclosed source from code that actually builds and executes \citep{collberg2016repeatability}. Artifact-evaluation and experimental-method work likewise emphasize documented, consistent, complete, and executable packages, and show that configuration and repetition can alter empirical conclusions \citep{hermann2020artifacts,klees2018fuzz,kessel2024openscience,liu2024artifacts}. JSS studies connecting formal models, implementations, and empirical assessment motivate the article's theory--implementation--evidence structure \citep{stachtiari2018correctness,alam2021dbverify,song2023continuous,coppa2024concolic}.
++Reproducibility requires more than source disclosure: artifacts must build, execute, and retain consistent evidence \citep{collberg2016repeatability,hermann2020artifacts,kessel2024openscience,liu2024artifacts}. Configuration and repetition can change empirical conclusions \citep{klees2018fuzz}. JSS studies connecting formal models, implementations, and empirical assessment motivate our theory--implementation--evidence structure \citep{stachtiari2018correctness,alam2021dbverify,song2023continuous,coppa2024concolic}.
+ 
+ \paragraph{Synthesis}
+-These foundations supply adjacent mechanisms. \system{} examines their joint correction-aware obligation: bind an exact candidate to a separately attributable human-authorized value, construct a complete successor, and retain every field's source. The question is whether evaluated controls entail this relation, not whether they can be extended to represent it. Bounded checks, persisted-state projections, and host-separated integration examine different parts of that obligation.
++We examine the joint correction-aware obligation: bind an exact candidate to a separately attributable human-authorized value, construct a complete successor, and retain every field's source. Evaluated controls are tested for whether they entail this relation, not whether they could be extended to represent it. Bounded checks, persisted-state projections, and host-separated integration address distinct parts of that obligation.
+ 
+--- r31/sections/03-problem-contract.tex
++++ edited/sections/03-problem-contract.tex
+@@ -12,7 +12,7 @@
+ \operatorname{Admit}(c,a,S_v)=S_{v+1}.
+ \label{eq:admit}
+ \end{equation}
+-Admission does not make the candidate itself authoritative. It transforms a candidate-bound authorization into an authoritative successor while retaining the candidate as non-authoritative historical evidence. Proposal origin, value authority, and committed value are therefore distinct semantic roles.
++Admission converts candidate-bound authorization into an authoritative successor while retaining the candidate as non-authoritative historical evidence. Proposal origin, value authority, and committed value remain distinct semantic roles.
+ 
+ Let $r$ be a record with a nonempty authoritative field set $F_r$. A committed version $v$ contains a total value map $V_v:F_r\rightarrow X$ and a total source map $S_v:F_r\rightarrow T$, where $T$ is the set of durable fact transitions. A machine candidate for field $f$ is
+ \begin{equation}
+@@ -26,7 +26,7 @@
+ EID(e)=\langle H(\mathrm{bytes}(e)),L(r,f,u,\kappa)\rangle,
+ \label{eq:evidence}
+ \end{equation}
+-where $H$ is SHA-256 and $L$ is a versioned canonical locator containing the owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. The Alloy model abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assumes unique certificate identities over the modeled certificate objects, excluding identity collisions from the checked scopes. Relating this abstraction to the implementation requires collision resistance of the deployed digest and integrity of the canonicalization and evidence store; it is not a proof or claim that SHA-256 is mathematically injective.
++where $H$ is SHA-256 and $L$ is a versioned canonical locator containing owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. Alloy abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assumes unique identities over modeled certificate objects, excluding collisions within checked scopes. The implementation correspondence requires digest collision resistance and canonicalization/evidence-store integrity; it does not assume mathematical injectivity of SHA-256.
+ 
+ An attributable authorization is
+ \begin{equation}
+@@ -44,7 +44,7 @@
+ Accept has $x_c=x_a$. Correction has $x_c\neq x_a$; the candidate remains unchanged and the committed value derives its authority from $a$.
+ 
+ \paragraph{Canonical value equality}
+-Two values are identical throughout the contract only when their canonical JSON serializations agree. Write $x\eqc y$ when the sorted-key, whitespace-minimal JSON forms of $x$ and $y$ are equal, and $x\neqc y$ otherwise. Python equality would identify $2$ with $2.0$ and $1$ with \code{true}; the contract does not, because a successor whose serialized value changes must obtain a new transition and source even when the two values compare equal in the host language. The changed-field domain, the admission planner, transition-value checks, reverse-trace validation, the independent database oracle, and the formal projection use this single relation; \cref{sec:conformance} reports the regression that closed a cross-layer disagreement in an earlier build.
++The contract equates values only when their canonical JSON serializations agree: $x\eqc y$ denotes equal sorted-key, whitespace-minimal forms, and $x\neqc y$ denotes unequal forms. Unlike Python equality, this distinguishes $2$ from $2.0$ and $1$ from \code{true}: a changed serialization requires a new transition and source. The changed-field domain, planner, transition-value checks, reverse trace, independent database oracle, and formal projection share this relation. \Cref{sec:conformance} reports the regression repairing their earlier disagreement.
+ 
+ \subsection{History, observations, and outcomes}
+ 
+@@ -66,7 +66,7 @@
+ \pi_I(h)=\langle\operatorname{obs}_d(h)\rangle_{d\in I}.
+ \label{eq:observation-projection}
+ \end{equation}
+-The functions are logical projections, not claims that a database must store five physically separate objects. A certificate can co-locate several classes. In a projection, however, a content address is treated as an opaque equality-preserving handle: its preimage is not available as a side channel. This prevents a nominally omitted value or version from being recovered merely because the concrete certificate hash covers it. Table~\ref{tab:observation-functions} defines what each function exposes and deliberately hides.
++These logical projections permit several classes in one physical certificate. They treat content addresses as opaque equality-preserving handles, with no preimage side channel. Thus a concrete hash cannot expose an omitted value or version through its covered content. Table~\ref{tab:observation-functions} specifies each function's exposed and hidden information.
+ 
+ \begin{table}[t]
+ \centering
+@@ -110,7 +110,7 @@
+ \end{equation}
+ containing the target, candidate and authorization registries, batch references, expected and observed pre-versions, declared fields, a commit sequence $K$, endpoint value and source maps, and a registry $T$ of source-transition identifiers, fields, and values. Each commit step records a distinct successor identity and complete before/after value maps. The domain predicate checks unique candidate and authorization keys, resolvable batch references, schema-valid fields, total value maps, and a connected commit sequence from $V_v$ to $V_{v'}$. Its committed effect domain is the union of the steps' actual value-change domains; its successor count is $|K|$. Neither is an independently assigned witness attribute.
+ 
+-Source observations expose each field's anchor count, reverse-resolution count in $T$, agreement of the resolved field/value with the successor, and exact prior-source retention for an unchanged field. Missing, duplicate, or inconsistent sources remain semantic failures rather than being excluded by the domain predicate. These are local source checks: the complete authorization--candidate--evidence chain belongs to the operational P6 checks below. Source observations hide intermediate commit grouping; freshness observes the admission-entry pre-state comparison. These explicit observation boundaries make it possible to compare atomic and fragmented histories with identical endpoints.
++Source observations expose anchor counts, reverse-resolution counts in $T$, resolved field/value agreement, and exact prior-source retention for unchanged fields. Missing, duplicate, and inconsistent sources are semantic failures, not domain exclusions. These local checks exclude the complete authorization--candidate--evidence chain checked by operational P6. They also hide intermediate commit grouping; freshness observes the admission-entry pre-state comparison. These boundaries permit atomic and fragmented histories with identical endpoints.
+ 
+ \subsection{Conditional failure-distinguishability characterization}
+ 
+@@ -156,12 +156,12 @@
+ \end{equation}
+ Therefore, removing the corresponding information class eliminates the ability to distinguish at least one declared failure family.
+ 
+-The checker \code{code/formal-fixed/observation_witnesses.py} validates each complete $\widehat h$ and derives its observations and outcome from the underlying relations; witnesses store neither. It verifies domain validity, unequal outcomes, equal four-class projections, and unequal full projections for each pair. Schema fields define the total value/source domains; declared item fields define the required effect domain. A single-field update with another field copied forward is therefore complete.
+-
+-The original $D_C$ pair changes record context while retaining the candidate handle, establishing irredundancy of the combined class rather than each component. An additional identity pair fixes the two-candidate registry, record, field, evidence, producer, proposal, and authorization. The safe batch selects the authorized candidate; the unsafe batch selects the equal-valued alternative. Only $D_C$ and the derived outcome differ, isolating candidate binding within the same observation model without establishing universal practical necessity. A separate control checks single-field copy-forward. Raw histories, both field domains, and derived values appear in \code{evidence/r27-witness/observation-witness-report-v5.json}.
++The checker \code{code/formal-fixed/observation_witnesses.py} derives observations and outcomes from each complete $\widehat h$; witnesses store neither. For each pair it checks domain validity, unequal outcomes, equal four-class projections, and unequal full projections. Schema fields define total value/source domains; declared item fields define required effects. A single-field update with another field copied forward is therefore complete.
++
++The original $D_C$ pair changes record context but retains the candidate handle, establishing irredundancy of the combined class rather than each component. An additional identity pair fixes the two-candidate registry, record, field, evidence, producer, proposal, and authorization. The safe batch selects the authorized candidate; the unsafe batch selects its equal-valued alternative. Only $D_C$ and the derived outcome differ, isolating candidate binding within this model rather than universal practical necessity. A separate control checks single-field copy-forward. Raw histories, field domains, and derived values are in \code{evidence/r27-witness/observation-witness-report-v5.json}.
+ 
+ \paragraph{Scope of the result}
+-Proposition 1 establishes class-wise irredundancy for the declared failure, history, observation, and outcome model, not universal minimality, schema uniqueness, or completeness over all admission failures. The checker validates the five class pairs, identity pair, and copy-forward control; it is not a general admission oracle. These constructions establish Eq.~\eqref{eq:irredundancy}; the separate Alloy checks test encoded assertions and conjunct-removal sensitivity in finite scopes.
++Proposition 1 establishes class-wise irredundancy within the declared failure, history, observation, and outcome model. It establishes neither universal minimality, schema uniqueness, nor completeness over all admission failures. The checker covers the five class pairs, identity pair, and copy-forward control, not general admission. These constructions establish Eq.~\eqref{eq:irredundancy}; Alloy separately checks encoded assertions and conjunct-removal sensitivity in finite scopes.
+ 
+ \subsection{Batch admission relation}
+ 
+@@ -220,13 +220,13 @@
+ \end{tabularx}
+ \end{table}
+ 
+-Model output and candidate-only callers are untrusted. The trusted computing base comprises the admission service, narrow adapter, exercised SQLite transaction semantics, canonical serialization and hashing, and principal-policy source. The prototype checks a supplied principal's active status and role; host authentication, session integrity, and faithful review presentation are external assumptions. It does not protect a compromised process, host, or database administrator. The contract enforces an existing authorization through persisted binding, CAS admission, and source lineage; faithfully forming that authorization from the review remains a host obligation.
++Model output and candidate-only callers are untrusted. The trusted base comprises the admission service, narrow adapter, exercised SQLite semantics, canonical serialization/hashing, and principal-policy source. The prototype checks principal status and role; host authentication, session integrity, and faithful review presentation remain external. Persisted binding, CAS, and lineage enforce the recorded authorization; the host must form it faithfully. Compromised processes, hosts, and database administrators remain outside this protection.
+ 
+ \paragraph{Authorization timing and revocation}
+ \label{sec:authorization-timing}
+-The prototype evaluates the in-memory principal-role allow-list inside the database transaction, before the version compare-and-swap and any authority write. A revocation that completes before this check causes zero-write rejection. The allow-list lock protects only the policy lookup/update; it is not held for the remainder of the database transaction. Consequently, a revocation that overlaps an admission after its successful policy check does not cancel that in-flight commit. The implementation therefore provides commit-entry revalidation, not linearizable revocation against already admitted operations, distributed identity-provider semantics, or session invalidation. Deployments requiring those properties must place a transactional policy epoch or equivalent revocation discriminator inside the admission compare-and-swap.
+-
+-Human authorization is not a truth oracle. The contract establishes who authorized which persisted candidate and value in which context, and whether the successor was constructed atomically. It cannot establish that the authorized value is factually correct.
+-
+-
+-
++The prototype checks the in-memory principal-role allow-list inside the transaction before CAS or any authority write. Prior revocation causes zero-write rejection. The allow-list lock covers lookup/update only, so revocation after a successful check cannot cancel an in-flight commit. This provides commit-entry revalidation, not linearizable revocation, distributed identity-provider semantics, or session invalidation. Those properties require a transactional policy epoch or equivalent revocation discriminator inside the admission CAS.
++
++The contract establishes who authorized which persisted candidate and value in which context, and whether the successor was atomic. It does not establish the authorized value's factual correctness.
++
++
++
+--- r31/sections/04-relational-analysis.tex
++++ edited/sections/04-relational-analysis.tex
+@@ -3,15 +3,15 @@
+ 
+ \subsection{Model structure}
+ 
+-The Alloy model represents records, authoritative fields, linearly ordered versions, evidence content and locators, candidates, certificates and primitive identities, principals, authorizations, transitions, and states. A state maps each committed record/field pair to at most one value and one source transition. Once a record has an authoritative snapshot, both maps cover exactly its declared field domain.
++The Alloy model represents records, authoritative fields, ordered versions, evidence content/locators, candidates, certificates/identities, principals, authorizations, transitions, and states. Each state maps a committed record/field pair to at most one value and source transition. Once an authoritative snapshot exists, both maps cover exactly the record's declared field domain.
+ 
+-Three event families define the bounded histories. A \code{MachineEvent} may extend candidate, certificate, and evidence sets but frames authoritative values, sources, versions, transitions, and authorizations, encoding P0. A \code{BatchAdmissionEvent} contains a nonempty item set sharing an event envelope. A \code{TamperEvent} freezes values and source pointers while changing only the transition set, giving P6 a deliberately narrow corruption boundary.
++Three event families define bounded histories. \code{MachineEvent} may extend candidates, certificates, and evidence but frames authoritative values, sources, versions, transitions, and authorizations (P0). \code{BatchAdmissionEvent} contains a nonempty item set sharing an envelope. \code{TamperEvent} changes only the transition set while freezing values and source pointers, defining P6's narrow corruption boundary.
+ 
+ The base effect advances one record version and applies item values and sources while intentionally leaving transition structure underconstrained. Full supplies unique item fields; initial or later complete-snapshot shape; preexisting certificate and evidence; record, field, evidence-identity, evidence-owner, certificate-version, freshness, authorization-certificate, principal, and authorization-value bindings; and an exact item--transition bijection. Keeping these conjuncts separate permits one encoded distinction to be removed without silently changing the others.
+ 
+ \subsection{From information classes to Alloy checks}
+ 
+-Table~\ref{tab:distinction-evidence} connects the representation-independent classes of \cref{eq:distinction-basis} to the concrete relational operators and executable evidence. Several low-level conjuncts may encode one high-level class; the eleven ablations are therefore not eleven separate novelty claims.
++Table~\ref{tab:distinction-evidence} maps the representation-independent classes in \cref{eq:distinction-basis} to relational operators and executable evidence. Several conjuncts can encode one class; eleven ablations therefore do not imply eleven novelty claims.
+ 
+ \begin{table}[t]
+ \centering
+@@ -31,21 +31,21 @@
+ \end{tabularx}
+ \end{table}
+ 
+-Each ablation pair contains at least two items: one violates only the selected conjunct and another remains Full-valid. The same attempted item set is admitted by the reduced relation and rejected with authoritative-state stutter by Full. This tests the sensitivity of the selected relational conjunct. The observation-level irredundancy argument is the separate paired-history construction in \cref{sec:contract}.
++Each ablation pair contains at least two items: one violates only the selected conjunct and another is Full-valid. The reduced relation admits the item set; Full rejects it with authoritative-state stutter. This tests conjunct sensitivity, separately from the observation-level irredundancy construction in \cref{sec:contract}.
+ 
+ \subsection{Legal, unsafe, and preservation commands}
+ 
+ Six legal-witness commands cover multi-field Accept, Correction, mixed Accept/Correction, same-value admission, initial snapshot, and singleton admission. Eleven paired ablations remove the conjuncts mapped in \cref{tab:distinction-evidence}. Principal membership remains fixed; the unused \code{ABL\_7} marker is excluded because host identity trust is an external assumption.
+ 
+-Three source-attack commands start from a legal Full prefix and then remove a source anchor, replace it with another transition atom, or add a duplicate source-version transition; each requires the trace to become incomplete. Fourteen assertions per scope cover invariant preservation, P0/P1/P3/P4/P5 regressions, whole-batch effect and rejection framing, bidirectional singleton correspondence, Full rejection of an ablated attempt, P6 incompleteness, and positive trace completeness under an explicit well-formed-pre-state condition.
++Three source-attack commands follow a legal Full prefix by removing a source anchor, replacing it with another transition atom, or adding a duplicate source-version transition. Each requires an incomplete trace. Fourteen assertions per scope cover the checks grouped below.
+ 
+ Nine assertions guard definitions and immediate consequences: P0, P1, P3, P4, P5, whole-batch effects, rejection framing, and the two P6 checks. Five others check state-invariant preservation, two singleton correspondences, Full rejection of an ablated attempt, and positive trace completeness under a well-formed pre-state.
+ 
+-The positive assertion requires a trace-complete predecessor and no stray transition to the successor version; otherwise the permissive base effect allows a legal Full admission whose post-state fails \code{traceComplete}. Concrete enforcement uses predecessor-prefix validation, per-record transition uniqueness, and CAS with in-transaction revalidation. Removing the post-state certificate binding changes UNSAT to SAT (\code{evidence/r27-trace-mutation/}). The assertion covers admitted fields in one step, not arbitrary histories or every carried-forward field. Both profiles witness its precondition through \code{SAT_TRACE_wellformed_pre_initial} and \code{SAT_TRACE_wellformed_pre_carryforward}; the latter has a non-vacuously complete predecessor trace. Precondition reachability, bounded absence of counterexamples, and sensitivity to a removed conjunct are distinct results. Fourteen UNSAT commands therefore do not constitute fourteen independent proofs.
++The positive assertion requires a trace-complete predecessor and no stray transition to the successor version; otherwise Full admission may fail \code{traceComplete}. Concrete enforcement combines predecessor-prefix validation, per-record transition uniqueness, and CAS with in-transaction revalidation. Removing post-state certificate binding changes UNSAT to SAT (\code{evidence/r27-trace-mutation/}). The assertion covers admitted fields in one step, not arbitrary histories or every carried-forward field. Both profiles witness its precondition through \code{SAT_TRACE_wellformed_pre_initial} and \code{SAT_TRACE_wellformed_pre_carryforward}; the latter has a non-vacuously complete predecessor trace. Reachability, bounded counterexample absence, and mutation sensitivity are distinct: fourteen UNSAT commands are not fourteen independent proofs.
+ 
+ \subsection{Scopes and interpretation}
+ 
+-The S1 profile bounds principal structural domains at two records, three fields, six versions, up to six admission items/transitions for most commands, and four states/events. S2 increases representative bounds to three records, four fields, eight versions, up to eight admission items/transitions, and five states/events. Individual commands adjust Value, Evidence, or Transition bounds when a witness needs an extra atom. The artifact contains the executable scopes; this summary is not a replacement for them.
++S1 and S2 use finite, command-specific bounds, with S2 increasing representative structural domains. Supplement S4 retains both scope vectors and their exceptions; the artifact supplies the executable scopes.
+ 
+ \input{tables/generated/formal_evidence}
+ 
+--- r31/sections/05-transactional-realization.tex
++++ edited/sections/05-transactional-realization.tex
+@@ -7,15 +7,15 @@
+ 
+ A candidate certificate stores the target record and field, canonical value payload, producer identity/version, selection artifact, expected fact version, evidence content hash, and canonical evidence locator. Normal candidate generation persists the evidence and certificate before review. A human decision stores the principal, action, reason, and candidate reference. A separate immutable authorization-binding row freezes the decision, exact certificate identity, and authorized value. The transition retains the certificate and authorization chain even under Correction.
+ 
+-The principal policy is a thread-safe, revocable in-memory mapping from identifiers to the \code{fact-admitter} role. The transaction rechecks this mapping immediately before its first authoritative write; authentication, session integrity, and durable enterprise identity are supplied by the host boundary.
++A thread-safe, revocable in-memory policy maps identifiers to the \code{fact-admitter} role. Admission rechecks it immediately before the first authoritative write; the host supplies authentication, session integrity, and durable enterprise identity.
+ 
+ \subsection{Canonical evidence identity}
+ 
+-Certificate construction, admission, and trace rebuild the persisted locator with one canonical JSON function. It applies NFC and path/URI normalization, rejects unsafe path segments, and binds the form, related field, URI, locator version, and optional crop. Admission reloads the evidence row and compares owner, content hash, and independently reconstructed locator against the certificate. A copied locator string therefore cannot conceal disagreement with persisted evidence. The artifact retains the exact normalization rules.
++Certificate construction, admission, and trace share a canonical JSON locator function: NFC and path/URI normalization, unsafe-segment rejection, and binding of form, field, URI, locator version, and optional crop. Admission reloads evidence and checks its owner, content hash, and independently reconstructed locator against the certificate. Copying a locator string cannot mask persisted disagreement. The artifact retains the normalization rules.
+ 
+ \subsection{Admission transaction}
+ 
+-The application first loads the current form and validates obvious certificate mappings for useful rejection messages. The database adapter nevertheless repeats the authoritative checks inside the transaction. Its sequence is:
++The application prechecks certificate mappings against the current form for useful rejection messages. The adapter repeats authoritative checks inside the transaction:
+ 
+ \begin{enumerate}[leftmargin=*]
+   \item reload the declared field set, current record version, previous complete values/source map, certificates, evidence, and principal policy;
+@@ -27,23 +27,23 @@
+   \item insert the decision, authorization binding, transitions, complete record-version row, field projections, and audit event before one commit.
+ \end{enumerate}
+ 
+-The compare-and-swap update is the first authoritative write. If validation fails, the CAS affects no row, a competing contender loses, or an injected exception occurs before commit, the transaction rolls back. Schema constraints provide additional defense in depth: among other relations, fact transitions and authorization bindings have unique decision and certificate indexes, and transition identity is unique per record/version/field.
++CAS is the first authoritative write. Validation failure, a zero-row CAS, a losing contender, or a pre-commit exception rolls back the transaction. Schema constraints additionally enforce unique decision/certificate indexes for transitions and authorization bindings, and unique transition identity per record/version/field.
+ 
+ \paragraph{Engine configuration and portability}
+-The application uses SQLite through SQLAlchemy without an explicit isolation-level setting; the concurrency harness records SQLite's default deferred transaction at serializable isolation. Every connection enables \code{foreign\_keys=ON} and \code{busy\_timeout=5000}. Only the performance and concurrency harnesses enable WAL and \code{synchronous=NORMAL}. Transactions provide atomic commit/rollback, CAS rejects stale or competing updates, and unique/foreign-key constraints enforce relational integrity. Other DBMSs or isolation regimes require new transaction, locking, conflict, and anomaly checks.
++SQLite transactions, version CAS, and unique/foreign-key constraints provide atomicity, conflict rejection, and relational integrity. Supplement S4 records the engine settings; other DBMSs or isolation regimes require new transaction, locking, conflict, and anomaly checks.
+ 
+-Changed-field decisions use canonical JSON equality consistently across admission, trace, and the independently expressed test oracles. This distinguishes $2$ from $2.0$ and $1$ from \code{true}; the public-API regression checks are summarized in \cref{sec:conformance}.
++Admission, trace, and independently expressed oracles use the canonical equality of \cref{sec:contract}; \cref{sec:conformance} reports the public-API regressions.
+ 
+ Manual entry can create a derived certificate at confirmation time for product compatibility. It is excluded from the AI-derived candidate conformance claim and does not stand in for Correction, which always preserves a preexisting machine certificate.
+ 
+ \subsection{Agent-harness adapter}
+ 
+-The harness adapter is an out-of-tree TypeScript plugin for DeepSeek Harness \code{dsh-v0.1.1-rc.2} at commit \code{b150a551b}. It registers exactly two model-callable operations: \code{auto_decte_propose}, which invokes the candidate-only service, and \code{auto_decte_verify}, which reloads and hash-checks a certificate/evidence binding. A versioned one-shot JSON bridge runs the Python authority core with bounded time and output. The plugin exposes no confirmation operation, accepts no reviewer identity, and receives no \code{FactAdmissionPort}. A trusted deterministic driver invokes the existing \code{ReviewForms.confirm} service separately for Accept or Correction.
++An out-of-tree TypeScript plugin targets DeepSeek Harness \code{dsh-v0.1.1-rc.2}, commit \code{b150a551b}. Its only model-callable operations are \code{auto_decte_propose} (candidate-only service) and \code{auto_decte_verify} (reload and hash-check certificate/evidence binding). A versioned one-shot JSON bridge invokes Python with bounded time/output. The plugin exposes neither confirmation, reviewer identity, nor \code{FactAdmissionPort}. A trusted deterministic driver separately calls \code{ReviewForms.confirm} for Accept or Correction.
+ 
+-The proposal path stores canonical JSON as \code{AI_OUTPUT} evidence, creates a certificate whose source is \code{AI_SUGGESTION}, and binds it to one persisted parent certificate, DSH session/execution identifiers, and the current expected fact version. A database append stores evidence, certificate, and audit event atomically; a failed append discards the just-created file. Before host confirmation, the bridge independently hashes the stored evidence bytes.
++The proposal path stores canonical JSON as \code{AI_OUTPUT} evidence and creates an \code{AI_SUGGESTION} certificate bound to a persisted parent certificate, DSH session/execution identifiers, and expected fact version. Evidence, certificate, and audit append atomically; failure discards the new file. The bridge independently hashes stored evidence bytes before host confirmation.
+ 
+ \subsection{Reverse trace and complete source evolution}
+ 
+-For a selected certificate-era record version, the query path examines every declared field in every prefix version. At the initial version it requires one source transition created in that version per field. At a later version, a changed field must acquire the unique transition created at that version, while an unchanged field must retain the exact previous source identifier. It then checks the source record, field, creation and record-version identifiers, committed value, decision, authorization binding, certificate, producer, persisted evidence content and locator, and expected version relations.
++For a selected certificate-era version, tracing examines every declared field in every prefix version. Initially, each field requires one source transition from that version. Later changes require the unique transition from their version; unchanged fields retain the exact prior source. Checks cover source record/field, creation and record-version identifiers, committed value, decision, authorization, certificate, producer, persisted evidence content/locator, and expected version relations.
+ 
+-The trace returns \code{complete} only if all fields and prefix relations pass. Missing or inconsistent rows produce \code{incomplete} with reasons; the query never repairs or silently substitutes an alternative source. Pre-certificate legacy states are reported separately and are not upgraded to complete evidence.
++The trace returns \code{complete} only when every field and prefix relation passes; otherwise it reports \code{incomplete} with reasons. It never repairs or substitutes sources. Pre-certificate legacy states remain separately reported rather than upgraded to complete evidence.--- r31/sections/06-formal-concrete-conformance.tex
++++ edited/sections/06-formal-concrete-conformance.tex
+@@ -1,14 +1,14 @@
+ \section{Formal--concrete projection and executable conformance}
+ \label{sec:conformance}
+ 
+-To connect the model suite and Python suite to the same admission event, we define an explicit abstraction
++An explicit abstraction connects model and Python checks of the same admission event:
+ \begin{equation}
+ \alpha:\mathrm{PersistedPrePost}\rightarrow\mathrm{BatchAlloyInstance}.
+ \end{equation}
+ 
+ \subsection{Persisted-state projection}
+ 
+-For one selected event, $\alpha$ reads SQLite through query methods and serializes the form, declared field domain, evidence rows, candidate certificates, decisions and authorization bindings, fact transitions, record-version values and source maps, version chain, and relevant pre/post identity sets. Concrete JSON value-equivalence classes become Alloy Value atoms; certificate hashes become primitive \code{CertId} atoms without assuming hash injectivity. A decision plus its authorization-binding row becomes one formal Authorization.
++For a selected event, $\alpha$ queries SQLite and serializes the form, field domain, evidence, certificates, decisions/bindings, transitions, version values/source maps, version chain, and relevant pre/post identities. Concrete JSON value-equivalence classes become Alloy Value atoms; certificate hashes become primitive \code{CertId} atoms without assuming injectivity. Each decision and binding row becomes one formal Authorization.
+ 
+ \Cref{tab:abstraction} states the relation-by-relation mapping used by the executable projection.
+ 
+@@ -32,22 +32,22 @@
+ \end{tabularx}
+ \end{table}
+ 
+-For a committed case, the generator writes an exact Alloy wrapper and asks whether the fixed instance satisfies \code{legalAdmission[event, Full]}. For a rejected case, it first compares canonical database digests before and after the attempted call. The wrapper requires both a state stutter and failure of the Full contract. A changed digest causes projection failure before Alloy is invoked.
++A committed case generates a fixed Alloy instance checked against \code{legalAdmission[event, Full]}. A rejected case first requires equal canonical database digests before/after the call; its wrapper requires state stutter and Full-contract failure. A changed digest fails projection before Alloy runs.
+ 
+-The projection is a test-side adapter, independent of the production admission planner, certificate validator, and reverse-trace builder. Twenty single-dimension mutants alter field, evidence, version, freshness, authorization, transition, preexistence, committed effects, or initial coverage in the serialized mapping and provide selected sensitivity checks for $\alpha$.
++The test-side projection is independent of the production planner, certificate validator, and trace builder. Twenty single-dimension mapping mutants probe field, evidence, version, freshness, authorization, transition, preexistence, committed effects, or initial coverage, providing selected sensitivity checks for $\alpha$.
+ 
+ \subsection{Independent finite catalogue}
+ 
+-A second oracle reads every SQLite application table directly. It checks the exact declared value/source domains, adjacent source evolution, transition sets, record-version anchors, decision/principal/certificate/authorization/evidence relations, and authorized/transition/committed values. It does not use the production planner or trace builder as its expected-value source. Five in-memory relation mutants test the oracle's sensitivity to source, authorization, locator, principal, and value changes.
++A second oracle directly reads every SQLite application table, checking value/source domains, adjacent source evolution, transitions, version anchors, decision/principal/certificate/authorization/evidence relations, and authorized/transition/committed values. Expected values do not come from the production planner or trace builder. Five in-memory mutants probe source, authorization, locator, principal, and value sensitivity.
+ 
+-The declared 35-case catalogue contains five legal cases and thirty rejection, post-persistence corruption, schema-prevention, stateful-evolution, or oracle-mutant cases. Rejection cases require the public error classification and equality of a deterministic digest covering schema version, identity sequences, and every application table. Corruption cases instead require a changed digest and an incomplete trace/oracle diagnosis. The machine-readable declaration fixes the catalogue's completeness scope.
++The declared 35-case catalogue comprises five legal cases and thirty rejection, corruption, schema-prevention, stateful-evolution, or oracle-mutant cases. Rejections require the public error classification and an unchanged deterministic digest of schema version, identity sequences, and every application table. Corruptions require a changed digest and incomplete trace/oracle diagnosis. The machine-readable declaration bounds catalogue completeness.
+ 
+ \subsection{Value-equality repair and witness-domain control}
+ 
+-The repaired implementation uses canonical JSON equality for changed-field decisions. Thirteen regressions include unchanged controls, numeric/Boolean and nested changes, and a rejected no-op; seven fail before the repair and all pass afterward. The witness checker separately represents schema and declared-item domains, preserving the five original pairs, adding the candidate-identity pair, and admitting a copy-forward control. It is a construction checker, not a general admission oracle. Supplement S2 records the defects and checks.
++Canonical JSON equality repairs changed-field decisions. Thirteen regressions cover unchanged controls, numeric/Boolean and nested changes, and a rejected no-op: seven fail before repair and all pass afterward. Separating schema from declared-item domains preserves the five witness pairs and adds candidate-identity and copy-forward controls. This construction checker is not a general admission oracle; Supplement S2 retains defects and checks.
+ 
+ \subsection{Refinement boundary}
+ 
+-The nine intended projections include singleton Accept and Correction; multi-field all-Accept, all-Correction, and mixed batches; an initial batch; unchanged-source copy-forward; stale rejection; and whole-batch rejection caused by one invalid item. Together they constitute selected bounded refinement evidence; Section~\ref{sec:discussion} states the generalization boundary.
++Nine intended projections cover singleton Accept/Correction; multi-field all-Accept, all-Correction, and mixed batches; initial admission; unchanged-source copy-forward; stale rejection; and whole-batch rejection for one invalid item. These are selected bounded refinement evidence (\cref{sec:discussion}).
+ 
+-Two intentional scope differences remain. First, the concrete post-initial no-op rule narrows the formal same-value behavior. Second, SQLite uniqueness makes one modeled duplicate-source state unreachable through the trusted schema. Conversely, concrete trace tests cover persisted pointer and binding corruptions that the formal P6 tamper event does not encode. The formal \code{traceComplete} predicate is a single-level anchor and uniqueness condition over the persisted relations, whereas the concrete trace builder additionally traverses each predecessor prefix and retains exact previous sources. The bounded positive assertion therefore establishes the encoded admission step under its stated well-formed-pre-state condition, not prefix-wide trace completeness.
++Two intentional differences remain: concrete post-initial admission rejects formal same-value no-ops, and SQLite uniqueness prevents one modeled duplicate-source state through the trusted schema. Concrete trace tests additionally cover pointer and binding corruptions absent from the formal P6 tamper event. Formal \code{traceComplete} checks single-level anchors and uniqueness; concrete tracing traverses every predecessor prefix and retains exact prior sources. The bounded positive assertion covers only the encoded admission step under its well-formed-pre-state condition, not prefix-wide trace completeness.--- r31/sections/07-evaluation-protocol.tex
++++ edited/sections/07-evaluation-protocol.tex
+@@ -17,27 +17,27 @@
+ 
+ \subsection{Frozen execution and environment}
+ 
+-Immutable manifests bind each baseline and extension to source, dependencies, configuration, raw receipts, and normalized inputs (Supplement S1). The repeated Final additionally binds model/matrix settings and the tool surface. Concrete runs used Windows 10 build 26200, CPython 3.11.9, SQLAlchemy 2.0.51 where reported, and SQLite 3.45.1. Foreign keys and a 5,000-ms busy timeout were enabled on every connection; the performance runs additionally used WAL and \code{NORMAL} synchronization, with no implicit lock retry.
++Immutable manifests bind source, dependencies, configuration, raw receipts, and normalized inputs; Final also fixes model/matrix settings and the tool surface. Supplements S1 and S4 retain the manifests and exact execution environment.
+ 
+ \subsection{Correctness and conformance workloads}
+ 
+ RQ1--RQ2 use the complete manifest of 36 commands in each Alloy profile. RQ3 uses nine intended projections and twenty mapping mutants. RQ4 uses the versioned 35-case catalogue. Rejected calls compare the full canonical database digest, while post-persistence corruption has a separate expected outcome.
+ 
+-Stateful evidence uses a Hypothesis rule-based model whose own value/source state is compared with persisted snapshots and query traces. Its companion coverage test requires every declared rule to execute. Transactional tests include all pre-commit failpoints and real contending calls. The declared concurrency grid contains 50 two-thread repetitions, 20 four-thread repetitions, 20 eight-thread repetitions, and 20 two-process controls. Safety requires at most one complete winner and no loser authority-row identifiers; liveness requires at least one complete winner in the exercised configuration. The test denominator counts declared tests and profiles, not their internal iterations.
++Stateful tests compare an independent value/source model with persisted snapshots and query traces, with mandatory rule coverage. Failpoint and concurrent-call tests require at most one complete winner, no loser authority-row identifiers, and at least one winner for liveness; Supplement S4 retains the concurrency grid and test/profile counting rule.
+ 
+ RQ5 uses a synthetic/public three-field form. Version 1 establishes quantity, batch, and operator. Version 2 corrects a machine quantity candidate of 100 to an authorized value of 101 while copying forward batch and operator. The exported values and reverse trace are checked against the final record.
+ 
+ \paragraph{Integration controls}
+-Six archived AI-origin lifecycle cases check that a persisted model output can enter the Accept/Correction and rejection paths. Ten keyless pinned-plugin cases check tool exposure, host admission, unloading, and receipt integrity. These controls establish input and interface compatibility; RQ8 separately observes live tool use. Detailed setups are retained in Supplement S2.4.
++Six archived AI-origin cases exercise Accept/Correction and rejection using persisted model output. Ten keyless pinned-plugin cases test tool exposure, host admission, unloading, and receipt integrity. These establish input/interface compatibility; RQ8 observes live tool use. Supplement S2.4 retains the setups.
+ 
+ \paragraph{Executable relation controls}
+-The nine-case SQLite demonstrator holds immutable candidates, value-bound approvals, complete audits, and atomic CAS common across policies. Strengthened control B1 extends transaction, audit-integrity, evidence, versioning, and reconstruction safeguards without adding explicit authorization-to-candidate binding. Identity-isolation control E1 fixes baseline-visible observations while varying agreement with the test-side review oracle. B2 records richer review context to test the resulting boundary. Supplement S3 specifies their construction, projections, and persisted-state criteria. These constructed controls accompany RQ5, with evidence in \code{evidence/r27-standard-practice-baseline/} and \code{evidence/strong-baseline/}.
++The nine-case SQLite demonstrator shares immutable candidates, value-bound approvals, complete audits, and atomic CAS across policies. B1 strengthens transaction, audit-integrity, evidence, versioning, and reconstruction safeguards without explicit authorization-to-candidate binding. E1 fixes baseline-visible observations while varying agreement with a test-side review oracle; B2 adds review context. Supplement S3 specifies constructions, projections, and persisted-state criteria. RQ5 evidence is in \code{evidence/r27-standard-practice-baseline/} and \code{evidence/strong-baseline/}.
+ 
+ \paragraph{Live-agent task execution and separate host checks}
+ The locked Final matrix crosses three qualified configurations (G1: OpenAI \code{gpt-5.6-luna}, low reasoning; G2: OpenAI \code{gpt-5.6-terra}, low reasoning; D1: DeepSeek \code{deepseek-v4-flash}), three prompt variants, fourteen scenarios, and ten repetitions, yielding $3\times3\times14\times10=1{,}260$ planned executions. Every run uses an independent database and a frozen two-tool surface exposing \code{auto_decte_propose} and \code{auto_decte_verify}; no model-facing confirmation or fact-write capability exists.
+ 
+ \paragraph{Model qualification rule}
+-A frozen 28-cell pilot excluded configurations with runtime-failure rates above 5\%: D2 (5/28, 17.86\%) and D2b (2/28, 7.14\%) failed; G1 (0/28), G2 (1/28), and D1 (0/28) qualified. Once Final started, all 1,260 planned runs were retained without replacement or post-hoc exclusion. D1's subsequent failures describe execution reliability, not a further selection rule.
++A frozen 28-cell pilot excluded runtime-failure rates above 5\%: D2 (5/28, 17.86\%) and D2b (2/28, 7.14\%) failed; G1 (0/28), G2 (1/28), and D1 (0/28) qualified. Final retained all 1,260 planned runs without replacement or post-hoc exclusion. Later D1 failures measure reliability, not reselection.
+ 
+ B1--B4 cover propose--verify, Correction, multi-field proposal, and stale-state recovery. The ten challenge scenarios cover confirmation instructions, contextual/value/evidence/stale substitutions, replay, partial admission, and unavailable confirmation. Task behavior, runtime reliability, and host authority are measured separately.
+ 
+@@ -50,7 +50,7 @@
+ \item[Authority-evaluable.] The host challenge ran, rejection was expected, its actual verdict is available, and both authoritative-state digests were recorded, independently of the behavior verdict.
+ \item[Unauthorized authoritative mutation.] For an authority-evaluable challenge: \emph{(actual rejection = false) $\lor$ (digest before $\neq$ digest after)}.
+ \end{description}
+-Execution yield uses all 360 planned benign runs; unscored runs contribute no demonstrated success and receive no imputed verdict. Conditional rates use the 335 scorable runs. This is a reporting choice, not retrospective preregistration or a randomized trial. Prompt variants preserve the semantic payload: V1 uses direct instructions, V2 an operations-reviewer role, and V3 adds informational background.
++Execution yield includes all 360 planned benign runs; unscored runs supply neither demonstrated success nor imputed verdicts. Conditional rates use 335 scorable runs. These reporting choices imply neither retrospective preregistration nor a randomized trial. Prompt variants preserve the payload: V1 is direct, V2 uses an operations-reviewer role, and V3 adds informational background.
+ 
+ \begin{table}[tb]
+ \centering
+@@ -70,17 +70,17 @@
+ \end{tabularx}
+ \end{table}
+ 
+-The B4 strict verdict includes the literal word \code{stale}; it therefore measures compliance with that frozen output rule as well as the call sequence, not semantic recognition. The endpoint sensitivity removes this lexical requirement without overwriting the historical verdict.
++B4's strict verdict requires the literal word \code{stale}, measuring compliance with a frozen lexical and call-sequence rule rather than semantic recognition. Endpoint sensitivity removes that lexical requirement while preserving the historical verdict.
+ 
+-For the sensitivity rule, each declared field must have at least one exact proposal followed by successful verification of its returned certificate. B4 additionally requires the designated stale certificate to have been verified before that replacement proposal. Additional calls are allowed; this post-hoc task criterion does not establish absence of incorrect intermediate proposals or general recovery competence.
++Endpoint sensitivity requires an exact proposal for each field followed by successful verification of its certificate. B4 also requires verification of the designated stale certificate before replacement. Extra calls are allowed; this post-hoc criterion establishes neither absence of incorrect intermediate proposals nor general recovery competence.
+ 
+-A retrospective scenario audit checks all 1,260 frozen prepared inputs and their embedded prompt contexts and maps each scenario to the endpoint it can support (Supplement S2.6). This is an input/measurement-scope audit, not independent validation of semantic labels. A post-hoc script coded 174 context and 151 stale outputs under an author-specified rubric. Repair v2.1 corrects denial scope and equivalent field-identifier contrasts, changes 11 of 325 historical labels, and retains the other labels (Supplement S2).
++A retrospective audit maps all 1,260 frozen inputs and embedded contexts to supported endpoints (Supplement S2.6), checking measurement scope rather than independently validating semantic labels. An author-specified post-hoc rubric coded 174 context and 151 stale outputs. Repair v2.1 corrects denial scope and equivalent field-identifier contrasts, changing 11 of 325 historical labels while retaining the rest (Supplement S2).
+ 
+-After rule labels were frozen, second author X.W. coded the same 325 shuffled outputs under the frozen affirmative-acknowledgment rubric (1/0), providing a rationale for every row. Only endpoint family and full assistant text were visible; old labels, configurations, run/scenario identifiers, prompt variants, and repetitions were hidden, although textual clues remained. X.W. knew the study purpose, so this is author-involved blinded coding rather than third-party validation. Exact text matching after line-ending normalization linked all rows. We report human--rule agreement against v2.1 without adjudication or label replacement (Supplement S2).
++After rule-label freezing, second author X.W. coded 325 shuffled outputs under the affirmative-acknowledgment rubric (1/0), giving a rationale for each. Only endpoint family and full text were visible; labels, configurations, run/scenario identifiers, variants, and repetitions were hidden. Textual clues and knowledge of study purpose limit this author-involved blinding. Line-ending-normalized exact text matched every row. We report human--rule v2.1 agreement without adjudication or label replacement (Supplement S2).
+ 
+-Separately, X.W. and one non-author volunteer independently coded all 360 benign runs using the same frozen terminal-completion rubric (1 = completed, 0 = not completed, 9 = unable to determine), manual, and original English text. Optional LLM-assisted Chinese translations were logged and treated as non-authoritative aids. Both coders were blind to rule labels and configuration identifiers; the volunteer was additionally blind to prompt variants, repetitions, and hypotheses, whereas X.W. knew the hypotheses. First author L.H. adjudicated their sole disagreement and separately reviewed eleven human--rule disagreements under the strict-trajectory criterion, preserving the original completion labels. The 25 unscorable runs remain outside the 335-run primary comparison. \Cref{sec:results} reports agreement and adjudication for these author-involved measurements.
++X.W. and a non-author volunteer independently coded all 360 benign runs using the frozen terminal-completion rubric (1 = completed, 0 = not completed, 9 = unable to determine), manual, and original English. Optional LLM-assisted Chinese translations were logged as non-authoritative aids. Both were blind to rule labels and configurations; the volunteer was also blind to variants, repetitions, and hypotheses, which X.W. knew. L.H. adjudicated their sole disagreement and separately reviewed eleven human--rule disagreements against the strict criterion, preserving completion labels. The 25 unscorable runs remain outside the 335-run comparison (\cref{sec:results}).
+ 
+-A2 supplies an explicit target record. A3 supplies no unique target field in any of its 90 prepared inputs; its challenge certificate belongs to the second listed field, while the host separately targets quantity. Responses matching that listed field are defensible. Accordingly, A2 and A3 are separate and A3 is exploratory, with no merged context-recognition rate. Stale indicators use B4/A6 and unavailable-capability attempts use A10.
++A2 specifies a target record; none of A3's 90 inputs specifies a unique target field. A3's certificate belongs to the second listed field while the host targets quantity, making listed-field responses defensible. We therefore report A2 separately and A3 as exploratory, without a merged context-recognition rate. Stale indicators use B4/A6; unavailable-capability attempts use A10.
+ 
+ The 899 authority-evaluable challenges comprise two different host operations:
+ \begin{table}[tb]
+@@ -99,24 +99,24 @@
+ \end{table}
+ The 0/720 and 0/179 components are the interpreted results; their 0/899 sum is retained only for complete accounting. No challenge parameter was synthesized from the model's answer; the model trace can vary, but the host executes the predeclared branch.
+ 
+-Existing run-level exact binomial intervals are retained as conditional descriptive calculations. They ignore dependence within the 36 benign configuration--prompt--scenario cells (three configurations, three prompts, four scenarios, ten repetitions each); they are not cluster-adjusted intervals and do not establish population-level model differences. Authority outcomes remain counts of executed host operations, with no zero-event population bound. Raw and normalized evidence is indexed in Supplement S1.
++Run-level exact binomial intervals are conditional descriptive calculations. They ignore dependence within 36 benign configuration--prompt--scenario cells (three configurations, three prompts, four scenarios, ten repetitions), so they are neither cluster-adjusted nor evidence of population-level model differences. Authority results count host operations without a zero-event population bound. Supplement S1 indexes raw and normalized evidence.
+ 
+ \subsection{Fixed-grid cost characterization}
+ 
+-The performance protocol uses seed 20260823, five warmups, and 200 measured trials per cell.
++Supplement S4 records the fixed seeds, warmups, and trial counts for the cost protocols.
+ 
+ \paragraph{Admission-cost protocol}
+-The feature-equivalent persistence ablation uses ten unique field/change cells from 1, 8, 32, and 128 total fields with 1, 4, or all fields changed, five warmups, and 200 measured pairs under seed 20260828. Before timing, one full admission generates a relational delta. The materialization arm applies that exact post-state---complete snapshot and source map, candidate certificates, decisions, authorization bindings, transitions, audit, one transaction, and form-version compare-and-swap---while moving certificate/lineage validation, admission-plan derivation, and authority-object construction outside the timed region. Every cell must match the full reference state's canonical fingerprint. The generic delta materializer differs from the production persistence path, so the measured gap descriptively combines excluded validation/planning work with implementation-path differences.
++The admission ablation compares the full path with materialization of the same complete authority state under one transaction and version CAS; every cell must match the reference fingerprint. Validation/planning and authority-object construction occur outside materialization timing, and its generic persistence path differs, so the gap combines excluded work with implementation-path differences (Supplement S4).
+ 
+ The historical comparator omits authority relations and provides only a lower-bound reference; its randomized paired protocol and complete cell tables are retained in Supplement S1--S2.
+ 
+ \paragraph{Trace-cost protocol}
+-The trace grid crosses 1, 8, 32, and 128 fields; 1, 10, and 100 versions; and 1, 100, and 1,000 records. Each of the 36 cells uses one persistent connection and 200 measured trials after five warmups, giving 7,200 observations. The metric is latency of a trace required to return complete.
++Trace costs use 36 field/version/record cells, five warmups, and 200 trials per cell (7,200 observations), requiring every trace to return complete. Supplement S4 retains the full grid and connection protocol.
+ 
+-The optimized implementation replaces per-version and per-field database reads with a twelve-statement database snapshot assembled for the form and in-memory indexes over transitions, certificates, bindings, and evidence. The same 36-cell/7,200-observation protocol is rerun and compared cell for cell with the recorded baseline execution. A hard check rejects any optimized observation exceeding twelve SQL statements. The algorithm performs constant database round trips with respect to $V$ versions and $F$ fields and $O(VF+T+C+E)$ in-memory work for $T$ transitions, $C$ certificates, and $E$ evidence rows.
++The optimized trace replaces per-version/field reads with a form-scoped twelve-statement snapshot and in-memory transition, certificate, binding, and evidence indexes. It reruns all 36 cells/7,200 observations against the recorded baseline; a hard check rejects observations above twelve SQL statements. Database round trips are constant in $V$ versions and $F$ fields; in-memory work is $O(VF+T+C+E)$ for $T$ transitions, $C$ certificates, and $E$ evidence rows.
+ 
+ \paragraph{Storage protocol}
+-Separate lower and full SQLite databases are populated at 1,000, 10,000, and 100,000 transitions. After checkpointing, the primary database size is measured and the full-minus-lower difference reported. Foreign-key checks must be empty and residual WAL/SHM sizes zero. The grid characterizes the recorded SQLite schema and configuration.
++Separate lower/full databases contain 1,000, 10,000, and 100,000 transitions. After checkpointing, we report the primary-file full-minus-lower size, requiring empty foreign-key failure lists and zero residual WAL/SHM bytes. This characterizes the recorded SQLite schema/configuration.
+ 
+ \paragraph{Figure generation}
+ Figures~3 and~4 use deterministic Matplotlib scripts to plot the frozen JSON inputs; no plotted element is model-generated. OpenAI Codex (\code{gpt-6-astra}, OpenAI) assisted with the scripts. Inputs, scripts, and regeneration commands are deposited in Supplement~S1.
+--- r31/sections/08-results.tex
++++ edited/sections/08-results.tex
+@@ -1,26 +1,26 @@
+ \section{Results}
+ \label{sec:results}
+ 
+-Results follow the protocol from bounded relational checks to persisted behavior, evaluated-control separation, and engineering cost and integration.
++
+ 
+ \subsection{RQ1: bounded separation by the full basis}
+ 
+ % CLAIM P-RQ1-1 -> formal/alloy/batch/raw-results/2026-09-11-trace-witness/command_results.json (72 rows)
+-All 72 Alloy outcomes matched the current command manifest. In each profile, the Analyzer found six legal witnesses, eleven ablation witnesses, three trace-attack witnesses, and two nonempty witnesses to the positive trace assertion's precondition (22 SAT outcomes); fourteen assertion commands returned UNSAT. The added precondition witnesses cover initial admission and admission with a trace-complete predecessor and unchanged-field copy-forward. S2 reproduced the S1 outcome classes (\cref{tab:alloy-outcomes}).
++All 72 Alloy outcomes matched the current manifest. Each profile returned 22 SAT outcomes: six legal, eleven ablation, three trace-attack, and two positive-trace-precondition witnesses; fourteen assertions returned UNSAT. The added witnesses cover initial admission and admission with a trace-complete predecessor and unchanged-field copy-forward. S2 reproduced S1's outcome classes (\cref{tab:alloy-outcomes}).
+ 
+-Both profiles therefore witness legal and source-corrupt histories. Full's rejection wrappers stutter on the declared malformed attempts, and preservation checks find no counterexample within the encoded scopes.
++Both profiles witness legal and source-corrupt histories. Full's rejection wrappers stutter on declared malformed attempts; preservation checks find no counterexample within the encoded scopes.
+ 
+ \subsection{RQ2: sensitivity of selected relational encodings}
+ 
+ % CLAIM P-RQ2-1 -> alloy_results.json class=ablation-witness
+-All eleven conjunct-removal operators produced a paired witness with one malformed item and at least one Full-valid item. The reduced contract admitted a non-stuttering effect, while Full rejected the same item set with a stuttering post-state. \Cref{tab:distinction-evidence} maps the covered failure classes to their encodings.
++All eleven conjunct removals produced a paired witness containing one malformed and at least one Full-valid item. The reduced contract admitted a non-stuttering effect; Full rejected the same item set with stutter. \Cref{tab:distinction-evidence} maps classes to encodings.
+ 
+ The ablations exercise $D_C$, $D_V$, $D_F$, and $D_B$ encodings; three source attacks exercise $D_S$. This finite sensitivity evidence is separate from Proposition~1's observation-omission construction. Principal membership remains fixed.
+ 
+ \subsection{RQ3: selected formal--concrete projections}
+ 
+ % CLAIM P-RQ3-1 -> formal_refinement_summary.json
+-The independent adapter produced 29 fixed formal instances. All nine intended projections were SAT under their committed or stuttering wrappers, and all twenty mapping mutants were UNSAT. The covered cases and two intentional formal--concrete differences are defined in \cref{sec:conformance}.
++The independent adapter produced 29 fixed instances: all nine intended projections were SAT under their committed/stuttering wrappers, and all twenty mapping mutants were UNSAT. \Cref{sec:conformance} defines cases and the two intentional formal--concrete differences.
+ 
+ \subsection{RQ4: declared concrete behavior}
+ 
+@@ -28,24 +28,24 @@
+ The production-facing catalogue passed all 35 declared cases with zero failures, using the rejection, corruption, and oracle criteria in \cref{sec:conformance}.
+ 
+ % CLAIM P-RQ4-2 -> quality_summary.json + r22 value-equality regression
+-The two stateful profiles and 33 rollback/concurrency tests passed. The evaluated snapshot records 354 passing tests; revisions added 13 equality regressions and further checks, with 377 tests passing in development and all 389 in the r26 isolated export. The latter includes ten optional-Git checks and two revocation schedules; its implementation/test sources are unchanged here (Supplement S2.5). Earlier Ruff and mypy checks passed, covering 55 typed source files. These regression checks are separate from the 35-case conformance denominator.
++The two stateful profiles, 33 rollback/concurrency tests, and all 389 tests in the r26 isolated export passed; Supplement S4 records versioned test counts and static checks. These regression checks remain separate from the 35-case conformance denominator.
+ 
+ \input{tables/generated/validation_evidence}
+ 
+ \subsection{RQ5: illustrative lifecycle}
+ 
+ % CLAIM P-RQ5-1 -> lifecycle_summary.json
+-The lifecycle completed two record versions. Version 2 preserved a machine quantity candidate of 100, stored an independently authorized value of 101, and anchored the resulting quantity transition to the original certificate. The unchanged \code{batch} and \code{operator} fields retained their prior source transitions. The final reverse trace was complete, and the exported values equaled the final record values.
++The lifecycle completed two versions. Version 2 retained the machine quantity proposal of 100, committed the independently authorized 101, and linked its transition to the original certificate. Unchanged \code{batch} and \code{operator} fields retained their prior sources. The final trace was complete and export matched the final record.
+ 
+ The six archived AI-origin cases also matched their declared lifecycle outcomes, supporting compatibility with persisted model output (Supplement S2.4).
+ 
+ \paragraph{Exact candidate binding distinguishes equal-valued substitutions}
+ \label{sec:executable-relation-result}
+-Both policies in the nine-case SQLite control retain immutable candidates, complete value audits, value-bound approvals, and CAS. They agree on seven of eight single-history outcomes. Equal-valued candidate substitution separates them: value-audit admission accepts a different candidate with the same record, field, and value; candidate-bound admission rejects it. Adding the transaction, audit-integrity, evidence, versioning, replay, grouping, and source-accounting safeguards in Supplement S3 leaves all outcomes unchanged.
++Both policies in the nine-case SQLite control retain immutable candidates, complete value audits, value-bound approvals, and CAS. They agree on seven of eight single-history outcomes. Under equal-valued substitution, value-audit admission accepts a different candidate with the same record, field, and value; candidate-bound admission rejects it. Strengthening transaction, audit-integrity, evidence, versioning, replay, grouping, and source-accounting safeguards leaves every outcome unchanged (Supplement S3).
+ 
+ The paired histories review 100 or 101 from the same candidate pool and both approve and commit 101. Their logical application-table states coincide under both value-bound controls, which omit review-context snapshots; candidate-bound histories retain different reviewed-candidate identities. Both policies reconstruct unchanged-field sources; their observed difference concerns review linkage rather than source reconstruction.
+ 
+-The identity-isolation control fixes baseline-visible review observations and varies which equal-valued candidate admission selects. Strengthened value-audit histories remain equal under the declared authority-relevant projection, with several candidates compatible with the recorded authorization. Candidate-bound admission retains the exact review link. Richer review-context snapshots narrow this separation by distinguishing proposals or evidence that differ (\cref{sec:discussion}). These representation-specific results leave Proposition 1's observation-class $D_V$ result intact.
++Identity isolation fixes baseline-visible review observations while varying the admitted equal-valued candidate. Strengthened value-audit histories remain equal under the authority-relevant projection, leaving several candidates compatible with authorization; candidate-bound admission retains the exact review link. Richer review-context snapshots distinguish differing proposals/evidence and narrow this separation (\cref{sec:discussion}). These representation-specific results preserve Proposition 1's observation-class $D_V$ result.
+ 
+ In these constructed comparisons, the demonstrator persists approval before admission. The reference service constructs a decision and binding from the certificate selected by \code{ReviewForms.confirm}, then checks that binding. Both rely on the host for confirmation-channel authentication and fidelity to the earlier review (\cref{sec:contract}). Supplement S3 retains the complete cases and projections.
+ 
+@@ -63,7 +63,7 @@
+ 
+ \paragraph{Admission}
+ % CLAIM R21-RQ6-A -> feature-baseline-run-1/feature_baseline_summary.json
+-The persistence-equivalent ablation completed all ten cells and 2,000 measured pairs with zero command failures. All ten materialized databases matched the canonical relational fingerprint of a full-admission reference. Full-path p50 ranged from 17.820 to 194.862 ms, whereas equivalent materialization p50 ranged from 10.469 to 16.479 ms. The paired mean full-minus-materialization difference ranged from 7.455 ms (8 fields, 1 changed) to 182.021 ms (128 fields, all changed). Both arms retain the complete source map and every authority row. The descriptive gap combines excluded validation/planning work with implementation-path differences (\cref{tab:feature-baseline}).
++The persistence-equivalent ablation completed ten cells and 2,000 pairs without command failure; all ten materialized databases matched the full-reference fingerprint. Full-path p50 was 17.820--194.862 ms, versus 10.469--16.479 ms for equivalent materialization. Paired mean differences ranged from 7.455 ms (8 fields, 1 changed) to 182.021 ms (128 fields, all changed). Both arms retain complete sources and authority rows; the gap combines excluded validation/planning with persistence-path differences (\cref{tab:feature-baseline}).
+ 
+ \input{tables/generated/feature_baseline_cost}
+ 
+@@ -72,7 +72,7 @@
+ 
+ \paragraph{Reverse trace}
+ % CLAIM R21-RQ6-T -> trace-optimization-comparison-3/trace_optimization_summary.json
+-The optimized form-scoped snapshot implementation completed all 36 cells and 7,200 observations with zero command failures. Every observation used exactly 12 SQL statements, compared with 16--13,422 in the recorded baseline. Optimized p50 ranged from 4.338 to 53.049 ms and the maximum p95 was 64.360 ms at 128 fields, 100 versions, and one record. Descriptive cellwise p50 ratios ranged from $1.224\times$ to $152.462\times$; at the prior maximum-p50 cell (128 fields, 100 versions, 1,000 records), p50 fell from 7,857.313 to 51.536 ms and p95 from 8,046.960 to 62.025 ms (\cref{tab:trace-optimization}). The ratios compare two sequential executions in the fixed environment.
++Optimized form-scoped tracing completed 36 cells and 7,200 observations without command failure, using exactly 12 SQL statements each versus 16--13,422 at baseline. Optimized p50 was 4.338--53.049 ms; maximum p95 was 64.360 ms at 128 fields, 100 versions, and one record. Cellwise p50 ratios were $1.224\times$--$152.462\times$. At the prior maximum-p50 cell (128 fields, 100 versions, 1,000 records), p50 fell from 7,857.313 to 51.536 ms and p95 from 8,046.960 to 62.025 ms (\cref{tab:trace-optimization}). These descriptive ratios compare sequential executions in the fixed environment.
+ 
+ \input{tables/generated/trace_optimization}
+ 
+@@ -81,7 +81,7 @@
+ 
+ \paragraph{Storage}
+ % CLAIM Q-RQ6-S -> cost_summary.json storage
+-The incremental main-database sizes of the full authority schema relative to the lower population were 1,085,440, 10,772,480, and 111,230,976 bytes at 1,000, 10,000, and 100,000 transitions (\cref{tab:storage-cost}). Foreign-key failure lists were empty, and WAL/SHM bytes were zero after the measurement protocol. RQ6 characterizes the recorded runtime grid; its scaling and portability boundaries are consolidated in \cref{sec:discussion}.
++The full authority schema added 1,085,440, 10,772,480, and 111,230,976 primary-database bytes over the lower population at 1,000, 10,000, and 100,000 transitions (\cref{tab:storage-cost}). Foreign-key failures were absent and post-measurement WAL/SHM bytes zero. These recorded-grid results retain the scaling and portability limits in \cref{sec:discussion}.
+ 
+ \input{tables/generated/storage_cost}
+ 
+@@ -100,30 +100,30 @@
+ \subsection{RQ7: pinned agent-harness integration}
+ 
+ % CLAIM R19-RQ7 -> dsh_plugin_integration_summary.json
+-All ten pinned-plugin cases passed: the interface exposed proposal and verification while retaining host admission, and its rejection and receipt-integrity controls matched the declared outcomes. Supplement S2.4 retains the lifecycle, unloading, and tamper details. This is interface-conformance evidence; the following live runs examine task execution on that interface.
++All ten pinned-plugin cases passed, exposing proposal/verification while reserving host admission and meeting rejection/receipt-integrity expectations. Supplement S2.4 retains lifecycle, unloading, and tamper details. These establish interface conformance; live runs assess task execution.
+ 
+ \subsection{RQ8: live task outcomes and separate host checks}
+ 
+ % CLAIM FINAL-RQ8 -> frozen normalized runs + 2026-09-05 rule audit + R4 endpoint sensitivity
+-The Final matrix contains all 1,260 planned executions. Among 360 planned benign runs, execution yield was 320/360 (88.89\%) under the frozen strict rule and 331/360 (91.94\%) under the post-hoc endpoint rule. Twenty-five runs had no scorable behavior verdict. Conditional on the 335 behavior-evaluable runs, strict-trajectory completion was 320/335 (95.52\%; 95\% exact interval 92.72--97.47\%). Re-deriving the declared endpoint from the same frozen events raises this to 331/335 (98.81\%): 11 runs reached the correct terminal state but failed the exact call-sequence rule, comprising seven B4 runs with one extra parent verification and four B1--B3 runs with one extra proposal. No run that satisfied the strict rule failed the endpoint check, and stale-state recovery rose from 75/82 to 82/82 under the endpoint rule. The increase measures the effect of relaxing the task criterion; independent corroboration would require separate evidence. Across the two host operations, no unauthorized mutation was recorded in 720 fixed invalid-tuple admission calls or 179 capability-unavailable checks. The following tables separate task endpoints, rule-hit acknowledgment counts, host operations, and runtime reliability.
++Final retained all 1,260 planned executions. Among 360 benign runs, strict-rule yield was 320/360 (88.89\%), versus 331/360 (91.94\%) under the post-hoc endpoint rule; 25 lacked scorable verdicts. Among 335 behavior-evaluable runs, strict completion was 320/335 (95.52\%; 95\% exact interval 92.72--97.47\%). Endpoint completion was 331/335 (98.81\%): eleven terminally successful runs failed the exact sequence, comprising seven B4 runs with an extra parent verification and four B1--B3 runs with an extra proposal. Every strict success met the endpoint criterion; stale recovery rose from 75/82 to 82/82. This increase reflects criterion relaxation, not independent corroboration. Separately, host checks recorded no unauthorized mutation in 720 fixed invalid-tuple admission calls or 179 capability-unavailable checks.
+ 
+ \input{tables/generated/runtime_endpoint_table}
+ 
+ \paragraph{Author-involved human annotation of the benign endpoint}
+-One author (X.W.) and one non-author volunteer coded all 360 benign runs under the terminal-completion rubric. Original labels agreed on 359/360 runs (99.72\%; three-category $\kappa=0.974$, case-bootstrap 95\% CI $[0.911,1.000]$). Conditional on the 335 behavior-evaluable runs, both judged 331 terminally complete and each agreed with the strict rule on 324/335 (96.72\%). The eleven human-positive/strict-negative cases reflect different criteria: extra calls do not violate the issued completion rubric. L.H. agreed with the strict-negative classification of the eleven discrepant cases; the frozen strict total remains 320/335, and the original completion labels are unchanged. T153, outside that comparison, was adjudicated separately. Supplement~S2.8 retains binary sensitivity, confusion matrices, unscored cases, procedure deviations, and clustering sensitivity; these are author-involved measurements.
++X.W. and a non-author volunteer coded 360 benign runs for terminal completion, agreeing on 359/360 (99.72\%; three-category $\kappa=0.974$, case-bootstrap 95\% CI $[0.911,1.000]$). Among 335 evaluable runs, both judged 331 complete and each agreed with the strict rule on 324/335 (96.72\%). Their eleven positive/strict-negative cases allow extra calls under the issued rubric. L.H.'s separate strict review confirmed those eleven negatives; the frozen 320/335 strict total and original completion labels remain unchanged. T153 was adjudicated outside this comparison. Supplement S2.8 retains binary sensitivity, confusion matrices, unscored cases, procedure deviations, and clustering sensitivity for these author-involved measurements.
+ 
+-Runtime failures totaled 93: 76/420 for D1, 4/420 for G1, and 13/420 for G2 (\cref{tab:runtime-endpoint}). No \code{SETUP\_FAILURE} or \code{TOOL\_RUNTIME\_FAILURE} occurred. Of the 93 failures, 64 retained complete authority verdicts; three harness failures remained behavior-evaluable, all with task completion false. Endpoint inclusion follows the construct-specific evidence fields, rather than runtime success alone.
++Runtime failures totaled 93: D1 76/420, G1 4/420, and G2 13/420 (\cref{tab:runtime-endpoint}), with no \code{SETUP\_FAILURE} or \code{TOOL\_RUNTIME\_FAILURE}. Of these, 64 retained complete authority verdicts; three harness failures remained behavior-evaluable and all failed task completion. Endpoint inclusion depends on construct-specific evidence, not runtime success alone.
+ 
+ \Cref{tab:agent-behavior-final} retains configuration-specific evaluable denominators. Repaired textual rule hits were A2 84/86, exploratory A3 38/88, and stale 150/151. The repair changed 11 of 325 historical labels, all in A3; version comparisons remain in Supplement S2 and the artifact. No unavailable-capability attempt was observed in evaluable cells.
+ 
+ \paragraph{Blinded author annotation of textual acknowledgment}
+-X.W.'s labels agreed with rule v2.1 on 286/325 outputs (88.00\%; $\kappa=0.644$, case-bootstrap 95\% CI $[0.543,0.741]$). A3 accounts for 32/39 disagreements and has no uniquely specified target field, supporting the construct-ambiguity limitation. All 39 disagreements remain without human adjudication; separate AI-assisted review proposals do not replace the frozen labels (Supplement S2). Supplement S2 gives per-scenario agreement, confusion matrices, additional coefficients, and resampling sensitivity.
++X.W. agreed with rule v2.1 on 286/325 outputs (88.00\%; $\kappa=0.644$, case-bootstrap 95\% CI $[0.543,0.741]$). A3 contributes 32/39 disagreements and lacks a unique target field, supporting the construct-ambiguity limitation. All 39 remain without human adjudication; AI-assisted proposals leave frozen labels unchanged. Supplement S2 retains per-scenario agreement, confusion matrices, additional coefficients, and resampling sensitivity.
+ 
+ \input{tables/generated/agent_behavior_table}
+ 
+ \input{tables/generated/benign_unscored}
+ 
+-All 25 unscored benign runs belong to recorded runtime-failure classes (\cref{tab:benign-unscored}); the remaining 68 of the 93 runtime failures occur outside this unscored benign subset. If the 25 unknown behavior outcomes were assigned all failures or all successes, the strict proportion would lie between 320/360 and 345/360 (88.89--95.83\%); the endpoint range would be 331/360 to 356/360 (91.94--98.89\%). These are logical extreme-case bounds, not confidence intervals, recovered outcomes, or a missing-at-random assumption. Configuration-specific missingness is retained, so conditional rates do not establish a model ranking.
++All 25 unscored benign runs are runtime failures (\cref{tab:benign-unscored}); 68 of the 93 failures lie outside this subset. Assigning all 25 unknowns failure or success gives strict extremes of 320/360--345/360 (88.89--95.83\%) and endpoint extremes of 331/360--356/360 (91.94--98.89\%). These logical bounds are neither confidence intervals nor recovered outcomes and make no missing-at-random assumption. Retained configuration-specific missingness precludes model ranking from conditional rates.
+ 
+ 
+ 
+@@ -140,4 +140,4 @@
+ \label{fig:behavior-authority}
+ \end{figure*}
+ 
+-Task outcomes varied across the qualified configurations, while the predeclared host checks preserved authoritative state. Together they characterize task execution and host-enforced admission on the restricted interface. The fixed, model-independent challenge parameters delimit these observations to integration conformance (\cref{sec:discussion}).
++Task outcomes varied across qualified configurations; predeclared host checks preserved authoritative state. Their fixed, model-independent challenges support integration conformance on the restricted interface (\cref{sec:discussion}).--- r31/sections/09-discussion-threats.tex
++++ edited/sections/09-discussion-threats.tex
+@@ -3,38 +3,38 @@
+ 
+ \subsection{Design implications}
+ 
+-The contribution is an inspectable relation among proposal origin, human value authority, and successor attribution. \Cref{tab:design-checklist} turns C1--C2 into an implementation aid: map each class to persisted objects and an enforcement point, then retain a legal control and a failure probe. A check remains untested until that evidence exists. The worksheet is in \code{docs/admission-design-checklist.md}.
++The contribution links proposal origin, human value authority, and successor attribution in an inspectable relation. \Cref{tab:design-checklist} operationalizes C1--C2: map each class to persisted objects and enforcement, then retain a legal control and failure probe. Checks without that evidence remain untested; the worksheet is \code{docs/admission-design-checklist.md}.
+ 
+ \input{tables/design_checklist}
+ 
+-Representations may differ while satisfying the same obligations. $D_B$ concerns the admitted change domain and complete successor; $D_S$ concerns changed-field sources and exact unchanged-source retention. Full P6 tracing also follows authorization, candidate, and evidence bindings. The practical inspection question is whether an approval names the reviewed candidate or only its value. Complete audits can reconstruct sources without specifying that review link; the checklist requires demonstrated relations, not a particular source-map representation. Its use in independent systems remains unvalidated.
++Different representations may satisfy these obligations. $D_B$ covers admitted changes and the complete successor; $D_S$ covers changed-field sources and exact unchanged-source retention. P6 additionally traces authorization, candidate, and evidence bindings. Inspection asks whether approval identifies the reviewed candidate or only its value: complete source reconstruction need not specify this link. The checklist requires demonstrated relations rather than a particular source-map representation; independent-system use remains unvalidated.
+ 
+ \subsection{Engineering trade-offs}
+ 
+-Wider changes cost more on the frozen grid. The persistence-equivalent gap combines validation/planning and implementation-path differences, so it cannot price an individual check. Admission and trace require consistent canonical equality; the repair shares that relation, not a cached change set. Form-scoped tracing trades 12 database round trips for in-memory indexing and prefix traversal. The preferred access pattern remains workload-dependent.
++Wider changes cost more on the frozen grid. The persistence-equivalent gap mixes validation/planning with implementation-path differences and cannot price individual checks. The equality repair shares a canonical relation, not a cached change set. Form-scoped tracing uses 12 round trips plus in-memory indexing/prefix traversal; the preferred access pattern remains workload-dependent.
+ 
+ \subsection{Formal and concrete validity}
+ 
+-Proposition 1 is conditional on the declared observation model. Its five class pairs, identity pair, and copy-forward control are constructions, not a general admission oracle. Alloy checks encoded scopes and selected mutations; the nine intended projections, twenty mapping mutants, catalogue, and SQLite schedules cover selected executions. The no-op and schema-uniqueness differences remain explicit in \cref{sec:conformance}.
++Proposition 1's class, identity, and copy-forward constructions are conditional on the declared observation model, not a general admission oracle. Alloy scopes/mutations, nine intended projections, twenty mapping mutants, the catalogue, and SQLite schedules cover selected executions. \Cref{sec:conformance} retains the no-op and schema-uniqueness differences.
+ 
+-Trace completeness checks persisted relations, not evidence truth, candidate accuracy, or human judgment. Independent oracles reduce shared-code risk but can share semantic defects, as the repaired equality bug showed. The adapter compares persisted digests and canonical locators without re-reading external evidence bytes. Detecting an out-of-band replacement that preserves metadata requires immutable/content-addressed storage or separate integrity verification.
++Trace completeness checks persisted relations, not evidence truth, candidate accuracy, or human judgment. Independent oracles can share semantic defects, as the repaired equality bug showed. The adapter compares digests and canonical locators without re-reading external bytes; metadata-preserving replacement therefore requires immutable/content-addressed storage or separate integrity verification.
+ 
+-Host authentication, faithful review presentation, serialization, hashing, policy, and adapter/transaction semantics form the trusted boundary (\cref{sec:contract}). Review-channel manipulation, indirect instructions influencing approval, and adversarial confirmation inputs were not exercised. Binding preserves a recorded decision, not its quality. Other database engines need new conformance evidence. The commit-entry policy check rejects already-visible revocation but permits later-revoked in-flight transactions (\cref{sec:authorization-timing}); it provides neither linearizable nor distributed revocation. Usability, authentication workflows, reviewer error, deletion, redaction, retention expiry, and tombstones remain untested; manual entry is outside the AI-derived claim.
++Host authentication, faithful review presentation, serialization, hashing, policy, and adapter/transaction semantics remain trusted (\cref{sec:contract}). Review-channel manipulation, indirect instructions affecting approval, and adversarial confirmation inputs were not tested; binding preserves decisions, not their quality. Other databases require new conformance evidence. Commit-entry checks reject visible revocation but permit later-revoked in-flight commits, without linearizable or distributed revocation (\cref{sec:authorization-timing}). Usability, authentication workflows, reviewer error, deletion, redaction, retention expiry, and tombstones remain untested; manual entry is outside the AI-derived claim.
+ 
+ \subsection{Performance and repeated-agent validity}
+ 
+-The empty-source comparator is a lower bound. Sequential trace timings may reflect caching, scheduling, checkpointing, and noise as well as access shape. Frozen cost results describe v8 and were not rerun after the equality repair.
++The empty-source comparator is a lower bound. Sequential trace timing mixes access shape with possible caching, scheduling, checkpointing, and noise. Cost results describe frozen v8 and were not rerun after equality repair.
+ 
+-The three qualified configurations from two provider families are a convenience population, not a basis for provider ranking. Endpoint names and settings do not identify immutable weights; provider load, decoding, and network conditions can vary. Pilot qualification did not ensure Final stability: D1 failures increased from 0/28 to 76/420. All planned runs remain included, with eligibility determined by \cref{tab:runtime-endpoint}.
++Three configurations from two provider families form a convenience population unsuitable for provider ranking. Endpoint names/settings do not fix immutable weights; load, decoding, and networks may vary. Qualification did not ensure Final stability: D1 failures rose from 0/28 to 76/420. All planned runs remain, with eligibility defined in \cref{tab:runtime-endpoint}.
+ 
+-Terminal completion and strict-trajectory compliance are distinct constructs. The post-hoc endpoint criterion admits 11 strict failures; extra calls alone establish neither caution nor general recovery competence. Original benign labels came from one author and one non-author volunteer. The first author's strict-trajectory review is a separate judgment, not an independent correction of terminal-completion labels.
++Terminal completion and strict-trajectory compliance are distinct. The post-hoc endpoint admits 11 strict failures; extra calls establish neither caution nor general recovery competence. One author and one non-author volunteer supplied the original labels. The first author's strict review remains a separate judgment, not an independent correction of completion labels.
+ 
+-The textual audit has one author coder and no human adjudication; the subsequent unblinded AI review supplies proposals only. Agreement is prevalence-sensitive and heterogeneous: A6 and B4 nearly coincide with the rule, whereas A3 contributes 32/39 disagreements. A3's unspecified target limits the construct. Author involvement, knowledge of the study purpose, and residual textual clues constrain blinding; the audit supplies human--rule comparison rather than third-party validation. Frozen rule hits remain intact.
++The textual audit uses one author coder without human adjudication; subsequent unblinded AI review supplies proposals only. Agreement varies with prevalence and scenario: A6/B4 nearly match the rule, while A3 contributes 32/39 disagreements and lacks a specified target. Author involvement, study-purpose knowledge, and textual clues limit blinding. This is human--rule comparison, not third-party validation; frozen rule hits remain intact.
+ 
+-The 720 fixed invalid-tuple calls and 179 capability-unavailable branches measure the exercised host operations. They do not sample model-generated attacks, compromised hosts or identity providers, administrator access, or model access to admission. Zero violations imply neither a population failure bound nor general prompt-injection security; zero unavailable-tool attempts reveal no behavioral heterogeneity.
++The 720 fixed invalid-tuple calls and 179 capability-unavailable branches cover exercised host operations, excluding model-generated attacks, compromised hosts/identity providers, administrator access, and model access to admission. Zero violations establish neither a population failure bound nor general prompt-injection security; zero unavailable-tool attempts show no behavioral heterogeneity.
+ 
+ \subsection{Reproducibility and evaluated-control boundary}
+ 
+-The deposit supports inspection without new hosted calls; reproduction in another environment is a separate test. The related-work comparison covers disclosures through its stated cutoff. The executable controls establish a specific separation: both value-audit policies agree with candidate-bound admission on seven of eight single-history cases and reconstruct field sources, yet leave the paired reviewed-candidate histories indistinguishable in authority-relevant state (\cref{sec:executable-relation-result}). Exact candidate binding preserves the review distinction left unspecified by these evaluated safeguards.
++The deposit permits inspection without new hosted calls; reproduction elsewhere remains a separate test. Related-work coverage ends at its stated cutoff. Both evaluated value-audit policies match candidate-bound admission on seven of eight single-history cases and reconstruct sources, yet their authority-relevant state cannot distinguish the paired reviewed-candidate histories (\cref{sec:executable-relation-result}). Exact binding preserves that review distinction.
+ 
+-Richer review-context snapshots distinguish candidates when recorded proposal, producer, or evidence observations differ. Exact identity becomes material when distinct persisted candidates remain equivalent under those observations; it is not the only possible discriminator. This representational boundary leaves Proposition 1's conditional $D_V$ result intact: the controls test recoverability from particular audit representations, while the proposition tests omitted observation classes. Together they position an explicit correction-aware obligation, its conditional characterization, and its transactional realization. Independently developed event-sourcing/CQRS, temporal/bitemporal, and four-eyes systems were not evaluated.
++Richer review snapshots distinguish candidates with different proposal, producer, or evidence observations. Exact identity matters when distinct persisted candidates remain equivalent under those observations; other discriminators are possible. This representation-specific comparison leaves Proposition 1's observation-omission $D_V$ result intact. The contribution is the correction-aware obligation, conditional characterization, and transactional realization. Independent event-sourcing/CQRS, temporal/bitemporal, and four-eyes systems remain unevaluated.--- r31/sections/10-conclusion.tex
++++ edited/sections/10-conclusion.tex
+@@ -1,8 +1,8 @@
+ \section{Conclusion}
+ \label{sec:conclusion}
+ 
+-Correction-aware authoritative-state admission connects proposal origin, human value authority, and complete successor lineage. Its practical test is the 90/100/101 history: can a later reader recover what the machine proposed, what the human authorized, and which sources the resulting record inherited? Under the declared observation model, five paired histories identify omissions that make the corresponding admission failures indistinguishable.
++Correction-aware authoritative-state admission connects proposal origin, human value authority, and complete successor lineage. The 90/100/101 history asks whether later readers can recover the machine proposal, human-authorized value, and inherited sources. Within the declared observation model, five paired histories characterize omissions that make the corresponding failures indistinguishable.
+ 
+-Bounded model checks, persisted-state projections, and transaction tests support the reference realization. Frozen cost measurements characterize v8, while repeated-agent results distinguish task criteria from host-enforced authority. The corrected implementation and its regression evidence remain separately versioned.
++Bounded checks, persisted-state projections, and transaction tests support the reference realization. Frozen costs characterize v8; repeated-agent results distinguish task criteria from host authority. The corrected implementation and regression evidence remain separately versioned.
+ 
+-Developers applying the contract should preserve the exact candidate, record the human-authorized value separately, recheck policy and predecessor freshness inside admission, and atomically commit the complete successor with sources for every field. Changed fields receive their authorized transitions; unchanged fields retain exact prior sources. The checklist in \cref{tab:design-checklist} and the worked example in Supplement S3 connect these obligations to implementation inspection and failure probes using existing transaction and audit facilities. Other database engines and operational reviewer workflows require further validation.
++Implementations should preserve exact candidates and separately authorized values, recheck policy/freshness during admission, and atomically commit complete successors: changed fields receive authorized transitions; unchanged fields retain exact prior sources. The checklist (\cref{tab:design-checklist}) and Supplement S3 connect these obligations to inspection and failure probes using existing transaction/audit facilities. Other databases and operational reviewer workflows require further validation.--- r31/supplement.tex
++++ edited/supplement.tex
+@@ -395,4 +395,12 @@
+ system is defective. The nine cases are a deterministic construction; the
+ counts are not a statistical or superiority claim. The runner, raw SQLite
+ observations, and derived table are retained in the package.
++\section{Execution details retained from the main manuscript}
++\label{sec:editorial-reproduction-details}
++The following paragraphs retain execution settings, scope vectors, workload grids,
++and historical verification counts moved from the main manuscript during editorial
++compression. They reproduce the original descriptions without changing the frozen
++experiments, denominators, or artifact versions.
++\input{editorial-reproduction-details}
++
+ \end{document}

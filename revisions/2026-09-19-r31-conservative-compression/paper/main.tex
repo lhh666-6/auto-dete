@@ -1,0 +1,67 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\pdfstringdefDisableCommands{\def\corref#1{}}
+
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+
+\journal{Journal of Systems and Software}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Authoritative-State Admission for AI-Derived Updates: Failure Distinguishability, Transactional Realization, and Evaluation}
+
+\author[inst1]{Liang Hanghao}
+\author[inst1]{Xuan Wentao}
+\author[inst1]{Peng Peng\corref{cor1}}
+\cortext[cor1]{Corresponding author. Email address: \texttt{hnu16pp@hnu.edu.cn}}
+\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},addressline={Lushan South Road, Yuelu District},city={Changsha},postcode={410082},country={China}}
+
+\begin{abstract}
+AI-derived updates can produce identical final values despite different proposal and authorization histories. We specify correction-aware authoritative-state admission: human authorization binds an exact persisted candidate to an explicit value, Correction preserves the original proposal, and complete successors retain every field's source. Within the declared observation model, five safe/unsafe history pairs establish class-wise irredundancy of five failure-distinguishing information classes. We realize the relation in Python/SQLite and evaluate it through bounded Alloy analysis, formal--concrete projection, and a 35-case fault catalogue. Both the frozen and strengthened transactional value-audit controls agree with candidate-bound admission on seven of eight single-history cases; equal-valued candidate substitution separates them. Their safeguards alone do not entail explicit authorization-to-exact-candidate binding. Richer recorded review context narrows this distinction, while exact binding distinguishes candidates equivalent under those observations. Frozen v8 workloads characterize admission and trace costs. Across three qualified model configurations, 320/360 planned benign runs met the frozen strict-trajectory criterion; 25 lacked scorable behavior verdicts. Fixed host checks separately assess integration conformance, retaining all runtime failures. Findings concern the declared model and evaluated system; host authentication and review-channel integrity remain external assumptions.
+\end{abstract}
+
+\begin{keyword}
+authoritative-state admission \sep AI-derived updates \sep human authorization \sep data provenance \sep formal methods \sep transactional systems
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-problem-contract}
+\input{sections/04-relational-analysis}
+\input{sections/05-transactional-realization}
+\input{sections/06-formal-concrete-conformance}
+\input{sections/07-evaluation-protocol}
+\input{sections/08-results}
+\input{sections/09-discussion-threats}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+
+\bibliographystyle{elsarticle-harv}
+\begingroup
+\Urlmuskip=0mu plus 1mu\relax
+\bibliography{filtered}
+\endgroup
+
+\end{document}

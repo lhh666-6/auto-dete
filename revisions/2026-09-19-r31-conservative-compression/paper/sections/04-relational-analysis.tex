@@ -1,0 +1,52 @@
+\section{Bounded relational characterization}
+\label{sec:alloy}
+
+\subsection{Model structure}
+
+The Alloy model represents records, authoritative fields, ordered versions, evidence content/locators, candidates, certificates/identities, principals, authorizations, transitions, and states. Each state maps a committed record/field pair to at most one value and source transition. Once an authoritative snapshot exists, both maps cover exactly the record's declared field domain.
+
+Three event families define bounded histories. \code{MachineEvent} may extend candidates, certificates, and evidence but frames authoritative values, sources, versions, transitions, and authorizations (P0). \code{BatchAdmissionEvent} contains a nonempty item set sharing an envelope. \code{TamperEvent} changes only the transition set while freezing values and source pointers, defining P6's narrow corruption boundary.
+
+The base effect advances one record version and applies item values and sources while intentionally leaving transition structure underconstrained. Full supplies unique item fields; initial or later complete-snapshot shape; preexisting certificate and evidence; record, field, evidence-identity, evidence-owner, certificate-version, freshness, authorization-certificate, principal, and authorization-value bindings; and an exact item--transition bijection. Keeping these conjuncts separate permits one encoded distinction to be removed without silently changing the others.
+
+\subsection{From information classes to Alloy checks}
+
+Table~\ref{tab:distinction-evidence} maps the representation-independent classes in \cref{eq:distinction-basis} to relational operators and executable evidence. Several conjuncts can encode one class; eleven ablations therefore do not imply eleven novelty claims.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Mapping from failure-distinguishing information classes to bounded and concrete evidence.}
+\label{tab:distinction-evidence}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Safe/unsafe witness & Alloy support & Concrete support \\
+\midrule
+$D_C$ & exact candidate / equal-valued contextual substitute & field, evidence-identity, evidence-owner, record, authorization-certificate, certificate-preexistence, and evidence-preexistence ablations & record, field, evidence, and certificate substitution cases \\
+$D_V$ & retained Correction / wrong attribution of the same final value & legal Correction witnesses and authorization-value ablation & singleton, all-field, and mixed Correction lifecycles with immutable candidate checks \\
+$D_F$ & current / superseded authorization & certificate-version and freshness ablations; stale-rejection assertions & stale replay, contending confirmation, and compare-and-swap rejection \\
+$D_B$ & atomic / partial or fragmented successor & transition-bijection ablation and whole-batch framing assertions & exact changed-field validation, failpoints, rollback, and concurrency cases \\
+$D_S$ & complete / missing, replaced, or duplicate source & source-anchor attack witnesses and P6 trace assertions & source-corruption catalogue and reverse-trace validation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Each ablation pair contains at least two items: one violates only the selected conjunct and another is Full-valid. The reduced relation admits the item set; Full rejects it with authoritative-state stutter. This tests conjunct sensitivity, separately from the observation-level irredundancy construction in \cref{sec:contract}.
+
+\subsection{Legal, unsafe, and preservation commands}
+
+Six legal-witness commands cover multi-field Accept, Correction, mixed Accept/Correction, same-value admission, initial snapshot, and singleton admission. Eleven paired ablations remove the conjuncts mapped in \cref{tab:distinction-evidence}. Principal membership remains fixed; the unused \code{ABL\_7} marker is excluded because host identity trust is an external assumption.
+
+Three source-attack commands follow a legal Full prefix by removing a source anchor, replacing it with another transition atom, or adding a duplicate source-version transition. Each requires an incomplete trace. Fourteen assertions per scope cover the checks grouped below.
+
+Nine assertions guard definitions and immediate consequences: P0, P1, P3, P4, P5, whole-batch effects, rejection framing, and the two P6 checks. Five others check state-invariant preservation, two singleton correspondences, Full rejection of an ablated attempt, and positive trace completeness under a well-formed pre-state.
+
+The positive assertion requires a trace-complete predecessor and no stray transition to the successor version; otherwise Full admission may fail \code{traceComplete}. Concrete enforcement combines predecessor-prefix validation, per-record transition uniqueness, and CAS with in-transaction revalidation. Removing post-state certificate binding changes UNSAT to SAT (\code{evidence/r27-trace-mutation/}). The assertion covers admitted fields in one step, not arbitrary histories or every carried-forward field. Both profiles witness its precondition through \code{SAT_TRACE_wellformed_pre_initial} and \code{SAT_TRACE_wellformed_pre_carryforward}; the latter has a non-vacuously complete predecessor trace. Reachability, bounded counterexample absence, and mutation sensitivity are distinct: fourteen UNSAT commands are not fourteen independent proofs.
+
+\subsection{Scopes and interpretation}
+
+S1 and S2 use finite, command-specific bounds, with S2 increasing representative structural domains. Supplement S4 retains both scope vectors and their exceptions; the artifact supplies the executable scopes.
+
+\input{tables/generated/formal_evidence}
+
+An UNSAT assertion means that the Analyzer found no counterexample within the encoded command scope. A SAT run means that it found the requested witness \citep{jackson2002alloy,torlak2007kodkod}. Singleton contract/effect checks additionally guard the batch lift against silently changing the historical one-item semantics.

@@ -1,0 +1,40 @@
+\section{Discussion and threats to validity}
+\label{sec:discussion}
+
+\subsection{Design implications}
+
+The contribution links proposal origin, human value authority, and successor attribution in an inspectable relation. \Cref{tab:design-checklist} operationalizes C1--C2: map each class to persisted objects and enforcement, then retain a legal control and failure probe. Checks without that evidence remain untested; the worksheet is \code{docs/admission-design-checklist.md}.
+
+\input{tables/design_checklist}
+
+Different representations may satisfy these obligations. $D_B$ covers admitted changes and the complete successor; $D_S$ covers changed-field sources and exact unchanged-source retention. P6 additionally traces authorization, candidate, and evidence bindings. Inspection asks whether approval identifies the reviewed candidate or only its value: complete source reconstruction need not specify this link. The checklist requires demonstrated relations rather than a particular source-map representation; independent-system use remains unvalidated.
+
+\subsection{Engineering trade-offs}
+
+Wider changes cost more on the frozen grid. The persistence-equivalent gap mixes validation/planning with implementation-path differences and cannot price individual checks. The equality repair shares a canonical relation, not a cached change set. Form-scoped tracing uses 12 round trips plus in-memory indexing/prefix traversal; the preferred access pattern remains workload-dependent.
+
+\subsection{Formal and concrete validity}
+
+Proposition 1's class, identity, and copy-forward constructions are conditional on the declared observation model, not a general admission oracle. Alloy scopes/mutations, nine intended projections, twenty mapping mutants, the catalogue, and SQLite schedules cover selected executions. \Cref{sec:conformance} retains the no-op and schema-uniqueness differences.
+
+Trace completeness checks persisted relations, not evidence truth, candidate accuracy, or human judgment. Independent oracles can share semantic defects, as the repaired equality bug showed. The adapter compares digests and canonical locators without re-reading external bytes; metadata-preserving replacement therefore requires immutable/content-addressed storage or separate integrity verification.
+
+Host authentication, faithful review presentation, serialization, hashing, policy, and adapter/transaction semantics remain trusted (\cref{sec:contract}). Review-channel manipulation, indirect instructions affecting approval, and adversarial confirmation inputs were not tested; binding preserves decisions, not their quality. Other databases require new conformance evidence. Commit-entry checks reject visible revocation but permit later-revoked in-flight commits, without linearizable or distributed revocation (\cref{sec:authorization-timing}). Usability, authentication workflows, reviewer error, deletion, redaction, retention expiry, and tombstones remain untested; manual entry is outside the AI-derived claim.
+
+\subsection{Performance and repeated-agent validity}
+
+The empty-source comparator is a lower bound. Sequential trace timing mixes access shape with possible caching, scheduling, checkpointing, and noise. Cost results describe frozen v8 and were not rerun after equality repair.
+
+Three configurations from two provider families form a convenience population unsuitable for provider ranking. Endpoint names/settings do not fix immutable weights; load, decoding, and networks may vary. Qualification did not ensure Final stability: D1 failures rose from 0/28 to 76/420. All planned runs remain, with eligibility defined in \cref{tab:runtime-endpoint}.
+
+Terminal completion and strict-trajectory compliance are distinct. The post-hoc endpoint admits 11 strict failures; extra calls establish neither caution nor general recovery competence. One author and one non-author volunteer supplied the original labels. The first author's strict review remains a separate judgment, not an independent correction of completion labels.
+
+The textual audit uses one author coder without human adjudication; subsequent unblinded AI review supplies proposals only. Agreement varies with prevalence and scenario: A6/B4 nearly match the rule, while A3 contributes 32/39 disagreements and lacks a specified target. Author involvement, study-purpose knowledge, and textual clues limit blinding. This is human--rule comparison, not third-party validation; frozen rule hits remain intact.
+
+The 720 fixed invalid-tuple calls and 179 capability-unavailable branches cover exercised host operations, excluding model-generated attacks, compromised hosts/identity providers, administrator access, and model access to admission. Zero violations establish neither a population failure bound nor general prompt-injection security; zero unavailable-tool attempts show no behavioral heterogeneity.
+
+\subsection{Reproducibility and evaluated-control boundary}
+
+The deposit permits inspection without new hosted calls; reproduction elsewhere remains a separate test. Related-work coverage ends at its stated cutoff. Both evaluated value-audit policies match candidate-bound admission on seven of eight single-history cases and reconstruct sources, yet their authority-relevant state cannot distinguish the paired reviewed-candidate histories (\cref{sec:executable-relation-result}). Exact binding preserves that review distinction.
+
+Richer review snapshots distinguish candidates with different proposal, producer, or evidence observations. Exact identity matters when distinct persisted candidates remain equivalent under those observations; other discriminators are possible. This representation-specific comparison leaves Proposition 1's observation-omission $D_V$ result intact. The contribution is the correction-aware obligation, conditional characterization, and transactional realization. Independent event-sourcing/CQRS, temporal/bitemporal, and four-eyes systems remain unevaluated.

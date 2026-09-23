@@ -1,0 +1,53 @@
+\section{Formal--concrete projection and executable conformance}
+\label{sec:conformance}
+
+An explicit abstraction connects model and Python checks of the same admission event:
+\begin{equation}
+\alpha:\mathrm{PersistedPrePost}\rightarrow\mathrm{BatchAlloyInstance}.
+\end{equation}
+
+\subsection{Persisted-state projection}
+
+For a selected event, $\alpha$ queries SQLite and serializes the form, field domain, evidence, certificates, decisions/bindings, transitions, version values/source maps, version chain, and relevant pre/post identities. Concrete JSON value-equivalence classes become Alloy Value atoms; certificate hashes become primitive \code{CertId} atoms without assuming injectivity. Each decision and binding row becomes one formal Authorization.
+
+\Cref{tab:abstraction} states the relation-by-relation mapping used by the executable projection.
+
+\begin{table}[t]
+\centering
+\caption{Principal elements of the executable abstraction.}
+\label{tab:abstraction}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Persisted relation & Formal relation & Mapping condition \\
+\midrule
+form and declared fields & Record and authoritativeFields & one target record with an exact selected field domain \\
+evidence row plus locator & Evidence content and locator & owner/content/canonical persisted locator remain separate dimensions \\
+candidate-certificate row & Candidate, Certificate, CertId & target, field, evidence, version, value, producer, and identity fixed \\
+decision plus binding & Authorization & principal, certificate, and explicit authorized value fixed \\
+record-version values & committedValue & complete canonical JSON equality classes in pre and post \\
+record-version fact\_sources & committedSource & exact persisted transition atom per authoritative field \\
+transition rows at successor & AdmissionItem transitions & exact item--transition set and complete relation fields \\
+current-version/CAS unit & BatchAdmissionEvent envelope & one record, principal, pre-version, successor, and atomic pre/post \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A committed case generates a fixed Alloy instance checked against \code{legalAdmission[event, Full]}. A rejected case first requires equal canonical database digests before/after the call; its wrapper requires state stutter and Full-contract failure. A changed digest fails projection before Alloy runs.
+
+The test-side projection is independent of the production planner, certificate validator, and trace builder. Twenty single-dimension mapping mutants probe field, evidence, version, freshness, authorization, transition, preexistence, committed effects, or initial coverage, providing selected sensitivity checks for $\alpha$.
+
+\subsection{Independent finite catalogue}
+
+A second oracle directly reads every SQLite application table, checking value/source domains, adjacent source evolution, transitions, version anchors, decision/principal/certificate/authorization/evidence relations, and authorized/transition/committed values. Expected values do not come from the production planner or trace builder. Five in-memory mutants probe source, authorization, locator, principal, and value sensitivity.
+
+The declared 35-case catalogue comprises five legal cases and thirty rejection, corruption, schema-prevention, stateful-evolution, or oracle-mutant cases. Rejections require the public error classification and an unchanged deterministic digest of schema version, identity sequences, and every application table. Corruptions require a changed digest and incomplete trace/oracle diagnosis. The machine-readable declaration bounds catalogue completeness.
+
+\subsection{Value-equality repair and witness-domain control}
+
+Canonical JSON equality repairs changed-field decisions. Thirteen regressions cover unchanged controls, numeric/Boolean and nested changes, and a rejected no-op: seven fail before repair and all pass afterward. Separating schema from declared-item domains preserves the five witness pairs and adds candidate-identity and copy-forward controls. This construction checker is not a general admission oracle; Supplement S2 retains defects and checks.
+
+\subsection{Refinement boundary}
+
+Nine intended projections cover singleton Accept/Correction; multi-field all-Accept, all-Correction, and mixed batches; initial admission; unchanged-source copy-forward; stale rejection; and whole-batch rejection for one invalid item. These are selected bounded refinement evidence (\cref{sec:discussion}).
+
+Two intentional differences remain: concrete post-initial admission rejects formal same-value no-ops, and SQLite uniqueness prevents one modeled duplicate-source state through the trusted schema. Concrete trace tests additionally cover pointer and binding corruptions absent from the formal P6 tamper event. Formal \code{traceComplete} checks single-level anchors and uniqueness; concrete tracing traverses every predecessor prefix and retains exact prior sources. The bounded positive assertion covers only the encoded admission step under its well-formed-pre-state condition, not prefix-wide trace completeness.

@@ -1,0 +1,49 @@
+\section{Transactional realization}
+\label{sec:realization}
+
+\subsection{Narrow capabilities and persisted authority objects}
+
+\system{} is implemented in Python with SQLAlchemy and SQLite. The application exposes three separate authority interfaces: \code{CandidateWritePort} appends an evidence/candidate unit, \code{AuthorityReadPort} loads persisted objects for review and trace, and \code{FactAdmissionPort} admits a complete transition bundle. Recognition receives the candidate facade but not the fact-admission facade; review receives the latter. The external generator, including the hosted-AI session used for the AI-origin fixture, is outside this trusted application boundary: its output is treated as an untrusted candidate until the persisted certificate and human admission checks succeed. This boundary provides application-level capability separation within one process.
+
+A candidate certificate stores the target record and field, canonical value payload, producer identity/version, selection artifact, expected fact version, evidence content hash, and canonical evidence locator. Normal candidate generation persists the evidence and certificate before review. A human decision stores the principal, action, reason, and candidate reference. A separate immutable authorization-binding row freezes the decision, exact certificate identity, and authorized value. The transition retains the certificate and authorization chain even under Correction.
+
+A thread-safe, revocable in-memory policy maps identifiers to the \code{fact-admitter} role. Admission rechecks it immediately before the first authoritative write; the host supplies authentication, session integrity, and durable enterprise identity.
+
+\subsection{Canonical evidence identity}
+
+Certificate construction, admission, and trace share a canonical JSON locator function: NFC and path/URI normalization, unsafe-segment rejection, and binding of form, field, URI, locator version, and optional crop. Admission reloads evidence and checks its owner, content hash, and independently reconstructed locator against the certificate. Copying a locator string cannot mask persisted disagreement. The artifact retains the normalization rules.
+
+\subsection{Admission transaction}
+
+The application prechecks certificate mappings against the current form for useful rejection messages. The adapter repeats authoritative checks inside the transaction:
+
+\begin{enumerate}[leftmargin=*]
+  \item reload the declared field set, current record version, previous complete values/source map, certificates, evidence, and principal policy;
+  \item derive the initial full domain or later changed-field set under canonical JSON equality and reject empty later changes, deletions, hidden changes, extra transitions, duplicate fields, or an incomplete prior snapshot;
+  \item validate unused identities and the complete decision--binding--certificate--evidence--transition relation, including
+  $x_{\mathrm{authorized}}\eqc x_{\mathrm{transition}}\eqc x_{\mathrm{successor}}$;
+  \item issue a conditional update whose predicate is the expected current version;
+  \item construct one source transition for every admitted field, copy the exact old source for every unchanged field, and require value/source domains to be identical;
+  \item insert the decision, authorization binding, transitions, complete record-version row, field projections, and audit event before one commit.
+\end{enumerate}
+
+CAS is the first authoritative write. Validation failure, a zero-row CAS, a losing contender, or a pre-commit exception rolls back the transaction. Schema constraints additionally enforce unique decision/certificate indexes for transitions and authorization bindings, and unique transition identity per record/version/field.
+
+\paragraph{Engine configuration and portability}
+SQLite transactions, version CAS, and unique/foreign-key constraints provide atomicity, conflict rejection, and relational integrity. Supplement S4 records the engine settings; other DBMSs or isolation regimes require new transaction, locking, conflict, and anomaly checks.
+
+Admission, trace, and independently expressed oracles use the canonical equality of \cref{sec:contract}; \cref{sec:conformance} reports the public-API regressions.
+
+Manual entry can create a derived certificate at confirmation time for product compatibility. It is excluded from the AI-derived candidate conformance claim and does not stand in for Correction, which always preserves a preexisting machine certificate.
+
+\subsection{Agent-harness adapter}
+
+An out-of-tree TypeScript plugin targets DeepSeek Harness \code{dsh-v0.1.1-rc.2}, commit \code{b150a551b}. Its only model-callable operations are \code{auto_decte_propose} (candidate-only service) and \code{auto_decte_verify} (reload and hash-check certificate/evidence binding). A versioned one-shot JSON bridge invokes Python with bounded time/output. The plugin exposes neither confirmation, reviewer identity, nor \code{FactAdmissionPort}. A trusted deterministic driver separately calls \code{ReviewForms.confirm} for Accept or Correction.
+
+The proposal path stores canonical JSON as \code{AI_OUTPUT} evidence and creates an \code{AI_SUGGESTION} certificate bound to a persisted parent certificate, DSH session/execution identifiers, and expected fact version. Evidence, certificate, and audit append atomically; failure discards the new file. The bridge independently hashes stored evidence bytes before host confirmation.
+
+\subsection{Reverse trace and complete source evolution}
+
+For a selected certificate-era version, tracing examines every declared field in every prefix version. Initially, each field requires one source transition from that version. Later changes require the unique transition from their version; unchanged fields retain the exact prior source. Checks cover source record/field, creation and record-version identifiers, committed value, decision, authorization, certificate, producer, persisted evidence content/locator, and expected version relations.
+
+The trace returns \code{complete} only when every field and prefix relation passes; otherwise it reports \code{incomplete} with reasons. It never repairs or substitutes sources. Pre-certificate legacy states remain separately reported rather than upgraded to complete evidence.

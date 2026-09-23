@@ -1,0 +1,20 @@
+% Derived from the r27 human-annotation analysis archive.
+% Case-level bootstrap is the main-text interval; model- and cell-level
+% bootstrap resample by model configuration and by model x scenario cell.
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Human-annotation agreement under case-, model-, and cell-level bootstrap resampling. The reported main-text intervals are case-level; the model- and cell-level intervals show the wider uncertainty under clustering. AC1 and PABAK are agreement coefficients that do not depend on the bootstrap unit.}
+\label{tab:human-annotation-intervals}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.18\linewidth}rr>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xrr@{}}
+\toprule
+Comparison & $N$ & $\kappa$ & Case-level 95\% CI & Model-level 95\% CI & Cell-level 95\% CI & AC1 & PABAK \\
+\midrule
+A1--A2 (1/0/9) & 360 & 0.974 & [0.911, 1.000] & [0.952, 1.000] & [0.937, 1.000] & 0.997 & 0.996 \\
+A1--rule (1/0) & 335 & 0.410 & [0.113, 0.661] & [0.000, 0.885] & [0.000, 0.831] & 0.965 & 0.934 \\
+A2--rule (1/0) & 335 & 0.410 & [0.113, 0.661] & [0.000, 0.885] & [0.000, 0.831] & 0.965 & 0.934 \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+\footnotesize Note: A1--A2 is inter-human agreement; A1--rule and A2--rule are human--rule agreement, not inter-human agreement. The A1--A2 1/0/9 row uses the full 360-run set; the human--rule rows use the 335 behavior-evaluable runs.
+\end{table}

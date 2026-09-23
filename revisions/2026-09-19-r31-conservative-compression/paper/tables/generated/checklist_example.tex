@@ -1,0 +1,30 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Executable comparison of two declared SQLite policies over nine cases fixed before execution. Both share immutable candidates, complete version snapshots, value/domain/version-bound approvals, atomic CAS, and complete before/after audits. $\dagger$ marks the only accept/reject divergence; $\ddagger$ the paired-history observation. The demonstrator is illustrative, not a production implementation or a statistical comparison.}
+\label{tab:executable-checklist}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Case (fixed before execution) & Requested action & Value-audit policy & Candidate-bound policy \\
+\midrule
+Legal correction & approve q100a; submit q100a (101) & accept; v1 quantity=101 & accept; v1 quantity=101 \\
+\addlinespace[2pt]
+Equal-valued substitution$^\dagger$ & approve q100a; submit q100b (101) & accept; committed 101 & reject \code{candidate_binding}; unchanged \\
+\addlinespace[2pt]
+Cross-record candidate & approve q100a; submit other100 & reject \code{candidate_context}; unchanged & reject \code{candidate_context}; unchanged \\
+\addlinespace[2pt]
+Stale expected version & submit review-1 after intervening commit & reject \code{stale_version}; unchanged & reject \code{stale_version}; unchanged \\
+\addlinespace[2pt]
+Wrong submitted value & approve 101; submit 102 & reject \code{approved_values}; unchanged & reject \code{approved_values}; unchanged \\
+\addlinespace[2pt]
+Partial approved batch & approve quantity+batch; submit quantity & reject \code{approved_values}; unchanged & reject \code{approved_values}; unchanged \\
+\addlinespace[2pt]
+Injected failure after writes & submit with failure after writes & reject \code{injected_failure}; unchanged & reject \code{injected_failure}; unchanged \\
+\addlinespace[2pt]
+Two-step copy-forward & commit quantity 101; then batch B & accept; sources batch=v2:batch, quantity=v1:quantity & accept; sources batch=v2:batch, quantity=v1:quantity; stored \\
+\addlinespace[2pt]
+Paired reviewed-candidate histories$^\ddagger$ & review q100a vs q101; both commit 101 & logical table state identical & logical table state differs in \code{approvals} \\
+\bottomrule
+\end{tabularx}
+\end{table}

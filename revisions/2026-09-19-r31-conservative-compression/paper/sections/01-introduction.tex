@@ -1,0 +1,48 @@
+\section{Introduction}
+\label{sec:introduction}
+
+AI-generated updates can become persistent facts for reporting, payment, scheduling, or later decisions. Admission must establish which authority approved which value from which persisted proposal and record state.
+
+Consider an authoritative quantity of 90: a recognizer proposes 100, but a reviewer authorizes 101. Accepting a machine proposal of 101 yields the same final value with different attribution. Rewriting the candidate falsely attributes the correction to the model; dropping an unchanged batch-code field's earlier source preserves values but loses lineage. Admission must retain the predecessor 90, proposal $x_c=100$, and authorized value $x_a=101$, allowing
+\begin{equation}
+x_c\neq x_a
+\label{eq:intro-correction}
+\end{equation}
+with both value roles and the complete successor's sources intact.
+
+The target systems permit human correction of AI-generated field candidates, persist accepted updates, and require reconstruction of authorization and origin. Prior work provides activation, governed-memory, and transaction foundations \citep{he2026continuity,zhou2026latticemind,zhan2026authoritycollapse,saidi2026mutmem,cui2026memtxn}, detailed in \cref{sec:related}. We specify the correction-aware, field-level relation:
+\begin{equation}
+\begin{aligned}
+\textit{exact candidate}
+&\rightarrow\textit{candidate-bound human authorization}\\
+&\rightarrow\textit{explicit authorized value}
+\rightarrow\textit{complete successor}\\
+&\rightarrow\textit{total field-source attribution}.
+\end{aligned}
+\label{eq:admission-chain}
+\end{equation}
+The candidate remains historical evidence, human authorization supplies value authority, and a trusted transaction constructs the successor. Ordinary transaction and logging facilities can implement this joint, checkable binding of proposal identity, a possibly different authorized value, and exact changed/unchanged field sources.
+
+We ask which observations distinguish candidate substitution, correction erasure, stale replay, fragmented successors, and source ambiguity. Paired histories expose distinctions lost when an information class is omitted. The Python/SQLite reference realization \system{} supports the following contributions:
+\begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
+\item \textbf{Correction-aware admission contract.} Bind human authorization to the exact persisted candidate and explicit authorized value, preserving the proposal and every field's source in a complete successor.
+\item \textbf{Conditional failure distinguishability.} Five safe/unsafe history pairs establish class-wise irredundancy of five failure-distinguishing information classes within the declared failure and observation model.
+\item \textbf{Relational and transactional realization.} Connect the contract to bounded Alloy checks, a CAS-protected transaction, selected formal--concrete projections, and the 35-case fault catalogue.
+\item \textbf{Cost and integration evidence.} Characterize frozen v8 persistence-equivalent admission and trace costs; separate restricted-agent task outcomes from host-enforced authority checks across three qualified configurations.
+\item \textbf{Evaluated-control separation.} Both frozen and strengthened transactional value-audit controls agree with candidate-bound admission on seven of eight single-history cases. Equal-valued candidate substitution separates them; richer recorded review context narrows the distinction.
+\end{enumerate}
+
+\paragraph{Constructed workflow example}
+Two extraction retries may share a record, field, and authorized value but differ in timestamps and evidence locators. Value-level approval suffices to establish that a value was approved; instance-level accountability asks which persisted artifact was reviewed. When policy requires this distinction, candidate-bound admission records the reviewed instance and rejects substitution. The current path records value-changing updates; renewed review without a value change requires a separate review-event path.
+
+The contract records and rechecks authority under externally supplied host authentication and review-channel integrity; the trust boundary is detailed in \cref{sec:contract}.
+
+The paper proceeds from the admission relation (\cref{sec:contract}) to relational encodings (RQ1--RQ2), persisted behavior and controls (RQ3--RQ5), and cost and integration (RQ6--RQ8). \Cref{fig:admission-workflow} shows the admission boundary.
+
+% FIGURE SOURCE: scripts/build_flowcharts.py; vector redraw preserving the author-approved workflow semantics.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/refined/figure-1-admission-workflow.pdf}
+\caption{Correction-aware authoritative-state admission. Only candidate-bound Accept or Correction decisions proceed to transactional admission. The declared distinction checks, host-policy revalidation, and version compare-and-swap protect creation of a complete successor and total source map. Reject, failed validation, or a lost compare-and-swap leaves authoritative state unchanged. Authorization records responsibility, not factual truth. AI-assisted diagram scripting: OpenAI Codex (gpt-6-astra, OpenAI, September 2026 revision); deterministic vector rendering of the declared workflow.}
+\label{fig:admission-workflow}
+\end{figure*}
