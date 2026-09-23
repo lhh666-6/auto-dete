@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "equivalent_target": "full_admission_relational_state",
+  "ablated_features": [
+    "certificate_validation",
+    "lineage_validation",
+    "admission_plan_derivation",
+    "authority_object_construction"
+  ],
+  "preserved_features": [
+    "complete_record_snapshot",
+    "total_fact_source_map",
+    "candidate_certificate_rows",
+    "human_decision_rows",
+    "authorization_binding_rows",
+    "fact_transition_rows",
+    "audit_rows",
+    "single_transaction",
+    "form_version_compare_and_swap"
+  ],
+  "before_fingerprint": "7e856c6138612c27c2f9e573e82e1a4574255da71304c9ec54c8bdc87b00e99c",
+  "after_fingerprint": "38a85cff34dcbe696d86d19fbd874e05d099284fa9b63c9c3c5b3bfb76c10806",
+  "deleted_rows": 0,
+  "tables": {
+    "authority_meta": {
+      "primary_key": [
+        "key"
+      ],
+      "inserted": [],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "export_batches": {
+      "primary_key": [
+        "export_batch_id"
+      ],
+      "inserted": [],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "forms": {
+      "primary_key": [
+        "form_id"
+      ],
+      "inserted": [],
+      "updated": [
+        {
+          "before": {
+            "form_id": "FORM-1",
+            "template_id": "T1",
+            "template_version": "1",
+            "coordinate_version": "1",
+            "review_status": "CONFIRMED",
+            "export_status": "NOT_EXPORTED",
+            "current_record_version": 1,
+            "created_at": "2026-09-23 12:41:16.465992"
+          },
+          "after": {
+            "form_id": "FORM-1",
+            "template_id": "T1",
+            "template_version": "1",
+            "coordinate_version": "1",
+            "review_status": "CONFIRMED",
+            "export_status": "NOT_EXPORTED",
+            "current_record_version": 2,
+            "created_at": "2026-09-23 12:41:16.465992"
+          }
+        }
+      ],
+      "deleted_primary_keys": []
+    },
+    "ai_reviews": {
+      "primary_key": [
+        "review_id"
+      ],
+      "inserted": [],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "audit_events": {
+      "primary_key": [
+        "event_id"
+      ],
+      "inserted": [
+        {
+          "event_id": "EVENT-d539fcca41dd4f3a9eb39cef5fc26ba4",
+          "form_id": "FORM-1",
+          "event_type": "CORRECT",
+          "actor_id": "reviewer",
+          "timestamp": "2026-09-23 12:41:16.762678",
+          "before": {
+            "f000": 0,
+            "f001": 0,
+            "f002": 0,
+            "f003": 0,
+            "f004": 0,
+            "f005": 0,
+            "f006": 0,
+            "f007": 0,
+            "f008": 0,
+            "f009": 0,
+            "f010": 0,
+            "f011": 0,
+            "f012": 0,
+            "f013": 0,
+            "f014": 0,
+            "f015": 0,
+            "f016": 0,
+            "f017": 0,
+            "f018": 0,
+            "f019": 0,
+            "f020": 0,
+            "f021": 0,
+            "f022": 0,
+            "f023": 0,
+            "f024": 0,
+            "f025": 0,
+            "f026": 0,
+            "f027": 0,
+            "f028": 0,
+            "f029": 0,
+            "f030": 0,
+            "f031": 0
+          },
+          "after": {
+            "f000": 1,
+            "f001": 0,
+            "f002": 0,
+            "f003": 0,
+            "f004": 0,
+            "f005": 0,
+            "f006": 0,
+            "f007": 0,
+            "f008": 0,
+            "f009": 0,
+            "f010": 0,
+            "f011": 0,
+            "f012": 0,
+            "f013": 0,
+            "f014": 0,
+            "f015": 0,
+            "f016": 0,
+            "f017": 0,
+            "f018": 0,
+            "f019": 0,
+            "f020": 0,
+            "f021": 0,
+            "f022": 0,
+            "f023": 0,
+            "f024": 0,
+            "f025": 0,
+            "f026": 0,
+            "f027": 0,
+            "f028": 0,
+            "f029": 0,
+            "f030": 0,
+            "f031": 0
+          },
+          "reason": "measured correction",
+          "evidence_ids": [
+            "FILE-6247358f8ad44977ab03ecd346aedc69"
+          ]
+        }
+      ],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "evidence_files": {
+      "primary_key": [
+        "file_id"
+      ],
+      "inserted": [],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "form_fields": {
+      "primary_key": [
+        "field_id"
+      ],
+      "inserted": [],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "human_decisions": {
+      "primary_key": [
+        "decision_id"
+      ],
+      "inserted": [
+        {
+          "decision_id": "FORM-1:2:f000",
+          "form_id": "FORM-1",
+          "candidate_id": "manual-af896a92999b491b836c61c1d988af32",
+          "field_key": "f000",
+          "reviewer_id": "reviewer",
+          "reason": "measured correction",
+          "manual_resolution": false,
+          "decided_at": "2026-09-23 12:41:16.757679+00:00"
+        }
+      ],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "record_versions": {
+      "primary_key": [
+        "record_id"
+      ],
+      "inserted": [
+        {
+          "record_id": "REC-3313cb481ee34777a808d9273b7f6942",
+          "form_id": "FORM-1",
+          "version": 2,
+          "previous_version": 1,
+          "status": "CORRECTED",
+          "values": {
+            "f000": 1,
+            "f001": 0,
+            "f002": 0,
+            "f003": 0,
+            "f004": 0,
+            "f005": 0,
+            "f006": 0,
+            "f007": 0,
+            "f008": 0,
+            "f009": 0,
+            "f010": 0,
+            "f011": 0,
+            "f012": 0,
+            "f013": 0,
+            "f014": 0,
+            "f015": 0,
+            "f016": 0,
+            "f017": 0,
+            "f018": 0,
+            "f019": 0,
+            "f020": 0,
+            "f021": 0,
+            "f022": 0,
+            "f023": 0,
+            "f024": 0,
+            "f025": 0,
+            "f026": 0,
+            "f027": 0,
+            "f028": 0,
+            "f029": 0,
+            "f030": 0,
+            "f031": 0
+          },
+          "fact_sources": {
+            "f000": "FORM-1:2:f000",
+            "f001": "FORM-1:1:f001",
+            "f002": "FORM-1:1:f002",
+            "f003": "FORM-1:1:f003",
+            "f004": "FORM-1:1:f004",
+            "f005": "FORM-1:1:f005",
+            "f006": "FORM-1:1:f006",
+            "f007": "FORM-1:1:f007",
+            "f008": "FORM-1:1:f008",
+            "f009": "FORM-1:1:f009",
+            "f010": "FORM-1:1:f010",
+            "f011": "FORM-1:1:f011",
+            "f012": "FORM-1:1:f012",
+            "f013": "FORM-1:1:f013",
+            "f014": "FORM-1:1:f014",
+            "f015": "FORM-1:1:f015",
+            "f016": "FORM-1:1:f016",
+            "f017": "FORM-1:1:f017",
+            "f018": "FORM-1:1:f018",
+            "f019": "FORM-1:1:f019",
+            "f020": "FORM-1:1:f020",
+            "f021": "FORM-1:1:f021",
+            "f022": "FORM-1:1:f022",
+            "f023": "FORM-1:1:f023",
+            "f024": "FORM-1:1:f024",
+            "f025": "FORM-1:1:f025",
+            "f026": "FORM-1:1:f026",
+            "f027": "FORM-1:1:f027",
+            "f028": "FORM-1:1:f028",
+            "f029": "FORM-1:1:f029",
+            "f030": "FORM-1:1:f030",
+            "f031": "FORM-1:1:f031"
+          },
+          "change_reason": "measured correction",
+          "confirmed_by": "reviewer",
+          "created_at": "2026-09-23 12:41:16.757679"
+        }
+      ],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "recognition_attempts": {
+      "primary_key": [
+        "attempt_id"
+      ],
+      "inserted": [],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "candidate_certificates": {
+      "primary_key": [
+        "certificate_id"
+      ],
+      "inserted": [
+        {
+          "certificate_id": "40be51e8b848be82a0e2169128bc99a20d6ba4b6b6a3d0584cd05caf51fb9a7f",
+          "candidate_id": "manual-af896a92999b491b836c61c1d988af32",
+          "field_key": "f000",
+          "form_id": "FORM-1",
+          "field_id": null,
+          "evidence_file_id": "FILE-6247358f8ad44977ab03ecd346aedc69",
+          "recognition_attempt_id": null,
+          "value_payload": "1",
+          "evidence_hash": "5ad2b2624f3f015c8396bf3e2f1db89a3213daf682e6d85653679475214c5535",
+          "evidence_locator": "{\"form_id\":\"FORM-1\",\"related_field_id\":null,\"uri\":\"images/5a/1287550af55f4a44a5850449f01c2bf7.png\",\"v\":1}",
+          "template_id": "T1",
+          "template_version": "1",
+          "source_kind": "MANUAL_ENTRY",
+          "producer_id": "human-reviewer",
+          "producer_version": "manual-entry-v1",
+          "selection_artifact_id": null,
+          "confidence": 0.0,
+          "selection_state": "SELECTED",
+          "lineage_parent_ids": [],
+          "target_record_id": "FORM-1",
+          "expected_fact_version": 1,
+          "created_at": "2026-09-23 12:41:16.757679+00:00"
+        }
+      ],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "authorization_bindings": {
+      "primary_key": [
+        "binding_id"
+      ],
+      "inserted": [
+        {
+          "binding_id": "FORM-1:2:f000:AUTH",
+          "decision_id": "FORM-1:2:f000",
+          "certificate_id": "40be51e8b848be82a0e2169128bc99a20d6ba4b6b6a3d0584cd05caf51fb9a7f",
+          "authorized_value_payload": "1",
+          "bound_at": "2026-09-23 12:41:16.757679+00:00"
+        }
+      ],
+      "updated": [],
+      "deleted_primary_keys": []
+    },
+    "fact_transitions": {
+      "primary_key": [
+        "transition_id"
+      ],
+      "inserted": [
+        {
+          "transition_id": "FORM-1:2:f000",
+          "form_id": "FORM-1",
+          "created_version": 2,
+          "field_key": "f000",
+          "record_id": "FORM-1",
+          "record_version_id": "REC-3313cb481ee34777a808d9273b7f6942",
+          "decision_id": "FORM-1:2:f000",
+          "certificate_id": "40be51e8b848be82a0e2169128bc99a20d6ba4b6b6a3d0584cd05caf51fb9a7f",
+          "evidence_hash": "5ad2b2624f3f015c8396bf3e2f1db89a3213daf682e6d85653679475214c5535",
+          "evidence_locator": "{\"form_id\":\"FORM-1\",\"related_field_id\":null,\"uri\":\"images/5a/1287550af55f4a44a5850449f01c2bf7.png\",\"v\":1}",
+          "producer_id": "human-reviewer",
+          "producer_version": "manual-entry-v1",
+          "template_id": "T1",
+          "template_version": "1",
+          "source_kind": "MANUAL_ENTRY",
+          "value_payload": "1",
+          "created_at": "2026-09-23 12:41:16.757679+00:00"
+        }
+      ],
+      "updated": [],
+      "deleted_primary_keys": []
+    }
+  }
+}

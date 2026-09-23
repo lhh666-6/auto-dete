@@ -1,0 +1,127 @@
+{
+  "environment": {
+    "python": "3.11.16 (main, Sep  1 2026, 14:15:24) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "sqlite": "3.53.1",
+    "sqlalchemy": "2.0.51",
+    "source_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "hosted_model_calls": 0
+  },
+  "sample_count": 1,
+  "scenario_count": 11,
+  "arms": [
+    {
+      "arm": "journal_context",
+      "planned": 11,
+      "scored": 11,
+      "harness_errors": 0,
+      "accepted": 4,
+      "instance_policy_violations": 1,
+      "value_policy_violations": 0,
+      "instance_false_rejections": 0,
+      "value_false_rejections": 0,
+      "rejections_with_writes": 0,
+      "query_counts": {
+        "correct": 68,
+        "ambiguous": 4
+      }
+    },
+    {
+      "arm": "journal_exact",
+      "planned": 11,
+      "scored": 11,
+      "harness_errors": 0,
+      "accepted": 3,
+      "instance_policy_violations": 0,
+      "value_policy_violations": 0,
+      "instance_false_rejections": 0,
+      "value_false_rejections": 1,
+      "rejections_with_writes": 0,
+      "query_counts": {
+        "correct": 54
+      }
+    },
+    {
+      "arm": "reference",
+      "planned": 11,
+      "scored": 0,
+      "harness_errors": 11,
+      "accepted": 0,
+      "instance_policy_violations": 0,
+      "value_policy_violations": 0,
+      "instance_false_rejections": 0,
+      "value_false_rejections": 0,
+      "rejections_with_writes": 0,
+      "query_counts": {}
+    }
+  ],
+  "exact_baseline_reference_comparisons": [
+    {
+      "sample": "G1-B1",
+      "case": "accept",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "correction",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "multi_field",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "same_value_substitution",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "stale",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "replay",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "rollback_after_cas",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "rollback_before_transition",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    },
+    {
+      "sample": "G1-B1",
+      "case": "rollback_before_commit",
+      "acceptance_equal": false,
+      "query_answers_equal": false
+    }
+  ],
+  "inference": "Constructed finite cases on archived inputs; no general failure-rate or provider inference."
+}

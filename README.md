@@ -13,7 +13,16 @@ Frozen tag: [`r31-jss-2026-09-13`](https://github.com/lhh666-6/auto-dete/tree/r3
 
 Clone this tag with Git LFS to obtain the materialized historical raw artifacts. Verify the whole checkout with `python -B verify_freeze.py`, and the current package with `python -B latest/verify_latest.py`. GitHub's automatic source ZIP may contain LFS pointer files; those are not the corresponding data files. The verifier detects them.
 
-## Evidence boundaries
+## DKE supplementary experiments — September 23, 2026
+
+The new [DKE experiment package](DKE-supplement/REPORT.md) is a separate deposit,
+not a modification of the frozen JSS submission. It contains 495 constructed
+admission cases, 60 scripted browser cases, 22,400 timing observations, storage
+fixtures, scripts, and raw databases. No hosted-model API was called for these
+experiments. See the [deposit and reproduction notes](docs/DKE-SUPPLEMENT-2026-09-23.md)
+and [suggested manuscript text](DKE-supplement/MANUSCRIPT_INSERT.md) for scope and limitations.
+
+## Frozen submission evidence boundaries
 
 `latest/` contains the final paper, supplement, repaired implementation, formal models, witnesses and derived analyses. `r21-jss/` retains the historical v8 baseline and hosted-run raw records needed for full provenance inspection. The current-only ZIP is not a substitute for the complete repository when checking those raw records. The repository contains both layers.
 
