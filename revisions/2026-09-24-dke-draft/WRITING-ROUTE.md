@@ -1,6 +1,6 @@
 # DKE manuscript writing and figure route
 
-This is a new working draft. Sections 1–8 and the four planned main-text figures now have first-pass text and artwork. The frozen JSS submission and the September 19 editorial copy remain unchanged.
+This is a new working draft. Sections 1–8 and the four planned main-text figures now have first-pass text and artwork. The same prose is available as manuscript.tex and a locally compiled manuscript.pdf; BUILD.md records the conversion and compilation steps. The frozen JSS submission and the September 19 editorial copy remain unchanged.
 
 ## Central claim
 
