@@ -19,6 +19,13 @@ IMAGE = re.compile(r"^!\[[^\]]*\]\(([^)]+)\)$")
 CAPTION = re.compile(r"^\*\*(Figure|Table) (\d+)\.\*\* (.+)$")
 HEADING = re.compile(r"^(#{1,3}) (.+)$")
 NUMBER = re.compile(r"^\d+(?:\.\d+)?\.\s+")
+CITATIONS = {
+    "https://www.research.ed.ac.uk/en/publications/why-and-where-a-characterization-of-data-provenance/": "buneman2001why",
+    "https://www.research.ed.ac.uk/en/publications/provenance-management-in-curated-databases/": "buneman2006curated",
+    "https://arxiv.org/abs/cs/0612127": "eltabakh2006bdbms",
+    "https://www.cs.uic.edu/~bglavic/dbgroup/bibliography/AG17c.html": "arab2018reenactment",
+    "https://www.w3.org/TR/prov-dm/": "w3c2013prov",
+}
 
 
 def escape_plain(value: str) -> str:
@@ -46,7 +53,13 @@ def inline(value: str) -> str:
             parts.append(token)
         elif token.startswith("["):
             label, url = token[1:-1].split("](", 1)
-            parts.append(r"\href{" + url + "}{" + inline(label) + "}")
+            if url in CITATIONS:
+                if label.startswith(("Buneman et al.", "Arab et al.")):
+                    parts.append(r"\citet{" + CITATIONS[url] + "}")
+                else:
+                    parts.append(inline(label) + r"~\citep{" + CITATIONS[url] + "}")
+            else:
+                parts.append(r"\href{" + url + "}{" + inline(label) + "}")
         elif token.startswith("**"):
             parts.append(r"\textbf{" + inline(token[2:-2]) + "}")
         else:
@@ -70,22 +83,24 @@ def table_lines(rows: list[str], caption: str, number: int) -> list[str]:
         r"@{}>{\raggedright\arraybackslash}p{0.23\linewidth}"
         r">{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}"
         if number == 1
-        else r"@{}>{\raggedright\arraybackslash}p{0.20\linewidth}"
-        r"*{4}{>{\centering\arraybackslash}p{0.145\linewidth}}@{}"
+        else r"@{}>{\raggedright\arraybackslash}p{0.21\linewidth}"
+        r"*{4}{>{\centering\arraybackslash}p{0.165\linewidth}}@{}"
     )
+    begin_tabular = (r"\begin{tabularx}{\linewidth}{" if number == 1 else r"\begin{tabular}{")
+    end_tabular = r"\end{tabularx}" if number == 1 else r"\end{tabular}"
     output = [
         r"\begin{table}[tbp]",
         r"\caption{" + inline(caption) + "}",
         r"\label{tab:" + str(number) + "}",
         r"\centering",
         r"\footnotesize",
-        r"\begin{tabularx}{\linewidth}{" + layout + "}",
+        begin_tabular + layout + "}",
         r"\toprule",
         " & ".join(inline(cell) for cell in headers) + r" \\",
         r"\midrule",
     ]
     output.extend(" & ".join(inline(cell) for cell in row) + r" \\" for row in body)
-    output.extend([r"\bottomrule", r"\end{tabularx}", r"\end{table}", ""])
+    output.extend([r"\bottomrule", end_tabular, r"\end{table}", ""])
     return output
 
 
@@ -93,7 +108,7 @@ def figure_lines(path: str, caption: str, number: int) -> list[str]:
     pdf_path = path.removesuffix(".png") + ".pdf"
     assert (ROOT / pdf_path).is_file(), pdf_path
     return [
-        r"\begin{figure}[tbp]",
+        r"\begin{figure}[!htbp]",
         r"\centering",
         r"\includegraphics[width=\linewidth]{" + pdf_path.replace("\\", "/") + "}",
         r"\caption{" + inline(caption) + "}",
@@ -115,8 +130,14 @@ def convert() -> str:
         r"\usepackage{amsmath,amssymb}",
         r"\usepackage{booktabs,tabularx,array}",
         r"\usepackage{graphicx}",
+        r"\usepackage{flafter}",
+        r"\usepackage{placeins}",
         r"\usepackage{microtype}",
         r"\usepackage[hidelinks]{hyperref}",
+        r"\renewcommand{\topfraction}{0.9}",
+        r"\renewcommand{\bottomfraction}{0.8}",
+        r"\renewcommand{\textfraction}{0.05}",
+        r"\renewcommand{\floatpagefraction}{0.8}",
         r"\setlength{\emergencystretch}{2em}",
         r"\journal{Data \& Knowledge Engineering}",
         r"\begin{document}",
@@ -162,6 +183,8 @@ def convert() -> str:
                 output.extend([r"\end{abstract}", r"\end{frontmatter}", ""])
                 abstract = False
             if level == "##":
+                if text == "8. Data and knowledge engineering implications":
+                    output.append(r"\FloatBarrier")
                 if text in (
                     "Artifact availability",
                     "Declaration of generative AI and AI-assisted technologies in manuscript preparation",
@@ -207,7 +230,7 @@ def convert() -> str:
 
     flush()
     assert not math and not abstract
-    output.extend([r"\end{document}", ""])
+    output.extend([r"\bibliographystyle{elsarticle-harv}", r"\bibliography{references}", r"\end{document}", ""])
     rendered = "\n".join(output)
     assert rendered.count(r"\begin{figure}") == 4
     assert rendered.count(r"\begin{table}") == 2
