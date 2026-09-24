@@ -1,0 +1,187 @@
+# History-Sensitive Admission of Corrected Records
+
+## Abstract
+
+Authoritative records can have identical final values yet arise from different proposal and authorization histories. We study correction-aware admission as a relation linking an exact persisted candidate, an attributable authorization of an explicit value, and a complete successor whose every field has a source. The relation preserves the proposal when a reviewer authorizes a correction. Within a declared observation model, five paired histories identify information classes that distinguish candidate substitution, correction misattribution, stale authorization, fragmented successors, and source ambiguity. We encode the relation in Alloy and implement it in a transactional SQLite service. An independently written event journal with exact candidate binding agreed with the service on all 165 paired constructed cases and their provenance-query answers; a rich-context journal without that binding admitted 15 equal-valued candidate substitutions and produced ambiguous reviewed-candidate answers. Formal–concrete checks and a fault catalogue test the persisted realization. A browser experiment locates the review-to-confirmation boundary, while current-version measurements characterize admission and trace costs. These results provide a checkable basis for admitting corrected records across the evaluated storage designs.
+
+## 1. Introduction
+
+A stored field value answers *what the record says now*. It does not, by itself, answer which proposal was reviewed or which value the reviewer authorized. Suppose a record has quantity 90, a candidate proposes 100, and a reviewer authorizes a correction to 101. The resulting quantity is 101. The same value could follow from accepting a candidate that originally proposed 101. These histories assign different roles to the proposer and reviewer, even though their current values agree.
+
+Candidate identity introduces a sharper test. Let two persisted candidates propose 100 for the same field under the retained review context. A reviewer inspects candidate $c_1$ and authorizes 101, but candidate $c_2$ is supplied for admission. A value-level check can observe the approved value 101 and the committed value 101 without identifying the substitution. The question is whether the authorization applies to the particular candidate that became part of the record's history (Fig. 1).
+
+![Two histories reach quantity 101, but only one admits the candidate that was reviewed.](figures/fig1_same_value_different_history.png)
+
+**Figure 1.** A constructed equal-valued candidate substitution. Both paths start at quantity 90 and commit 101. In path A, authorization targets the candidate admitted by the transaction. In path B, a context-only control admits $c_2$ after authorization targeted a distinct, equal-valued $c_1$; candidate-bound admission rejects this substitution. The field source is a transition ($t_1$ or $t_2$), from which the admitted candidate is traced. OpenAI Codex (GPT-6, accessed 24 September 2026) assisted with the layout and Matplotlib 3.10.8 vector-rendering code; the candidate, authorization, and source links were checked against the admission relation.
+
+Database provenance gives us a language for asking where data came from and how a state was produced. Query provenance characterizes origins of derived data ([Buneman et al., 2001](https://www.research.ed.ac.uk/en/publications/why-and-where-a-characterization-of-data-provenance/)), while transaction provenance can reconstruct the updates that produced a database state ([Arab et al., 2018](https://www.cs.iit.edu/~dbgroup/bibliography/AG17c.html)). The [PROV data model](https://www.w3.org/TR/prov-dm/) also represents entities, activities, and responsible agents. This paper specifies a further relationship at the moment a reviewed candidate acquires authority: **authorization must identify the persisted candidate and the permitted value, and admission must create a complete, attributable successor.**
+
+We model that relationship among a pre-state, candidate, authorization, and successor state. The candidate retains its proposal, evidence, field, record, and expected version. The authorization identifies the candidate instance, the reviewer, and the value permitted to enter the record. A correction may therefore commit a value different from the proposal without rewriting what was proposed. One transaction creates the successor and its total field-source map. Changed fields point to new transitions; unchanged fields keep their exact prior sources. The relationship is defined over these semantic roles, so it can be realized through different storage structures.
+
+The model also explains what an admission decision must be able to distinguish. We construct five pairs of histories with different authority outcomes: candidate substitution, incorrect attribution of a correction, stale authorization, fragmented construction of a successor, and incomplete field sources. For each pair, removing the corresponding information class makes the histories observationally equal within the declared model. This characterization connects the integrity relation to concrete questions a system must answer, including *which candidate was reviewed*, *which value was authorized*, and *where each successor field came from*.
+
+Rich review context offers a useful test of the contribution. It may retain field, version, evidence, and review details while omitting an explicit identifier for the reviewed candidate. We implement that design in a study-specific event journal and compare it with an otherwise matching journal that records exact candidate binding and with a transactional reference service. In the constructed comparison, the exactly bound journal and reference service agree on all 165 paired cases and their provenance-query answers. The context-only journal admits 15 equal-valued substitutions and leaves reviewed-candidate answers ambiguous. The result locates the distinguishing condition in the authorization relation rather than in the choice of event logging or relational tables.
+
+The relation must also survive persistence. Bounded Alloy checks exercise the encoded constraints; selected formal–concrete projections compare them with database executions. A declared 35-case catalogue tests legal transitions, rejection without partial writes, stateful evolution, and diagnosis of corrupted sources. These checks link the semantic account to the service that creates and traces authoritative versions.
+
+Review occurs before that service is called, so we also examine how the intended decision reaches it. In scripted browser cases, a server-held review-session binding rejects request substitutions that the original confirmation path accepts from its caller. Display-only substitution remains visible to the independent observer. The two outcomes identify separate responsibilities for review presentation and transactional admission. Finally, current-version admission, trace, and storage measurements characterize the cost of enforcing and querying the recorded relationships.
+
+The paper contributes an admission relation for corrected records, a conditional characterization of the information that distinguishes five failure families, and executable evidence that the relation can be enforced and queried in two evaluated storage designs. Its organizing principle is that a current value becomes an attributable fact through the link between the **candidate reviewed**, the **value authorized**, and the **complete successor committed**.
+
+## 2. Admission semantics for corrected records
+
+### 2.1. Proposal, authorization, and authority
+
+Let $r$ denote a record with authoritative fields $F_r$. Its version $v$ has a value map $V_v$ and a source map $P_v$, both defined for every field in $F_r$. The source of a field identifies a persisted transition that explains its current value. A candidate $c$ is a persisted proposal for one record and field. It retains evidence identity, a proposed value $x_c$, the expected record version, a producer, and an identity that distinguishes it from other candidate instances. Evidence identity combines content with its canonical record- and field-related locator; equal-looking content at a different location need not denote the same evidence instance.
+
+An authorization $a$ records a reviewer, the exact candidate reviewed, and an explicit authorized value $x_a$. When $x_a=x_c$, the decision accepts the proposal. When $x_a\ne x_c$, it corrects it. Both decisions leave the candidate's proposal intact. The committed field takes $x_a$; a later query can still return $x_c$ and identify the reviewer who permitted the difference. Values are compared by canonical JSON representation so that a numeric or Boolean type change is not silently treated as an unchanged field.
+
+Admission is the state relation
+
+$$
+\operatorname{Admit}(S_v,c,a)=S_{v+1},
+\qquad S_v=(V_v,P_v).
+$$
+
+The relation holds when the authorization names the persisted candidate, its record, field, evidence and expected version match the attempted update, the reviewer passes the applicable policy check, and the successor is complete. A stale candidate cannot authorize an update to a later pre-state. A failed check leaves authoritative state unchanged. These conditions apply to the information represented by the system rather than to one prescribed arrangement of tables or events.
+
+### 2.2. A complete successor and its source map
+
+An admission batch may update several fields of one record. It creates one successor version in one transaction. The batch's changed-field set equals the actual value-change set, and each admitted item has one corresponding transition. For every changed field $f$, $V_{v+1}(f)$ is the authorized value and $P_{v+1}(f)$ is its new transition. For every unchanged field $g$,
+
+$$
+V_{v+1}(g)=V_v(g),\qquad P_{v+1}(g)=P_v(g).
+$$
+
+This copy-forward rule matters even when an update changes only one field: the resulting record remains a complete version with an exact source for every field. Reverse tracing follows a field's transition to its authorization, candidate, evidence and producer. The trace distinguishes the value proposed from the value authorized and identifies the version in which the value entered the record (Fig. 2).
+
+![Candidate, authorization, admission transaction, and complete successor with changed and unchanged field sources.](figures/fig2_admission_relation.png)
+
+**Figure 2.** The correction-aware admission relation. The persisted candidate proposes 100; the reviewer authorizes 101 for that candidate. The transaction checks the binding and current pre-state before creating one successor. The changed quantity obtains a new source transition, while unchanged fields retain their prior source transitions. OpenAI Codex (GPT-6, accessed 24 September 2026) assisted with the diagram layout and Matplotlib 3.10.8 vector-rendering code; the value roles, transaction edge, and field-source arrows were checked against the stated relation.
+
+### 2.3. What the relation makes queryable
+
+The resulting data model supports two complementary queries. An admission query asks whether a proposed transition has a candidate-bound authorization for the value it would write to the current version. A provenance query starts from a committed field and returns its source transition, the candidate behind it, the candidate's original proposal, the authorized value, and the responsible reviewer. Both queries operate on the same persisted relationships. This avoids relying on the final value alone to reconstruct a decision that may have involved correction or candidate substitution.
+
+## 3. Failure distinguishability
+
+### 3.1. Histories and observations
+
+A history contains candidate persistence, review and authorization, admission attempts, commits or unchanged state, and later trace queries. Its authority outcome records whether the attempted update is admissible and whether the resulting record and trace are complete. An observer may see only selected information from that history. We group the relevant information into five classes, each tied to a distinct question about admission (Table 1).
+
+| Class | Information retained | Histories separated |
+| --- | --- | --- |
+| Candidate identity and context ($D_C$) | Exact candidate plus record, field, evidence, and producer context | Authorized candidate versus an equal-valued substitute |
+| Value roles ($D_V$) | Proposal, authorized value, committed value, and their roles | Preserved correction versus erased or false attribution |
+| Freshness ($D_F$) | Expected and transactionally observed pre-state | Current approval versus approval after supersession |
+| Successor completeness ($D_B$) | Declared effects, actual commit grouping, and successor count | One atomic batch versus fragmented updates with the same endpoint |
+| Field sources ($D_S$) | A total field-to-transition map and exact copy-forward links | Complete trace versus missing or conflicting source |
+
+**Table 1.** Five failure-distinguishing information classes in the declared history and observation model. A class describes information required for the stated comparison; several classes may share one physical representation.
+
+**Proposition 1 (conditional failure distinguishability).** Let $\mathcal D=\{D_C,D_V,D_F,D_B,D_S\}$ be the declared observation classes. For each class $d\in\mathcal D$, the declared failure model contains a safe history and a corresponding unsafe history with different authority outcomes, but identical projections onto $\mathcal D\setminus\{d\}$. A decision based only on those other four classes cannot distinguish that paired failure family within this model.
+
+The five pairs establish the result by construction. The $D_C$ pair substitutes an equal-valued candidate with a different non-temporal context; the $D_V$ pair retains the candidate and final value but changes the attribution of a correction. The $D_F$ pair compares authorization before and after pre-state supersession. In the $D_B$ pair, two histories reach the same endpoint, but one exposes an intermediate partial state. The $D_S$ pair removes a successor source while leaving the other observations fixed. An additional identity-isolation pair holds the two candidates' retained review context equal and changes which instance is admitted. This separates exact candidate binding from context alone. The proposition concerns the specified observation basis and paired failures, rather than a unique database schema.
+
+### 3.2. From distinctions to enforceable conditions
+
+The five pairs organize the admission checks. Candidate identity and value roles bind review to the proposed artifact and the value actually authorized. Freshness connects that decision to the current pre-state. Successor completeness prevents a batch from installing only some of its effects. Field-source totality ensures that a successful version can be traced for both changed and unchanged fields. This analysis motivates a joint integrity relation: a transaction can be atomic yet have the wrong review target, or preserve the right value while losing the source needed to explain it.
+
+We encode the relation in Alloy to test legal constructions, malformed attempts, and preservation properties in finite scopes. Separate omission witnesses establish the information-class result, while conjunct-removal checks test the sensitivity of particular relational encodings. The two checks serve different purposes: one concerns what an observer can distinguish; the other concerns what a specified admission predicate accepts.
+
+## 4. Two storage realizations and the review boundary
+
+### 4.1. Transactional reference service
+
+The reference realization stores immutable candidates and evidence references alongside decisions, authorization bindings, record versions, transitions, and field-source links. At confirmation, it validates the selected candidate and authorized value, rechecks reviewer policy and the current record version, then builds the complete successor. A compare-and-swap on the version protects the admission attempt. Decision, transitions, version, sources, and audit effects are written in one database transaction; a rejected attempt does not install a partial authoritative version.
+
+A reverse-trace operation starts at a committed field and resolves its source through the admission records. It checks the candidate, authorization, evidence, and value relationships on the path. This makes the trace an integrity-bearing query over persisted objects rather than a textual explanation reconstructed from the final field value.
+
+### 4.2. Event-journal comparison
+
+To test whether the relation depends on the reference schema, we implement a separate SQLite event journal for the study. It retains candidate records, rich review context, version checks, immutable events, complete field-source maps, and transactional updates. Two configurations differ in one policy-relevant observation: the context-only journal retains the reviewed field, version, evidence, and context but omits the exact reviewed-candidate identity from its authorization check; the exact journal retains that identity. Both implement the same tested value, freshness, and source requirements.
+
+This comparison isolates candidate-instance binding within a strong recorded context. It also gives a constructive alternative implementation: an event journal can enforce the evaluated admission relation once the exact binding is represented and checked. The comparison concerns the shared tested contract and workloads, not feature-by-feature equivalence of the surrounding applications.
+
+### 4.3. Transferring review intent to confirmation
+
+The database can check an authorization only after the review interface has formed it. The reference confirmation path receives candidate, reviewer, and authorized value from a trusted caller. We therefore add an experimental server-held review session that records the reviewed target and permitted value before confirmation, then checks the request against that session. This lets us distinguish a request changed after review from a display changed without altering the server-held target. These are different boundaries: the former concerns transmission of review intent; the latter concerns what the reviewer was shown.
+
+## 5. Evaluation design
+
+We organize the evaluation around three questions: whether the specified relation is reflected in persisted behavior, whether exact candidate binding changes decisions and provenance answers under rich-context controls, and what happens at the review and query boundaries. Complete configurations and raw records are deposited with the artifact; the main text reports the comparisons needed to interpret the claims.
+
+### 5.1. Formal and persisted-state checks
+
+Two finite Alloy profiles exercise legal admissions, selected constraint removals, source corruption, and preservation assertions. A test-side projection independently reads selected pre- and post-states from SQLite and maps them to fixed relational instances. Its intended cases cover singleton and batch admissions, correction, copy-forward, staleness, and whole-batch rejection. A separate 35-case catalogue tests the production-facing service with legal histories, rejection, rollback, stateful evolution, schema prevention, corruption diagnosis, and oracle sensitivity. Rejected attempts are checked against a complete logical database digest; corruption cases require a trace or independent-oracle diagnosis.
+
+### 5.2. Cross-implementation cases and provenance queries
+
+The event-journal comparison uses 15 inputs across 11 constructed case families and three mechanisms: context-only journal, exact-binding journal, and the reference service. Twelve inputs are deterministically selected archived proposal values; three additional inputs probe JSON type boundaries. The archived cells contain four distinct proposal values. Cases cover acceptance, correction, multi-field updates, candidate and evidence substitutions, stale and replayed decisions, unauthorized values, and interrupted transactions. After each successful admission, an independent oracle asks field-level questions about proposal, authorized value, reviewer, reviewed candidate, current value, and source version.
+
+The context-only policy still compares field, version, evidence, and retained review context. Its only intended relaxation is candidate-instance identity. We score value-level agreement and instance-level authorization separately so that rejecting an equal-valued replacement is not conflated with rejecting an incorrect final value.
+
+### 5.3. Browser and cost studies
+
+The review-boundary study runs three JSON value types through ten scripted interaction cases on each of two confirmation paths. An independent browser driver records the candidate and value displayed before review and compares them with the request and persisted result. Cases include legitimate acceptance, correction, reselection, request substitutions, stale and replayed submissions, rollback, and display-only substitution.
+
+Current-version cost measurements use fixed admission and trace workloads. Complete confirmation is compared between the reference and exact journal under the shared tested workload; a separate prevalidated materialization comparison isolates a narrower persistence path. A 36-cell trace study holds the verifier fixed while changing three repository reads from bulk retrieval to identifier enumeration and point lookups. Every paired trace must return the same complete object. Synthetic storage fixtures characterize schema footprint at three transition counts. Figure generation reads the deposited summary tables; full observations and reproduction details remain in the supplement.
+
+## 6. Results
+
+### 6.1. The relation survives bounded and persisted checks
+
+Both Alloy profiles produced the declared legal, malformed, and source-corrupt witness classes. Across the two profiles, all 72 command outcomes matched the manifest. Each selected conjunct removal admitted a paired malformed history that the full relation rejected, while the checked preservation assertions found no counterexample within their finite scopes. The independent database projection accepted nine intended cases and rejected twenty mapping mutants. All 35 declared production-facing catalogue cases passed their specified admission, rejection, or diagnosis criteria. Together, these results link the admission predicate to the stored version and its trace; the paired-history construction supplies the separate observation-level argument.
+
+### 6.2. Exact binding separates equal-valued candidate instances
+
+All 495 cross-implementation executions completed. The exact journal and reference service agreed on all 165 paired cases and their provenance-query answers. Each admitted the 45 legal cases and rejected the remaining 120 without changing the fact database. The context-only journal also admitted the legal cases, but accepted 15 equal-valued candidate substitutions. Those 15 cases satisfy its value-and-context policy while violating the instance-level authorization relation. Its successful histories yielded 60 ambiguous answers to reviewed-candidate queries; the two exactly bound mechanisms produced no such ambiguity (Fig. 3).
+
+![Constructed cross-implementation cases: context-only review admits 15 equal-valued substitutions and has 60 ambiguous candidate answers; exactly bound mechanisms have neither.](figures/fig3_candidate_binding_comparison.png)
+
+**Figure 3.** Instance-policy violations and ambiguous reviewed-candidate answers across the three mechanisms. Each mechanism completed 165 constructed cases and admitted all 45 legal cases. Ambiguous answers are field-level query answers, not additional admission cases. The plot was generated from the deposited comparison summary by a reproducible Matplotlib 3.10.8 script assisted by OpenAI Codex (GPT-6, accessed 24 September 2026); the plotted counts were checked against the source table.
+
+The comparison explains the role of exact binding with no architectural exclusivity claim. Retaining rich context narrows which candidates are compatible with a review, but equal-valued instances can still remain observationally equivalent under the context-only policy. Recording the reviewed instance resolves the corresponding admission and retrospective query.
+
+### 6.3. Review intent has a distinct transfer boundary
+
+Across 60 scripted browser cases, each path admitted all nine legitimate controls. The original confirmation path accepted nine request substitutions inconsistent with the review intent recorded by the browser driver; the server-held session gate rejected all nine. Both paths rejected stale submissions, replays, and precommit interruptions without fact writes. Three display-only substitutions on each path left the server-held target unchanged while changing what appeared in the browser; both paths admitted them (Table 2).
+
+| Confirmation path | Legitimate controls admitted | Request substitutions admitted | Display-only mismatches admitted | Rejected cases with fact writes |
+| --- | ---: | ---: | ---: | ---: |
+| Original confirmation | 9/9 | 9 | 3 | 0 |
+| Server-held review session | 9/9 | 0 | 3 | 0 |
+
+**Table 2.** Scripted review-boundary outcomes across three input types. The original path treats its caller's confirmation parameters as the review decision; the experimental session gate checks them against server-held review intent. Display-only substitution probes a different, presentation-side relationship.
+
+The session gate makes request-to-review consistency enforceable. The display-only controls locate the further requirement for a faithful review presentation: a server-side authorization link cannot describe what a reviewer saw if the display itself has changed independently.
+
+### 6.4. Admission and provenance-query costs
+
+The current-version study retained 22,400 measured admission and trace observations. Across the ten complete-confirmation cells, the reference implementation's median latency ranged from 28.79 to 712.00 ms; the exact journal ranged from 10.40 to 23.89 ms. These figures describe the two complete implementation paths under the stated call boundary. The separate prevalidated materialization study reports persistence costs after validation and planning; it is not used as a substitute for complete confirmation.
+
+For tracing, all 36 cells returned identical complete objects under bulk and point-lookup access (Fig. 4). Bulk retrieval had a lower median latency in each paired cell. At 128 fields, 100 versions, and 1,000 records, its median was 170.24 ms, compared with 509.09 ms for point lookups; the corresponding SQL counts were 12 and 693. The contrast holds the verifier fixed and changes the repository access pattern. Storage fixtures show the footprint of complete authority and source relations over 1,000 to 100,000 transitions; the full cell table and measured database sizes are retained with the artifact.
+
+![Median trace latency for all 36 paired workload cells under bulk retrieval and point lookups.](figures/fig4_trace_cost.png)
+
+**Figure 4.** Median trace latency under two repository access patterns across all 36 paired cells. Each point represents 200 measured traces per arm; marker shape and color identify record width. The dashed line marks equal latency. The verifier and returned trace object are held fixed. The plot was generated from the deposited trace summary by a reproducible Matplotlib 3.10.8 script assisted by OpenAI Codex (GPT-6, accessed 24 September 2026); all 36 source pairs were included and checked.
+
+## 7. Data and knowledge engineering implications
+
+The experiments support a data-modeling interpretation of authorization. A review event carries authority for a particular candidate and explicit value; a fact transition records what was committed; and the successor's source map preserves the relation between current values and their origins. A provenance query can then recover both the proposal and the correction from the committed record. Treating these as separate but linked objects also makes equal-valued candidate substitution visible to an admission decision.
+
+The event-journal result is useful because it shows that the integrity relation is portable across the evaluated storage structures. The choice of relational version tables or an immutable event journal affects engineering cost and query implementation, while the candidate-to-authorization link determines the tested instance-level decision. The browser result identifies where that link must be formed: the review process must establish the intended target before a transaction can enforce it.
+
+The evidence is deliberately tied to the specified relation and evaluated workloads. The formal result concerns declared observation classes and bounded relational scopes; the comparator cases are constructed from archived values and type controls; the browser study uses scripted interactions; and costs describe the measured implementations. These boundaries leave the central contribution intact: an explicit admission relation can be checked at commit and queried afterward, with its candidate, authorized value, and field sources still distinguishable.
+
+## 8. Conclusion
+
+Corrected records require more than an approved final value. We defined an admission relation that preserves the exact candidate reviewed, the separately authorized value, and a complete successor with per-field sources. Paired histories identify five distinctions that this relation must retain under the declared model. Formal checks, persisted-state tests, and a cross-implementation comparison connect the relation to executable behavior; browser and cost studies locate its interaction boundary and operational expense. The result is a concrete basis for making reviewed updates into attributable authoritative facts.
+
+## Artifact availability
+
+The [public artifact](https://github.com/lhh666-6/auto-dete) contains the frozen reference implementation and formal materials. The [DKE supplementary deposit](https://github.com/lhh666-6/auto-dete/tree/main/DKE-supplement) contains the event-journal comparison, browser study, current-version cost data, raw observations, and reproduction instructions.
+
+## Declaration of generative AI and AI-assisted technologies in manuscript preparation
+
+OpenAI Codex (GPT-6, accessed September 2026) assisted with organization and English drafting, with the layout and code for explanatory diagrams, and with reproducible plotting code for data figures. The explanatory diagrams were rendered with Matplotlib 3.10.8 and checked against the specified admission relationships. Data figures, where included, are generated from deposited tables without altering the underlying observations. The authors retain responsibility for reviewing, editing, and approving the final manuscript and figures.
