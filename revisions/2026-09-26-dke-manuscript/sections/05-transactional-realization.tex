@@ -1,37 +1,26 @@
 \section{Transactional realization}
 \label{sec:realization}
 
-\subsection{Persistent objects and authority interfaces}
+\subsection{Persistent objects and admission}
 
-\system{} implements the contract in Python, SQLAlchemy, and SQLite. Three application interfaces separate authority: \code{CandidateWritePort} appends evidence and candidates, \code{AuthorityReadPort} loads persisted objects, and \code{FactAdmissionPort} admits a complete transition bundle. Recognition receives the candidate facade; trusted review code receives the admission facade. This is application-level capability separation within one process, not isolation from malicious code with database credentials.
+\system{} implements the relation in Python, SQLAlchemy, and SQLite. \code{CandidateWritePort} appends candidates/evidence, \code{AuthorityReadPort} loads persisted objects, and \code{FactAdmissionPort} admits a complete bundle. Recognition receives the candidate facade; trusted review receives admission. This separates capabilities within the process while retaining the host trust boundary.
 
-A candidate certificate records its target record and field, canonical proposal, producer identity/version, selection artifact, expected fact version, evidence hash, and canonical locator. A human-decision row names the reviewer and candidate; an immutable authorization-binding row fixes the decision, exact certificate, and authorized value. A transition preserves this chain under both Accept and Correction. The principal policy is a revocable, thread-safe in-memory role mapping; authentication and session integrity belong to the host.
+A certificate retains target, canonical proposal, producer/version, selection artifact, expected fact version, evidence hash, and canonical locator. A decision names reviewer and candidate; its immutable binding fixes the exact certificate and authorized value. Transitions preserve this chain for Accept and Correction. The revocable principal-role mapping is checked inside the transaction.
 
-The reference \code{ReviewForms.confirm} API receives certificate identifiers, values, and a principal identifier from its caller and constructs decision/binding objects at confirmation. It validates the resulting database relations but has no independent record of the preceding display. Consequently, exact binding inside the transaction protects the constructed authorization, not the fidelity of the human interaction that supplied it. The experimental review-session gate in RQ2 tests an additional earlier binding boundary and retains the trusted-display assumption.
-
-\subsection{Evidence identity and admission transaction}
-
-Certificate construction, admission, and trace use the same canonical locator rules: NFC and path/URI normalization, rejection of unsafe path segments, and binding of record, field, storage-relative URI, locator version, and optional crop. Admission reloads the evidence row and compares owner, content hash, and reconstructed locator with the certificate; copying a locator string cannot conceal inconsistent persisted ownership. The artifact specifies the normalization rules.
-
-Application-level preflight checks provide useful errors, but the database adapter repeats authoritative checks inside the transaction:
-
+Admission reloads evidence and reconstructs its canonical locator, checking ownership, content hash, and record/field location against the certificate. The adapter repeats authoritative preflight checks transactionally:
 \begin{enumerate}[leftmargin=*]
-  \item reload the declared field domain, current version, previous complete values and sources, certificates, evidence, and principal policy;
-  \item derive initial coverage or the later changed-field set under canonical JSON equality; reject empty later changes, deletions, hidden changes, duplicate fields, extra transitions, or an incomplete predecessor;
-  \item validate unused identities and the decision--binding--certificate--evidence--transition relation, including $x_{\mathrm{authorized}}\eqc x_{\mathrm{transition}}\eqc x_{\mathrm{successor}}$;
-  \item conditionally update the record only if its current version equals the expected version;
-  \item create one transition per admitted field, retain exact previous sources for unchanged fields, and check identical value/source domains;
-  \item insert the decision, binding, transitions, complete version, field projections, and audit event in one commit.
+\item reload the field domain, current version, complete predecessor, candidates, evidence, and principal policy;
+\item derive initial coverage or later changed fields using canonical JSON equality, rejecting duplicate, hidden, empty, or incomplete effects;
+\item validate unused identities and the decision--binding--certificate--evidence--transition relation, including agreement of authorized, transition, and successor values;
+\item compare-and-swap the expected current version;
+\item create one transition per admitted field, copy exact unchanged sources, and commit decision, binding, complete version, projections, and audit together.
 \end{enumerate}
+CAS is the first authority write. Failure before commit rolls back admission. Unique indexes and foreign keys reinforce bindings and transition uniqueness. The zero-write baseline is immediately before admission, after any candidate or review preparation. Connection parameters and locator rules are in Supplement S1 and the artifact.
 
-The compare-and-swap is the first authoritative write. A validation error, unsuccessful CAS, or exception before commit rolls the admission transaction back. Unique indexes on decision/certificate bindings and record/version/field transitions, together with foreign keys, reinforce these checks. Rejection framing is relative to the state immediately before admission; preparatory evidence, candidate, or review records may already exist. In the new comparator experiment, zero-write checks begin after authorization preparation.
-
-Each connection enables \code{foreign\_keys=ON} and \code{busy\_timeout=5000}. The application does not explicitly select an isolation level; its exercised configuration uses SQLite's default deferred transactions through SQLAlchemy. Journal and synchronization settings are reported with each experiment because the admission and storage workloads use different settings. Porting the contract requires checking the destination DBMS's transaction, locking, and conflict behavior.
-
-The prototype also supports manual entry by deriving a certificate at confirmation. That compatibility path is excluded from claims about preexisting machine candidates and does not replace Correction. A separate historical agent-harness adapter exposes only proposal and verification operations, never confirmation; Supplement S5 records its integration evidence.
+The confirmation API receives candidate, value, and principal from its caller and constructs the binding at confirmation. E2 evaluates an earlier server-held review binding. Manual-source compatibility derives a certificate at confirmation and is outside the preexisting-machine-candidate claim. The historical restricted agent interface permits proposal and verification, with confirmation retained by the host (Supplement S5).
 
 \subsection{Reverse trace and source evolution}
 
-The query path checks every declared field in every prefix version. An initial field needs one transition created in that version. A later changed field needs its unique new transition; an unchanged field retains its exact prior source. The verifier checks the source record, field, creation/version identifiers, committed value, decision, authorization binding, certificate, producer, evidence hash/locator, and expected-version relations.
+Tracing checks each field in every prefix version. Initial and changed fields need their unique transition; unchanged fields retain the exact prior source. The verifier checks source record/field/version, committed value, decision, authorization, certificate, producer, evidence hash/locator, and expected-version relations.
 
-A trace is \code{complete} only when all checked fields and prefix relations agree. Missing or inconsistent rows yield \code{incomplete} with reasons; the query neither repairs data nor substitutes another source. Legacy states predating the certificate scheme are identified separately. Trace completeness establishes consistency of the recorded authorization lineage, not factual correctness of the authorized value or faithful display to a reviewer.
+A trace is \code{complete} when these relations agree, otherwise \code{incomplete} with reasons. It does not repair or substitute sources; legacy pre-certificate states are identified separately. Completeness concerns consistency of persisted authorization lineage under the trust boundary in \cref{sec:contract}.

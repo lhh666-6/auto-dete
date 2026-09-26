@@ -1,0 +1,106 @@
+\subsection{Complete observation functions and witness construction}
+
+The main text retains the observation basis, opaque-handle condition, outcome definition, proposition, and five-witness proof. The following table and relational representation specify the complete executable projection.
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Observation functions used by the conditional characterization. ``Derives'' lists information available without consulting another class.}
+\label{tab:observation-functions}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Raw history components exposed & Derives & Deliberately excludes \\
+\midrule
+$D_C$ & opaque candidate and authorization-target handles; candidate and admission targets; field, evidence, producer & candidate binding and non-temporal context agreement & decoded proposal/authorized values, current version, batch-effect domain, successor sources \\
+$D_V$ & proposal value, authorized value, committed value, and their role labels for an anonymous batch item & Accept versus Correction and proposal/authority attribution & candidate handle and context, temporal order, batch completeness, source identities \\
+$D_F$ & expected and transactionally observed pre-state discriminator at the admission attempt & current versus superseded authorization & proposal roles, non-temporal candidate context, batch effects, source relation \\
+$D_B$ & declared item-field domain, committed effect domain, commit grouping, and successor count & complete versus partial/fragmented successor construction & value-role attribution, freshness, and field-source identities \\
+$D_S$ & successor field--source relation; local resolution and copy-forward checks & missing/ambiguous sources, field/value inconsistency, and replaced unchanged sources & commit grouping, value roles, freshness, and candidate context \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+For the executable construction below, each finite history is represented by the complete tuple
+\begin{equation}
+\widehat h=\langle r,C,A,B,v_{\mathrm{exp}},v_{\mathrm{obs}},
+F_{\mathrm{decl}},K,V_v,V_{v'},S_v,S_{v'},T\rangle,
+\label{eq:witness-history}
+\end{equation}
+containing the target, candidate and authorization registries, batch references, expected and observed pre-versions, declared fields, a commit sequence $K$, endpoint value and source maps, and a registry $T$ of source-transition identifiers, fields, and values. Each commit step records a distinct successor identity and complete before/after value maps. The domain predicate checks unique candidate and authorization keys, resolvable batch references, schema-valid fields, total value maps, and a connected commit sequence from $V_v$ to $V_{v'}$. Its committed effect domain is the union of the steps' actual value-change domains; its successor count is $|K|$. Neither is an independently assigned witness attribute.
+
+Source observations expose each field's anchor count, reverse-resolution count in $T$, agreement of the resolved field/value with the successor, and exact prior-source retention for an unchanged field. Missing, duplicate, or inconsistent sources remain semantic failures rather than being excluded by the domain predicate. These are local source checks: the complete authorization--candidate--evidence chain belongs to the main text's operational P6 checks. Source observations hide intermediate commit grouping; freshness observes the admission-entry pre-state comparison. These explicit observation boundaries make it possible to compare atomic and fragmented histories with identical endpoints.
+
+The main text retains Proposition 1, its five-witness proof, and the explicit reduced-projection equation. The original candidate/context witness changes record context with a fixed candidate handle. The separate identity-isolation pair fixes the two-candidate registry and the non-identity observations, then changes the admitted candidate. The executable checker derives outcomes and observations from the complete tuple rather than storing either as an independent attribute.
+
+\subsection{Evidence identity and operational enforcement details}
+Evidence identity is not content equality alone. The realization uses
+\begin{equation}
+EID(e)=\langle H(\mathrm{bytes}(e)),L(r,f,u,\kappa)\rangle,
+\label{eq:evidence}
+\end{equation}
+where $H$ is SHA-256 and $L$ is a versioned canonical locator containing the owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. The Alloy model abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assumes unique certificate identities over the modeled certificate objects, excluding identity collisions from the checked scopes. Relating this abstraction to the implementation requires collision resistance of the deployed digest and integrity of the canonicalization and evidence store; it is not a proof or claim that SHA-256 is mathematically injective.
+
+Operational properties P0--P6 and their interpretation remain in the main contract table.
+
+\paragraph{Authorization timing and revocation}
+\label{app:authorization-timing}
+The prototype evaluates the in-memory principal-role allow-list inside the database transaction, before the version compare-and-swap and any authority write. A revocation that completes before this check causes zero-write rejection. The allow-list lock protects only the policy lookup/update; it is not held for the remainder of the database transaction. Consequently, a revocation that overlaps an admission after its successful policy check does not cancel that in-flight commit. The implementation therefore provides commit-entry revalidation, not linearizable revocation against already admitted operations, distributed identity-provider semantics, or session invalidation. Deployments requiring those properties must place a transactional policy epoch or equivalent revocation discriminator inside the admission compare-and-swap.
+
+Human authorization is not a truth oracle. The contract establishes who authorized which persisted candidate and value in which context, and whether the successor was constructed atomically. It cannot establish that the authorized value is factually correct.
+
+
+
+
+\subsection{Information-class and persisted-state mappings}
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Mapping from failure-distinguishing information classes to bounded and concrete evidence.}
+\label{tab:distinction-evidence}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Safe/unsafe witness & Alloy support & Concrete support \\
+\midrule
+$D_C$ & matching / mismatched non-temporal candidate context; separate equal-valued identity-isolation pair & field, evidence-identity, evidence-owner, record, authorization-certificate, certificate-preexistence, and evidence-preexistence ablations & record, field, evidence, and certificate substitution cases \\
+$D_V$ & retained Correction / wrong attribution of the same final value & legal Correction witnesses and authorization-value ablation & singleton, all-field, and mixed Correction lifecycles with immutable candidate checks \\
+$D_F$ & current / superseded authorization & certificate-version and freshness ablations; stale-rejection assertions & stale replay, contending confirmation, and compare-and-swap rejection \\
+$D_B$ & atomic / partial or fragmented successor & transition-bijection ablation and whole-batch framing assertions & exact changed-field validation, failpoints, rollback, and concurrency cases \\
+$D_S$ & complete / missing, replaced, or duplicate source & source-anchor attack witnesses and P6 trace assertions & source-corruption catalogue and reverse-trace validation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Principal elements of the executable abstraction.}
+\label{tab:abstraction}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Persisted relation & Formal relation & Mapping condition \\
+\midrule
+form and declared fields & Record and authoritativeFields & one target record with an exact selected field domain \\
+evidence row plus locator & Evidence content and locator & owner/content/canonical persisted locator remain separate dimensions \\
+candidate-certificate row & Candidate, Certificate, CertId & target, field, evidence, version, value, producer, and identity fixed \\
+decision plus binding & Authorization & principal, certificate, and explicit authorized value fixed \\
+record-version values & committedValue & complete canonical JSON equality classes in pre and post \\
+record-version fact\_sources & committedSource & exact persisted transition atom per authoritative field \\
+transition rows at successor & AdmissionItem transitions & exact item--transition set and complete relation fields \\
+current-version/CAS unit & BatchAdmissionEvent envelope & one record, principal, pre-version, successor, and atomic pre/post \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Legal, unsafe, and preservation commands}
+
+Six legal-witness commands cover multi-field Accept, Correction, mixed Accept/Correction, same-value admission, initial snapshot, and singleton admission. Eleven paired ablations remove the conjuncts mapped in Table~\ref{tab:distinction-evidence}. Principal membership remains fixed; the unused \code{ABL\_7} marker is excluded because host identity trust is an external assumption.
+
+Three source-attack commands start from a legal Full prefix and then remove a source anchor, replace it, or add a duplicate source-version transition; each requires an incomplete trace. Fourteen assertions run per scope. Nine guard definitions and immediate consequences: P0/P1/P3/P4/P5, whole-batch effects, rejection framing, and two P6 checks. Five check invariant preservation, two singleton correspondences, rejection of an ablated attempt, and positive trace completeness under a well-formed pre-state.
+
+The positive assertion requires a trace-complete predecessor and no stray transition to the successor version; otherwise the permissive base effect admits a post-state that fails \code{traceComplete}. It covers admitted fields in one step, not arbitrary histories or every carried-forward field. Both profiles include reachable initial and non-vacuous carry-forward witnesses for the precondition. Removing the post-state certificate binding changes UNSAT to SAT. These are separate checks of reachability, bounded preservation, and sensitivity, rather than fourteen independent proofs. Concrete enforcement additionally validates predecessor prefixes and uses transition uniqueness and in-transaction CAS revalidation.
+
+\subsection{Scopes and interpretation}
+
+The S1 profile bounds principal structural domains at two records, three fields, six versions, up to six admission items/transitions for most commands, and four states/events. S2 increases representative bounds to three records, four fields, eight versions, up to eight admission items/transitions, and five states/events. Individual commands adjust Value, Evidence, or Transition bounds when a witness needs an extra atom. The artifact contains the executable scopes; this summary is not a replacement for them.
+
+
+
+An UNSAT assertion means that the Analyzer found no counterexample within the encoded command scope. A SAT run means that it found the requested witness; the main text cites the Analyzer and solver references. Singleton contract/effect checks additionally guard the batch lift against silently changing the historical one-item semantics.

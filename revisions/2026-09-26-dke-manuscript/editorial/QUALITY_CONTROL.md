@@ -1,3 +1,5 @@
+> Historical baseline audit for the 44-page version at `cd5bded0`. Current compression and visual checks: [compression-quality-check.md](compression-quality-check.md).
+
 # Final quality check — 2026-09-26
 
 - Main manuscript: 44 pages; supplementary material: 12 pages, Elsevier preprint layout.

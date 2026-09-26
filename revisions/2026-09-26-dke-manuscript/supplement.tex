@@ -84,9 +84,11 @@ Compression changes transport size, not the database footprint used in the stora
 \section{Formal and implementation evidence}
 \label{app:formal-details}
 
+\input{sections/supplement-observation-details}
+
 \subsection{Observation witnesses and finite scopes}
 
-The main text defines the five observation functions before stating the omission proposition. The executable witness checker reads complete relational histories and derives both projections and outcome labels; labels are not stored as independent witness attributes. Five class pairs test the original construction. A further pair isolates identity binding with a fixed two-candidate registry and identical non-identity observations; a separate legal control checks single-field change with another field copied forward. The source is \code{latest/code/formal-fixed/observation_witnesses.py}; the derived report is \code{latest/evidence/r27-witness/observation-witness-report-v5.json}.
+The main text defines the observation basis and projection assumptions before stating the omission proposition; the complete functions and construction are given here. The executable witness checker reads complete relational histories and derives both projections and outcome labels; labels are not stored as independent witness attributes. Five class pairs test the original construction. A further pair isolates identity binding with a fixed two-candidate registry and identical non-identity observations; a separate legal control checks single-field change with another field copied forward. The source is \code{latest/code/formal-fixed/observation_witnesses.py}; the derived report is \code{latest/evidence/r27-witness/observation-witness-report-v5.json}.
 
 Each Alloy profile contains six legal-witness commands, eleven conjunct-removal witnesses, three source-attack witnesses, two witnesses to the well-formed predecessor condition, and fourteen assertion checks. All 72 outcomes across two profiles match the manifest: 22 SAT and 14 UNSAT per profile. The smaller profile uses representative bounds of two records, three fields, six versions, and four states/events; the larger uses three records, four fields, eight versions, and five states/events. Individual commands adjust other domains. Executable bounds are recorded with the commands in the pinned artifact and should be consulted when reproducing any particular assertion.
 
@@ -163,5 +165,9 @@ Separately, no unauthorized mutation is recorded in 720 fixed invalid-tuple admi
 One author (X.W.) and one non-author volunteer coded benign terminal completion. They agree on 359/360 original labels (99.72\%; three-category Cohen's $\kappa=0.974$). Both label 331/335 behavior-evaluable cases as terminally complete. L.H. separately reviews the eleven strict-negative/endpoint-positive cases and retains their strict-negative classification; this is not a replacement of the original completion labels. The separate T153 inter-human discrepancy is adjudicated in the historical record. Author involvement and residual textual cues limit independence and blinding.
 
 A different textual-acknowledgment audit has 325 outputs labeled by X.W. Agreement with repaired rule v2.1 is 286/325 (88.00\%; $\kappa=0.644$). A3 contributes 32 of 39 disagreements and lacks a uniquely specified target field. Those 39 cases have no completed human adjudication; later unblinded AI proposals do not replace their labels. This audit measures human--rule agreement, not inter-human reliability or factual correctness. Complete labels, rationales, confusion matrices, and resampling sensitivity remain in the pinned historical archive. Neither annotation exercise is part of E2's scripted-browser denominator.
+
+\input{sections/supplement-evaluation-protocol}
+
+\input{sections/supplement-validity-details}
 
 \end{document}
