@@ -102,6 +102,12 @@ def footer(ax, text):
     ax.plot([.016,.984],[.053,.053],lw=1.1,color=BLUE)
     ax.text(.5,.025,text,ha="center",va="center",fontsize=8,fontweight="bold",color=NAVY)
 
+def save_svg(fig, path):
+    fig.savefig(path, bbox_inches="tight")
+    # Matplotlib adds trailing spaces to path lines; normalize without changing geometry.
+    path.write_text("\n".join(line.rstrip() for line in path.read_text(encoding="utf-8").splitlines())+"\n",
+                    encoding="utf-8", newline="\n")
+
 def contract_figure():
     fig,ax=canvas("Same values, different admission histories",
                   "Preserve the reviewed proposal, authorized correction,\nand every successor field source.")
@@ -135,7 +141,7 @@ def contract_figure():
     card(ax,.547,.144,.417,.100,"Reverse query","candidate $c_1$ · proposal 100\nauthorized 101",color=BLUE,face=PALE_BLUE,label_size=8)
     footer(ax,"exact candidate → bound authorization\n→ authorized value → complete successor → total field sources")
     save_cns_figure(fig,DEST/"figure-1-admission-workflow")
-    fig.savefig(DEST/"figure-1-admission-workflow.svg",bbox_inches="tight")
+    save_svg(fig, DEST/"figure-1-admission-workflow.svg")
     plt.close(fig)
 
 def numeric_row(path, name):
@@ -196,7 +202,7 @@ def evidence_figure():
     ax.text(.754,.122,"Storage footprint measured separately.",ha="center",size=7,color=TEXT)
     footer(ax,"conditional characterization → persisted checks\n→ policy separator → review and cost boundaries")
     save_cns_figure(fig,DEST/"figure-2-evidence-route")
-    fig.savefig(DEST/"figure-2-evidence-route.svg",bbox_inches="tight")
+    save_svg(fig, DEST/"figure-2-evidence-route.svg")
     plt.close(fig)
     manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
     (ROOT/"editorial/story-figure-source-hashes.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
