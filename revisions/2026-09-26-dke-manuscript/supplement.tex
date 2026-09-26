@@ -1,0 +1,167 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,enumitem,graphicx,microtype,multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx,longtable,xcolor,xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\hypersetup{pdftitle={Correction-Aware Data Admission - Supplementary Material},pdfauthor={Liang Hanghao; Xuan Wentao; Chen Qile; Peng Peng},pdfsubject={Data integrity, candidate-bound authorization, and field-level provenance}}
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+\journal{Data \& Knowledge Engineering}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\begin{document}
+\begin{center}
+{\Large Supplementary material}\par\medskip
+{\large Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates}\par\medskip
+Liang Hanghao, Xuan Wentao, Chen Qile, and Peng Peng
+\par\smallskip{\small College of Computer Science and Electronic Engineering, Hunan University, Changsha, China}
+\end{center}
+
+This supplement documents the evidence boundaries, formal and implementation checks, a worked admission example, complete current-version timing grids, and historical integration evidence. Sections, tables, and figures prefixed S belong to this document. No new experiment is implied by reformatting archived results here.
+
+\section{Artifact, protocol, and reproduction}
+\label{app:artifact}
+
+\subsection{Three evidence layers}
+
+The reference implementation is fixed at commit \code{c6d512843c905cab6d8521dd8c914f7fb26d85ae} of \url{https://github.com/lhh666-6/auto-dete}, using \code{latest/code/implementation-fixed}. The tag \code{r31-jss-2026-09-13} retains formal models, observation witnesses, repaired code, and historical analyses. The historical v8 evidence remains under \code{r21-jss-2026-09-07-v8}. These layers are not substituted for one another when reporting counts or timings.
+
+The new E1--E3 package is fixed at \url{https://github.com/lhh666-6/auto-dete/tree/2645e5e18c900ea91c9c980e44195dc71e410432/DKE-supplement}. Its \code{PROTOCOL.md} was drafted before outcome collection on 23 September 2026 and records pilot-driven amendments. It is a local prospective execution plan, not an externally registered protocol. Pilots remain in separately named directories and are excluded from final statistics. No hosted-model call was made in E1--E3.
+
+\begin{table}[htbp]
+\centering\small
+\caption{New experiment evidence and interpretation units. Paths are relative to the pinned \code{DKE-supplement} directory.}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.40\textwidth}X@{}}
+\toprule
+Layer & Primary records & Unit and limit \\
+\midrule
+E1 & \code{results/e1/inputs.json}; \code{results/e1/receipts.jsonl} & 495 constructed executions; 165 per arm; seven distinct proposal values. \\
+E2 & \code{results/e2/browser-observations.jsonl}; screenshots and databases & 60 scripted cases plus six replay setup confirmations; not a human study. \\
+E3 & \code{results/e3/*/raw.jsonl}; \code{summary.json}; \code{paired.json} & 22,400 timed observations, excluding warmups; one machine. \\
+Checks & \code{rejection-audit.json}; \code{verification.json}; \code{regression-receipt.json} & Expected rejection causes, counts, state digests, and test execution receipt. \\
+Integrity & \code{artifact-manifest.json}; \code{source-integrity.json} & Content identities, not third-party attestation. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Inputs, cases, and negative controls}
+
+E1 selects the first lexicographically ordered archived run containing a proposal in each of the G1/G2/D1 by B1--B4 cells; success labels are not a selection criterion. The twelve cells contain four distinct proposed values: 8, 100, the string \code{B-008}, and 9. Three additional controls exercise $2\rightarrow2.0$, $1\rightarrow\mathrm{true}$, and nested integer/float changes. These values enter newly constructed form histories with fresh certificates and review records. This is not an end-to-end replay of the original tasks. Input records retain source paths, event identifiers, and hashes.
+
+The eleven cases per input are Accept, Correction, multi-field admission, equal-valued candidate substitution, different-evidence substitution, stale authorization, replay, an unauthorized submitted value, and interruptions after CAS, before transition insertion, and before commit. The rich-context journal retains field, version, evidence, producer and proposal context, but its review projection excludes certificate identity, candidate identifier, and instance creation time. Its exact variant adds the reviewed-candidate link. Each successful three-field record is checked with six queries per field: proposed value, authorized value, reviewer, reviewed candidate, current value, and source version. The 18 answers per accepted case are query observations, not independent experiments.
+
+E2 uses the JSON values 100, 2.5, and true. Each appears in ten interactions per path: Accept, Correction, legitimate reselection, candidate-request substitution, authorized-value substitution, principal substitution, stale state, replay, precommit interruption, and display-only substitution. The driver records DOM candidate identity, proposal, and authorized value before confirmation. Replay cases each require an initial confirmation, explaining the six additional setup calls. The float value 2.5 avoids JavaScript serialization normalizing an integral float to an integer. The gate records a server-held review session using fixed simulated principal labels and a database separate from the fact database.
+
+The rejection audit checks all 372 rejected attempts across E1 and E2, including their exact expected error categories or injected failpoints. No rejected attempt changes the measured fact-database digest. The baseline is taken after authorization preparation: already recorded review intent is not required to disappear when admission fails. This distinction also prevents the session database from being silently included in a fact-database atomicity claim.
+
+\subsection{Execution environment and commands}
+
+The recorded environment is Intel Core i7-10875H, Windows 10 build 19045, CPython 3.11.16, SQLite 3.53.1, and SQLAlchemy 2.0.51. Browser orchestration uses Playwright and local Chrome. E3 uses a seeded random ordering of the two arms (seed 20260923), five warmups, and 200 timed observations per arm and cell. Admission uses SQLite DELETE/FULL; the storage-population measurement uses WAL/NORMAL followed by checkpointing. Background operating-system activity was not controlled.
+
+The deposited README specifies dependency installation, reference-source resolution, and the separate browser driver environment. The following commands illustrate the entry points; the output directory must be fresh, and the reference checkout must be configured as described there. Performance should run after other tests have finished.
+\begin{quote}\small\ttfamily
+python -B experiment1.py --output results/replicate-e1\par
+python -B experiment2.py --output results/replicate-e2\par
+python -B experiment3.py --output results/replicate-e3
+\end{quote}
+Pilot flags reduce coverage and cannot reproduce final denominators. The reference regression invocation covers its value-equality integration tests and conformance directory (85 passes); the supplementary test module records ten passes. The regression receipt transcribes the execution tool output rather than presenting itself as a pytest-generated JUnit report. The manifest records 61 pre-run measurement-source hashes; the reporting check found them unchanged. The original artifact manifest covers 3,068 files.
+
+\subsection{Lossless storage packaging}
+
+The 100,000-transition full database is 141,062,144 bytes and is published as \code{results/e3/storage/storage-100000/full.db.gz}. The publication package includes \code{restore_large_database.py} and \code{publication-packaging.json}. Restoration checks the uncompressed SHA-256 against the original manifest; its verified value is
+\begin{quote}\small
+\code{a6ab45b86b3f198e8452b7adae756012807efe09ceb92d32c759cd9d2ffb816e}.
+\end{quote}
+Compression changes transport size, not the database footprint used in the storage result. The restoration helper refuses to overwrite a differing existing file. Source and artifact manifests support reproducibility checks; they do not establish external validity or independent replication.
+
+\section{Formal and implementation evidence}
+\label{app:formal-details}
+
+\subsection{Observation witnesses and finite scopes}
+
+The main text defines the five observation functions before stating the omission proposition. The executable witness checker reads complete relational histories and derives both projections and outcome labels; labels are not stored as independent witness attributes. Five class pairs test the original construction. A further pair isolates identity binding with a fixed two-candidate registry and identical non-identity observations; a separate legal control checks single-field change with another field copied forward. The source is \code{latest/code/formal-fixed/observation_witnesses.py}; the derived report is \code{latest/evidence/r27-witness/observation-witness-report-v5.json}.
+
+Each Alloy profile contains six legal-witness commands, eleven conjunct-removal witnesses, three source-attack witnesses, two witnesses to the well-formed predecessor condition, and fourteen assertion checks. All 72 outcomes across two profiles match the manifest: 22 SAT and 14 UNSAT per profile. The smaller profile uses representative bounds of two records, three fields, six versions, and four states/events; the larger uses three records, four fields, eight versions, and five states/events. Individual commands adjust other domains. Executable bounds are recorded with the commands in the pinned artifact and should be consulted when reproducing any particular assertion.
+
+The positive trace assertion requires a trace-complete predecessor and no stray transition to the successor version. Nonempty initial and carry-forward witnesses establish reachability of that premise. Removing the post-state certificate-binding check changes the relevant outcome from UNSAT to SAT. This is bounded sensitivity evidence for the encoded relation, not a proof of arbitrary-history completeness. The formal tamper event alters transitions while freezing values and source pointers; the implementation catalogue also exercises corruption outside that event's scope.
+
+\subsection{Projection and database oracles}
+
+The projection adapter reads persisted pre/post state independently of the production planner and trace builder, maps JSON equality classes and identity relations into a fixed Alloy instance, and checks committed or rejected wrappers. Nine intended instances are SAT and twenty selected mapping mutants are UNSAT. A rejected wrapper additionally requires equal full-database digests. The separate 35-case catalogue has five legal cases and thirty rejection, corruption, schema-prevention, stateful-evolution, or oracle-mutant cases. Post-persistence corruption requires a changed digest and a trace diagnosis rather than zero writes.
+
+Historical test snapshots have different counts: the initial reported suite has 354 passes, subsequent development has 377, and the r26 isolated export has 389, including optional-Git and revocation checks. These numbers describe their archived invocations. The new 85-test invocation is a selected regression run against the repaired reference source, not a claim to have rerun all 389 checks or to add 85 independent faults. Static-check and historical concurrency receipts remain in the original evidence layer.
+
+\subsection{Canonical equality and witness-domain repairs}
+
+An earlier implementation inherited host-language equality that equated integer 2 with float 2.0 and integer 1 with Boolean true. A serialized value could change without obtaining a corresponding changed-field transition. The repair aligns the planner and reverse trace with canonical JSON equality already used by the independent oracle and formal projection. The resulting implementation consistently uses sorted-key, whitespace-minimal JSON serialization for change and value checks. Thirteen targeted regressions include unchanged controls, numeric/Boolean and nested changes, and no-op rejection; seven fail before the repair and all pass afterward. E1 adds explicit type controls using the repaired path.
+
+The witness checker also separates the record schema domain from the declared item domain, allowing a legal change to one field while copying another field's source forward. This preserves the omission constructions without requiring every admission to change every field. These repairs and their receipts are versioned separately from v8; the main text's new cost tables measure the repaired source.
+
+\section{Worked correction and implementation inspection}
+\label{app:worked-example}
+
+Consider a two-field record at version $v$: quantity is 90 with source $t_q$, and batch is \code{B-008} with source $t_b$. Candidate $c_A$ proposes quantity 100 for version $v$. A reviewer authorizes quantity 101 from $c_A$. The legal successor $v+1$ has quantity 101 from a new transition $t_A$, batch \code{B-008} from the exact previous source $t_b$, and an authorization naming both $c_A$ and 101. Candidate $c_A$ still contains 100. This is an explanatory construction, not an additional measured case.
+
+An equal-valued retry $c_B$ can have the same value and retained review context while being a different persisted instance. Under instance-level authorization, substituting $c_B$ for $c_A$ must fail; under the declared context-level policy it may be admitted. A concurrent successor invalidates the expected predecessor. A proposed two-field admission cannot be split into two commits merely because the final endpoint is the same. Replacing the unchanged batch source with an equal-valued transition also loses the exact source relation.
+
+The following checklist locates the enforcement and observation points. It is an aid derived from the contract, not an independently validated development methodology.
+\input{tables/design_checklist}
+
+The earlier SQLite demonstrator and its strengthened transactional variant agree with candidate-bound admission on seven of eight single-history cases. Equal-valued substitution is their only decision difference; a ninth paired-history check concerns distinguishability rather than a further admission category. The continuity rerun is deposited in \code{results/original-baseline-continuity}. It is separate from E1's richer-context three-arm design and is not added to the 495-execution denominator. In E1, extending the new journal with exact binding eliminates the observed decision and query-answer gap on the tested cases.
+
+\section{Complete current-version cost grids}
+\label{app:cost-grids}
+
+\subsection{Admission and materialization}
+
+The mechanism and materialization experiments each contain ten cells, two arms, and 200 observations per arm/cell: 4,000 timed observations each. Warmups and database-copy setup are excluded. The mechanism timer covers confirmation after adapter construction; the journal opens its sqlite3 connection in construction, whereas the reference ORM can connect lazily inside the call. Different schemas, certificate work, application features, and connection lifecycles confound attribution to an individual integrity check.
+
+\input{tables/supplement-current/mechanism-grid}
+
+The materialization experiment constructs a valid relational delta before timing, persists that delta in its reduced arm, and checks the final relational fingerprint after timing. The full arm uses manual-source fixtures, whereas the mechanism comparison uses pre-registered recognition candidates. Thus the two full-confirmation columns belong to different workloads and must not be subtracted across experiments. Random identifiers and timestamps also prevent a claim that paired database files are byte-identical; equivalence checks use the declared relational expectations.
+
+\input{tables/supplement-current/ablation-grid}
+
+\subsection{Reverse-trace reconstruction}
+
+The trace grid crosses fields $\{1,8,32,128\}$, versions $\{1,10,100\}$, and total records $\{1,100,1000\}$, giving 36 cells and 14,400 timed observations across two arms. Valid unrelated records are seeded before timing. The point-access arm enumerates identifiers and performs real point loads for the certificate, certificate--evidence, and transition repositories. Both arms run the same current verifier. Equality of the complete trace object is checked after each timed call.
+
+\input{tables/supplement-current/trace-grid}
+
+At 128 fields, 100 versions, and 1,000 total records, the medians are 170.24 ms for bulk access and 509.09 ms for point access, a point/bulk ratio of 2.99. Statement counts are 12 and 693. This comparison is not a rerun of the historical preoptimization algorithm and is not combined with historical-machine timings. The archive retains paired differences and bootstrap intervals; those intervals describe repeated observations on this machine, not cross-deployment variation.
+
+\subsection{Storage-population boundary}
+
+At 1,000, 10,000, and 100,000 transitions, the full-schema database sizes are 1.52, 13.16, and 134.53 MiB; simplified storage uses 0.48, 2.88, and 28.45 MiB. Incremental bytes per transition are 1,085.4, 1,077.2, and 1,112.3. MiB uses $2^{20}$ bytes. Rows are directly populated using a synthetic single-field history with stable evidence references, then checkpointed. They are not evidence that every populated row passed admission. The simplified schema has fewer audit obligations and is not a functionally equivalent alternative. External evidence and raw model-output storage are excluded.
+
+\section{Historical agent integration and annotation}
+\label{app:historical-integration}
+
+\subsection{Distinct evidence and denominators}
+
+The historical restricted-agent benchmark has 1,260 planned executions across three requested configurations, each with 420 runs. The configuration mapping is G1 = \code{gpt-5.6-luna}, G2 = \code{gpt-5.6-terra}, and D1 = \code{deepseek-v4-flash}; these archived requested names identify recorded requests, not immutable model weights or new calls made for this revision. A prior pinned-plugin fixture has ten passing integration cases, and six AI-origin lifecycle cases match their declared outcomes. These support exercised interface behavior rather than current provider comparisons.
+
+Among 360 planned benign runs, 320 satisfy the frozen strict trajectory and 331 the post-hoc terminal-endpoint rule. Twenty-five lack a scorable behavior verdict, leaving 335 evaluable runs. The eleven-case difference consists of extra proposal or parent-verification calls that violate the trajectory criterion while reaching the terminal result. It measures sensitivity to the scoring construct. The strict yield is 320/360 (88.89\%); conditional strict completion is 320/335 (95.52\%). The endpoint counterparts are 331/360 (91.94\%) and 331/335 (98.81\%). Missing cases are retained, not silently excluded from planned-run yields.
+
+\input{tables/generated/benign_model_missingness}
+
+Across all scenarios there are 93 recorded runtime failures: 76/420 for D1, 4/420 for G1, and 13/420 for G2. Some failures retain an authority verdict, and three harness failures retain a behavior verdict; evaluability follows available evidence rather than success status alone.
+
+\input{tables/generated/runtime_endpoint_table}
+
+Separately, no unauthorized mutation is recorded in 720 fixed invalid-tuple admission calls or 179 capability-unavailable branches. The latter do not call admission. Their sum is accounting, not 899 independently sampled attacks. Zero violations in this constructed workload do not establish a population failure bound or general prompt-injection security. The restricted interface leaves admission with the trusted host.
+
+\subsection{Human annotation and unresolved disagreements}
+
+One author (X.W.) and one non-author volunteer coded benign terminal completion. They agree on 359/360 original labels (99.72\%; three-category Cohen's $\kappa=0.974$). Both label 331/335 behavior-evaluable cases as terminally complete. L.H. separately reviews the eleven strict-negative/endpoint-positive cases and retains their strict-negative classification; this is not a replacement of the original completion labels. The separate T153 inter-human discrepancy is adjudicated in the historical record. Author involvement and residual textual cues limit independence and blinding.
+
+A different textual-acknowledgment audit has 325 outputs labeled by X.W. Agreement with repaired rule v2.1 is 286/325 (88.00\%; $\kappa=0.644$). A3 contributes 32 of 39 disagreements and lacks a uniquely specified target field. Those 39 cases have no completed human adjudication; later unblinded AI proposals do not replace their labels. This audit measures human--rule agreement, not inter-human reliability or factual correctness. Complete labels, rationales, confusion matrices, and resampling sensitivity remain in the pinned historical archive. Neither annotation exercise is part of E2's scripted-browser denominator.
+
+\end{document}

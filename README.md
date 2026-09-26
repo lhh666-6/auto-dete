@@ -1,4 +1,26 @@
-# Auto-Decte — frozen JSS submission version
+# Auto-Decte — manuscripts and reproducible evidence
+
+## DKE manuscript — September 26, 2026; authors updated September 27
+
+**作者顺序：梁航豪（Liang Hanghao）、宣文韬（Xuan Wentao）、陈奇乐（Chen Qile）、彭鹏（Peng Peng，通讯作者）。**
+
+The revised manuscript integrates the three DKE supplementary experiments and
+states the exact-binding comparator, review-channel, and performance boundaries.
+All four authors share the Hunan University affiliation. Chen Qile's contribution
+is recorded as Investigation and Validation.
+
+- [Revised main manuscript (44 pages)](revisions/2026-09-26-dke-manuscript/main.pdf)
+- [Revised supplementary material (12 pages)](revisions/2026-09-26-dke-manuscript/supplement.pdf)
+- [Editable LaTeX sources, build instructions, and revision notes](revisions/2026-09-26-dke-manuscript/)
+- [Revision summary](revisions/2026-09-26-dke-manuscript/修改说明.md)
+- [Earlier September 24 DKE draft](revisions/2026-09-24-dke-draft/)
+
+This is a manuscript revision for author review, not a statement of journal
+submission or acceptance. Its local source/package manifest accompanies the
+PDFs. The frozen JSS package and the experimental deposits remain separately
+versioned below.
+
+## Frozen JSS submission version — September 13, 2026
 
 **第一作者：梁航豪（Liang Hanghao）；第二作者：宣文韬（Xuan Wentao）；唯一通讯作者：彭鹏（Peng Peng）。**
 

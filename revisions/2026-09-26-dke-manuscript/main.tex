@@ -1,0 +1,69 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\hypersetup{pdftitle={Correction-Aware Data Admission},pdfauthor={Liang Hanghao; Xuan Wentao; Chen Qile; Peng Peng},pdfsubject={Data integrity, candidate-bound authorization, and field-level provenance}}
+\pdfstringdefDisableCommands{\def\corref#1{}}
+
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+
+\journal{Data \& Knowledge Engineering}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates}
+
+\author[inst1]{Liang Hanghao}
+\author[inst1]{Xuan Wentao}
+\author[inst1]{Chen Qile}
+\author[inst1]{Peng Peng\corref{cor1}}
+\cortext[cor1]{Corresponding author. Email address: \texttt{hnu16pp@hnu.edu.cn}}
+\affiliation[inst1]{organization={College of Computer Science and Electronic Engineering, Hunan University},addressline={Lushan South Road, Yuelu District},city={Changsha},postcode={410082},country={China}}
+
+\begin{abstract}
+AI-assisted data acquisition separates a machine proposal from the value that a human authorizes for a database. A correction can preserve the final value while obscuring which proposal was reviewed or replacing the sources of unchanged fields. We specify a correction-aware admission contract that binds an exact persisted candidate to a separately attributable authorized value, checks predecessor freshness, and atomically constructs a complete successor with total field-level provenance. Five paired histories establish class-wise irredundancy relative to explicitly defined observations. A Python/SQLite realization connects the contract to bounded relational checks, persisted-state projections, and transaction tests. A new 495-execution comparison evaluates a context-preserving event journal, its exact-binding extension, and the reference implementation. The latter two agree on all 165 corresponding cases, showing that the contract can be implemented by different storage designs. In 60 scripted browser cases, an experimental review-session gate blocks nine request substitutions accepted by the original confirmation path; both paths accept three display-only substitutions, delimiting the trusted review boundary. On the repaired implementation, 22,400 timed observations characterize admission and provenance reconstruction. At the largest trace-grid point, bulk access has a median of 170.24 ms versus 509.09 ms for point access with the same verifier. These constructed workloads support the specified integrity obligations and implementation behavior, without establishing universal minimality, display integrity, or deployment-wide performance.
+\end{abstract}
+
+\begin{keyword}
+data integrity \sep data provenance \sep human authorization \sep AI-assisted data acquisition \sep transactional admission \sep relational verification
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-problem-contract}
+\input{sections/04-relational-analysis}
+\input{sections/05-transactional-realization}
+\input{sections/06-formal-concrete-conformance}
+\input{sections/07-evaluation-protocol}
+\input{sections/08-results}
+\input{sections/09-discussion-threats}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+
+\bibliographystyle{elsarticle-harv}
+\begingroup
+\Urlmuskip=0mu plus 1mu\relax
+\bibliography{filtered}
+\endgroup
+
+\end{document}

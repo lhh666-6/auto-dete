@@ -1,0 +1,228 @@
+\section{Authoritative-state admission contract}
+\label{sec:contract}
+
+\subsection{Candidate, authorization, and authoritative state}
+
+Authorized mutation begins with an object $o_v$ that is already authoritative and applies an authorized change $\alpha$:
+\begin{equation}
+\operatorname{Mutate}(o_v,\alpha)=o_{v+1}.
+\end{equation}
+Correction-aware admission begins instead with an untrusted persisted candidate $c$, an attributable authorization $a$, and an authoritative pre-state $\Sigma_v$:
+\begin{equation}
+\operatorname{Admit}(c,a,\Sigma_v)=\Sigma_{v+1}.
+\label{eq:admit}
+\end{equation}
+Admission does not make the candidate itself authoritative. It transforms a candidate-bound authorization into an authoritative successor while retaining the candidate as non-authoritative historical evidence. Proposal origin, value authority, and committed value are therefore distinct semantic roles.
+
+Let $r$ be a record with a nonempty authoritative field set $F_r$. Its committed state $\Sigma_v$ contains a total value map $V_v:F_r\rightarrow X$ and a total source map $S_v:F_r\rightarrow T$, where $T$ is the set of durable fact transitions. A machine candidate for field $f$ is
+\begin{equation}
+c=\langle r,f,e,v_{\mathrm{exp}},x_c,p,c_{\mathrm{id}}\rangle,
+\label{eq:candidate}
+\end{equation}
+where $e$ is persisted evidence, $v_{\mathrm{exp}}$ is the expected current version, $x_c$ is the machine proposal, $p$ identifies its producer, and $c_{\mathrm{id}}$ is an identity over the modeled candidate content.
+
+Evidence identity is not content equality alone. The realization uses
+\begin{equation}
+EID(e)=\langle H(\mathrm{bytes}(e)),L(r,f,u,\kappa)\rangle,
+\label{eq:evidence}
+\end{equation}
+where $H$ is SHA-256 and $L$ is a versioned canonical locator containing the owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. The Alloy model abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assumes unique certificate identities over the modeled certificate objects, excluding identity collisions from the checked scopes. Relating this abstraction to the implementation requires collision resistance of the deployed digest and integrity of the canonicalization and evidence store; it is not a proof or claim that SHA-256 is mathematically injective.
+
+An attributable authorization is
+\begin{equation}
+a=\langle c_{\mathrm{id}},x_a,q\rangle,
+\label{eq:authorization}
+\end{equation}
+where $q$ is an authorized human principal and $x_a$ is the value explicitly permitted to enter the record. The dual-value semantics are
+\begin{align}
+\operatorname{proposal}(c)&=x_c, &
+\operatorname{authorize}(a)&=x_a,\nonumber\\
+\operatorname{commit}(\Sigma_{v+1},f)&=x_a, &
+\operatorname{origin}(\Sigma_{v+1},f)&=c.
+\label{eq:dual-value}
+\end{align}
+Accept has $x_c\eqc x_a$. Correction has $x_c\neqc x_a$; the candidate remains unchanged and the committed value derives its authority from $a$. Here $\operatorname{origin}$ identifies the retained proposal, not the authority for a corrected value.
+
+\paragraph{Canonical value equality}
+Two values are identical throughout the contract only when their canonical JSON serializations agree. Write $x\eqc y$ when the sorted-key, whitespace-minimal JSON forms of $x$ and $y$ are equal, and $x\neqc y$ otherwise. Python equality would identify $2$ with $2.0$ and $1$ with \code{true}; the contract does not, because a successor whose serialized value changes must obtain a new transition and source even when the two values compare equal in the host language. The changed-field domain, the admission planner, transition-value checks, reverse-trace validation, the independent database oracle, and the formal projection use this single relation; \cref{sec:conformance} reports the regression that closed a cross-layer disagreement in an earlier build.
+
+\subsection{History, observations, and outcomes}
+
+An authority-relevant history is
+\begin{equation}
+h=\Sigma_0\xrightarrow{e_1}\Sigma_1\xrightarrow{e_2}\cdots\xrightarrow{e_n}\Sigma_n,
+\end{equation}
+where events may persist evidence or candidates, record review and authorization, attempt admission, commit or stutter, and reconstruct a reverse trace. The abstraction describes semantic information rather than requiring particular table or column names.
+
+We group the observable distinctions into
+\begin{equation}
+\mathcal D=\{D_C,D_V,D_F,D_B,D_S\},
+\label{eq:distinction-basis}
+\end{equation}
+where $D_C$ is candidate identity and context, $D_V$ is dual-value attribution, $D_F$ is freshness, $D_B$ is batch/successor completeness, and $D_S$ is total source attribution. For $I\subseteq\mathcal D$, $\pi_I(h)$ retains only the information classes in $I$. Candidate identity may be implemented by a certificate, stable handle, or another equivalence class, provided it does not collapse to value equality. Freshness may likewise use a version, state hash, epoch, or comparable discriminator.
+
+To make ``retains'' precise, let $\operatorname{obs}_d(h)$ be the observation function for class $d$ and define
+\begin{equation}
+\pi_I(h)=\langle\operatorname{obs}_d(h)\rangle_{d\in I}.
+\label{eq:observation-projection}
+\end{equation}
+The functions are logical projections, not claims that a database must store five physically separate objects. A certificate can co-locate several classes. In a projection, however, a content address is treated as an opaque equality-preserving handle: its preimage is not available as a side channel. This prevents a nominally omitted value or version from being recovered merely because the concrete certificate hash covers it. Table~\ref{tab:observation-functions} defines what each function exposes and deliberately hides.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Observation functions used by the conditional characterization. ``Derives'' lists information available without consulting another class.}
+\label{tab:observation-functions}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Raw history components exposed & Derives & Deliberately excludes \\
+\midrule
+$D_C$ & opaque candidate and authorization-target handles; candidate and admission targets; field, evidence, producer & candidate binding and non-temporal context agreement & decoded proposal/authorized values, current version, batch-effect domain, successor sources \\
+$D_V$ & proposal value, authorized value, committed value, and their role labels for an anonymous batch item & Accept versus Correction and proposal/authority attribution & candidate handle and context, temporal order, batch completeness, source identities \\
+$D_F$ & expected and transactionally observed pre-state discriminator at the admission attempt & current versus superseded authorization & proposal roles, non-temporal candidate context, batch effects, source relation \\
+$D_B$ & declared item-field domain, committed effect domain, commit grouping, and successor count & complete versus partial/fragmented successor construction & value-role attribution, freshness, and field-source identities \\
+$D_S$ & successor field--source relation; local resolution and copy-forward checks & missing/ambiguous sources, field/value inconsistency, and replaced unchanged sources & commit grouping, value roles, freshness, and candidate context \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The full-history authority-outcome label is
+\begin{equation}
+O(h)=\langle status,successor,trace\rangle,
+\label{eq:outcome}
+\end{equation}
+where $status$ is admissible, inadmissible, or failed/stuttering; $successor$ classifies the authoritative post-state or its absence; and $trace$ is complete, incomplete, ambiguous, or unavailable. This is the normative label assigned from the full history, not an additional input available to a mechanism restricted to $\pi_I$. A binary accept/reject label is insufficient because value-identical successors may differ in source completeness.
+
+An observation set $I$ fails to distinguish a failure family when there exist a safe history $h_s$ and unsafe history $h_u$ such that
+\begin{equation}
+O(h_s)\neq O(h_u)
+\quad\land\quad
+\pi_I(h_s)=\pi_I(h_u).
+\label{eq:indistinguishable}
+\end{equation}
+Any admission decision based only on that reduced observation cannot separate the pair.
+
+For the executable construction below, each finite history is represented by the complete tuple
+\begin{equation}
+\widehat h=\langle r,C,A,B,v_{\mathrm{exp}},v_{\mathrm{obs}},
+F_{\mathrm{decl}},K,V_v,V_{v'},S_v,S_{v'},T\rangle,
+\label{eq:witness-history}
+\end{equation}
+containing the target, candidate and authorization registries, batch references, expected and observed pre-versions, declared fields, a commit sequence $K$, endpoint value and source maps, and a registry $T$ of source-transition identifiers, fields, and values. Each commit step records a distinct successor identity and complete before/after value maps. The domain predicate checks unique candidate and authorization keys, resolvable batch references, schema-valid fields, total value maps, and a connected commit sequence from $V_v$ to $V_{v'}$. Its committed effect domain is the union of the steps' actual value-change domains; its successor count is $|K|$. Neither is an independently assigned witness attribute.
+
+Source observations expose each field's anchor count, reverse-resolution count in $T$, agreement of the resolved field/value with the successor, and exact prior-source retention for an unchanged field. Missing, duplicate, or inconsistent sources remain semantic failures rather than being excluded by the domain predicate. These are local source checks: the complete authorization--candidate--evidence chain belongs to the operational P6 checks below. Source observations hide intermediate commit grouping; freshness observes the admission-entry pre-state comparison. These explicit observation boundaries make it possible to compare atomic and fragmented histories with identical endpoints.
+
+\subsection{Conditional failure-distinguishability characterization}
+
+Table~\ref{tab:distinctions} summarizes the paired histories for this fixed observation basis.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Failure-distinguishing information classes in the declared observation model.}
+\label{tab:distinctions}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Class & Safe/unsafe pair & Required distinction & Failure if omitted \\
+\midrule
+$D_C$ & exact candidate / equal-valued cross-context substitute & persisted candidate identity plus record, field, evidence, and producer context & candidate substitution \\
+$D_V$ & preserved Correction / erased or false role attribution with the candidate unchanged & separate machine proposal $x_c$, human-authorized value $x_a$, committed value, and role relation & correction erasure or false machine attribution \\
+$D_F$ & current authorization / same authorization after supersession & commit-time freshness discriminator tied to the observed pre-state & stale replay \\
+$D_B$ & one atomic commit / two connected commits with the same final values & actual per-step effects and one atomic successor & fragmented successor \\
+$D_S$ & total trace / equal-valued successor with missing or conflicting source & total per-field source relation and exact unchanged-source copy-forward & source ambiguity \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Proposition 1 (conditional failure distinguishability)}
+For each information class $d_i\in\mathcal D$, the declared failure model contains a safe history and a corresponding unsafe history whose authority outcomes differ but whose projections become equal when $d_i$ is omitted. Consequently, an admission mechanism that observes only $\mathcal D\setminus\{d_i\}$ cannot distinguish the paired failure family under this model.
+
+\paragraph{Proof sketch (by construction)}
+For $D_C$, hold the value-role, temporal, batch, and source observations constant while changing non-temporal candidate context. For $D_V$, retain the same candidate, proposal value 100, and committed value 101, but falsely attribute the corrected value to the machine proposal. For $D_F$, change only the admission-entry freshness comparison. For $D_B$, compare one two-field commit with two connected single-field commits that reach the same final values and sources; the latter exposes an intermediate partial state. Effect domains and successor counts follow from these sequences. For $D_S$, remove one source anchor while retaining candidates, values, freshness, and the commit sequence. Each construction changes its selected observation coordinate and the derived outcome, while leaving the other four coordinates equal.
+
+Thus, for every $d_i\in\mathcal D$, the constructed histories satisfy
+\begin{equation}
+\pi_{\mathcal D\setminus\{d_i\}}(h_s^{(i)})
+=
+\pi_{\mathcal D\setminus\{d_i\}}(h_u^{(i)})
+\quad\text{and}\quad
+O(h_s^{(i)})\neq O(h_u^{(i)}).
+\label{eq:irredundancy}
+\end{equation}
+Any decision function of the reduced projection receives the same input for both histories and cannot assign both distinct required outcomes. This establishes the claimed conditional irredundancy.
+
+The executable checker validates each complete $\widehat h$ and derives observations and outcomes from its relations; witnesses store neither. It checks domain validity, unequal outcomes, equal four-class projections, and unequal full projections. Schema fields define the total value/source domains, whereas declared item fields define the required effect domain.
+
+The original $D_C$ pair changes record context while retaining the candidate handle, establishing irredundancy of the combined class. An additional pair fixes the two-candidate registry and every context/value component, then selects either the authorized candidate or the equal-valued alternative. It isolates candidate binding within this observation model. A single-field copy-forward control checks the distinction between schema and effect domains. Supplement S2 identifies the executable constructions and raw histories.
+
+\paragraph{Scope of the result}
+Proposition 1 establishes class-wise irredundancy for the declared failure, history, observation, and outcome model, not universal minimality, schema uniqueness, or completeness over all admission failures. The checker validates the five class pairs, identity pair, and copy-forward control; it is not a general admission oracle. These constructions establish Eq.~\eqref{eq:irredundancy}; the separate Alloy checks test encoded assertions and conjunct-removal sensitivity in finite scopes.
+
+\subsection{Batch admission relation}
+
+A batch $B$ is a nonempty set of items sharing one target record, principal, expected pre-version, and successor. Under Full, item fields are unique. Let
+\begin{equation}
+\Delta(V_v,V_{v+1})=\{f\in F_r\mid V_v(f)\neqc V_{v+1}(f)\}.
+\end{equation}
+For a post-initial concrete admission,
+\begin{equation}
+\Delta(V_v,V_{v+1})=\{i.f\mid i\in B\}=\{t.f\mid t\in T_{v+1}\},
+\label{eq:changed-fields}
+\end{equation}
+with one transition per item. At the first certificate-era version, the batch covers all of $F_r$, establishing total value and source domains. Deletion is outside the model.
+
+For every $i\in B$, admission requires
+\begin{align}
+i.r &= r, & i.f&\in F_r,\nonumber\\
+EID(i.e) &= EID(i.c.e), & i.v_{\mathrm{exp}}&=v,\nonumber\\
+i.a.c_{\mathrm{id}}&=i.c.c_{\mathrm{id}}, & i.a.q&=q,\nonumber\\
+i.x &\eqc i.a.x_a, & t_i.x&\eqc V_{v+1}(i.f)\eqc i.x.
+\label{eq:item-bindings}
+\end{align}
+Together these instantiate the admission preconditions
+\begin{equation}
+\begin{aligned}
+&\operatorname{Bind}(a,c)\land\operatorname{Fresh}(c,\Sigma_v)\land\operatorname{Authorized}(a)\\
+&\qquad\land\operatorname{Complete}(\Sigma_{v+1})\land\operatorname{Attributed}(\Sigma_{v+1}).
+\end{aligned}
+\end{equation}
+
+The successor is atomic: all admission-time decision, authorization, transition, version, source-map, and audit effects commit together, or authoritative state stutters. This does not require rollback of evidence, candidates, or review intent persisted before the admission attempt. For a changed field, $S_{v+1}(f)=t_i$. For an unchanged field, value and exact source are copied forward:
+\begin{equation}
+f\notin\Delta(V_v,V_{v+1})\Rightarrow
+V_{v+1}(f)\eqc V_v(f)\land S_{v+1}(f)=S_v(f).
+\label{eq:copy-forward}
+\end{equation}
+Alloy permits same-value admission for correspondence with the historical singleton model; concrete post-initial admissions require a value change. For submitted items $U$, the admitted batch is $B=\{i\in U\mid i.x\neqc V_v(i.f)\}$, with $B\neq\varnothing$. A mixed submission admits exactly $B$ and copies unchanged items' exact prior sources into the complete successor, creating no transition or authorization binding for $U\setminus B$. Thus Eq.~\eqref{eq:changed-fields} concerns admitted effects, not all submitted reviews. Recording renewed review or re-attribution without a value change requires a separate review-event path outside this contract; persisted candidate identity allows that path to distinguish equal-valued proposals.
+
+\subsection{Operational properties and trust boundary}
+
+\begin{table}[t]
+\centering
+\caption{Admission properties and their operational interpretation.}
+\label{tab:properties}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Property & Requirement & Operational interpretation \\
+\midrule
+P0 & Direct-write exclusion & Machine/candidate capability cannot change authoritative values, versions, sources, transitions, or authorizations. \\
+P1 & Candidate non-substitutability & Authority refers to the same canonical persisted certificate, not merely an equal value or analogous candidate. \\
+P2 & Context-bound admission & Record, field, persisted evidence content and locator, and expected version agree across the item and certificate. \\
+P3 & Authorization integrity & The principal is allowed at the in-transaction policy check before the compare-and-swap, and the authorization names the exact certificate and explicit committed value; in-flight revocation semantics are stated in \cref{sec:authorization-timing}. \\
+P4 & Freshness & The expected version equals the transactionally observed current version; stale or competing decisions fail closed. \\
+P5 & Successor integrity & One atomic successor has an item--transition bijection, exact changed-field effects, and complete changed/unchanged framing. \\
+P6 & Trace soundness & Each committed field resolves through its exact source transition to consistent authorization, certificate, evidence, producer, and version relations. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Model output and candidate-only callers are untrusted. The trusted computing base comprises the admission service, adapter, exercised database transaction semantics, canonical serialization and hashing, and principal-policy source. Host authentication, session integrity, and faithful review presentation are external assumptions. In particular, the reference confirmation API constructs the binding from the caller-supplied candidate identifier and value; the database cannot infer what a person saw. The contract preserves and enforces the authorization thus constructed. It does not protect a compromised process, host, or database administrator.
+
+\paragraph{Authorization timing and revocation}
+\label{sec:authorization-timing}
+The prototype evaluates the in-memory principal-role allow-list inside the database transaction, before the version compare-and-swap and any authority write. A revocation that completes before this check causes zero-write rejection. The allow-list lock protects only the policy lookup/update; it is not held for the remainder of the database transaction. Consequently, a revocation that overlaps an admission after its successful policy check does not cancel that in-flight commit. The implementation therefore provides commit-entry revalidation, not linearizable revocation against already admitted operations, distributed identity-provider semantics, or session invalidation. Deployments requiring those properties must place a transactional policy epoch or equivalent revocation discriminator inside the admission compare-and-swap.
+
+Human authorization is not a truth oracle. The contract establishes who authorized which persisted candidate and value in which context, and whether the successor was constructed atomically. It cannot establish that the authorized value is factually correct.
+
+
+

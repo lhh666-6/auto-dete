@@ -1,0 +1,61 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{RQ1: contract checks and exact-binding equivalence}
+
+\paragraph{Retained formal and concrete evidence}
+All 72 Alloy outcomes matched their command manifests. Each profile yielded six legal witnesses, eleven conjunct-removal witnesses, three trace-attack witnesses, and two witnesses for the positive trace assertion's nonempty precondition; fourteen assertions had no counterexample within scope. Each removal admitted a malformed effect that the full relation rejected with a stuttering post-state. These results establish bounded encoding sensitivity; the conditional observation-omission argument is a separate result.
+
+The concrete-to-formal adapter produced nine satisfiable intended instances and twenty unsatisfiable mapping mutants. The 35-case concrete catalogue passed, as did the two stateful profiles and 33 declared rollback/concurrency tests in the retained execution. The illustrative lifecycle preserved a proposed quantity of 100 and its independently authorized correction to 101, copied the other two fields' sources, and produced a complete reverse trace with matching export. Six archived AI-origin lifecycle cases and ten pinned-interface controls also matched their declared outcomes. These are distinct denominators, not additive independent attack trials. The new run passed all 85 selected implementation regressions and ten harness checks.
+
+\paragraph{E1: same contract, different realizations}
+\label{sec:executable-relation-result}
+All 495 new case executions completed without harness errors. \Cref{tab:dke-comparator} reports the three mechanisms. The exact journal and reference agreed on all 165 paired decisions and query-answer sets. Each accepted all 45 legal cases and rejected 120 cases without modifying the fact database after authorization preparation. This includes the three injected rollback locations.
+
+\input{tables/dke/comparator}
+
+The context journal accepted fifteen same-value instance substitutions. They satisfy the declared value/context policy but violate the instance policy. Conversely, the exact mechanisms reject these fifteen otherwise value/context-valid substitutions. Thus the result is a policy distinction, not an unqualified claim that additional rejection is always preferable. All mechanisms rejected substitutions with different retained evidence; richer context already distinguishes those cases.
+
+Across successful histories, the context journal returned 1,020 correct answers and sixty ambiguous reviewed-candidate answers. Each exact mechanism returned 810 correct answers and no ambiguous, wrong, or unavailable answer. The unequal totals follow from different numbers of accepted histories, each contributing eighteen field-level answers. They are neither independent query workloads nor estimates of real-world ambiguity prevalence.
+
+The continuity run reproduced seven-of-eight single-history agreement for the original strengthened baseline, with same-value substitution as the difference; its paired-history distinction was a separate ninth check. The new exact-journal result qualifies that separation: event journals can satisfy the tested contract when they preserve the same authorization relation. E1 therefore supports explicit information and enforcement requirements without establishing a uniquely capable storage architecture.
+
+\subsection{RQ2: request binding and the remaining display assumption}
+
+Both paths completed all thirty assigned browser cases and accepted all nine legitimate controls, including corrections and reselections (\cref{tab:dke-review}). The original confirmation path accepted all nine request substitutions that disagreed with recorded review intent. The experimental gate rejected all nine. Stale submissions, replays, and precommit interruptions were rejected by both paths without fact writes.
+
+\input{tables/dke/review}
+
+The original service constructs its authorization bundle from the caller-selected candidate and value. The substitutions expose that trusted-caller boundary; they do not show a violation of the transaction's subsequently established binding. Moving the binding to a server-held review session closes the tested request-substitution gap.
+
+Both paths nevertheless accepted all three DOM-only substitutions: the page displayed candidate B while the server and request continued with A. Session binding therefore does not attest what the user saw. The negative controls delimit the claim to fidelity between a trusted review record and admission; display integrity and authenticated human intent remain premises. Scripted page observations cannot establish user attention or resistance to a compromised browser.
+
+\subsection{RQ3: current implementation costs}
+
+\paragraph{Complete confirmation and prevalidated materialization}
+The two admission comparisons completed all ten cells each. Final queries agreed for the shared mechanism workload; materialization results matched their precomputed relational-state fingerprints. \Cref{tab:dke-admission} reports every cell, keeping the two workloads separate.
+
+\input{tables/dke/admission}
+
+At 128 fields with all fields changed, median reference confirmation was 712.00~ms and exact-journal confirmation was 22.09~ms. This large implementation difference is evidence against presenting the reference as the fastest way to enforce the contract. Connection lifecycle, ORM, schema, and validation differences preclude attributing the gap to exact binding, which both mechanisms perform. The small-workload comparison is also affected by lazy versus eager connection establishment.
+
+In the independent manual-source ablation at the same field/change counts, full confirmation had a median of 427.59~ms and prevalidated materialization 23.50~ms. Materialization removes validation and planning from the timed region and uses a different persistence path. The difference describes the work excluded by that protocol together with implementation-path effects; the materializer is not a complete secure admission alternative.
+
+\paragraph{Reverse trace}
+The 36-cell paired comparison completed 14,400 timed invocations. Every full returned object agreed across the two access patterns. Bulk tracing used exactly twelve SQL statements in every measured cell; this bounds round trips for the tested implementation, not total verification time or memory.
+
+\input{tables/dke/trace}
+
+At 128 fields, 100 versions, and 1,000 records, bulk tracing had p50/p95 of 170.24/216.75~ms, versus 509.09/595.85~ms for point reads, with twelve versus 693 SQL statements (\cref{tab:dke-trace}). The point-to-bulk median ratio was 2.99. Both arms are current-code runs with the same verifier, so this ratio concerns their access patterns rather than an improvement over historical timings. As history grows, processing and validating the returned data still increases despite constant round trips. Supplement S4 lists all 36 cells; raw observations and paired summaries are deposited.
+
+\paragraph{Schema footprint}
+The full schema occupied 1.52, 13.16, and 134.53~MiB at the three tested scales, with roughly 1.1~kB of incremental main-database storage per transition relative to the reduced fixture (\cref{tab:storage-cost}). This accounting covers the stated synthetic relations and excludes external evidence files. It does not imply equivalent functionality in the reduced database or a universal per-transition storage constant.
+
+\input{tables/dke/storage}
+
+\subsection{Historical integration: task outcomes and separate host operations}
+\label{sec:historical-integration}
+
+The archived matrix retains all 1,260 planned executions. Strict benign-task yield was 320/360 (88.89\%); endpoint yield allowing extra calls was 331/360 (91.94\%). Twenty-five benign runs were unscorable. Conditional on the 335 behavior-evaluable runs, the counts were 320/335 and 331/335. The eleven differences reflect extra calls accepted by the endpoint criterion; no strict success failed that criterion. These are alternative measurements of the same traces, not additional successful trials. They do not support a population model ranking.
+
+Runtime failures numbered 93: 76/420 for D1, 4/420 for G1, and 13/420 for G2. Failures were retained; some still had complete host-authority evidence. The 720 fixed invalid-tuple admission calls recorded no unauthorized authoritative mutation. The 179 capability-unavailable checks also recorded none, but made no admission call. Their sum is accounting only and is not reported as a model-generated attack success rate. The archival results demonstrate compatibility with a restricted proposal/verification interface, while E1 and E2 separately examine the admission and review boundaries.

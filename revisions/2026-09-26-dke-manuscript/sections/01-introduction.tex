@@ -1,0 +1,46 @@
+\section{Introduction}
+\label{sec:introduction}
+
+An AI-assisted data acquisition system may extract a quantity from a document, propose a correction to a record, and ask a person to approve the update. Once admitted, that value can be used by queries, reports, and subsequent decisions. The database must then answer more than what its current value is: which persisted proposal was reviewed, what value the reviewer authorized, which record version that authorization concerned, and where the other fields of the resulting record came from. This paper studies the integrity constraints needed to preserve those answers when a machine proposal can be corrected before admission.
+
+Consider a record whose quantity is 90. A recognizer proposes 100, but a reviewer authorizes 101; an unchanged batch-code field should retain its earlier source. Replacing the stored proposal with 101 would erase the distinction between machine output and human correction. Recording only the final value and reviewer would retain value authority while leaving the reviewed proposal ambiguous. Creating a new snapshot without copying the batch-code source would preserve the record's values while breaking its field-level provenance. The required relation therefore retains the predecessor, the immutable proposal $x_c$, and the authorized value $x_a$, including the case
+\begin{equation}
+x_c\neq x_a.
+\label{eq:intro-correction}
+\end{equation}
+
+Candidate identity presents a separate policy choice. Two extraction attempts may propose the same value for the same field and evidence. A policy concerned with approved values can treat them as interchangeable. An instance-level accountability policy must distinguish them if later review must identify the particular proposal selected by the reviewer. We do not assume that every application needs this stricter policy. We characterize its consequences and compare it explicitly with a context-rich policy that omits exact candidate identity.
+
+Transactions, concurrency control, and provenance provide the foundations for implementing this requirement. Atomic transactions support consistent state changes; optimistic validation addresses conflicts with intervening updates; provenance models describe derivation and responsibility \citep{gray1981transaction,kung1981occ,moreau2013provdm}. Our contribution is an application-level admission contract built using these mechanisms. It specifies their joint obligations when proposal origin and value authority differ. The relation is
+\begin{equation}
+\begin{aligned}
+\textit{exact candidate}
+&\rightarrow\textit{candidate-bound authorization}\\
+&\rightarrow\textit{explicit authorized value}\\
+&\rightarrow\textit{complete successor and total field sources}.
+\end{aligned}
+\label{eq:admission-chain}
+\end{equation}
+The candidate remains historical evidence. Authorization supplies permission for the committed value, and a trusted transaction creates the successor. This relation can be represented by relational tables or an event journal; the contract does not privilege either storage architecture.
+
+The central question is which distinctions must remain observable to check this relation against the failures considered here. We identify five information classes: candidate identity and context, separate proposed and authorized values, freshness, batch/successor completeness, and total field-source attribution. Paired histories show that removing each class under the specified observation projection can make a compliant history indistinguishable from a violating one. This is a conditional distinguishability result for a declared failure model, rather than a universal lower bound on all possible schemas, encodings, or authorization policies.
+
+We instantiate the contract in \system{}, a Python/SQLite reference realization, and make three contributions:
+\begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
+\item \textbf{An admission contract and conditional distinguishability analysis.} We define candidate-bound authorization with separate proposal and authorized values, one complete successor, and exact propagation of changed- and unchanged-field sources. Five paired-history constructions establish class-wise irredundancy relative to the stated observations and failures.
+\item \textbf{Relational and transactional enforcement.} We connect the contract to an Alloy model, explicit relational constraints, a version compare-and-swap, and in-transaction validation. Selected formal--concrete projections and persisted-state checks examine whether the implementation preserves the modeled distinctions, including canonical JSON value equality.
+\item \textbf{Comparative, boundary, and cost evidence.} We compare the reference with independently implemented event-journal controls, exercise the browser-to-authorization boundary, and measure admission, trace reconstruction, and storage on the current repaired implementation. The artifact includes case-level decisions, database states, query answers, and timing observations.
+\end{enumerate}
+
+The new comparisons deliberately test where stronger controls close earlier gaps. Across 165 corresponding constructed cases, an event journal with exact candidate binding agrees with the reference on every admission decision and provenance-query answer. Its context-only variant accepts 15 same-value candidate substitutions that satisfy the value-level policy but violate the instance-level policy. These results locate the difference in the enforced relation, not in the use of an event log. They also expose the additional rejections imposed by choosing the stricter policy.
+
+The review experiment establishes another limit. A server-held review binding blocks the tested request substitutions, but both evaluated paths accept cases in which only the page display is substituted while the server and request consistently refer to another candidate. Database integrity cannot establish what a person actually saw. The contract therefore assumes an authenticated caller and a trustworthy review channel; it records responsibility without proving factual truth, reviewer attention, or display integrity. The experiments use constructed histories and a local browser fixture, not an independent deployment or user study. Repeated timings characterize one implementation and machine rather than model accuracy or general operational prevalence.
+
+The remainder presents the contract, its bounded relational characterization and transactional realization, the formal--concrete checks, and the comparative evaluation. \Cref{fig:admission-workflow} summarizes the admission boundary.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/refined/figure-1-admission-workflow.pdf}
+\caption{Correction-aware admission to authoritative data. Candidate-bound Accept or Correction decisions proceed to transactional validation. Version compare-and-swap protects creation of a complete successor and total field-source map. Rejection, failed validation, or a lost compare-and-swap leaves authoritative state unchanged. The authenticated review channel is a trust assumption. Diagram source: deterministic vector rendering of the declared workflow; AI-assisted scripting with OpenAI Codex during the September 2026 revision.}
+\label{fig:admission-workflow}
+\end{figure*}

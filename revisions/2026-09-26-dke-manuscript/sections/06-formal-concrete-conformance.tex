@@ -1,0 +1,51 @@
+\section{Formal--concrete projection and executable conformance}
+\label{sec:conformance}
+
+An executable abstraction connects persisted admission events to the relational model:
+\begin{equation}
+\alpha:\mathrm{PersistedPrePost}\rightarrow\mathrm{BatchAlloyInstance}.
+\end{equation}
+
+\subsection{Persisted-state projection}
+
+For one selected event, $\alpha$ reads the persisted relations in \cref{tab:abstraction}, the version chain, and pre/post identity sets. Canonical JSON equivalence classes become Alloy Value atoms; observed certificate identities become primitive \code{CertId} atoms. A decision and its binding become one Authorization. The mapping does not prove absence of digest collisions outside the observed instance.
+
+\begin{table}[t]
+\centering
+\caption{Principal elements of the executable abstraction.}
+\label{tab:abstraction}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Persisted relation & Formal relation & Mapping condition \\
+\midrule
+form and declared fields & Record and authoritativeFields & one target record with an exact selected field domain \\
+evidence row plus locator & Evidence content and locator & owner/content/canonical persisted locator remain separate dimensions \\
+candidate-certificate row & Candidate, Certificate, CertId & target, field, evidence, version, value, producer, and identity fixed \\
+decision plus binding & Authorization & principal, certificate, and explicit authorized value fixed \\
+record-version values & committedValue & complete canonical JSON equality classes in pre and post \\
+record-version fact\_sources & committedSource & exact persisted transition atom per authoritative field \\
+transition rows at successor & AdmissionItem transitions & exact item--transition set and complete relation fields \\
+current-version/CAS unit & BatchAdmissionEvent envelope & one record, principal, pre-version, successor, and atomic pre/post \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+For a committed case, an exact Alloy wrapper fixes the instance and tests \code{legalAdmission[event, Full]}. For a rejection, equal canonical database digests are required before generating a wrapper that checks state stutter and failure of Full. A changed digest fails projection before Alloy runs.
+
+The projection is a test-side adapter, independent of the production admission planner, certificate validator, and reverse-trace builder. Twenty single-dimension mutants alter field, evidence, version, freshness, authorization, transition, preexistence, committed effects, or initial coverage in the serialized mapping and provide selected sensitivity checks for $\alpha$.
+
+\subsection{Independent finite catalogue}
+
+A second oracle directly reads all SQLite application tables and checks value/source domains, source evolution, transition sets, version anchors, authorization lineage, and value agreement. Its expected results do not come from the production planner or trace builder. Five relation mutants check sensitivity to source, authorization, locator, principal, and value changes.
+
+The declared 35-case catalogue contains five legal cases and thirty rejection, post-persistence corruption, schema-prevention, stateful-evolution, or oracle-mutant cases. Rejection cases require the public error classification and equality of a deterministic digest covering schema version, identity sequences, and every application table. Corruption cases instead require a changed digest and an incomplete trace/oracle diagnosis. The machine-readable declaration fixes the catalogue's completeness scope.
+
+\subsection{Value-equality repair and witness-domain control}
+
+The repaired implementation uses canonical JSON equality for changed-field decisions. Thirteen regressions cover unchanged controls, numeric/Boolean and nested changes, and a rejected no-op; seven fail before the repair and all pass afterward. The witness checker also separates schema and declared-item domains, retaining the five class pairs and adding an identity pair and copy-forward control. Supplement S2 records both repairs and their checks.
+
+\subsection{Refinement boundary}
+
+Nine projected cases cover singleton Accept/Correction, multi-field all-Accept/all-Correction/mixed batches, initial coverage, copy-forward, stale rejection, and whole-batch rejection caused by one invalid item. These provide selected bounded refinement evidence, not a refinement proof for every application execution.
+
+Two intentional scope differences remain. First, the concrete post-initial no-op rule narrows the formal same-value behavior. Second, SQLite uniqueness makes one modeled duplicate-source state unreachable through the trusted schema. Conversely, concrete trace tests cover persisted pointer and binding corruptions that the formal P6 tamper event does not encode. The formal \code{traceComplete} predicate is a single-level anchor and uniqueness condition over the persisted relations, whereas the concrete trace builder additionally traverses each predecessor prefix and retains exact previous sources. The bounded positive assertion therefore establishes the encoded admission step under its stated well-formed-pre-state condition, not prefix-wide trace completeness.

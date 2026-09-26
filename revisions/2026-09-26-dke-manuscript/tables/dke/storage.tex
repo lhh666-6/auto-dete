@@ -1,0 +1,16 @@
+% Source: DKE-supplement/tables/storage.csv; MiB=bytes/1048576.
+\begin{table}[tb]
+\centering
+\small
+\caption{E3 synthetic schema footprint after checkpointing. Incremental bytes per transition equal the full-minus-reduced main-database size divided by transition count. External evidence files are excluded.}
+\label{tab:storage-cost}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+Transitions & Full (MiB) & Reduced (MiB) & Incremental bytes/transition \\
+\midrule
+1,000 & 1.52 & 0.48 & 1085.4 \\
+10,000 & 13.16 & 2.88 & 1077.2 \\
+100,000 & 134.53 & 28.45 & 1112.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
