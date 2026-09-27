@@ -1,8 +1,10 @@
 # DKE 新版论文
 
-日期：2026-09-27（完成投稿材料、独立审查及扁平源码重建验证）
+日期：2026-09-27（完成投稿材料、独立审查、AI 披露收口及扁平源码重建验证）
 
 **投稿候选文件以 `submission/README.md` 和 `submission/upload/` 为准。** 当前主文 32 页、补充材料 21 页。排版收尾基于 `dd2f12ea`，仅调整存储表位置及参考文献间距/分页，消除第 26 页近空白页；正文文字和实验结果未改。主文使用本机 MiKTeX 25.12 / elsarticle 3.5 重建，补充 PDF 原样保留。完整传递包为 `submission/DKE-submission-package-2026-09-27.zip`。作者确认和期刊系统要求的剩余核对见该目录说明。
+
+当前构建另基于 `4f7a578a` 将文末 AI 声明由 60 词精简为 52 词，保留图注及方法中的必要披露；其他科研文字和补充 PDF 未改。两份源码包均再次独立重建核对。当前 PDF 身份以 `editorial/final-build-check.json` 和 `editorial/ai-disclosure-closeout-2026-09-27.json` 为准；早先 layout-closeout 报告作为历史记录保留。
 
 本文件夹是独立的英文论文修订版，面向 Data & Knowledge Engineering。原论文、原仓库和补充实验原始记录未被改写。本次完成论文整合、编译和审查，没有新增模型调用或重新采集实验结果。
 
@@ -24,7 +26,7 @@
 - `editorial/narrative-revision.md`：上一轮科研故事、文献定位和限定语迁移说明。
 - `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：上一轮逐节词数和逐处限定语审查；当前 PDF 提取词数见 `final-mechanical-check.md`。
 - 仓库根目录 `docs/literature-review/`：16 个诊断位置、8 族文献检索记录、33 项候选审查、11 维内部矩阵与十问首读检查；不属于投稿正文或补充材料。
-- `editorial/`：`layout-closeout-2026-09-27.md`、`layout-closeout-check-2026-09-27.json` 和 `final-build-check.json` 对应当前排版稿；`final-mechanical-check.json` 和 `source-check.json` 对应收尾前 `ee4e65ac`。其他旧审查保留为历史记录，不作为当前 PDF 身份标识。
+- `editorial/`：`ai-disclosure-closeout-2026-09-27.md`、`ai-disclosure-closeout-2026-09-27.json` 和 `final-build-check.json` 对应当前构建；`layout-closeout` 报告对应前一轮排版稿，`final-mechanical-check.json` 和 `source-check.json` 对应收尾前 `ee4e65ac`。旧审查保留为历史记录，不作为当前 PDF 身份标识。
 
 论文标题：**Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**。
 
