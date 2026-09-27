@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import re
+import subprocess
 import zipfile
 import pymupdf
 from docx import Document
@@ -43,8 +44,12 @@ def main():
                         'text_outside_page': outside}
         assert outside == 0
         pdf.close()
-    builds['_environment'] = {'date': '2026-09-27', 'tex_distribution': 'TeX Live 2025',
-                              'document_class': 'elsarticle 3.4c', 'baseline_commit': 'ee4e65ac36b0f6c08dbfc79568974e515d75f5f5'}
+    main_log = (ROOT / 'out/main.log').read_text(encoding='utf-8', errors='replace')
+    builds['_environment'] = {'date': '2026-09-27',
+                              'tex_distribution': re.search(r'\((MiKTeX[^)]+|TeX Live[^)]+)\)', main_log).group(1),
+                              'document_class': re.search(r'Document Class: (elsarticle[^\n]+)', main_log).group(1),
+                              'baseline_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+                              'scope': 'Current main build; supplement PDF preserved and source-rebuild verified.'}
     write_json(ROOT / 'editorial/final-build-check.json', builds)
 
     source_highlights = [x.removeprefix('- ').strip() for x in (ROOT / 'highlights.txt').read_text().splitlines() if x.strip()]
@@ -84,7 +89,7 @@ def main():
                  'cover-letter.txt', 'source-archive-inventory.json',
                  'source-rebuild-verification.json', 'final-validation.json'):
         files[name] = (SUB / name).read_bytes()
-    for name in ('submission-policy-final-2026-09-27.md', 'submission-final-audit-2026-09-27.md', 'final-build-check.json'):
+    for name in ('submission-policy-final-2026-09-27.md', 'submission-final-audit-2026-09-27.md', 'layout-closeout-2026-09-27.md', 'final-build-check.json'):
         files['checks/' + name] = (ROOT / 'editorial' / name).read_bytes()
     manifest = {'date': '2026-09-27', 'state': checks['state'], 'baseline_commit': checks['baseline_commit'],
                 'files': {name: {'bytes': len(data), 'sha256': sha(data)} for name, data in sorted(files.items())}}
@@ -102,7 +107,7 @@ def main():
     paths = [p for p in ROOT.rglob('*') if p.is_file() and 'out' not in p.relative_to(ROOT).parts
              and '__pycache__' not in p.relative_to(ROOT).parts and p.name != 'manuscript-manifest.json']
     write_json(ROOT / 'manuscript-manifest.json', {'date': '2026-09-27', 'baseline_commit': checks['baseline_commit'],
-               'revision': 'Submission closeout with Methods disclosure, editable materials, and verified flat source archives',
+               'revision': 'Layout closeout: storage-table placement and bibliography spacing; scientific content unchanged',
                'files': {p.relative_to(ROOT).as_posix(): {'bytes': p.stat().st_size, 'sha256': sha(p.read_bytes())} for p in sorted(paths)}})
     print(json.dumps({'archive': str(archive), 'bytes': archive.stat().st_size, 'sha256': sha(archive.read_bytes()),
                       'files': len(files), 'checks': checks}, ensure_ascii=False, indent=2))

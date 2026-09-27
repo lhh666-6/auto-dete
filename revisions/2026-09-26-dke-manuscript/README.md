@@ -2,13 +2,13 @@
 
 日期：2026-09-27（完成投稿材料、独立审查及扁平源码重建验证）
 
-**投稿候选文件以 `submission/README.md` 和 `submission/upload/` 为准。** 当前主文 33 页、补充材料 21 页；本机 TeX Live 重编译页数与此前远程 MiKTeX 版本不同。收尾基于 `ee4e65ac`，仅补 Figure 2 方法披露，未改实验结果。完整传递包为 `submission/DKE-submission-package-2026-09-27.zip`。作者确认和期刊系统要求的剩余核对见该目录说明。
+**投稿候选文件以 `submission/README.md` 和 `submission/upload/` 为准。** 当前主文 32 页、补充材料 21 页。排版收尾基于 `dd2f12ea`，仅调整存储表位置及参考文献间距/分页，消除第 26 页近空白页；正文文字和实验结果未改。主文使用本机 MiKTeX 25.12 / elsarticle 3.5 重建，补充 PDF 原样保留。完整传递包为 `submission/DKE-submission-package-2026-09-27.zip`。作者确认和期刊系统要求的剩余核对见该目录说明。
 
 本文件夹是独立的英文论文修订版，面向 Data & Knowledge Engineering。原论文、原仓库和补充实验原始记录未被改写。本次完成论文整合、编译和审查，没有新增模型调用或重新采集实验结果。
 
 ## 阅读与编辑
 
-- `main.pdf`：33 页英文主稿，保留两张解释 admission relation 和证据路线的矢量图。
+- `main.pdf`：32 页英文主稿，保留两张解释 admission relation 和证据路线的矢量图。
 - `supplement.pdf`：21 页补充材料，包含完整观察函数、证据映射、复现说明、工作示例、完整当前性能网格和历史集成结果。
 - `main.tex` / `sections/`：主稿 LaTeX 源文件。
 - `supplement.tex`：补充材料源文件。
@@ -24,7 +24,7 @@
 - `editorial/narrative-revision.md`：上一轮科研故事、文献定位和限定语迁移说明。
 - `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：上一轮逐节词数和逐处限定语审查；当前 PDF 提取词数见 `final-mechanical-check.md`。
 - 仓库根目录 `docs/literature-review/`：16 个诊断位置、8 族文献检索记录、33 项候选审查、11 维内部矩阵与十问首读检查；不属于投稿正文或补充材料。
-- `editorial/`：`final-build-check.json` 对应当前稿；`final-mechanical-check.json` 和 `source-check.json` 对应收尾前 `ee4e65ac`；其他旧审查保留为历史记录。当前状态以本次投稿包检查报告为准。
+- `editorial/`：`layout-closeout-2026-09-27.md`、`layout-closeout-check-2026-09-27.json` 和 `final-build-check.json` 对应当前排版稿；`final-mechanical-check.json` 和 `source-check.json` 对应收尾前 `ee4e65ac`。其他旧审查保留为历史记录，不作为当前 PDF 身份标识。
 
 论文标题：**Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**。
 
@@ -38,7 +38,7 @@
 
 ## 编译
 
-需要安装包含 elsarticle 的 MiKTeX 或 TeX Live，以及 pdflatex、BibTeX。远程基线使用 MiKTeX 25.12；当前收尾稿在本机使用 TeX Live 2025 / elsarticle 3.4c 编译。进入本文件夹后运行：
+需要安装包含 elsarticle 的 MiKTeX 或 TeX Live，以及 pdflatex、BibTeX。`dd2f12ea` 基线主文由 TeX Live 2025 / elsarticle 3.4c 编译；当前排版主文使用 MiKTeX 25.12 / elsarticle 3.5 编译，补充 PDF 保留该基线文件。进入本文件夹后运行：
 
 ```powershell
 .\scripts\Build.ps1
