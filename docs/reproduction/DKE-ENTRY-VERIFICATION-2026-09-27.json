@@ -1,0 +1,116 @@
+{
+  "checked_at_utc": "2026-09-27T14:50:29.511913+00:00",
+  "manuscript_baseline_commit": "ae26ffc0d8a15cac5572770897aaa0f2a57aba8c",
+  "reviewer_script_sha256": "55921f0343d67a612fadfe66c174f3e8551c12b47ec0ebffbe5d2de8af3dcf73",
+  "prepared_file_count": 173,
+  "archived_reanalysis": {
+    "deposit_commit": "2645e5e18c900ea91c9c980e44195dc71e410432",
+    "source_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "e1": {
+      "executions": 495,
+      "exact_reference_agreement": 165,
+      "equal_value_separators": 15
+    },
+    "e2": {
+      "browser_cases": 60,
+      "accepted_by_mode": {
+        "original_confirm": 21,
+        "session_gate": 12
+      }
+    },
+    "e3": {
+      "mechanism": {
+        "observations": 4000,
+        "arm_cells": 20,
+        "summary_matches": true
+      },
+      "ablation": {
+        "observations": 4000,
+        "arm_cells": 20,
+        "summary_matches": true
+      },
+      "trace": {
+        "observations": 14400,
+        "arm_cells": 72,
+        "summary_matches": true
+      }
+    },
+    "scope": "Pinned source/input integrity and raw-to-summary checks; no new execution or database restoration."
+  },
+  "fresh_e1": {
+    "executions": 495,
+    "exact_reference_agreement": 165,
+    "equal_value_separators": 15
+  },
+  "fresh_e1_environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "sqlite": "3.45.1",
+    "sqlalchemy": "2.0.51",
+    "source_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "hosted_model_calls": 0
+  },
+  "fresh_e2": {
+    "browser_cases": 60,
+    "accepted_by_mode": {
+      "original_confirm": 21,
+      "session_gate": 12
+    }
+  },
+  "fresh_e2_environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "sqlite": "3.45.1",
+    "sqlalchemy": "2.0.51",
+    "source_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "hosted_model_calls": 0
+  },
+  "browser_environment": {
+    "browser_version": "153.0.8010.53",
+    "driver": "Playwright",
+    "automated_not_human": true
+  },
+  "browser_adapter": {
+    "original_sha256": "7a6d8277eb2b48d2ab2e27c183d14feacda36034d7cb00c3b4f868e61b3e380a",
+    "adapted_sha256": "0bf356e067f8763cefb19d237453f665e4b8a862969b378548d81dc2609d6b50",
+    "change": "Browser executable from DKE_CHROME or Playwright Chromium; case logic unchanged",
+    "reviewer_driver_package": "playwright==1.58.0",
+    "original_driver_package_version": "not recorded",
+    "browser_executable": "C:/Program Files/Google/Chrome/Application/chrome.exe"
+  },
+  "core_tests": {
+    "passed": 10,
+    "command": "reviewer.py test"
+  },
+  "python_witness_tests": {
+    "passed": 19,
+    "command": "reviewer.py formal"
+  },
+  "preservation_checks": {
+    "existing_workspace_refused": true,
+    "modified_source_detected": true,
+    "original_source_restored": true
+  },
+  "e3_smoke": {
+    "pilot": true,
+    "mechanism_observations": 24,
+    "ablation_observations": 24,
+    "trace_observations": 48,
+    "storage_cells": 2,
+    "fresh_full_benchmark": false,
+    "scope": "Reduced fixture/dependency check only; not paper measurements"
+  },
+  "not_rerun": [
+    "full E3 timing grid",
+    "Alloy solver",
+    "hosted-model calls"
+  ],
+  "manuscript_files_unchanged": true,
+  "clean_sparse_clone": {
+    "prepared_file_hashes_match": true,
+    "archived_reanalysis_matches": true,
+    "core_tests_passed": 10,
+    "git_object_read": "cat-file blob",
+    "scientific_source_checkout_required": false
+  }
+}

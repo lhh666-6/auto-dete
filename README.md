@@ -1,61 +1,53 @@
-# Auto-Decte — manuscripts and reproducible evidence
+# Correction-Aware Data Admission
 
-## DKE manuscript — September 26, 2026; authors updated September 27
+**Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**
 
-**作者顺序：梁航豪（Liang Hanghao）、宣文韬（Xuan Wentao）、陈奇乐（Chen Qile）、彭鹏（Peng Peng，通讯作者）。**
+This repository contains the current Data & Knowledge Engineering manuscript,
+its fixed experimental evidence, and earlier research versions.
 
-The revised manuscript integrates the three DKE supplementary experiments and
-states the exact-binding comparator, review-channel, and performance boundaries.
-All four authors share the Hunan University affiliation. Chen Qile's contribution
-is recorded as Investigation and Validation.
+## Start here
 
-- [Revised main manuscript (44 pages)](revisions/2026-09-26-dke-manuscript/main.pdf)
-- [Revised supplementary material (12 pages)](revisions/2026-09-26-dke-manuscript/supplement.pdf)
-- [Editable LaTeX sources, build instructions, and revision notes](revisions/2026-09-26-dke-manuscript/)
-- [Revision summary](revisions/2026-09-26-dke-manuscript/修改说明.md)
-- [Earlier September 24 DKE draft](revisions/2026-09-24-dke-draft/)
+| I want to… | Open this |
+|---|---|
+| Read the current paper | [Main manuscript — 32 pages](revisions/2026-09-26-dke-manuscript/main.pdf) |
+| Read the full definitions and experimental details | [Supplement — 21 pages](revisions/2026-09-26-dke-manuscript/supplement.pdf) |
+| Reproduce the results | **[Reviewer guide](REVIEWER_GUIDE.md)** |
+| Obtain editable manuscript sources or submission files | [Submission package](revisions/2026-09-26-dke-manuscript/submission/README.md) |
 
-This is a manuscript revision for author review, not a statement of journal
-submission or acceptance. Its local source/package manifest accompanies the
-PDFs. The frozen JSS package and the experimental deposits remain separately
-versioned below.
+The reviewer guide provides one route: verify the deposited results, run the
+core checks, then reproduce E1. Browser and performance experiments are separate
+optional steps. It prepares the fixed source versions automatically, writes
+fresh outputs to a separate workspace, and needs no model API credentials.
+The first steps do not download the archived database collection.
 
-## Frozen JSS submission version — September 13, 2026
+## Versions used by the current paper
 
-**第一作者：梁航豪（Liang Hanghao）；第二作者：宣文韬（Xuan Wentao）；唯一通讯作者：彭鹏（Peng Peng）。**
+| Component | Fixed version |
+|---|---|
+| Manuscript and submission package | [September 26 manuscript, finalized September 27](revisions/2026-09-26-dke-manuscript/) |
+| E1–E3 scripts and original results | [`2645e5e`](https://github.com/lhh666-6/auto-dete/tree/2645e5e18c900ea91c9c980e44195dc71e410432/DKE-supplement) |
+| Reference implementation and historical input records | [`c6d5128`](https://github.com/lhh666-6/auto-dete/tree/c6d512843c905cab6d8521dd8c914f7fb26d85ae/latest/code/implementation-fixed) |
 
-Frozen tag: [`r31-jss-2026-09-13`](https://github.com/lhh666-6/auto-dete/tree/r31-jss-2026-09-13). This is the authors' final prepared submission version, not a claim that the journal has received or accepted the paper. Subsequent corrections require a new tag; do not move this tag.
+The reproduction entry point uses these exact commits. Later documentation
+changes do not change the deposited experiments. The manuscript folder's
+manifest identifies its files; its submission guide explains the packaged
+sources and build process.
 
-- [Main manuscript](latest/paper/main.pdf) and [supplement](latest/paper/supplement.pdf)
-- [Editable manuscript sources and submission files](latest/paper/)
-- [CRediT statement](latest/paper/credit-author-statement.txt)
-- [Reviewer reproduction guide](REVIEWER_GUIDE.md)
-- [Final verification report](latest/docs/FINAL-TONE-2026-09-13.md)
-- [Current package](latest/) and [whole-repository freeze manifest](FREEZE-MANIFEST-r30.json)
+## Earlier versions and author revision records
 
-Clone this tag with Git LFS to obtain the materialized historical raw artifacts. Verify the whole checkout with `python -B verify_freeze.py`, and the current package with `python -B latest/verify_latest.py`. GitHub's automatic source ZIP may contain LFS pointer files; those are not the corresponding data files. The verifier detects them.
+These are retained for provenance; begin with the reviewer guide above for the
+current DKE paper.
 
-## DKE supplementary experiments — September 23, 2026
+- [Frozen JSS version, September 13](https://github.com/lhh666-6/auto-dete/tree/r31-jss-2026-09-13),
+  with its [original reviewer guide](https://github.com/lhh666-6/auto-dete/blob/r31-jss-2026-09-13/REVIEWER_GUIDE.md).
+  The root `latest/` directory belongs to that research line, not the current DKE manuscript.
+- [Earlier DKE draft, September 24](revisions/2026-09-24-dke-draft/).
+- [Author revision notes](revisions/2026-09-26-dke-manuscript/修改说明.md) and
+  [editorial checks](revisions/2026-09-26-dke-manuscript/editorial/).
+- `r21-jss/` holds historical source and hosted-run records; `r27-jss/` holds an
+  earlier handoff. `paper/`, `artifacts/`, `source_snapshot_68f7b93/`,
+  `REVIEWER_README.md` and `SOURCE_PROVENANCE.md` contain earlier ESWA-era material.
 
-The new [DKE experiment package](DKE-supplement/REPORT.md) is a separate deposit,
-not a modification of the frozen JSS submission. It contains 495 constructed
-admission cases, 60 scripted browser cases, 22,400 timing observations, storage
-fixtures, scripts, and raw databases. No hosted-model API was called for these
-experiments. See the [deposit and reproduction notes](docs/DKE-SUPPLEMENT-2026-09-23.md)
-and [suggested manuscript text](DKE-supplement/MANUSCRIPT_INSERT.md) for scope and limitations.
-
-## Frozen submission evidence boundaries
-
-`latest/` contains the final paper, supplement, repaired implementation, formal models, witnesses and derived analyses. `r21-jss/` retains the historical v8 baseline and hosted-run raw records needed for full provenance inspection. The current-only ZIP is not a substitute for the complete repository when checking those raw records. The repository contains both layers.
-
-No original model events, manual labels, or frozen performance measurements were changed in the closeout. The 39 acknowledgment discrepancies have separately archived AI review proposals; they have not become human adjudications.
-
-Re-executing hosted-model calls requires the authors' specified providers and the reviewer's own credentials and will not guarantee identical model outputs. RQ7 requires an external pinned DeepSeek Harness host. Timing results depend on hardware. See the reviewer guide for the exact scope of reproducibility.
-
-## Historical material
-
-- `r27-jss/`: earlier r28 handoff, retained with its own manifests.
-- `paper/`, `artifacts/`, `source_snapshot_68f7b93/`, `REVIEWER_README.md`, and `SOURCE_PROVENANCE.md`: historical ESWA-era material, not the current JSS paper.
-- [September 11 reproduction report](reproduction/REPRODUCIBILITY-VERIFICATION-2026-09-11.md): historical verification, superseded for current checks by the final report above.
-
-Public availability does not imply an OSI open-source license for all contents. Third-party notices remain with the bundled tools; consult the authors for reuse beyond evaluation. No third-party license is replaced by this README.
+Public availability does not imply an OSI open-source license for all contents.
+Third-party notices remain with the bundled tools; consult the authors for
+reuse beyond evaluation. Repository files do not state journal acceptance.
