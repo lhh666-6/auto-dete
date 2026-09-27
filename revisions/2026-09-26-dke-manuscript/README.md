@@ -1,12 +1,12 @@
 # DKE 新版论文
 
-日期：2026-09-27（压缩与图解修订）
+日期：2026-09-27（贡献叙事与相关工作重构，接续压缩与图解修订）
 
 本文件夹是独立的英文论文修订版，面向 Data & Knowledge Engineering。原论文、原仓库和补充实验原始记录未被改写。本次完成论文整合、编译和审查，没有新增模型调用或重新采集实验结果。
 
 ## 阅读与编辑
 
-- `main.pdf`：30 页英文主稿，新增两张解释 admission relation 和证据路线的矢量图。
+- `main.pdf`：33 页英文主稿，保留两张解释 admission relation 和证据路线的矢量图。
 - `supplement.pdf`：21 页补充材料，包含完整观察函数、证据映射、复现说明、工作示例、完整当前性能网格和历史集成结果。
 - `main.tex` / `sections/`：主稿 LaTeX 源文件。
 - `supplement.tex`：补充材料源文件。
@@ -14,10 +14,14 @@
 - `tables/` / `figures/`：编译所需图表及用于再生成附表的 CSV。
 - `highlights.txt`：英文研究要点。
 - `修改说明.md`：修订重点、结论边界和作者最终检查事项。
-- `editorial/compression-map.md`：逐节词数、段落标签、压缩后的英文、迁移位置和图解写作思路；不属于投稿正文。
-- `editorial/`：核查记录。`compression-verification.json` 和 `final-build-check.json` 对应本次结果；9 月 26 日的审核记录保留为原 44 页版本的历史记录。
+- `editorial/narrative-revision.md`：本轮科研故事、文献定位和限定语迁移说明。
+- `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：逐节词数和逐处限定语审查。
+- 仓库根目录 `docs/literature-review/`：16 个诊断位置、8 族文献检索记录、33 项候选审查、11 维内部矩阵与十问首读检查；不属于投稿正文或补充材料。
+- `editorial/`：`narrative-integrity-check.json`、`final-build-check.json` 和 `source-check.json` 对应本轮；`compression-map.md` / `compression-verification.json` 等保留为此前 44→30 页压缩的历史记录。
 
 论文标题：**Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**。
+
+本轮以 `b81042e4b4b89be333c427aaf52615c9eeaf8ef1` 的 30 页版本为基线。相关工作补入审批、人工修复及版本化来源的直接先例，形成四个小节；主稿增加 3 页，补充材料仍为 21 页。新增 9 条核验文献，原 17 条保留。正式命题、证明、RQ、契约公式、P0–P6、实验数值以及 17 个表格/CSV 保留；本轮没有新增或重跑科研实验。最终本机编译和逐页检查见 `editorial/narrative-quality-check.md`。
 
 ## 编译
 

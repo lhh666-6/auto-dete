@@ -1,4 +1,4 @@
-> Historical baseline audit for the 44-page version at `cd5bded0`. Current compression and visual checks: [compression-quality-check.md](compression-quality-check.md).
+> Historical baseline audit for the 44-page version at `cd5bded0`. The subsequent 30-page compression audit is [compression-quality-check.md](compression-quality-check.md). Latest 33-page narrative revision: [narrative-quality-check.md](narrative-quality-check.md).
 
 # Final quality check — 2026-09-26
 

@@ -1,0 +1,2628 @@
+{
+  "date": "2026-09-27",
+  "base_commit": "b81042e4b4b89be333c427aaf52615c9eeaf8ef1",
+  "dimensions": [
+    "persisted_proposal",
+    "exact_identity",
+    "candidate_bound_review",
+    "proposal_authorized_separation",
+    "human_authority",
+    "fresh_predecessor",
+    "atomic_complete_successor",
+    "unchanged_exact_source",
+    "total_field_provenance",
+    "reverse_query",
+    "equal_value_substitution"
+  ],
+  "legend": {
+    "explicit": "Explicit in the work's own domain; not identical to this manuscript.",
+    "partial": "Subset, different granularity, representational capability or qualified inference.",
+    "not-assessed": "Not established by the inspected material; never proof of absence."
+  },
+  "reverse_query_definition": "Committed field -> original proposal / human reviewer / explicit authorized value / source. Not forward descendant impact.",
+  "works": [
+    {
+      "id": "Mershad2015",
+      "family": "provenance-approval",
+      "title": "Approving Updates in Collaborative Databases",
+      "authors": [
+        "Khaleel Mershad",
+        "Qutaibah M. Malluhi",
+        "Mourad Ouzzani",
+        "Mingjie Tang",
+        "Walid G. Aref"
+      ],
+      "year": 2015,
+      "venue": "2015 IEEE International Conference on Cloud Engineering (IC2E)",
+      "publication_status": "Published conference paper",
+      "doi": "10.1109/IC2E.2015.31",
+      "url": "https://www.cs.purdue.edu/homes/aref/papers/ic2e2015.pdf",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Abstract, introduction/contributions, Section III architecture and requirements, Section IV implementation and approval process; Section V evaluation checked for system scope.",
+        "source_file": "sources/mershad2015.pdf",
+        "locator": "Sections III-A/B and IV-A/B; PDF pp. 3–4, published pp. 44–45."
+      },
+      "contribution": "Update-Pending-Approval (UPA) in HBase: collaborator updates are visible while pending; privileged principal investigators approve or reject persisted cell-history records. Retains versions and operator/operation/status/comments metadata; optimizes access to last inserted and last approved values with three modes.",
+      "overlap": "Direct prior art for persisted field/cell proposals, human content approval and review of particular stored versions. In IV-B, the PI gives a cell ID and timestamps of the records selected from the History table to ScHistory. This is stronger than approval merely bound to a user, field, or surrounding context.",
+      "unestablished": "The sections read do not establish a human correction record retaining both original machine value xc and a separately authorized xa for the same proposal, or the joint invariant tying that review to a fresh document predecessor, an atomic complete document successor, and explicit sources for every successor field. Bulk approval is described as one operation, while timestamp selections are sequentially approved; neither wording establishes the manuscript's document-wide atomic snapshot obligation. This is an evidence limit, not a proof that extensions could not supply it.",
+      "risk": "high",
+      "risk_reason": "Anticipates the broad exact persisted version → human approval relation; must be cited and compared. The manuscript can claim a narrower joint authorization-and-commit discipline only with a precise difference.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "explicit",
+          "note": "Pending cell values and metadata persist in the History table before PI approval.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Cell ID plus timestamp selects a stored historical record (III-A; IV-A/B).",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "explicit",
+          "note": "PI queries history and supplies selected record timestamps to ScHistory (IV-B). Explicit logical version selection; an immutable security grant or comprehensive TOCTOU defense is not inferred.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Pending versus approved values/statuses and last-inserted versus last-approved views are explicit. Retaining xc and corrected xa as two values bound to one AI candidate is not established.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "A privileged principal investigator approves/rejects on data content (III-B; IV-B).",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "The read approval implementation does not establish a document-head comparison at acceptance. No assertion of absence elsewhere.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Individual/bulk approval and HBase modes are described; atomic construction of a complete document successor with all its witnesses is not established.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Cell-history retention does not itself establish a mandatory exact carryforward source for each unchanged document field.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Per-cell histories track each operation and metadata within the system; a total successor-field source relation is not stated.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "History queries return persisted cell versions, operator and approval metadata; the full field-to-original-proposal/reviewer/xa/source tuple was not established.",
+          "locator": "Sections III-A/B and IV-A/B; PDF pp. 3–4, published pp. 44–45."
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Different timestamps identify different history records even if values coincide (inference from the identifier scheme). A dedicated equal-valued substitution adversary or rejection rule is not evaluated.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "Mershad2018AUDIT",
+      "family": "provenance-approval",
+      "title": "AUDIT: approving and tracking updates with dependencies in collaborative databases",
+      "authors": [
+        "Khaleel Mershad",
+        "Qutaibah M. Malluhi",
+        "Mourad Ouzzani",
+        "Mingjie Tang",
+        "Michael Gribskov",
+        "Walid G. Aref"
+      ],
+      "year": 2018,
+      "venue": "Distributed and Parallel Databases",
+      "publication_status": "Published journal article; online 21 September 2017, March 2018 issue",
+      "doi": "10.1007/s10619-017-7208-y",
+      "url": "https://doi.org/10.1007/s10619-017-7208-y",
+      "reading": {
+        "status": "partial",
+        "read": "Official author-institution metadata and abstract; first-page material accessible. Publisher full text/PDF was not available in this run. No method-level conclusion is drawn, and no 2015 implementation details are attributed to this article.",
+        "metadata_url": "https://researchportal.hbku.edu.qa/en/publications/audit-approving-and-tracking-updates-with-dependencies-in-collabo",
+        "locator": "Abstract and bibliographic record only."
+      },
+      "contribution": "The abstract describes update approval and tracking of dependencies in collaborative databases, preserving updated data for discussion and approval while supporting dependency management.",
+      "overlap": "High-priority journal follow-up in the same approval family. Abstract-level overlap includes collaborator updates, approval, histories, and dependencies.",
+      "unestablished": "Method unavailable: exact review binding, dependency granularity, concurrency enforcement, and all manuscript-specific witness obligations require full-text reading. No negative novelty conclusion about these mechanisms is justified from the abstract.",
+      "risk": "high",
+      "risk_reason": "Closest named journal follow-up to the 2015 challenger, but the risk assessment is a reading priority rather than a verified full-method anticipation claim. Use 2015 for grounded implementation comparison.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Abstract concerns updated data pending approval; persistence implementation not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; cannot infer version identity from the title or predecessor article.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; cannot infer candidate-level review binding.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; no xc/xa correction comparison.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Content approval is abstract-level scope; exact authorization mechanism not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; no concurrency comparison.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; no atomic successor comparison.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; no carryforward-source comparison.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Dependency tracking is abstract-level scope; total field coverage not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Relevant query method unavailable; no reverse authorization capability inferred.",
+          "locator": "Abstract and bibliographic record only."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Full method unavailable; no equal-value threat comparison.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "Eltabakh2007bdbms",
+      "family": "provenance-approval",
+      "title": "bdbms—A Database Management System for Biological Data",
+      "authors": [
+        "Mohamed Y. Eltabakh",
+        "Mourad Ouzzani",
+        "Walid G. Aref"
+      ],
+      "year": 2007,
+      "venue": "Third Biennial Conference on Innovative Data Systems Research (CIDR 2007)",
+      "publication_status": "Published conference system/design paper",
+      "doi": null,
+      "url": "https://www.cs.purdue.edu/bdbms/publications/bdbms-system.pdf",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Official PDF: abstract, introduction and full Section 6 Content-based Approval. Other parts were used only for orientation.",
+        "locator": "Section 6, PDF p. 9 (zero-based web page index 8); no proceedings-page range independently verified."
+      },
+      "contribution": "Database support for biological data curation, including annotations, provenance/dependency tracking and content-based approval. SQL configures approval for a table or selected columns by a user/group. An operation log and inverse statements allow custodians to inspect updates and disapprove them, including dependent-data invalidation.",
+      "overlap": "Human approval of database content, selected-column granularity, update logs, old values and reviewer authority substantially predate AI-specific acceptance models.",
+      "unestablished": "The read approval section describes log inspection and inverse operations after changes, rather than proving the manuscript's full pre-commit acceptance relation. Exact immutable proposal review targets, xc/xa correction records, a freshly validated document predecessor, and complete successor-field source obligations are not established by the section. This does not show such extensions are impossible.",
+      "risk": "high",
+      "risk_reason": "Challenges broad claims that database updates lack human content approval or that database permissions alone govern acceptance. The 2015 UPA paper is a more direct grounded exact-version challenger.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Logs preserve updates while custodians decide; independent pre-application machine proposals are not the described abstraction.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Log entries identify update operations and metadata; a unique persisted candidate-instance binding contract is not established in Section 6.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Custodians inspect logged operations and approve/disapprove their content. Version-specific immutable approval semantics require further evidence.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Pending/permanent approval and old values via inverses distinguish states, but xc/xa for one corrected candidate is not established.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "APPROVED BY specifies user/group; custodians make approval decisions, alongside GRANT/REVOKE.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "No document-head freshness obligation was established in the read method.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "No complete document snapshot and evidence co-commit contract was established in the read method.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Inverse statements retain old values for reversal; this is not yet an exact carryforward witness for each unchanged successor field.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Annotations/dependencies are database capabilities; the read approval method does not impose a total per-successor-field authority/source relation.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Logged updates and inverse operations support backward inspection; the complete reverse authorization tuple was not established.",
+          "locator": "Section 6, PDF p. 9 (zero-based web page index 8); no proceedings-page range independently verified."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "The read method does not assess equal-valued candidate substitution; no absence claim is made.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "ClarkWilson1987",
+      "family": "provenance-approval",
+      "title": "A Comparison of Commercial and Military Computer Security Policies",
+      "authors": [
+        "David D. Clark",
+        "David R. Wilson"
+      ],
+      "year": 1987,
+      "venue": "1987 IEEE Symposium on Security and Privacy",
+      "publication_status": "Published conference paper",
+      "doi": "10.1109/SP.1987.10001",
+      "url": "https://groups.csail.mit.edu/ana/Publications/PubPDFs/A%20Comparison%20of%20Commercial%20and%20Military%20Computer%20Security%20Policies.pdf",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Abstract/introduction, commercial integrity discussion, and formal certification/enforcement rules C1–C5 and E1–E4; task sequencing discussion.",
+        "source_file": "sources/clarkwilson1987.pdf",
+        "locator": "Published pp. 184–191, particularly formal model pp. 189–191.",
+        "metadata_note": "Crossref page field was truncated to 184–184; 184–194 was checked against the official scan/author publication information."
+      },
+      "contribution": "Formal commercial integrity policy based on well-formed transactions, constrained data items (CDIs), transformation procedures (TPs), authenticated user/TP/CDI authorization relations, separation of duty, certification, and append-only audit logs.",
+      "overlap": "Established integrity transitions, authenticated human authority, legal execution relationships, separation between certification and execution, and reconstructible audit evidence. UDI-to-CDI validation is a useful conceptual comparison for externally supplied proposals.",
+      "unestablished": "UDI/CDI validation is performed by certified procedures; it is not itself a human review bound to one persisted AI candidate. The model could encode richer policies through TPs/CDIs, but the read specification does not establish the manuscript's particular xc/xa, current document predecessor, and total successor-field witness relation.",
+      "risk": "medium",
+      "risk_reason": "Foundational challenge to general authorization-plus-integrity rhetoric; does not alone anticipate the complete field-level relation. Present the manuscript as an application policy built from established integrity principles.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "UDI inputs are modeled, but durable AI proposal artifacts awaiting human review are not established.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Named CDIs, TPs and user authorization relations identify protected objects/actions; exact candidate-instance identity is not specified.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Certification/authorization govern permitted transformations. Human review of an individual persisted value requires an additional policy instantiation.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Unconstrained versus constrained data is explicit; a corrected AI proposal retaining xc and xa is not implied by that classification.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "E2 legal user/TP/CDI relations, E3 authentication and E4 certifier/executor separation constrain authority.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "C2 valid-state preservation and serial equivalence are explicit foundations; a reviewed document's expected-head check at acceptance is not the same specified obligation.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Well-formed transactions preserve integrity; a complete successor snapshot with every field source is not a model requirement shown here.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "No explicit unchanged-field source obligation is established in the read model.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "C4 operation reconstruction is explicit, but total field-origin witnesses are not established.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "C4 reconstructs transaction operations from audit data; a field-to-proposal/reviewer/xa/source query is not specified.",
+          "locator": "Published pp. 184–191, particularly formal model pp. 189–191."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "The formal model does not assess the manuscript's equal-valued proposal substitution example.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "KungRobinson1981",
+      "family": "provenance-approval",
+      "title": "On Optimistic Methods for Concurrency Control",
+      "authors": [
+        "H. T. Kung",
+        "John T. Robinson"
+      ],
+      "year": 1981,
+      "venue": "ACM Transactions on Database Systems",
+      "publication_status": "Published journal article",
+      "doi": "10.1145/319566.319567",
+      "url": "https://www.eecs.harvard.edu/~htk/publication/1981-tods-kung-robinson.pdf",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Abstract/introduction, Section 2 read/validation/write phases, Section 3 validation conditions and serial validation; concurrency-control discussion used for scope.",
+        "source_file": "sources/occ1981.pdf",
+        "locator": "Published pp. 213–220, especially pp. 216–220."
+      },
+      "contribution": "Optimistic concurrency control: transactions work on local copies, validate read/write conflicts and serialization order, and write shared state only on successful validation. Serial validation coordinates validation and writing.",
+      "overlap": "Revalidation before exposing writes, abort/restart on conflicting work, and atomic coordination of validation with writes are established foundations for a fresh predecessor acceptance check.",
+      "unestablished": "OCC is conflict/serialization control, not a persisted AI candidate and human-review policy. Read/write-set validation is not automatically identical to a deliberately stricter document-wide expected-head comparison; the latter may reject even changes that would serialize.",
+      "risk": "medium",
+      "risk_reason": "Freshness/commit validation cannot be claimed as a new transaction technique; combining it with proposal-authority provenance is a narrower application contract.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Private tentative transaction copies are explicit; they are not necessarily durable reviewable AI proposal objects.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Named database objects and transaction order numbers support concurrency bookkeeping; candidate-instance identity is a different layer.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Human candidate review is outside the studied concurrency mechanism.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Tentative writes versus validated writes are not an explicit human xc/xa correction relation.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "The studied authorization target is transaction scheduling, not human reviewer authority.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "explicit",
+          "note": "Conflict validation against intervening transactions is explicit. This is a foundation/component overlap, not an exact claim of document-wide head equality.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Validated transaction writes are coordinated; publishing a complete document and all provenance rows is application-specific.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Exact provenance sources for unchanged fields are outside the studied mechanism.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "The paper does not assess total per-field provenance obligations.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Concurrency-control method does not assess reverse authorization queries.",
+          "locator": "Published pp. 213–220, especially pp. 216–220."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Equal-valued review-target substitution is outside the studied mechanism.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "BunemanChapmanCheney2006",
+      "family": "provenance-approval",
+      "title": "Provenance Management in Curated Databases",
+      "authors": [
+        "Peter Buneman",
+        "Adriane P. Chapman",
+        "James Cheney"
+      ],
+      "year": 2006,
+      "venue": "Proceedings of the 2006 ACM SIGMOD International Conference on Management of Data",
+      "publication_status": "Published conference paper",
+      "doi": "10.1145/1142473.1142534",
+      "url": "https://www.pure.ed.ac.uk/ws/files/16509719/Provenance_Management_in_Curated_Databases.pdf",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Abstract/introduction, Sections 2.1–2.2 including naive, transactional and hierarchical provenance and complete From/Unch/Trace rules; Section 3 provenance queries through source/history/modification functions.",
+        "source_file": "sources/curated2006.pdf",
+        "locator": "Paper pp. 1–6 / published pp. 539–544; official repository PDF has a one-page cover before paper p. 1."
+      },
+      "contribution": "Provenance for curated databases with insert/copy/delete operations, versioned paths and transactions; multiple storage granularity choices with formal reconstruction rules. Source, history and modification queries reconstruct data origins and copying paths.",
+      "overlap": "Exact field/data locations, transaction/version identity, retained origins, and explicit carryforward of unchanged data are already established. Section 2.2's From(t,p,p) rule for Unch(t,p) traces unchanged location p back to the same location in predecessor version t−1. Copying a value and replacing it with an equal value can have different sources.",
+      "unestablished": "Human curation motivates the system but per-proposal reviewer authorization and an original-machine-versus-authorized-value correction record are not established. Transactional provenance intentionally retains net committed copy effects rather than every temporary intermediate copy. This is a material contrast with independently persisted proposal/review evidence, without denying that richer annotations could be added.",
+      "risk": "high",
+      "risk_reason": "Challenges novelty of exact unchanged-field predecessor sources, source-preserving copy, and update-history trace queries. The manuscript's contribution must be the joint acceptance policy and evidence discipline, not these provenance concepts individually.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "The update model records curator operations; independent pending AI proposals are not the studied object.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Database/relation/tuple/field paths plus transaction/version identifiers distinguish data locations and states.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Per-proposal human approval is not assessed by the read provenance mechanism.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Transactional net-effect provenance is not an explicit retained xc/xa correction record.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "User/transaction metadata and human curator operations are modeled; reviewer authority is an additional policy.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "The provenance semantics use transaction versions; a human review followed by a current-head acceptance guard is not established.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Transaction boundaries support committed net-effect provenance; an implementation-level atomic complete-document-plus-witness contract is not established.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "explicit",
+          "note": "From(t,p,p) follows Unch(t,p), and Trace links to predecessor version t−1 (2.2).",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "explicit",
+          "note": "Within the closed modeled update history, Copy and Unch rules reconstruct provenance across surviving paths, including compressed subtrees. External unarchived source history is not guaranteed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Section 3 provides backward source/history/modification queries; exact original-proposal/human-reviewer/xa roles require additional policy.",
+          "locator": "Paper pp. 1–6 / published pp. 539–544; official repository PDF has a one-page cover before paper p. 1."
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Copy provenance depends on location/history rather than only value, so equal values may have different sources. A review-target substitution security rule is not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "Arab2018",
+      "family": "provenance-approval",
+      "title": "Using Reenactment to Retroactively Capture Provenance for Transactions",
+      "authors": [
+        "Bahareh Sadat Arab",
+        "Dieter Gawlick",
+        "Vasudha Krishnaswamy",
+        "Venkatesh Radhakrishnan",
+        "Boris Glavic"
+      ],
+      "year": 2018,
+      "venue": "IEEE Transactions on Knowledge and Data Engineering",
+      "publication_status": "Published journal article; online November 2017, March 2018 issue",
+      "doi": "10.1109/TKDE.2017.2769056",
+      "url": "https://www.cs.uic.edu/~bglavic/dbgroup/assets/pdfpubls/AG17c.pdf",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Abstract/introduction/contributions, Sections 3–4 multiversion provenance and SI/RC-SI histories, complete Sections 5.1–5.3 reenactment, and Sections 6.1–6.2 implementation/optimizations. Section 7 setup checked; no evaluation-number claims used.",
+        "source_file": "sources/arab2018-uic.pdf",
+        "locator": "Published pp. 599–609; principal evidence pp. 600–601, 603–608."
+      },
+      "contribution": "MV-semirings distinguish tuple versions and transaction operations, including commit, under SI and read-committed SI. Reenactment queries reconstruct a transaction's provenance from audit logs and time travel; GProM translates the result into ordinary SQL without changing live transaction processing.",
+      "overlap": "Exact tuple-version identities, update/commit history, reconstructing the version actually read by an operation, and querying affected tuples are established. Versions are not reduced to their current values.",
+      "unestablished": "The paper positively scopes out application-side dependencies, including client-side query results reused in later updates, and procedural provenance. SQL provenance representation/reconstruction is not enforcement of human approval of a persisted candidate. Unchanged attributes use identity expressions, but total exact successor-field authority sources are not the paper's stated granularity or enforcement policy.",
+      "risk": "medium",
+      "risk_reason": "Substantial component overlap in version-sensitive transaction histories; the documented application-side scope limitation supports a fair boundary around human proposal/review evidence. Do not imply transaction provenance cannot represent additional review annotations.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Durable pre-review AI proposals are not the studied SQL transaction object.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "MV annotations carry tuple identity, transaction, operation and version; implementation expects unique immutable tuple IDs (3; 6.2).",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Human candidate approval is outside the method; application-side dependencies are expressly outside scope.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Tuple update versions distinguish database states, not a human xc/xa authorization correction record.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Audited users/transactions can be annotated; human reviewer authority is not an acceptance obligation supplied by the method.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Reenactment reconstructs historically correct operation inputs under SI/RC-SI. That is not a fresh document-head approval guard at a later commit.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Commit annotations and database transaction semantics are represented; complete document-plus-approval-witness atomicity is a separate policy.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Attributes outside UPDATE use identity expressions and unchanged tuples retain annotations; an exact separate source record for each unchanged field is not an enforced obligation.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Tuple-level provenance and attribute values are encoded; total field-level authorized-source witnesses are not established.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Reenactment recovers backward update/transaction provenance; the original-proposal/reviewer/authorized-value tuple is not its demonstrated query.",
+          "locator": "Published pp. 599–609; principal evidence pp. 600–601, 603–608."
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Distinct tuple versions/provenance summands may produce equal-valued tuples. Rejecting an equal-valued candidate substituted after review is an application rule, not assessed here.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "PROVDM2013",
+      "family": "provenance-approval",
+      "title": "PROV-DM: The PROV Data Model",
+      "authors": [
+        "Luc Moreau (editor)",
+        "Paolo Missier (editor)"
+      ],
+      "year": 2013,
+      "venue": "W3C Recommendation, 30 April 2013",
+      "publication_status": "Normative W3C Recommendation; data model, not peer-reviewed research paper",
+      "doi": null,
+      "url": "https://www.w3.org/TR/2013/REC-prov-dm-20130430/",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Overview/abstract and introduction; entity/activity/agent core; relevant generation/usage, derivation/revision/quotation, association/delegation, specialization/alternate, collections, identifier/equality subsections.",
+        "locator": "Sections 2.1, 5.1–5.3, 5.5–5.6, and 5.7.1."
+      },
+      "contribution": "Interoperable provenance vocabulary for entities, activities and agents and qualified relations for use, generation, derivation, revision, responsibility, delegation and identity. Can describe distinct versions and copies without identifying them by value.",
+      "overlap": "Representation of candidate, review activity, correction, agent, version, generation/use and exact entity identity is readily expressible in PROV. Equal values do not force identical provenance entities.",
+      "unestablished": "PROV-DM is a representation model rather than the manuscript's enforced application acceptance policy. Describing a review as an activity using a candidate does not alone ensure a server authorizes only that candidate, refreshes its document predecessor, commits atomically, or supplies a source for all fields. These are additional constraints/implementation obligations, not representational impossibilities.",
+      "risk": "medium",
+      "risk_reason": "Challenges claims of a newly expressible provenance relationship or identity/value distinction. Supports presenting the manuscript as a constrained domain model and enforcement contract.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "An entity can describe a proposal with fixed aspects; mandatory database persistence is not part of this representation standard.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Identifiers and entity equality explicitly distinguish entities; specialized versions and value attributes are available.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Usage can identify the exact entity used by a review activity; mandatory authorization binding is an additional policy.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Separate original/revised entities and values can represent correction; normative xc/xa authorization semantics are additional constraints.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Agents, association, attribution and delegation represent responsibility/authority relationships; a required human approval gate is not imposed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "The data model is not a current document-head concurrency-control policy.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "The data model does not assess database co-commit/atomic successor implementation.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Derivation/quotation can represent copies from exact entities; every unchanged field need not have a mandatory source relation in the standard.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Collections and membership can represent fields, including incompletely described collections; closed total field coverage requires an additional constraint.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Entities, agents and activities can encode backward authorization provenance; a mandatory application query requires a profile.",
+          "locator": "Sections 2.1, 5.1–5.3, 5.5–5.6, and 5.7.1."
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Different identifiers can distinguish equal-valued entities. A server-side substitution rejection policy requires additional constraints.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "Fowler2005",
+      "family": "provenance-approval",
+      "title": "Event Sourcing",
+      "authors": [
+        "Martin Fowler"
+      ],
+      "year": 2005,
+      "venue": "Author's web essay, 12 December 2005",
+      "publication_status": "Authoritative software-practice draft/essay; not peer-reviewed",
+      "doi": null,
+      "url": "https://www.martinfowler.com/eaaDev/EventSourcing.html",
+      "reading": {
+        "status": "relevant-method-full",
+        "read": "Opening definition, How it Works, application state/event storage discussion, separating processing/logic, reversing events and external queries.",
+        "locator": "Opening definition and sections How it Works, Reversing Events, External Queries."
+      },
+      "contribution": "Store domain changes as a sequence of events that drives state; supports complete rebuild, temporal queries and replay. Reverse operations need prior values when events store only differences; replay of external queries requires historical responses.",
+      "overlap": "Durable history, state reconstruction, before/after information and reproducible replay are established patterns. An approval or correction can be an application event, so do not suggest event sourcing cannot encode it.",
+      "unestablished": "Event sourcing supplies a general event/state pattern, not an enforced exact candidate-bound human approval and total field-source acceptance contract. Replay reconstructs state but does not automatically prove who authorized each accepted field or whether the document predecessor was fresh when approval was applied.",
+      "risk": "low",
+      "risk_reason": "Low risk for the full joint relation, strong prior art for generic audit/replay rhetoric. Retain as architectural background rather than research novelty proof.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Stored events can preserve proposals if the application defines them; independently persisted proposals before review are not mandated.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Event objects and ordered history distinguish occurrences conceptually; exact candidate identity is an application schema choice.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "No particular human review-to-candidate authorization protocol is assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Separate proposal/correction/approval events are representable; xc/xa retention semantics require application logic.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Required reviewer authority is not a constraint supplied by the general pattern.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "A fresh expected document-head check at acceptance is not assessed in this essay.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Complete document/evidence co-commit atomicity is not established by the read event-sourcing pattern.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Replay implicitly preserves state not changed by events; explicit predecessor source witnesses for every field are not required by the pattern.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "All state changes should be event driven for reconstruction; that is not equivalent to a total accepted-field authority/origin relation.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "History can reconstruct prior operations; the required authorization tuple depends on recorded event contents.",
+          "locator": "Opening definition and sections How it Works, Reversing Events, External Queries."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Equal-valued candidate substitution after review is not assessed in the essay.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "gdr2011",
+      "family": "curation",
+      "title": "Guided Data Repair",
+      "authors": [
+        "Mohamed Yakout",
+        "Ahmed K. Elmagarmid",
+        "Jennifer Neville",
+        "Mourad Ouzzani",
+        "Ihab F. Ilyas"
+      ],
+      "year": 2011,
+      "venue": "Proceedings of the VLDB Endowment 4(5):279–289",
+      "publication_status": "Published peer-reviewed research article",
+      "doi": "10.14778/1952376.1952378",
+      "url": "https://cs.uwaterloo.ca/~ilyas/papers/YakoutVLDB2011.pdf",
+      "reading": "Abstract; introduction/problem/contributions pp279–280; solution/update generation and consistency manager p281; feedback and replacement semantics Sec.4.2 p283.",
+      "contribution": "Ranks suggested cell repairs using value of information and active learning; user labels improve repairs and train a model that can make further decisions.",
+      "overlap": "PossibleUpdates stores r=<t,A,v,s>. User confirms, rejects, retains, or supplies v'. Confirmed updates change the database; the consistency manager refreshes inconsistent suggestions.",
+      "unestablished": "Replacement v' is treated as confirmation of r'=<t,A,v',1>; the text does not establish preserving the original r and machine v alongside r' in a durable review/commit witness. It also does not establish immutable proposal occurrence identity, commit-time predecessor checking, atomic complete successor evidence, or exact sources for every unchanged field.",
+      "risk": "high",
+      "risk_reason": "Direct predecessor for machine-suggested, human-reviewed repair and freshness-aware candidate maintenance; the stronger identity-and-complete-provenance relation remains unestablished.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Stored list explicit, durable persistence/retention not established.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Target tuple/attribute/value given; occurrence identifier not established.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Feedback on individual r; enforcement against equivalent replacement r not established.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "v' creates r', with no established retained r->r' correction witness.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "User labels control consulted updates, with delegated learner decisions also allowed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Inter-update consistency maintenance; no atomic commit freshness proof.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "falcon2016",
+      "family": "curation",
+      "title": "Interactive and Deterministic Data Cleaning",
+      "authors": [
+        "Jian He",
+        "Enzo Veltri",
+        "Donatello Santoro",
+        "Guoliang Li",
+        "Giansalvatore Mecca",
+        "Paolo Papotti",
+        "Nan Tang"
+      ],
+      "year": 2016,
+      "venue": "SIGMOD 2016:893–907",
+      "publication_status": "Published peer-reviewed research conference paper",
+      "doi": "10.1145/2882903.2915242",
+      "url": "https://dbgroup.cs.tsinghua.edu.cn/ligl/papers/sigmod2016-clean.pdf",
+      "reading": "Abstract/introduction pp893–894; workflow and SQL language Sec.Sec.1–2 p894; lattice maintenance Sec.5.1 p899; closed rule sets Sec.5.2 p900.",
+      "contribution": "Generalizes a user cell correction into candidate SQL UPDATE rules and finds useful rules through efficient lattice search and human validation.",
+      "overlap": "Human True/False validation of Q determines whether it repairs more data. Candidate effects are maintained as data changes. Closed rule sets affect identical tuples but can contain both semantically valid and invalid rules.",
+      "unestablished": "The candidate under review is a SQL rule generalized from a user edit, not a separately retained original machine xc plus authorized xa. Immutable proposal-instance binding, fresh commit pre-state, complete atomic field-source evidence, and same-value candidate substitution experiments are not established.",
+      "risk": "high",
+      "risk_reason": "Already recognizes identical instance effects need not imply semantic validity. This is a strong challenge to broad novelty claims about equivalence versus approval, but not evidence of the manuscript's exact stored-candidate contract.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Candidate rule lattice materialized partially; durable exact proposal record not established.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Rule/query structures identified, without immutable machine proposal occurrence.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Q receives direct feedback; representative Q stands for a closed rule set.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "True Q triggers additional repairs.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Dynamic lattice maintenance, not commit freshness validation.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Explicit effect-versus-validity distinction; no candidate-ID substitution attack or complete evidence contract.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "wrangler2011",
+      "family": "curation",
+      "title": "Wrangler: Interactive Visual Specification of Data Transformation Scripts",
+      "authors": [
+        "Sean Kandel",
+        "Andreas Paepcke",
+        "Joseph Hellerstein",
+        "Jeffrey Heer"
+      ],
+      "year": 2011,
+      "venue": "CHI 2011:3363–3372",
+      "publication_status": "Published peer-reviewed research conference paper",
+      "doi": "10.1145/1978942.1979444",
+      "url": "https://idl.cs.washington.edu/files/2011-Wrangler-CHI.pdf",
+      "reading": "Abstract/introduction pp3363–3364; walkthrough/previews pp3365–3367; interactive descriptions/previews/history and export pp3368–3369.",
+      "contribution": "Mixed-initiative transformation specification using direct manipulation, inferred suggestions, editable previews, and exportable auditable transformation scripts.",
+      "overlap": "Users inspect/edit suggested transforms before executing them. Applied transforms enter editable, annotated histories and scripts can be replayed on new sources.",
+      "unestablished": "History records applied transformations; retention of each original unedited machine proposal together with the authorized edited version is not established. Exact proposal occurrence binding, commit freshness, atomic complete successor provenance, and unchanged-field exact source assignments are not established.",
+      "risk": "medium",
+      "risk_reason": "Strong precedent for human-refined machine transformations and auditable histories; different focus from exact proposal authorization and total successor evidence.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Saved/applied transform scripts, not established retained pre-edit suggestion.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Transform descriptors distinguish operations; no proposal occurrence identifier.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Transform inspection and execution; immutable review-target enforcement not established.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Suggested transform parameters can be edited; original suggestion retention not established.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "User executes selected/refined transforms.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Script-level documentation, not exhaustive successor-field exact sources.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "History review/replay supplies traceability, not manuscript reverse field-source query.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "katara2015",
+      "family": "curation",
+      "title": "KATARA: A Data Cleaning System Powered by Knowledge Bases and Crowdsourcing",
+      "authors": [
+        "Xu Chu",
+        "John Morcos",
+        "Ihab F. Ilyas",
+        "Mourad Ouzzani",
+        "Paolo Papotti",
+        "Nan Tang",
+        "Yin Ye"
+      ],
+      "year": 2015,
+      "venue": "SIGMOD 2015:1247–1261",
+      "publication_status": "Published peer-reviewed research conference paper; distinct from 2015 PVLDB demo 'KATARA: Reliable Data Cleaning...' (10.14778/2824032.2824096)",
+      "doi": "10.1145/2723372.2749431",
+      "url": "https://cs.uwaterloo.ca/~ilyas/papers/ChuSIGMOD2015.pdf",
+      "reading": "Abstract/introduction/contributions pp1247–1248; pattern definition Sec.3; question validation Sec.5; data annotation and top-k repair generation Sec.Sec.6.1–6.2 p1254.",
+      "contribution": "Aligns dirty tables to knowledge bases, validates table patterns through crowd questions, annotates correctness, and generates ranked repairs.",
+      "overlap": "Crowd verifies missing facts and users/crowd select appropriate top-k repair. KB/crowd validation categories expose evidence origin.",
+      "unestablished": "Correctness annotations and repair choices do not establish a retained machine xc versus authorized xa, immutable review-candidate identities, predecessor freshness, atomic successor evidence, or total exact sources for fields outside the discovered pattern.",
+      "risk": "medium",
+      "risk_reason": "Crowd-guided relation validation and repair selection overlap substantially; complete review/commit identity semantics are unestablished.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Generated ranked top-k possibilities; durable reviewed proposal occurrence not established.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Instance graphs use KB resource/attribute mappings; not exact proposal identity.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Selection among top-k repairs, no identity-bound audit/commit proof.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "User/crowd picks repair; crowd validates facts.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "KB/crowd correctness categories cover discovered semantics, not every successor field's immediate exact source.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "nadeef2013",
+      "family": "curation",
+      "title": "NADEEF: A Commodity Data Cleaning System",
+      "authors": [
+        "Michele Dallachiesa",
+        "Amr Ebaid",
+        "Ahmed Eldawy",
+        "Ahmed Elmagarmid",
+        "Ihab F. Ilyas",
+        "Mourad Ouzzani",
+        "Nan Tang"
+      ],
+      "year": 2013,
+      "venue": "SIGMOD 2013:541–552",
+      "publication_status": "Published peer-reviewed research conference paper; dashboard feedback details explicitly deferred to future work in this paper",
+      "doi": "10.1145/2463676.2465327",
+      "url": "https://www.hbku.edu.qa/sites/default/files/nadeefsigmod2013.pdf",
+      "reading": "Abstract/introduction/contributions pp541–542; architecture/updater/lineage Sec.2.2 p544; violation/candidate-fix definitions Sec.3 pp544–545; repair overview Sec.5.",
+      "contribution": "Extensible rule interface with black-box detection/fix methods and holistic repair cores across heterogeneous constraints.",
+      "overlap": "Candidate fixes specify conjunctive cell assignments that must be taken together. Updater selects committed changes; metadata management is intended to retain full lineage and change order.",
+      "unestablished": "The paper defers dashboard-feedback details, so exact human review binding is unestablished. Conjunctive repair semantics do not establish atomic complete successor-plus-evidence writes or exact immediate sources of unchanged fields.",
+      "risk": "medium",
+      "risk_reason": "A clear predecessor for candidate fixes, commit selection, and lineage; insufficient documented human authorization protocol for full anticipation.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Candidate fix sets exist, no durable review record established.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Cell target and donor-cell expressions; not proposal occurrence.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Feedback interface proposed, detailed implementation deferred.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Iterative repair/updater handles new violations and termination; not commit pre-state validation.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Conjunctive modifications together is a semantic condition, not a transaction proof.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Full change lineage stated without total successor-field exact sourcing.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Metadata queried for errors/fixes; exact source reverse-query contract unestablished.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "holoclean2017",
+      "family": "curation",
+      "title": "HoloClean: Holistic Data Repairs with Probabilistic Inference",
+      "authors": [
+        "Theodoros Rekatsinas",
+        "Xu Chu",
+        "Ihab F. Ilyas",
+        "Christopher Ré"
+      ],
+      "year": 2017,
+      "venue": "Proceedings of the VLDB Endowment 10(11):1190–1201",
+      "publication_status": "Published peer-reviewed research article; cite published version, not arXiv 1702.00820",
+      "doi": "10.14778/3137628.3137631",
+      "url": "https://www.vldb.org/pvldb/vol10/p1190-rekatsinas.pdf",
+      "reading": "Abstract/introduction pp1190–1191; contribution and problem/solution Sec.2 p1192; factor graphs Sec.3 p1193.",
+      "contribution": "Compiles heterogeneous constraint, reference-data, and statistical evidence into a scalable probabilistic repair model.",
+      "overlap": "Distinguishes original observed cell value vc, latent true value vc*, and inferred value vhatc; models each cell and produces a proposed cleaned dataset.",
+      "unestablished": "True/inferred values are statistical repair variables, not human authorized xa. The audited methods do not establish exact proposal-bound approval, retained original proposal after correction, fresh commit predecessor, or complete exact field-source evidence.",
+      "risk": "low",
+      "risk_reason": "Strong repair-generation baseline but farther from the authorization/commit relation; value quality and exact evidence identity are different evaluation targets.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Proposed cleaned dataset/model output; no persisted reviewed candidate instance established.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Tuple cells identified, not review-target occurrence.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Clean cells fixed as evidence; exact predecessor source link unestablished.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Per-cell factors/external evidence, not exact source assignment for every committed successor field.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "dbwiki2011",
+      "family": "curation",
+      "title": "The Database Wiki Project: A General-Purpose Platform for Data Curation and Collaboration",
+      "authors": [
+        "Peter Buneman",
+        "James Cheney",
+        "Sam Lindley",
+        "Heiko Mueller"
+      ],
+      "year": 2011,
+      "venue": "ACM SIGMOD Record 40(3):15–20",
+      "publication_status": "Published technical prototype article; university research metadata explicitly labels peer-reviewed. Companion SIGMOD 2011 demo read as corroboration, not a separate selected work.",
+      "doi": "10.1145/2070736.2070740",
+      "url": "https://sigmodrecord.org/publications/sigmodRecord/1109/pdfs/04.prototypes.buneman.pdf",
+      "reading": "Abstract/introduction/contributions pp15–16; storage Sec.2.1 pp16–17; query Sec.2.3 p18; node IDs, atomic updates, and provenance Sec.Sec.3.1–3.3 pp18–20.",
+      "contribution": "Combines structured wiki editing with persistent item identities, archived versions, fine-grained provenance, annotation, and history/provenance querying.",
+      "overlap": "Each item has provenance; atomic subtree/attribute edits retain past values and unchanged tree structure; node URLs provide persistent IDs and source references.",
+      "unestablished": "Machine proposal and exact human review target are not established. Atomic tree edit does not prove the manuscript's complete relation successor-plus-total-evidence transaction. Exact review occurrences cannot be inferred from node/value identity: repeated values reuse text nodes and no-value-change edits are deliberately not recorded.",
+      "risk": "high",
+      "risk_reason": "Strong challenge to broad claims of new atomic, versioned, fine-grained curation provenance. The specific candidate-review-commit contract remains unestablished.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Persistent node/value identities, not proposal occurrence identity.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "explicit",
+          "note": "Curators directly edit data.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Current entry loaded and parent alive check; no documented review-to-commit concurrency guard.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Explicit atomic tree edits and new DB version, not full relation plus evidence transaction.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Untouched nodes/timestamp inheritance preserve structure; exact immediate predecessor-field source witness unestablished.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Every piece has provenance, but required successor-field source relation not established.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "History/provenance queries explicit; manuscript reverse field-source relation not established.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Skips unchanged-value edits/reuses past value nodes; not an exact review-target substitution experiment.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "2608.11632",
+      "family": "agent-memory",
+      "title": "Beyond Memory: A Transactional Continuity Kernel for Long-Lived AI Agents",
+      "authors": [
+        "Jun He",
+        "Deying Yu"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2608.11632",
+      "url": "https://arxiv.org/abs/2608.11632",
+      "reading": "Abstract; Sec. 1; Sec. 2.1-2.3; Sec. 3.1-3.5; Sec. 4.3; Sec. 5.1-5.3; Appendix A.2; Appendix B.1-B.2; Appendix C.2-C.3",
+      "contribution": "Governed authoritative branch activation with sealed candidates, signed evidence, fresh exact predecessors, pre-state authorization, receipts, and a complete atomic accepted unit.",
+      "overlap": "A direct predecessor for the broad core contract, including signed approver evidence and human preparation. Calling it only memory continuity would obscure substantial overlap.",
+      "unestablished": "DKE's mandatory human per-field decisions, separate xc/xa correction objects, total exact per-field source preservation, and five-class conditional irredundancy are not established by the inspected CK specification. A configurable CK could implement them; that does not establish they are novel.",
+      "risk": "high",
+      "risk_reason": "Already specifies the exact-proposal/exact-head/pre-state-authority/atomic-complete-unit admission boundary; DKE must show more than an application-level instantiation.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "explicit",
+          "note": "Candidate namespace and signed proposal are separate from accepted head.",
+          "locator": "Sec. 2.1 Table 1; Sec. 2.2 Eq.3"
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Owner-bound pid plus typed canonical proposal/evidence/candidate-root seals.",
+          "locator": "Sec. 2.2; Sec. 3.1; Appendix B.2"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Signed approver evidence is acquired and exactly sealed with proposal/candidate; a mandatory human field verdict is not specified.",
+          "locator": "Sec. 2.2; Sec. 3.1 Table 2; Appendix A.2"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Off-commit sealed candidate versus accepted unit; no inspected xc/xa human-correction rule.",
+          "locator": "Sec. 2.1; Sec. 3.2"
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Approvers sign evidence and human interaction occurs in preparation; humans are not declared mandatory for every write.",
+          "locator": "Sec. 2.2; Sec. 3.5"
+        },
+        "fresh_predecessor": {
+          "code": "explicit",
+          "note": "Complete canonical head comparison and two freshness checks against serialized context.",
+          "locator": "Sec. 2.1 Eq.1; Sec. 3.1"
+        },
+        "atomic_complete_successor": {
+          "code": "explicit",
+          "note": "All-or-nothing state, authority, head, branch row, outcome, receipt, lineage/effects.",
+          "locator": "Sec. 3.2 Eq.9; Appendix B.1"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Restoration keeps current unmasked paths and byte-copies branch genesis provenance; not a total per-field source-object rule.",
+          "locator": "Sec. 4.3; Appendix C.2-C.3"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Typed component roots and complete lineage/evidence binding; not an exact source function over every data field.",
+          "locator": "Sec. 2.1; Appendix B.1"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Commit receipt/outcome binds proposal, evidence, predecessor and successor, providing partial reverse trace; exact field proposal-human reviewer-xa-source tuple is not specified.",
+          "locator": "Sec. 3.2-3.3; Appendix B.1"
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Seals include proposal identity beyond candidate-root value; same-valued candidate replacement should fail binding, but this is an inference, not a reported same-value review experiment.",
+          "locator": "Sec. 3.1; Appendix B.2"
+        }
+      }
+    },
+    {
+      "id": "2607.27834",
+      "family": "agent-memory",
+      "title": "MemTxn: A Transaction Boundary for Source-Supported Updates and Complete-State Recovery in Agent Memory",
+      "authors": [
+        "Hanshuai Cui",
+        "Zhiqing Tang",
+        "Zhi Yao",
+        "Fanshuai Meng",
+        "Qianli Ma",
+        "Weijia Jia"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2607.27834",
+      "url": "https://arxiv.org/abs/2607.27834",
+      "reading": "Abstract; Introduction; Method: Overview; System model and trust boundary; Source-supported update admission; Conflict-conditioned version resolution; Durable audit and complete-state recovery; Contract implications and complexity",
+      "contribution": "Ordered lexical source-support admission, chronology-based version visibility, and durable recovery of the full application-visible active map.",
+      "overlap": "An answer-model-external commit boundary, append-only versions, source-bearing proposals, and unchanged state on rejected writes.",
+      "unestablished": "No inspected human candidate-bound authorization, separate corrected xa, or total unchanged-field source object contract; concurrency is explicitly outside its guarantee.",
+      "risk": "medium",
+      "risk_reason": "Source-governed activation, version lineage, atomic pointers, and complete active-map recovery already exist; exact human/candidate/field relation remains unestablished.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Proposed transaction and durable intent are specified; persistence of every rejected raw AI candidate is not established.",
+          "locator": "Method: System model"
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "q.id, opaque source ID, accepted vid, and parent pointers; no exact-instance review binding.",
+          "locator": "Method: System model"
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Admission is Ordered PatchTest, not an inspected exact-candidate human review protocol.",
+          "locator": "Method: Source-supported admission"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Accepted z contains q and version metadata; proposal/active lifecycle is separate, but human corrected xa is not defined.",
+          "locator": "Method: System model"
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "No mandatory human authority established by inspected method.",
+          "locator": null
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Store assigns parent from current active pointer; concurrent fresh exact-head acceptance is explicitly not guaranteed.",
+          "locator": "Method: System model; Source-supported admission"
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Atomic pointer activation and complete-map compensating recovery; not DKE complete accepted record + total field sources.",
+          "locator": "Method: Source-supported admission; Recovery"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Append-only historical versions and whole saved map recovery; no per-unchanged-field source equality rule.",
+          "locator": "Method: System model; Recovery"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Each q includes source span and source ID, but source-support is lexical and semantic role binding is out of scope.",
+          "locator": "Method: Eq.1; System model"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Accepted z contains original q/source/evidence and parent version; reviewer and explicit human authorized-value chain are not established.",
+          "locator": "Method: System model; Source-supported admission"
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Audit substitutions change source-supported values, not distinct equal-valued approved candidate identities.",
+          "locator": "Experiments: Source-Support Admission"
+        }
+      }
+    },
+    {
+      "id": "2608.02843",
+      "family": "agent-memory",
+      "title": "MutMem: Cryptographically Authorized Mutation in Persistent Agent Memory",
+      "authors": [
+        "Walid Saidi"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2608.02843",
+      "url": "https://arxiv.org/abs/2608.02843",
+      "reading": "Abstract; Sec. 1-1.1; Sec. 2.1-2.4; Sec. 3; Sec. 4; Sec. 5.1-5.7; Sec. 6.1-6.4; Sec. 7; Sec. 11.1-11.3",
+      "contribution": "Retention-preserving housekeeper-authorized memory reweighting and signed epistemic label changes, with portable provenance/recall verification.",
+      "overlap": "Explicit version-preserving corrections; signatures bind tenant, memory, old/new weights and provenance; writer checks current predecessor/live state.",
+      "unestablished": "A human decision for each AI field candidate, preserved xc plus corrected xa, complete record successor and total field source equality are not established. Autonomous housekeeper mutation is explicitly its owner.",
+      "risk": "medium",
+      "risk_reason": "Retained correction versions, exact signed old/new transitions, signer epochs, predecessor checks, and atomic mutation already cover key ingredients.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Retained signed outcome/mutation evidence; not an AI field-candidate staging store.",
+          "locator": "Sec. 3-5"
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Memory UUID, tenant, exact signer epoch, provenance node and old/new weights signed.",
+          "locator": "Sec. 5.4-5.6"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Exact transition authorization is bound cryptographically; human candidate review is not established.",
+          "locator": "Sec. 5.5-5.6"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Historical content and signed transition/evidence retained; no explicit human xc/xa correction pair.",
+          "locator": "Sec. 3-4"
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Enrolled master and actor authority exist, but native housekeeper owns autonomous mutation.",
+          "locator": "Sec. 2.1"
+        },
+        "fresh_predecessor": {
+          "code": "explicit",
+          "note": "Terminal no-fork predecessor and live old weight must agree, within the per-memory mutation scope.",
+          "locator": "Sec. 5.4-5.6"
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Outcome/provenance/projection/live-weight update share restricted transaction; not a complete multi-field successor contract.",
+          "locator": "Sec. 4; Sec. 5.6"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Original memory content and history retained; classification changes leave value/type/scope/content hash unchanged.",
+          "locator": "Abstract; Sec. 3; Sec. 5.7"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Signed memory/provenance and recall evidence; every output field's unique exact source is not specified.",
+          "locator": "Sec. 5-7"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "From live memory, signed provenance identifies signer, old/new values and preceding mutations; not a complete per-field human review/proposal/xa trace.",
+          "locator": "Sec. 5.5-5.6; Sec. 6.1"
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Signatures distinguish memory/provenance even for matching weights; equal target gives no transition. No equal-valued reviewed-candidate attack is reported.",
+          "locator": "Sec. 4; Sec. 5.5; Sec. 6.3-6.4"
+        }
+      }
+    },
+    {
+      "id": "2608.08236",
+      "family": "agent-memory",
+      "title": "LatticeMind: A Conflict-Aware Memory Primitive for Multi-Agent Systems",
+      "authors": [
+        "Heng Zhou",
+        "Lian Zhang",
+        "Yutao Fan",
+        "Tiancheng He",
+        "Siki Chen",
+        "Hejia Geng",
+        "Philip Torr",
+        "Zhenfei Yin"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2608.08236",
+      "url": "https://arxiv.org/abs/2608.08236",
+      "reading": "Abstract; Sec. 1; Sec. 2.1-2.3; Sec. 3.1-3.3; Algorithm 1; Sec. 4.3; Appendix A.10-A.11",
+      "contribution": "Structured conflict-aware persistent memory with symbolic checking, selective LLM reconciliation, supersession/contestation, and scope-local software state slots.",
+      "overlap": "Separate proposed/confirmed states, typed slots, source/evidence metadata, retained losing candidates and rendered provenance transitions.",
+      "unestablished": "Human exact-instance approval and complete atomic successor contract are not established. Equal normalized values explicitly merge sources instead of preserving one prior source object.",
+      "risk": "medium",
+      "risk_reason": "Explicit persisted statuses, per-slot update decisions and provenance preserve disagreement; its equal-value source-merge policy is a concrete different contract.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "explicit",
+          "note": "Proposed/Confirmed/Contested/Superseded item status and structured writes.",
+          "locator": "Sec. 3.1-3.2"
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Canonical entity/slot/branch/env key and metadata; not immutable candidate-instance approval identity.",
+          "locator": "Sec. 3.2 Eq.1"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Checker/reconciler compares explicit claims, but human review tied to a persisted instance is not established.",
+          "locator": "Sec. 3.2"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Status transition and retained losing claims; distinct human corrected xc/xa not specified.",
+          "locator": "Sec. 3.1-3.2"
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Human notes have evidence weight; that is not a human write authorization protocol.",
+          "locator": "Sec. 3.2"
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Current-slot comparison is described; commit-time exact full predecessor serialization is not established.",
+          "locator": "Algorithm 1"
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Sequential append/compare/check/render loop; atomic complete accepted successor is not specified.",
+          "locator": "Algorithm 1"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Explicitly uses a different rule: equal normalized slot values merge sources/evidence into existing entry.",
+          "locator": "Sec. 3.2"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Slot claims carry evidence metadata and losing claims keep provenance; total exact source mapping not established.",
+          "locator": "Sec. 3.1-3.2"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Rendered state/transition provenance exposes supporting claims and sources; no exact proposal-human reviewer-authorized value-source authorization query is specified.",
+          "locator": "Sec. 3.2"
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Equal-value identity is intentionally consolidated via evidence accumulation; no exact-instance approval-substitution test.",
+          "locator": "Sec. 3.2"
+        }
+      }
+    },
+    {
+      "id": "2609.02127",
+      "family": "agent-memory",
+      "title": "Stored Is Not Supported: Typed Provenance and Assertion Guardrails for Persistent AI Agents",
+      "authors": [
+        "Jun He",
+        "Deying Yu"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2609.02127",
+      "url": "https://arxiv.org/abs/2609.02127",
+      "reading": "Abstract; Sec. 1; Sec. 2.1-2.7; Sec. 3.1-3.5; Sec. 4.1-4.4; Sec. 5 scope; Appendix A.1",
+      "contribution": "Typed provenance DAG and role promotion, source-root independence, head-bound resolver witnesses and outward assertion mediation.",
+      "overlap": "Preserved immutable source vertices, fresh target claims and exact dependency traces; support/authority differs from storage presence.",
+      "unestablished": "A mandatory human field acceptance/correction pipeline or total per-field source-preservation recurrence is not established. It explicitly takes atomic accepted-state ordering as an assumption.",
+      "risk": "medium",
+      "risk_reason": "Exact immutable dependencies and fresh role-promoted targets already separate retained AI priors from accountable claims; atomicity is inherited from CK rather than its contribution.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Distinct persisted epistemic roles including model priors/hypotheses; not every AI output stored as a review candidate.",
+          "locator": "Sec. 1; Sec. 2.6"
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Every dependency resolves to immutable exact version or authenticated unavailable marker.",
+          "locator": "Sec. 2 E2; Sec. 2.6 Proposition 1"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Fresh role target depends on exact source set and evaluator/policy; human review binding not established.",
+          "locator": "Sec. 2.6"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Promotion adds fresh target and never mutates predecessor vertices; human correction xc/xa is not specified.",
+          "locator": "Sec. 2.6"
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Authenticated user messages ground attributed reports, but this is source standing, not mandatory write approval.",
+          "locator": "Sec. 2.6 Eq.14"
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Head-use verification at emission and E1 ordering assumption; not an implemented exact-head admission transaction.",
+          "locator": "Sec. 2 E1; Sec. 4.2"
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Taken as accepted-head assumption, explicitly outside contribution/evaluation.",
+          "locator": "Sec. 1 Accepted-state boundary; Sec. 2 E1"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Immutable predecessor vertices and historical traces survive promotion/supersession; no per-field source equality recurrence.",
+          "locator": "Sec. 2.6; Sec. 3.5"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Conditional traceability for every reachable claim, not a source function over every successor field.",
+          "locator": "Sec. 2.6 Proposition 1"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Claim-to-exact-version dependency trace and release-unit binding provide provenance traceback; no full candidate-human reviewer-xa field authorization query.",
+          "locator": "Sec. 2.6 Proposition 1; Sec. 4.4"
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Exact-version references and witnesses distinguish immutable claim objects; no equal-valued approved AI-candidate substitution experiment.",
+          "locator": "Sec. 2 E2; Sec. 3.2"
+        }
+      }
+    },
+    {
+      "id": "2609.01235",
+      "family": "agent-memory",
+      "title": "MutMem-V2: Cryptographically Authorized Mutation in Persistent Agent Memory Portable Verification and Reproducible Evidence",
+      "authors": [
+        "Walid Saidi"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2609.01235",
+      "url": "https://arxiv.org/abs/2609.01235",
+      "reading": "Abstract; Sec. 1-3; Sec. 4.1-4.4; Sec. 5; Sec. 6.1-6.3; Sec. 7.1; Sec. 11-12",
+      "contribution": "Portable exact-byte recall/mutation evidence envelopes, external trust anchors, complete per-result membership, independent verifier parity and signed-noop terminal.",
+      "overlap": "Object/identity/provenance substitution detection and exact terminal closure strengthen MutMem beyond the original citation.",
+      "unestablished": "No mandatory human candidate-bound field authorization or total per-field successor source function; historical V1 benchmarks are expressly not current V2 reruns.",
+      "risk": "medium",
+      "risk_reason": "Direct update to existing MutMem citation adds exact cross-object identity, closed failure classes and conformance; does not add a human field-candidate transaction.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Portable retained requests/outcomes/evidence, rather than durable raw AI review proposals.",
+          "locator": "Sec. 3-5"
+        },
+        "exact_identity": {
+          "code": "explicit",
+          "note": "Exact canonical bytes and subject/epoch/certificate/provenance/request bindings across objects.",
+          "locator": "Sec. 4"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Exact signed request/transition bindings; no human review relation.",
+          "locator": "Sec. 4.4; Sec. 5"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Outcome evidence and authorized_transition/signed_noop/occurrence_observation are separate.",
+          "locator": "Sec. 5"
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "External master trust anchor and effective grants; autonomous housekeeper profile is distinct.",
+          "locator": "Sec. 3.1"
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Verifier reconstructs V1 exact predecessor; read-only portable verifier does not execute current-state admission.",
+          "locator": "Sec. 5; Sec. 6.1"
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "V1 native mutation profile inherited; V2 specifies portable complete evidence, not complete successor storage activation.",
+          "locator": "Sec. 1; Sec. 5"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Recall decisions forbid canonical-memory/retention mutation; signed_noop fabricates no weight projection.",
+          "locator": "Sec. 4.4; Sec. 5"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Complete five-object evidence per disclosed result, not a total per-output-field source assignment.",
+          "locator": "Sec. 4.2"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Returned result evidence binds memory/source provenance, actor and authority commitments; not a full original AI proposal-human reviewer-xa field authorization query.",
+          "locator": "Sec. 4.2-4.4"
+        },
+        "equal_value_substitution": {
+          "code": "partial",
+          "note": "Exact object/identity/provenance substitution checks and signed_noop distinguish content from authority; no equal-valued human-reviewed proposal test.",
+          "locator": "Sec. 3.2; Sec. 4.4; Sec. 5"
+        }
+      }
+    },
+    {
+      "id": "2607.23929",
+      "family": "agent-memory",
+      "title": "MemTX: Transactional Belief Commit for Stateful Agent Memory",
+      "authors": [
+        "Xiaoyang Li",
+        "Yiqi Wang",
+        "Haohui Lu",
+        "Zhi Chen",
+        "Mo Li",
+        "Pingan Song",
+        "Mingkai Zheng",
+        "Taotao Cai"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "publication_status": "Official abs has no journal reference/peer-reviewed venue. Exact-title publication-update searches found no verified published counterpart; this is a bounded search result, not proof of nonpublication.",
+      "doi": "10.48550/arXiv.2607.23929",
+      "url": "https://arxiv.org/abs/2607.23929",
+      "reading": "Latest v2 Abstract; Sec. 1; Sec. 3.1-3.6; Sec. 4 conformance scope; Sec. 5 ablations; Appendix H.3",
+      "contribution": "Staged belief lifecycle, snapshot/risk-based reads, ordered commit validation, irreversible-action gating and typed cascading repair.",
+      "overlap": "Persisted candidate records with source/permissions/DAG, stale late-write rejection, equal-authority cross-source quarantine for user review.",
+      "unestablished": "Exact instance-bound human review for all fields and preserved xc/corrected xa are not established. Transactions explicitly may partially commit. Evaluation sometimes identifies records by value strings, not record IDs.",
+      "risk": "medium",
+      "risk_reason": "A close staged-belief/admission/stale-write/review/derivation system; its partial commits and conditional user review differ from complete human field admission.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "explicit",
+          "note": "Staging records tentative observations and provenance edges before commit.",
+          "locator": "Sec. 3.2"
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Governed source-bearing records and DAG; exact immutable candidate identity binding is not established.",
+          "locator": "Sec. 3.1-3.2"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Equal-authority different-source conflicts quarantine for user review; exact review-token identity protocol not specified.",
+          "locator": "Sec. 3.2"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Tentative/validated/committed lifecycle separates authority states; no xc/xa correction object pair.",
+          "locator": "Sec. 3.1-3.2"
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "User review only for declared ties, plus trusted harness tiers; not mandatory human approval for every candidate.",
+          "locator": "Sec. 3.1-3.2"
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Rejects rival committed after snapshot before authority comparison; not exact complete-head equality for entire successor.",
+          "locator": "Sec. 3.2"
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Ordered per-record checks explicitly permit partial transaction commit.",
+          "locator": "Sec. 3.2"
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "No total unchanged-field exact source rule established.",
+          "locator": null
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Records carry source and derivation DAG; cascade covers only recorded provenance.",
+          "locator": "Sec. 3.1; Sec. 3.4"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Committed record source/permissions/derivation and audit entries provide partial provenance traceback; no exact original proposal-human reviewer-xa-source tuple.",
+          "locator": "Sec. 3.1-3.4"
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Appendix H.3 disallows identical value in expected-abort and expected-commit lists because grader is value-based; no same-value identity test.",
+          "locator": "Appendix H.3"
+        }
+      }
+    },
+    {
+      "id": "fett2023dpop",
+      "family": "binding-methods",
+      "title": "OAuth 2.0 Demonstrating Proof of Possession (DPoP)",
+      "authors": "Daniel Fett; Brian Campbell; John Bradley; Torsten Lodderstedt; Michael Jones; David Waite",
+      "year": 2023,
+      "venue": "IETF RFC 9449",
+      "publication_status": "standard",
+      "doi": "10.17487/RFC9449",
+      "url": "https://www.rfc-editor.org/rfc/rfc9449.html",
+      "reading": "Abstract, introduction, 4.2–4.3, 11.7",
+      "contribution": "Sender-constrained OAuth tokens and request method/URI proof checks, with replay controls.",
+      "overlap": "Binding scope and replay prevention at request layer.",
+      "unestablished": "Original machine value, corrected human value, complete field-source successor are not the protocol's semantic objects. DPoP expressly permits additional signed claims; extension capability is acknowledged.",
+      "risk": "low",
+      "risk_reason": "Method analogy, not a correction-admission competitor.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "backman2024httpsignatures",
+      "family": "binding-methods",
+      "title": "HTTP Message Signatures",
+      "authors": "Annabelle Backman; Justin Richer; Manu Sporny",
+      "year": 2024,
+      "venue": "IETF RFC 9421",
+      "publication_status": "standard",
+      "doi": "10.17487/RFC9421",
+      "url": "https://www.rfc-editor.org/rfc/rfc9421.html",
+      "reading": "Abstract, introduction, 1.4, 2.3, 3, 7.2.1 and 7.2.8",
+      "contribution": "Detached signatures/MACs over declared HTTP components; application profiles choose required coverage and verification rules.",
+      "overlap": "Application-specific binding and protection of selected message components, including a content digest when required.",
+      "unestablished": "Human review target and post-commit field provenance require an application relation, not an implication of a message signature.",
+      "risk": "low",
+      "risk_reason": "Established binding foundation; prevents claiming request binding as a new security primitive.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "owasp2026transactionauthorization",
+      "family": "binding-methods",
+      "title": "Transaction Authorization Cheat Sheet",
+      "authors": "OWASP Foundation",
+      "year": 2026,
+      "venue": "OWASP Cheat Sheet Series; accessed 27 September 2026",
+      "publication_status": "authoritative practitioner guidance, undated living document",
+      "doi": null,
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html",
+      "reading": "Purpose, introduction, functional 1.1/1.5, non-functional 2.1–2.3/2.5–2.10",
+      "contribution": "Significant transaction-data acknowledgement, server-side authorization, controlled operation states, invalidation on modification, execution-time final gate and operation-unique credentials.",
+      "overlap": "Direct precedent for server-held review/operation consistency, TOCTOU protection, replay prevention and protected approval data.",
+      "unestablished": "The inspected guidance does not specify the manuscript's dual-value Correction and total copied-forward field-source relation. Unique credentials do not alone establish handling of value-identical proposal instances.",
+      "risk": "medium",
+      "risk_reason": "E2 binding principle is established guidance; describe E2 as applying/testing an admission-boundary design.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "jackson2002alloy",
+      "family": "binding-methods",
+      "title": "Alloy: A Lightweight Object Modelling Notation",
+      "authors": "Daniel Jackson",
+      "year": 2002,
+      "venue": "ACM TOSEM 11(2):256–290",
+      "publication_status": "peer-reviewed journal",
+      "doi": "10.1145/505145.505149",
+      "url": "https://groups.csail.mit.edu/sdg/pubs/2002/alloy-journal.pdf",
+      "reading": "Abstract, introduction, 2.1–2.2, kernel semantics",
+      "contribution": "Relational structural specification with simulation and counterexample search within finite scopes.",
+      "overlap": "Specification/analysis method.",
+      "unestablished": "Correction admission relation is an application specification, not an Alloy language contribution.",
+      "risk": "low",
+      "risk_reason": "Method precedent.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "torlak2007kodkod",
+      "family": "binding-methods",
+      "title": "Kodkod: A Relational Model Finder",
+      "authors": "Emina Torlak; Daniel Jackson",
+      "year": 2007,
+      "venue": "TACAS, LNCS 4424:632–647",
+      "publication_status": "peer-reviewed conference",
+      "doi": "10.1007/978-3-540-71209-1_49",
+      "url": "https://groups.csail.mit.edu/sdg/pubs/2007/tacas07-torlak-jackson.pdf",
+      "reading": "Abstract, introduction, 3 model finding, 4 translation",
+      "contribution": "SAT-based finite relational model finding with partial instances and compact encodings.",
+      "overlap": "Solver foundation.",
+      "unestablished": "No application-specific correction/authorization claim is attributed to this work.",
+      "risk": "low",
+      "risk_reason": "Method precedent.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "marinov2001testera",
+      "family": "binding-methods",
+      "title": "TestEra: A Novel Framework for Automated Testing of Java Programs",
+      "authors": "Darko Marinov; Sarfraz Khurshid",
+      "year": 2001,
+      "venue": "ASE:22–31",
+      "publication_status": "peer-reviewed conference",
+      "doi": "10.1109/ASE.2001.989787",
+      "url": "https://mir.cs.illinois.edu/marinov/publications/MarinovKhurshid01TestEra.pdf",
+      "reading": "Abstract and introduction p22, example p23, framework 3.1 p24 and translation 3.2",
+      "contribution": "Bounded relational test generation, concretization into program inputs and abstraction of outputs for specification checking.",
+      "overlap": "Formal–concrete testing method.",
+      "unestablished": "The manuscript tests selected persisted-state projections, not TestEra-style exhaustive bounded input enumeration.",
+      "risk": "low",
+      "risk_reason": "Method precedent; cannot claim abstraction/concretization as novelty.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Method/foundation reference: this application obligation was not assessed.",
+          "locator": ""
+        }
+      }
+    },
+    {
+      "id": "buneman2001whywhere",
+      "family": "foundation",
+      "title": "Why and Where: A Characterization of Data Provenance",
+      "authors": "See verified manuscript bibliography.",
+      "year": 2001,
+      "venue": "See verified manuscript bibliography.",
+      "publication_status": "Published peer-reviewed work; survey identified as synthesis.",
+      "doi": "10.1007/3-540-44503-X_20",
+      "url": "https://www.pure.ed.ac.uk/ws/files/16509989/Why_and_Where_A_Characterization_of_Data_Provenance.pdf",
+      "reading": "Abstract; introduction; Sections 2, 4, 5.1 and 6.",
+      "contribution": "Defines why witness bases and where source locations for query-derived data.",
+      "overlap": "Enforcement or provenance foundation.",
+      "unestablished": "The application-specific Correction and human review relation was not assessed as a claim of this source.",
+      "risk": "low",
+      "risk_reason": "Foundation; no novelty attributed to its underlying mechanism.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Backward derivation/source explanations overlap; the human authorization tuple requires additional semantics.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction; Sections 2, 4, 5.1 and 6."
+        }
+      }
+    },
+    {
+      "id": "cheney2009provenance",
+      "family": "foundation",
+      "title": "Provenance in Databases: Why, How, and Where",
+      "authors": "See verified manuscript bibliography.",
+      "year": 2009,
+      "venue": "See verified manuscript bibliography.",
+      "publication_status": "Published peer-reviewed work; survey identified as synthesis.",
+      "doi": "10.1561/1900000006",
+      "url": "https://homepages.inf.ed.ac.uk/jcheney/publications/provdbsurvey.pdf",
+      "reading": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1.",
+      "contribution": "Synthesizes why/how/where provenance, applications and relationships.",
+      "overlap": "Enforcement or provenance foundation.",
+      "unestablished": "The application-specific Correction and human review relation was not assessed as a claim of this source.",
+      "risk": "low",
+      "risk_reason": "Foundation; no novelty attributed to its underlying mechanism.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "atomic_complete_successor": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Backward derivation/source explanations overlap; the human authorization tuple requires additional semantics.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction pp380-382; 1.1.1-1.1.3; Sections 3 and 4.1."
+        }
+      }
+    },
+    {
+      "id": "gray1981transaction",
+      "family": "foundation",
+      "title": "The Transaction Concept: Virtues and Limitations",
+      "authors": "See verified manuscript bibliography.",
+      "year": 1981,
+      "venue": "See verified manuscript bibliography.",
+      "publication_status": "Published peer-reviewed work; survey identified as synthesis.",
+      "doi": null,
+      "url": "https://web.stanford.edu/class/archive/cs/cs240/cs240.1236/old/sp2014/readings/Gray81.pdf",
+      "reading": "Abstract; introduction p144; general transaction model p145; implementation overview p146.",
+      "contribution": "Defines atomic, durable, consistency-preserving state transformations.",
+      "overlap": "Enforcement or provenance foundation.",
+      "unestablished": "The application-specific Correction and human review relation was not assessed as a claim of this source.",
+      "risk": "low",
+      "risk_reason": "Foundation; no novelty attributed to its underlying mechanism.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "exact_identity": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "candidate_bound_review": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "proposal_authorized_separation": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "human_authority": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "fresh_predecessor": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Atomic state transformations are established; total field sources and review witnesses are application obligations.",
+          "locator": "General model p145"
+        },
+        "unchanged_exact_source": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "total_field_provenance": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "reverse_query": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Foundation rather than application-specific authorization contract.",
+          "locator": "Abstract; introduction p144; general transaction model p145; implementation overview p146."
+        }
+      }
+    },
+    {
+      "id": "US20200117643A1",
+      "family": "curation-patent",
+      "title": "Data curation system with version control for workflow states and provenance",
+      "authors": "Gluzman Peregrine et al. (Tamr)",
+      "year": 2020,
+      "venue": "US patent application publication",
+      "publication_status": "Patent disclosure, not peer-reviewed research; no legal novelty verdict.",
+      "doi": null,
+      "url": "https://patents.google.com/patent/US20200117643A1/en",
+      "reading": "Abstract/overview; action phases; provenance; state history; linkage approvals; claims 1, 7, 8, 11.",
+      "contribution": "Machine proposals, operator-approved changes, versioned curation states and element provenance form a broad neighboring design.",
+      "overlap": "Approval precedes new state creation; unchanged presented data govern continuing approval validity.",
+      "unestablished": "Exact value-identical instance rejection and the xc/xa field authorization tuple were not established. This is a serious further-comparison lead.",
+      "risk": "high",
+      "risk_reason": "Broad joint design overlap; retained in the internal audit.",
+      "matrix": {
+        "persisted_proposal": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "exact_identity": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "candidate_bound_review": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "proposal_authorized_separation": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "human_authority": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "fresh_predecessor": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "atomic_complete_successor": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "unchanged_exact_source": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "total_field_provenance": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "reverse_query": {
+          "code": "partial",
+          "note": "Versioned curation, approval and provenance overlap; exact manuscript obligation requires further comparison.",
+          "locator": "Description: Curation Actions, Provenance, State History; claims 1, 7, 8, 11"
+        },
+        "equal_value_substitution": {
+          "code": "not-assessed",
+          "note": "Not established in the inspected description/claims.",
+          "locator": "Description and claims 1, 7, 8, 11"
+        }
+      }
+    }
+  ]
+}

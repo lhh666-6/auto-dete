@@ -88,7 +88,7 @@ The executable histories contain candidate and authorization registries, declare
 
 \subsection{Conditional failure-distinguishability characterization}
 
-Table~\ref{tab:distinctions} summarizes the paired histories for this fixed observation basis.
+The five classes distinguish candidate substitution, false value attribution, stale replay, fragmented successors, and source ambiguity. Table~\ref{tab:distinctions} identifies a safe/unsafe pair for each class in the fixed observation basis.
 
 \begin{table}[t]
 \centering
@@ -130,7 +130,7 @@ The executable checker validates each complete $\widehat h$ and derives observat
 The original $D_C$ pair changes record context while retaining the candidate handle, establishing irredundancy of the combined class. An additional pair fixes the two-candidate registry and every context/value component, then selects either the authorized candidate or the equal-valued alternative. It isolates candidate binding within this observation model. A single-field copy-forward control checks the distinction between schema and effect domains. Supplement S2 identifies the executable constructions and raw histories.
 
 \paragraph{Scope of the result}
-Proposition 1 establishes class-wise irredundancy for the declared failure, history, observation, and outcome model, not universal minimality, schema uniqueness, or completeness over all admission failures. The checker validates the five class pairs, identity pair, and copy-forward control; it is not a general admission oracle. These constructions establish Eq.~\eqref{eq:irredundancy}; the separate Alloy checks test encoded assertions and conjunct-removal sensitivity in finite scopes.
+Proposition 1 establishes Eq.~\eqref{eq:irredundancy} for the declared failure, history, observation, and outcome model. Its scope is class-wise irredundancy, not universal minimality, schema uniqueness, or completeness over all admission failures. The checker validates the five class pairs, identity pair, and copy-forward control rather than arbitrary admissions. Separate Alloy checks examine the encoded assertions and conjunct-removal sensitivity in finite scopes.
 
 \subsection{Batch admission relation}
 

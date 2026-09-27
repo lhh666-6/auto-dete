@@ -1,5 +1,7 @@
 # Introduction and related-work revision notes
 
+> Historical positioning decisions from 26 September. The later source-based reconstruction and corrected overlap analysis are in [narrative-revision.md](narrative-revision.md) and the repository's `docs/literature-review/` dossier.
+
 Prepared 26 September 2026. These notes are editorial support and are not part of the submitted manuscript.
 
 ## Positioning decisions

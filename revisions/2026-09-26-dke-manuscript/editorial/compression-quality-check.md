@@ -1,5 +1,7 @@
 # Compression and visual check — 27 September 2026
 
+> Historical record of the 44→30-page compression pass. The subsequent literature/narrative revision produces 33 main pages and 21 supplement pages; see [narrative-quality-check.md](narrative-quality-check.md). Its final hashes supersede the then-current build hashes.
+
 The baseline at `cd5bded02f76869223e7d3e6f1dcfac8363fd1f9` contained a 44-page main manuscript and a 12-page supplement. The revised PDFs contain 30 and 21 pages respectively, with the same Elsevier 12-point preprint format and page margins. Detailed observations, mapping tables, protocols, and validity boundaries now reside in the supplement. The main manuscript's extracted word count decreases from 12,292 to 8,002; this measure includes diagrams, tables, declarations, and references. The reduction exceeds the earlier JSS abstract-stage 15–20% guideline because this DKE version contains expanded protocol and repeated explanatory material; no page target was achieved by shrinking the typography.
 
 Both documents compiled using the author's local MiKTeX 25.12 installation through `scripts/Build.ps1`. The final logs contain zero unresolved citations/references, overfull boxes, or LaTeX/package warnings. The main bibliography retains all 17 previously cited keys.

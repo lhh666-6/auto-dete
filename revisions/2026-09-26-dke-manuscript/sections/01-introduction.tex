@@ -1,44 +1,44 @@
 \section{Introduction}
 \label{sec:introduction}
 
-An AI-assisted acquisition system may extract a value, propose an update, and ask a person to approve it. Once admitted, the value can drive queries and decisions. Its authority depends on a history that the final value alone cannot identify: which persisted proposal was reviewed, what value was authorized, and which predecessor and field sources the resulting record retained.
+AI-assisted acquisition produces machine proposals that people review before database admission. The final authoritative value cannot recover which proposal was reviewed, what value was authorized, or which predecessor and field sources were retained. We study how to carry that authorization history into a queryable authoritative state.
 
-Consider quantity 90. A recognizer proposes 100, but a reviewer authorizes 101; an unchanged batch-code field should keep its earlier source. Overwriting the proposal with 101 erases the machine--human distinction. Recording only 101 and a reviewer leaves the reviewed proposal ambiguous. Copying values without sources produces a numerically correct snapshot with incomplete provenance. Correction-aware admission must retain the proposal $x_c$ separately from the authorized value $x_a$, including
+Consider quantity 90. A recognizer proposes 100, and a reviewer authorizes 101. Correction should retain both the machine proposal and human-authorized value; an unchanged batch-code field should retain its exact earlier source. Proposal origin and value authority are different roles, including when
 \begin{equation}
 x_c\neq x_a.
 \label{eq:intro-correction}
 \end{equation}
+Overwriting the original proposal would instead attribute the corrected value to the machine.
 
-Candidate identity gives a sharper separator. Two persisted extraction attempts may propose the same value for the same field and evidence. A value/context policy can treat them as interchangeable. An instance-accountability policy must distinguish the candidate selected by the reviewer from an equal-valued substitute. We specify that stricter relation and evaluate both policies explicitly.
+Candidate identity introduces a second distinction. Two persisted extraction attempts can share the proposed value, record, field, evidence, expected version, and other retained review context. They remain different instances. Content/context equivalence does not make an unreviewed substitute the same authorization target. Equal-valued candidate substitution isolates this difference.
 
-Transactions, optimistic validation, and provenance provide established foundations \citep{gray1981transaction,kung1981occ,moreau2013provdm}. The contribution is a correction-aware admission relation over their semantic objects:
+Transactions, optimistic validation, provenance, and version-specific human approval provide established foundations \citep{gray1981transaction,kung1981occ,moreau2013provdm,mershad2015approval}. We specify which information distinguishes correction-aware admission histories and how to enforce those distinctions through the relation
 \begin{equation}
 \begin{aligned}
 \textit{exact candidate}
 &\rightarrow\textit{candidate-bound authorization}\\
 &\rightarrow\textit{explicit authorized value}\\
+&\rightarrow\textit{fresh authoritative predecessor}\\
 &\rightarrow\textit{complete successor and total field sources}.
 \end{aligned}
 \label{eq:admission-chain}
 \end{equation}
-The candidate remains historical evidence; authorization supplies permission for the committed value. One transaction creates the successor, assigning new transitions to changed fields and preserving exact sources for unchanged fields. Relational tables and event journals can both represent these obligations.
-
-Five information classes characterize the histories the relation distinguishes: candidate identity and context, value roles, freshness, successor completeness, and field-source attribution. For each class, a paired construction has different authority outcomes but equal remaining observations when that class is omitted. The result establishes class-wise irredundancy within the declared history and observation model.
+Authorization permits the committed value; the candidate remains historical evidence. One transaction creates new transitions for changed fields and preserves exact sources for unchanged fields.
 
 We realize the relation in \system{}, a Python/SQLite service, and make three contributions:
 \begin{enumerate}[label=\textbf{C\arabic*:},leftmargin=*]
-\item \textbf{A correction-aware admission contract and conditional characterization.} Separate proposal and authorized values, candidate-bound review, and complete field sources support five failure-distinguishing information classes.
-\item \textbf{Relational and transactional enforcement.} An Alloy model, in-transaction validation, version compare-and-swap, selected formal--concrete projections, and persisted-state checks connect the relation to executable behavior.
-\item \textbf{Comparative, review-boundary, and cost evidence.} Event-journal controls isolate exact candidate binding; browser controls locate the transfer of review intent; current-version workloads measure admission, tracing, and storage.
+\item \textbf{We define correction-aware admission and characterize its failure-distinguishing information.} Five paired histories establish class-wise irredundancy of candidate identity/context, value roles, freshness, successor completeness, and field-source attribution in the declared observation model.
+\item \textbf{We implement the relation and connect specification to persisted behavior.} Bounded Alloy analysis, selected formal--concrete projections, and a 35-case fault catalogue examine transaction bindings, atomic successors, and source evolution.
+\item \textbf{We isolate the authorization-policy difference and examine its operational boundary.} Equal-valued substitutions separate context from instance approval; session controls test review-to-confirmation consistency; current-version workloads characterize admission and provenance costs.
 \end{enumerate}
 
-The central comparison has 165 corresponding constructed cases per mechanism. The exact-binding event journal and reference agree on every decision and provenance-query answer. The context journal accepts 15 equal-valued substitutions that satisfy its value/context policy but violate instance accountability. These are also 15 additional rejections by the stricter mechanisms under the looser policy. The separator therefore identifies the authorization relation rather than a uniquely capable storage architecture.
+The exact-binding journal and relational reference agree on all 165 corresponding cases. The context journal accepts 15 equal-valued substitutions permitted by its value/context policy; the exact mechanisms reject them under instance authorization. Evaluating both policies on their own terms separates the required authorization target from storage design.
 
-Review intent must reach that relation faithfully. A server-held review session rejects nine request substitutions accepted by the original path, while both paths accept three display-only substitutions. The contract enforces the authorization supplied to it; authenticated identity and faithful review presentation remain trust assumptions. \Cref{fig:admission-workflow} summarizes this boundary.
+A confirmation request can disagree with recorded review intent even when its transaction is internally consistent. Server-held session binding examines that transfer, and display controls locate the presentation boundary. \Cref{fig:admission-workflow} summarizes the relation from reviewed instance through Correction to field sources.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/refined/figure-1-admission-workflow.pdf}
-\caption{Correction-aware admission: (a) equal-valued candidates remain distinct under instance authorization; (b) Correction retains the original proposal; (c) failed admission leaves authoritative state unchanged; (d) changed and unchanged fields retain their respective sources. Values illustrate a constructed example. OpenAI Codex (GPT-6) and OpenAI's image-generation tool assisted visual design on 27 September 2026; the latter exposed no model/version identifier. The checked vector diagram was rendered with Matplotlib 3.10.8.}
+\caption{The admission relation preserves both the reviewed instance and the original proposal through Correction. (a) Equal-valued candidates remain distinct authorization targets; (b) the authorized correction retains the proposal; (c) failed admission leaves authoritative state unchanged; (d) changed and unchanged fields retain their respective sources. Values illustrate a constructed example. OpenAI Codex (GPT-6) and OpenAI's image-generation tool assisted visual design on 27 September 2026; the latter exposed no model/version identifier. The checked vector diagram was rendered with Matplotlib 3.10.8.}
 \label{fig:admission-workflow}
 \end{figure*}

@@ -32,13 +32,13 @@ After acceptance, an independent reader checks six provenance questions on three
 
 Local Chrome/Playwright runs an instrumented review fixture backed by \code{ReviewForms.confirm}. An independent driver records the displayed candidate, proposal, and authorized value before confirmation. Three JSON inputs cross ten interactions and two paths, giving sixty cases; six confirmations separately prepare replay setups. Positive controls cover acceptance, correction, and reselection. Candidate/value/principal request substitutions, stale/replayed requests, interrupted commits, and display-only substitution probe distinct boundaries.
 
-The original path is compared with a server-held session binding candidate, version, reviewer, and value. Acceptance, agreement with recorded review intent, and writes on rejection are recorded. Fixed principal labels and a separate session database make this a scripted boundary study; authentication, human attention, and cross-database crash atomicity remain outside its evidence.
+The original path is compared with a server-held session binding candidate, version, reviewer, and value. Acceptance, agreement with recorded review intent, and writes on rejection are recorded. The fixture uses fixed principal labels and a separate session database. The resulting request and presentation boundaries are interpreted in \cref{sec:discussion}.
 
 \subsection{RQ3: current-version costs}
 
-Two ten-cell admission comparisons contribute 4,000 observations each; a 36-cell trace comparison contributes 14,400. Each cell has five warmups and 200 timed calls per arm in seeded randomized order, for 22,400 timed observations excluding warmups. These measurements come from one machine with uncontrolled background activity; environment versions and full grids are in Supplements S1, S4, and S6.
+Two ten-cell admission comparisons contribute 4,000 observations each; a 36-cell trace comparison contributes 14,400. Each cell has five warmups and 200 timed calls per arm in seeded randomized order, for 22,400 timed observations excluding warmups. Environment versions and full grids are in Supplements S1, S4, and S6.
 
-The mechanism comparison times complete confirmation on shared recognition-source workloads. Construction and database cloning are excluded: the journal opens its connection before timing, whereas the reference may connect lazily inside confirmation. Schema, ORM, validation, and application functionality also differ. These are costs at the declared call boundary, rather than isolated binding overhead.
+The mechanism comparison times complete confirmation on shared recognition-source workloads. Construction and database cloning are excluded: the journal opens its connection before timing, whereas the reference may connect lazily inside confirmation. The study measures these complete call boundaries; \cref{sec:discussion} explains their implementation differences.
 
 A separate manual-source materialization ablation times persistence of a prevalidated delta while retaining authority rows, complete sources, transactionality, and CAS. Its result must match the precomputed relational fingerprint. Validation and planning occur outside that timer; its full-path column belongs to a different workload from the mechanism comparison.
 
