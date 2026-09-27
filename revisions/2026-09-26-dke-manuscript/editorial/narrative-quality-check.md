@@ -1,5 +1,7 @@
 # Narrative revision: build, integrity and visual check
 
+> Historical snapshot at `2eb04fce5f753ea2a0e9b9265cd9f84484f02819`. Current local refinements and checks: `micro-revision.md` / `micro-revision-check.json`.
+
 27 September 2026. Baseline: `b81042e4b4b89be333c427aaf52615c9eeaf8ef1`, after the earlier compression pass. This report covers editorial validation; no scientific experiment or historical model benchmark was rerun.
 
 ## Source integrity

@@ -1,6 +1,6 @@
 # DKE 新版论文
 
-日期：2026-09-27（贡献叙事与相关工作重构，接续压缩与图解修订）
+日期：2026-09-27（贡献叙事重构后，完成六项高收益局部微调）
 
 本文件夹是独立的英文论文修订版，面向 Data & Knowledge Engineering。原论文、原仓库和补充实验原始记录未被改写。本次完成论文整合、编译和审查，没有新增模型调用或重新采集实验结果。
 
@@ -14,14 +14,17 @@
 - `tables/` / `figures/`：编译所需图表及用于再生成附表的 CSV。
 - `highlights.txt`：英文研究要点。
 - `修改说明.md`：修订重点、结论边界和作者最终检查事项。
-- `editorial/narrative-revision.md`：本轮科研故事、文献定位和限定语迁移说明。
-- `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：逐节词数和逐处限定语审查。
+- `editorial/micro-revision.md` / `micro-revision-check.json`：当前六项局部修订、数字保留位置和保护内容核验。
+- `editorial/narrative-revision.md`：上一轮科研故事、文献定位和限定语迁移说明。
+- `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：上一轮逐节词数和逐处限定语审查；当前词数见 `micro-revision.md`。
 - 仓库根目录 `docs/literature-review/`：16 个诊断位置、8 族文献检索记录、33 项候选审查、11 维内部矩阵与十问首读检查；不属于投稿正文或补充材料。
-- `editorial/`：`narrative-integrity-check.json`、`final-build-check.json` 和 `source-check.json` 对应本轮；`compression-map.md` / `compression-verification.json` 等保留为此前 44→30 页压缩的历史记录。
+- `editorial/`：`micro-revision-check.json`、`final-build-check.json` 和 `source-check.json` 对应当前稿，`narrative-integrity-check.json` 对应上一轮；`compression-map.md` / `compression-verification.json` 等保留为此前 44→30 页压缩的历史记录。
 
 论文标题：**Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**。
 
-本轮以 `b81042e4b4b89be333c427aaf52615c9eeaf8ef1` 的 30 页版本为基线。相关工作补入审批、人工修复及版本化来源的直接先例，形成四个小节；主稿增加 3 页，补充材料仍为 21 页。新增 9 条核验文献，原 17 条保留。正式命题、证明、RQ、契约公式、P0–P6、实验数值以及 17 个表格/CSV 保留；本轮没有新增或重跑科研实验。最终本机编译和逐页检查见 `editorial/narrative-quality-check.md`。
+上一轮以 `b81042e4b4b89be333c427aaf52615c9eeaf8ef1` 的 30 页版本为基线。相关工作补入审批、人工修复及版本化来源的直接先例，形成四个小节；主稿增加 3 页，补充材料仍为 21 页。新增 9 条核验文献，原 17 条保留。正式命题、证明、RQ、契约公式、P0–P6、实验数值以及 17 个表格/CSV 保留；本轮没有新增或重跑科研实验。上一轮本机编译和逐页检查见 `editorial/narrative-quality-check.md`。
+
+当前局部修订以 `2eb04fce5f753ea2a0e9b9265cd9f84484f02819` 为基线：补上 equal-valued substitution 到五类信息的桥，明确 E1/E2/E3 的层级，减少支撑性数字在文字及图 2 中的重复，并微调 Related Work 与 Discussion。正文净减少 50 个英文词，PDF 提取字数 8,720→8,656；主稿仍为 33 页。补充材料、表格数据、正式命题和 RQ 不变。当前检查见 `editorial/micro-revision.md`。
 
 ## 编译
 
@@ -50,7 +53,7 @@ python scripts/build_supplement_tables.py
 python scripts/build_story_figures.py
 ```
 
-图 1 为构造例；图 2 的 E1/E2 计数与 E3 timing total 读取已有 tables/CSV 并校核，不生成实验数据。输出为 PDF、SVG 和 PNG，数据源哈希在 `editorial/story-figure-source-hashes.json`。`figures/concepts/` 仅保存 AI 辅助设计原型，未用于正文或 Graphical Abstract；工具用途和版本可用性已写入图注及 AI declaration。
+图 1 为构造例；图 2 的 E1/E2 结果与 165-case 分母读取已有 tables；E3 timing total 读取 CSV 校核，但不再作为图中标题，不生成实验数据。输出为 PDF、SVG 和 PNG，数据源哈希在 `editorial/story-figure-source-hashes.json`。`figures/concepts/` 仅保存 AI 辅助设计原型，未用于正文或 Graphical Abstract；工具用途和版本可用性已写入图注及 AI declaration。
 
 ## 实验证据
 

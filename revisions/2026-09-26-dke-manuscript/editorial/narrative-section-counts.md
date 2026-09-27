@@ -1,5 +1,7 @@
 # Section-level revision counts
 
+> Historical snapshot at `2eb04fce5f753ea2a0e9b9265cd9f84484f02819`. Current local refinements and checks: `micro-revision.md` / `micro-revision-check.json`.
+
 English prose tokens from LaTeX, using the same extraction for both versions; math, citations, input paths, code identifiers and figure/table blocks are excluded. Negative reduction denotes growth. PDF totals separately include equations, diagrams, tables, declarations and references.
 
 | Section | Before | After | Reduction | Scientific claim changed |

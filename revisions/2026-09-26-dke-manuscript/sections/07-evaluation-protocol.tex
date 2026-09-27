@@ -3,20 +3,22 @@
 
 \subsection{Questions and evidence layers}
 
+E1 tests why exact candidate binding matters when values and retained context agree. E2 locates the review-to-confirmation boundary of that guarantee. E3 measures the costs of enforcement and querying.
+
 \begin{description}[leftmargin=2.6em,labelwidth=2.1em]
 \item[RQ1] Do the formal and concrete checks support the admission contract, and what changes when a rich event journal records the exact reviewed candidate?
 \item[RQ2] Which inconsistencies between recorded review intent and confirmation can server-held session binding reject, and which remain outside its guarantee?
 \item[RQ3] What admission, reverse-trace, and storage costs occur on the repaired implementation under the declared workloads?
 \end{description}
 
-The retained Alloy, projection, and 35-case catalogue evidence is distinguished from E1--E3, which use the equality-repaired reference at commit \code{c6d512843c905cab6d8521dd8c914f7fb26d85ae}. Before the new studies, 85 selected implementation regressions and ten harness checks were rerun. The prospective local protocol, pilot amendments, environment, raw receipts, and execution status are documented in Supplements S1 and S6. E1--E3 make no hosted-model calls; historical agent runs remain separate in S5.
+E1--E3 use the equality-repaired reference at commit \code{c6d512843c905cab6d8521dd8c914f7fb26d85ae}, after rerunning implementation regressions and harness checks. The earlier Alloy, projection, and catalogue results remain separate evidence. The prospective local protocol, pilot amendments, environment, raw receipts, and execution status are documented in Supplements S1 and S6. E1--E3 make no hosted-model calls; historical agent runs remain separate in S5.
 
 \Cref{fig:evidence-route} connects these evidence layers to the questions they answer. Constructed execution, provenance-answer, browser-case, and timing denominators remain separate.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/refined/figure-2-evidence-route.pdf}
-\caption{Evidence route from the conditional characterization to persistence checks and E1--E3. E1 compares instance and value/context policies; E2 compares the original and session-bound confirmation paths; E3 measures call and access costs. E1/E2 counts and E3 timing totals are read from the archived tables and CSV summaries. OpenAI Codex (GPT-6, 27 September 2026) assisted diagram scripting; Matplotlib 3.10.8 rendered the deterministic vectors.}
+\caption{Evidence route from the conditional characterization to persistence checks and E1--E3. E1 supplies the policy separator; E2 tests request binding and the presentation boundary; E3 characterizes enforcement and query costs. Displayed E1/E2 results are read from archived tables; timing totals are checked against CSV summaries. OpenAI Codex (GPT-6, 27 September 2026) assisted diagram scripting; Matplotlib 3.10.8 rendered the deterministic vectors.}
 \label{fig:evidence-route}
 \end{figure}
 
@@ -24,7 +26,7 @@ The retained Alloy, projection, and 35-case catalogue evidence is distinguished 
 
 A separately written \code{sqlite3} journal retains immutable candidates/events, review context, versions, transactions, and complete field sources. Its \emph{context} configuration checks field, version, evidence, and retained context while omitting candidate/certificate identifiers and instance-creation time. Its \emph{exact} configuration adds the reviewed-candidate link. The third arm invokes the reference's actual transaction. We score both instance authorization and the looser value/context policy.
 
-Fifteen inputs cross eleven case families and three mechanisms, giving $15\times11\times3=495$ executions. Twelve deterministically selected archived proposal cells contain four distinct values; three synthetic type controls bring the total to seven. They enter newly constructed histories, rather than complete historical-task replays. Cases exercise Accept, Correction, multi-field admission, equal-valued candidate and different-evidence substitutions, staleness, replay, unauthorized value, and three interrupted transaction locations. Supplement S6 lists the inputs and cases.
+Fifteen inputs cross eleven case families and three mechanisms. Twelve deterministically selected archived proposal cells contain four distinct values; three synthetic type controls bring the total to seven. They enter newly constructed histories, rather than complete historical-task replays. Cases exercise Accept, Correction, multi-field admission, equal-valued candidate and different-evidence substitutions, staleness, replay, unauthorized value, and three interrupted transaction locations. Supplement S6 lists the inputs and cases.
 
 After acceptance, an independent reader checks six provenance questions on three fields: proposal, authorized value, reviewer, reviewed candidate, current value, and source version. Each accepted history contributes eighteen answers, classified as correct, wrong, ambiguous, or unavailable. Rejection requires the expected reason and unchanged logical fact-database digest, measured after authorization preparation. Prior review records may persist. Original strengthened-baseline continuity checks have a separate denominator.
 

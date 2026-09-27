@@ -1,5 +1,7 @@
 # Defensive-language occurrence audit
 
+> Historical snapshot at `2eb04fce5f753ea2a0e9b9265cd9f84484f02819`. Current local refinements and checks: `micro-revision.md` / `micro-revision-check.json`.
+
 The requested patterns are searched occurrence by occurrence in the main narrative and declarations. Logical `only`, finite-scope assertions, selected-projection scope and constructed-example labels are retained where they change meaning. Fewer keywords is not itself a quality criterion.
 
 Additional relocations: E2 authentication/human-attention/cross-database boundaries move from protocol to Discussion; the fixture definition remains. One-machine/background-activity and implementation differences are concentrated in Discussion; timer exclusions remain in Methods. Storage exclusions stay in Methods/Discussion.

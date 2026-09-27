@@ -155,6 +155,8 @@ def evidence_figure():
     exact=numeric_row(e1,"Exact journal")
     ref=numeric_row(e1,"Reference")
     assert ctx==[60,15,0,1020,60] and exact==ref==[45,0,15,810,0]
+    e1_cases=int(re.search(r"E1: (\d+) executions per mechanism", e1.read_text(encoding="utf-8"))[1])
+    assert e1_cases==165
     e2=ROOT/"tables/dke/review.tex"
     request=numeric_row(e2,"Candidate, value, principal request substitutions")
     display=numeric_row(e2,"DOM-only substitution")
@@ -168,7 +170,7 @@ def evidence_figure():
         sources.append(p)
     assert total==22400
     fig,ax=canvas("From admission relation to executable evidence",
-                  "Each evidence layer answers a different question.\nConstructed cases and timed calls keep separate denominators.")
+                  "E1 separates authorization policies.\nE2 tests the review boundary; E3 measures costs.")
     panel(ax,.015,.515,"a","Five distinguishing classes")
     panel(ax,.520,.515,"b","Check relational persistence")
     panel(ax,.015,.112,"c","Isolate the binding policy")
@@ -182,22 +184,22 @@ def evidence_figure():
         ax.text(.110,y,text,color=TEXT,fontsize=7.7,va="center")
     card(ax,.039,.542,.414,.035,"Omit a class: equal projections, distinct outcomes.",
          color=ORANGE,face=PALE_ORANGE,label_size=7)
-    card(ax,.547,.704,.417,.082,"Bounded relational analysis","72 declared command outcomes",color=BLUE)
+    card(ax,.547,.704,.417,.082,"Bounded relational analysis","legal steps + binding ablations",color=BLUE)
     arrow(ax,(.754,.697),(.754,.663))
-    card(ax,.547,.590,.417,.064,"Persisted-state projection","9 intended · 20 mapping mutants")
-    ax.text(.755,.551,"35 cases: admission, rejection, diagnosis",
+    card(ax,.547,.590,.417,.064,"Persisted-state projection","intended steps + mapping mutants")
+    ax.text(.755,.551,"Fault catalogue: admission, rejection, diagnosis",
             ha="center",fontsize=7.2,color=GREEN)
-    ax.text(.245,.389,"E1: 15 inputs × 11 families × 3 mechanisms",ha="center",size=7.5,color=TEXT)
+    ax.text(.245,.389,f"E1: exact + reference agree on {e1_cases} cases",ha="center",size=7.5,color=TEXT)
     card(ax,.039,.254,.190,.103,"Context journal",
-         f"{ctx[1]} instance violations\n{ctx[4]} ambiguous answers",color=ORANGE,face=PALE_ORANGE)
+         f"{ctx[1]} admitted\nambiguous target",color=ORANGE,face=PALE_ORANGE)
     card(ax,.265,.254,.190,.103,"Exact + reference",
-         f"{exact[1]} instance violations\n{exact[4]} ambiguous answers",color=BLUE,label_size=7.9)
+         f"{exact[2]} rejected\nexact target retained",color=BLUE,label_size=7.9)
     ax.text(.245,.224,"Equal-valued candidate substitution\nis the separator.",ha="center",va="top",size=7.5,color=NAVY,weight="bold")
     ax.text(.245,.162,"Under value/context policy:\nexact binding adds 15 rejections.",ha="center",va="top",size=7.5,color=TEXT)
-    card(ax,.547,.283,.417,.108,"E2: 60 browser cases",
+    card(ax,.547,.283,.417,.108,"E2: review-to-request boundary",
          f"request substitutions admitted: {request[1]} → {request[2]}\ndisplay-only substitutions: {display[1]} each",
          color=ORANGE,face=PALE_ORANGE)
-    card(ax,.547,.155,.417,.073,f"E3: {total:,} timed observations",
+    card(ax,.547,.155,.417,.073,"E3: enforcement and query costs",
          "admission · same-verifier trace access",color=BLUE,label_size=8)
     ax.text(.754,.122,"Storage footprint measured separately.",ha="center",size=7,color=TEXT)
     footer(ax,"conditional characterization → persisted checks\n→ policy separator → review and cost boundaries")
