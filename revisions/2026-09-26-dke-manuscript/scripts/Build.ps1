@@ -10,7 +10,7 @@ try {
             & bibtex 'out/main'
             if ($LASTEXITCODE -ne 0) { throw 'Bibliography compilation failed.' }
         }
-        foreach ($pass in 1..2) {
+        foreach ($pass in 1..3) {
             & pdflatex -interaction=nonstopmode -halt-on-error -output-directory=out "$document.tex"
             if ($LASTEXITCODE -ne 0) { throw "$document reference pass $pass failed." }
         }
