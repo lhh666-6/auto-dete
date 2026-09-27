@@ -1,6 +1,6 @@
 # DKE 新版论文
 
-日期：2026-09-27（完成投稿前局部收口与规则核查）
+日期：2026-09-27（完成候选身份澄清与最终机械一致性检查）
 
 本文件夹是独立的英文论文修订版，面向 Data & Knowledge Engineering。原论文、原仓库和补充实验原始记录未被改写。本次完成论文整合、编译和审查，没有新增模型调用或重新采集实验结果。
 
@@ -14,13 +14,14 @@
 - `tables/` / `figures/`：编译所需图表及用于再生成附表的 CSV。
 - `highlights.txt`：英文研究要点。
 - `修改说明.md`：修订重点、结论边界和作者最终检查事项。
-- `editorial/submission-closeout.md` / `submission-closeout-check.json`：当前局部收口、495 条原始记录核对、公开链接及编译检查。
+- `editorial/final-mechanical-check.md` / `final-mechanical-check.json`：当前五处局部修改、身份映射及最终机械一致性检查。
+- `editorial/submission-closeout.md` / `submission-closeout-check.json`：上轮局部收口、原始记录核对、公开链接及编译检查。
 - `editorial/dke-policy-check.md` / `closest-work-closeout.md`：期刊规则核实状态和五篇最近工作的原文核查。
 - `editorial/micro-revision.md` / `micro-revision-check.json`：上轮六项局部修订的历史记录。
 - `editorial/narrative-revision.md`：上一轮科研故事、文献定位和限定语迁移说明。
-- `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：上一轮逐节词数和逐处限定语审查；当前 PDF 提取词数见 `submission-closeout.md`。
+- `editorial/narrative-section-counts.md` / `defensive-language-audit.md`：上一轮逐节词数和逐处限定语审查；当前 PDF 提取词数见 `final-mechanical-check.md`。
 - 仓库根目录 `docs/literature-review/`：16 个诊断位置、8 族文献检索记录、33 项候选审查、11 维内部矩阵与十问首读检查；不属于投稿正文或补充材料。
-- `editorial/`：`submission-closeout-check.json`、`final-build-check.json` 和 `source-check.json` 对应当前稿；`micro-revision-check.json` 与 `narrative-integrity-check.json` 对应此前版本；`compression-map.md` / `compression-verification.json` 等保留为此前 44→30 页压缩的历史记录。
+- `editorial/`：`final-mechanical-check.json`、`final-build-check.json` 和 `source-check.json` 对应当前稿；`submission-closeout-check.json` 对应提交 `4701ec82`；`micro-revision-check.json` 与 `narrative-integrity-check.json` 对应此前版本；`compression-map.md` / `compression-verification.json` 等保留为此前 44→30 页压缩的历史记录。
 
 论文标题：**Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**。
 
@@ -28,7 +29,9 @@
 
 上一轮局部修订以 `2eb04fce5f753ea2a0e9b9265cd9f84484f02819` 为基线：补上 equal-valued substitution 到五类信息的桥，明确 E1/E2/E3 的层级，减少支撑性数字在文字及图 2 中的重复，并微调 Related Work 与 Discussion。正文净减少 50 个英文词，PDF 提取字数 8,720→8,656；主稿仍为 33 页。补充材料、表格数据、正式命题和 RQ 不变。该轮检查见 `editorial/micro-revision.md`。
 
-当前收口以 `7e65d6a7121c6388ecada94031abc46c0bbc860c` 为基线：仅调整少量句子和必要工具披露，核查五篇最近工作、全部 E1 原始执行记录和公开证据链接。AI 声明 207→60 词；正文 33→32 页，PDF 提取词数 8,656→8,509。命题、证明、RQ、Results、表格、图文件、科研脚本与补充材料不变。完整 DKE Guide for Authors 暂不可访问，因此尚不能宣称全部期刊格式要求已核实。当前检查见 `editorial/submission-closeout.md`。
+上一轮收口以 `7e65d6a7121c6388ecada94031abc46c0bbc860c` 为基线：仅调整少量句子和必要工具披露，核查五篇最近工作、全部 E1 原始执行记录和公开证据链接。AI 声明 207→60 词；正文 33→32 页，PDF 提取词数 8,656→8,509。命题、证明、RQ、Results、表格、图文件、科研脚本与补充材料不变。完整 DKE Guide for Authors 暂不可访问，因此尚不能宣称全部期刊格式要求已核实。该轮检查见 `editorial/submission-closeout.md`。
+
+当前最终检查以 `4701ec8241acd8e38f20968ff1df8dfe9ef2f246` 为基线：仅澄清实例身份与证书摘要的关系，删除 Section 7.1 重复披露，并在 S2.2 同步说明已有模型身份语义。正文保持 32 页，补充材料保持 21 页；PDF 提取词数分别为 8,512 和 6,084。命题、证明、显示公式、RQ、实验数字、表格和科研脚本不变，没有进行大规模润色。见 `editorial/final-mechanical-check.md`。
 
 ## 编译
 

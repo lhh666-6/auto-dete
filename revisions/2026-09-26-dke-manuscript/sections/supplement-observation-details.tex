@@ -37,7 +37,7 @@ Evidence identity is not content equality alone. The realization uses
 EID(e)=\langle H(\mathrm{bytes}(e)),L(r,f,u,\kappa)\rangle,
 \label{eq:evidence}
 \end{equation}
-where $H$ is SHA-256 and $L$ is a versioned canonical locator containing the owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. The Alloy model abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assumes unique certificate identities over the modeled certificate objects, excluding identity collisions from the checked scopes. Relating this abstraction to the implementation requires collision resistance of the deployed digest and integrity of the canonicalization and evidence store; it is not a proof or claim that SHA-256 is mathematically injective.
+where $H$ is SHA-256 and $L$ is a versioned canonical locator containing the owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. The Alloy model abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assigns distinct \code{CertId} atoms to distinct certificate objects, including objects with equal modeled content. Relating this abstraction to the implementation requires collision resistance of the deployed digest and integrity of the canonicalization and evidence store; it is not a proof or claim that SHA-256 is mathematically injective.
 
 Operational properties P0--P6 and their interpretation remain in the main contract table.
 

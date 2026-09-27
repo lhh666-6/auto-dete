@@ -16,7 +16,7 @@ Let $r$ be a record with a nonempty authoritative field set $F_r$. Its committed
 c=\langle r,f,e,v_{\mathrm{exp}},x_c,p,c_{\mathrm{id}}\rangle,
 \label{eq:candidate}
 \end{equation}
-where $e$ is persisted evidence, $v_{\mathrm{exp}}$ is the expected current version, $x_c$ is the machine proposal, $p$ identifies its producer, and $c_{\mathrm{id}}$ is an identity over the modeled candidate content.
+where $e$ is persisted evidence, $v_{\mathrm{exp}}$ is the expected current version, $x_c$ is the machine proposal, and $p$ identifies its producer. The identity $c_{\mathrm{id}}$ distinguishes exact persisted candidate instances even when proposal values and retained review context agree.
 
 
 Evidence identity combines a content digest and canonical record/field locator:
@@ -58,7 +58,7 @@ Equal-valued substitution exposes one missing distinction. Extending the analysi
 \mathcal D=\{D_C,D_V,D_F,D_B,D_S\},
 \label{eq:distinction-basis}
 \end{equation}
-where $D_C$ is candidate identity and context, $D_V$ is dual-value attribution, $D_F$ is freshness, $D_B$ is batch/successor completeness, and $D_S$ is total source attribution. For $I\subseteq\mathcal D$, $\pi_I(h)$ retains only the information classes in $I$. Candidate identity may be implemented by a certificate, stable handle, or another equivalence class, provided it does not collapse to value equality. Freshness may likewise use a version, state hash, epoch, or comparable discriminator.
+where $D_C$ is candidate identity and context, $D_V$ is dual-value attribution, $D_F$ is freshness, $D_B$ is batch/successor completeness, and $D_S$ is total source attribution. For $I\subseteq\mathcal D$, $\pi_I(h)$ retains only the information classes in $I$. A certificate or stable handle may implement this identity, provided distinct persisted instances remain distinguishable despite equivalent values and retained context. Freshness may likewise use a version, state hash, epoch, or comparable discriminator.
 
 To make ``retains'' precise, let $\operatorname{obs}_d(h)$ be the observation function for class $d$ and define
 \begin{equation}

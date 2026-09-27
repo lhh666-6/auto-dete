@@ -1,3 +1,5 @@
+> 历史记录：对应提交 4701ec82。当前身份澄清及机械检查见 final-mechanical-check.md / final-mechanical-check.json。
+
 # 投稿前局部收口
 
 日期：2026-09-27。基线：`7e65d6a7121c6388ecada94031abc46c0bbc860c`。

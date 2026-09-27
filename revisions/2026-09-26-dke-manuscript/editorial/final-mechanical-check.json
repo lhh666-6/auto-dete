@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-27",
+  "baseline_commit": "4701ec8241acd8e38f20968ff1df8dfe9ef2f246",
+  "scope": "Five localized replacements: candidate-instance identity clarification and removal of duplicated Figure 2 tool disclosure from Section 7.1. No general polishing.",
+  "scientific_claim_changed": "No",
+  "research_experiments_run": false,
+  "archived_witness_checker_rerun": "PASS: five class pairs, one candidate-identity pair, and copy-forward domain checks",
+  "checks": {
+    "changes_limited_to_five_recorded_replacements": true,
+    "protected_files_byte_identical": true,
+    "protected_file_count": 41,
+    "all_tables_CSV_figures_scripts_and_bibliography_unchanged": true,
+    "display_equations_proposition_proof_batch_relation_P0_P6_unchanged": true,
+    "all_RQs_Abstract_Results_Conclusion_unchanged": true,
+    "scientific_numbers_unchanged": true,
+    "Figure_2_caption_and_AI_Declaration_byte_identical": true,
+    "no_AI_tool_disclosure_in_Section_7_1_prose": true,
+    "model_certificate_identity_injective_over_certificate_objects": true,
+    "implementation_hash_includes_instance_ID_and_creation_time": true,
+    "equal_context_identity_witness_matches_clarification": true,
+    "E1_495_receipts_165_paired_agreement_15_separators_checked": true,
+    "all_labels_references_citations_and_input_paths_resolve": true,
+    "native_MiKTeX_main_and_supplement_clean": true
+  },
+  "identity_mapping": {
+    "c_id": "Opaque identity for the exact persisted candidate; concretely represented by certificate_id.",
+    "candidate_id": "Persisted candidate-instance identifier included in canonical certificate content.",
+    "certificate_id": "Digest of the complete canonical certificate, including candidate_id and created_at. Equal proposal/context does not identify distinct instances.",
+    "EID": "Evidence content digest plus canonical locator; unchanged."
+  },
+  "source_receipts": {
+    "implementation_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "implementation_path": "latest/code/implementation-fixed/app/domain/authority.py",
+    "Alloy_model_path": "latest/code/implementation-fixed/conformance/raw-results/formal-refinement-r2-v1/initial-batch/auto_decte_batch.als",
+    "witness_checker_sha256": "32bed3ae1aed344c3bf5c57c7f7e545e4e05836a154ae14d278be3aebd6b7832"
+  },
+  "build": {
+    "main": {
+      "pages": 32,
+      "pdf_sha256": "67c65afb20f0b4000ec0fca4cebaa5612456f63a211c82641ac03665f7a7f701",
+      "overfull_boxes": 0,
+      "underfull_boxes": 0,
+      "unresolved_references_or_citations": 0,
+      "latex_warnings": 0,
+      "words_pdf_extraction": 8512,
+      "text_outside_safety_boundary": 0
+    },
+    "supplement": {
+      "pages": 21,
+      "pdf_sha256": "ecb6a75afc34172e67ff761abd3c91687735463330214cbfa4a6e64f8c5e9384",
+      "overfull_boxes": 0,
+      "underfull_boxes": 0,
+      "unresolved_references_or_citations": 0,
+      "latex_warnings": 0,
+      "words_pdf_extraction": 6084,
+      "text_outside_safety_boundary": 0
+    }
+  },
+  "changed_text_pages": {
+    "main": [
+      7,
+      9,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      23,
+      24
+    ],
+    "supplement": [
+      6
+    ]
+  },
+  "visual_inspection": "All changed main pages checked in contact sheets; concrete identity mapping and Supplement S2.2 enlarged. Final page counts unchanged, no overflow. Figures and captions unchanged.",
+  "edits": [
+    {
+      "file": "sections/03-problem-contract.tex",
+      "before": "where $e$ is persisted evidence, $v_{\\mathrm{exp}}$ is the expected current version, $x_c$ is the machine proposal, $p$ identifies its producer, and $c_{\\mathrm{id}}$ is an identity over the modeled candidate content.",
+      "after": "where $e$ is persisted evidence, $v_{\\mathrm{exp}}$ is the expected current version, $x_c$ is the machine proposal, and $p$ identifies its producer. The identity $c_{\\mathrm{id}}$ distinguishes exact persisted candidate instances even when proposal values and retained review context agree."
+    },
+    {
+      "file": "sections/03-problem-contract.tex",
+      "before": "Candidate identity may be implemented by a certificate, stable handle, or another equivalence class, provided it does not collapse to value equality.",
+      "after": "A certificate or stable handle may implement this identity, provided distinct persisted instances remain distinguishable despite equivalent values and retained context."
+    },
+    {
+      "file": "sections/05-transactional-realization.tex",
+      "before": "A certificate fixes candidate identity and creation time alongside the canonical proposal. It retains the target, producer/version, selection artifact, expected fact version, evidence hash, and canonical locator.",
+      "after": "Here $c_{\\mathrm{id}}$ abstracts \\code{certificate_id}, the hash of the full canonical certificate, including the persisted instance identifier \\code{candidate_id}, creation time, and proposal. The certificate also retains the target, producer/version, selection artifact, expected fact version, evidence hash, and canonical locator."
+    },
+    {
+      "file": "sections/supplement-observation-details.tex",
+      "before": "Its \\code{certIdentityFacts} assumes unique certificate identities over the modeled certificate objects, excluding identity collisions from the checked scopes.",
+      "after": "Its \\code{certIdentityFacts} assigns distinct \\code{CertId} atoms to distinct certificate objects, including objects with equal modeled content."
+    },
+    {
+      "file": "sections/07-evaluation-protocol.tex",
+      "before": "Execution, query-answer, browser-case, and timing counts have separate denominators. For \\cref{fig:evidence-route}, OpenAI Codex (GPT-6) assisted reproducible scripting from archived tables/CSV; Matplotlib 3.10.8 renders the vectors.",
+      "after": "Execution, query-answer, browser-case, and timing counts have separate denominators."
+    }
+  ]
+}
