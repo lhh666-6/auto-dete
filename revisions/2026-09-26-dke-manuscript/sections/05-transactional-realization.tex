@@ -5,7 +5,7 @@
 
 \system{} enforces the admission relation in Python, SQLAlchemy, and SQLite. \code{CandidateWritePort} appends candidates/evidence, \code{AuthorityReadPort} loads persisted objects, and \code{FactAdmissionPort} admits a complete bundle. Recognition receives the candidate facade; trusted review receives admission. These process capabilities implement P0 at the service boundary.
 
-A certificate retains target, canonical proposal, producer/version, selection artifact, expected fact version, evidence hash, and canonical locator. A decision names reviewer and candidate; its immutable binding fixes the exact certificate and authorized value. Transitions preserve this chain for Accept and Correction. The revocable principal-role mapping is checked inside the transaction.
+A certificate fixes candidate identity and creation time alongside the canonical proposal. It retains the target, producer/version, selection artifact, expected fact version, evidence hash, and canonical locator. A decision names reviewer and candidate; its immutable binding fixes the exact certificate and authorized value. Transitions preserve this chain for Accept and Correction. The revocable principal-role mapping is checked inside the transaction.
 
 Admission reloads evidence and reconstructs its canonical locator, checking ownership, content hash, and record/field location against the certificate. The adapter repeats authoritative preflight checks transactionally:
 \begin{enumerate}[leftmargin=*]
@@ -23,4 +23,4 @@ The confirmation API receives candidate, value, and principal from its caller an
 
 Tracing checks each field in every prefix version. Initial and changed fields need their unique transition; unchanged fields retain the exact prior source. The verifier checks source record/field/version, committed value, decision, authorization, certificate, producer, evidence hash/locator, and expected-version relations.
 
-A trace is \code{complete} when these relations agree, otherwise \code{incomplete} with reasons. It does not repair or substitute sources; legacy pre-certificate states are identified separately. Completeness concerns consistency of persisted authorization lineage under the trust boundary in \cref{sec:contract}.
+A trace is \code{complete} when these relations agree, otherwise \code{incomplete} with reasons. It does not repair or substitute sources; legacy pre-certificate states are identified separately. Snapshot completeness covers every field's value and source; trace completeness checks persisted authorization lineage under the trust boundary in \cref{sec:contract}.

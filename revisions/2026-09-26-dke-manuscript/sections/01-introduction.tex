@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-AI-assisted acquisition produces machine proposals that people review before database admission. The final authoritative value cannot recover which proposal was reviewed, what value was authorized, or which predecessor and field sources were retained. We study how to carry that authorization history into a queryable authoritative state.
+AI-assisted acquisition produces machine proposals that people review before database admission. The final authoritative value cannot recover which proposal was reviewed, what value was authorized, or which predecessor and field sources were retained. The problem is to preserve that authorization history in a queryable authoritative state.
 
 Consider quantity 90. A recognizer proposes 100, and a reviewer authorizes 101. Correction should retain both the machine proposal and human-authorized value; an unchanged batch-code field should retain its exact earlier source. Proposal origin and value authority are different roles, including when
 \begin{equation}
@@ -39,6 +39,6 @@ A confirmation request can disagree with recorded review intent even when its tr
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/refined/figure-1-admission-workflow.pdf}
-\caption{The admission relation preserves both the reviewed instance and the original proposal through Correction. (a) Equal-valued candidates remain distinct authorization targets; (b) the authorized correction retains the proposal; (c) failed admission leaves authoritative state unchanged; (d) changed and unchanged fields retain their respective sources. Values illustrate a constructed example. OpenAI Codex (GPT-6) and OpenAI's image-generation tool assisted visual design on 27 September 2026; the latter exposed no model/version identifier. The checked vector diagram was rendered with Matplotlib 3.10.8.}
+\caption{The admission relation preserves both the reviewed instance and the original proposal through Correction. (a) Equal-valued candidates remain distinct authorization targets; (b) the authorized correction retains the proposal; (c) failed admission leaves authoritative state unchanged; (d) changed and unchanged fields retain their respective sources. Values illustrate a constructed example. Design assistance: OpenAI Codex (GPT-6) and OpenAI image generation (model/version unavailable).}
 \label{fig:admission-workflow}
 \end{figure*}

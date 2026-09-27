@@ -1,3 +1,5 @@
+> 历史记录：本文件记录提交 7e65d6a 的 33 页稿。当前 32 页稿见 submission-closeout.md / submission-closeout-check.json。
+
 # High-yield narrative refinements
 
 27 September 2026. Baseline: `2eb04fce5f753ea2a0e9b9265cd9f84484f02819`. This pass implements the author's six local priorities. No new scientific experiments, citations, research questions or claims are introduced.
