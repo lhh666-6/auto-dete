@@ -1,0 +1,18 @@
+% Source: DKE-supplement/tables/e3-trace-summary.csv, fields=128 and records=1000.
+\begin{table}[tb]
+\centering
+\small
+\caption{E3 trace: representative cells with 128 fields and 1,000 total records. Latencies are p50/p95 milliseconds; each arm has 200 timed observations per row. SQL counts are constant within each row and arm. The complete 36-cell grid is deposited.}
+\label{tab:dke-trace}
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Latency (ms)} & \multicolumn{2}{c}{SQL statements} \\
+\cmidrule(lr){2-3}\cmidrule(l){4-5}
+Versions & Bulk & Point reads & Bulk & Point reads \\
+\midrule
+1 & 28.68/43.26 & 209.81/256.03 & 12 & 396 \\
+10 & 39.69/48.16 & 233.82/285.43 & 12 & 423 \\
+100 & 170.24/216.75 & 509.09/595.85 & 12 & 693 \\
+\bottomrule
+\end{tabular}
+\end{table}

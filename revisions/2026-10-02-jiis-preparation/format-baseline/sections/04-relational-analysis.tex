@@ -1,0 +1,16 @@
+\section{Bounded relational characterization}
+\label{sec:alloy}
+
+Relational analysis examines the contract's legal steps, preservation properties, and sensitivity to removing individual bindings. It complements the observation-level construction by making the admission predicates executable.
+
+The Alloy model represents records, fields, ordered versions, evidence, candidates, certificates, principals, authorizations, transitions, and states. Once a record is authoritative, its value and source maps cover exactly its field domain. \code{MachineEvent} can extend candidate/evidence sets while framing authority (P0). \code{BatchAdmissionEvent} has a nonempty item set in one envelope. \code{TamperEvent} freezes values and source pointers while modifying transitions.
+
+The base effect advances one version and applies item values and sources. Full adds unique fields, complete snapshot shape, preexisting certificate/evidence, contextual and authorization bindings, freshness, and an exact item--transition bijection. Separating these conjuncts permits controlled removal. Each ablation uses at least two items: one violates only the selected conjunct and another remains Full-valid. The reduced relation admits that set; Full rejects it with authoritative-state stutter.
+
+Six legal commands exercise Accept, Correction, mixed batches, same-value admission, initial coverage, and singleton admission. Eleven ablations test encoded bindings. Three source attacks remove, replace, or duplicate an anchor after a legal prefix. Fourteen assertions per profile check framing, preservation, singleton correspondence, and trace conditions. The class-to-conjunct map and complete command descriptions are in Supplement S2.
+
+The positive trace assertion requires a trace-complete predecessor and no stray successor transition. It checks admitted fields for one encoded step. Reachable initial and carry-forward witnesses establish a nonempty premise; removing post-state certificate binding changes UNSAT to SAT. Concrete tracing additionally validates predecessor prefixes. This distinguishes bounded preservation from the observation-level proposition.
+
+Two scope profiles increase representative bounds from two records, three fields, six versions, and four states/events to three records, four fields, eight versions, and five states/events. Individual domain bounds remain fixed by deposited commands. SAT denotes a found witness; UNSAT denotes no counterexample within that command's finite scope \citep{jackson2002alloy,torlak2007kodkod}.
+
+\input{tables/generated/formal_evidence}

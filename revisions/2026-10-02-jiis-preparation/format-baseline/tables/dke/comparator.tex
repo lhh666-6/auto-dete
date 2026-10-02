@@ -1,0 +1,18 @@
+% Source: DKE-supplement/tables/e1-comparison.csv; exact fields retained.
+\begin{table}[tb]
+\centering
+\small
+\caption{E1: 165 executions per mechanism. Instance violations are accepted cases violating the instance policy. Extra rejections are rejected cases valid under the value/context policy. Query counts refer to field-level answers after acceptance. All arms had zero value/context-policy violations and zero rejections with fact writes.}
+\label{tab:dke-comparator}
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{@{}Xrrrrr@{}}
+\toprule
+ & Accepted & Instance & Extra & \multicolumn{2}{c}{Query answers} \\
+Mechanism & cases & violations & rejections & Correct & Ambiguous \\
+\midrule
+Context journal & 60 & 15 & 0 & 1,020 & 60 \\
+Exact journal & 45 & 0 & 15 & 810 & 0 \\
+Reference & 45 & 0 & 15 & 810 & 0 \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -1,0 +1,51 @@
+\RequirePackage{fix-cm}
+\documentclass[smallcondensed,natbib,nospthms]{svjour3}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,enumitem,graphicx,flafter,microtype,multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx,xcolor,xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\setcitestyle{numbers,square,comma}
+\providecommand{\bibcommenthead}{}
+\hypersetup{pdftitle={Correction-Aware Data Admission},pdfauthor={Liang Hanghao; Xuan Wentao; Chen Qile; Peng Peng},pdfsubject={Data integrity, candidate-bound authorization, and field-level provenance}}
+\setlength{\emergencystretch}{2em}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+\journalname{Journal of Intelligent Information Systems}
+\begin{document}
+\title{Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates}
+\titlerunning{Correction-Aware Data Admission}
+\author{Liang Hanghao \and Xuan Wentao \and Chen Qile \and Peng Peng}
+\authorrunning{Liang Hanghao et al.}
+\institute{Liang Hanghao \and Xuan Wentao \and Chen Qile \and Peng Peng \at
+College of Computer Science and Electronic Engineering, Hunan University, Lushan South Road, Yuelu District, Changsha 410082, China\\
+\email{hnu16pp@hnu.edu.cn} (Peng Peng, corresponding author)}
+\date{}
+\maketitle
+\begin{abstract}
+Identical authoritative values can arise from different machine proposals and human authorizations. Correction must preserve what the machine proposed while recording the value a reviewer authorized. Even equal-valued candidates with equivalent retained context can be distinct authorization targets. We specify a correction-aware admission relation that binds review to an exact persisted candidate and an explicit authorized value. It checks predecessor freshness and atomically creates a complete successor with total field-level sources. Five paired histories establish class-wise irredundancy of failure-distinguishing information classes in the declared observation model. A Python/SQLite realization connects the relation to bounded Alloy analysis, formal--concrete projections, and a 35-case fault catalogue. In a policy comparison, an exact-binding event journal and the relational reference agree on all 165 corresponding cases. A context journal accepts 15 equal-valued substitutions that satisfy its value/context policy but violate instance authorization; both exact-binding mechanisms reject them. A server-held review-session gate rejects nine request substitutions accepted by the original confirmation path, while three display-only substitutions remain admissible in both paths. Current-version workloads characterize admission, reverse-trace, and storage costs. Together, the results establish an executable relation that preserves corrected proposal histories, enforces instance-specific authorization across two storage designs, and makes each committed field's authorization and source queryable.
+\keywords{data integrity \and data provenance \and human authorization \and AI-assisted data acquisition \and transactional admission \and relational verification}
+\end{abstract}
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-problem-contract}
+\input{sections/04-relational-analysis}
+\input{sections/05-transactional-realization}
+\input{sections/06-formal-concrete-conformance}
+\input{sections/07-evaluation-protocol}
+\input{sections/08-results}
+\input{sections/09-discussion-threats}
+\input{sections/10-conclusion}
+\input{sections/declarations}
+
+
+\bibliographystyle{sn-basic}
+\bibliography{filtered}
+\end{document}

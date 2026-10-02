@@ -1,0 +1,26 @@
+\section{Transactional realization}
+\label{sec:realization}
+
+\subsection{Persistent objects and admission}
+
+\system{} enforces the admission relation in Python, SQLAlchemy, and SQLite. \code{CandidateWritePort} appends candidates/evidence, \code{AuthorityReadPort} loads persisted objects, and \code{FactAdmissionPort} admits a complete bundle. Recognition receives the candidate facade; trusted review receives admission. These process capabilities implement P0 at the service boundary.
+
+Here $c_{\mathrm{id}}$ abstracts \code{certificate_id}, the hash of the full canonical certificate, including the persisted instance identifier \code{candidate_id}, creation time, and proposal. The certificate also retains the target, producer/version, selection artifact, expected fact version, evidence hash, and canonical locator. A decision names reviewer and candidate; its immutable binding fixes the exact certificate and authorized value. Transitions preserve this chain for Accept and Correction. The revocable principal-role mapping is checked inside the transaction.
+
+Admission reloads evidence and reconstructs its canonical locator, checking ownership, content hash, and record/field location against the certificate. The adapter repeats authoritative preflight checks transactionally:
+\begin{enumerate}[leftmargin=*]
+\item reload the field domain, current version, complete predecessor, candidates, evidence, and principal policy;
+\item derive initial coverage or later changed fields using canonical JSON equality, rejecting duplicate, hidden, empty, or incomplete effects;
+\item validate unused identities and the decision--binding--certificate--evidence--transition relation, including agreement of authorized, transition, and successor values;
+\item compare-and-swap the expected current version;
+\item create one transition per admitted field, copy exact unchanged sources, and commit decision, binding, complete version, projections, and audit together.
+\end{enumerate}
+CAS is the first authority write. Failure before commit rolls back admission. Unique indexes and foreign keys reinforce bindings and transition uniqueness. The zero-write baseline is immediately before admission, after any candidate or review preparation. Connection parameters and locator rules are in Supplement S1 and the artifact.
+
+The confirmation API receives candidate, value, and principal from its caller and constructs the binding at confirmation. E2 evaluates an earlier server-held review binding. Manual-source compatibility derives a certificate at confirmation and is outside the preexisting-machine-candidate claim. The historical restricted agent interface permits proposal and verification, with confirmation retained by the host (Supplement S5).
+
+\subsection{Reverse trace and source evolution}
+
+Tracing checks each field in every prefix version. Initial and changed fields need their unique transition; unchanged fields retain the exact prior source. The verifier checks source record/field/version, committed value, decision, authorization, certificate, producer, evidence hash/locator, and expected-version relations.
+
+A trace is \code{complete} when these relations agree, otherwise \code{incomplete} with reasons. It does not repair or substitute sources; legacy pre-certificate states are identified separately. Snapshot completeness covers every field's value and source; trace completeness checks persisted authorization lineage under the trust boundary in \cref{sec:contract}.
