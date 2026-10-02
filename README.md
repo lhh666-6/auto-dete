@@ -5,7 +5,7 @@
 This repository contains the current Journal of Intelligent Information Systems
 (JIIS) submission manuscript, its fixed experimental evidence, and earlier
 DKE/JSS research versions. The October 2 contribution-focused revision and
-pagination fixes are in the [current JIIS submission package](revisions/2026-10-02-jiis-final-contribution-layout/).
+pagination fixes and horizontal/vertical centering are in the [current JIIS submission package](revisions/2026-10-02-jiis-final-contribution-layout/).
 
 ## Start here
 

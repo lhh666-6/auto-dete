@@ -1,6 +1,6 @@
 # JIIS final submission: contribution and layout revision
 
-This is the current author-prepared JIIS submission package. It combines the contribution-focused revision with the pagination fixes requested on October 2, 2026. It does not indicate journal submission or acceptance.
+This is the current author-prepared JIIS submission package. It combines the contribution-focused revision, pagination fixes, and horizontal/vertical centering requested on October 2, 2026. It does not indicate journal submission or acceptance.
 
 ## Read or upload
 
@@ -23,9 +23,13 @@ The source baseline is commit e65f760d0f486bbf70114207d969f66e4219abeb, revision
 
 The contribution revision strengthens candidate-bound authorization, the distinction between proposal, authorized value and exact reviewed instance, equal-valued substitution as a policy separator, cross-representation realization, and the E2 presentation boundary. It preserves the formal scope, experimental numbers and limitations.
 
-The layout revision changes three table-placement options from [t] to [!htbp], keeps C1--C3 together on page 2, and relocates the unchanged mechanism-comparison paragraph after that list. It removes the large blank areas previously on pages 10 and 12. The main manuscript decreases from 25 to 24 pages without changing template geometry, text width, text height, font sizes, figures or data. The default smallcondensed block remains left/top positioned on A4.
+The preceding layout revision changes three table-placement options from [t] to [!htbp], keeps C1--C3 together on page 2, and relocates the unchanged mechanism-comparison paragraph after that list. It removes the large blank areas previously on pages 10 and 12 and decreases the manuscript from 25 to 24 pages.
 
-Both source sets were independently rebuilt in empty directories using TeX Live 2025 and latexmk. The final logs have no undefined references/citations, duplicate labels or Overfull boxes. Four Underfull vbox warnings remain in the main template; all 38 final pages were rendered and visually inspected. The supplementary source is unchanged.
+This round centers the unchanged smallcondensed block on A4: left/right margins are both 44.0217 mm; top/bottom margins are both 44.6648 mm when the running head is included. Text width, height, fonts, content and all 24 page breaks remain unchanged. Character-by-character and graphical-edge comparison verifies a uniform translation on every page. Short last pages retain their natural whitespace; the fixed block, not each page's visible ink, is centered. The predecessor is commit c6472bd92f786d6a8cb66304d4d89a4830c4151c.
+
+For compatibility, the complete delivery ZIP retains its previous filename but now contains the centered version. The Chinese upload instructions and verification receipt describe the current geometry.
+
+The main sources were independently rebuilt in an empty directory using TeX Live 2025 and latexmk. The final log has no undefined references/citations, duplicate labels or Overfull boxes. Four inherited Underfull vbox warnings remain; all 24 newly rendered pages were visually inspected. The supplement PDF and all supplement sources are byte-identical to the preceding independently built and inspected version.
 
 ## Compile
 
