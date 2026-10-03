@@ -2,6 +2,12 @@
 
 This is the current author-prepared JIIS submission package. It combines the contribution-focused revision, pagination fixes, and horizontal/vertical centering requested on October 2, 2026. It does not indicate journal submission or acceptance.
 
+The author-supplied `JIIS-final-submission-centered-2026-10-02.zip` was checked
+on October 3: all 45 upload files, including both PDFs, source ZIPs, and editable
+source folders, match this revision byte for byte. The outer delivery README
+uses `upload/` where this repository uses `submission-files/`; this does not
+change the manuscript. See the [identity receipt](../../docs/reproduction/JIIS-PACKAGE-VERIFICATION-2026-10-03.json).
+
 ## Read or upload
 
 - [Main manuscript: 24 pages](submission-files/Manuscript.pdf)
@@ -42,5 +48,17 @@ In submission-files/Online-Resource-LaTeX:
     latexmk -pdf -interaction=nonstopmode -halt-on-error ESM_1.tex
 
 The frozen experiment and implementation commits referenced by the paper are unchanged. The root REVIEWER_GUIDE.md remains the route to those deposited results.
+
+For experiment reproduction, use the [current reviewer guide](../../REVIEWER_GUIDE.md).
+Start with its minimal pinned checkout and `prepare` → `verify` → `test` → `e1`.
+This manuscript folder is for reading/building the paper; it is not the working
+directory for the experiment commands. The source ZIPs compile independently
+of Git history; the experiment runner requires Git objects from the two pinned
+commits and should be obtained with `git clone`, not the delivery ZIP.
+
+If `latexmk` is unavailable, use `pdflatex main.tex`, `bibtex main`, then two
+more `pdflatex main.tex` passes in the main source folder. Use two
+`pdflatex ESM_1.tex` passes in the supplementary source folder. These are
+alternative TeX build commands, not additional experimental steps.
 
 Before journal upload, authors must confirm approval, affiliations, declarations and the absence of simultaneous consideration elsewhere.

@@ -1,12 +1,29 @@
-# Reproduce the current DKE paper
+# Reproduce the current JIIS paper
 
 **Correction-Aware Data Admission: Candidate-Bound Authorization and
 Field-Level Provenance for AI-Derived Updates**
 
-Use this guide for the [current manuscript](revisions/2026-09-26-dke-manuscript/main.pdf)
-and [supplement](revisions/2026-09-26-dke-manuscript/supplement.pdf).
+Use this guide for the [24-page centered manuscript](revisions/2026-10-02-jiis-final-contribution-layout/submission-files/Manuscript.pdf)
+and [14-page Online Resource 1](revisions/2026-10-02-jiis-final-contribution-layout/submission-files/ESM_1.pdf).
 Start with Steps 1–3. E2, performance measurements and additional formal checks
 can be run independently afterwards. Reading author revision notes is unnecessary.
+
+## Choose the claim you want to check
+
+| Paper evidence | Command / route | Expected result and boundary |
+|---|---|---|
+| E1–E3 reported aggregates | `prepare`, then `verify` | E1: 495 executions / 165 agreement / 15 separators; E2: 60 cases; E3: 22,400 raw timing observations. Recalculates archived data, not fresh system runs. |
+| Core supplementary implementation checks | `test` | 10 tests pass. |
+| E1 instance-vs-context policy distinction | `e1` | 495 fresh executions; 165 exact/reference agreements; 15 equal-valued substitutions separate policies. |
+| Five paired-history constructions | `formal` | 19 Python witness tests; this is not an Alloy solver run. |
+| E2 request/display boundary | `e2`, after browser installation | 60 fresh browser cases; nine request substitutions separated; three display-only substitutions accepted by both paths. |
+| E3 admission and trace timing | `e3 --section mechanism`, `ablation`, or `trace` | Full frozen grids; compare correctness and distributions, not identical milliseconds. |
+| E3 database footprint | `e3 --section storage` | Separate 1,000 / 10,000 / 100,000-transition schemas; not part of the 22,400 timings. |
+| Alloy, formal–concrete projection, 35-case catalogue | Separate pinned formal archive, below | These supporting results use their original source/tools; `verify` and `formal` do not rerun them. |
+
+The retained folder name `reproduction/dke` identifies the original deposit.
+It is the supported entry point for the current JIIS paper; do not switch to an
+older README or pick files from `latest/` to run E1–E3.
 
 ## 1. Obtain the entry point and prepare the fixed evidence
 
@@ -15,7 +32,7 @@ uv supplies Python 3.11 and the required packages. The following commands work
 in PowerShell and in a POSIX shell:
 
 ```text
-git clone --filter=blob:none --sparse https://github.com/lhh666-6/auto-dete.git auto-dete-review
+git clone --branch jiis-reviewer-2026-10-03 --filter=blob:none --sparse https://github.com/lhh666-6/auto-dete.git auto-dete-review
 cd auto-dete-review
 git sparse-checkout set reproduction/dke
 git rev-parse HEAD
@@ -35,8 +52,10 @@ is used to retrieve Git objects and install dependencies.
 | Reference source and input archive | `c6d512843c905cab6d8521dd8c914f7fb26d85ae` |
 
 The tool records extracted file hashes in `.reviewer-work/snapshot.json` and
-checks them against the deposit's manifests. Do not substitute the JSS tag for
-the reference commit; they are different snapshots.
+checks them against the deposit's manifests. The historical
+`r31-jss-2026-09-13` tag resolves to the reference-source commit above, but it is
+not the E1–E3 deposit or the current manuscript. The runner uses explicit commit
+IDs so a manuscript revision cannot silently select different experiment code.
 
 All commands below run from the repository root. To use a different location,
 append `--workspace PATH` to every invocation. `prepare` requires a new directory
@@ -92,6 +111,11 @@ Each run prints its new directory under `.reviewer-work/runs/`. E1 writes
 `comparison-to-deposit.json`. Compare decisions and query answers: generated
 identifiers and timestamps need not match byte for byte. The comparison exits
 with an error if the expected full-case results do not match.
+
+The three E1 arms each execute 165 cases: 165 × 3 = 495. Pairwise agreement has
+165 as its denominator, not 495. Context acceptance is 60/165; exact and reference
+acceptance are each 45/165. Fifteen substitutions are a policy separator, not a
+population error-rate estimate.
 
 ## Optional: E2 browser and review-channel experiment
 
@@ -163,14 +187,47 @@ used by the paper. Use the [frozen JSS reproduction guide](https://github.com/lh
 in a **separate clone of that tag** for their packaged tools and commands.
 Those checks have their own source version and output directories.
 
+For those checks only, make a separate checkout:
+
+```text
+git clone --branch r31-jss-2026-09-13 --filter=blob:none --sparse https://github.com/lhh666-6/auto-dete.git auto-dete-formal
+cd auto-dete-formal
+git sparse-checkout set latest reproduction/tools
+```
+
+Then follow that tag's root `REVIEWER_GUIDE.md` for its Java/Alloy environment,
+`latest/formal/alloy/batch/run_batch_alloy.ps1`, and the implementation
+`conformance` commands. The archive expects 72 Alloy command outcomes, 29
+projection checks (9 SAT / 20 UNSAT), and 35 catalogue cases. These older
+environments and tools are separate from the minimal E1–E3 setup; the old
+manuscript's RQ numbering is not the current JIIS numbering.
+
+## If a step stops
+
+| Message / symptom | Next action |
+|---|---|
+| `Workspace exists` from `prepare` | Reuse it with `verify`, or choose a new `--workspace PATH` for **every** command. Preparation intentionally never overwrites a workspace. |
+| Git object retrieval or dependency download fails | Check network access; use an ordinary Git clone rather than GitHub's source ZIP. The runner reads pinned historical Git objects. |
+| `Prepared file changed` or a source-hash mismatch | Stop; use a new workspace and rerun `prepare`. Do not edit the frozen scripts to make checks pass. |
+| Browser executable missing | Install Chromium as described above, or set `DKE_CHROME` to a working Chrome executable. |
+| Fresh performance differs from the table | Compare workload size, decisions/query outputs, SQL counts, and timing distributions. Hardware-dependent milliseconds are not an equality check. |
+
+When reporting a failure, include `git rev-parse HEAD`, the exact command,
+Python/OS information, and the generated receipt/error message. No model API
+key is needed for these steps.
+
 ## Manuscript and historical records
 
-- [Submission source package and build instructions](revisions/2026-09-26-dke-manuscript/submission/README.md):
+- [Current JIIS submission source package and build instructions](revisions/2026-10-02-jiis-final-contribution-layout/README.md):
   compile the manuscript independently of the experimental runner.
 - [Pinned experiment protocol](https://github.com/lhh666-6/auto-dete/blob/2645e5e18c900ea91c9c980e44195dc71e410432/DKE-supplement/PROTOCOL.md):
   detailed experimental definitions, controls and selection rules.
 - [September 27 entry-point verification](docs/reproduction/DKE-ENTRY-VERIFICATION-2026-09-27.md):
-  records which reviewer commands were actually checked.
+  retains the earlier browser/performance verification record.
+- [October 3 entry-point verification](docs/reproduction/JIIS-ENTRY-VERIFICATION-2026-10-03.json):
+  records the fresh-workspace commands actually checked for this reviewer entry.
+- [Supplied-package identity check](docs/reproduction/JIIS-PACKAGE-VERIFICATION-2026-10-03.json):
+  confirms that the supplied centered package matches the current PDFs and sources.
 
 `latest/`, older reviewer readmes and editorial revision records document prior
 research stages. They are not additional steps for E1–E3. Hosted-model reanalysis

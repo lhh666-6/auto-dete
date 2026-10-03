@@ -1,7 +1,12 @@
-# DKE reviewer tools
+# Reviewer tools for the current JIIS paper
 
 Start with the repository's [reviewer guide](../../REVIEWER_GUIDE.md). It lists
 prerequisites, commands, expected results and the optional experiments.
+
+The directory name `dke` is retained for compatibility with the original frozen
+deposit. The current manuscript is the 24-page centered JIIS version linked
+from the root README. The `jiis-reviewer-2026-10-03` tag freezes the reviewer
+entry point; the scientific deposit and reference-source commits are unchanged.
 
 `reviewer.py` prepares only the pinned sources and small evidence files needed
 for E1–E3 and the paired-history witness tests. It checks the deposited source

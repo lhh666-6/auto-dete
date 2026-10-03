@@ -4,8 +4,11 @@
 
 This repository contains the current Journal of Intelligent Information Systems
 (JIIS) submission manuscript, its fixed experimental evidence, and earlier
-DKE/JSS research versions. The October 2 contribution-focused revision and
-pagination fixes and horizontal/vertical centering are in the [current JIIS submission package](revisions/2026-10-02-jiis-final-contribution-layout/).
+DKE/JSS research versions. **The current manuscript is the 24-page centered
+JIIS version supplied by the authors on October 3, 2026**, with a 14-page Online
+Resource. Its PDFs, source ZIPs, and editable files match the supplied package.
+Use the [current submission package](revisions/2026-10-02-jiis-final-contribution-layout/)
+and the reviewer route below; earlier revision folders are not additional setup steps.
 
 ## Start here
 
@@ -15,6 +18,33 @@ pagination fixes and horizontal/vertical centering are in the [current JIIS subm
 | Read the full definitions and experimental details | [Online Resource 1 — 14 pages](revisions/2026-10-02-jiis-final-contribution-layout/submission-files/ESM_1.pdf) |
 | Reproduce the results | **[Reviewer guide](REVIEWER_GUIDE.md)** |
 | Obtain editable manuscript sources or submission files | [JIIS submission package](revisions/2026-10-02-jiis-final-contribution-layout/README.md) |
+
+## Reviewer quick start
+
+Install Git and [uv](https://docs.astral.sh/uv/getting-started/installation/),
+then run from PowerShell or a POSIX shell:
+
+```text
+git clone --branch jiis-reviewer-2026-10-03 --filter=blob:none --sparse https://github.com/lhh666-6/auto-dete.git auto-dete-review
+cd auto-dete-review
+git sparse-checkout set reproduction/dke
+uv run --no-project --python 3.11 reproduction/dke/reviewer.py prepare
+uv run --no-project --python 3.11 reproduction/dke/reviewer.py verify
+uv run --no-project --python 3.11 reproduction/dke/reviewer.py test
+uv run --no-project --python 3.11 reproduction/dke/reviewer.py e1
+```
+
+Expected: archived E1/E2 summaries and all **22,400** E3 timing observations
+match; **10 tests pass**; fresh E1 produces **495 executions**, **165
+exact/reference agreements**, and **15 equal-valued policy separators**.
+Outputs go to `.reviewer-work/`, never into the deposited evidence.
+
+`verify` recomputes archived records; `e1` runs the systems again. For fresh
+browser runs, performance workloads, witness tests, and the separate Alloy /
+projection / fault-catalogue evidence, follow the [reviewer guide](REVIEWER_GUIDE.md).
+The [October 3 verification receipt](docs/reproduction/JIIS-ENTRY-VERIFICATION-2026-10-03.json)
+records exactly which checks were rerun. The named tag freezes this entry point;
+the experiment commits below remain unchanged.
 
 The reviewer guide provides one route: verify the deposited results, run the
 core checks, then reproduce E1. Browser and performance experiments are separate
@@ -37,6 +67,9 @@ sources and build process.
 
 ## Earlier versions and author revision records
 
+<details>
+<summary>Historical manuscripts and author revision records</summary>
+
 These are retained for provenance; begin with the reviewer guide above for the
 deposited experimental evidence used by the JIIS paper.
 
@@ -51,6 +84,8 @@ deposited experimental evidence used by the JIIS paper.
 - `r21-jss/` holds historical source and hosted-run records; `r27-jss/` holds an
   earlier handoff. `paper/`, `artifacts/`, `source_snapshot_68f7b93/`,
   `REVIEWER_README.md` and `SOURCE_PROVENANCE.md` contain earlier ESWA-era material.
+
+</details>
 
 Public availability does not imply an OSI open-source license for all contents.
 Third-party notices remain with the bundled tools; consult the authors for
