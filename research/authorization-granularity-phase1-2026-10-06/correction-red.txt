@@ -1,0 +1,105 @@
+test_authorization_type_alias_is_rejected (test_audit_corrections.CorrectionAuditTests.test_authorization_type_alias_is_rejected) ... FAIL
+test_certificate_tampering_is_detected (test_audit_corrections.CorrectionAuditTests.test_certificate_tampering_is_detected) ... FAIL
+test_decision_candidate_is_checked (test_audit_corrections.CorrectionAuditTests.test_decision_candidate_is_checked) ... FAIL
+test_evidence_bytes_are_checked (test_audit_corrections.CorrectionAuditTests.test_evidence_bytes_are_checked) ... FAIL
+test_expected_version_is_checked (test_audit_corrections.CorrectionAuditTests.test_expected_version_is_checked) ... FAIL
+test_frozen_chain_passes (test_audit_corrections.CorrectionAuditTests.test_frozen_chain_passes) ... ok
+test_host_declared_authorized_value_is_checked (test_audit_corrections.CorrectionAuditTests.test_host_declared_authorized_value_is_checked) ... FAIL
+test_predecessor_is_checked (test_audit_corrections.CorrectionAuditTests.test_predecessor_is_checked) ... FAIL
+test_proposal_receipt_is_checked (test_audit_corrections.CorrectionAuditTests.test_proposal_receipt_is_checked) ... FAIL
+test_source_anchor_is_checked (test_audit_corrections.CorrectionAuditTests.test_source_anchor_is_checked) ... FAIL
+test_time_order_is_checked (test_audit_corrections.CorrectionAuditTests.test_time_order_is_checked) ... FAIL
+test_unchanged_field_cannot_get_new_source (test_audit_corrections.CorrectionAuditTests.test_unchanged_field_cannot_get_new_source) ... FAIL
+
+======================================================================
+FAIL: test_authorization_type_alias_is_rejected (test_audit_corrections.CorrectionAuditTests.test_authorization_type_alias_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 22, in test_authorization_type_alias_is_rejected
+    self.assertIn('authorized_committed_equality', self.mutate('authorization_bindings', 'authorized_value_payload', '101.0'))
+AssertionError: 'authorized_committed_equality' not found in []
+
+======================================================================
+FAIL: test_certificate_tampering_is_detected (test_audit_corrections.CorrectionAuditTests.test_certificate_tampering_is_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 28, in test_certificate_tampering_is_detected
+    self.assertIn('certificate_content_address', self.mutate('candidate_certificates', 'producer_id', 'tampered'))
+AssertionError: 'certificate_content_address' not found in []
+
+======================================================================
+FAIL: test_decision_candidate_is_checked (test_audit_corrections.CorrectionAuditTests.test_decision_candidate_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 31, in test_decision_candidate_is_checked
+    self.assertIn('review_candidate_binding', self.mutate('human_decisions', 'candidate_id', 'other-instance'))
+AssertionError: 'review_candidate_binding' not found in []
+
+======================================================================
+FAIL: test_evidence_bytes_are_checked (test_audit_corrections.CorrectionAuditTests.test_evidence_bytes_are_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 37, in test_evidence_bytes_are_checked
+    self.assertIn('evidence_content_hash', audit_snapshot(data, self.target)['failures'])
+AssertionError: 'evidence_content_hash' not found in []
+
+======================================================================
+FAIL: test_expected_version_is_checked (test_audit_corrections.CorrectionAuditTests.test_expected_version_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 46, in test_expected_version_is_checked
+    self.assertIn('expected_version', self.mutate('candidate_certificates', 'expected_fact_version', 0))
+AssertionError: 'expected_version' not found in []
+
+======================================================================
+FAIL: test_host_declared_authorized_value_is_checked (test_audit_corrections.CorrectionAuditTests.test_host_declared_authorized_value_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 60, in test_host_declared_authorized_value_is_checked
+    self.assertIn('host_authorized_value', audit_snapshot(data, self.target)['failures'])
+AssertionError: 'host_authorized_value' not found in []
+
+======================================================================
+FAIL: test_predecessor_is_checked (test_audit_corrections.CorrectionAuditTests.test_predecessor_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 25, in test_predecessor_is_checked
+    self.assertIn('predecessor_continuity', self.mutate('record_versions', 'previous_version', 0))
+AssertionError: 'predecessor_continuity' not found in []
+
+======================================================================
+FAIL: test_proposal_receipt_is_checked (test_audit_corrections.CorrectionAuditTests.test_proposal_receipt_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 55, in test_proposal_receipt_is_checked
+    self.assertIn('proposal_receipt_value', audit_snapshot(data, self.target)['failures'])
+AssertionError: 'proposal_receipt_value' not found in []
+
+======================================================================
+FAIL: test_source_anchor_is_checked (test_audit_corrections.CorrectionAuditTests.test_source_anchor_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 40, in test_source_anchor_is_checked
+    self.assertIn('current_source_anchor', self.mutate('record_versions', 'fact_sources', '{"total_quantity":"missing"}'))
+AssertionError: 'current_source_anchor' not found in []
+
+======================================================================
+FAIL: test_time_order_is_checked (test_audit_corrections.CorrectionAuditTests.test_time_order_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 49, in test_time_order_is_checked
+    self.assertIn('trace_time_order', self.mutate('human_decisions', 'decided_at', '2020-01-01 00:00:00'))
+AssertionError: 'trace_time_order' not found in []
+
+======================================================================
+FAIL: test_unchanged_field_cannot_get_new_source (test_audit_corrections.CorrectionAuditTests.test_unchanged_field_cannot_get_new_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\test_audit_corrections.py", line 43, in test_unchanged_field_cannot_get_new_source
+    self.assertIn('unchanged_source_retention', self.mutate('record_versions', 'values', '{"total_quantity":7}'))
+AssertionError: 'unchanged_source_retention' not found in []
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.026s
+
+FAILED (failures=11)

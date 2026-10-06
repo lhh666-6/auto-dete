@@ -1,0 +1,42 @@
+test_connectivity_rejects_int_float_alias (test_canonical_regression.CanonicalRegressionTests.test_connectivity_rejects_int_float_alias) ... FAIL
+test_endpoint_rejects_int_float_alias (test_canonical_regression.CanonicalRegressionTests.test_endpoint_rejects_int_float_alias) ... FAIL
+test_full_projection_separates_int_float_authorization (test_canonical_regression.CanonicalRegressionTests.test_full_projection_separates_int_float_authorization) ... FAIL
+test_object_key_order_does_not_change_projection (test_canonical_regression.CanonicalRegressionTests.test_object_key_order_does_not_change_projection) ... ok
+test_projection_preserves_nested_types (test_canonical_regression.CanonicalRegressionTests.test_projection_preserves_nested_types) ... FAIL
+
+======================================================================
+FAIL: test_connectivity_rejects_int_float_alias (test_canonical_regression.CanonicalRegressionTests.test_connectivity_rejects_int_float_alias)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\formal\tests\test_canonical_regression.py", line 29, in test_connectivity_rejects_int_float_alias
+    self.assertIn('disconnected commit sequence', validate_history_domain(mutant))
+AssertionError: 'disconnected commit sequence' not found in ()
+
+======================================================================
+FAIL: test_endpoint_rejects_int_float_alias (test_canonical_regression.CanonicalRegressionTests.test_endpoint_rejects_int_float_alias)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\formal\tests\test_canonical_regression.py", line 35, in test_endpoint_rejects_int_float_alias
+    self.assertIn('commit sequence does not reach successor values', validate_history_domain(mutant))
+AssertionError: 'commit sequence does not reach successor values' not found in ()
+
+======================================================================
+FAIL: test_full_projection_separates_int_float_authorization (test_canonical_regression.CanonicalRegressionTests.test_full_projection_separates_int_float_authorization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\formal\tests\test_canonical_regression.py", line 16, in test_full_projection_separates_int_float_authorization
+    self.assertNotEqual(project(safe, CLASSES), project(mutant, CLASSES))
+AssertionError: (('D_C', (('candidate-1', 'record-A', 'score', 'evidence-1', 'model-A', 'record-A', 'candidate-1'),)), ('D_V', ((100, 101, 101, 'human-authorized'),)), ('D_F', (7, 7)), ('D_B', (frozenset({'score'}), frozenset({'score'}), 1, (frozenset({'score'}),))), ('D_S', ((('score', 'transition-score'),), (('score', 1, 1, True, True),)))) == (('D_C', (('candidate-1', 'record-A', 'score', 'evidence-1', 'model-A', 'record-A', 'candidate-1'),)), ('D_V', ((100, 101.0, 101, 'human-authorized'),)), ('D_F', (7, 7)), ('D_B', (frozenset({'score'}), frozenset({'score'}), 1, (frozenset({'score'}),))), ('D_S', ((('score', 'transition-score'),), (('score', 1, 1, True, True),))))
+
+======================================================================
+FAIL: test_projection_preserves_nested_types (test_canonical_regression.CanonicalRegressionTests.test_projection_preserves_nested_types)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\authorization-granularity-phase1-2026-10-06\formal\tests\test_canonical_regression.py", line 23, in test_projection_preserves_nested_types
+    self.assertNotEqual(project(a, CLASSES), project(b, CLASSES))
+AssertionError: (('D_C', (('candidate-1', 'record-A', 'score', 'evidence-1', 'model-A', 'record-A', 'candidate-1'),)), ('D_V', ((1, 101, 101, 'human-authorized'),)), ('D_F', (7, 7)), ('D_B', (frozenset({'score'}), frozenset({'score'}), 1, (frozenset({'score'}),))), ('D_S', ((('score', 'transition-score'),), (('score', 1, 1, True, True),)))) == (('D_C', (('candidate-1', 'record-A', 'score', 'evidence-1', 'model-A', 'record-A', 'candidate-1'),)), ('D_V', ((True, 101, 101, 'human-authorized'),)), ('D_F', (7, 7)), ('D_B', (frozenset({'score'}), frozenset({'score'}), 1, (frozenset({'score'}),))), ('D_S', ((('score', 'transition-score'),), (('score', 1, 1, True, True),))))
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+FAILED (failures=4)

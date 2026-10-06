@@ -1,0 +1,194 @@
+{
+  "status": "DRAFT_NOT_EXECUTED",
+  "schema_version": "phase2.tools.v1",
+  "semantic_schema_shared_by_both_policies": true,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_state",
+        "description": "Read authoritative version, field values, source anchors, fresh root and capabilities.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "record_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "record_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "inspect_evidence",
+        "description": "Read an available immutable evidence snapshot.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "evidence_ref": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "evidence_ref"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "propose",
+        "description": "Create a new candidate instance supported by the chosen source; this does not authorize a commit.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "record_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "proposal_value": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null",
+                "object",
+                "array"
+              ]
+            },
+            "evidence_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "parent_certificate_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "record_id",
+            "field_key",
+            "proposal_value",
+            "evidence_ref",
+            "parent_certificate_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "verify",
+        "description": "Verify candidate integrity and freshness; this is not an authorization.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "candidate_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "candidate_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "request_authorization",
+        "description": "Ask the trusted host reviewer to review this exact candidate; read its explicit authorized value and target.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "candidate_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "candidate_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "commit",
+        "description": "Request authoritative mutation using a candidate and an issued authorization. A rejection is feedback for subsequent decisions.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "candidate_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "authorization_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "committed_value": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null",
+                "object",
+                "array"
+              ]
+            },
+            "idempotency_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "candidate_id",
+            "authorization_id",
+            "committed_value",
+            "idempotency_key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_receipt",
+        "description": "Read the recorded outcome for a commit request; if unavailable, authoritative state can be inspected.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "commit_request_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "commit_request_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

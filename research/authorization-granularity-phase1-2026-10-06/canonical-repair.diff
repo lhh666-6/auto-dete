@@ -1,0 +1,41 @@
+--- frozen/observation_witnesses.py
++++ phase1/observation_witnesses.py
+@@ -160,9 +160,9 @@
+     if class_name == "D_V":
+         return tuple(
+             (
+-                candidates[item.candidate_id].proposal_value,
+-                authorizations[item.authorization_id].authorized_value,
+-                successor_values[candidates[item.candidate_id].field_id],
++                _canonical_value(candidates[item.candidate_id].proposal_value),
++                _canonical_value(authorizations[item.authorization_id].authorized_value),
++                _canonical_value(successor_values[candidates[item.candidate_id].field_id]),
+                 authorizations[item.authorization_id].role,
+             )
+             for item in history.batch_items
+@@ -217,13 +217,13 @@
+                 or set(before) != history.schema_field_domain
+                 or set(after) != history.schema_field_domain):
+             errors.append("commit snapshots do not cover schema exactly once")
+-        if before != current:
++        if not _canonical_equal(before, current):
+             errors.append("disconnected commit sequence")
+         if step.successor_id in successor_ids:
+             errors.append("duplicate successor identity")
+         successor_ids.add(step.successor_id)
+         current = after
+-    if current != {v.field_id: v.value for v in history.successor_values}:
++    if not _canonical_equal(current, {v.field_id: v.value for v in history.successor_values}):
+         errors.append("commit sequence does not reach successor values")
+     for auth in history.authorizations:
+         if auth.candidate_id not in candidate_ids:
+@@ -555,7 +555,8 @@
+         }
+     control = copy_forward_control()
+     return _json_safe({
+-        "checker": "observation-witnesses-v5-candidate-identity",
++        "checker": "observation-witnesses-v6-canonical-projection",
++        "value_observation_encoding": "canonical JSON strings (including proposal, authorization, and committed values)",
+         "observations_and_outcomes_are_derived": True,
+         "source_scope": "local resolution cardinality, field/value consistency, exact unchanged-source retention; full P6 lineage is checked separately",
+         "domain_scope": (

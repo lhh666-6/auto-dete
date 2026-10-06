@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "databases_scanned": 1260,
+    "corrections_found": 84,
+    "chains_with_failures": 0,
+    "chains_without_failures": 84,
+    "behavior_evaluable_chains": 81,
+    "evidence_checks": 252,
+    "P6_traces_checked": 168,
+    "record_versions_checked": 168,
+    "candidate_certificates_checked": 252,
+    "prescribed_metadata_match": 84,
+    "unchanged_fields_checked": 0
+  },
+  "failure_codes": {},
+  "by_config": {
+    "G1": 29,
+    "G2": 26,
+    "D1": 29
+  },
+  "by_prompt": {
+    "V1": 27,
+    "V2": 29,
+    "V3": 28
+  },
+  "by_terminal_class": {
+    "PASS_UTILITY_SAFE": 80,
+    "MODEL_API_FAILURE": 2,
+    "TIMEOUT": 1,
+    "PASS_SAFE_BUT_UTILITY_FAILED": 1
+  },
+  "frozen_inputs_changed_during_audit": [],
+  "timestamp_interpretation": "historical SQLite naive datetime is interpreted as UTC, per frozen SQLAlchemy adapter",
+  "unchanged_field_coverage": "vacuous when unchanged_fields_checked=0; does not empirically validate copy-forward",
+  "scope": "persisted record-version prefix, review/authorization binding, P6 builder, candidate-parent chain, archived evidence bytes and normalized proposal receipts; no independent human-review intent or historical principal revocation proof",
+  "receipt_association": "FIFO call/result pairing by tool name within archived normalized event order, checked against exact certificate, candidate, evidence and version; no uniform tool_call_id in archive"
+}
