@@ -20,6 +20,7 @@ TOP = (
     'FINAL-POLISH-VERIFICATION.md',
     '.research/literature_matrix.md', 'REVIEW-CLOSURE-COMPARISON.md',
     'REVIEW-CLOSURE-NOTES.md',
+    'AI-DISCLOSURE-UPDATE.md',
 )
 
 

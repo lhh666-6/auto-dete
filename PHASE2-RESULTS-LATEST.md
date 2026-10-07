@@ -1,5 +1,7 @@
 # Phase 2 completed supplementary evaluation
 
+Start with the [offline reproduction guide](REPRODUCIBILITY.md), [artifact map](docs/reproduction/ARTIFACT-MAP.md) and [fresh verification record](docs/reproduction/REPRODUCTION-VERIFICATION-2026-10-07.md). The dated tag `kais-reproducibility-2026-10-07` fixes this reproducibility release.
+
 Collection completed 2026-10-07 17:46:49 Asia/Shanghai. The original 512-arm analysis remains unchanged. Supplementary A comprises 117 pairs / 234 arms; all scheduled outcomes, including failures, are retained.
 
 | Evidence | Open |

@@ -1,0 +1,69 @@
+{
+  "verified_at_utc": "2026-10-07T12:26:18.151700+00:00",
+  "python": "3.11.9",
+  "os": "Windows-10-10.0.26300-SP0",
+  "reviewer_tool": "reproduction/historical/reproduce.py",
+  "reviewer_tool_sha256": "b9583ce18dee5d8686e757330e385d3efc753df57fcb7ef1ad78fd04c32974e6",
+  "workspace": "workspace",
+  "input_file_count": 1854,
+  "input_bytes": 275207305,
+  "mapping": {
+    "revisions/2026-08-27-jss-r21-live-agent-performance/": "r21-jss/",
+    "revisions/2026-09-12-r30-submission-candidate/": "latest/"
+  },
+  "archived_file_sha256": {
+    "correction-input-hashes.json": "9c9cd32341ce422ae6cc39a697f8c30bc5bac8bed5d188438f835e483ba0a85c",
+    "audit_corrections.py": "4099738e61f710f7bca1747f50b5266618f1e6f6998a37d4da371238505fd852",
+    "correction-summary.json": "246388eef14ce1db292437ab3b78fb0bdb1ec64129a7dc3a0beb3c473b440564",
+    "correction-chains.jsonl": "13f0a990f75b81ecca66aaa46188f9ccc447110e1c4eef8c41fd215ed56f164a"
+  },
+  "audit_exit_code": 0,
+  "checks": {
+    "summary_semantic_match": true,
+    "chains_semantic_match": true,
+    "ledger_semantic_match": true,
+    "source_inputs_unchanged": true,
+    "copied_inputs_unchanged": true,
+    "source_metadata_unchanged": true,
+    "audit_script_unchanged": true
+  },
+  "counts": {
+    "databases_scanned": 1260,
+    "corrections_found": 84,
+    "chains_with_failures": 0,
+    "chains_without_failures": 84,
+    "behavior_evaluable_chains": 81,
+    "evidence_checks": 252,
+    "P6_traces_checked": 168,
+    "record_versions_checked": 168,
+    "candidate_certificates_checked": 252,
+    "prescribed_metadata_match": 84,
+    "unchanged_fields_checked": 0
+  },
+  "all_pass": true,
+  "scope": "All declared historical inputs mapped and hashed; unchanged audit script executed against copied databases; derived summary, every chain and input ledger compared semantically. No provider calls, fresh historical task execution or annotation review. Zero unchanged-field checks in this archive.",
+  "source_commit": "c66bab68f",
+  "verification_command": "python -B reproduction/historical/reproduce.py --source SOURCE_REPOSITORY --output fresh-historical-check-public",
+  "command_note": "The staged public tool was executed with explicit source and output arguments; paths here are portable labels. The reviewer tool hash identifies the exact executed bytes.",
+  "guard_tests": {
+    "public_cli_options": true,
+    "required_output_rejected": true,
+    "existing_output_rejected": true,
+    "existing_output_files_verified_unchanged": 1862,
+    "raw_evidence_output_guards": {
+      "r21-jss": true,
+      "latest": true,
+      "revisions": true,
+      "research": true,
+      "DKE-supplement": true
+    },
+    "invalid_relative_paths_rejected": 7,
+    "source_symlink_escape": "passed",
+    "all_tested_guards_pass": true
+  },
+  "verified_limits": [
+    "Verified on the recorded Windows and Python runtime; another OS was not executed in this check.",
+    "This audit reconstructs archived persistence relations; it does not generate new hosted tasks or re-evaluate human annotations.",
+    "The original handoff ZIP alone does not include the historical raw inputs; obtain the mapped r21-jss and latest files from the repository."
+  ]
+}

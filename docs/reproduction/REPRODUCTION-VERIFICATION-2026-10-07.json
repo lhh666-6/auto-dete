@@ -1,0 +1,330 @@
+{
+  "verified_utc": "2026-10-07T12:36:08.333206+00:00",
+  "release_tag": "kais-reproducibility-2026-10-07",
+  "scientific_input_commit": "c66bab68f4e143c738e47e3c5d976add756c7ddc",
+  "python": "3.11.9",
+  "os": "Windows-10-10.0.26300-SP0",
+  "isolated_venv": true,
+  "requirements_lock": "docs/reproduction/requirements-offline-2026-10-07.txt",
+  "requirements_sha256": "2ddfeba3a75eb0d186f06208231717ba49f41f67537c7f148acac42fae4916b6",
+  "fresh_commands": [
+    {
+      "label": "primary-freeze",
+      "command": [
+        "python",
+        "-B",
+        "research/agent-policy-phase2-formal-2026-10-07/run_formal.py",
+        "--verify-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.17
+    },
+    {
+      "label": "primary",
+      "command": [
+        "python",
+        "-B",
+        "research/agent-policy-phase2-formal-2026-10-07/analyze_formal.py",
+        "--output",
+        "fresh-primary",
+        "--figures"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 49.05
+    },
+    {
+      "label": "supp-tests",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "research/phase2-followup-analysis-2026-10-07",
+        "-p",
+        "test_analysis.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.5
+    },
+    {
+      "label": "supp-analysis",
+      "command": [
+        "python",
+        "-B",
+        "research/phase2-followup-analysis-2026-10-07/analyze.py",
+        "--output",
+        "research/phase2-followup-analysis-2026-10-07/reproduction"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 66.73
+    },
+    {
+      "label": "supp-usage",
+      "command": [
+        "python",
+        "-B",
+        "research/phase2-followup-analysis-2026-10-07/audit_usage.py",
+        "--output",
+        "research/phase2-followup-analysis-2026-10-07/reproduction"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.81
+    },
+    {
+      "label": "supp-verify",
+      "command": [
+        "python",
+        "-B",
+        "research/phase2-followup-analysis-2026-10-07/verify_outputs.py",
+        "--output",
+        "research/phase2-followup-analysis-2026-10-07/reproduction"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.64
+    },
+    {
+      "label": "sensitivity-tests",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "research/phase2-followup-sensitivity-2026-10-07",
+        "-p",
+        "test_sensitivity.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.17
+    },
+    {
+      "label": "sensitivity",
+      "command": [
+        "python",
+        "-B",
+        "research/phase2-followup-sensitivity-2026-10-07/sensitivity.py",
+        "--output",
+        "fresh-sensitivity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 45.84
+    },
+    {
+      "label": "repaired-witness-tests",
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.34
+    }
+  ],
+  "tests": {
+    "supp-tests": {
+      "tests": 18,
+      "status": "PASS"
+    },
+    "sensitivity-tests": {
+      "tests": 3,
+      "status": "PASS"
+    },
+    "repaired-witness-tests": {
+      "tests": 24,
+      "status": "PASS"
+    }
+  },
+  "raw_file_preservation": [
+    {
+      "collection": "original",
+      "verified_files": 16074,
+      "after_reanalysis_all_sha256_match": true
+    },
+    {
+      "collection": "supplementary",
+      "verified_files": 16951,
+      "after_reanalysis_all_sha256_match": true
+    }
+  ],
+  "table_comparisons": [
+    {
+      "collection": "primary",
+      "file": "failure-archaeology-all-arms.csv",
+      "rows": 273,
+      "semantic_match": true
+    },
+    {
+      "collection": "primary",
+      "file": "paired-effects.csv",
+      "rows": 256,
+      "semantic_match": true
+    },
+    {
+      "collection": "primary",
+      "file": "table1-outcomes.csv",
+      "rows": 24,
+      "semantic_match": true
+    },
+    {
+      "collection": "primary",
+      "file": "table2-continuity.csv",
+      "rows": 261,
+      "semantic_match": true
+    },
+    {
+      "collection": "primary",
+      "file": "table3-recovery.csv",
+      "rows": 99,
+      "semantic_match": true
+    },
+    {
+      "collection": "primary",
+      "file": "table4-utility-friction.csv",
+      "rows": 512,
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "file": "failure-archaeology-all-arms.csv",
+      "rows": 19,
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "file": "paired-effects.csv",
+      "rows": 117,
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "file": "table1-outcomes.csv",
+      "rows": 12,
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "file": "table2-continuity.csv",
+      "rows": 231,
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "file": "table3-recovery.csv",
+      "rows": 83,
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "file": "table4-utility-friction.csv",
+      "rows": 234,
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "file": "failure-archaeology-all-arms.csv",
+      "rows": 58,
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "file": "paired-effects.csv",
+      "rows": 256,
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "file": "table1-outcomes.csv",
+      "rows": 24,
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "file": "table2-continuity.csv",
+      "rows": 492,
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "file": "table3-recovery.csv",
+      "rows": 182,
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "file": "table4-utility-friction.csv",
+      "rows": 512,
+      "semantic_match": true
+    }
+  ],
+  "analysis_summary_comparisons": [
+    {
+      "collection": "original",
+      "semantic_match": true
+    },
+    {
+      "collection": "supplementary",
+      "semantic_match": true
+    },
+    {
+      "collection": "sensitivity",
+      "semantic_match": true
+    }
+  ],
+  "supplementary_verification": {
+    "status": "PASS",
+    "python": "3.11.9",
+    "jsonschema": "4.26.0",
+    "checks": [
+      "all planned rows and policy pairs present",
+      "failure membership equals independent scorer including unknowns",
+      "episode and transition totals reconcile with scorer",
+      "all scenario outcome cells reconcile",
+      "native usage/request IDs match every model response",
+      "native file digests unchanged"
+    ],
+    "counts": {
+      "table1-outcomes.csv": 12,
+      "table2-continuity.csv": 231,
+      "table3-recovery.csv": 83,
+      "table4-utility-friction.csv": 234,
+      "paired-effects.csv": 117,
+      "failure-archaeology-all-arms.csv": 19
+    },
+    "input_freeze": "7773563b40c8db30d6def121915f50fbad032537edde32afd4ba39ec3eea744b",
+    "input_recovery_manifest": "3f11ebba8fb43b7ce2582e229678366a2338751505e61a667f02aea4c9b82e8f",
+    "source_sha256": {
+      "analyze.py": "65cda0c340d0fd674891e3865b490e32322ee567fc4bcccfaf07cbd402153edb",
+      "audit_usage.py": "53e262722e4ce0dd032aacda506787c278d56885c96b9bedf696cdc6e42abec4",
+      "test_analysis.py": "3a03675cdce400c300dc11b8f71711382234b5e32631a0aa94675fdcd1d38c26",
+      "verify_outputs.py": "751eb71994e8219c8e95175813224b0eeee6fb0eb479613ecc98e858681102a6"
+    },
+    "output_sha256": {
+      "analysis-summary.json": "eec223cf04181ce365f9118d37a7ce2db711f7e35f8843304f22eacea0abf8b7",
+      "arm-rows.json": "dd1785f531e1a13af1ee936921e5eec65f28eb75d659639c0edd9f21bf6cdbe0",
+      "attempt-ledger.json": "709ea9dc0ceb4b9de9bad721853eb48ae3c3c0ba5ea2ebb0d3361bdeeb4e8c7b",
+      "failure-archaeology-all-arms.csv": "4b7bf994068aa892ea6c306add7805211296b667665962d70f84d105d7aae9b8",
+      "native-attempt-usage-ledger.json": "83bd35bb0afa36b1ccabe6d8a1232801555b5d7083027d2e77ffc3b9688f9f26",
+      "native-usage-summary.json": "4ab7c24e15b4e2b1dd5e947c432d52717922ff53d9cf04f4cdf8275f42fc7f12",
+      "paired-effects.csv": "8f59e22b423a232dfec2cee25ccf1948e74491befedd361fae82df58a170aacf",
+      "prefix-accounting.json": "275a19f376b3712d16bfbc7885ad8496339d10c414f2d11ea5e4217e1c2a4d7e",
+      "scored-arms.json": "54f9ebdb758eb913f083e3eb7844f78ee42744116f29e18ac641d6f144f214d1",
+      "source-file-hashes.json": "5e052c48349a0303812763c04a0d35b29cc4dd37c2a6df581cab4a073bc5f505",
+      "table1-outcomes.csv": "f11d3ebe0886a9d6cac996e21b0d87044f39807683d6b039d07cb9651d13d8b9",
+      "table2-continuity.csv": "fa58b879e199d8b04555084bdd741dfd2b7d0462fc3af3a24125768062927fb3",
+      "table3-recovery.csv": "da4eb132c39947fc613204e6d857963e95be8c8588ca43a6b728c874b08bc65b",
+      "table4-utility-friction.csv": "9d070d826f4befdb7e6f5e785539b8389da6077c19dcbc94865a2c98f8103d38",
+      "validation-ledger.json": "ab954119a444979f402bb7075ee93b97f73181bb5ded2fcc5270ed265b38cc0a"
+    }
+  },
+  "scope": "Archived raw trajectories rescored/reanalyzed in a clean extraction and isolated environment. No new provider calls; original estimates, supplementary cohort and post hoc sensitivity remain distinct. No fresh Alloy, browser or E1-E3 timing execution in this run."
+}

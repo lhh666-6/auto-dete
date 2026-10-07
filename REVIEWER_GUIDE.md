@@ -1,3 +1,11 @@
+# Reviewer entry points
+
+For the current 12-page article and 29-page supplement, start with [REPRODUCIBILITY.md](REPRODUCIBILITY.md) and the [paper-to-artifact map](docs/reproduction/ARTIFACT-MAP.md). They cover the original 512-arm collection, completed supplementary A, S13 sensitivity and current repaired witness tests.
+
+The guide below is retained for the earlier controlled E1-E3, historical and formal deposits. Its JIIS manuscript labels and 19-test witness command refer to that earlier version; the current repaired witness suite has 24 tests and a separate command in the new guide. Frozen source commits and scientific evidence remain unchanged.
+
+---
+
 # Reproduce the current JIIS paper
 
 **Correction-Aware Data Admission: Candidate-Bound Authorization and

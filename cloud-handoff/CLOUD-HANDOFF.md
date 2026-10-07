@@ -1,3 +1,5 @@
+> **Current reviewer route:** Follow [the offline reproduction guide](../REPRODUCIBILITY.md) at tag `kais-reproducibility-2026-10-07`. It uses the complete supplementary archive and fresh output directories. The historical handoff instructions below preserve earlier partial-collection context.
+
 > **Completed follow-up update (7 October 2026):** The active manuscript is now `revisions/2026-10-07-kais-followup/` (12-page article, 29-page supplement; targeted review closure with three main figures, three tables and 20 references). See [current results and offline reproduction](../PHASE2-RESULTS-LATEST.md). The 117-pair supplementary collection is complete and independently scored. The instructions below document the earlier handoff; its partial-collection status and old editing target are historical.
 
 # Cloud manuscript continuation

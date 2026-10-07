@@ -2,7 +2,9 @@
 
 Open `main.pdf` (article) and `supplement.pdf` (technical supplement). Their editable sources are `main.tex` and `supplement.tex`. This revision builds on cloud manuscript commit `47b1168a36656ea998d36746a492eaaae512909d` and adds the completed, separately frozen deployment-A evaluation.
 
-The current review closure has a 12-page article with three main figures, three tables and 20 numbered references, plus a 29-page supplement. It refines the editorial version at commit `a72845f95d05399ad0ff2dfac203566ce60f5daf` with a compact related-work comparison, a running example and explicit scope limits; experimental results are unchanged.
+The current review closure has a 12-page article with three main figures, three tables and 20 numbered references, plus a 29-page supplement. It refines the editorial version at commit `a72845f95d05399ad0ff2dfac203566ce60f5daf` with a compact related-work comparison, a running example and explicit scope limits; experimental results are unchanged. The subsequent AI disclosure correction removes an incorrectly named tool and gives a concise account of assistance and author responsibility; see `AI-DISCLOSURE-UPDATE.md`.
+
+The final main-text clarification identifies the observable deployments, illustrates frozen task `FORMAL-G-001`, explains the fixed-context candidate construction, and links the fixed-version reproduction guide. Current checks and source mappings are recorded in `FINAL-POLISH-VERIFICATION.md`.
 
 The main narrative follows continuity, recovery, utility and friction. One main table distinguishes original A, original B and supplementary A. Methods explain selection and the additional collection period before using the supplementary results. S11 retains original detailed results; S12 reports the supplementary cohort and attempt accounting; S13 labels the reconstructed completed-A view as post hoc sensitivity.
 
@@ -31,6 +33,7 @@ The compact `KAIS-editable-sources.zip` contains the manuscript and its derived 
 ## Current reports and scope
 
 - `REVIEW-CLOSURE-NOTES.md`: current changes and exact source diff.
+- `AI-DISCLOSURE-UPDATE.md`: subsequent author-requested disclosure correction, exact wording and preservation checks.
 - `REVIEW-CLOSURE-COMPARISON.md` and `.research/literature_matrix.md`: nearby-work comparison and primary-source grounding.
 - `FINAL-POLISH-NOTES.md`: preceding editorial cuts, figure relocation and word-count comparison.
 - `FINAL-POLISH-CITATION-AUDIT.md`: primary-source verification of the three formally added references.

@@ -1,44 +1,35 @@
-# Current manuscript verification — targeted review closure
+# Current manuscript verification — final clarifications
 
-Date: 2026-10-07. Baseline: published editorial pass `a72845f95d05399ad0ff2dfac203566ce60f5daf`. This pass addresses the author's three closing priorities: nearby-work positioning, a running contract example, and explicit scope and deployment-attribution limits.
+Date: 2026-10-07. This report includes the preceding review closure, the author-requested 51-word AI disclosure correction, and the final small clarifications requested before publication. The immediate local baseline is `qa/before-self-containment/`; the preceding published review closure is commit `c66bab68f4e143c738e47e3c5d976add756c7ddc`.
 
-## Delivered changes
+## Final changes and their sources
 
-- A five-row conceptual comparison uses existing primary-source references. It acknowledges prior proposal-identity binding and recovery, and distinguishes the correction-specific paired intervention. It is explicitly not a cross-system benchmark. Cell-level sources are recorded in `REVIEW-CLOSURE-COMPARISON.md` and `.research/literature_matrix.md`.
-- The running example connects proposal 100, authorization 101, canonical JSON type distinctions, exact unchanged-field sources, and the online facade's consumed-grant/idempotent-receipt behavior. A typed equality adapter remains a future extension requiring renewed validation.
-- The contract's multi-field guarantee is scoped to one record. Background record population in the performance grid is not represented as a cross-record transaction benchmark. A/B recovery differences cannot isolate model capability from deployment and collection conditions.
+1. **Section 6.1, observable deployment identity.** A requests `gpt-5.6-terra` through account-backed Codex CLI `0.160.1` with low reasoning and exposes no returned model identifier. B requests and receives `deepseek-v4-flash` through DeepSeek's Anthropic-compatible Messages API at temperature zero. Both use the shared serialized JSON action facade. Neither route supplies an immutable model revision. This wording follows `research/agent-policy-phase2-formal-2026-10-07/frozen-formal/agent-config-manifest.json`, its preflight identity observations, and `src/phase2/providers.py`.
+2. **Section 6.2, an existing task.** Frozen task `FORMAL-G-001` corrects quantity in purchase-order record `P2F-FORMAL-G-001`: predecessor 3379, ERP-supported proposal 3368, host-authorized value 3367. Its purchase memo, business context, history and sources are preserved. These exact values and the instruction come from `frozen-formal/formal-task-manifest.json`; this is an explanation of an already collected task, not new evidence or an added task.
+3. **Section 6.2, context-equivalent construction.** The G handoff calls `propose` again while retaining target/field, proposal value, predecessor, evidence identity/bytes/hash/locator, template/schema, producer/selection metadata and parent links. Candidate identity and its recomputed certificate change outside the retained context. Sources: `src/phase2/runner.py` lines 333–347, `src/phase2/kernel.py` lines 118–145, and the 17-field `context_field_whitelist` in `frozen-design/protocol-manifest.json`.
+4. **Section 4.2, failed admission versus unavailable response.** The sentence now reads: “Rejected admissions and transactions aborted before commit make no authoritative state change; a committed transition is not undone by a subsequently unavailable response.” The relational `_run_cas_unit` uses a single transaction (`revisions/2026-09-08-r22-concise/code/implementation-fixed/app/adapters/database/repositories.py`, lines 1248 onward). The frozen online host separately represents rejection, committed state, stored receipts and receipt unavailability (`src/phase2/kernel.py`), consistent with the retained R scenario and supplementary explanation. The clarification does not claim that all failed or interrupted client observations imply a database rollback.
+5. **Abstract, recovery subject and cost denominator.** Recovery is attributed to the agent continuations receiving instance-mismatch feedback, rather than to mismatches. The cost sentence begins “For standardized handoff pairs”, so one and 1.60 additional calls cannot be mistaken for averages across all task families. All values remain unchanged, and the abstract does not introduce the G scenario letter before definition.
+6. **Data and software availability.** One clickable fixed-version reproduction-guide entry points to the `kais-reproducibility-2026-10-07` tag. Existing frozen commit links and hashes remain. The PDF annotation was checked for the exact URL; tag publication and remote resolution are checked separately by the publication task.
 
-| Item | Baseline | Current |
-|---|---:|---:|
-| Main article pages | 11 | 12 |
-| Main figures | 3 | 3 |
-| Main tables | 2 | 3 |
-| Abstract words, whitespace-delimited | 183 | 183 |
-| Numbered references | 20 | 20 |
-| Supplement pages | 29 | 29 |
-
-The added table is the only new table. No font size, line spacing, original figure or experimental data was changed. The main narrative retains the continuity, recovery, utility and friction order, with collection provenance and inferential boundaries stated in Methods.
+The six formal configuration/task/harness files supporting items 1–3 were checked against their hashes in `frozen-formal/master-sha256.json`. Exact hashes are recorded in `QA-RECEIPT.json`. No frozen research source was edited. The preceding comparison table and illustrative contract example remain as previously reviewed; no new experiment, reference, figure or limitations paragraph was added. Net source growth relative to the immediate baseline is 136 whitespace-delimited tokens.
 
 ## Scientific preservation
 
-- All 126 archived evidence/baseline files match the baseline package byte-for-byte; the separately regenerated manuscript-verification receipt is excluded from that count.
-- All eight main and two supplementary displayed equation blocks are unchanged.
-- Both existing main empirical tables and all nineteen supplementary tables are unchanged.
-- The entire prospective Methods section, Results section and author declarations are unchanged. This includes all Results numeric tokens.
-- No new provider/model calls, new experiments or new experimental analysis were performed.
-- The original evidence verifier passes all 29 checks. All 20 cited keys have exactly one bibliography entry, with no missing or unused entries.
-- Independent read-only preservation review found no semantic drift. The example's numeric values are illustrative, not additional empirical findings.
-
-`REVIEW-CLOSURE-NOTES.md` contains the exact source diff against the baseline. The earlier `FINAL-POLISH-NOTES.md` describes the preceding editorial pass and is marked accordingly. Its figure assets and citation audit remain applicable where unchanged.
+- All 29 evidence-verifier checks pass. All 20 cited keys resolve with no missing or unused bibliography entries.
+- Main article: 12 pages, three figures, three tables, nine numbered sections, and 184 abstract words by whitespace count (185 by the verifier's token rule). Supplement: 29 pages.
+- The entire Results section, all eight main and two supplementary displayed equation blocks, all three main tables and nineteen supplementary tables remain unchanged.
+- The prospective design, collection boundaries, outcome definitions, analysis rules and measured results are unchanged. Sections 6.1–6.2 add source-grounded descriptions only.
+- The supplement source and PDF remain byte-identical. The latest 51-word AI declaration is unchanged; no Claude attribution is restored.
+- Of 154 evidence/baseline/figure files, 152 remain byte-identical. The two derived-metadata exceptions are `evidence/final-number-verification.json` (updated abstract word count) and `figures/revised-figure-source-audit.json` (updated hash of that receipt). All underlying experimental checks, data and image exports remain unchanged. No figure was redrawn.
+- All source changes are confined to the abstract, the single Section 4.2 sentence, the deployment paragraph in Section 6.1, the task/G explanations in Section 6.2, and the reproduction-guide sentence. The exact local diff is saved in `qa/self-containment/source.diff`.
+- No new provider calls, data collection, experiments or experimental analysis were performed.
 
 ## Build, visual inspection and delivery
 
-Both documents compile with the existing MiKTeX pdfLaTeX installation, using three passes each. There are zero unresolved reference/citation warnings, overfull boxes, missing characters or extracted `??` placeholders. The built-in compiler was unavailable in this workspace because it could not locate its standard directories; no compiler was installed.
+The main article compiles successfully with the existing MiKTeX pdfLaTeX installation in three final passes. The supplement remains the unchanged previously compiled PDF. There are zero unresolved citation/reference warnings, overfull boxes, missing characters, extracted `??` markers or words outside page boundaries. The built-in compiler remains unavailable because it cannot locate its standard directories; no compiler was installed.
 
-All 41 current pages are rendered under `qa/review-closure/`. The current `FINAL-POLISH-PDF-QA.md` records actual visual inspection, enlarged-page coverage, remaining nonblocking observations and the reviewed PDF hashes. `QA-RECEIPT.json` records mechanical preservation checks, build diagnostics and source/PDF hashes. The unchanged figure exports retain their prior semantic/export audit.
+All twelve current main pages were rendered and inspected in two overview sheets under `qa/self-containment/`. Main pages 1, 4, 5, 6, 7 and 11 were additionally enlarged, covering the abstract, commit-boundary sentence across pages 4–5, deployment/task/G explanations, figure continuity and the reproduction-guide/AI declarations. The unchanged supplement retains its preceding 29-page visual review. `FINAL-POLISH-PDF-QA.md` records current hashes and coverage.
 
-The scoped LaTeX build/spacing diagnostic score remains 89/100: fifteen underfull hbox diagnostics incur the capped ten-point deduction, and the third final compilation pass incurs one point. This score concerns build and typography only; it does not measure scientific merit or predict acceptance. No font or line-spacing compression was used to recover the extra page.
+The scoped LaTeX build/spacing diagnostic score remains 89/100: sixteen underfull hbox diagnostics incur the capped ten-point deduction and the third final pass incurs one point. This is a typography/build diagnostic, not scientific scoring or an acceptance prediction. No font size or spacing was changed.
 
-The source ZIP includes current manuscript sources, PDFs, derived evidence and comparison documentation. Its CRC and every member's SHA-256 are verified before updating the existing handoff branch. The package is a manuscript overlay; raw evidence remains in the separately pinned replication and supplementary-collection archives described in `README.md`.
-
-Publisher-template conversion, author sign-off and journal submission remain separate steps. This review does not assert statistical equivalence, general acceptability of the measured latency, or deployment differences caused solely by model capability.
+The editable ZIP is regenerated and checked by CRC and member SHA-256. It is a manuscript overlay; the separately pinned original and supplementary archives remain the raw evidence sources. Earlier `REVIEW-CLOSURE-*`, `AI-DISCLOSURE-UPDATE.md`, `FINAL-POLISH-NOTES.md` and `FOLLOWUP-*` reports retain their stated historical scope. Publisher-template conversion, author sign-off and journal submission remain separate steps.

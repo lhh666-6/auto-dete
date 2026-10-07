@@ -1,6 +1,58 @@
-> **完整补充实验与新版论文（2026-10-07）**：补采已于北京时间 17:46:49 完成，117 对 / 234 臂全部入账。 [新版正文（12 页）](revisions/2026-10-07-kais-followup/main.pdf) · [补充材料（29 页）](revisions/2026-10-07-kais-followup/supplement.pdf) · [可编辑源码](revisions/2026-10-07-kais-followup/KAIS-editable-sources.zip) · [核验报告](revisions/2026-10-07-kais-followup/FINAL-POLISH-VERIFICATION.md)。
+# Review-to-Execution Continuity for Corrected Agent State Changes
 
-> 原始 512-arm 主分析完整保留；117 对补充 A 单独标明来源和分母，事后敏感性分析在 S13。 [完整结果与复算入口](PHASE2-RESULTS-LATEST.md)。以下 JIIS 入口是历史提交档案。
+Research manuscript and replication artifacts for correction-aware authorization of state-changing agents. The current package contains a **12-page article**, **29-page supplement**, frozen inputs, archived trajectories, scoring code and figure sources.
+
+中文入口：以下链接对应当前论文与复现材料。复算使用已保存的轨迹，无需模型账户；原始实验、补充采集和事后敏感性分析分别保留。
+
+## Start here
+
+| I want to… | Open this |
+|---|---|
+| Read the current paper | [Article PDF](revisions/2026-10-07-kais-followup/main.pdf) · [Supplement PDF](revisions/2026-10-07-kais-followup/supplement.pdf) |
+| Reproduce the results from raw trajectories | **[Step-by-step offline reproduction](REPRODUCIBILITY.md)** |
+| Find the source of a table, figure or claim | [Paper-to-artifact map](docs/reproduction/ARTIFACT-MAP.md) |
+| Check what was actually rerun | [Fresh reproduction verification](docs/reproduction/REPRODUCTION-VERIFICATION-2026-10-07.md) |
+| Obtain editable paper/figure sources | [Manuscript source ZIP](revisions/2026-10-07-kais-followup/KAIS-editable-sources.zip) · [Build instructions](revisions/2026-10-07-kais-followup/README.md) |
+| Inspect data provenance and expected outcomes | [Results and archive index](PHASE2-RESULTS-LATEST.md) · [File checksums](docs/reproduction/ARTIFACT-MANIFEST.json) |
+| Prepare the submission files | [Submission checklist](docs/submission/SUBMISSION-CHECKLIST.md) · [Cover-letter draft](docs/submission/COVER-LETTER.md) |
+| Rerun earlier controlled mechanisms | [Supporting-evidence reviewer guide](REVIEWER_GUIDE.md) |
+
+## Fixed reproducibility version
+
+Use tag **`kais-reproducibility-2026-10-07`** for this documented release. The working manuscript continues on `codex/phase2-formal-512-handoff`. Keep the resolved commit with any reproduced outputs.
+
+```text
+git clone --branch kais-reproducibility-2026-10-07 --filter=blob:none --sparse https://github.com/lhh666-6/auto-dete.git auto-dete-review
+cd auto-dete-review
+git rev-parse HEAD
+```
+
+Continue with the sparse-checkout, archive extraction and isolated-environment commands in [REPRODUCIBILITY.md](REPRODUCIBILITY.md). The compact route downloads the original and complete supplementary ZIPs plus the analysis and manuscript directories; a full checkout also includes much larger historical dependencies. New outputs go into a separate working copy.
+
+Python 3.11 and the [tested dependency set](docs/reproduction/requirements-offline-2026-10-07.txt) support the online-trajectory analyses. Download/install steps require network access; scoring and reanalysis use local evidence. TeX, browser workloads and Java/Alloy are separate optional workflows. Fresh provider calls would constitute a new collection and are not needed to reproduce these reported outputs.
+
+## Evidence collections
+
+| Collection | Size | Interpretation |
+|---|---:|---|
+| Original frozen collection | 128 tasks × 2 deployments × 2 policies = 512 planned arms | Original primary estimator; quota failures, other failures and unknowns remain. |
+| Separately frozen supplementary A | 117 selected task pairs / 234 arms | Later collection selected by pre-response quota failure; separately labeled exploratory evidence. |
+| Completed-A sensitivity (S13) | 256 routed pairs / 512 arms, assembled from the two sources | Explicitly post hoc; one source per pair, no additional independent tasks and no replacement of the original estimator. |
+
+The complete supplementary archive finished on 7 October 2026. Earlier partial snapshots and pilot runs remain historical records. The [artifact map](docs/reproduction/ARTIFACT-MAP.md) distinguishes these collections from the formal checks, controlled mechanisms and historical correction-chain audit.
+
+## Preservation and reuse
+
+Frozen experiment directories and raw archives retain their original bytes and paths. [Artifact checksums](docs/reproduction/ARTIFACT-MANIFEST.json) identify the release inputs; verification receipts distinguish fresh execution from inspection of archived outputs. Figures and PDFs may differ in renderer metadata across environments; numeric results are compared semantically.
+
+This repository contains an unpublished research manuscript and does not assert journal acceptance. No blanket open-source license is assigned to all materials; existing third-party notices remain applicable. Cite the manuscript title, authors, repository URL and resolved release commit when identifying this artifact version.
+
+## Earlier versions and supporting deposits
+
+The earlier reviewer commands remain useful for the controlled E1–E3 layer. Their historical manuscript names, dates and test counts refer to that layer, not the current article.
+
+<details>
+<summary>Archived JIIS entry and earlier research versions — labels below refer to the October 3 version</summary>
 
 # Correction-Aware Data Admission
 
@@ -95,3 +147,4 @@ Public availability does not imply an OSI open-source license for all contents.
 Third-party notices remain with the bundled tools; consult the authors for
 reuse beyond evaluation. Repository files do not state journal acceptance.
 
+</details>
