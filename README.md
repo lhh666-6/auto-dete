@@ -1,3 +1,5 @@
+> **KAIS 论文修订（2026-10-07）**：本分支的新版全文、补充材料、可编辑源码和图表见 [KAIS 修订目录](revisions/2026-10-07-kais-continuity/README.md)。[正文 PDF（13 页）](revisions/2026-10-07-kais-continuity/main.pdf) · [补充材料 PDF（23 页）](revisions/2026-10-07-kais-continuity/supplement.pdf) · [源码 ZIP](revisions/2026-10-07-kais-continuity/KAIS-editable-sources.zip)。以下 JIIS 入口及旧版实验档案保留供追溯。
+
 > **Phase 2 当前结果（2026-10-07 10:10 北京时间）**：原正式批次 512 个计划臂已结束；额度恢复补采已纳入 45/117 个配对的中期快照。原始结果、分析表和复算说明见 [PHASE2-RESULTS-LATEST.md](PHASE2-RESULTS-LATEST.md)。
 
 # Correction-Aware Data Admission
@@ -92,3 +94,4 @@ deposited experimental evidence used by the JIIS paper.
 Public availability does not imply an OSI open-source license for all contents.
 Third-party notices remain with the bundled tools; consult the authors for
 reuse beyond evaluation. Repository files do not state journal acceptance.
+

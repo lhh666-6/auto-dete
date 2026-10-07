@@ -1,0 +1,457 @@
+--- original/main.tex
++++ revised/main.tex
+@@ -7,6 +7,8 @@
+ \usepackage[hidelinks]{hyperref}
+ \usepackage{xurl}
+ \setlength{\emergencystretch}{2em}
++\renewcommand{\dbltopfraction}{0.85}
++\renewcommand{\textfraction}{0.1}
+ \newcommand{\jeq}{\mathrel{=_{\mathrm{json}}}}
+ \newcommand{\jneq}{\mathrel{\neq_{\mathrm{json}}}}
+ \newcommand{\system}{\textsc{Auto-Decte}}
+@@ -21,47 +23,54 @@
+ \begin{document}
+ \maketitle
+ \begin{abstract}
+-State-changing agents can continue acting after a reviewer corrects and authorizes a machine proposal. An executed candidate may then have the same value and retained context as the reviewed candidate while being a different instance. We define correction-aware review-to-execution continuity by separating machine proposal, authorized correction, reviewed candidate and executed transition. An executable contract connects these roles to predecessor freshness, atomic successors, evidence integrity and field-level provenance. Bounded relational checks and independently audited persistence support the contract; two exact-binding realizations agree on 165 controlled cases. An audit recovers the correction relation in 84 archived hosted-agent chains. A locally frozen prospective experiment records 512 planned policy trajectories over 128 tasks and two deployments, retaining runtime failures and unknown integrity. Instance-bound execution prevents all 17 observed substitution violations in standardized queued handoffs. Actual rejection feedback induces reviewed-candidate reuse in 16 continuations and reauthorization in one. Agent-managed refreshed previews produce no observed substitutions. Overall completion changes by 0.78 percentage points, with a task-cluster 95\% interval of $[-1.95,3.52]$. The main deployment's standardized handoffs require one additional agent tool call and median 14.54 seconds of suffix time. The other deployment reaches only 11 review checkpoints because of provider failures. These results expose continuity's execution consequences while separating task utility, integrity and operational friction.
++State-changing agents may continue acting after a reviewer corrects and authorizes a proposal. During that continuation, an equivalent candidate can replace the reviewed instance even when the final value is correct. We define correction-aware review-to-execution continuity through four distinct roles: machine proposal, authorized correction, reviewed candidate and executed transition. An executable contract links them to predecessor freshness, atomic successors and field-level provenance. Bounded relational checks, two transactional realizations, controlled tests and 84 archived correction chains establish complementary evidence for the contract. A frozen prospective study then compares retained-context and instance-bound authorization over 128 tasks, two deployments and 512 planned trajectories, including terminal failures. In standardized queued handoffs, context authorization admits 17 instance substitutions. The paired bound continuations reject those handoffs and recover with intact continuity through reviewed-candidate reuse in 16 cases and fresh authorization in one. Agent-managed refreshed previews show no observed substitution. Overall completion changes by 0.78 percentage points (task-cluster 95\% interval $[-1.95,3.52]$); the principal deployment's handoff repairs add one tool call and median 14.54 seconds. Its 128 review checkpoints supply most continuation evidence, compared with 11 in the quota-limited deployment. The results make continuity explicit, enforceable and empirically observable, showing how authorization feedback shapes an agent's execution environment.
+ \end{abstract}
+ \noindent\textbf{Keywords:} trustworthy agents; review-to-execution continuity; human authorization; transactional execution; provenance; agent recovery
+ 
+-\section{Introduction}
+-Agents that invoke tools can change operational state: they can update a record, publish a revised value, or commit a result that later actions treat as authoritative. The execution problem therefore extends beyond generating a plausible answer. A persistent change needs an accountable connection to the proposal and authorization that justified it. Human-in-the-loop frameworks already support pausing tool calls for approval, editing their arguments, and resuming execution \citep{langchainHITL}. These capabilities make the interval between review and later execution a concrete part of an agent workflow.
+-
+-Correction makes that interval especially consequential. A machine proposes a value $x_c$, and a reviewer authorizes $x_a$. A valid correction permits $x_c\jneq x_a$: if the machine reads 100 and the reviewer corrects it to 101, the authoritative state should contain 101 while preserving the original proposal. The proposal explains what the machine produced; the authorization explains why a different value may be committed. Guided repair and interactive cleaning already distinguish system suggestions from human judgments \citep{yakout2011guided,he2016falcon}. Executing the corrected action adds a further question: which proposal instance was reviewed, and which instance actually supplied the committed transition?
+-
+-Consider two persisted candidates $c_1$ and $c_2$. Both propose 100 for the same field, refer to the same evidence and predecessor, and retain the same producer and review context. They differ only in instance identity. The reviewer inspects $c_1$ and authorizes 101. Before committing, the agent regenerates an equivalent preview or receives a queued handoff carrying $c_2$. The final value may still be 101 and all contextual checks may agree. Yet review of $c_1$ does not authorize $c_2$ under an instance-accountability requirement. Equality of content and continuity of the reviewed instance answer different questions. A workflow must make that distinction explicit before deciding whether the continuation may mutate authoritative state.
+-
+-Several established mechanisms can implement parts of the required connection. Transactions install atomic state changes \citep{gray1981transaction}; concurrency checks bind them to a current predecessor \citep{kung1981occ}; provenance records derivation and responsibility \citep{buneman2006curated,moreau2013provdm}; approval and request binding control which actions proceed \citep{clark1987integrity,owaspTransactionAuthorization}. The question we examine is their joint correction case: how the machine proposal, authorized correction, reviewed candidate and executed transition remain distinguishable across persistence and subsequent agent actions. It has both a systems dimension---specifying and enforcing the relation---and an execution dimension---what the agent does when that relation produces rejection feedback.
+-
+-We make correction-aware review-to-execution continuity explicit, enforceable, and observable in state-changing agent workflows. Our central question is: \emph{How should authorization preserve review-to-execution continuity when corrected agent proposals become persistent changes, and how does enforcing that continuity reshape subsequent execution and recovery?} We compare retained-context and instance-bound authorization after the same prospective reviewed history, tracing feedback to the next meaningful agent action and eventual utility and integrity outcomes. This links the persistence contract to the environment in which an adaptive agent continues its task.
+-
+-The paper has four contributions:
+-\begin{enumerate}[leftmargin=*,itemsep=2pt]
+-\item \textbf{Correction-aware continuity.} We distinguish proposal value, authorized correction, reviewed instance and executed instance, and characterize the information needed to distinguish the declared continuity failures.
+-\item \textbf{Executable authorization contract.} We connect the reviewed target to freshness, complete successors, evidence and field sources, with bounded formal checking, transactional realizations and independent persisted-state auditing.
+-\item \textbf{Cross-layer mechanism evidence.} Controlled policy separation, request-binding tests and archived hosted-agent correction chains establish complementary evidence for the specified relation.
+-\item \textbf{Prospective online intervention.} A frozen paired experiment inserts the policies into live agent continuations to measure recovery paths, separate utility/integrity outcomes and operational friction.
+-\end{enumerate}
+-Three findings organize the evidence. Correction creates a distinct continuity problem. The relation can be specified and enforced across persistence mechanisms. In standardized online handoffs, its enforcement redirects subsequent agent actions and adds measurable execution work. Seventeen context-admitted substitutions violate the instance-continuity oracle; the paired bound continuations instead complete with intact continuity. In the agent-managed preview tasks, neither policy produces an observed substitution. This contrast connects an execution-layer distinction to actual feedback and recovery, rather than presuming that agents ordinarily choose an invalid continuation.
+-
+ \begin{figure*}[t]
+-\centering\includegraphics[width=.94\textwidth]{figures/figure1-contract.pdf}
+-\caption{Correction-aware review-to-execution continuity. Review preserves the machine proposal but authorizes a corrected value. A content-equivalent new candidate separates the two policies: context admits it, whereas bound requires the reviewed instance. Rejection can lead the continuing agent to reuse that instance or obtain fresh authorization. The diagram is a motivating construction; observed continuation counts appear in Section 7.}
++\centering\includegraphics[width=\textwidth]{figures/revised-figure1-concept.pdf}
++\caption{Correction-aware review-to-execution continuity. Review authorizes 101 from $c_1$ while retaining its proposal 100. Equivalent $c_2$ has the same value/context but a different identity. Context permits either instance under the original grant; bound permits only $c_1$. A new authorization can license $c_2$. This is a conceptual construction.}
+ \label{fig:contract}
+ \end{figure*}
++
++\begin{figure*}[t]
++\centering\includegraphics[width=\textwidth]{figures/revised-figure2-evidence-chain.pdf}
++\caption{Evidence chain for trustworthy corrected execution. Distinct layers define continuity, make it executable, validate persistence and integration, then observe live agent continuation. Counts retain separate units: bounded commands, cases per mechanism, archived correction chains and planned paired trajectories.}
++\label{fig:evidence}
++\end{figure*}
++
++\section{Introduction}
++Agents that invoke tools increasingly change persistent operational state. They update records, publish revised values and commit results that later actions treat as authoritative. Trustworthy execution therefore requires an accountable connection between a state change and the review that authorized it. Human-in-the-loop frameworks already pause tool calls, permit argument edits and resume execution \citep{langchainHITL}. The open execution question is what must remain continuous while an agent acts after that review.
++
++Correction makes this question concrete. A machine proposes $x_c$; a reviewer authorizes $x_a$. When a proposal of 100 is corrected to 101, the system should commit 101 and retain the original 100 as proposal evidence. Guided repair and interactive cleaning already distinguish system suggestions from human judgments \citep{yakout2011guided,he2016falcon}. In a state-changing agent workflow, the distinction extends across time: the system must retain both what was proposed and which reviewed instance is entitled to supply the later transition.
++
++Suppose two persisted candidates, $c_1$ and $c_2$, propose 100 for the same field and retain the same evidence, producer and expected predecessor. They differ only in instance identity. A reviewer inspects $c_1$ and authorizes 101. The agent then obtains an equivalent preview, or receives a queued handoff carrying $c_2$, and executes it under the earlier grant. The value may still be 101. Every retained contextual check may agree. Under an instance-accountability requirement, however, the transition has crossed a review boundary: the candidate used for execution is not the one reviewed. Figure~\ref{fig:contract} separates value correctness from this review-to-execution relation.
++
++Transactions, provenance and approval provide essential foundations. Transactions install atomic changes \citep{gray1981transaction}; concurrency control validates the predecessor \citep{kung1981occ}; provenance retains derivation and responsibility \citep{buneman2006curated,moreau2013provdm}; and authorization mechanisms bind approval to an executable request \citep{clark1987integrity,owaspTransactionAuthorization}. We bring these foundations together around corrected execution: the original proposal, the explicitly authorized replacement, the reviewed instance and the executed transition must remain distinguishable. Their relation also has a behavioral consequence. If enforcement rejects a continuation, the resulting feedback becomes input to an agent that must choose what to do next.
++
++We ask: \emph{How should authorization preserve review-to-execution continuity when corrected agent proposals become persistent changes, and how does enforcement reshape subsequent execution and recovery?} Our answer combines an executable contract with a paired online intervention. The contract connects the four roles to freshness, complete successors and exact field sources. The intervention compares retained-context and instance-bound policies after the same reviewed history, following actual feedback through the next meaningful action, recovery path, task utility and integrity. Figure~\ref{fig:evidence} maps this argument from the motivating distinction to observed continuation.
++
++The paper makes four contributions:
++\begin{enumerate}[leftmargin=*,itemsep=2pt]
++\item \textbf{Correction-aware continuity.} We define the four-role review-to-execution relation and construct histories that separate equal values and retained context from the identity of the reviewed instance.
++\item \textbf{An executable authorization contract.} We integrate instance binding with predecessor freshness, atomic complete successors and field-level provenance, supported by bounded formal checks and independent persistence auditing.
++\item \textbf{Cross-layer mechanism evidence.} Controlled comparisons establish policy separation and agreement across two exact-binding realizations; request-binding tests and archived hosted-agent corrections connect the contract to its integration boundaries.
++\item \textbf{Online execution and recovery evidence.} A frozen paired intervention measures how authorization feedback changes subsequent agent actions, while reporting utility, integrity and operational friction separately.
++\end{enumerate}
++
++Three findings organize the paper. \textbf{Correction creates a distinct continuity problem}: a correct endpoint can preserve the wrong reviewed origin. \textbf{The relation is explicit and enforceable across persistence mechanisms}: formal constraints and transactional effects expose the same distinction. \textbf{Online enforcement redirects recovery with measurable friction}: all 17 exposed instance-bound handoffs recover with intact continuity, whereas context admits the substituted instances. Agent-managed refreshed previews show no observed substitution. Together, these findings connect a precise execution contract to the decisions an agent actually makes after feedback.
+ 
+ \section{Related Work}
+ \subsection{Agent approval and tool execution}
+ Approval mechanisms already control state-changing operations. Clark--Wilson combines authenticated execution, well-formed transactions and reconstructible audit records \citep{clark1987integrity}. Collaborative databases can retain cell versions pending approval, including approval tied to a cell identifier and timestamp \citep{mershad2015approval}. Current agent middleware interrupts selected tool calls and permits approval, edits or rejection before resumption \citep{langchainHITL}. Server-controlled authorization data and a final execution gate are established security guidance \citep{owaspTransactionAuthorization}. Our correction case concerns the relation among four roles after such a decision: the original proposal, the corrected authorized value, the reviewed candidate and the candidate used for execution. A completed approval step provides a starting point for that relation; the continuation determines whether it is preserved.
+ 
+-\subsection{Transactions, provenance and governed state}
+-Transactions and optimistic concurrency control support atomic successors and validation against current state \citep{gray1981transaction,kung1981occ}. Database provenance identifies contributing data and derivations \citep{buneman2001whywhere,cheney2009provenance}. Curated-database provenance records edits and copies across versions, including the connection of unchanged data to preceding versions \citep{buneman2006curated}; reenactment reconstructs transaction provenance \citep{arab2018reenactment}. PROV-DM separates entities, activities and agents \citep{moreau2013provdm}. These mechanisms supply the persistence vocabulary for the execution contract. The authorization target still has to specify whether equivalent contents or a particular reviewed instance may supply a corrected transition. We implement the same contract with relational objects and an event journal so that this question is separated from storage representation.
+-
+-\subsection{Trustworthy execution and recovery}
+-AgentDojo evaluates task utility and security outcomes separately in interactive tool environments \citep{debenedetti2024agentdojo}. That separation motivates reporting successful task completion independently of the lineage of authoritative effects. Alloy and Kodkod make relational constraints executable within finite scopes \citep{jackson2002alloy,torlak2007kodkod}, while TestEra connects specifications to executions through abstraction and concretization \citep{marinov2001testera}. A close neighboring preprint, Continuity Kernel, connects exact proposal identity, a predecessor, approver evidence and lineage to atomic accepted state.\footnote{He J, Yu D (2026), \emph{Beyond Memory: A Transactional Continuity Kernel for Long-Lived AI Agents}, arXiv:2608.11632. Preprint discussed in text; its status and source comparison are retained in the supplement. \url{https://arxiv.org/abs/2608.11632}.} Exact proposal binding is an established neighboring principle. Our distinction retains the machine proposal when a different value is authorized, ties that correction to the reviewed/executed instance, and observes the consequences of enforcement for live continuation. The studies discussed above establish approval, persistence, provenance and interactive evaluation capabilities. Our joint question isolates review-to-execution instance continuity under correction and observes what its enforcement makes an agent do next.
+-
+-\section{Review-to-Execution Continuity}
++\subsection{Transactions, provenance and \mbox{governed} state}
++Transactions and optimistic concurrency control support atomic successors and validation against current state \citep{gray1981transaction,kung1981occ}. Database provenance identifies contributing data and derivations \citep{buneman2001whywhere,cheney2009provenance}. Curated-database provenance records edits and copies across versions, including the connection of unchanged data to preceding versions \citep{buneman2006curated}; reenactment reconstructs transaction provenance \citep{arab2018reenactment}. PROV-DM models entities, activities, agents and their responsibility relations \citep{moreau2013provdm}. These mechanisms supply the persistence vocabulary for the execution contract. The authorization target still has to specify whether equivalent contents or a particular reviewed instance may supply a corrected transition. We implement the same contract with relational objects and an event journal so that this question is separated from storage representation.
++
++\subsection{Trustworthy execution and \mbox{recovery}}
++AgentDojo separates task utility from security outcomes in interactive tool environments \citep{debenedetti2024agentdojo}. Recent preprints also place authorization at the execution boundary. Cordon (Chen et al., 2026, \href{https://arxiv.org/abs/2606.17573}{arXiv:2606.17573}) stages local changes and external effects within a task-level transaction, with lineage, scoped approval and recovery. Continuity Kernel (He and Yu, 2026, \href{https://arxiv.org/abs/2608.11632}{arXiv:2608.11632}) binds proposal identity, predecessor state, pre-state authority and evidence to atomic state activation. Commit-time authorization (Santos-Grueiro, 2026, \href{https://arxiv.org/abs/2607.10487}{arXiv:2607.10487}) checks whether authority remains fresh, causally prior, effect-bound and eligible at durability, and separates authorized completion from endpoint success. Our comparison fixes the corrected value and retained context while varying whether execution must use the reviewed candidate instance. The contract preserves the machine value, authorized replacement and reviewed/executed identities as separate roles. Paired live continuations reveal how enforcing that relation changes the next action, recovery path and execution cost.
++
++\section{Review-to-Execution \mbox{Continuity}}
+ \subsection{Four roles in a corrected state change}
+ Let $\Sigma_v$ be an authoritative record state with a nonempty field domain $F_r$, total values $V_v:F_r\to X$ and total durable sources $S_v:F_r\to T$. A persisted candidate is
+ \begin{equation}
+@@ -93,9 +102,9 @@
+ Both retain the reviewed identifier. Only the decision to require its equality at execution differs. Context-equivalent $c_2$ can therefore pass Eq.~\ref{eq:context} under $c_1$'s authorization while failing Eq.~\ref{eq:bound}. This is a policy separator under a declared instance-accountability requirement. Context-based authorization remains a coherent choice for an application whose responsibility contract treats those instances as interchangeable.
+ 
+ \subsection{Failure-distinguishing information}
+-The declared failure model separates five information classes: candidate identity/context ($D_C$), proposal/authorized-value attribution ($D_V$), predecessor freshness ($D_F$), complete atomic successor ($D_B$), and total field sources ($D_S$). For a history $h$, $\pi_I(h)$ retains the specified logical observations in $I$, and $O(h)$ assigns the full-history authority outcome, including successor and trace status.
+-
+-\paragraph{Proposition: class-wise irredundancy.}
++To identify which distinctions the contract must retain, the declared failure model separates five information classes: candidate identity/context ($D_C$), proposal/authorized-value attribution ($D_V$), predecessor freshness ($D_F$), complete atomic successor ($D_B$), and total field sources ($D_S$). For a history $h$, $\pi_I(h)$ retains the specified logical observations in $I$, and $O(h)$ assigns the full-history authority outcome, including successor and trace status. Candidate handles are opaque: a reduced observation cannot recover an omitted class by decoding an identifier.
++
++\paragraph{Proposition 1: class-wise irredundancy.}
+ For every $d\in\mathcal D=\{D_C,D_V,D_F,D_B,D_S\}$, the declared model contains paired histories satisfying
+ \begin{equation}
+ \pi_{\mathcal D\setminus\{d\}}(h_s)=\pi_{\mathcal D\setminus\{d\}}(h_u),
+@@ -115,11 +124,11 @@
+ \begin{equation}
+ f\notin\Delta\Rightarrow V_{v+1}(f)\jeq V_v(f),\quad S_{v+1}(f)=S_v(f).
+ \end{equation}
+-Decision, authorization binding, transitions, complete version, sources and audit effects commit together, or the authoritative state stutters. Candidate and review preparation already persisted before the attempted admission remain historical evidence. The supplementary contract states no-op handling, mixed submissions and the declared field domain.
+-
+-\section{Formal and Transactional Realization}
++Decision, authorization binding, transitions, complete version, sources and audit effects commit together, or the authoritative state stutters. Candidate and review preparation already persisted before the attempted admission remain historical evidence. Online Resource 1, Section S2 states the full P0--P6 contract, no-op handling and mixed-submission semantics.
++
++\section{Formal and Transactional \mbox{Realization}}
+ \subsection{Making the relation executable}
+-The relational model encodes candidates, evidence, principals, authorizations, ordered versions, complete states and source transitions. Machine events may extend candidates and evidence while framing authoritative state. Full admission adds binding, freshness, complete shape and item--transition correspondence to the base state change. Removing a conjunct while retaining another valid item exposes which required distinction that conjunct enforces. Alloy makes these finite relational checks executable \citep{jackson2002alloy,torlak2007kodkod}.
++The relational model encodes candidates, evidence, principals, authorizations, ordered versions, complete states and source transitions. Machine events may extend candidates and evidence while framing authoritative state. Full admission adds binding, freshness, complete shape and item--transition correspondence to the base state change. Removing a conjunct while retaining another valid item exposes which required distinction that conjunct enforces. Alloy and Kodkod make these finite relational checks executable \citep{jackson2002alloy,torlak2007kodkod}. The independent concrete-to-relational mapping follows the abstraction/concretization testing principle exemplified by TestEra \citep{marinov2001testera}.
+ 
+ The archived checks cover legal admissions, conjunct-removal witnesses, source attacks and nonempty trace-preservation premises. All 72 command outcomes agree with their manifests across two scope profiles. The assertion checks have no counterexamples within their encoded finite scopes. An independent abstraction reads persisted pre/post relations, maps them into fixed instances, and checks Full admission or rejected-state stutter: nine intended projections are satisfiable and twenty selected mapping mutants are unsatisfiable. The supplement records exact scopes, commands, assumptions and concrete/formal domain differences.
+ 
+@@ -128,7 +137,7 @@
+ 
+ The relational adapter reloads the current field domain, complete predecessor, evidence and authorization within the transaction. It derives changed fields using canonical equality, validates exact bindings and unused identities, checks the principal policy, and compares-and-swaps the expected version. It then writes one transition per admitted field and copies exact unchanged sources into one complete successor. Constraints reinforce unique transitions and coherent references. Any unsuccessful attempt stutters relative to the immediately preceding authoritative database state.
+ 
+-An independently written event journal stores the same authority-relevant relations. Its retained-context configuration omits instance equality at the execution gate; its exact configuration adds the reviewed-candidate link. Comparing the exact journal with the relational implementation tests the same contract across storage representations. Comparing the two journal configurations isolates the binding choice within one representation.
++A separately implemented event journal stores the same authority-relevant relations. Its retained-context configuration omits instance equality at the execution gate; its exact configuration adds the reviewed-candidate link. Comparing the exact journal with the relational implementation tests the same contract across storage representations. Comparing the two journal configurations isolates the binding choice within one representation.
+ 
+ Faithful transfer of review requires a binding before the final request arrives. A server-held review record can fix the candidate, expected version, reviewer and corrected value, then validate the request against that record. The resulting guarantee concerns request-to-record consistency. Browser presentation is a separately observable layer: a page can display a different candidate while the server and request still name the recorded one. Controlled request and display probes identify that boundary.
+ 
+@@ -159,7 +168,7 @@
+ 
+ Server-held review binding separates request substitution from faithful presentation. E2 has thirty browser cases per path: nine legitimate controls, nine request substitutions, nine stale/replay/interrupted controls and three display-only substitutions. The gate rejects every request substitution while preserving the legitimate controls. Both paths reject the stale, replay and interrupted cases without fact writes. Both admit the display-only controls because their actual request still matches the server record. Table~\ref{tab:controlled} groups this evidence under one realization question.
+ 
+-Enforcement and tracing have measurable implementation costs. In the archived 128-field all-changed workload, median complete confirmation takes 712.00 ms in the relational reference and 22.09 ms in the exact journal. Their call boundaries include different connection and validation work. The separate prevalidated-materialization timer answers a different question and remains in the supplement. With the same trace verifier, the 128-field, 100-version, 1,000-record workload takes median 170.24 ms with bulk reads and 509.09 ms with point access, while full returned objects agree across all 36 paired cells. These costs characterize the evaluated persistence paths; agent-level friction is measured separately after policy intervention.
++The persistence contract also makes implementation cost measurable. Complete confirmation and source reconstruction are timed separately, with exact output agreement checked across the 36 paired trace-workload cells. Online Resource 1, Section S4 retains the complete admission, tracing and storage grids and their timer boundaries. Agent-level friction is measured after the online policy intervention, where the additional work is an observed part of continuation.
+ 
+ \subsection{Observable correction in hosted workflows}
+ The correction contract is recoverable from archived hosted-agent persistence. A new audit of 1,260 historical databases identifies 84 retained machine-origin correction chains, checking 252 evidence associations, 168 record versions and 168 reconstructed provenance traces. Each chain preserves a machine proposal, explicit host-authorized correction, exact candidate binding and persisted transition. These chains provide integration evidence for the role distinction defined in Section 3.
+@@ -177,11 +186,17 @@
+ The local precollection freeze fixes the tasks, pair order, deployments, prompts, tools, resource rules, scorer and failure handling. The separately archived pilot supports engineering readiness and is excluded from formal effect analysis.
+ 
+ \subsection{Shared review history and unique policy difference}
+-A shared prospective prefix gives both policies the same reviewed history before execution binding becomes behaviorally relevant. An actual agent proposes and obtains host review; the complete visible conversation and persisted state are then copied into isolated policy arms. The same task, checkpoint, tools, deterministic reviewer, persistence, prompt and resource-policy family apply to both arms. This isolates the effect of requiring $I_{eq}$ on subsequent continuation. Both arms retain the reviewed identifier, so the comparison changes its use at execution rather than its availability for auditing.
++A shared prospective prefix isolates the post-review continuation effect by giving both policies the same reviewed history (Figure~\ref{fig:loop}). An actual agent proposes and obtains host review; the complete visible conversation and persisted state are then copied into isolated policy arms. The same task, checkpoint, tools, deterministic reviewer, persistence, prompt and resource-policy family apply to both arms. This isolates the effect of requiring $I_{eq}$ on subsequent continuation. Both arms retain the reviewed identifier, so the comparison changes its use at execution rather than its availability for auditing.
+ 
+ A deterministic host reviewer fixes the correction decision across arms, separating authorization consequences from variation in review judgments. Two independently accessed deployments expose the same contract through distinct provider routes, with complete request-level provenance. Configuration A uses the frozen account-backed Codex route; B uses the recorded compatible API route. Requested aliases, observed returned identifiers, settings and collection timestamps are retained in the supplement and artifact. The common action interface presents the same tool definitions and returns actual results to subsequent decisions.
+ 
+ Each task/configuration forms one adjacent context/bound pair. A frozen assignment manifest balances which policy runs first within scenario and configuration. Two provider lanes execute one pair each, respecting this order. All planned arms remain in the analysis ledger, with runtime outcomes and audit coverage recorded separately. The supplement specifies the collection and interruption rules.
++
++\begin{figure*}[t]
++\centering\includegraphics[width=\textwidth]{figures/revised-figure3-online-loop.pdf}
++\caption{Paired online intervention after a shared prospective review. The visible conversation and persisted checkpoint are copied into isolated policy arms. The only execution-rule difference is $I_{eq}$. Actual tool feedback enters the next sampled agent decision, whose actions and terminal state are independently audited. The standardized G handoff supplies an index request; N instead leaves refreshed-preview management to the agent.}
++\label{fig:loop}
++\end{figure*}
+ 
+ \subsection{Task families and controlled exposure}
+ The design contains 128 task instances, two configurations and two policies: 256 paired units and 512 planned policy trajectories, with one repetition. Controlled correction tasks expose specific authorization boundaries while keeping legal recovery paths interpretable. Their frozen distribution is
+@@ -233,17 +248,12 @@
+ \end{tabular}
+ \end{table*}
+ 
+-\begin{figure*}[t]
+-\centering\includegraphics[width=.94\textwidth]{figures/figure2-joint-outcomes.pdf}
+-\caption{Task utility and integrity on the complete planned denominator. Deployment A's large $U=0,I=1$ component records provider failures with covered state, predominantly before review. Deployment B supplies most online continuations. Successful context runs can contain an instance-incompatible transition even when the final authorized value is correct. Exact counts, including small cells, are in Table~\ref{tab:joint}.}
+-\label{fig:joint}
+-\end{figure*}
+-
+-The reviewed checkpoint is reached in 11 of A's 128 pairs and all 128 of B's pairs. In A, 117 prefixes terminate with \texttt{CODEX\_EXIT\_1}; the raw provider responses report an account usage limit. Both arms inherit that shared-prefix failure, yielding 234 unsuccessful planned arms with covered state and no unauthorized transition. Four further A suffixes terminate with runtime errors. B has eighteen malformed-output terminations across the two policies. The initial file-replacement interruption leaves one partial context arm and one unstarted bound arm with unknown integrity. These outcomes remain in Table~\ref{tab:joint}, rather than being replaced with newly sampled tasks.
++
++The reviewed checkpoint is reached in 11 of A's 128 pairs and all 128 of B's pairs. In A, 117 prefixes terminate after provider quota exhaustion. Both arms inherit that shared-prefix failure, yielding 234 unsuccessful planned arms with covered state and no unauthorized transition. Four further A suffixes terminate with runtime errors. B has eighteen malformed-output terminations across the two policies. The initial file-replacement interruption leaves one partial context arm and one unstarted bound arm with unknown integrity. These outcomes remain in Table~\ref{tab:joint}, rather than being replaced with newly sampled tasks.
+ 
+ The paired completion estimate is small relative to its task-cluster uncertainty. Context completes 126/256 arms (49.22\%) and bound 128/256 (50.00\%). The frozen task-averaged bound-minus-context effect is $+0.78$ percentage points, with 95\% interval $[-1.95,3.52]$. In B, the corresponding counts are 117/128 and 119/128, an effect of $+1.56$ points with interval $[-3.91,7.03]$. Five B tasks complete only under context and seven only under bound; the secondary exact McNemar test gives $p=0.774$. A has nine completions per policy. The intervals quantify variation over the paired controlled tasks and retain both deployments' resource outcomes.
+ 
+-Unknown continuity outcomes produce an identification interval rather than a substituted point estimate. Across the complete planned ledger, the bound-minus-context difference in continuity-failure incidence lies in $[-7.03,-6.25]$ percentage points. The frozen bootstrap intervals for its lower and upper endpoints are $[-8.20,-6.25]$ and $[-7.42,-5.08]$, respectively. A single point estimate would conceal the two unknown arms. At the transition level, all seventeen observed substitutions are policy-admissible under context and instance-incompatible under the independent oracle. The remaining shared guard and provenance checks hold for these transitions. The improvement thus concerns the disclosed extra continuity obligation, rather than correcting a context policy's own decision rule.
++The planned-ledger continuity comparison favors bound throughout the identification interval allowed by the unknown outcomes. Across the complete planned ledger, the bound-minus-context difference in continuity-failure incidence lies in $[-7.03,-6.25]$ percentage points. Online Resource 1, Section S11 reports bootstrap uncertainty for each endpoint, keeping the two unknown arms explicit. At the transition level, all seventeen observed substitutions are policy-admissible under context and instance-incompatible under the independent oracle. The remaining shared guard and provenance checks hold for these transitions. The improvement thus concerns the disclosed extra continuity obligation, rather than correcting a context policy's own decision rule.
+ 
+ \subsection{Feedback, next actions and recovery paths}
+ Delivered instance-mismatch feedback redirects every exposed G-bound continuation toward an authorized execution path. The standardized handoff reaches seventeen of the 32 planned G pairs: sixteen in B and one in A. Each context index action accepts the new instance under the old reviewed grant. Each paired bound index action rejects it, and each rejection is proved delivered to an actual subsequent provider response. Legal recovery exists at all seventeen rejection states. All seventeen bound continuations end with $(U,I)=(1,1)$, whereas the context continuations retain the irreversible instance violation even if later actions report the correct goal.
+@@ -251,8 +261,8 @@
+ Reviewed-candidate reuse accounts for all sixteen B recoveries. Their first meaningful action after rejection is \texttt{commit} using the original reviewed candidate and grant. They neither regenerate evidence nor request a new authorization to solve this mismatch. A's one delivered continuation instead requests authorization for the handoff candidate and then commits it. These are two distinct legal responses to the same continuity obligation. The counts describe actual observed responses: the host exposes the mismatch but does not prescribe either repair sequence.
+ 
+ \begin{figure*}[t]
+-\centering\includegraphics[width=.94\textwidth]{figures/figure3-feedback-paths.pdf}
+-\caption{Separating agent-managed continuity (N) from standardized mismatch recovery (G). N exposes a refreshed preview without forcing an invalid execution; G supplies a harness-origin index action whose actual acceptance or rejection becomes feedback. B's 16 G-bound continuations reuse the reviewed candidate. A's single exposed G-bound continuation obtains fresh authorization. Counts include the unobserved or unknown portions of each planned cohort.}
++\centering\includegraphics[width=\textwidth]{figures/revised-figure4-recovery-paths.pdf}
++\caption{Observed paths after standardized mismatch feedback. All 17 exposed G-bound continuations recover with $(U,I)=(1,1)$: B reuses the reviewed candidate in 16 cases, and A reauthorizes the handoff candidate in one. The separate N panel retains agent-managed preview outcomes and unknown coverage. The figure reports observed paths, not the frequency of naturally occurring substitutions.}
+ \label{fig:paths}
+ \end{figure*}
+ 
+@@ -279,7 +289,7 @@
+ \end{tabularx}
+ \end{table*}
+ 
+-The complete event-order analysis records observed strategies without filling absent categories with illustrative narratives. It identifies reuse, reproposal, reauthorization, state refresh and evidence refresh. No delivered episode is labeled reverify, repeated-invalid, fresh-id-invalid-loop, stale-reuse, hallucinated-success or timeout. Terminal malformed output and runtime interruption account for unsuccessful observed continuations; no frozen \texttt{abandon} label occurs. These episode distributions are descriptive conditional on actual feedback delivery. Table~\ref{tab:recovery} therefore characterizes paths through exposed boundaries rather than estimating an unconditional causal effect of rejection on recovery.
++The event-order analysis separates successful repair strategies from unsuccessful continuation and absent behaviors. It identifies reuse, reproposal, reauthorization, state refresh and evidence refresh. No delivered episode is labeled reverify, repeated-invalid, fresh-id-invalid-loop, stale-reuse, hallucinated-success or timeout. Terminal malformed output and runtime interruption account for unsuccessful observed continuations; no frozen \texttt{abandon} label occurs. Table~\ref{tab:recovery} describes paths conditional on delivered feedback; the primary contrast remains the paired policy comparison on the planned ledger.
+ 
+ \subsection{Operational friction and complete failure archaeology}
+ The standardized continuity repair adds an explicit execution action even when task completion is preserved. Across B's sixteen G pairs, bound uses exactly one additional agent tool call per pair, with no additional authorization requests. The median paired suffix-time difference is $+14.54$ seconds; its mean is $+8.84$ seconds. Model turns increase by a mean of 0.94. The one exposed A pair instead adds two tool calls, including one authorization request. The difference between reuse and reauthorization is therefore visible as an execution cost rather than merely as an extra rejection count.
+@@ -305,7 +315,7 @@
+ 
+ The all-arm archaeology contains 273 distinct arms with $U=0$, $I=0$ or unknown integrity. They partition into 238 A runtime failures, fifteen successful context arms with an instance violation, two unsuccessful context arms with an instance violation, sixteen further unsuccessful B arms with covered intact integrity, and two unknown N arms. The unsuccessful B arms comprise eighteen malformed-output terminations overall, two of which also have the G continuity violation. Infrastructure interruption accounts for the remaining two unknown arms. Every violating transition is in G; no proved evidence, value, freshness, source-preservation or copy-forward violation accompanies it. The full ledger includes identities, stage, terminal type, component labels, missing coverage and the underlying episode records before any trajectory is selected for illustration.
+ 
+-The online evidence concerns controlled correction workflows and the two recorded deployment routes. Most live continuation evidence comes from B because A's provider quota curtailed checkpoint coverage. G identifies recovery after a standardized mismatch, while N supplies a separate observation of voluntary continuity management; neither cohort estimates the natural frequency of substitution. Together they establish where enforcement changed execution in this experiment and where it made no observed difference.
++The online results describe controlled correction workflows, with most live continuation evidence supplied by B and eleven reviewed checkpoints in A. G measures recovery after a standardized mismatch, while N records voluntary continuity management; neither estimates natural substitution prevalence. A separately frozen quota-recovery cohort is incomplete in the available snapshot (45 of 117 selected A pairs terminal) and is excluded from all results above. Online Resource 1, Section S12 preserves its separate status and integration requirements.
+ 
+ \section{Discussion and Limitations}
+ \subsection{What continuity adds to corrected execution}
+@@ -323,21 +333,21 @@
+ \subsection{Accountability and execution cost}
+ The measured trade-off is additional execution work at a standardized continuity boundary, alongside improved instance accountability. The strongest direct result is B's G cohort: one extra agent call restores the reviewed link in every exposed pair, with a positive median suffix-time cost. Reauthorization is another legal strategy, but its one observed instance has a different call structure. These components matter operationally because a system can choose which recovery capabilities to expose and which authorizations remain reusable.
+ 
+-The overall completion interval includes both modest improvement and modest loss. It provides no basis for claiming utility equivalence or absence of completion cost. Equally, the capped time endpoint rewards accurately completed reports and should not be read as a latency speedup. Reporting separate calls, turns, review requests, elapsed time and $U/I$ keeps these meanings visible. Provider failures additionally show why run completion, mutation integrity and availability need separate measurements: a covered run can leave state intact while accomplishing nothing.
++The overall completion interval leaves both modest improvement and modest loss compatible with the data. The continuity benefit therefore comes with an unresolved completion trade-off and a measured repair cost. The capped time endpoint rewards accurately completed reports, while actual suffix time captures latency. Reporting separate calls, turns, review requests, elapsed time and $U/I$ keeps these meanings visible. Provider failures additionally show why run completion, mutation integrity and availability need separate measurements: a covered run can leave state intact while accomplishing nothing.
+ 
+ \subsection{Scope and further evaluation}
+ The task family provides controlled exposure to six correction and execution boundaries, with one repetition of each task/configuration/policy combination. The deterministic reviewer fixes correction and authorization decisions, isolating execution binding from variation in human judgment; evaluations with interactive reviewers could additionally measure review burden and disagreement. The 128 tasks diversify inputs within those mechanisms, while broader business workflows, longer horizons and additional tools would test how the same contract interacts with a richer execution environment. The experiment measures controlled effects rather than production prevalence.
+ 
+-Deployment-level conclusions follow actual coverage. A reaches eleven checkpoints and contributes only one standardized mismatch recovery; B supplies the principal online evidence. Provider aliases and recorded settings support reconstruction of the accessed routes, while unavailable immutable model revisions constrain exact response reproduction. The frozen inputs, received responses, checkpoints and independent scorer support retrospective verification of the reported transitions and paths. Additional prospectively frozen deployments would be needed to assess the stability of the observed strategy choices and completion costs across provider revisions and resource conditions.
++Deployment-level conclusions follow actual coverage. A reaches eleven checkpoints and contributes only one standardized mismatch recovery; B supplies the principal online evidence. Provider aliases and recorded settings support reconstruction of the accessed routes, while unavailable immutable model revisions constrain exact response reproduction. The frozen inputs, received responses, checkpoints and independent scorer support retrospective verification of the reported transitions and paths. The separate quota-recovery cohort can extend A's observed checkpoint coverage once complete; its selected failures and later collection conditions require separate reporting. Additional prospectively frozen deployments would test the stability of strategy choices and completion costs across provider revisions and resource conditions.
+ 
+ \section{Conclusion}
+ Correction-aware review-to-execution continuity separates what an agent proposed, what a reviewer authorized, which candidate was reviewed and which supplied a persistent transition. Formal relations, transactional realization and independent auditing make that distinction executable across persistence representations. Controlled and historical evidence establish the mechanism and its observable integration roles.
+ 
+-The complete prospective ledger connects the contract to live continuation. Standardized handoffs expose seventeen instance violations under context authorization; bound execution rejects those handoffs and all seventeen exposed continuations complete with intact continuity through reviewed-candidate reuse or fresh authorization. Agent-managed preview tasks produce no observed substitutions. Recovery adds measurable execution work, and the paired completion uncertainty leaves the utility trade-off open. Review-to-execution continuity is therefore more than a property of stored records: enforced inside an agent loop, it becomes actionable feedback that can redirect execution and make the cost of accountability observable.
++The complete prospective ledger connects the contract to live continuation. Standardized handoffs expose seventeen instance violations under context authorization; bound execution rejects those handoffs and all seventeen exposed continuations complete with intact continuity through reviewed-candidate reuse or fresh authorization. Agent-managed preview tasks produce no observed substitutions. Recovery adds measurable execution work, and the paired completion uncertainty leaves the utility trade-off open. Enforced inside an agent loop, review-to-execution continuity becomes actionable feedback that can redirect execution and expose the cost of accountability. This work makes that continuity explicit, enforceable and empirically observable in state-changing agent workflows.
+ 
+ \section*{Statements and Declarations}
+ \subsection*{Data and software availability}
+-The study uses constructed tasks and public lifecycle inputs. The controlled experiment archive is fixed at commit \href{https://github.com/lhh666-6/auto-dete/tree/2645e5e18c900ea91c9c980e44195dc71e410432/DKE-supplement}{\nolinkurl{2645e5e18c900ea91c9c980e44195dc71e410432}}. The reference implementation, formal models and earlier historical evidence are retained at commit \href{https://github.com/lhh666-6/auto-dete/tree/c6d512843c905cab6d8521dd8c914f7fb26d85ae/latest}{\nolinkurl{c6d512843c905cab6d8521dd8c914f7fb26d85ae}}. The prospective inputs and runner are fixed at master hash \nolinkurl{7773563b40c8db30d6def121915f50fbad032537edde32afd4ba39ec3eea744b}. The accompanying replication package retains the complete formal ledger, raw responses, state snapshots, scorer, tables, figure sources and file hashes; Online Resource 1 maps the layers and reproduction steps. Reanalysis requires no new model calls. New hosted runs require provider access.
++The study uses constructed tasks and public lifecycle inputs. The controlled experiment archive is fixed at commit \href{https://github.com/lhh666-6/auto-dete/tree/2645e5e18c900ea91c9c980e44195dc71e410432/DKE-supplement}{\nolinkurl{2645e5e18c900ea91c9c980e44195dc71e410432}}. The reference implementation, formal models and earlier historical evidence are retained at commit \href{https://github.com/lhh666-6/auto-dete/tree/c6d512843c905cab6d8521dd8c914f7fb26d85ae/latest}{\nolinkurl{c6d512843c905cab6d8521dd8c914f7fb26d85ae}}. The prospective inputs and runner are fixed at master hash \nolinkurl{7773563b40c8db30d6def121915f50fbad032537edde32afd4ba39ec3eea744b}. The handoff archive at commit \href{https://github.com/lhh666-6/auto-dete/tree/475e66f549613aaaaa62c2ec81ffdee483636c54/cloud-handoff}{\nolinkurl{475e66f549613aaaaa62c2ec81ffdee483636c54}} retains the complete original formal ledger, raw responses, state snapshots, scorer, tables, figure sources and file hashes; Online Resource 1 maps the layers and reproduction steps. Reanalysis requires no new model calls. New hosted runs require provider access.
+ 
+ \subsection*{Ethics approval and consent to participate}
+ The prospective experiment uses constructed tasks and a deterministic host reviewer, with no new human participants. In the historical annotation study, one author (X.W.) and one non-author volunteer independently coded benign completion outcomes; L.H. adjudicated their disagreement and separately reviewed eleven human--rule disagreements. X.W. also completed the textual-acknowledgment annotation. Only pseudonymous annotator identifiers were collected. Both coders were informed of the task and data use, and the non-author coder participated voluntarily. The authors assessed the annotation of generated outputs as not requiring ethics approval. No animal subjects were involved.
+@@ -349,7 +359,7 @@
+ This research received no external funding. The authors declare no competing interests.
+ 
+ \subsection*{AI-assisted preparation}
+-DeepSeek, OpenAI Codex and Claude assisted with code, analysis checks, literature organization and manuscript preparation. OpenAI Codex assisted with the present whole-paper reconstruction and figure scripts. An earlier diagram prototype used OpenAI image generation with an unrecorded model version; the present figures are rendered from explicit plotting scripts. AI tools are not authors. The authors retain responsibility for the article and its evidence.
++DeepSeek, OpenAI Codex and Claude assisted with code, analysis checks, literature organization and manuscript preparation. OpenAI tools assisted with manuscript reconstruction, offline evidence checks and figure scripts. An earlier diagram prototype used OpenAI image generation with an unrecorded model version; the present figures are rendered from explicit plotting scripts. AI tools are not authors. The authors retain responsibility for the article and its evidence.
+ 
+ \subsection*{Supplementary information}
+ Online Resource 1 contains formal constructions and checks, full controlled workloads, historical records, prospective task and deployment definitions, scoring and interruption rules, complete outcome and recovery tables, and the artifact map.
+--- original/supplement.tex
++++ revised/supplement.tex
+@@ -7,7 +7,7 @@
+ \usepackage{tabularx,longtable,xcolor,xurl}
+ \usepackage[hidelinks]{hyperref}
+ \usepackage[nameinlink,noabbrev]{cleveref}
+-\hypersetup{pdftitle={Review-to-Execution Continuity - Supplementary Material},pdfauthor={Liang Hanghao; Xuan Wentao; Chen Qile; Peng Peng},pdfsubject={Data integrity, candidate-bound authorization, and field-level provenance}}
++\hypersetup{pdftitle={Review-to-Execution Continuity - Supplementary Material},pdfauthor={Liang Hanghao; Xuan Wentao; Chen Qile; Peng Peng},pdfsubject={Correction-aware review-to-execution continuity, authorization and agent recovery}}
+ \setlength{\emergencystretch}{2em}
+ \newcommand{\system}{\textsc{Auto-Decte}}
+ \newcommand{\code}[1]{\nolinkurl{#1}}
+@@ -25,7 +25,9 @@
+ \par\smallskip{\small Knowledge and Information Systems\\College of Computer Science and Electronic Engineering, Hunan University, Changsha, China\\Corresponding author: Peng Peng, \texttt{hnu16pp@hnu.edu.cn}}
+ \end{center}
+ 
+-This supplement retains the archived formal, implementation, controlled-workload and historical integration details, and adds the prospective policy design and collection rules. The archived evidence layers and new formal collection remain separately identified. Sections, tables and figures prefixed S belong to this document. The complete prospective ledger and result tables are included, with terminal failures and unknown coverage retained on the original planned denominator.
++This supplement retains the archived formal, implementation, controlled-workload and historical integration details, and adds the prospective policy design and collection rules. The archived evidence layers, completed original prospective ledger and incomplete supplementary quota-recovery cohort remain separately identified. Sections, tables and figures prefixed S belong to this document. The complete original prospective ledger and result tables retain terminal failures and unknown coverage on the original planned denominator. The separately frozen quota-recovery snapshot is documented in Section S12 and contributes no observations to the original analysis.
++
++\paragraph{Reading guide.} For the execution contract and formal assumptions, start with Sections S2--S3. Sections S1 and S4--S7 preserve the controlled and historical evidence. Sections S8--S9 define the online design and reproducibility procedures; Section S11 contains the complete original results. Section S12 states exactly what remains pending for supplementary recovery. The main manuscript provides the scientific narrative and four overview figures.
+ 
+ \section{Artifact, protocol, and reproduction}
+ \label{app:artifact}
+@@ -68,9 +70,9 @@
+ 
+ The deposited README specifies dependency installation, reference-source resolution, and the separate browser driver environment. The following commands illustrate the entry points; the output directory must be fresh, and the reference checkout must be configured as described there. Performance should run after other tests have finished.
+ \begin{quote}\small\ttfamily
+-python -B experiment1.py --output results/replicate-e1\par
+-python -B experiment2.py --output results/replicate-e2\par
+-python -B experiment3.py --output results/replicate-e3
++python -B experiment1.py -{}-output results/replicate-e1\par
++python -B experiment2.py -{}-output results/replicate-e2\par
++python -B experiment3.py -{}-output results/replicate-e3
+ \end{quote}
+ Pilot flags reduce coverage and cannot reproduce final denominators. The reference regression invocation covers its value-equality integration tests and conformance directory (85 passes); the supplementary test module records ten passes. The regression receipt transcribes the execution tool output rather than presenting itself as a pytest-generated JUnit report. The manifest records 61 pre-run measurement-source hashes; the reporting check found them unchanged. The original artifact manifest covers 3,068 files.
+ 
+@@ -87,7 +89,7 @@
+ 
+ \subsection{Complete observation functions and witness construction}
+ 
+-The main text retains the observation basis, opaque-handle condition, outcome definition, proposition, and five-witness proof. The following table and relational representation specify the complete executable projection.
++Main Section 3 gives the observation basis, opaque-handle condition, outcome definition, Proposition 1 and its paired-history construction. The following table and relational representation specify the complete executable projection.
+ \begin{table}[t]
+ \centering
+ \footnotesize
+@@ -114,9 +116,9 @@
+ \end{equation}
+ containing the target, candidate and authorization registries, batch references, expected and observed pre-versions, declared fields, a commit sequence $K$, endpoint value and source maps, and a registry $T$ of source-transition identifiers, fields, and values. Each commit step records a distinct successor identity and complete before/after value maps. The domain predicate checks unique candidate and authorization keys, resolvable batch references, schema-valid fields, total value maps, and a connected commit sequence from $V_v$ to $V_{v'}$. Its committed effect domain is the union of the steps' actual value-change domains; its successor count is $|K|$. Neither is an independently assigned witness attribute.
+ 
+-Source observations expose each field's anchor count, reverse-resolution count in $T$, agreement of the resolved field/value with the successor, and exact prior-source retention for an unchanged field. Missing, duplicate, or inconsistent sources remain semantic failures rather than being excluded by the domain predicate. These are local source checks: the complete authorization--candidate--evidence chain belongs to the main text's operational P6 checks. Source observations hide intermediate commit grouping; freshness observes the admission-entry pre-state comparison. These explicit observation boundaries make it possible to compare atomic and fragmented histories with identical endpoints.
+-
+-The main text retains Proposition 1, its five-witness proof, and the explicit reduced-projection equation. The original candidate/context witness changes record context with a fixed candidate handle. The separate identity-isolation pair fixes the two-candidate registry and the non-identity observations, then changes the admitted candidate. The executable checker derives outcomes and observations from the complete tuple rather than storing either as an independent attribute.
++Source observations expose each field's anchor count, reverse-resolution count in $T$, agreement of the resolved field/value with the successor, and exact prior-source retention for an unchanged field. Missing, duplicate, or inconsistent sources remain semantic failures rather than being excluded by the domain predicate. These are local source checks: the complete authorization--candidate--evidence chain belongs to the operational P6 checks defined below. Source observations hide intermediate commit grouping; freshness observes the admission-entry pre-state comparison. These explicit observation boundaries make it possible to compare atomic and fragmented histories with identical endpoints.
++
++Main Section 3 states Proposition 1, summarizes the five paired-history constructions and gives the reduced-projection equation. The original candidate/context witness changes record context with a fixed candidate handle. The separate identity-isolation pair fixes the two-candidate registry and the non-identity observations, then changes the admitted candidate. The executable checker derives outcomes and observations from the complete tuple rather than storing either as an independent attribute.
+ 
+ \subsection{Evidence identity and operational enforcement details}
+ Evidence identity is not content equality alone. The realization uses
+@@ -126,7 +128,31 @@
+ \end{equation}
+ where $H$ is SHA-256 and $L$ is a versioned canonical locator containing the owner record, related field, normalized storage-relative URI $u$, and optional crop identity $\kappa$. The Alloy model abstracts content and locator as primitive domains. Its \code{certIdentityFacts} assigns distinct \code{CertId} atoms to distinct certificate objects, including objects with equal modeled content. Relating this abstraction to the implementation requires collision resistance of the deployed digest and integrity of the canonicalization and evidence store; it is not a proof or claim that SHA-256 is mathematically injective.
+ 
+-Operational properties P0--P6 and their interpretation remain in the main contract table.
++\paragraph{Full operational contract.}
++Table~\ref{tab:s-contract} defines the operational properties referred to by the formal and implementation evidence. Main Sections 3--4 retain the role definitions and executable realization.
++\begin{table}[htbp]
++\centering\small
++\caption{Operational contract for a corrected authoritative transition.}
++\label{tab:s-contract}
++\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{.25\textwidth}X@{}}
++\toprule
++Property & Requirement & Operational interpretation \\
++\midrule
++P0 & Direct-write exclusion & Candidate-writing capability cannot change authoritative values, versions, sources, transitions or authorizations. \\
++P1 & Instance binding & Authorization refers to the canonical persisted candidate certificate, including instance identity. \\
++P2 & Context integrity & Record, field, persisted evidence content and locator, and expected predecessor agree across the item and certificate. \\
++P3 & Authorization integrity & The principal is allowed at the in-transaction check, and the authorization fixes the certificate and explicit committed value. \\
++P4 & Freshness & The expected predecessor equals the transactionally observed current version; stale or competing admissions are rejected. \\
++P5 & Successor integrity & One atomic successor has exact changed-field effects, an item--transition bijection and complete unchanged-field framing. \\
++P6 & Trace soundness & Every field resolves through its exact source transition to consistent authorization, candidate, evidence, producer and version relations. \\
++\bottomrule
++\end{tabularx}
++\end{table}
++
++\paragraph{Admitted effects and no-op semantics.}
++After initial coverage, concrete admissions require a nonempty value change under canonical JSON equality. For submitted items $U$, the admitted batch is $B=\{i\in U\mid i.x\neqc V_v(i.f)\}$, with $B\ne\varnothing$. All items in $B$ share one record and expected predecessor and have unique changed fields. A mixed submission admits exactly $B$; unchanged items retain their exact preceding source and create no new transition or authorization binding. Initial coverage establishes a complete value and source domain. The Alloy model additionally permits same-value admission for correspondence with the historical singleton model. A renewed review or re-attribution without a value change uses a separate review-event path, outside the concrete admission contract.
++
++The trusted base includes the admission service, exercised transaction semantics, canonicalization, hashing and principal policy. Authentication, review presentation and evidence storage must supply the identities and content on which those checks operate. Rejection stutters relative to authoritative state immediately before the admission attempt; it need not erase evidence, candidate preparation or review intent persisted earlier.
+ 
+ \paragraph{Authorization timing and revocation}
+ \label{app:authorization-timing}
+@@ -196,11 +222,9 @@
+ 
+ \subsection{Observation witnesses and finite scopes}
+ 
+-The main text defines the observation basis and projection assumptions before stating the omission proposition; the complete functions and construction are given here. The executable witness checker reads complete relational histories and derives both projections and outcome labels; labels are not stored as independent witness attributes. Five class pairs test the original construction. A further pair isolates identity binding with a fixed two-candidate registry and identical non-identity observations; a separate legal control checks single-field change with another field copied forward. The source is \code{latest/code/formal-fixed/observation_witnesses.py}; the derived report is \code{latest/evidence/r27-witness/observation-witness-report-v5.json}.
+-
+-Each Alloy profile contains six legal-witness commands, eleven conjunct-removal witnesses, three source-attack witnesses, two witnesses to the well-formed predecessor condition, and fourteen assertion checks. All 72 outcomes across two profiles match the manifest: 22 SAT and 14 UNSAT per profile. The smaller profile uses representative bounds of two records, three fields, six versions, and four states/events; the larger uses three records, four fields, eight versions, and five states/events. Individual commands adjust other domains. Executable bounds are recorded with the commands in the pinned artifact and should be consulted when reproducing any particular assertion.
+-
+-The positive trace assertion requires a trace-complete predecessor and no stray transition to the successor version. Nonempty initial and carry-forward witnesses establish reachability of that premise. Removing the post-state certificate-binding check changes the relevant outcome from UNSAT to SAT. This is bounded sensitivity evidence for the encoded relation, not a proof of arbitrary-history completeness. The formal tamper event alters transitions while freezing values and source pointers; the implementation catalogue also exercises corruption outside that event's scope.
++The executable witness checker derives observations and outcomes from complete relational histories. Five class pairs test Proposition 1; a further pair isolates instance identity with a fixed two-candidate registry, and a legal control changes one field while copying another field's exact source. The original source is \code{latest/code/formal-fixed/observation_witnesses.py}, with report \code{latest/evidence/r27-witness/observation-witness-report-v5.json}. The handoff also includes the repaired executable construction and 24 tests under \code{research/authorization-granularity-phase1-2026-10-06/formal/}.
++
++Across the two scope profiles, the archived command manifest records 72 expected matches: 22 SAT and 14 UNSAT per profile. Sections S2.4--S2.5 define their commands, premises and scope interpretation. The independent projection outcomes and concrete checks below provide a separate check of the implementation-to-model boundary.
+ 
+ \subsection{Projection and database oracles}
+ 
+@@ -212,7 +236,7 @@
+ 
+ An earlier implementation inherited host-language equality that equated integer 2 with float 2.0 and integer 1 with Boolean true. A serialized value could change without obtaining a corresponding changed-field transition. The repair aligns the planner and reverse trace with canonical JSON equality already used by the independent oracle and formal projection. The resulting implementation consistently uses sorted-key, whitespace-minimal JSON serialization for change and value checks. Thirteen targeted regressions include unchanged controls, numeric/Boolean and nested changes, and no-op rejection; seven fail before the repair and all pass afterward. E1 adds explicit type controls using the repaired path.
+ 
+-The witness checker also separates the record schema domain from the declared item domain, allowing a legal change to one field while copying another field's source forward. This preserves the omission constructions without requiring every admission to change every field. These repairs and their receipts are versioned separately from v8; the main text's new cost tables measure the repaired source.
++The witness checker also separates the record schema domain from the declared item domain, allowing a legal change to one field while copying another field's source forward. This preserves the omission constructions without requiring every admission to change every field. These repairs and their receipts are versioned separately from v8; the cost grids in Section S4 measure the repaired source.
+ 
+ \section{Worked correction and implementation inspection}
+ \label{app:worked-example}
+@@ -223,9 +247,9 @@
+ 
+ The following checklist locates the enforcement and observation points. It is an aid derived from the contract, not an independently validated development methodology.
+ % Editorial design aid derived from C1--C2; no new experimental results.
+-\begin{table}[p]
++\begin{table}[!htbp]
+ \centering
+-\caption{Design checklist derived from C1--C2. Adapt the probes to the target implementation and retain persisted evidence for each outcome.}
++\caption{Design checklist derived from the contract and its five information classes. Adapt the probes to the target implementation and retain persisted evidence for each outcome.}
+ \label{tab:design-checklist}
+ \begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}X@{}}
+ \toprule
+@@ -465,7 +489,7 @@
+ 
+ An omitted observation class cannot be reconstructed by decoding an opaque candidate handle. Other observation models may combine or derive distinctions differently. The paired constructions establish conditional class-wise irredundancy, rather than universal minimality or completeness over every admission failure. Several Alloy assertions check immediate consequences of definitions; selected projection instances and mutants test the abstraction interface, rather than a refinement theorem over every execution.
+ 
+-Canonical JSON equality governs change detection, authorized and committed values, and tracing. The repaired integer/float and numeric/Boolean cases show why these checks need the same value-equivalence relation. Targeted regressions cover selected boundaries, rather than every serialization or migration behavior. The concrete prefix trace exceeds the formal single-step anchor check in some respects; same-value admission and schema uniqueness also differ as stated in the main conformance section.
++Canonical JSON equality governs change detection, authorized and committed values, and tracing. The repaired integer/float and numeric/Boolean cases show why these checks need the same value-equivalence relation. Targeted regressions cover selected boundaries, rather than every serialization or migration behavior. The concrete prefix trace exceeds the formal single-step anchor check in some respects; same-value admission and schema uniqueness also differ as stated in Section S2.
+ 
+ Evidence checks compare stored digests and canonical locators without re-reading external bytes. Replacing external evidence while retaining its metadata therefore needs immutable storage or another integrity check. Authentication, serialization, policy state, hashing, and transaction execution remain trusted. A revocation visible before the commit-entry policy check causes rejection; a later revocation does not cancel that in-flight transaction. Deletion, redaction, tombstones, retention expiry, distributed revocation, and other database engines require further design and evidence.
+ 
+@@ -543,22 +567,32 @@
+ \subsection{Artifact contents and exact reproduction}
+ The prospective artifact directory is \code{research/agent-policy-phase2-formal-2026-10-07}. Its \code{frozen-formal/} directory retains the final protocol, rendered task and assignment manifests, deployment/prompt manifests, tool and trajectory schemas, scorer definition, analysis plan, failure matrix, input and source hashes, environment and master manifest. The accompanying source contains the actual runner, independent oracle, event classifier, exporter and figure generator. All 128 deterministic fixtures and 57 runner/scorer tests were checked before collection. These engineering records are excluded from formal online statistics.
+ 
+-\begin{quote}\footnotesize
+-\code{python run_formal.py --verify-only}\\
+-\code{python run_formal.py --author-start RUN_512_FORMAL_ARMS}\\
+-\code{python run_formal.py --author-start RUN_512_FORMAL_ARMS --resume}\\
+-\code{python analyze_formal.py --output analysis-results-v1 --figures}
++\paragraph{Offline verification.}
++Extract the hash-verified handoff archive into a new directory, preserve that extraction, and work on a copy. From the extraction root, run the original analyzer with a fresh output directory:
++\begin{quote}\footnotesize\ttfamily
++python research/agent-policy-phase2-formal-2026-10-07/analyze\_formal.py \textbackslash\\
++\hspace*{1em}-{}-output fresh-analysis -{}-figures
+ \end{quote}
++The backslash continues one shell command onto the next line. This analysis uses archived responses and persisted state and makes no new model calls. Install the archived requirements in an isolated environment when reproducing its dependency versions. Compare the six CSV tables and the parsed analysis summary semantically with the deposited export before using regenerated figures.
++
++In the manuscript directory, \texttt{python verify\_evidence.py} checks the counts, baseline/controlled hashes, historical chains and archived formal receipts. The present verifier normalizes Windows separators in the source manifest for Linux portability; it changes no source hash or scientific check. From \code{research/authorization-granularity-phase1-2026-10-06/formal/}, run \texttt{python -m unittest discover -s tests -q} for the executable witness tests. Fresh online collection is a separate operation requiring the frozen deployment, provider access and the cohort-specific collection rules; it is not part of these reproduction commands.
++
+ The final analyzer produces scenario/configuration/policy outcomes, per-transition continuity, delivered-feedback recovery, per-arm operational components, paired primary effects, all-arm failure archaeology and unique-prefix usage. Formal recovery/effect figures require complete data. N/G flow and paired component plots are supplied as vector and high-resolution outputs in the result package.
+ 
+ \section{Positioning and reconstruction traceability}
+-Exact-action authorization, provenance and transactional governance are established neighboring ideas. The original literature comparison includes He and Yu's Continuity Kernel preprint (arXiv:2608.11632), which binds proposal identity, predecessor, approver evidence and lineage; Cui et al.'s MemTxn preprint (arXiv:2607.27834), which separates source-supported admission and complete-state recovery; and Saidi's MutMem preprint (arXiv:2608.02843), which concerns signed memory mutations and predecessor continuity. The arXiv records checked on 7 October 2026 retain these works as preprints without a linked journal reference; they are discussed as preprints. The main text's contribution is the correction-specific four-role relation and its prospective feedback consequences, rather than invention of exact binding or provenance.
+-
+-The reconstruction blueprint, old-content disposition and claim-evidence audit are editorial records outside the submitted main narrative. They prevent historical persisted corrections, deterministic fixtures or pilot arms from being reported as formal task success. The final completion audit will map every main-text number to the immutable controlled archive, Phase 1 audit or complete prospective result table.
++The closest execution-oriented comparisons are the posted preprint versions of Cordon (Chen et al., \url{https://arxiv.org/abs/2606.17573}), Continuity Kernel (He and Yu, \url{https://arxiv.org/abs/2608.11632}), and commit-time authorization (Santos-Grueiro, \url{https://arxiv.org/abs/2607.10487}). Their respective units are a task transaction, an accepted branch-head transition, and a durable effect licensed by a current authority witness. The present comparison fixes a corrected authorized value and retained context while varying reviewed-instance equality, then traces actual rejection feedback through paired agent continuations. This distinguishes the evaluated question without claiming that those frameworks cannot represent corrections. MemTxn (\url{https://arxiv.org/abs/2607.27834}) and MutMem (\url{https://arxiv.org/abs/2608.02843}) provide further memory-governance context. The records accessed on 7 October 2026 do not display linked journal references; this comparison refers to the posted preprint versions. Exact binding, approval, provenance and generic recovery are acknowledged foundations, rather than claimed inventions.
++
++The reconstruction blueprint, old-content disposition and claim-evidence audit are editorial records outside the submitted main narrative. They prevent historical persisted corrections, deterministic fixtures or pilot arms from being reported as formal task success. The delivered verification report maps the main-text numerical claims to the immutable controlled archive, Phase 1 audit or complete prospective result table.
+ 
+ \section{Complete prospective outcomes and failure archaeology}
+ \label{app:phase2-results}
+ Collection began at 2026-10-06T19:05:53 UTC and the final coordinator record is dated 2026-10-06T21:50:05.535328 UTC (7 October, Asia/Shanghai). All 256 pairs are terminal, accounting for the entire 512-arm planned ledger. A terminal ledger entry does not imply a complete model trajectory: the original interrupted N pair retains a partial context arm and an unstarted bound arm. Both have unsuccessful utility and unknown integrity. The final exporter recomputes scores from persisted events and states, rather than relying on cached coordinator scores. The final analysis status is \code{formal_inference_allowed=True}.
++
++\begin{figure}[htbp]
++\centering\includegraphics[width=.98\textwidth]{figures/figure2-joint-outcomes.pdf}
++\caption{Original planned-ledger utility and integrity. Each policy/deployment column contains 128 arms. The large $U=0,I=1$ component in A reflects covered state with provider failures, predominantly before review. Small joint cells and both unknowns remain explicit in the main joint-outcome table and the complete table below.}
++\label{fig:s-joint}
++\end{figure}
+ 
+ \subsection{Complete scenario/configuration/policy table}
+ Table~\ref{tab:full-online} gives the full original denominator. Checkpoint counts refer to the shared prospective prefix. Runtime denotes the frozen exporter's prefix/runtime/audit-state failure classification; malformed model output is a separate terminal class. Counts in the rejection column are arms with at least one rejected admission, not numbers of all rejection episodes. Receipt unavailability is separately classified feedback and is not an admission rejection.
+@@ -630,4 +664,22 @@
+ \end{quote}
+ Derived manuscript aggregates are a separate read-only layer. The replication manifest hashes the source freeze, raw results and published tables. Reanalysis checks the master/source hashes and recomputes the independent scores before producing tables. The artifact preserves the original interruption and resume launch audits, all provider responses and the partial N state; it does not fabricate missing termination or final-state files.
+ 
++\section{Supplementary quota recovery and integration requirements}
++\label{app:quota-recovery}
++\subsection{Separate cohort and fixed snapshot}
++The primary study remains the original 128-task, two-deployment, two-policy ledger: 256 terminal pairs and 512 planned arms, including its failures and unknowns. A subsequent quota-recovery cohort selects the 117 A pairs whose original shared prefixes encountered quota exhaustion. Its separate freeze is \code{phase2-quota-recovery-v1-c41e052eb585}; its planned denominator is 117 pairs and 234 arms. Selection on the original failure state makes this a supplementary cohort with later collection conditions, rather than a replacement for the original deployment results.
++
++The fixed GitHub handoff at commit \code{475e66f549613aaaaa62c2ec81ffdee483636c54} contains snapshot \code{research/phase2-results-snapshots/2026-10-07T021002Z/}. At 2026-10-07 02:10:02 UTC (10:10:02 Asia/Shanghai), 45 of 117 selected pairs were terminal, accounting for 90 arms; the snapshot status is PARTIAL. The remaining 72 pairs are not established as terminal by this snapshot. These collection-status counts are transcribed from the pinned \href{https://github.com/lhh666-6/auto-dete/blob/475e66f549613aaaaa62c2ec81ffdee483636c54/research/phase2-results-snapshots/2026-10-07T021002Z/snapshot-summary.json}{snapshot-summary.json}; the partial recovery records were not independently rescored in this revision. They are not completion, integrity or recovery-success results. A static snapshot does not establish that collection remains active.
++
++\subsection{Integration gates and reporting slots}
++The completed manuscript results above use only the original formal cohort. A final supplementary export can be integrated without changing that denominator or resampling its failures:
++\begin{enumerate}[leftmargin=*,itemsep=3pt]
++\item Preserve the original pair identifiers, all original failed attempts and the separate recovery freeze. Verify task, prompt, tool, schema, scorer and deployment provenance against the recovery manifest; document any changed provider or resource conditions.
++\item Establish terminal status for all 117 selected pairs and retain every planned recovery arm, including new failures and unknown integrity. A terminal entry need not imply a complete model trajectory.
++\item Recompute the independent outcomes from received responses, events and authoritative states. Report recovery-cohort checkpoint coverage, joint $(U,I)$ cells, scenario-specific transitions, actually delivered feedback, next actions, episode endpoints and friction under their own denominators.
++\item Add a separately labeled supplementary result table here and, if warranted, a short paragraph in main Section 7 comparing the observed paths with the original A evidence. Any inferential procedure must follow the recovery analysis plan and preserve the selected-cohort interpretation.
++\item Update the main scope paragraph and Discussion only to the strength supported by verified recovery evidence. Broader cross-deployment conclusions require adequate coverage and comparable recorded conditions.
++\end{enumerate}
++No partial-cohort inferential estimate or pooled replacement result is reported in this revision. The remaining dependency is the complete verified recovery ledger and its deployment/analysis provenance. Offline manuscript revision, compilation and verification of the original evidence can be completed independently of that collection.
++
+ \end{document}
+--- original/verify_evidence.py
++++ revised/verify_evidence.py
+@@ -34,7 +34,7 @@
+ checks['joint_cells']=all(sum(v['joint'].values())==128 for v in agg['groups'].values())
+ checks['joint_total_completion']=sum(v['U'] for k,v in agg['groups'].items() if k.endswith('context'))==126 and sum(v['U'] for k,v in agg['groups'].items() if k.endswith('bound'))==128
+ source_manifest=json.loads((ROOT/'evidence/source-manifest.json').read_text(encoding='utf-8'))
+-checks['baseline_and_controlled_hashes']=all(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==expected for path,expected in source_manifest['files'].items())
++checks['baseline_and_controlled_hashes']=all(hashlib.sha256((ROOT/path.replace('\\', '/')).read_bytes()).hexdigest()==expected for path,expected in source_manifest['files'].items())
+ chains=[json.loads(x) for x in (REPO/'research/authorization-granularity-phase1-2026-10-06/correction-chains.jsonl').read_text(encoding='utf-8').splitlines()]
+ checks['historical_84_chains']=len(chains)==84 and all(not r['failures'] for r in chains)
+ checks['historical_associations']=sum(r['metrics']['evidence_checks'] for r in chains)==252 and sum(r['metrics']['record_versions_checked'] for r in chains)==168 and sum(r['metrics']['P6_traces_checked'] for r in chains)==168

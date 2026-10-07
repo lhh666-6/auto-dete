@@ -1,0 +1,1053 @@
+{
+  "environment": {
+    "python": "3.11.16 (main, Sep  1 2026, 14:15:24) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "sqlite": "3.53.1",
+    "sqlalchemy": "2.0.51",
+    "source_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "hosted_model_calls": 0
+  },
+  "sample_count": 15,
+  "scenario_count": 11,
+  "arms": [
+    {
+      "arm": "journal_context",
+      "planned": 165,
+      "scored": 165,
+      "harness_errors": 0,
+      "accepted": 60,
+      "instance_policy_violations": 15,
+      "value_policy_violations": 0,
+      "instance_false_rejections": 0,
+      "value_false_rejections": 0,
+      "rejections_with_writes": 0,
+      "query_counts": {
+        "correct": 1020,
+        "ambiguous": 60
+      }
+    },
+    {
+      "arm": "journal_exact",
+      "planned": 165,
+      "scored": 165,
+      "harness_errors": 0,
+      "accepted": 45,
+      "instance_policy_violations": 0,
+      "value_policy_violations": 0,
+      "instance_false_rejections": 0,
+      "value_false_rejections": 15,
+      "rejections_with_writes": 0,
+      "query_counts": {
+        "correct": 810
+      }
+    },
+    {
+      "arm": "reference",
+      "planned": 165,
+      "scored": 165,
+      "harness_errors": 0,
+      "accepted": 45,
+      "instance_policy_violations": 0,
+      "value_policy_violations": 0,
+      "instance_false_rejections": 0,
+      "value_false_rejections": 15,
+      "rejections_with_writes": 0,
+      "query_counts": {
+        "correct": 810
+      }
+    }
+  ],
+  "exact_baseline_reference_comparisons": [
+    {
+      "sample": "G1-B1",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B1",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B2",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B3",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G1-B4",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B1",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B2",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B3",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "G2-B4",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B1",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B2",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B3",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "D1-B4",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_float",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-int_bool",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "accept",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "correction",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "multi_field",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "same_value_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "different_evidence_substitution",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "stale",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "replay",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "wrong_authorized_value",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "rollback_after_cas",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "rollback_before_transition",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    },
+    {
+      "sample": "synthetic-nested",
+      "case": "rollback_before_commit",
+      "acceptance_equal": true,
+      "query_answers_equal": true
+    }
+  ],
+  "inference": "Constructed finite cases on archived inputs; no general failure-rate or provider inference."
+}
