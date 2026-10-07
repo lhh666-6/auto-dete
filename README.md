@@ -1,3 +1,26 @@
+# Review-to-Execution Continuity for Corrected Agent State Changes
+
+The current manuscript and reproducibility package are published at the fixed version **[kais-reproducibility-2026-10-07](https://github.com/lhh666-6/auto-dete/tree/kais-reproducibility-2026-10-07)**.
+
+当前论文与复现材料请从下面进入；本页下方保留旧版项目入口，便于追溯。
+
+| Start here | Fixed-version link |
+|---|---|
+| Paper and supplement | [Article — 12 pages](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/revisions/2026-10-07-kais-followup/main.pdf) · [Supplement — 29 pages](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/revisions/2026-10-07-kais-followup/supplement.pdf) |
+| Reproduce from raw evidence | **[Offline reproduction guide](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/REPRODUCIBILITY.md)** |
+| Map paper claims to files | [Artifact map](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/docs/reproduction/ARTIFACT-MAP.md) |
+| Check fresh verification | [Reproduction checks and scope](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/docs/reproduction/REPRODUCTION-VERIFICATION-2026-10-07.md) |
+| Get editable sources | [Source ZIP](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/revisions/2026-10-07-kais-followup/KAIS-editable-sources.zip) |
+| Prepare submission | [Submission checklist](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/docs/submission/SUBMISSION-CHECKLIST.md) · [Cover-letter draft](https://github.com/lhh666-6/auto-dete/blob/kais-reproducibility-2026-10-07/docs/submission/COVER-LETTER.md) |
+| Continue collaborative revisions | [Current working branch](https://github.com/lhh666-6/auto-dete/tree/codex/phase2-formal-512-handoff) |
+
+The original 512-arm collection, the separately frozen 117-pair supplementary A collection and the explicitly post hoc sensitivity remain distinct. The guide reconstructs their outputs from preserved records without fresh model calls. Python dependencies, file checksums, expected results and reproduction limits accompany the release.
+
+Only this landing-page navigation is updated on the default branch; the current paper and data package remain on the linked fixed version and working branch. Existing historical files retain their paths.
+
+<details>
+<summary>Archived JIIS entry and earlier research versions — labels below refer to the October 3 version</summary>
+
 # Correction-Aware Data Admission
 
 **Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**
@@ -90,3 +113,5 @@ deposited experimental evidence used by the JIIS paper.
 Public availability does not imply an OSI open-source license for all contents.
 Third-party notices remain with the bundled tools; consult the authors for
 reuse beyond evaluation. Repository files do not state journal acceptance.
+
+</details>
