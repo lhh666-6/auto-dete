@@ -2,20 +2,22 @@
 
 Open `main.pdf` (article) and `supplement.pdf` (technical supplement). Their editable sources are `main.tex` and `supplement.tex`. This revision builds on cloud manuscript commit `47b1168a36656ea998d36746a492eaaae512909d` and adds the completed, separately frozen deployment-A evaluation.
 
+The final editorial pass has an 11-page article with three main figures and 20 numbered references, plus a 29-page supplement. It refines the completed follow-up version at commit `7fe3a4ec2c18126440e631eb0a5b69e8725f801c`; experimental results are unchanged.
+
 The main narrative follows continuity, recovery, utility and friction. One main table distinguishes original A, original B and supplementary A. Methods explain selection and the additional collection period before using the supplementary results. S11 retains original detailed results; S12 reports the supplementary cohort and attempt accounting; S13 labels the reconstructed completed-A view as post hoc sensitivity.
 
 ## Verified evidence
 
 - Original: 128 tasks, two deployments, two policies; 512 planned arms. All original failures and unknowns remain. The original completion contrast is +0.78125 percentage points, interval [-1.953125, 3.515625].
 - Supplementary A: 117 selected pairs / 234 arms, completed 7 October 2026 at 17:46:49 Asia/Shanghai. Context completes 114/117; bound completes 116/117. All 15 standardized G mismatches recover under bound: eight reviewed-candidate reuses and seven fresh authorizations. Their context counterparts execute substituted candidates.
-- G repair costs: mean paired +1.6 calls and +17.9667 seconds in supplementary A. Original B has mean +1 call; individual differences vary (two zero, twelve one, two two). Cohorts retain separate denominators.
+- G paired continuation costs: mean paired +1.6 calls and +17.9667 seconds in supplementary A. Original B has mean +1 call; individual differences vary (two zero, twelve one, two two). Cohorts retain separate denominators.
 - The supplementary completion contrast (+1.7094 percentage points, interval [0, 4.2735]) is exploratory and conditional on the selected cohort. S13 sensitivity is also explicitly post hoc. Neither replaces the original primary estimate or creates additional independent tasks.
 
 ## Compile and regenerate figures
 
 Use an existing configured pdfLaTeX installation. Run `./build.ps1` on Windows or `bash build.sh` on Linux. Intermediate outputs go to `out/`; final PDFs stay beside their sources. Standard package dependencies are listed in the TeX preambles. Compilation needs no Python, model calls or shell escape.
 
-With Python and matplotlib, run `python make_revision_figures.py` to reproduce the four original diagrams, or `python make_followup_figure.py` for the fifth comparative figure. Figure sources and data hashes accompany the PDF/SVG/PNG exports. The original outcome chart is retained in the supplement.
+The main article has three figures: the concept, independent online continuations and recovery/cost comparison. The evidence chain and original-only recovery figure are retained in the supplement. With Python and matplotlib, run `python make_revision_figures.py` to reproduce the four concept/design/evidence diagrams, or `python make_followup_figure.py` for the comparative result figure. Figure sources and data hashes accompany the PDF/SVG/PNG exports. The original outcome chart is retained in the supplement.
 
 ## Reproduce the results offline
 
@@ -28,10 +30,11 @@ The compact `KAIS-editable-sources.zip` contains the manuscript and its derived 
 
 ## Current reports and scope
 
-- `FOLLOWUP-REVISION-NOTES.md`: narrative and manuscript changes.
-- `FOLLOWUP-CONTENT-AUDIT.md`: independent numerical and inferential review.
-- `FOLLOWUP-FIGURE-QA.md`: fifth-figure data and rendering checks.
-- `FOLLOWUP-VERIFICATION.md` and `QA-RECEIPT.json`: final build, page review and verification results.
+- `FINAL-POLISH-NOTES.md`: final cuts, figure relocation and word-count comparison.
+- `FINAL-POLISH-CITATION-AUDIT.md`: primary-source verification of the three formally added references.
+- `FINAL-POLISH-FIGURE-QA.md` and `FINAL-POLISH-PDF-QA.md`: revised diagram semantics and integrated page review.
+- `FINAL-POLISH-VERIFICATION.md` and `QA-RECEIPT.json`: current build and verification results.
+- Reports prefixed `FOLLOWUP-` retain the previous integration audit and its numerical evidence, with their version explicitly marked.
 - `evidence/followup/` and `evidence/sensitivity/`: the exact derived inputs used in this revision.
 
 Older reconstruction reports and generator fragments that may remain in the local working copy refer to earlier versions and are excluded from the current editable package. Do not run legacy `complete_supplement.py`; the active supplement is the fully integrated `supplement.tex`.

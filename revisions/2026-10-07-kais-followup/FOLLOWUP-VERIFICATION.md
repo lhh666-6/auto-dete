@@ -1,3 +1,5 @@
+> Historical report for the completed-follow-up integration at commit `7fe3a4ec2c18126440e631eb0a5b69e8725f801c`, before the final editorial pass. Current layout, citation and packaging verification is in `FINAL-POLISH-VERIFICATION.md`; the reported scientific data remain unchanged.
+
 # Final follow-up integration verification — 7 October 2026
 
 The completed supplementary evaluation supports the continuity/recovery claims in the revised article. Original and supplementary results remain separate; the completed-A recombination is explicitly post hoc and confined to S13. No primary result was overwritten.

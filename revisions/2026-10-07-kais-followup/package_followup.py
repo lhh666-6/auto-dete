@@ -15,6 +15,9 @@ TOP = (
     'QA-RECEIPT.json', 'WORK-PLAN.md', 'make_revision_figures.py',
     'make_followup_figure.py', 'make_figures.py', 'derive_results.py',
     'verify_evidence.py', 'render_review.py', 'package_followup.py',
+    'FINAL-POLISH-NOTES.md', 'FINAL-POLISH-CITATION-AUDIT.md',
+    'FINAL-POLISH-FIGURE-QA.md', 'FINAL-POLISH-PDF-QA.md',
+    'FINAL-POLISH-VERIFICATION.md',
 )
 
 

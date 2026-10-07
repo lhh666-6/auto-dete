@@ -72,7 +72,7 @@ checks['bounded_commands']=len(commands)==72 and all(r['status']=='PASS' and r['
 main=(ROOT/'main.tex').read_text(encoding='utf-8')
 keys=set(re.findall(r'\\bibitem\{([^}]+)\}',main))
 cited=set(k.strip() for block in re.findall(r'\\cite\w*\{([^}]+)\}',main) for k in block.split(','))
-checks['citations_resolve']=keys==cited and len(keys)==17
+checks['citations_resolve']=keys==cited and len(keys)==20
 checks['nine_sections']=len(re.findall(r'\\section\{',main))==9
 checks['no_draft_placeholders']=not re.search(r'\\pending|TODO|TBD|awaiting final|working.draft|completed.data subsection',main,re.I)
 abstract=main.split(r'\begin{abstract}',1)[1].split(r'\end{abstract}',1)[0]

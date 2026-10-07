@@ -10,7 +10,7 @@ This revision extends the verified cloud manuscript at commit `47b1168a36656ea99
 - `evidence/followup/`: copies of verified supplementary analysis outputs for manuscript/figure reproduction.
 - `FOLLOWUP-REVISION-NOTES.md`, `FOLLOWUP-FIGURE-QA.md`, and the final validation report: this revision's changes and checks.
 
-The older audits, blueprint and staged logs inherited from the original reconstruction describe their stated versions. They do not certify this revision's later supplementary results and are excluded from the current editable source ZIP. QA-RECEIPT.json and EDITABLE-PACKAGE-MANIFEST.json identify the current deliverables; FOLLOWUP-VERIFICATION.md records the current checks and limitations.
+The older audits, blueprint and staged logs inherited from the original reconstruction describe their stated versions. They do not certify this revision's later supplementary results and are excluded from the current editable source ZIP. QA-RECEIPT.json and EDITABLE-PACKAGE-MANIFEST.json identify the current deliverables; FINAL-POLISH-VERIFICATION.md records the current checks and limitations; earlier FOLLOWUP reports are explicitly historical.
 
 ## Scientific data boundaries
 

@@ -1,3 +1,5 @@
+> Historical report for the completed-follow-up integration at commit `7fe3a4ec2c18126440e631eb0a5b69e8725f801c`, before the final editorial pass. Current layout, citation and packaging verification is in `FINAL-POLISH-VERIFICATION.md`; the reported scientific data remain unchanged.
+
 # Supplementary evaluation figure: source and visual QA
 
 Date: 2026-10-07. Verdict: **READY**.

@@ -1,4 +1,4 @@
-> **Completed follow-up update (7 October 2026):** The active manuscript is now `revisions/2026-10-07-kais-followup/` (13-page article, 28-page supplement). See [current results and offline reproduction](../PHASE2-RESULTS-LATEST.md). The 117-pair supplementary collection is complete and independently scored. The instructions below document the earlier handoff; its partial-collection status and old editing target are historical.
+> **Completed follow-up update (7 October 2026):** The active manuscript is now `revisions/2026-10-07-kais-followup/` (11-page article, 29-page supplement; final editorial pass with three main figures and 20 references). See [current results and offline reproduction](../PHASE2-RESULTS-LATEST.md). The 117-pair supplementary collection is complete and independently scored. The instructions below document the earlier handoff; its partial-collection status and old editing target are historical.
 
 # Cloud manuscript continuation
 

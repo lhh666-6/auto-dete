@@ -24,3 +24,14 @@ Author instruction (7 October 2026): contribution-first narrative; original 512-
 - Independent scoring, manuscript integration and comparative figure complete.
 - Supplementary analysis: 18 tests, 468 exact score comparisons and 7,989 event validations pass. Sensitivity routing: 3 tests pass. Original evidence: 29 checks pass.
 - Main and supplement compile successfully (13 and 28 pages), with no unresolved references or overfull boxes. Final receipts identify the current PDFs and package; detailed visual findings are in FOLLOWUP-PDF-QA.md.
+
+## Final editorial pass requested by the author
+
+- Keep the contribution list and its summary readable without intervening figures.
+- Use three main figures (concept, independent policy continuations, cohort comparison); move the evidence-chain and original-only recovery figures into the supplement.
+- Reduce repeated cohort provenance explanations in Results and Conclusion while retaining Methods, estimator scope, cohort names and denominators.
+- Clarify role relationships in the conceptual figure and independent execution in the online-loop figure.
+- Formally cite the three already discussed neighboring preprints after primary-source verification.
+- Recompile, render into a separate final-polish QA directory, and update the existing handoff branch with the verified result.
+
+Final editorial checks: main 11 pages / 3 figures / 20 resolved references; supplement 29 pages. All 126 archived evidence/baseline files match the preceding integration byte-for-byte (the manuscript verification receipt is separately refreshed). All 10 display-equation blocks, 21 table blocks, prospective Methods and author declarations are unchanged. Final PDF review and package receipts are reported in the FINAL-POLISH files.

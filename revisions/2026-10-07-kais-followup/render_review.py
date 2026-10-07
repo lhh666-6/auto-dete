@@ -1,12 +1,15 @@
 from pathlib import Path
-import subprocess
+import subprocess,re
 from PIL import Image,ImageOps,ImageDraw
 ROOT=Path(__file__).resolve().parent
-QA=ROOT/'qa';QA.mkdir(exist_ok=True)
+QA=ROOT/'qa'/'final-polish';QA.mkdir(parents=True,exist_ok=True)
 for name in ('main','supplement'):
     dest=QA/name;dest.mkdir(exist_ok=True)
     subprocess.run(['pdftoppm','-png','-scale-to','1500',str(ROOT/(name+'.pdf')),str(dest/'page')],check=True,capture_output=True)
-    pages=sorted(dest.glob('page-*.png'),key=lambda p:int(p.stem.split('-')[-1]))
+    info=subprocess.check_output(['pdfinfo',str(ROOT/(name+'.pdf'))],text=True)
+    page_count=int(re.search(r'^Pages:\s+(\d+)',info,re.M).group(1))
+    pages=sorted((p for p in dest.glob('page-*.png') if int(p.stem.split('-')[-1])<=page_count),key=lambda p:int(p.stem.split('-')[-1]))
+    assert len(pages)==page_count
     for start in range(0,len(pages),6):
         selected=pages[start:start+6]
         sheet=Image.new('RGB',(1800,2600),'#d8d8d8');draw=ImageDraw.Draw(sheet)

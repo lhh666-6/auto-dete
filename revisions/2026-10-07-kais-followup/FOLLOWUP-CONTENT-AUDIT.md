@@ -1,3 +1,5 @@
+> Historical report for the completed-follow-up integration at commit `7fe3a4ec2c18126440e631eb0a5b69e8725f801c`, before the final editorial pass. Current layout, citation and packaging verification is in `FINAL-POLISH-VERIFICATION.md`; the reported scientific data remain unchanged.
+
 # Follow-up content audit — 2026-10-07
 
 **Verdict: numerical and inferential checks PASS; two minor clarity/reproduction fixes recommended.** No manuscript, analysis, or raw-data file was edited during this audit.

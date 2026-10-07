@@ -163,8 +163,9 @@ def line(ax, points, color=LINE, lw=.7, **kw):
 
 def save(fig, name):
     # Preserve the exact final page dimensions: do not use bbox_inches='tight'.
-    fig.savefig(DEST / f"{name}.pdf", metadata={"Title": name, "Author": "KAIS continuity revision", "Subject": "Source-validated vector scientific figure"})
-    fig.savefig(DEST / f"{name}.svg")
+    # Stable metadata makes identical rebuilds byte-for-byte reproducible.
+    fig.savefig(DEST / f"{name}.pdf", metadata={"Title": name, "Author": "KAIS continuity revision", "Subject": "Source-validated vector scientific figure", "CreationDate": None, "ModDate": None})
+    fig.savefig(DEST / f"{name}.svg", metadata={"Date": None})
     fig.savefig(DEST / f"{name}.png", dpi=400)
     plt.close(fig)
 
@@ -297,32 +298,35 @@ def ribbon(ax,x0,y0,x1,y1,width,color,edge=None):
 
 def figure1():
     fig,ax=canvas(80)
-    specs=[(3,"blue","1  Machine\nproposal","robot"),
-           (46,"peach","2  Authorized\ncorrection","reviewer"),
-           (89,"violet","3  Reviewed\ninstance","reviewed"),
-           (132,"green","4  Executed\ntransition","gear")]
+    # These are linked roles, not a four-step chronology. The review region
+    # explicitly binds the corrected value to the reviewed instance.
+    box(ax,44,1.5,84,59,"#FAF8FD",PALETTES["violet"][1],lw=.7,radius=2)
+    text(ax,86,7.1,"Review binds value and instance",8.2,PALETTES["violet"][2],"bold")
+    specs=[(3,"blue","Machine\nproposal","robot"),
+           (46,"peach","Authorized\ncorrection","reviewer"),
+           (89,"violet","Reviewed\ninstance","reviewed"),
+           (132,"green","Executed\ntransition","gear")]
     for x,pal,title,kind in specs:
-        fill,band,accent=stage_card(ax,x,3,37,57,pal)
-        box(ax,x+1.2,4.2,34.6,12.5,band,"none",radius=1.25)
-        text(ax,x+18.5,10.4,title,8.3,accent,"bold")
+        fill,band,accent=stage_card(ax,x,13,37,46,pal)
+        box(ax,x+1.2,14.2,34.6,11.5,band,"none",radius=1.25)
+        text(ax,x+18.5,19.9,title,8.3,accent,"bold")
         if kind=="gear":
-            icon(ax,"gear",x+12.0,28,11,accent,band)
-            icon(ax,"database",x+25.7,28,11,accent,band)
-        else: icon(ax,kind,x+18.5,28,13,accent,band)
-        box(ax,x+3,39,31,17.7,WHITE,band,lw=.7,radius=1.3)
-    text(ax,21.5,44.9,r"$x_c=100$",10.2,BLUE,"bold")
-    text(ax,21.5,52.1,"origin candidate c₁",7.5,MUTED)
-    text(ax,64.5,44.9,r"$x_a=101$",10.2,PALETTES["peach"][2],"bold")
-    text(ax,64.5,52.1,"explicit grant a",7.5,MUTED)
-    text(ax,107.5,44.9,r"$c_r=c_1$",10.2,PALETTES["violet"][2],"bold")
-    text(ax,107.5,52.1,"identity fixed by a",7.5,MUTED)
-    text(ax,150.5,44.5,r"$c_s=c_1$ → 101",8.6,TEAL,"bold")
-    text(ax,150.5,52.1,r"$c_s=c_2$ → 101",8.6,AMBER,"bold")
-    for x in (40.7,83.7,126.7):
-        chevron(ax,x,27,4.6,5.4,"#A6BDCC")
-    box(ax,3,65,166,12.5,"#F9F3EE","#E8D4C5",radius=1.5)
-    text(ax,86,69.1,"Same proposal value + retained context  ⇏  same instance",8.6,INK,"bold")
-    text(ax,86,74.3,"Original grant: context admits c₁ or c₂; bound admits only c₁.",7.7,MUTED)
+            icon(ax,"gear",x+12.0,34.1,9.2,accent,band)
+            icon(ax,"database",x+25.7,34.1,9.2,accent,band)
+        else: icon(ax,kind,x+18.5,34.1,10.7,accent,band)
+        box(ax,x+3,43,31,13.8,WHITE,band,lw=.7,radius=1.3)
+    text(ax,21.5,47.2,r"$x_c=100$",10.2,BLUE,"bold")
+    text(ax,21.5,53.8,"origin candidate c₁",7.5,MUTED)
+    text(ax,64.5,47.2,r"$x_a=101$",10.2,PALETTES["peach"][2],"bold")
+    text(ax,64.5,53.8,"explicit grant a",7.5,MUTED)
+    text(ax,107.5,47.2,r"$c_r=c_1$",10.2,PALETTES["violet"][2],"bold")
+    text(ax,107.5,53.8,"identity fixed by a",7.5,MUTED)
+    text(ax,150.5,47.0,r"$c_s=c_1$ → 101",8.6,TEAL,"bold")
+    text(ax,150.5,53.8,r"$c_s=c_2$ → 101",8.6,AMBER,"bold")
+    box(ax,3,63,166,15,"#F9F3EE","#E8D4C5",radius=1.5)
+    text(ax,86,66.4,"Review of c₁ authorizes 101 and retains proposal 100.",8.2,INK,"bold")
+    text(ax,86,71.2,"Equivalent c₂ shares value and context, not identity.",7.5,MUTED)
+    text(ax,86,75.6,"Original grant: context admits c₁/c₂; bound only c₁. New authorization can license c₂.",7.5,MUTED)
     save(fig,"revised-figure1-concept")
 
 
@@ -372,24 +376,27 @@ def figure3():
         icon(ax,"document" if title=="Context" else "contract",87.5,y+10,7.5,accent,band)
         text(ax,106,y+5.6,title,8.0,accent,"bold")
         text(ax,106,y+13.4,formula,8.5,accent)
-    arrow(ax,(118.7,24),(129,26),PALETTES["violet"][2],lw=.9)
-    arrow(ax,(118.7,49),(129,34),TEAL,lw=.9)
-    fill,band,accent=stage_card(ax,130,17,39,22,"blue")
-    text(ax,149.5,21.8,"Actual feedback",8.2,accent,"bold")
-    icon(ax,"feedback",136.5,30.5,8,accent,band)
-    text(ax,155,31,"tool result to\nmodel response",7.5,MUTED)
-    fill,band,accent=stage_card(ax,130,48,39,22,"green")
-    text(ax,149.5,52.8,"Next agent action",8.2,accent,"bold")
-    icon(ax,"robot",137,61,8,accent,band)
-    text(ax,155.5,61.4,"meaningful\ntool choice",7.5,MUTED)
-    arrow(ax,(149.5,40),(149.5,47),TEAL,lw=1)
-    line(ax,[(169,61),(171,61),(171,13),(149.5,13)],TEAL,.65)
-    arrow(ax,(149.5,13),(149.5,16),TEAL,lw=.65)
+    # This loop depicts the same procedure separately within each isolated arm;
+    # the arrows are not a merge into shared model state or one shared agent.
+    text(ax,149.5,17.2,"Executed independently\nin each arm",7.5,TEAL,"bold")
+    arrow(ax,(118.7,24),(129,29),PALETTES["violet"][2],lw=.9)
+    arrow(ax,(118.7,49),(129,39),TEAL,lw=.9)
+    fill,band,accent=stage_card(ax,130,24,39,20,"blue")
+    text(ax,149.5,28.4,"Actual feedback",8.2,accent,"bold")
+    icon(ax,"feedback",136.5,36.5,8,accent,band)
+    text(ax,155,37,"tool result to\nmodel response",7.5,MUTED)
+    fill,band,accent=stage_card(ax,130,52,39,22,"green")
+    text(ax,149.5,56.8,"Next agent action",8.2,accent,"bold")
+    icon(ax,"robot",137,65,8,accent,band)
+    text(ax,155.5,65.4,"meaningful\ntool choice",7.5,MUTED)
+    arrow(ax,(149.5,45),(149.5,51),TEAL,lw=1)
+    line(ax,[(169,65),(171,65),(171,22.5),(149.5,22.5)],TEAL,.65)
+    arrow(ax,(149.5,22.5),(149.5,23.7),TEAL,lw=.65)
     # The loop returns actual results of further tool actions. The path and
     # oracle boxes describe recorded trajectories, not prescribed repairs.
     box(ax,81,66,37,11,PALETTES["violet"][0],PALETTES["violet"][1],radius=1.4)
     text(ax,99.5,71.5,"Observed path",8.2,PALETTES["violet"][2],"bold")
-    line(ax,[(129,61),(124,61),(124,71.5)],TEAL,.85)
+    line(ax,[(129,65),(124,65),(124,71.5)],TEAL,.85)
     arrow(ax,(124,71.5),(119,71.5),TEAL,.85)
     box(ax,38,66,32,11,PALETTES["green"][0],PALETTES["green"][1],radius=1.4)
     text(ax,54,71.5,r"$(U,I)$ oracle",8.7,TEAL,"bold")
@@ -445,6 +452,8 @@ if __name__ == "__main__":
              "minimum_base_font_pt": 7.5, "math_subscripts_use_conventional_smaller_size": True,
              "png_dpi": 400, "source_sha256": hashes,
              "data_validation": "passed", "figure_count": 4,
+             "semantic_polish": {"figure1": "Unnumbered roles; a review region binds authorized value and reviewed instance; no serial inter-role arrows",
+                                 "figure3": "Feedback/action loop explicitly executed independently in each isolated arm"},
              "observed_G_bound_paths": {"B_reuse": 16, "A_reauthorization": 1, "joint_1_1": 17},
              "ribbon_width_ratio": "16:1, proportional to delivered G-bound episode counts",
              "N_exact_transitions_per_policy": {"A": 3, "B": 30},
