@@ -1,0 +1,1220 @@
+你现在要对一篇已经完成正式实验的研究论文进行**整体重构，而不是局部润色**。
+
+你的任务不是简单地在旧稿末尾增加一个 Phase 2，也不是把原稿里的 “data integrity” 机械替换成 “Agent”。你需要基于现有全部证据，重新建立一条更集中、更有故事性、更符合 AI / intelligent systems / trustworthy Agent systems 社区阅读习惯的科学叙事。
+
+目标投稿方向优先考虑：
+
+**Knowledge and Information Systems (KAIS)**
+
+论文最终身份应为：
+
+\[
+\boxed{\textbf{Trustworthy Agent Execution}}
+\]
+
+更具体地说，核心概念统一为：
+
+\[
+\boxed{\textbf{correction-aware review-to-execution continuity}}
+\]
+
+技术基础仍然包括：
+
+- authorization semantics；
+- candidate identity；
+- proposal / authorized-value separation；
+- provenance；
+- transactional enforcement；
+- formal analysis；
+- persistent state；
+- independent auditing。
+
+不要把这些系统和形式化贡献删掉。新的目标是把它们放到一个更大的 Agent execution 问题下面，而不是继续让它们单独承担论文身份。
+
+---
+
+# 一、首先理解论文真正的新故事
+
+全文只围绕一个核心张力展开：
+
+\[
+\text{Agent proposes}
+\rightarrow
+\text{human/host review corrects}
+\rightarrow
+\text{authorization is issued}
+\rightarrow
+\text{Agent continues acting}
+\rightarrow
+\text{persistent state changes}
+\]
+
+关键问题出现在 review 和 execution 之间：
+
+\[
+\boxed{
+\text{the candidate that is executed need not be the candidate that was reviewed}
+}
+\]
+
+即使：
+
+\[
+same\ value = 1
+\]
+
+以及：
+
+\[
+same\ retained\ context = 1,
+\]
+
+仍然可能：
+
+\[
+same\ instance = 0.
+\]
+
+同时 corrected workflow 又存在：
+
+\[
+x_c \neq x_a
+\]
+
+其中：
+
+- \(x_c\)：machine proposal；
+- \(x_a\)：explicit authorized correction。
+
+因此论文真正研究的不是普通 approval，也不是单纯 database admission，而是：
+
+\[
+\boxed{
+\text{proposal identity}
++
+\text{authorized correction}
++
+\text{reviewed/executed instance continuity}
+}
+\]
+
+如何共同决定 state-changing Agent action 是否可以进入 authoritative state。
+
+然后新版进一步问：
+
+\[
+\boxed{
+\text{What happens when this continuity requirement becomes active feedback inside an Agent execution loop?}
+}
+\]
+
+也就是：
+
+\[
+reject
+\rightarrow
+Agent\ receives\ feedback
+\rightarrow
+reuse/reverify/reproposal/reauthorize/refresh
+\rightarrow
+completion/failure.
+\]
+
+这必须成为全文最终故事。
+
+---
+
+# 二、论文中心科学问题
+
+将全文的核心问题压缩成类似：
+
+> How should authorization preserve review-to-execution continuity when human-corrected Agent proposals become persistent state changes, and how does enforcing that continuity reshape subsequent Agent execution and recovery?
+
+不要求逐字采用，但全文必须围绕这个问题。
+
+不要再把论文主问题写成：
+
+> How should AI-derived data be admitted?
+
+这太像旧版 data-integrity framing。
+
+也不要写成：
+
+> How can LLM Agents recover from failures?
+
+这又过度偏 Agent behavior，丢掉了论文真正的系统创新。
+
+正确位置是两者之间：
+
+\[
+\boxed{
+\text{authorization-aware trustworthy execution for state-changing Agents}
+}
+\]
+
+---
+
+# 三、最终只保留三个 headline findings
+
+不要让十几个结果平级竞争读者注意力。
+
+整篇论文只需要反复强化三个主发现。
+
+## Finding 1
+
+\[
+\boxed{
+\textbf{Correction creates a distinct review-to-execution continuity problem.}
+}
+\]
+
+解释：
+
+machine proposal、authorized value、reviewed candidate 和 executed candidate 是不同角色。
+
+相同最终值不能证明：
+
+- 哪个 machine proposal 被保留；
+- 哪个值被授权；
+- 哪个 candidate 被 review；
+- 最终执行的 candidate 是否就是 review 的 candidate。
+
+safe/unsafe histories、information classes、same-value/same-context/new-instance separator 等都服务于这一 finding。
+
+---
+
+## Finding 2
+
+\[
+\boxed{
+\textbf{This continuity can be made explicit and enforceable across persistence mechanisms.}
+}
+\]
+
+formal relation、Alloy、relational implementation、event journal、transaction、provenance、field-source copy-forward、E1/E2/E3 都服务于这一 finding。
+
+不要把每个实现实验单独包装成一个新故事。
+
+它们共同回答：
+
+> Can the continuity relation be specified, persisted, checked, and enforced?
+
+---
+
+## Finding 3
+
+\[
+\boxed{
+\textbf{Once enforced online, authorization continuity changes Agent execution and recovery trajectories, with measurable operational trade-offs.}
+}
+\]
+
+新的 Phase 2 正式实验服务于这一 finding。
+
+重点不是：
+
+> bound rejected more requests.
+
+而是：
+
+\[
+\text{authorization semantics}
+\rightarrow
+\text{feedback}
+\rightarrow
+\text{Agent trajectory}
+\]
+
+包括：
+
+- reuse-reviewed；
+- reverify；
+- reproposal；
+- reauthorization；
+- state refresh；
+- evidence refresh；
+- invalid loops；
+- abandon；
+- completion/failure；
+- integrity outcome；
+- operational friction。
+
+---
+
+# 四、贡献列表重写原则
+
+贡献数量建议控制在 3–4 项，不要列 6–8 个贡献。
+
+推荐逻辑：
+
+### C1 — Correction-aware review-to-execution continuity
+
+明确 machine proposal、authorized correction 和 reviewed candidate identity 的独立角色，并定义 continuity requirement。
+
+### C2 — Executable authorization contract
+
+将 review-to-execution continuity 与 freshness、successor integrity、provenance、source preservation 和 transactional state transition 连接起来，并给出 formal/executable realization。
+
+### C3 — Cross-layer evidence
+
+通过 controlled mechanism separation、formal-concrete checking、historical hosted-Agent correction evidence 等证明这一机制可执行并存在于实际 Agent-mediated workflow 中。
+
+### C4 — Prospective online Agent intervention
+
+将 retained-context 与 instance-bound authorization 作为在线政策干预，测量真实 rejection feedback 如何改变 Agent recovery trajectory、task completion、integrity 和 operational friction。
+
+不要把 “authorization granularity” 单独包装成 headline theoretical contribution。
+
+---
+
+# 五、Introduction 必须整体重写
+
+不要在旧 Introduction 上修修补补。
+
+建议按五步展开。
+
+## Paragraph 1 — Agent action
+
+从 Agent 改变 persistent state 开始。
+
+强调：
+
+Agents are increasingly able not only to generate recommendations but to invoke tools and modify operational state.
+
+不要先从 database curation 开始。
+
+---
+
+## Paragraph 2 — correction
+
+引入 human/host correction：
+
+machine proposes \(x_c\)，reviewer authorizes \(x_a\)。
+
+强调：
+
+\[
+x_c \neq x_a
+\]
+
+可以是合法 correction。
+
+---
+
+## Paragraph 3 — hidden continuity problem
+
+引入：
+
+两个 candidate：
+
+\[
+c_1,\ c_2
+\]
+
+具有：
+
+\[
+same\ value,\ same\ evidence,\ same\ retained\ context
+\]
+
+但只有 \(c_1\) 被 review。
+
+此时：
+
+\[
+\text{review of }c_1
+\not\Rightarrow
+\text{authorization of }c_2
+\]
+
+在 instance-accountability policy 下。
+
+这应该成为整篇论文最重要的 motivating example。
+
+---
+
+## Paragraph 4 — why existing mechanisms do not jointly solve it
+
+不要写成“已有工作都不行”。
+
+应该写成：
+
+- transactions determine how state changes atomically；
+- provenance records where effects came from；
+- approval mechanisms gate actions/content；
+- Agent frameworks can pause/resume approved actions。
+
+然后指出 joint gap：
+
+\[
+\boxed{
+\text{这些机制没有共同刻画 corrected proposal、authorized value、reviewed instance 和 executed instance 之间的 continuity relation}
+}
+\]
+
+进一步：
+
+\[
+\boxed{
+\text{也没有回答当 continuity enforcement 真正拒绝 Agent action 后，Agent 接下来如何恢复}
+}
+\]
+
+---
+
+## Paragraph 5 — what this paper does
+
+一句非常明确的 central contribution sentence：
+
+> We make correction-aware review-to-execution continuity explicit, enforceable, and empirically observable in state-changing Agent workflows.
+
+然后贡献列表。
+
+---
+
+# 六、Related Work 必须缩短
+
+不要写成全面文献综述。
+
+最多三块。
+
+## 1. Agent approval / human-in-the-loop / tool execution
+
+说明已有：
+
+- action approval；
+- human confirmation；
+- tool-call gating；
+- pause/resume；
+- runtime authorization。
+
+然后指出：
+
+> corrected state updates introduce a distinct relation among proposal value, authorized value, reviewed candidate, and executed candidate.
+
+---
+
+## 2. Transactions / provenance / governed state
+
+说明：
+
+- atomic state transition；
+- provenance；
+- versioning；
+- source lineage；
+- curated data。
+
+然后指出：
+
+> these mechanisms can implement the continuity relation but do not themselves define its authorization target.
+
+---
+
+## 3. Trustworthy Agent execution / recovery
+
+说明已有：
+
+- safe tool execution；
+- runtime recovery；
+- Agent evaluation；
+- action provenance。
+
+然后指出：
+
+> prior work does not jointly isolate review-to-execution instance continuity under correction and measure how its enforcement changes subsequent online Agent recovery.
+
+这一句要成为 Related Work 的结尾。
+
+---
+
+# 七、formal/system 部分必须压缩
+
+保留：
+
+- candidate；
+- authorization；
+- \(x_c\)；
+- \(x_a\)；
+- predecessor；
+- successor；
+- source；
+- review/execution identity；
+- core policy equations。
+
+正文只保留理解论文贡献必须的定义和 proposition。
+
+不要在主文里展开：
+
+- 所有 checker commands；
+- 所有 finite scope 参数；
+- 所有 mapping mutants；
+- 全部 schema 字段；
+- 所有 regression case；
+- exhaustive proof engineering。
+
+这些进入 Supplement / Artifact。
+
+formal 部分承担的角色只有：
+
+\[
+\boxed{
+\text{make the execution contract precise}
+}
+\]
+
+而不是向 reviewer 展示所有做过的验证工作。
+
+---
+
+# 八、旧 E1/E2/E3 要重新降级组织
+
+不要继续作为三个与 Phase 2 平级的大 RQ。
+
+可以合并为：
+
+## Controlled Mechanism and System Validation
+
+集中回答：
+
+1. context-equivalent new instance 是否真正产生 policy separation；
+2. review-to-request binding 是否能被执行；
+3. mechanism 是否能在不同 persistence representation 下实现；
+4. enforcement/query 有什么基本 operational cost。
+
+用 1–2 张紧凑表格解决。
+
+不要花大量正文重复旧实验细节。
+
+---
+
+# 九、historical 84 correction chains 的角色
+
+保留，但篇幅要短。
+
+它只回答：
+
+\[
+\boxed{
+\text{Is the correction contract observable in hosted Agent-mediated workflows?}
+}
+\]
+
+它证明：
+
+- machine-origin proposal；
+- host correction；
+- authorization；
+- persistent transition；
+- provenance；
+
+可以在真实 hosted integration 中恢复。
+
+不要把它写成：
+
+- 84 task successes；
+- natural prevalence；
+- autonomous Agent attack；
+- online policy experiment。
+
+这些边界只需要简洁说明。
+
+---
+
+# 十、Phase 2 必须成为新版主实验
+
+Phase 2 开头首先写：
+
+> Controlled mechanism separation establishes that the policies differ, but it does not tell us what happens once that difference becomes feedback to an adaptive Agent.
+
+然后再介绍：
+
+\[
+P_{\text{context}}=G\land K_{eq}
+\]
+
+\[
+P_{\text{bound}}=G\land K_{eq}\land I_{eq}
+\]
+
+强调：
+
+两臂保持：
+
+- same task；
+- same reviewed history；
+- same checkpoint；
+- same tools；
+- same reviewer；
+- same persistence；
+- same prompt；
+- same resource-policy family。
+
+只有 execution binding rule 不同。
+
+---
+
+# 十一、所有方法选择尽量写成 design rationale
+
+统一使用：
+
+\[
+\boxed{
+Choice
+\rightarrow
+What\ it\ isolates
+\rightarrow
+What\ evidence\ it\ enables
+}
+\]
+
+例如：
+
+### shared prospective prefix
+
+不要：
+
+> We do this to ensure fairness.
+
+写：
+
+> A shared prospective prefix gives both policies the same reviewed history before authorization becomes behaviorally relevant, isolating the effect of execution binding on subsequent Agent continuation.
+
+### deterministic host reviewer
+
+不要：
+
+> We do not use real humans.
+
+写：
+
+> A deterministic host reviewer fixes the correction decision across policy arms, preventing reviewer variability from being conflated with authorization effects.
+
+### two Agent deployments
+
+不要：
+
+> We only evaluate two models.
+
+写：
+
+> Two independently accessed Agent deployments provide cross-provider replication while preserving complete trajectory-level auditability.
+
+### controlled scenarios
+
+不要：
+
+> Our benchmark is synthetic.
+
+写：
+
+> Controlled correction scenarios expose specific authorization boundaries while retaining interpretable recovery paths.
+
+真正的外部效度限制放到最后的 limitations。
+
+---
+
+# 十二、Results 写作必须“finding first”
+
+每个主要结果段落第一句必须是 scientific finding。
+
+不要：
+
+> Table 8 shows that...
+
+应该：
+
+> Instance-bound authorization changed the recovery trajectory after candidate mismatch.
+
+然后给数据。
+
+不要：
+
+> Figure 4 presents...
+
+应该：
+
+> Agents recovered through multiple valid strategies rather than a single prescribed repair sequence.
+
+然后引用 Figure 4。
+
+---
+
+# 十三、Phase 2 结果的核心分析结构
+
+正式结果围绕：
+
+\[
+\boxed{
+reject
+\rightarrow
+next\ meaningful\ Agent\ action
+\rightarrow
+recovery\ path
+\rightarrow
+(U,I)
+}
+\]
+
+而不是只有：
+
+- success rate；
+- rejection count；
+- latency。
+
+必须分析：
+
+- reuse-reviewed；
+- reverify；
+- reproposal；
+- reauthorization；
+- refresh-state；
+- evidence refresh；
+- invalid loops；
+- abandon；
+- hallucinated success；
+- runtime failure。
+
+重点回答：
+
+> What did the Agent actually do after authorization changed its execution environment?
+
+---
+
+# 十四、utility 与 integrity 必须并列
+
+不要把 task completion 和 integrity 合成一个总分。
+
+始终保留：
+
+\[
+U
+\]
+
+与：
+
+\[
+I.
+\]
+
+至少展示：
+
+- \(U=1,I=1\)
+- \(U=1,I=0\)
+- \(U=0,I=1\)
+- \(U=0,I=0\)
+- \(I=unknown\)
+
+这样可以出现最有价值的一类结果：
+
+\[
+\boxed{
+\text{task success does not necessarily imply review-to-execution integrity}
+}
+\]
+
+这是全文很重要的 Agent systems insight。
+
+---
+
+# 十五、不要把 512 写成 512 个 IID samples
+
+如果正式规模是：
+
+\[
+128\text{ tasks}
+\times
+2\text{ Agent configs}
+\times
+2\text{ policies}
+=
+512\text{ trajectories},
+\]
+
+正确表述应该是：
+
+> 512 prospective policy trajectories over 128 task instances and two Agent deployments.
+
+不要写：
+
+> \(n=512\) independent samples.
+
+统计和描述始终尊重 paired/task cluster 结构。
+
+---
+
+# 十六、故事中必须反复强化的核心创新
+
+核心词统一：
+
+\[
+\boxed{
+\textbf{review-to-execution continuity}
+}
+\]
+
+全文不要频繁切换成：
+
+- authorization granularity；
+- candidate identity security；
+- data integrity admission；
+- exact-binding policy；
+- Agent recovery framework；
+
+这些可以作为局部术语，但 scientific identity 必须统一。
+
+---
+
+# 十七、不要做过宽的 first claim
+
+不要写：
+
+> We are the first to introduce authorization for Agents.
+
+不要写：
+
+> Existing systems do not bind approved actions.
+
+不要写：
+
+> No prior work supports exact identity authorization.
+
+应该采用：
+
+\[
+\text{已有A}
++
+\text{已有B}
++
+\textbf{缺少这个joint relation / empirical consequence}
+\]
+
+例如：
+
+> Existing systems can approve Agent actions, preserve provenance, and execute state changes transactionally. Our contribution concerns the correction case in which machine proposal, authorized value, reviewed candidate, and executed candidate must remain distinguishable, and where enforcing that distinction becomes feedback to an adaptive Agent.
+
+---
+
+# 十八、limitations 主文只主动出现两次
+
+这是硬写作规则。
+
+## 第一次
+
+放在主要 Results / Discussion interpretation 后。
+
+只用 2–4 句。
+
+作用：
+
+**scope calibration，而不是自我削弱。**
+
+只说明最重要的范围，例如：
+
+- controlled correction workflows；
+- two recorded Agent deployments；
+- no natural-prevalence estimate。
+
+然后马上回到 implication。
+
+不要展开。
+
+---
+
+## 第二次
+
+放 Discussion 靠后或单独 Limitations。
+
+可以稍微完整，但仍然控制在 1–2 个紧凑段落。
+
+只讨论：
+
+- deployment generalization；
+- controlled task family；
+- deterministic host reviewer；
+- provider revision/reproducibility；
+- natural prevalence not estimated。
+
+不要把：
+
+- token cap；
+- CLI retry；
+- JSON logging；
+-具体 SDK 小差异；
+
+全部写进主文。
+
+这些进入 Supplement。
+
+---
+
+# 十九、不要让 limitation 成为第三条故事
+
+避免全篇频繁出现：
+
+- however；
+- nevertheless；
+- we do not claim；
+- cannot establish；
+- should not be interpreted；
+- limited to。
+
+如果一句 scope statement 能改成 positive scope，就优先改。
+
+例如：
+
+不要：
+
+> We do not prove universal minimality.
+
+写：
+
+> The characterization establishes class-wise irredundancy within the declared failure model.
+
+不要：
+
+> We do not estimate real-world prevalence.
+
+写：
+
+> The experiment provides controlled exposure to the mechanism rather than an estimate of its natural frequency.
+
+---
+
+# 二十、篇幅控制
+
+新版不是：
+
+\[
+\text{旧论文}
++
+\text{Phase 2}
+\]
+
+而是整体压缩。
+
+目标：
+
+\[
+\boxed{
+\textbf{short main narrative + strong evidence + supplement for detail}
+}
+\]
+
+建议主文结构：
+
+1. Introduction
+2. Related Work
+3. Review-to-Execution Continuity
+4. Formal and Transactional Realization
+5. Controlled and Historical Evidence
+6. Prospective Online Agent Experiment
+7. Results
+8. Discussion and Limitations
+9. Conclusion
+
+不要再拆成十几个相互竞争的 section。
+
+如果期刊版式较长，也要保持内容密度接近一篇 11–14 页双栏论文。
+
+---
+
+# 二十一、哪些内容优先移入 Supplement
+
+优先外置：
+
+- exhaustive Alloy scopes；
+- command manifests；
+- detailed proof witness tables；
+- full regression catalogue；
+-完整 logging schema；
+- retry/error handling matrix；
+- provider request metadata；
+-全部 task manifests；
+-全部 workload grids；
+-次要 sensitivity；
+-完整 trajectory dumps；
+- engineering preflight；
+- environment lock details。
+
+正文只保留 reviewer 理解：
+
+\[
+problem
+\rightarrow
+mechanism
+\rightarrow
+evidence
+\rightarrow
+insight
+\]
+
+所必需的内容。
+
+---
+
+# 二十二、Discussion 必须回答三个问题
+
+不要变成结果重复。
+
+只回答：
+
+### 1. What did we learn?
+
+review-to-execution continuity 是 corrected Agent state mutation 中一个独立问题。
+
+### 2. Why does it matter?
+
+authorization 不只是一个 static gate。
+
+当它进入 Agent loop 后，它成为：
+
+\[
+\boxed{
+\text{part of the Agent's execution environment}
+}
+\]
+
+并能够改变后续 trajectory。
+
+### 3. What is the trade-off?
+
+更严格 continuity：
+
+\[
+\text{accountability / integrity gain}
+\]
+
+可能交换：
+
+\[
+\text{reauthorization / additional steps / latency / completion cost}.
+\]
+
+不要预设结果一定是 “no utility loss”。
+
+---
+
+# 二十三、Conclusion 要比旧稿提高一层
+
+不要最后只落回：
+
+> preserve proposal, commit authorized value, retain sources.
+
+这些可以保留，但不是最后一句。
+
+最终应该落到：
+
+> Review-to-execution continuity is not merely a property of stored records. Once enforced inside an Agent loop, it becomes actionable feedback that can redirect execution and expose a measurable trade-off between accountability and operational friction.
+
+最后一句可以接近：
+
+> Our results make this continuity explicit, enforceable, and empirically observable in state-changing Agent workflows.
+
+---
+
+# 二十四、根据实际 Phase 2 结果调整故事强度
+
+不要提前预写“好结果”。
+
+如果结果是：
+
+\[
+continuity\uparrow,\qquad completion\approx
+\]
+
+可以强调：
+
+> stronger continuity can be enforced with bounded operational friction.
+
+如果：
+
+\[
+continuity\uparrow,\qquad utility\downarrow
+\]
+
+强调：
+
+> accountability produces a measurable execution cost and reshapes recovery behavior.
+
+如果最终 terminal success 接近但 trajectory 不同：
+
+> similar terminal outcomes can conceal substantially different authorization and recovery paths.
+
+如果 Agent-level effect 较弱：
+
+降低 behavioral claim，但仍保留 execution-layer framing。
+
+绝不能为了维护故事隐藏负面结果。
+
+---
+
+# 二十五、写作风格
+
+全文采用：
+
+\[
+\boxed{
+\textbf{Contribution-forward}
++
+\textbf{Story-driven}
++
+\textbf{Low-defensiveness}
++
+\textbf{Design-rationale-driven}
+}
+\]
+
+要求：
+
+- 每个主结果段落先说发现；
+- 每个方法选择先解释它带来了什么识别能力；
+- 反复提醒读者核心创新；
+- 少写道歉式表述；
+- 避免 AI 风格的空泛升华；
+- 避免大量 “Importantly / Notably / Moreover”；
+- 避免每段结尾重复贡献；
+- 避免夸大 first claim；
+- 不把结果夸成 universal law；
+- 不为了“严谨”把每一个工程 caveat 都塞进正文。
+
+---
+
+# 二十六、重构前先做 claim–evidence audit
+
+在实际改稿之前，先输出一个内部表：
+
+| Proposed claim | Supporting evidence | Main-paper location | Strength | Risk |
+|---|---|---|---|---|
+
+要求：
+
+- 每个 headline claim 必须有直接证据；
+- 不允许把 historical 84 说成 task success；
+- 不允许把 pilot 写成正式实验；
+- 不允许把 G harness substitution 写成 Agent 自主攻击；
+- 不允许把 context-policy admission 写成 context policy 自身错误；
+- 不允许把 \(I=0\) 与 policy rejection 混为一谈；
+- 不允许把两个 Agent deployment 泛化成所有 Agents；
+- 不允许把 formal bounded result 写成 universal theorem；
+- 不允许把 post-hoc analysis 冒充 preregistered analysis。
+
+这些边界必须准确，但不要因此让主文变得防御性。
+
+---
+
+# 二十七、正式开始重构时的输出顺序
+
+不要直接从第一句开始全文改写。
+
+先完成：
+
+### Step 1
+给出一句 central thesis。
+
+### Step 2
+给出三个 headline findings。
+
+### Step 3
+给出新的 section outline。
+
+### Step 4
+给出旧稿内容的：
+
+- keep；
+- compress；
+- move to supplement；
+- remove；
+- rewrite；
+
+映射。
+
+### Step 5
+给出 claim-evidence map。
+
+### Step 6
+重写：
+
+- Title；
+- Abstract；
+- Introduction；
+- Contributions。
+
+先确认这四部分已经形成正确 scientific identity。
+
+### Step 7
+再重构 Methods / Formal / Evidence / Phase 2 / Results。
+
+### Step 8
+最后写 Discussion、limitations、Conclusion。
+
+---
+
+# 二十八、最终质量检查
+
+完成重构后，从编辑视角检查第一页。
+
+编辑在只看：
+
+- title；
+- abstract；
+- introduction 前两页；
+- contribution list；
+
+时必须能够回答：
+
+### What is the problem?
+
+Corrected state-changing Agent workflows contain a review-to-execution continuity boundary.
+
+### What is new?
+
+The paper makes that continuity explicit across proposal, authorized correction, reviewed candidate, and executed state transition.
+
+### Is it executable?
+
+Yes: formal specification + transactional/provenance realization + controlled validation.
+
+### Why is this an Agent paper?
+
+Because the authorization rule is prospectively inserted into a live Agent execution loop and actual rejection feedback changes subsequent Agent decisions and recovery.
+
+### What is the empirical payoff?
+
+The paper measures continuity, recovery trajectories, task utility, integrity, and operational friction.
+
+如果这五个答案在第一页不能明确得到：
+
+继续重写。
+
+---
+
+# 二十九、最终目标
+
+最终读者不应该把论文记成：
+
+> a database paper that added an Agent experiment.
+
+也不应该记成：
+
+> an Agent benchmark with a complicated database backend.
+
+而应该记成：
+
+\[
+\boxed{
+\textbf{a trustworthy Agent execution paper that identifies,
+formalizes, enforces, and experimentally studies
+correction-aware review-to-execution continuity}
+}
+\]
+
+最终最希望 reviewer 记住的一句话是：
+
+\[
+\boxed{
+\textbf{The paper makes review-to-execution continuity explicit,
+enforceable, and measurable in state-changing Agent workflows.}
+}
+\]
+
+严格围绕这一点压缩、重组和强化整篇论文。
