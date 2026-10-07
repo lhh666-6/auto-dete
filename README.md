@@ -1,3 +1,5 @@
+> **Phase 2 当前结果（2026-10-07 10:10 北京时间）**：原正式批次 512 个计划臂已结束；额度恢复补采已纳入 45/117 个配对的中期快照。原始结果、分析表和复算说明见 [PHASE2-RESULTS-LATEST.md](PHASE2-RESULTS-LATEST.md)。
+
 # Correction-Aware Data Admission
 
 **Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates**

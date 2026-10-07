@@ -1,0 +1,706 @@
+{
+  "collection_status": "COMPLETE",
+  "updated_utc": "2026-10-06T21:50:05.535328+00:00",
+  "planned_arms": 512,
+  "checkpoint_pairs": {
+    "A": 11,
+    "B": 128
+  },
+  "prefix_errors": {
+    "('A', 'CODEX_EXIT_1')": 117
+  },
+  "checkpoint_hash_mismatches": [],
+  "groups": {
+    "A-context": {
+      "arms": 128,
+      "joint": {
+        "0,1": 119,
+        "1,1": 8,
+        "1,0": 1
+      },
+      "terminal": {
+        "prefix_failure": 117,
+        "agent_final": 9,
+        "runtime_error": 2
+      },
+      "U": 9,
+      "continuity_failure": 1
+    },
+    "A-bound": {
+      "arms": 128,
+      "joint": {
+        "0,1": 119,
+        "1,1": 9
+      },
+      "terminal": {
+        "prefix_failure": 117,
+        "agent_final": 9,
+        "runtime_error": 2
+      },
+      "U": 9,
+      "continuity_failure": 0
+    },
+    "B-context": {
+      "arms": 128,
+      "joint": {
+        "1,1": 103,
+        "0,1": 8,
+        "0,0": 2,
+        "1,0": 14,
+        "0,unknown": 1
+      },
+      "terminal": {
+        "agent_final": 117,
+        "invalid_output": 10,
+        "termination_missing": 1
+      },
+      "U": 117,
+      "continuity_failure": 16
+    },
+    "B-bound": {
+      "arms": 128,
+      "joint": {
+        "0,1": 8,
+        "1,1": 119,
+        "0,unknown": 1
+      },
+      "terminal": {
+        "invalid_output": 8,
+        "agent_final": 119,
+        "not_started": 1
+      },
+      "U": 119,
+      "continuity_failure": 0
+    }
+  },
+  "episodes": {
+    "G-A-bound": {
+      "n": 1,
+      "arms": 1,
+      "first_actions": {
+        "request_authorization": 1
+      },
+      "strategy": {
+        "reauthorization": 1
+      },
+      "labels": {
+        "reauthorization": 1
+      },
+      "recovered": 1,
+      "U": 1,
+      "RecoverableReject": 1
+    },
+    "G-B-bound": {
+      "n": 16,
+      "arms": 16,
+      "first_actions": {
+        "commit": 16
+      },
+      "strategy": {
+        "reuse-reviewed": 16
+      },
+      "labels": {
+        "reuse-reviewed": 16
+      },
+      "recovered": 16,
+      "U": 16,
+      "RecoverableReject": 16
+    },
+    "E-A-context": {
+      "n": 2,
+      "arms": 2,
+      "first_actions": {
+        "inspect_evidence": 2
+      },
+      "strategy": {
+        "reauthorization": 2
+      },
+      "labels": {
+        "evidence-refresh": 2,
+        "reproposal": 2,
+        "reauthorization": 2,
+        "runtime-failure": 1
+      },
+      "recovered": 1,
+      "U": 1,
+      "RecoverableReject": 2
+    },
+    "E-A-bound": {
+      "n": 1,
+      "arms": 1,
+      "first_actions": {
+        "inspect_evidence": 1
+      },
+      "strategy": {
+        "reauthorization": 1
+      },
+      "labels": {
+        "evidence-refresh": 1,
+        "reproposal": 1,
+        "reauthorization": 1
+      },
+      "recovered": 1,
+      "U": 1,
+      "RecoverableReject": 1
+    },
+    "E-B-context": {
+      "n": 16,
+      "arms": 16,
+      "first_actions": {
+        "inspect_evidence": 15,
+        "propose": 1
+      },
+      "strategy": {
+        "reauthorization": 15,
+        "evidence-refresh": 1
+      },
+      "labels": {
+        "evidence-refresh": 15,
+        "reproposal": 15,
+        "reauthorization": 15
+      },
+      "recovered": 15,
+      "U": 15,
+      "RecoverableReject": 16
+    },
+    "E-B-bound": {
+      "n": 16,
+      "arms": 16,
+      "first_actions": {
+        "inspect_evidence": 16
+      },
+      "strategy": {
+        "reauthorization": 15,
+        "evidence-refresh": 1
+      },
+      "labels": {
+        "evidence-refresh": 16,
+        "reproposal": 15,
+        "reauthorization": 15
+      },
+      "recovered": 15,
+      "U": 15,
+      "RecoverableReject": 16
+    },
+    "V-B-context": {
+      "n": 13,
+      "arms": 13,
+      "first_actions": {
+        "propose": 7,
+        "get_state": 5,
+        "final_or_no_action": 1
+      },
+      "strategy": {
+        "reauthorization": 12,
+        "no_observed_recovery": 1
+      },
+      "labels": {
+        "reproposal": 12,
+        "reauthorization": 12,
+        "state-refresh": 5
+      },
+      "recovered": 12,
+      "U": 12,
+      "RecoverableReject": 13
+    },
+    "V-B-bound": {
+      "n": 13,
+      "arms": 13,
+      "first_actions": {
+        "get_state": 10,
+        "propose": 2,
+        "final_or_no_action": 1
+      },
+      "strategy": {
+        "reauthorization": 12,
+        "no_observed_recovery": 1
+      },
+      "labels": {
+        "state-refresh": 10,
+        "reproposal": 12,
+        "reauthorization": 12
+      },
+      "recovered": 12,
+      "U": 12,
+      "RecoverableReject": 13
+    },
+    "R-A-context": {
+      "n": 1,
+      "arms": 1,
+      "first_actions": {
+        "get_state": 1
+      },
+      "strategy": {
+        "successful-confirmation-via-state": 1
+      },
+      "labels": {
+        "state-refresh": 1,
+        "successful-confirmation-via-state": 1,
+        "runtime-failure": 1
+      },
+      "recovered": 0,
+      "U": 0,
+      "RecoverableReject": 1
+    },
+    "R-A-bound": {
+      "n": 1,
+      "arms": 1,
+      "first_actions": {
+        "get_state": 1
+      },
+      "strategy": {
+        "successful-confirmation-via-state": 1
+      },
+      "labels": {
+        "state-refresh": 1,
+        "successful-confirmation-via-state": 1
+      },
+      "recovered": 1,
+      "U": 1,
+      "RecoverableReject": 1
+    },
+    "R-B-context": {
+      "n": 9,
+      "arms": 9,
+      "first_actions": {
+        "get_state": 9
+      },
+      "strategy": {
+        "successful-confirmation-via-state": 9
+      },
+      "labels": {
+        "state-refresh": 9,
+        "successful-confirmation-via-state": 9
+      },
+      "recovered": 9,
+      "U": 9,
+      "RecoverableReject": 9
+    },
+    "R-B-bound": {
+      "n": 10,
+      "arms": 10,
+      "first_actions": {
+        "get_state": 9,
+        "final_or_no_action": 1
+      },
+      "strategy": {
+        "successful-confirmation-via-state": 9,
+        "no_observed_recovery": 1
+      },
+      "labels": {
+        "state-refresh": 9,
+        "successful-confirmation-via-state": 9
+      },
+      "recovered": 9,
+      "U": 10,
+      "RecoverableReject": 10
+    }
+  },
+  "friction": {
+    "all-A": {
+      "suffix_agent_tool_calls": {
+        "n": 128,
+        "mean": -0.0390625,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 128,
+        "mean": -0.0390625,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 128,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 128,
+        "mean": -333.3359375,
+        "median": 0.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 128,
+        "mean": 244.8828125,
+        "median": 0.0
+      }
+    },
+    "all-B": {
+      "suffix_agent_tool_calls": {
+        "n": 127,
+        "mean": 0.07086614173228346,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 127,
+        "mean": 0.03937007874015748,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 127,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 127,
+        "mean": 1285.5984251968505,
+        "median": 687.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 128,
+        "mean": -9744.703125,
+        "median": 328.5
+      }
+    },
+    "G-A": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": 0.125,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": 0.125,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0625,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": 1479.375,
+        "median": 0.5
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": 1479.4375,
+        "median": 0.0
+      }
+    },
+    "G-B": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": 1.0,
+        "median": 1.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": 0.9375,
+        "median": 1.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": 8844.5625,
+        "median": 14539.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": -76527.5,
+        "median": 14539.0
+      }
+    },
+    "N-A": {
+      "suffix_agent_tool_calls": {
+        "n": 32,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 32,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 32,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 32,
+        "mean": 169.0,
+        "median": 0.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 32,
+        "mean": 170.40625,
+        "median": 0.0
+      }
+    },
+    "N-B": {
+      "suffix_agent_tool_calls": {
+        "n": 31,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 31,
+        "mean": -0.0967741935483871,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 31,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 31,
+        "mean": 1478.1612903225807,
+        "median": 1687.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 32,
+        "mean": 512.53125,
+        "median": 656.0
+      }
+    },
+    "E-A": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": -0.25,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": -0.25,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": -0.0625,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": -2496.0625,
+        "median": 0.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": 287.0625,
+        "median": 0.0
+      }
+    },
+    "E-B": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": -0.1875,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": -0.4375,
+        "median": -1.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": -8509.9375,
+        "median": -9617.5
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": -8693.5,
+        "median": -10101.5
+      }
+    },
+    "V-A": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": 3.875,
+        "median": 1.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      }
+    },
+    "V-B": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": 216.8125,
+        "median": -1773.5
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": -550.75,
+        "median": -15.5
+      }
+    },
+    "R-A": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": -0.125,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": -0.125,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": -1127.8125,
+        "median": 0.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": 713.9375,
+        "median": 0.0
+      }
+    },
+    "R-B": {
+      "suffix_agent_tool_calls": {
+        "n": 16,
+        "mean": 0.0625,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 16,
+        "mean": 0.1875,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 16,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 16,
+        "mean": 134.8125,
+        "median": -991.5
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 16,
+        "mean": 134.8125,
+        "median": -991.5
+      }
+    },
+    "L-A": {
+      "suffix_agent_tool_calls": {
+        "n": 32,
+        "mean": -0.03125,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 32,
+        "mean": -0.03125,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 32,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 32,
+        "mean": -432.03125,
+        "median": 0.0
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 32,
+        "mean": -431.09375,
+        "median": 0.0
+      }
+    },
+    "L-B": {
+      "suffix_agent_tool_calls": {
+        "n": 32,
+        "mean": -0.15625,
+        "median": 0.0
+      },
+      "suffix_model_turns": {
+        "n": 32,
+        "mean": -0.09375,
+        "median": 0.0
+      },
+      "suffix_authorization_requests": {
+        "n": 32,
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "suffix_elapsed_ms": {
+        "n": 32,
+        "mean": 3327.125,
+        "median": 2211.5
+      },
+      "budget_capped_time_to_success_ms": {
+        "n": 32,
+        "mean": 3327.125,
+        "median": 2211.5
+      }
+    }
+  },
+  "failure_arms": 273,
+  "failure_labels": {
+    "context_A_instance_incompatible_success": 15,
+    "runtime-failure": 238,
+    "provider_or_runtime_failure": 238,
+    "integrity_unclassifiable": 2
+  },
+  "transition_count": 261,
+  "substitutions": {
+    "A-context-G": 1,
+    "B-context-G": 16
+  },
+  "input_hashes": {
+    "failure-archaeology-all-arms.csv": "cac7aa22d85fed8f39e8611d2533921b629817ba243c27f7d2295b2073b857d3",
+    "paired-effects.csv": "e3557b75a6413b98bfd658e83ef1edb751e38ace30a7bcc75fd656110ed802e5",
+    "table1-outcomes.csv": "d1584576773a3f48b362400635f2fcb34fa6913499896204b26fd0bd35c7f288",
+    "table2-continuity.csv": "b591e95a7f4f1fe7f5bfb5c05f3fc56d6be8ad031249bc036ee242272dbc498c",
+    "table3-recovery.csv": "f3294c55d67639674f0b70329c4b5d687f9e3d91877502b0513d5b913a66bded",
+    "table4-utility-friction.csv": "b7bfc652d1f2646979c09fc9b4790a5d6dcd6b45e25c99f343159e48e0f738fc",
+    "collection-status.json": "29de20a217f59f9b2f25a6d7b2181d147380d30ffaec3dc631c00cb11ccd2386"
+  },
+  "raw_provider_error_counts": {
+    "A": {
+      "usage_limit": 357
+    },
+    "B": {}
+  }
+}
