@@ -1,0 +1,59 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{RQ1: exact binding and persisted conformance}
+
+\paragraph{E1: equal-valued candidate separation}
+\label{sec:executable-relation-result}
+Fifteen equal-valued candidate substitutions separated the authorization policies. The context journal accepted all 15: their values and retained context satisfied its policy, although the admitted instances differed from the reviewed targets. Both exact-binding mechanisms rejected them. The exact journal and relational reference agreed on all 165 paired decisions and query-answer sets. All mechanisms rejected substitutions with different retained evidence.
+
+\input{tables-dke-comparator}
+
+The separator concerns the required authorization target. Under instance accountability, the rejected substitutions are unauthorized; under the looser value/context policy, the exact mechanisms make 15 additional rejections. Thus the experiment isolates a policy choice rather than treating context approval as inherently incorrect.
+
+All 495 executions completed without harness errors. Each exact mechanism accepted 45 legal cases and rejected 120 without fact-database writes after authorization preparation, including all three rollback locations.
+
+Accepted context-journal histories produced 1,020 correct answers and sixty ambiguous reviewed-candidate answers. Each exact mechanism produced 810 correct answers and none wrong, ambiguous, or unavailable. Totals reflect eighteen answers per accepted history, with more acceptances under the context policy. The ambiguous answers expose the same instance distinction after commit.
+
+The original strengthened-baseline continuity run reproduced seven-of-eight single-history agreement, with equal-valued substitution as the separator; its paired-history distinction is a separate ninth check. The richer exact journal closes that gap in E1 by preserving the authorization link. The evaluated relation is therefore enforceable in both storage designs.
+
+\paragraph{Formal and persisted support}
+All 72 Alloy outcomes matched the manifests, with legal, ablation, source-attack, and nonempty-precondition witnesses in both profiles. The checked assertions had no counterexamples within scope. The intended projections were satisfiable, and the mapping mutants were unsatisfiable. Every catalogue case, both stateful profiles, and all 33 rollback/concurrency tests passed in the retained execution.
+
+The illustrative lifecycle retained proposal 100, separately authorized correction 101, exact sources for the other two fields, and a complete trace/export. Six archived AI-origin lifecycles and ten pinned-interface controls also matched their outcomes. The new execution passed 85 selected regressions and ten harness checks. These are separate evidence layers; the retained tests were not all rerun for E1--E3.
+
+\subsection{RQ2: request binding and display controls}
+
+The server-held gate rejected all nine request substitutions that the original path accepted despite disagreement with recorded review intent. Both paths accepted three display-only substitutions. Request binding therefore separates request-to-review consistency from presentation integrity.
+
+\input{tables-dke-review}
+
+Each path completed thirty browser cases and accepted all nine legitimate controls. Both rejected stale submissions, replays, and precommit interruptions without fact writes. In the display-only controls, the page showed B while server and request continued with A. The original transaction preserves the caller-supplied binding; the gate additionally checks it against the earlier server-held review record.
+
+\subsection{RQ3: admission, trace, and storage costs}
+
+\paragraph{Admission}
+Both admission comparisons completed ten cells. Shared mechanism queries agreed; materialized states matched their precomputed fingerprints. \Cref{tab:dke-admission-selected} shows representative cells; Online Resource 1, Section S4 retains every cell.
+
+\input{tables-dke-admission-selected}
+
+With 128 fields all changed, median reference confirmation was 712.00~ms and exact-journal confirmation 22.09~ms. Both enforce exact binding; these are complete-call costs for the compared implementations. In the separate manual-source ablation, full confirmation was 427.59~ms and prevalidated materialization 23.50~ms. The latter times persistence after validation and planning, as defined in \cref{sec:evaluation}.
+
+\paragraph{Reverse trace}
+All 36 paired cells completed 14,400 calls with identical full returned objects. At 128 fields, 100 versions, and 1,000 records, bulk p50/p95 was 170.24/216.75~ms versus 509.09/595.85~ms for point access, a median ratio of 2.99.
+
+\input{tables-dke-trace}
+
+Bulk tracing used twelve SQL statements in every measured cell; the largest point-access cell used 693. With the same current verifier in both arms, the result attributes the measured difference to repository access. The constant statement count concerns round trips; field and history processing still contribute to total work.
+
+\paragraph{Schema footprint}
+Full-schema sizes were 1.52, 13.16, and 134.53~MiB at the tested transition scales, with roughly 1.1~kB incremental main-database storage per transition relative to the reduced fixture.
+
+\input{tables-dke-storage}
+
+These are database footprints for the full and reduced audit obligations defined in \cref{sec:evaluation}.
+
+\subsection{Separate historical integration}
+\label{sec:historical-integration}
+
+The archived matrix retains 1,260 planned runs. Strict benign yield was 320/360 (88.89\%) and post-hoc endpoint yield 331/360 (91.94\%), with 25 unscorable runs; all 93 runtime failures remain recorded. Fixed host checks recorded no unauthorized mutation in 720 invalid-tuple calls or 179 capability-unavailable branches, the latter making no admission call. This reporting separates task completion from authority checks, analogous to AgentDojo's task/security outcomes \citep{debenedetti2024agentdojo}. The historical evidence supports restricted-interface integration separately from E1/E2; Online Resource 1, Section S5 preserves conditional denominators, configuration-specific failures, and annotation.

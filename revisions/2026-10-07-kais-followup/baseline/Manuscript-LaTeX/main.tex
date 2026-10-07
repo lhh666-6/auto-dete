@@ -1,0 +1,57 @@
+\RequirePackage{fix-cm}
+\documentclass[smallcondensed,natbib,nospthms]{svjour3}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,enumitem,graphicx,flafter,microtype,multirow}
+\usepackage[section]{placeins}
+\usepackage{tabularx,xcolor,xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\setcitestyle{numbers,square,comma}
+\providecommand{\bibcommenthead}{}
+\hypersetup{pdftitle={Correction-Aware Data Admission},pdfauthor={Liang Hanghao; Xuan Wentao; Chen Qile; Peng Peng},pdfsubject={Data integrity, candidate-bound authorization, and field-level provenance}}
+\setlength{\emergencystretch}{2em}
+% Center the unchanged smallcondensed block on A4. Include the running head
+% in the vertical block; retain the original text width, height and font sizes.
+\setlength{\oddsidemargin}{\dimexpr(\paperwidth-\textwidth)/2-1in-\hoffset\relax}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\topmargin}{\dimexpr(\paperheight-\textheight-\headheight-\headsep)/2-1in-\voffset\relax}
+\newcommand{\system}{\textsc{Auto-Decte}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\eqc}{\mathrel{=_{\mathrm{json}}}}
+\newcommand{\neqc}{\mathrel{\neq_{\mathrm{json}}}}
+\journalname{Journal of Intelligent Information Systems}
+\begin{document}
+\title{Correction-Aware Data Admission: Candidate-Bound Authorization and Field-Level Provenance for AI-Derived Updates}
+\titlerunning{Correction-Aware Data Admission}
+\author{\mbox{Liang Hanghao} \and \mbox{Xuan Wentao} \and \mbox{Chen Qile} \and \mbox{Peng Peng}}
+\authorrunning{Liang Hanghao et al.}
+\institute{Liang Hanghao \and Xuan Wentao \and Chen Qile \and Peng Peng \at
+College of Computer Science and Electronic Engineering, Hunan University, Lushan South Road, Yuelu District, Changsha 410082, China\\
+\email{hnu16pp@hnu.edu.cn} (Peng Peng, corresponding author)}
+\date{}
+\maketitle
+\begin{abstract}
+Human-reviewed AI-derived updates introduce a correction-specific authorization problem that is invisible in the final authoritative value. A machine proposal, a human-authorized value, and the exact reviewed candidate are distinct objects: even equal-valued candidates with equivalent retained review context can remain different authorization targets. We identify candidate-bound authorization as a distinct integrity requirement for corrected AI-derived updates when instance accountability is required. We specify a correction-aware admission relation connecting the exact candidate, its authorization, an explicit authorized value, a fresh authoritative predecessor, a complete successor, and total field-level sources. Safe/unsafe paired histories characterize five information classes whose omission can conceal different authority outcomes. An independently written exact-binding event journal and a relational reference realize this relation and agree on all 165 corresponding cases. A context journal accepts 15 equal-valued substitutions that both exact-binding mechanisms reject, separating content/context approval from instance authorization. A server-held review binding rejects nine request substitutions, while three display-only substitutions remain admissible in both paths, exposing the presentation boundary. The results establish an executable account of correction integrity across two persistence representations: preserve the proposal, commit the authorized value, and retain the exact reviewed instance and every field's source.
+
+\keywords{data integrity \and data provenance \and human authorization \and AI-assisted data acquisition \and transactional admission \and relational verification}
+\end{abstract}
+
+\input{sections-01-introduction}
+\input{sections-02-related-work}
+\input{sections-03-problem-contract}
+\input{sections-04-relational-analysis}
+\input{sections-05-transactional-realization}
+\input{sections-06-formal-concrete-conformance}
+\input{sections-07-evaluation-protocol}
+\input{sections-08-results}
+\input{sections-09-discussion-threats}
+\input{sections-10-conclusion}
+\input{sections-declarations}
+
+
+\bibliographystyle{sn-basic}
+\bibliography{filtered}
+\end{document}

@@ -1,6 +1,6 @@
-> **KAIS 论文修订（2026-10-07）**：本分支的新版全文、补充材料、可编辑源码和图表见 [KAIS 修订目录](revisions/2026-10-07-kais-continuity/README.md)。[正文 PDF（13 页）](revisions/2026-10-07-kais-continuity/main.pdf) · [补充材料 PDF（23 页）](revisions/2026-10-07-kais-continuity/supplement.pdf) · [源码 ZIP](revisions/2026-10-07-kais-continuity/KAIS-editable-sources.zip)。以下 JIIS 入口及旧版实验档案保留供追溯。
+> **完整补充实验与新版论文（2026-10-07）**：补采已于北京时间 17:46:49 完成，117 对 / 234 臂全部入账。 [新版正文（13 页）](revisions/2026-10-07-kais-followup/main.pdf) · [补充材料（28 页）](revisions/2026-10-07-kais-followup/supplement.pdf) · [可编辑源码](revisions/2026-10-07-kais-followup/KAIS-editable-sources.zip) · [核验报告](revisions/2026-10-07-kais-followup/FOLLOWUP-VERIFICATION.md)。
 
-> **Phase 2 当前结果（2026-10-07 10:10 北京时间）**：原正式批次 512 个计划臂已结束；额度恢复补采已纳入 45/117 个配对的中期快照。原始结果、分析表和复算说明见 [PHASE2-RESULTS-LATEST.md](PHASE2-RESULTS-LATEST.md)。
+> 原始 512-arm 主分析完整保留；117 对补充 A 单独标明来源和分母，事后敏感性分析在 S13。 [完整结果与复算入口](PHASE2-RESULTS-LATEST.md)。以下 JIIS 入口是历史提交档案。
 
 # Correction-Aware Data Admission
 

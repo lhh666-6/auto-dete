@@ -1,3 +1,5 @@
+> **Completed follow-up update (7 October 2026):** The active manuscript is now `revisions/2026-10-07-kais-followup/` (13-page article, 28-page supplement). See [current results and offline reproduction](../PHASE2-RESULTS-LATEST.md). The 117-pair supplementary collection is complete and independently scored. The instructions below document the earlier handoff; its partial-collection status and old editing target are historical.
+
 # Cloud manuscript continuation
 
 Prepared 2026-10-07 (Asia/Shanghai). The user requests completion of remaining paper optimization and supplements in the cloud, without depending on their local computer. This handoff supports independent offline work immediately. It does not migrate a running local process.
