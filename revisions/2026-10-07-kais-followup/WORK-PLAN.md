@@ -34,4 +34,11 @@ Author instruction (7 October 2026): contribution-first narrative; original 512-
 - Formally cite the three already discussed neighboring preprints after primary-source verification.
 - Recompile, render into a separate final-polish QA directory, and update the existing handoff branch with the verified result.
 
-Final editorial checks: main 11 pages / 3 figures / 20 resolved references; supplement 29 pages. All 126 archived evidence/baseline files match the preceding integration byte-for-byte (the manuscript verification receipt is separately refreshed). All 10 display-equation blocks, 21 table blocks, prospective Methods and author declarations are unchanged. Final PDF review and package receipts are reported in the FINAL-POLISH files.
+Preceding editorial checks: main 11 pages / 3 figures / 20 resolved references; supplement 29 pages. All 126 archived evidence/baseline files matched the preceding integration byte-for-byte (the manuscript verification receipt was separately refreshed). All 10 display-equation blocks, 21 table blocks, prospective Methods and author declarations were unchanged.
+
+## Targeted review closure
+
+- Added a primary-source-grounded comparison table acknowledging existing proposal binding and recovery.
+- Linked typed equality, grant consumption and exact provenance through the existing running example.
+- Clarified single-record atomicity, performance scope and limits on attribution of A/B recovery differences.
+- Current build: 12 main pages, three main figures, three main tables, 20 references; 29 supplement pages. Existing equations, empirical tables, Methods, Results, declarations and archived data remain unchanged. Current visual review and packaging receipts are in the FINAL-POLISH reports and QA-RECEIPT.json.

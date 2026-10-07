@@ -62,7 +62,39 @@ Approval mechanisms already control state-changing operations. Clark--Wilson com
 Transactions and optimistic concurrency control support atomic successors and validation against current state \citep{gray1981transaction,kung1981occ}. Database provenance identifies contributing data and derivations \citep{buneman2001whywhere,cheney2009provenance}. Curated-database provenance records edits and copies across versions, including the connection of unchanged data to preceding versions \citep{buneman2006curated}; reenactment reconstructs transaction provenance \citep{arab2018reenactment}. PROV-DM models entities, activities, agents and their responsibility relations \citep{moreau2013provdm}. These mechanisms supply the persistence vocabulary for the execution contract. The authorization target still has to specify whether equivalent contents or a particular reviewed instance may supply a corrected transition. We implement the same contract with relational objects and an event journal so that this question is separated from storage representation.
 
 \subsection{Trustworthy execution and \mbox{recovery}}
-AgentDojo separates task utility from security outcomes in interactive tool environments \citep{debenedetti2024agentdojo}. Recent preprints also place authorization at the execution boundary. Cordon \citep{chen2026cordon} stages local changes and external effects within a task-level transaction, with lineage, scoped approval and recovery. Continuity Kernel \citep{he2026continuity} binds proposal identity, predecessor state, pre-state authority and evidence to atomic state activation. Commit-time authorization \citep{santosgrueiro2026committime} checks whether authority remains fresh, causally prior, effect-bound and eligible at durability, and separates authorized completion from endpoint success. Our comparison fixes the corrected value and retained context while varying whether execution must use the reviewed candidate instance. The contract preserves the machine value, authorized replacement and reviewed/executed identities as separate roles. Paired live continuations reveal how enforcing that relation changes the next action, recovery path and execution cost.
+AgentDojo separates task utility from security outcomes in interactive tool environments \citep{debenedetti2024agentdojo}. Table~\ref{tab:authorization-comparison} compares nearby authorization and recovery mechanisms. Prior work already binds proposal identity and supports recovery. Our intervention fixes the corrected value and retained context while varying whether execution must use the reviewed instance. It separates machine proposal, authorized replacement and reviewed/executed identities, then measures subsequent actions, recovery paths and costs.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Conceptual comparison of authorization boundaries and reported continuation evidence, not a cross-system benchmark.}
+\label{tab:authorization-comparison}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Work & Approval or binding focus & Reported continuation evidence \\
+\midrule
+LangChain HITL \citep{langchainHITL} &
+Selected tool calls and arguments; approve, edit or reject. &
+Documented checkpointed resumption, execution of edited calls and rejection feedback. \\
+\addlinespace
+Cordon \citep{chen2026cordon} &
+Task transaction, result lineage, staged effects and scoped approval. &
+Containment benchmarks and deterministic rollback/resume checks; released external effects require audit or compensation. \\
+\addlinespace
+Continuity Kernel \citep{he2026continuity} &
+Proposal identity, exact predecessor, pre-state authority and evidence bound to activation. &
+Bounded invariant checks and forward restoration under current authority. \\
+\addlinespace
+Commit-time authorization \citep{santosgrueiro2026committime} &
+Witness freshness, causal priority, effect binding and eligibility at durability. &
+Controlled invalidation separates endpoint success from authorized completion; guarded abort and witness-revalidation recovery. \\
+\addlinespace
+This work &
+Machine proposal, corrected value, reviewed instance and executed transition. &
+Paired instance-policy contrast after the same review; observed reuse/reauthorization, utility, integrity and continuation costs. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
 
 \section{Review-to-Execution \mbox{Continuity}}
 \subsection{Four roles in a corrected state change}
@@ -78,9 +110,9 @@ An authorization $a=\langle c_r,x_a,q\rangle$ records the reviewed instance $c_r
 \operatorname{authorized}(a)&=x_a,\nonumber\\
 \operatorname{committed}(\Sigma_{v+1},f)&\jeq x_a.
 \end{align}
-The committed transition retains the proposal as origin evidence and the authorization as the authority for the chosen value. Correction permits $x_c\jneq x_a$; it does not rewrite the immutable proposal to make the two values appear equal.
+For illustration, a record has quantity 90 and batch \texttt{B-008} sourced from $t_b$. Candidate $c_1$ proposes 100; review authorizes 101. The successor contains quantity 101 through $t_1$ and the unchanged batch with exact source $t_b$. Correction permits $x_c\jneq x_a$; $c_1$ retains 100. In the online facade, successful commit consumes the grant: identical arguments with the same idempotency key return the prior receipt without a new transition; a new key under the consumed grant is rejected as semantic replay. Online Resource 1, Section S3 develops this construction, which is not an additional experiment.
 
-Contract value comparisons use canonical JSON equality, written $\jeq$: sorted-key, whitespace-minimal serialization must agree. Consequently, an integer, a floating-point serialization and a Boolean remain distinguishable when their serialized values differ. This equality is shared by change detection, admission value checks, tracing and the independent oracle.
+Contract value comparisons use canonical JSON equality, written $\jeq$: sorted-key, whitespace-minimal serialization must agree. Thus integer \texttt{101} and floating serialization \texttt{101.0} are distinct values; Booleans also remain distinguishable when their serialization differs. Change detection, admission value checks, tracing and the independent oracle share this equality.
 
 \subsection{Content agreement and reviewed-instance continuity}
 For an already issued authorization, define
@@ -118,7 +150,7 @@ Each admitted item has one transition to its explicitly authorized value; all it
 \begin{equation}
 f\notin\Delta\Rightarrow V_{v+1}(f)\jeq V_v(f),\quad S_{v+1}(f)=S_v(f).
 \end{equation}
-Decision, authorization binding, transitions, complete version, sources and audit effects commit together, or the authoritative state stutters. Candidate and review preparation already persisted before the attempted admission remain historical evidence. Online Resource 1, Section S2 states the full P0--P6 contract, no-op handling and mixed-submission semantics.
+Decision, authorization binding, transitions, complete version, sources and audit effects commit together, or the authoritative state stutters. This multi-field guarantee is single-record; cross-record or distributed atomicity is not validated. Candidate and review preparation already persisted before the attempted admission remain historical evidence. Online Resource 1, Section S2 states the full P0--P6 contract, no-op handling and mixed-submission semantics.
 
 \section{Formal and Transactional \mbox{Realization}}
 \subsection{Making the relation executable}
@@ -162,7 +194,7 @@ Formal/concrete checks & 72 bounded commands match; 9 intended projections SAT; 
 
 Server-held review binding separates request substitution from faithful presentation. E2 has thirty browser cases per path: nine legitimate controls, nine request substitutions, nine stale/replay/interrupted controls and three display-only substitutions. The gate rejects every request substitution while preserving the legitimate controls. Both paths reject the stale, replay and interrupted cases without fact writes. Both admit the display-only controls because their actual request still matches the server record. Table~\ref{tab:controlled} groups this evidence under one realization question.
 
-The persistence contract also makes implementation cost measurable. Complete confirmation and source reconstruction are timed separately, with exact output agreement checked across the 36 paired trace-workload cells. Online Resource 1, Section S4 retains the complete admission, tracing and storage grids and their timer boundaries. Agent-level friction is measured after the online policy intervention, where the additional work is an observed part of continuation.
+The persistence contract also makes implementation cost measurable. Complete confirmation and source reconstruction are timed separately, with exact output agreement checked across the 36 paired trace-workload cells. Online Resource 1, Section S4 separates single-record admission timings from trace workloads varying field count, history depth and background record population. Agent-level friction is measured after the online policy intervention, where the additional work is an observed part of continuation.
 
 \subsection{Observable correction in hosted workflows}
 The correction contract is recoverable from archived hosted-agent persistence. A new audit of 1,260 historical databases identifies 84 retained machine-origin correction chains, checking 252 evidence associations, 168 record versions and 168 reconstructed provenance traces. Each chain preserves a machine proposal, explicit host-authorized correction, exact candidate binding and persisted transition. These chains provide integration evidence for the role distinction defined in Section 3.
@@ -298,7 +330,7 @@ The original completion interval allows modest improvement or loss; the explorat
 \subsection{Scope and further evaluation}
 The 128 tasks provide controlled exposure to six execution boundaries, with one repetition per task/configuration/policy combination. The deterministic reviewer fixes correction and authorization decisions, isolating execution binding from variation in human judgment. These controlled effects do not estimate production mismatch prevalence; broader workflows with interactive reviewers would test transferability and review burden.
 
-The supplementary A cohort was selected by its original availability state and collected later. Requested aliases and settings support route reconstruction, but A's unexposed returned model revision limits exact response reproduction. Retained inputs, responses, checkpoints and independent scores support retrospective verification within that scope.
+The supplementary A cohort was selected by its original availability state and collected later. The observed A/B recovery mixtures combine deployment and collection conditions, so they do not isolate differences in model capability. Requested aliases and settings support route reconstruction, but A's unexposed returned model revision limits exact response reproduction. Retained inputs, responses, checkpoints and independent scores support retrospective verification within that scope.
 
 \section{Conclusion}
 Correction-aware review-to-execution continuity separates what an agent proposed, what a reviewer authorized, which candidate was reviewed and which supplied a persistent transition. Formal relations, transactional realization and independent auditing make that distinction executable across persistence representations. Controlled and historical evidence establish the mechanism and its observable integration roles.

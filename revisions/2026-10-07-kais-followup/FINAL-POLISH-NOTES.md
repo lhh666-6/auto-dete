@@ -1,5 +1,7 @@
 # Final editorial polish — 2026-10-07
 
+Historical editorial-stage note, corresponding to commit `a72845f95d05399ad0ff2dfac203566ce60f5daf`. The subsequent targeted closure is described in `REVIEW-CLOSURE-NOTES.md`; current page counts and build checks are in `FINAL-POLISH-VERIFICATION.md`.
+
 Applied the user's final editorial critique without changing measurements, formal equations, method logic, cohort denominators or author declarations. Main/supplement sources were edited; diagram artwork remains owned by the figure worker and citations by the parent/citation worker.
 
 ## Concrete edits

@@ -2,7 +2,7 @@ from pathlib import Path
 import subprocess,re
 from PIL import Image,ImageOps,ImageDraw
 ROOT=Path(__file__).resolve().parent
-QA=ROOT/'qa'/'final-polish';QA.mkdir(parents=True,exist_ok=True)
+QA=ROOT/'qa'/'review-closure';QA.mkdir(parents=True,exist_ok=True)
 for name in ('main','supplement'):
     dest=QA/name;dest.mkdir(exist_ok=True)
     subprocess.run(['pdftoppm','-png','-scale-to','1500',str(ROOT/(name+'.pdf')),str(dest/'page')],check=True,capture_output=True)

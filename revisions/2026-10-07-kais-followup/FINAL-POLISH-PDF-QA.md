@@ -1,39 +1,45 @@
 # Final polish: integrated PDF visual QA
 
-Date: 2026-10-07. Verdict: **PASS for the reviewed final PDFs; no blocking layout defects found.** Read-only review; this report is the only file changed by this QA task.
+Date: 2026-10-07. Review-closure update. Verdict: **PASS for the exact PDFs below; no blocking layout defects found.** This report supersedes its earlier 11-page-main inspection. This QA task changed only this report.
 
-## Frozen files and actual coverage
+## Files and actual inspection coverage
 
 | PDF | Pages | SHA-256 |
 |---|---:|---|
-| `main.pdf` | 11 | `5e45e768563b18c431ffb52121fdb3792252ef60425e1c0ca0feed32c363b9a3` |
-| `supplement.pdf` | 29 | `eb268629c4bb95b3b6a847c47e064870ddbefcec58e3c5b38f35bdad233b8b8e` |
+| `main.pdf` | 12 | `bc7ccac7e6496fcc5c1069111c85db9173164825275e4b9e8257b139f950d532` |
+| `supplement.pdf` | 29 | `2e47b8537dd2c45bb078a5ac31d112ec70b1e0dbda3d5c89a6a8407a60592a7b` |
 
-All **40 pages** were visually inspected in the newly regenerated contact sheets: `qa/final-polish/main-sheet-1.png` through `main-sheet-2.png`, and `supplement-sheet-1.png` through `supplement-sheet-5.png`. Enlarged individual-page inspection covered main pages **1, 2, 3, 7, 8, 9, 10, 11**, and supplement pages **1, 21, 22, 26, 27**. This is complete overview coverage plus targeted reading, not a claim that every page was enlarged or every sentence proofread.
+All **41 pages** were visually inspected through the current `qa/review-closure/main-sheet-1.png`–`main-sheet-2.png` and `supplement-sheet-1.png`–`supplement-sheet-5.png`. Enlarged individual-page inspection covered main pages **1, 2, 3, 4, 7, 9, 11, 12**, and supplement pages **6, 8, 9, 10, 11, 21, 27, 29**. This is full overview coverage with targeted reading; it is not a claim that every sentence was proofread or every page enlarged.
 
-Only the 11 main pages and 29 supplement pages reported by the current PDFs were counted. The stale `qa/final-polish/main/page-12.png` was excluded. All expected current page PNGs exist, and their modification times postdate their respective PDFs. Final hashes were rechecked after inspection and match the values above.
+The current PDFs determine the page counts. Earlier QA folders were not used for this review. Every expected current page PNG exists and postdates its PDF. Hashes were checked again after the targeted inspection and remained unchanged.
 
-## Verified presentation
+## Review-closure additions
 
-- **Contribution continuity:** main pages 1–2 present the four contributions without a figure inserted between them. The ordinary page break divides contribution 2, whose sentence continues directly at the top of page 2; contributions 3–4 and the compact findings paragraph follow. Reading order is clear.
-- **Three main figures:** Figure 1 is on page 3, Figure 2 on page 7, and Figure 3 on page 9. Each figure and its caption is complete and readable, without clipping or overlapping text.
-- **Figure 1 semantics:** four role cards have no step numbers or serial arrows. The review region groups authorized correction with reviewed instance. The diagram and caption explicitly retain proposal 100, authorize 101 from reviewed c1, distinguish equivalent c2 by identity, and state the context/bound/new-authorization distinction.
-- **Figure 2 semantics:** the right-hand feedback/action loop visibly states “Executed independently in each arm.” The isolated policy continuations, feedback, next action, observed path and outcome oracle remain legible.
-- **Figure 3 counts and denominators:** original B and supplementary A are separate rows. Delivered G coverage is 16/16 and 15/15; reuse is 16/16 versus 8/15, with 7/15 supplementary reauthorizations. Joint outcomes are 16/16 and 15/15 with U=1, I=1. Calls are explicitly means (+1.00, +1.60), time is explicitly median (+14.54 s, +14.53 s), and paired n is 16 and 15. The context footer retains 14/16 and 15/15 completion. The caption agrees and states that costs cover the complete suffix. No pooled cross-cohort rate is displayed.
-- **Main Table 2:** all six cohort/policy rows fit on page 8. Planned pairs and checkpoint counts, all four joint cells, unknown integrity and task completion are readable. The caption defines CP and attributes both unknown N arms to original B. No column is clipped.
-- **Results and shortened discussion:** main pages 8–10 retain the numerical cost results and uncertainty/scope qualifications. The cost discussion continues across pages 9–10 without a missing line or figure interruption.
-- **Formal bibliography entries:** main page 11 includes all 20 numbered entries. The three added references appear as entries 15–17, with authors, year, titles, versioned arXiv identifiers and DOI URLs. Main page 2 uses the corresponding [15], [16], [17] citations. This confirms rendered citation presentation, not a new external source-fidelity audit.
-- **Moved figures:** the evidence-chain diagram is Figure S1 on supplement page 1 in Section S1. The original recovery diagram is Figure S3 on page 21 in Section S11, alongside the original outcome Figure S2. Their captions and labels are complete. “S11” is the section placement, not the recovery figure number.
-- **Supplement tables:** original outcome/recovery tables on page 22 and supplementary outcome/recovery/cost tables on pages 26–27 were enlarged and checked. Headers, wrapped cells, denominators and final rows fit. The all-page overview shows the continuation of Table S15 on page 23 and the remaining cost table S14 on page 24.
+- **Comparison table:** new main Table 1 is complete on page 3, below Figure 1. All five rows, three columns and citation numbers are readable. The table's main text is approximately 9 pt. Its caption explicitly identifies a conceptual comparison rather than a cross-system benchmark. The Continuity Kernel row visibly includes proposal identity, and the Commit-time authorization row includes witness-revalidation recovery. No column clipping, rule/text collision or truncated row was found.
+- **Main example:** page 2, Section 3.1, presents the quantity-90/batch-B-008 record, proposal 100, authorization 101, retained batch source, unchanged proposal and receipt/replay distinction. The paragraph fits completely before the page break. Page 3 continues with canonical JSON equality and visibly distinguishes integer 101 from floating serialization 101.0.
+- **Supplementary example:** Section S3 is readable across pages 8–9. It separates the explanatory construction from measured cases, preserves the exact unchanged source, explains candidate substitution, concurrent predecessor invalidation and consumed-grant replay, and states that a typed adapter would require shared semantics and renewed validation. The ordinary page break divides the typed-adapter sentence; its continuation is present at the top of page 9.
+- **Scope:** main page 4 explicitly limits the multi-field guarantee to one record and states that cross-record/distributed atomicity is not validated. Supplement page 11, Section S4.2, states that the record-count dimension is background population for trace access rather than cross-record atomicity. Section S4.3's storage-population boundary is intact below it. The existing authorization timing/revocation qualification on supplement page 6 is also readable.
 
-## Nonblocking layout observations
+## Retained presentation
 
-1. Table S15 spans supplement pages 22–23 before floating Table S14 appears on page 24. All tables are present and labeled; this is a float-order inconvenience, not missing content.
-2. Caption-to-top-rule spacing is tight for Table S12 on page 22 and Table S18 on page 27. At enlarged inspection the ink does not overlap and the final caption lines remain readable.
-3. The supplement retains some spacious float pages, notably the checklist on page 9 and two short tables on page 13. No repair is needed for completeness or legibility.
+- **Contributions precede the first figure.** Main pages 1–2 contain all four contributions and the findings paragraph before Figure 1 on page 3. Contribution 2 continues normally across the page break; no figure interrupts the list.
+- **All three main figures remain complete.** Figure 1 is on page 3, Figure 2 on page 7 and Figure 3 on page 9. Each figure and caption was enlarged and checked. Figure 1 retains the review grouping without numbered chronology. Figure 2 visibly labels the feedback/action loop “Executed independently in each arm.”
+- **Behavioral figure and denominators:** Figure 3 retains separate original B and supplementary A rows: delivered G coverage 16/16 and 15/15; reuse 16/16 versus 8/15; supplementary reauthorization 7/15; successful intact joint outcomes 16/16 and 15/15. Mean calls (+1.00, +1.60), median time (+14.54 s, +14.53 s), paired n (16, 15), and context completion (14/16, 15/15) remain legible and consistent with the caption.
+- **Six-row outcome table:** now main Table 3 on page 9, above Figure 3. All cohort/policy rows and joint-outcome columns fit. The caption defines planned pairs and checkpoint counts and attributes the two unknown N arms to original B.
+- **References:** all 20 numbered entries are present across main pages 11–12. Entries 15–17 retain full author/title/preprint/DOI information. The comparison table cites these entries and LangChain [1] correctly in the rendered document. This checks presentation, not a new external citation-fidelity audit.
+- **Supplementary figures and tables:** Figure S1 remains on page 1; Figures S2 and S3 are complete on page 20 in Section S11. All 19 supplement table captions appear in extracted text and their pages were included in the visual overview. Targeted checks included the example checklist, cost-grid pagination and original/supplementary tables with close caption spacing.
 
-## Supporting checks and limits
+## Remaining nonblocking layout observations
 
-PDF text-coordinate checks found **zero words outside either page rectangle**, **zero `??` markers**, and **zero Unicode replacement characters**. The current `out/main.log` and `out/supplement.log` each contain **zero overfull warnings and zero undefined citation/reference warnings**. The main PDF's dominant prose size is approximately 10 pt; the supplement's is approximately 11 pt. The visual review did not find crowded body typography introduced by the reduction from 13 to 11 main pages.
+1. **Long-table pagination:** Table S9 starts with its caption, header and one data row at the bottom of supplement page 10; the remaining rows continue with repeated headers on page 11. This is less convenient than keeping more rows together, but no row or label is missing.
+2. **Float order:** Table S15 spans supplement pages 21–22, before Table S14 appears on page 23. All content is present and labeled.
+3. **Caption spacing:** the final caption lines lie close to the top rules in Table S12 (page 21) and Table S18 (page 27). Enlarged inspection shows readable text without ink overlap.
+4. **Final-page whitespace:** main page 12 contains the remaining references in the left column; supplement page 29 contains the final reproduction command and closing lines. The whitespace is a pagination effect, not evidence of missing content.
 
-These mechanical checks supplement the visual review; they do not establish mathematical correctness, reproduce experimental results, or replace the separate evidence and figure-source audits. No additional source or layout changes are requested for release of these exact reviewed PDFs.
+These observations do not prevent reading or release of this review draft. No additional source changes are requested by this QA.
+
+## Mechanical checks and limits
+
+For each PDF, text-coordinate diagnostics found **zero words outside the page rectangle**, **zero `??` markers**, and **zero Unicode replacement characters**. The current `out/main.log` and `out/supplement.log` each contain **zero overfull warnings and zero undefined citation/reference warnings**.
+
+These checks support the visual findings but do not prove mathematical correctness, reproduce experiments, or replace the separate evidence and source-comparison audits. The report applies only to the PDF hashes recorded above.

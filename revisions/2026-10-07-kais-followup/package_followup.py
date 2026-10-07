@@ -18,6 +18,8 @@ TOP = (
     'FINAL-POLISH-NOTES.md', 'FINAL-POLISH-CITATION-AUDIT.md',
     'FINAL-POLISH-FIGURE-QA.md', 'FINAL-POLISH-PDF-QA.md',
     'FINAL-POLISH-VERIFICATION.md',
+    '.research/literature_matrix.md', 'REVIEW-CLOSURE-COMPARISON.md',
+    'REVIEW-CLOSURE-NOTES.md',
 )
 
 

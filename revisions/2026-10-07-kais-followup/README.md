@@ -2,7 +2,7 @@
 
 Open `main.pdf` (article) and `supplement.pdf` (technical supplement). Their editable sources are `main.tex` and `supplement.tex`. This revision builds on cloud manuscript commit `47b1168a36656ea998d36746a492eaaae512909d` and adds the completed, separately frozen deployment-A evaluation.
 
-The final editorial pass has an 11-page article with three main figures and 20 numbered references, plus a 29-page supplement. It refines the completed follow-up version at commit `7fe3a4ec2c18126440e631eb0a5b69e8725f801c`; experimental results are unchanged.
+The current review closure has a 12-page article with three main figures, three tables and 20 numbered references, plus a 29-page supplement. It refines the editorial version at commit `a72845f95d05399ad0ff2dfac203566ce60f5daf` with a compact related-work comparison, a running example and explicit scope limits; experimental results are unchanged.
 
 The main narrative follows continuity, recovery, utility and friction. One main table distinguishes original A, original B and supplementary A. Methods explain selection and the additional collection period before using the supplementary results. S11 retains original detailed results; S12 reports the supplementary cohort and attempt accounting; S13 labels the reconstructed completed-A view as post hoc sensitivity.
 
@@ -30,7 +30,9 @@ The compact `KAIS-editable-sources.zip` contains the manuscript and its derived 
 
 ## Current reports and scope
 
-- `FINAL-POLISH-NOTES.md`: final cuts, figure relocation and word-count comparison.
+- `REVIEW-CLOSURE-NOTES.md`: current changes and exact source diff.
+- `REVIEW-CLOSURE-COMPARISON.md` and `.research/literature_matrix.md`: nearby-work comparison and primary-source grounding.
+- `FINAL-POLISH-NOTES.md`: preceding editorial cuts, figure relocation and word-count comparison.
 - `FINAL-POLISH-CITATION-AUDIT.md`: primary-source verification of the three formally added references.
 - `FINAL-POLISH-FIGURE-QA.md` and `FINAL-POLISH-PDF-QA.md`: revised diagram semantics and integrated page review.
 - `FINAL-POLISH-VERIFICATION.md` and `QA-RECEIPT.json`: current build and verification results.
