@@ -1,0 +1,26 @@
+\begin{table}[tbp]
+\caption{Binding, mismatch handling and evidence in the cited sources. The two attack analyses describe failure paths; their check points are observation points.}\label{tab:related}
+\centering\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{@{}>{\hsize=1.05\hsize\raggedright\arraybackslash}X>{\hsize=1.0\hsize\raggedright\arraybackslash}X>{\hsize=1.05\hsize\raggedright\arraybackslash}X>{\hsize=.75\hsize\raggedright\arraybackslash}X>{\hsize=1.15\hsize\raggedright\arraybackslash}X@{}}
+\toprule
+Mechanism & Binding object & Mismatch handling & Check point & Evaluation form \\
+\midrule
+LangChain HITL \citep{langchain-hitl} & Interrupted tool call & Reviewer may edit/reject, then resume & Before tool execution & Interface documentation \\
+ReSA \citep{zhu2026resa} & Grant scope; consumed versions & Derive repair obligations & Reconstruction to local sink & Authored graphs; installed-control checks \\
+Guarded Commits \citep{bindschaedler2026guarded} & Artifact, policy; edit hashes & Fresh authorization or review & Commit & Public-trace replay; synthetic DAGs \\
+Cordon \citep{cordon} & Task, lineage, staged effects & Abort, rollback, compensation & Commit or effect release & Agent workflows; scripted rollback/resume \\
+Continuity Kernel \citep{continuity-kernel} & Proposal ID; sealed successor & Reject, quarantine or defer; new-ID retry & Atomic activation & Bounded model exploration \\
+Commit-time authorization \citep{commit-time-auth} & Witness, target, eligibility & Abort or refresh/rebind & Durable-effect boundary & Agent perturbations; replay; limited enforcement \\
+ToolGate \citep{toolgate} & Symbolic state; tool contracts & Filter call; discard invalid result & Tool invocation; state update & ToolBench; MCP-Universe \\
+Gerrit / GitLab \citep{gerrit-copy-condition,gerrit-submit-requirements,gitlab-approvals} & Patch set / merge request & Copy or reset votes by policy & New revision; submit/merge & Product documentation \\
+OpenTofu \citep{opentofu-plan-apply} & Saved plan decisions & Plan mismatch: not assessed in cited guide & Plan application & Command documentation \\
+\midrule
+Loopjacking \citep{kumar2026loopjacking} & Analyzed: call identity and arguments & Substitution attack; deny-update control & Review, update, resume & Released Agno; configured LangGraph tests \\
+Approval Laundering \citep{wang2026approval} & Analyzed: grant, dispatch, effects & Policy divergence; token-replay check & Dispatch; effect sinks & Claude Code probes under research policies \\
+\midrule
+This work & Compared: context, content and instance & Reuse reviewed instance or reauthorize & Atomic successor write & Formal/store checks; paired agent continuation \\
+\bottomrule
+\end{tabularx}
+\end{table}

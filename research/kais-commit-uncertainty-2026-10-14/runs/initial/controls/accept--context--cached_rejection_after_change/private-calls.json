@@ -1,0 +1,153 @@
+[
+  {
+    "trusted_environment_event": "reviewer_active",
+    "value": false,
+    "before_snapshot": 1,
+    "after_snapshot": 2
+  },
+  {
+    "label": "initial-rejection",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "status": "rejected",
+      "error_code": "REVIEWER_INVALID",
+      "commit_request_id": "request-1",
+      "decision": {
+        "common_guard_pass": false,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": false
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "visible_result": {
+      "status": "rejected",
+      "error_code": "REVIEWER_INVALID",
+      "commit_request_id": "request-1",
+      "decision": {
+        "common_guard_pass": false,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": false
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "before_snapshot": 3,
+    "after_snapshot": 4,
+    "client_observed": false
+  },
+  {
+    "trusted_environment_event": "reviewer_active",
+    "value": true,
+    "before_snapshot": 5,
+    "after_snapshot": 6
+  },
+  {
+    "label": "historical-rejection-replay",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "commit_request_id": "request-1",
+      "decision": {
+        "common_guard_pass": false,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": false
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      },
+      "error_code": "REVIEWER_INVALID",
+      "status": "rejected"
+    },
+    "visible_result": {
+      "commit_request_id": "request-1",
+      "decision": {
+        "common_guard_pass": false,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": false
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      },
+      "error_code": "REVIEWER_INVALID",
+      "status": "rejected"
+    },
+    "before_snapshot": 7,
+    "after_snapshot": 8,
+    "client_observed": false
+  },
+  {
+    "label": "fresh-request",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "fresh-after-change"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "status": "ok",
+      "commit_request_id": "request-2",
+      "transition_id": "transition-1",
+      "version": 2,
+      "committed_value": 20,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "visible_result": {
+      "status": "ok",
+      "commit_request_id": "request-2",
+      "transition_id": "transition-1",
+      "version": 2,
+      "committed_value": 20,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "before_snapshot": 9,
+    "after_snapshot": 10,
+    "client_observed": false
+  }
+]

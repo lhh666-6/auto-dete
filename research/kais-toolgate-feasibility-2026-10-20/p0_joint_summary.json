@@ -1,0 +1,872 @@
+{
+  "schema_version": 1,
+  "analysis_kind": "retrospective_saved_evidence_only",
+  "new_experiment_runs": 0,
+  "paid_calls": 0,
+  "real_model_responses": 0,
+  "records": 99,
+  "matched_triples": 33,
+  "route_counts": {
+    "N": {
+      "records": 33,
+      "native_policy_pass": 33,
+      "I_target": {
+        "unknown": 15,
+        "0": 12,
+        "1": 6
+      },
+      "U_boundary": 30,
+      "records_with_persisted_attempt_effect": 27,
+      "records_without_persisted_attempt_effect": 6
+    },
+    "E": {
+      "records": 33,
+      "native_policy_pass": 33,
+      "I_target": {
+        "1": 33
+      },
+      "U_boundary": 24,
+      "records_with_persisted_attempt_effect": 21,
+      "records_without_persisted_attempt_effect": 12
+    },
+    "C": {
+      "records": 33,
+      "native_policy_pass": 33,
+      "I_target": {
+        "1": 33
+      },
+      "U_boundary": 24,
+      "records_with_persisted_attempt_effect": 21,
+      "records_without_persisted_attempt_effect": 12
+    }
+  },
+  "saved_scores_exact_match": true,
+  "scorer_evidence_errors": [],
+  "input_hash_file": "p0_inputs_sha256.json",
+  "input_file_count": 1342,
+  "input_manifest_content_sha256": "f16a9df3f4afc9b136f60809c13323c39fc5d9f5b18c46f629d5078701d5d4b8",
+  "inputs_unchanged_after_analysis": true,
+  "joint_paired_counts": [
+    {
+      "N_I": "0",
+      "N_U": "1",
+      "E_I": "1",
+      "E_U": "0",
+      "C_I": "1",
+      "C_U": "0",
+      "triples": 3
+    },
+    {
+      "N_I": "0",
+      "N_U": "1",
+      "E_I": "1",
+      "E_U": "1",
+      "C_I": "1",
+      "C_U": "1",
+      "triples": 9
+    },
+    {
+      "N_I": "1",
+      "N_U": "0",
+      "E_I": "1",
+      "E_U": "0",
+      "C_I": "1",
+      "C_U": "0",
+      "triples": 3
+    },
+    {
+      "N_I": "1",
+      "N_U": "1",
+      "E_I": "1",
+      "E_U": "1",
+      "C_I": "1",
+      "C_U": "1",
+      "triples": 3
+    },
+    {
+      "N_I": "unknown",
+      "N_U": "1",
+      "E_I": "1",
+      "E_U": "0",
+      "C_I": "1",
+      "C_U": "0",
+      "triples": 3
+    },
+    {
+      "N_I": "unknown",
+      "N_U": "1",
+      "E_I": "1",
+      "E_U": "1",
+      "C_I": "1",
+      "C_U": "1",
+      "triples": 12
+    }
+  ],
+  "six_utility_difference_groups": [
+    {
+      "task_id": "17",
+      "scenario": "stale",
+      "classification": "blocked_ineligible_stale_request",
+      "eligibility_explanation": "原生批准参数合规；授权前驱为1，提交时已为2。新增O3下不具准入资格；N覆盖独立更新，E/C保留该更新。没有重新授权续行。",
+      "false_rejection_demonstrated": false,
+      "route_evidence": {
+        "N": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 3,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "harness_only_native_identity_unknown",
+          "reviewed_candidate_ids": {
+            "address": "7c9a9cd7d74b18770a1e928179c2dc2e96f88e87eeb84553857fc1269a49b519"
+          },
+          "used_candidate_ids": {
+            "address": "7c9a9cd7d74b18770a1e928179c2dc2e96f88e87eeb84553857fc1269a49b519"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": false,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "head",
+            "versions"
+          ],
+          "version_delta": 1,
+          "status": "COMMITTED",
+          "reason": null,
+          "sql_before_path": "output/17-stale-N/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/17-stale-N/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/17-stale-N/record.json"
+        },
+        "E": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "9b25b6f30d9861f5f55c99c216640cf4cb82f91aa4179d793ef887e68d00a202"
+          },
+          "used_candidate_ids": {
+            "address": "9b25b6f30d9861f5f55c99c216640cf4cb82f91aa4179d793ef887e68d00a202"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": true,
+          "changed_tables": [],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "STALE_PREDECESSOR",
+          "sql_before_path": "output/17-stale-E/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/17-stale-E/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/17-stale-E/record.json"
+        },
+        "C": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "989e2130b7c056b44f1d188f263fb6fc3d7997ae90270a34254bba05d8afe5c7"
+          },
+          "used_candidate_ids": {
+            "address": "989e2130b7c056b44f1d188f263fb6fc3d7997ae90270a34254bba05d8afe5c7"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": true,
+          "changed_tables": [],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "STALE_OR_CONFLICT",
+          "sql_before_path": "output/17-stale-C/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/17-stale-C/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/17-stale-C/record.json"
+        }
+      }
+    },
+    {
+      "task_id": "17",
+      "scenario": "swap",
+      "classification": "blocked_ineligible_instance_under_added_mapping",
+      "eligibility_explanation": "参数与保留上下文相同、前驱有效，但E/C使用另一候选且无该候选新授权，新增O2下不具资格。N替换仅为harness观测标记，实际API无此身份；N违规未知。该差异含接口映射非对称，非已证实的N身份违规防止。",
+      "false_rejection_demonstrated": false,
+      "route_evidence": {
+        "N": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "harness_only_native_identity_unknown",
+          "reviewed_candidate_ids": {
+            "address": "1de8e4a4962097f6ecace84981afd4af34a59aa96988a96bdebc4db43d7b8659"
+          },
+          "used_candidate_ids": {
+            "address": "f8eeb56d0dbb0383a005e27a3f01c83b684a074bd9439325bb549c0aee11f9d6"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": false,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "head",
+            "versions"
+          ],
+          "version_delta": 1,
+          "status": "COMMITTED",
+          "reason": null,
+          "sql_before_path": "output/17-swap-N/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/17-swap-N/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/17-swap-N/record.json"
+        },
+        "E": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 1,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "fc3670fdcd413a19377ebd7ed77c129bac9b6166dea8510bd5a97f9e8d294fc0"
+          },
+          "used_candidate_ids": {
+            "address": "6ff86ca6be7b0b5fcabe5b46c24311cda7b9eaeec42aaccdcbacd486e9c04edf"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "candidates"
+          ],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "REVIEWED_INSTANCE_MISMATCH",
+          "sql_before_path": "output/17-swap-E/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/17-swap-E/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/17-swap-E/record.json"
+        },
+        "C": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 1,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "1e5061fd571356c8516502893c8727c35a743d624e45b854cb2d9ef2c6ff1ca2"
+          },
+          "used_candidate_ids": {
+            "address": "ff85507508533a05c0f4e17176ab290b98a60f89177547041faddc8f83307a0e"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "candidate_certificates"
+          ],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "invalid fact admission bundle: binding/transition certificate mismatch for FORM-1:2:address",
+          "sql_before_path": "output/17-swap-C/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/17-swap-C/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/17-swap-C/record.json"
+        }
+      }
+    },
+    {
+      "task_id": "22",
+      "scenario": "stale",
+      "classification": "blocked_ineligible_stale_request",
+      "eligibility_explanation": "原生批准参数合规；授权前驱为1，提交时已为2。新增O3下不具准入资格；N覆盖独立更新，E/C保留该更新。没有重新授权续行。",
+      "false_rejection_demonstrated": false,
+      "route_evidence": {
+        "N": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 3,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "harness_only_native_identity_unknown",
+          "reviewed_candidate_ids": {
+            "address": "98e10b816a090d23ee4d81573e10e6e484b4019d873c6aec4ec56b86f223ee20"
+          },
+          "used_candidate_ids": {
+            "address": "98e10b816a090d23ee4d81573e10e6e484b4019d873c6aec4ec56b86f223ee20"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": false,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "head",
+            "versions"
+          ],
+          "version_delta": 1,
+          "status": "COMMITTED",
+          "reason": null,
+          "sql_before_path": "output/22-stale-N/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/22-stale-N/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/22-stale-N/record.json"
+        },
+        "E": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "da0fd4414041b88b2d3c9ecca2cbf152a5817af2b7f3a75520533505b60dff5d"
+          },
+          "used_candidate_ids": {
+            "address": "da0fd4414041b88b2d3c9ecca2cbf152a5817af2b7f3a75520533505b60dff5d"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": true,
+          "changed_tables": [],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "STALE_PREDECESSOR",
+          "sql_before_path": "output/22-stale-E/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/22-stale-E/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/22-stale-E/record.json"
+        },
+        "C": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "414b1c779d2a5baed7fb9f9c3586b257eb804fdf3d434a3041b4fc8d62b6ba7c"
+          },
+          "used_candidate_ids": {
+            "address": "414b1c779d2a5baed7fb9f9c3586b257eb804fdf3d434a3041b4fc8d62b6ba7c"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": true,
+          "changed_tables": [],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "STALE_OR_CONFLICT",
+          "sql_before_path": "output/22-stale-C/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/22-stale-C/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/22-stale-C/record.json"
+        }
+      }
+    },
+    {
+      "task_id": "22",
+      "scenario": "swap",
+      "classification": "blocked_ineligible_instance_under_added_mapping",
+      "eligibility_explanation": "参数与保留上下文相同、前驱有效，但E/C使用另一候选且无该候选新授权，新增O2下不具资格。N替换仅为harness观测标记，实际API无此身份；N违规未知。该差异含接口映射非对称，非已证实的N身份违规防止。",
+      "false_rejection_demonstrated": false,
+      "route_evidence": {
+        "N": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "harness_only_native_identity_unknown",
+          "reviewed_candidate_ids": {
+            "address": "dbc0035f562ec7b9fcd745d56fc9757f217e684de6b3e94028a1a8b622d4700b"
+          },
+          "used_candidate_ids": {
+            "address": "f0c057c1c5333a682d5e4df6d316fd9fcee8e77a4e4e478733bb2031b23b3e18"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": false,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "head",
+            "versions"
+          ],
+          "version_delta": 1,
+          "status": "COMMITTED",
+          "reason": null,
+          "sql_before_path": "output/22-swap-N/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/22-swap-N/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/22-swap-N/record.json"
+        },
+        "E": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 1,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "c8313ab46693526eaa97314e4c6c87830701b551b14d5c62b7c4ab4d4bf6cc04"
+          },
+          "used_candidate_ids": {
+            "address": "62f0c4ab6911f7475eb7b4ab97fd0d77e8d14d27149e98b0b242a24ec3a492a8"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "candidates"
+          ],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "REVIEWED_INSTANCE_MISMATCH",
+          "sql_before_path": "output/22-swap-E/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/22-swap-E/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/22-swap-E/record.json"
+        },
+        "C": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 1,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "2a218258f64220c3fdce6c85e3e2a988d7e635ae0e69a845e8a3e81e4fcf1dad"
+          },
+          "used_candidate_ids": {
+            "address": "7dd3b474b9bc15e956c8983567925518d61b7421a836a88404d143f5c12719f9"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "candidate_certificates"
+          ],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "invalid fact admission bundle: binding/transition certificate mismatch for FORM-1:2:address",
+          "sql_before_path": "output/22-swap-C/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/22-swap-C/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/22-swap-C/record.json"
+        }
+      }
+    },
+    {
+      "task_id": "34",
+      "scenario": "stale",
+      "classification": "blocked_ineligible_stale_request",
+      "eligibility_explanation": "原生批准参数合规；授权前驱为1，提交时已为2。新增O3下不具准入资格；N覆盖独立更新，E/C保留该更新。没有重新授权续行。",
+      "false_rejection_demonstrated": false,
+      "route_evidence": {
+        "N": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 3,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "harness_only_native_identity_unknown",
+          "reviewed_candidate_ids": {
+            "address": "1645d37aef5d1952d143178f9e4251bf7d061b05856ec2bf09fce0b50cbe4be3"
+          },
+          "used_candidate_ids": {
+            "address": "1645d37aef5d1952d143178f9e4251bf7d061b05856ec2bf09fce0b50cbe4be3"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": false,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "head",
+            "versions"
+          ],
+          "version_delta": 1,
+          "status": "COMMITTED",
+          "reason": null,
+          "sql_before_path": "output/34-stale-N/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/34-stale-N/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/34-stale-N/record.json"
+        },
+        "E": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "62e16b16e48adb68541eb5437e159142920abc2ac9977916b9877d9f53467716"
+          },
+          "used_candidate_ids": {
+            "address": "62e16b16e48adb68541eb5437e159142920abc2ac9977916b9877d9f53467716"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": true,
+          "changed_tables": [],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "STALE_PREDECESSOR",
+          "sql_before_path": "output/34-stale-E/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/34-stale-E/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/34-stale-E/record.json"
+        },
+        "C": {
+          "seq": 2,
+          "phase": "initial",
+          "pre_version": 2,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": false,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "76777b0c4c3f8b43f15807094ad458a04895d9d565458185a8c71c7c5219f062"
+          },
+          "used_candidate_ids": {
+            "address": "76777b0c4c3f8b43f15807094ad458a04895d9d565458185a8c71c7c5219f062"
+          },
+          "candidate_ids_equal": true,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": true,
+          "changed_tables": [],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "STALE_OR_CONFLICT",
+          "sql_before_path": "output/34-stale-C/events/002-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/34-stale-C/events/002-transaction_attempt-after-sql.json",
+          "record_path": "output/34-stale-C/record.json"
+        }
+      }
+    },
+    {
+      "task_id": "34",
+      "scenario": "swap",
+      "classification": "blocked_ineligible_instance_under_added_mapping",
+      "eligibility_explanation": "参数与保留上下文相同、前驱有效，但E/C使用另一候选且无该候选新授权，新增O2下不具资格。N替换仅为harness观测标记，实际API无此身份；N违规未知。该差异含接口映射非对称，非已证实的N身份违规防止。",
+      "false_rejection_demonstrated": false,
+      "route_evidence": {
+        "N": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 2,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "harness_only_native_identity_unknown",
+          "reviewed_candidate_ids": {
+            "address": "651bc4c47e03269ab9a3ff5c9f0201ac9a233517c5afda9582fdd33bbfb79921"
+          },
+          "used_candidate_ids": {
+            "address": "fe720ae4a8d6c93f69967c6b53d113f93c843a2e4ed6ab56133a0cdf365f0829"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": false,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "head",
+            "versions"
+          ],
+          "version_delta": 1,
+          "status": "COMMITTED",
+          "reason": null,
+          "sql_before_path": "output/34-swap-N/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/34-swap-N/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/34-swap-N/record.json"
+        },
+        "E": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 1,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "f118e848b377760219b91c988c917c479d5ba4e1e407001b153992f5aa0874a7"
+          },
+          "used_candidate_ids": {
+            "address": "c5c4c541e728aa32ad6e24f3a441f53d6b1eed8401ea839bef94a396c1980474"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "candidates"
+          ],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "REVIEWED_INSTANCE_MISMATCH",
+          "sql_before_path": "output/34-swap-E/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/34-swap-E/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/34-swap-E/record.json"
+        },
+        "C": {
+          "seq": 1,
+          "phase": "initial",
+          "pre_version": 1,
+          "post_version": 1,
+          "expected_version": 1,
+          "fresh": true,
+          "identity_observability": "persisted_candidate_and_authorization",
+          "reviewed_candidate_ids": {
+            "address": "9bec35c397cf3b961d483fe59709edae504e09f26621f681a7f5ee011a95d6f6"
+          },
+          "used_candidate_ids": {
+            "address": "34a00f11298d0747b66e3b1f97e34cb06ddebe74b0b321620d59eb8433884036"
+          },
+          "candidate_ids_equal": false,
+          "retained_context_equal_excluding_id_and_candidate_id": true,
+          "authorized_arguments_equal": true,
+          "state_unchanged": true,
+          "all_tables_unchanged": false,
+          "changed_tables": [
+            "candidate_certificates"
+          ],
+          "version_delta": 0,
+          "status": "REJECTED",
+          "reason": "invalid fact admission bundle: binding/transition certificate mismatch for FORM-1:2:address",
+          "sql_before_path": "output/34-swap-C/events/001-transaction_attempt-before-sql.json",
+          "sql_after_path": "output/34-swap-C/events/001-transaction_attempt-after-sql.json",
+          "record_path": "output/34-swap-C/record.json"
+        }
+      }
+    }
+  ],
+  "difference_class_counts": {
+    "blocked_ineligible_stale_request": 3,
+    "blocked_ineligible_instance_under_added_mapping": 3
+  },
+  "N_unknown15": {
+    "by_scenario": {
+      "approve": 3,
+      "edit": 3,
+      "lost_response_status": 3,
+      "lost_response_unknown": 3,
+      "swap": 3
+    },
+    "missing_entire_records": 0,
+    "committed_attempt_records": 15,
+    "reason": "缺业务候选/来源关系证据；不是记录丢失、失败或防止事件。",
+    "observability_only_unknown_to_pass_with_same_U": 12,
+    "unknown_to_pass_with_U_loss_and_added_instance_mapping": 3
+  },
+  "legal_controls": {
+    "approve": {
+      "N": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "unknown": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      },
+      "E": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      },
+      "C": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      }
+    },
+    "edit": {
+      "N": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "unknown": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      },
+      "E": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      },
+      "C": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      }
+    },
+    "stale_recovery": {
+      "N": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "0": 3
+        },
+        "attempt_patterns": {
+          "COMMITTED": 3
+        }
+      },
+      "E": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "REJECTED|COMMITTED": 3
+        }
+      },
+      "C": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "REJECTED|COMMITTED": 3
+        }
+      }
+    },
+    "reject": {
+      "N": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "": 3
+        }
+      },
+      "E": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "": 3
+        }
+      },
+      "C": {
+        "records": 3,
+        "U_boundary": 3,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "": 3
+        }
+      }
+    },
+    "rollback": {
+      "N": {
+        "records": 3,
+        "U_boundary": 0,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "ROLLED_BACK": 3
+        }
+      },
+      "E": {
+        "records": 3,
+        "U_boundary": 0,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "ROLLED_BACK": 3
+        }
+      },
+      "C": {
+        "records": 3,
+        "U_boundary": 0,
+        "I_target": {
+          "1": 3
+        },
+        "attempt_patterns": {
+          "ROLLED_BACK": 3
+        }
+      }
+    }
+  },
+  "E_C": {
+    "same_I_and_U_triples": 33,
+    "statistical_equivalence_claim": false,
+    "receipt_or_status_interface_equivalence_claim": false
+  },
+  "limits": [
+    "33 task/scenario triples, three tasks, deterministic fixtures; not IID or full task rewards.",
+    "The 6 utility differences are 3 stale blocks plus 3 added candidate-mapping blocks.",
+    "No demonstrated false rejection among the nine E/C positive controls per route; not a population rate.",
+    "Swap N does not execute native candidate substitution; harness marker cannot prove native violation.",
+    "Swap E/C candidate registration changes one metadata table despite unchanged authoritative state.",
+    "I=1 includes unchanged-state stops, and U=1 includes withdrawn-action reject controls.",
+    "N unknown to E/C pass mixes observability and enforcement; not 15 observed violations prevented.",
+    "C online receipt facade and N/C key-aware API are unmapped; research SQL observer is not a Host API."
+  ]
+}

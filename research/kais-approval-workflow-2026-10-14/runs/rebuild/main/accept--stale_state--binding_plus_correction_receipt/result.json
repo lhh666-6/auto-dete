@@ -1,0 +1,193 @@
+{
+  "relation": "Accept",
+  "route": "binding_plus_correction_receipt",
+  "scenario": "stale_state",
+  "initial": {
+    "label": "initial",
+    "caller_requested_artifact_id": "proposal",
+    "selected_artifact_id": "proposal",
+    "selected_path": "artifacts/proposal.tfplan",
+    "approved_artifact_id": "proposal",
+    "gate_decision": "allow",
+    "gate_reason": "artifact identity and digest match",
+    "native_command_number": 10,
+    "native_exit_code": 1,
+    "native_timed_out": false,
+    "native_launch_error": null,
+    "native_error_kind": "stale_plan",
+    "binding_checks": {
+      "logical_artifact_matches": true,
+      "actual_digest_matches_approval": true,
+      "artifact_metadata_matches_bytes": true
+    },
+    "receipt_checks": {
+      "original_value_matches_plan": true,
+      "original_bytes_preserved": true,
+      "authorized_value_matches_plan": true,
+      "reviewed_matches_attempt": true
+    },
+    "before": {
+      "label": "initial-before",
+      "exists": true,
+      "quantity": 99,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 2,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "c7463c0e37816c0be9c9875bc3d783046c118d1f3abe46363f21452099b19e05",
+      "path": "states/005-initial-before.tfstate"
+    },
+    "after": {
+      "label": "initial-after",
+      "exists": true,
+      "quantity": 99,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 2,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "c7463c0e37816c0be9c9875bc3d783046c118d1f3abe46363f21452099b19e05",
+      "path": "states/006-initial-after.tfstate"
+    },
+    "state_changed": false
+  },
+  "recovery": {
+    "label": "recovery",
+    "caller_requested_artifact_id": "recovery",
+    "selected_artifact_id": "recovery",
+    "selected_path": "artifacts/recovery.tfplan",
+    "approved_artifact_id": "recovery",
+    "gate_decision": "allow",
+    "gate_reason": "artifact identity and digest match",
+    "native_command_number": 13,
+    "native_exit_code": 0,
+    "native_timed_out": false,
+    "native_launch_error": null,
+    "native_error_kind": null,
+    "binding_checks": {
+      "logical_artifact_matches": true,
+      "actual_digest_matches_approval": true,
+      "artifact_metadata_matches_bytes": true
+    },
+    "receipt_checks": {
+      "original_value_matches_plan": true,
+      "original_bytes_preserved": true,
+      "authorized_value_matches_plan": true,
+      "reviewed_matches_attempt": true
+    },
+    "before": {
+      "label": "recovery-before",
+      "exists": true,
+      "quantity": 99,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 2,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "c7463c0e37816c0be9c9875bc3d783046c118d1f3abe46363f21452099b19e05",
+      "path": "states/007-recovery-before.tfstate"
+    },
+    "after": {
+      "label": "recovery-after",
+      "exists": true,
+      "quantity": 20,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 3,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "b72ca2e8d1c99d4d6a7fdf905e895afdd053b9b51c8ebe8cbc061c4ac7ade1b7",
+      "path": "states/008-recovery-after.tfstate"
+    },
+    "state_changed": true
+  },
+  "recovery_steps": [
+    "plan against current state",
+    "review and approve new plan",
+    "execute newly approved plan"
+  ],
+  "replay": {
+    "label": "replay",
+    "caller_requested_artifact_id": "recovery",
+    "selected_artifact_id": "recovery",
+    "selected_path": "artifacts/recovery.tfplan",
+    "approved_artifact_id": "recovery",
+    "gate_decision": "allow",
+    "gate_reason": "artifact identity and digest match",
+    "native_command_number": 14,
+    "native_exit_code": 1,
+    "native_timed_out": false,
+    "native_launch_error": null,
+    "native_error_kind": "stale_plan",
+    "binding_checks": {
+      "logical_artifact_matches": true,
+      "actual_digest_matches_approval": true,
+      "artifact_metadata_matches_bytes": true
+    },
+    "receipt_checks": {
+      "original_value_matches_plan": true,
+      "original_bytes_preserved": true,
+      "authorized_value_matches_plan": true,
+      "reviewed_matches_attempt": true
+    },
+    "before": {
+      "label": "replay-before",
+      "exists": true,
+      "quantity": 20,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 3,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "b72ca2e8d1c99d4d6a7fdf905e895afdd053b9b51c8ebe8cbc061c4ac7ade1b7",
+      "path": "states/009-replay-before.tfstate"
+    },
+    "after": {
+      "label": "replay-after",
+      "exists": true,
+      "quantity": 20,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 3,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "b72ca2e8d1c99d4d6a7fdf905e895afdd053b9b51c8ebe8cbc061c4ac7ade1b7",
+      "path": "states/010-replay-after.tfstate"
+    },
+    "state_changed": false
+  },
+  "intervening_transition": {
+    "native_command_number": 9,
+    "native_exit_code": 0,
+    "native_timed_out": false,
+    "native_launch_error": null,
+    "native_error_kind": null,
+    "before": {
+      "label": "intervening-before",
+      "exists": true,
+      "quantity": 7,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 1,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "e50e3eaa0045d80c3bed325eed2a499034d3de341b1bf766a0f75710ef5cda55",
+      "path": "states/003-intervening-before.tfstate"
+    },
+    "after": {
+      "label": "intervening-after",
+      "exists": true,
+      "quantity": 99,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 2,
+      "lineage": "4fd14a8b-c75b-05d2-d254-006e4a96c6ce",
+      "sha256": "c7463c0e37816c0be9c9875bc3d783046c118d1f3abe46363f21452099b19e05",
+      "path": "states/004-intervening-after.tfstate"
+    },
+    "state_changed": true
+  },
+  "checks": {
+    "initial_gate_matches_protocol": true,
+    "initial_native_behavior_matches_protocol": true,
+    "rejected_attempt_preserves_state": true,
+    "final_native_commit_succeeded": true,
+    "final_authorized_value": true,
+    "unchanged_reference_preserved": true,
+    "replay_native_observation_known": true,
+    "replay_no_second_state_change": true,
+    "replay_value_preserved": true
+  },
+  "status": "pass",
+  "native_cli_calls": 14,
+  "approval_records": 3,
+  "additional_correction_receipt_records": 6,
+  "additional_correction_receipt_bytes": 4031,
+  "record_directory": "main/accept--stale_state--binding_plus_correction_receipt"
+}

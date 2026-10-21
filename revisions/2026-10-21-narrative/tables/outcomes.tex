@@ -1,0 +1,17 @@
+\begin{table}[tbp]
+\caption{Completion and instance substitution by collection. Context (Ctx) and instance (Inst; archived as bound) counts are separate; completion denominators remain the planned pairs.}\label{tab:outcomes}
+\centering\small
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrrr@{}}
+\toprule
+Collection & \shortstack{Planned\\pairs} & \shortstack{Recorded\\checkpoints} & \multicolumn{2}{c}{Completion} & \multicolumn{2}{c}{Substitutions} & \multicolumn{2}{c}{$I$ unknown} \\
+\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+ & & & Ctx & Inst & Ctx & Inst & Ctx & Inst \\
+\midrule
+Original A & 128 & 11 & 9 & 9 & 1 & 0 & 0 & 0 \\
+Original B & 128 & 127\textsuperscript{a} & 117 & 119 & 16 & 0 & 1 & 1 \\
+Supplementary A & 117 & 117 & 114 & 116 & 15 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular*}
+\par\smallskip\begin{minipage}{\textwidth}\small Recorded checkpoints count pairs whose frozen ledger explicitly records reaching the shared review checkpoint. Original A includes 117 pairs stopped by quota before review; supplementary A evaluates those pairs later. \textsuperscript{a}Original B also has one partially recorded N pair without that ledger flag: its context arm retains a partial after-state and its bound arm was not started. It is not reclassified as failing to reach review. These are the two unknown arms. $I$ denotes the independent instance-rule conformance score; arms without an authoritative transition can satisfy it vacuously.\end{minipage}
+\end{table}

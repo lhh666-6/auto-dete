@@ -1,0 +1,152 @@
+{
+  "prefix": [
+    {
+      "tool": "get_state",
+      "arguments": {
+        "record_id": "local-record"
+      },
+      "result": {
+        "status": "ok",
+        "version": 1,
+        "values": {
+          "quantity": 7,
+          "reference_note": "retain-original-note"
+        },
+        "sources": {
+          "quantity": "baseline:quantity",
+          "reference_note": "baseline:reference_note"
+        },
+        "record_id": "local-record",
+        "root_certificate_id": "root-v1",
+        "evidence_ref": "E1",
+        "capabilities": [
+          "get_state",
+          "inspect_evidence",
+          "propose",
+          "verify",
+          "request_authorization",
+          "commit",
+          "get_receipt"
+        ],
+        "field_order": [
+          "quantity",
+          "reference_note"
+        ]
+      }
+    },
+    {
+      "tool": "propose",
+      "arguments": {
+        "record_id": "local-record",
+        "field_key": "quantity",
+        "proposal_value": 20,
+        "evidence_ref": "E1",
+        "parent_certificate_id": "root-v1"
+      },
+      "result": {
+        "status": "ok",
+        "candidate_id": "c1",
+        "created_at": "2026-10-14T09:26:33.281225+00:00",
+        "context": {
+          "target_record_id": "local-record",
+          "field_key": "quantity",
+          "proposal_value_payload": "20",
+          "expected_fact_version": 1,
+          "template_id": "purchase_quantity",
+          "template_version": "1",
+          "schema_version": "1",
+          "evidence_file_id": "E1",
+          "evidence_hash": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35",
+          "evidence_locator": "source-supported-value",
+          "source_kind": "AI_SUGGESTION",
+          "producer_id": "pilot-source-adapter",
+          "producer_version": "1",
+          "selection_artifact_id": "selection:UNCERTAINTY-Correction",
+          "selection_state": "SELECTED",
+          "confidence": 1.0,
+          "lineage_parent_ids": [
+            "root-v1"
+          ]
+        },
+        "context_hash": "f54740b3fc5b09f5a2fe282e4f92e84a5816cbe2b9fb37cc63b538881650ba4d",
+        "envelope_metadata": {},
+        "certificate_id": "482304447cc5f43ba81df638c2b5bf743b14dd7af5f37fb3f70df09f93480701"
+      }
+    },
+    {
+      "tool": "request_authorization",
+      "arguments": {
+        "candidate_id": "c1"
+      },
+      "result": {
+        "authorization_id": "a1",
+        "reviewed_candidate_id": "c1",
+        "reviewed_candidate": {
+          "candidate_id": "c1",
+          "created_at": "2026-10-14T09:26:33.281225+00:00",
+          "context": {
+            "target_record_id": "local-record",
+            "field_key": "quantity",
+            "proposal_value_payload": "20",
+            "expected_fact_version": 1,
+            "template_id": "purchase_quantity",
+            "template_version": "1",
+            "schema_version": "1",
+            "evidence_file_id": "E1",
+            "evidence_hash": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35",
+            "evidence_locator": "source-supported-value",
+            "source_kind": "AI_SUGGESTION",
+            "producer_id": "pilot-source-adapter",
+            "producer_version": "1",
+            "selection_artifact_id": "selection:UNCERTAINTY-Correction",
+            "selection_state": "SELECTED",
+            "confidence": 1.0,
+            "lineage_parent_ids": [
+              "root-v1"
+            ]
+          },
+          "context_hash": "f54740b3fc5b09f5a2fe282e4f92e84a5816cbe2b9fb37cc63b538881650ba4d",
+          "envelope_metadata": {},
+          "certificate_id": "482304447cc5f43ba81df638c2b5bf743b14dd7af5f37fb3f70df09f93480701"
+        },
+        "authorized_value": 21,
+        "context": {
+          "target_record_id": "local-record",
+          "field_key": "quantity",
+          "proposal_value_payload": "20",
+          "expected_fact_version": 1,
+          "template_id": "purchase_quantity",
+          "template_version": "1",
+          "schema_version": "1",
+          "evidence_file_id": "E1",
+          "evidence_hash": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35",
+          "evidence_locator": "source-supported-value",
+          "source_kind": "AI_SUGGESTION",
+          "producer_id": "pilot-source-adapter",
+          "producer_version": "1",
+          "selection_artifact_id": "selection:UNCERTAINTY-Correction",
+          "selection_state": "SELECTED",
+          "confidence": 1.0,
+          "lineage_parent_ids": [
+            "root-v1"
+          ]
+        },
+        "status": "ok",
+        "reviewer_id": "trusted-host-reviewer",
+        "issued_at": "2026-10-14T09:26:33.282277+00:00",
+        "record_id": "local-record",
+        "field_key": "quantity",
+        "authorization_status": "active"
+      }
+    }
+  ],
+  "record_id": "local-record",
+  "field_key": "quantity",
+  "authorized_value": 21,
+  "request": {
+    "candidate_id": "c1",
+    "authorization_id": "a1",
+    "committed_value": 21,
+    "idempotency_key": "primary-request"
+  }
+}

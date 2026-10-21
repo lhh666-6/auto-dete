@@ -1,0 +1,161 @@
+[
+  {
+    "label": "initial-attempt",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": true,
+    "actual_result": {
+      "status": "ok",
+      "commit_request_id": "request-1",
+      "transition_id": "transition-1",
+      "version": 2,
+      "committed_value": 20,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "visible_result": {
+      "status": "unknown",
+      "error_code": "TRANSPORT_TIMEOUT"
+    },
+    "before_snapshot": 1,
+    "after_snapshot": 2,
+    "client_observed": true
+  },
+  {
+    "trusted_environment_event": "reviewer_active",
+    "value": false,
+    "before_snapshot": 3,
+    "after_snapshot": 4
+  },
+  {
+    "label": "recovery-commit",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "commit_request_id": "request-1",
+      "committed_value": 20,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      },
+      "status": "ok",
+      "transition_id": "transition-1",
+      "version": 2
+    },
+    "visible_result": {
+      "commit_request_id": "request-1",
+      "committed_value": 20,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      },
+      "status": "ok",
+      "transition_id": "transition-1",
+      "version": 2
+    },
+    "before_snapshot": 5,
+    "after_snapshot": 6,
+    "client_observed": true
+  },
+  {
+    "label": "recovery-get_state",
+    "tool": "get_state",
+    "arguments": {
+      "record_id": "local-record"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "status": "ok",
+      "sources": {
+        "quantity": "transition-1",
+        "reference_note": "baseline:reference_note"
+      },
+      "values": {
+        "quantity": 20,
+        "reference_note": "retain-original-note"
+      },
+      "version": 2,
+      "record_id": "local-record",
+      "root_certificate_id": "root-v2",
+      "evidence_ref": "E1",
+      "capabilities": [
+        "get_state",
+        "inspect_evidence",
+        "propose",
+        "verify",
+        "request_authorization",
+        "commit",
+        "get_receipt"
+      ],
+      "field_order": [
+        "quantity",
+        "reference_note"
+      ]
+    },
+    "visible_result": {
+      "status": "ok",
+      "sources": {
+        "quantity": "transition-1",
+        "reference_note": "baseline:reference_note"
+      },
+      "values": {
+        "quantity": 20,
+        "reference_note": "retain-original-note"
+      },
+      "version": 2,
+      "record_id": "local-record",
+      "root_certificate_id": "root-v2",
+      "evidence_ref": "E1",
+      "capabilities": [
+        "get_state",
+        "inspect_evidence",
+        "propose",
+        "verify",
+        "request_authorization",
+        "commit",
+        "get_receipt"
+      ],
+      "field_order": [
+        "quantity",
+        "reference_note"
+      ]
+    },
+    "before_snapshot": 7,
+    "after_snapshot": 8,
+    "client_observed": true
+  }
+]

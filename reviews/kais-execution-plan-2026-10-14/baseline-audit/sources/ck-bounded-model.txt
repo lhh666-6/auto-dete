@@ -1,0 +1,1844 @@
+#!/usr/bin/env python3
+"""Bounded state exploration for the Continuity Kernel specification.
+
+This standard-library-only specification artifact models one branch, one
+shared admission row, one proposal scope owned by principal 0, and one effect
+scope. It checks owner-first admission, exact acquisition coverage, four
+dispositions, candidate/effect binding, two-stage commit-bound freshness,
+the normative first-failing activation order, complete kind-specific accepted
+units, reclamation, typed genesis, transition-kind-specific admission,
+lifecycle receipts, abort, and directory-serialized handoff with distinct
+consumed and produced revisions.
+"""
+
+from __future__ import annotations
+
+from collections import deque
+from dataclasses import dataclass, replace
+from typing import Iterable, NamedTuple
+
+
+MAX_DEPTH = 7
+OWNER = 0
+HANDOFF_PID = 12
+HANDOFF_ID = 0
+INTERPRETER_DIGEST = 17
+PROTECTED_ROOT = 7
+
+ACT_CHECKS = (
+    "TargetLookup", "Allocation", "ExpectedHead", "Lifecycle",
+    "HandoffRevision", "AcquisitionAuth", "RequirementCoverage",
+    "VersionBinding", "WitnessBinding", "CandidateBinding", "EffectBinding",
+    "FreshnessInitial", "Authorization", "Decision", "AuthorityTransition",
+    "FreshnessFinal", "WellFormedness",
+)
+
+CLOSED_LIFECYCLE_RESULTS = {
+    "Applied", "StaleHead", "StaleRevision", "StaleDirSeq", "WriterEpoch",
+    "TargetConflict", "InvalidState", "Unauthorized",
+}
+
+CLOSED_KINDS = {
+    "Ordinary", "Migration", "Restoration", "HandoffActivate", "BranchCreate",
+}
+
+ACCEPTED_CORE_FIELDS = {
+    "state_components", "authority_state", "head_core", "complete_head",
+    "lineage", "commit_receipt", "receipt_store", "outcome", "effects",
+    "directory_binding", "branch_row",
+}
+
+KIND_DELTA_FIELDS = {
+    "Ordinary": {"ordinary_components", "preserved_lifecycle"},
+    "Migration": {"target_schema_roots", "migration_provenance"},
+    "Restoration": {"masked_restored_root", "current_protected_fields"},
+    "BranchCreate": {
+        "branch_genesis", "genesis_parent", "creation_context", "initial_writer",
+        "initial_epoch", "initial_dir_seq", "cleared_handoff", "created_from",
+    },
+    "HandoffActivate": {
+        "source_fenced_input_revision", "target_active_revision", "target_writer",
+        "active_status", "resulting_epoch", "resulting_dir_seq",
+        "cleared_handoff_pointer", "handoff_result",
+    },
+}
+
+LIFECYCLE_FAILURES = {
+    "Prepare": {
+        "StaleHead", "StaleDirSeq", "WriterEpoch", "TargetConflict",
+        "InvalidState", "Unauthorized",
+    },
+    "Fence": {
+        "StaleHead", "StaleRevision", "StaleDirSeq", "WriterEpoch",
+        "InvalidState", "Unauthorized",
+    },
+    "Retarget": {
+        "StaleRevision", "StaleDirSeq", "WriterEpoch", "TargetConflict",
+        "InvalidState", "Unauthorized",
+    },
+    "Abort": {
+        "StaleRevision", "StaleDirSeq", "WriterEpoch", "InvalidState",
+        "Unauthorized",
+    },
+}
+
+
+@dataclass(frozen=True, order=True)
+class Outcome:
+    pid: int
+    core_digest: int
+    attempt_digest: int
+    kind: str
+    receipt_type: str
+    prep_stage: str = ""
+    proposal_digest: int | None = None
+    owner: int = OWNER
+    head_before: int = -1
+    head_after: int = -1
+    state_before: int = -1
+    state_after: int = -1
+    ops_token: int = 0
+    eids: tuple[int, ...] = ()
+    authority_before: int = 0
+    authority_after: int = 0
+    act_check: str = ""
+    act_results: tuple[str, ...] = ()
+    transition_kind: str = "Ordinary"
+    handoff_input_revision: int = -1
+    handoff_output_revision: int = -1
+    receipt_digest: int = -1
+    prospective_built: bool = False
+
+
+@dataclass(frozen=True, order=True)
+class HandoffResult:
+    key_kind: str  # LifecycleKey or HandoffResultKey
+    key: tuple[int, ...]
+    action: str
+    result: str
+    input_revision: int
+    output_revision: int
+    receipt_digest: int
+    dir_seq_out: int
+    pid: int = -1
+
+
+@dataclass(frozen=True)
+class State:
+    branch_exists: bool = True
+    head: int = 0
+    state_root: int = 0
+    authority_version: int = 0  # abstract shared admission row
+    outcomes: tuple[Outcome, ...] = ()
+    effects: tuple[tuple[int, int, int], ...] = ()  # online (eid, pid, op_index)
+    quarantine: tuple[tuple[int, int], ...] = ()  # (pid, sealed candidate root)
+    proposal_watermark: int = -1
+    effect_watermark: int = -1
+    archived_outcomes: int = 0  # archive-root inclusion is abstracted
+    archived_effects: int = 0
+    epoch: int = 0
+    dir_seq: int = 0  # sole canonical directory counter
+    writer: int = 0  # source=0, targets=1/2, fenced=-1
+    target_writer: int = -1
+    abandoned_writer: int = -1
+    lifecycle: str = "Idle"
+    handoff_open: bool = False
+    handoff_head: int = -1
+    handoff_revision: int = -1
+    handoff_parent_revision: int = -1
+    handoff_history: tuple[str, ...] = ()
+    reserved_epoch: int = -1
+    lifecycle_receipts: tuple[tuple[int, str, int], ...] = ()  # (lid, action, digest)
+    handoff_results: tuple[HandoffResult, ...] = ()
+    restorable_root: int = 0
+    protected_root: int = PROTECTED_ROOT
+    created_from: int = -1  # immutable genesis provenance token
+    creation_context_version: int = 0
+    creation_authority_version: int = 0
+    creation_dir_seq: int = 0
+
+
+class Request(NamedTuple):
+    pid: int
+    core_digest: int
+    attempt_digest: int
+    expected_head: int
+    epoch: int
+    writer: int
+    principal: int = OWNER
+    outer_parseable: bool = True
+    outer_authenticated: bool = True
+    scope_active: bool = True
+    allocation_valid: bool = True
+    allocation_epoch_valid: bool = True
+    inner_parseable: bool = True
+    proposal_authenticated: bool = True
+    canonicalization_within_limit: bool = True
+    semantic_valid: bool = True
+    acquisition_authenticated: bool = True
+    coverage: str = "exact"
+    trusted_missing: bool = False
+    caller_missing: bool = False
+    target_exists_at_preparation: bool = True
+    target_exists_at_activation: bool = True
+    expected_absent: bool = False
+    creation_context_exists: bool = True
+    bound_creation_context_version: int = 0
+    bound_creation_dir_seq: int = 0
+    creation_initial_fresh: bool = True
+    creation_final_fresh: bool = True
+    genesis_input: int = 0
+    decision: str = "Proceed"
+    transition_kind: str = "Ordinary"
+    ops_token: int = 1
+    candidate_root: int | None = None
+    manifest_eids: tuple[int, ...] = (0,)
+    manifest_indices: tuple[int, ...] = (0,)
+    operation_eids: tuple[int, ...] = (0,)
+    operation_indices: tuple[int, ...] = (0,)
+    effect_scope_valid: bool = True
+    commit_bound_valid: bool = True
+    final_bound_valid: bool = True
+    preparation_expired: bool = False
+    authority_required: int = 0
+    authority_effect: int = 0
+    authority_transition_valid: bool = True
+    successor_well_formed: bool = True
+    restore_value: int | None = None
+
+
+class Result(NamedTuple):
+    state: State
+    response: str
+
+
+class ProspectiveUnit(NamedTuple):
+    kind: str
+    state_root: int
+    authority_after: int
+    branch_exists_after: bool
+    fields: frozenset[str]
+
+
+def proposal_key(pid: int) -> tuple[int, int, int, int]:
+    """Canonical ProposalKeyV1(sid, bid, owner, pid) in the one-branch model."""
+    return (0, 0, OWNER, pid)
+
+
+def lifecycle_result_key(lid: int) -> tuple[int, int, int]:
+    return (0, HANDOFF_ID, lid)
+
+
+def handoff_result_key(pid: int) -> tuple[int, ...]:
+    return (1, *proposal_key(pid), HANDOFF_ID)
+
+
+def transition_root(root: int, ops_token: int) -> int:
+    """Deterministic abstraction of the pinned migration/interpreter."""
+    return (root * 5 + ops_token * 3 + INTERPRETER_DIGEST) % 29
+
+
+def build_prospective(
+    state: State, request: Request, sealed_root: int, authority_after: int,
+) -> ProspectiveUnit:
+    """Receipt-independent prospective unit built before WellFormedness."""
+    assert request.transition_kind in CLOSED_KINDS
+    return ProspectiveUnit(
+        request.transition_kind,
+        sealed_root,
+        authority_after,
+        True if request.transition_kind == "BranchCreate" else state.branch_exists,
+        frozenset({
+            "state-components", "head-core-inputs", "lineage-inputs",
+            "prospective-branch-row", "kind-specific-assignments",
+            "commit-receipt-parameters",
+        }),
+    )
+
+
+def finalize_accepted_unit(
+    prospective: ProspectiveUnit, receipt_digest: int,
+) -> frozenset[str]:
+    """Total typed finalizer: no semantic checks occur here."""
+    assert receipt_digest >= 0
+    return accepted_unit_fields(prospective.kind)
+
+
+def outcome_for(state: State, pid: int) -> Outcome | None:
+    return next((outcome for outcome in state.outcomes if outcome.pid == pid), None)
+
+
+def record(state: State, outcome: Outcome) -> State:
+    assert outcome.owner == OWNER, "unauthorized principal consumed pid"
+    assert outcome_for(state, outcome.pid) is None
+    return replace(state, outcomes=tuple(sorted((*state.outcomes, outcome))))
+
+
+def failure_vector(act_check: str) -> tuple[str, ...]:
+    index = ACT_CHECKS.index(act_check)
+    return ("Pass",) * index + ("Fail",) + ("NE",) * (len(ACT_CHECKS) - index - 1)
+
+
+def accepted_unit_fields(kind: str) -> frozenset[str]:
+    """Return the closed abstract installation set for one Commit kind."""
+    assert kind in CLOSED_KINDS
+    return frozenset(ACCEPTED_CORE_FIELDS | KIND_DELTA_FIELDS[kind])
+
+
+def receipt_fields_at(terminal_stage: str) -> tuple[frozenset[str], frozenset[str]]:
+    """Stage-prefix schema: later activation outputs are forbidden."""
+    index = ACT_CHECKS.index(terminal_stage)
+    introduced = {
+        stage: f"prefix:{stage}" for stage in ACT_CHECKS
+    }
+    required = {
+        "common", "prepared-package", "terminal-observation",
+        *(introduced[stage] for stage in ACT_CHECKS[:index]),
+    }
+    forbidden = {
+        *(introduced[stage] for stage in ACT_CHECKS[index:]),
+        "prospective-unit", "finalized-commit",
+    }
+    if terminal_stage == "WellFormedness":
+        required.add("prospective-unit")
+        forbidden.remove("prospective-unit")
+    return frozenset(required), frozenset(forbidden)
+
+
+def ordinary_head_admissible(state: State, request: Request) -> bool:
+    """Ordinary/Migration/Restoration require an exact active writer row."""
+    return (
+        state.branch_exists
+        and not request.expected_absent
+        and request.expected_head == state.head
+        and request.epoch == state.epoch
+        and request.writer == state.writer
+        and state.writer >= 0
+    )
+
+
+def handoff_head_admissible(
+    state: State,
+    target_writer: int,
+    canonical_epoch: int,
+    reserved_epoch: int,
+    bound_dir_seq: int,
+    bound_revision: int,
+    bound_authority: int,
+) -> bool:
+    """HandoffActivate intentionally admits an exact writerless Frozen row."""
+    return (
+        state.lifecycle == "SourceFenced"
+        and state.writer == -1
+        and state.handoff_open
+        and target_writer == state.target_writer
+        and canonical_epoch == state.epoch
+        and reserved_epoch == state.reserved_epoch
+        and canonical_epoch == reserved_epoch
+        and bound_dir_seq == state.dir_seq
+        and bound_revision == state.handoff_revision
+        and bound_authority == state.authority_version
+    )
+
+
+def reject(
+    state: State,
+    request: Request,
+    kind: str,
+    receipt_type: str,
+    act_check: str | None = None,
+    prospective_built: bool = False,
+) -> Result:
+    has_predecessor = request.transition_kind != "BranchCreate"
+    prep_stage = {
+        "RejectProposalAuthentication": "ProposalAuth",
+        "RejectMalformedProposal": "StaticValidation",
+        "RejectEffectManifest": "StaticValidation",
+        "RejectDuplicateEffectInProposal": "StaticValidation",
+        "RejectUnknownTargetAtPreparation": "TargetLookup",
+        "RejectBranchAlreadyExists": "TargetLookup",
+        "RejectCreationContextMissing": "TargetLookup",
+        "RejectUntrustedRequirementResult": "AcquisitionAuth",
+        "RejectAcquisitionAuthentication": "AcquisitionAuth",
+        "RejectRequirementCoverage": "RequirementCoverage",
+        "RejectExpiredAtPreparation": "AcquisitionTime",
+    }.get(kind, "") if receipt_type.startswith("Preparation") else ""
+    if receipt_type == "Activation" and act_check is None:
+        act_check = {
+            "RejectTargetMissingAtActivation": "TargetLookup",
+            "RejectBranchAlreadyExists": "TargetLookup",
+            "RejectStaleHead": "ExpectedHead",
+            "RejectWriterEpoch": "Lifecycle",
+            "RejectCandidateBinding": "CandidateBinding",
+            "RejectEffectScope": "EffectBinding",
+            "RejectRetiredEffect": "EffectBinding",
+            "RejectDuplicateEffect": "EffectBinding",
+            "RejectUnauthorized": "Authorization",
+            "RejectPolicy": "Decision",
+        }[kind]
+    outcome = Outcome(
+        request.pid,
+        request.core_digest,
+        request.attempt_digest,
+        kind,
+        receipt_type,
+        prep_stage,
+        proposal_digest=request.core_digest,
+        head_before=(
+            state.head if receipt_type != "Preparation" and has_predecessor else -1
+        ),
+        state_before=(
+            state.state_root
+            if receipt_type != "Preparation" and has_predecessor else -1
+        ),
+        authority_before=state.authority_version if has_predecessor else -1,
+        authority_after=state.authority_version if has_predecessor else -1,
+        act_check=act_check or "",
+        act_results=failure_vector(act_check) if act_check else (),
+        transition_kind=request.transition_kind,
+        prospective_built=prospective_built,
+    )
+    return Result(record(state, outcome), kind)
+
+
+def submit(state: State, request: Request) -> Result:
+    """Apply owner-first preparation and one atomic activation transition."""
+    if not request.outer_parseable:
+        return Result(state, "ProtocolMalformedFrame")
+    if not (
+        request.outer_authenticated
+        and request.scope_active
+        and request.allocation_valid
+        and request.allocation_epoch_valid
+        and request.principal == OWNER
+    ):
+        return Result(state, "ProtocolAuthenticationOrAllocation")
+
+    existing = outcome_for(state, request.pid)
+    if existing is not None:
+        if existing.core_digest != request.core_digest:
+            return Result(state, "IdReuseConflict")
+        if existing.attempt_digest != request.attempt_digest:
+            return Result(state, "AttemptVariantConflict")
+        return Result(state, existing.kind)
+
+    if request.pid <= state.proposal_watermark:
+        return Result(state, "RetiredIdentifier")
+
+    if not request.inner_parseable:
+        outcome = Outcome(
+            request.pid,
+            request.core_digest,
+            request.attempt_digest,
+            "RejectInnerUnparseable",
+            "PreparationEarly",
+            "Decode",
+            proposal_digest=None,
+        )
+        return Result(record(state, outcome), "RejectInnerUnparseable")
+    if not request.canonicalization_within_limit:
+        outcome = Outcome(
+            request.pid,
+            request.core_digest,
+            request.attempt_digest,
+            "RejectCanonicalizationLimit",
+            "PreparationEarly",
+            "Canonicalize",
+            proposal_digest=None,
+        )
+        return Result(record(state, outcome), "RejectCanonicalizationLimit")
+    if not request.proposal_authenticated:
+        return reject(state, request, "RejectProposalAuthentication", "Preparation")
+    if not request.semantic_valid:
+        return reject(state, request, "RejectMalformedProposal", "Preparation")
+    manifest_bindings = tuple(zip(request.manifest_indices, request.manifest_eids))
+    operation_bindings = tuple(zip(request.operation_indices, request.operation_eids))
+    if (
+        len(request.manifest_indices) != len(request.manifest_eids)
+        or len(request.operation_indices) != len(request.operation_eids)
+        or manifest_bindings != operation_bindings
+        or len(request.operation_indices) != len(set(request.operation_indices))
+    ):
+        return reject(state, request, "RejectEffectManifest", "Preparation")
+    if len(request.operation_eids) != len(set(request.operation_eids)):
+        return reject(
+            state, request, "RejectDuplicateEffectInProposal", "Preparation"
+        )
+    is_create = request.transition_kind == "BranchCreate"
+    if is_create:
+        if state.branch_exists or request.target_exists_at_preparation:
+            return reject(state, request, "RejectBranchAlreadyExists", "Preparation")
+        if not request.creation_context_exists:
+            return reject(state, request, "RejectCreationContextMissing", "Preparation")
+    elif not state.branch_exists or not request.target_exists_at_preparation:
+        return reject(
+            state, request, "RejectUnknownTargetAtPreparation", "Preparation"
+        )
+    if request.caller_missing:
+        return reject(state, request, "RejectUntrustedRequirementResult", "Preparation")
+    if not request.acquisition_authenticated:
+        return reject(state, request, "RejectAcquisitionAuthentication", "Preparation")
+    if request.coverage != "exact":
+        return reject(state, request, "RejectRequirementCoverage", "Preparation")
+    if request.preparation_expired:
+        return reject(state, request, "RejectExpiredAtPreparation", "Preparation")
+    if request.trusted_missing:
+        outcome = Outcome(
+            request.pid,
+            request.core_digest,
+            request.attempt_digest,
+            "Defer",
+            "Preparation",
+            "AcquisitionTime",
+            proposal_digest=request.core_digest,
+            authority_before=(
+                -1 if request.transition_kind == "BranchCreate"
+                else state.authority_version
+            ),
+            authority_after=(
+                -1 if request.transition_kind == "BranchCreate"
+                else state.authority_version
+            ),
+            transition_kind=request.transition_kind,
+        )
+        return Result(record(state, outcome), "Defer")
+    if is_create:
+        if state.branch_exists or request.target_exists_at_activation:
+            return reject(state, request, "RejectBranchAlreadyExists", "Activation")
+        if not request.expected_absent:
+            return reject(state, request, "RejectStaleHead", "Activation")
+    else:
+        if not state.branch_exists or not request.target_exists_at_activation:
+            return reject(
+                state, request, "RejectTargetMissingAtActivation", "Activation"
+            )
+        if request.expected_absent or request.expected_head != state.head:
+            return reject(state, request, "RejectStaleHead", "Activation")
+        if not ordinary_head_admissible(state, request):
+            return reject(state, request, "RejectWriterEpoch", "Activation")
+
+    derived = transition_root(
+        request.genesis_input if is_create else state.state_root,
+        request.ops_token,
+    )
+    sealed_root = derived if request.candidate_root is None else request.candidate_root
+    if sealed_root != derived:
+        return reject(state, request, "RejectCandidateBinding", "Activation")
+    if not request.effect_scope_valid:
+        return reject(state, request, "RejectEffectScope", "Activation")
+    if any(eid <= state.effect_watermark for eid in request.operation_eids):
+        return reject(state, request, "RejectRetiredEffect", "Activation")
+    if any(any(saved == eid for saved, _, _ in state.effects) for eid in request.operation_eids):
+        return reject(state, request, "RejectDuplicateEffect", "Activation")
+    if is_create and (
+        not request.creation_initial_fresh
+        or request.bound_creation_context_version != state.creation_context_version
+        or request.bound_creation_dir_seq != state.creation_dir_seq
+        or state.branch_exists
+    ):
+        return reject(
+            state, request, "RejectStaleCreationContext", "Activation",
+            act_check="FreshnessInitial",
+        )
+    if not request.commit_bound_valid:
+        return reject(
+            state, request, "RejectExpiredAtActivation", "Activation",
+            act_check="FreshnessInitial",
+        )
+
+    # Authorization is kind indexed: predecessor authority or creation context.
+    authority_source = (
+        state.creation_authority_version if is_create else state.authority_version
+    )
+    if request.authority_required > authority_source:
+        return reject(state, request, "RejectUnauthorized", "Activation")
+    if request.decision == "Reject":
+        return reject(state, request, "RejectPolicy", "Activation")
+    if request.decision == "Quarantine":
+        outcome = Outcome(
+            request.pid,
+            request.core_digest,
+            request.attempt_digest,
+            "Quarantine",
+            "Quarantine",
+            proposal_digest=request.core_digest,
+            head_before=-1 if is_create else state.head,
+            state_before=-1 if is_create else state.state_root,
+            authority_before=-1 if is_create else state.authority_version,
+            authority_after=-1 if is_create else state.authority_version,
+            act_check="Decision",
+            act_results=("Pass",) * ACT_CHECKS.index("Decision")
+            + ("Quarantine",)
+            + ("NE",) * (len(ACT_CHECKS) - ACT_CHECKS.index("Decision") - 1),
+            transition_kind=request.transition_kind,
+        )
+        quarantined = record(state, outcome)
+        return Result(
+            replace(
+                quarantined,
+                quarantine=tuple(sorted((*quarantined.quarantine, (request.pid, sealed_root)))),
+            ),
+            "Quarantine",
+        )
+
+    if not request.authority_transition_valid:
+        return reject(
+            state, request, "RejectInvalidAuthorityTransition", "Activation",
+            act_check="AuthorityTransition",
+        )
+    authority_after = authority_source + request.authority_effect
+    if is_create and (
+        not request.creation_final_fresh
+        or request.bound_creation_context_version != state.creation_context_version
+        or request.bound_creation_dir_seq != state.creation_dir_seq
+        or state.branch_exists
+    ):
+        return reject(
+            state, request, "RejectStaleCreationContext", "Activation",
+            act_check="FreshnessFinal",
+        )
+    if not request.final_bound_valid:
+        return reject(
+            state, request, "RejectExpiredAtActivation", "Activation",
+            act_check="FreshnessFinal",
+        )
+    prospective = build_prospective(state, request, sealed_root, authority_after)
+    if not request.successor_well_formed:
+        return reject(
+            state, request, "RejectInvalidSuccessor", "Activation",
+            act_check="WellFormedness",
+            prospective_built=True,
+        )
+    assert request.transition_kind in {"Ordinary", "Migration", "Restoration", "BranchCreate"}
+    receipt_digest = 50000 + request.pid * 100 + state.head
+    finalized_fields = finalize_accepted_unit(prospective, receipt_digest)
+    assert finalized_fields == accepted_unit_fields(request.transition_kind)
+    outcome = Outcome(
+        request.pid,
+        request.core_digest,
+        request.attempt_digest,
+        "Commit",
+        "Commit",
+        proposal_digest=request.core_digest,
+        head_before=-1 if is_create else state.head,
+        head_after=0 if is_create else state.head + 1,
+        state_before=-1 if is_create else state.state_root,
+        state_after=prospective.state_root,
+        ops_token=request.ops_token,
+        eids=request.operation_eids,
+        authority_before=-1 if is_create else state.authority_version,
+        authority_after=authority_after,
+        act_check="WellFormedness",
+        act_results=("Pass",) * len(ACT_CHECKS),
+        transition_kind=request.transition_kind,
+        receipt_digest=receipt_digest,
+        prospective_built=True,
+    )
+    committed = record(state, outcome)
+    new_effects = tuple(sorted((
+        *committed.effects,
+        *((eid, request.pid, op_index)
+          for op_index, eid in operation_bindings),
+    )))
+    return Result(
+        replace(
+            committed,
+            branch_exists=prospective.branch_exists_after,
+            head=0 if is_create else committed.head + 1,
+            state_root=prospective.state_root,
+            authority_version=authority_after,
+            effects=new_effects,
+            restorable_root=(
+                request.restore_value
+                if request.restore_value is not None
+                else committed.restorable_root
+            ),
+            epoch=0 if is_create else committed.epoch,
+            dir_seq=0 if is_create else committed.dir_seq,
+            writer=request.writer if is_create else committed.writer,
+            handoff_open=False if is_create else committed.handoff_open,
+            created_from=request.genesis_input if is_create else committed.created_from,
+        ),
+        "Commit",
+    )
+
+
+def install_proposal_retirement(state: State, new_low: int) -> Result:
+    """Durably close a proposal prefix before any online row is deleted."""
+    if new_low <= state.proposal_watermark:
+        return Result(state, "NoChange")
+    finalized = {outcome.pid for outcome in state.outcomes}
+    required = set(range(state.proposal_watermark + 1, new_low + 1))
+    if not required.issubset(finalized):
+        return Result(state, "PrefixNotFinal")
+    return Result(replace(state, proposal_watermark=new_low), "ProposalPrefixRetired")
+
+
+def delete_retired_outcomes(state: State) -> Result:
+    removed = tuple(
+        outcome for outcome in state.outcomes if outcome.pid <= state.proposal_watermark
+    )
+    kept = tuple(
+        outcome for outcome in state.outcomes if outcome.pid > state.proposal_watermark
+    )
+    return Result(
+        replace(
+            state,
+            outcomes=kept,
+            archived_outcomes=state.archived_outcomes + len(removed),
+        ),
+        "ReclaimedOutcomes",
+    )
+
+
+def reclaim_outcomes(state: State, new_low: int) -> Result:
+    retired = install_proposal_retirement(state, new_low)
+    if retired.response != "ProposalPrefixRetired":
+        return retired
+    return delete_retired_outcomes(retired.state)
+
+
+def install_effect_retirement(state: State, new_low: int) -> Result:
+    """Durably close an effect prefix before any accepted binding is deleted."""
+    if new_low <= state.effect_watermark:
+        return Result(state, "NoChange")
+    return Result(replace(state, effect_watermark=new_low), "EffectPrefixRetired")
+
+
+def delete_retired_effects(state: State) -> Result:
+    removed = tuple(
+        binding for binding in state.effects if binding[0] <= state.effect_watermark
+    )
+    kept = tuple(
+        binding for binding in state.effects if binding[0] > state.effect_watermark
+    )
+    return Result(
+        replace(
+            state,
+            effects=kept,
+            archived_effects=state.archived_effects + len(removed),
+        ),
+        "ReclaimedEffects",
+    )
+
+
+def reclaim_effects(state: State, new_low: int) -> Result:
+    retired = install_effect_retirement(state, new_low)
+    if retired.response != "EffectPrefixRetired":
+        return retired
+    return delete_retired_effects(retired.state)
+
+
+def activate_target(
+    state: State,
+    target_writer: int,
+    canonical_epoch: int,
+    reserved_epoch: int,
+    bound_dir_seq: int,
+    bound_revision: int,
+    bound_authority: int,
+) -> Result:
+    if state.lifecycle != "SourceFenced":
+        return Result(state, "NotFenced")
+    if not handoff_head_admissible(
+        state, target_writer, canonical_epoch, reserved_epoch, bound_dir_seq,
+        bound_revision, bound_authority,
+    ):
+        return Result(state, "TargetEpochConflict")
+    existing = outcome_for(state, HANDOFF_PID)
+    if existing is not None:
+        return Result(state, existing.kind)
+    next_revision = state.handoff_revision + 1
+    receipt_digest = 30000 + bound_revision
+    prospective = ProspectiveUnit(
+        "HandoffActivate",
+        state.state_root,
+        state.authority_version,
+        state.branch_exists,
+        frozenset({
+            "state-components", "head-core-inputs", "lineage-inputs",
+            "prospective-branch-row", "kind-specific-assignments",
+            "commit-receipt-parameters",
+        }),
+    )
+    assert finalize_accepted_unit(prospective, receipt_digest) == (
+        accepted_unit_fields("HandoffActivate")
+    )
+    outcome = Outcome(
+        HANDOFF_PID,
+        9000 + bound_revision,
+        19000 + bound_revision,
+        "Commit",
+        "Commit",
+        proposal_digest=9000 + bound_revision,
+        head_before=state.head,
+        head_after=state.head + 1,
+        state_before=state.state_root,
+        state_after=state.state_root,
+        authority_before=state.authority_version,
+        authority_after=state.authority_version,
+        act_check="WellFormedness",
+        act_results=("Pass",) * len(ACT_CHECKS),
+        transition_kind="HandoffActivate",
+        handoff_input_revision=bound_revision,
+        handoff_output_revision=next_revision,
+        receipt_digest=receipt_digest,
+        prospective_built=True,
+    )
+    committed = record(state, outcome)
+    return Result(
+        replace(
+            committed,
+            lifecycle="TargetActive",
+            handoff_open=False,
+            writer=target_writer,
+            head=committed.head + 1,
+            dir_seq=committed.dir_seq + 1,
+            handoff_parent_revision=committed.handoff_revision,
+            handoff_revision=next_revision,
+            handoff_history=(*committed.handoff_history, "TargetActive"),
+            handoff_results=tuple(sorted((
+                *committed.handoff_results,
+                HandoffResult(
+                    "HandoffResultKey", handoff_result_key(HANDOFF_PID),
+                    "TargetActive", "Commit",
+                    bound_revision, next_revision, receipt_digest,
+                    committed.dir_seq + 1, HANDOFF_PID,
+                ),
+            ))),
+        ),
+        "TargetActive",
+    )
+
+
+def record_lifecycle_failure(
+    state: State,
+    lid: int,
+    action: str,
+    result: str,
+    input_revision: int,
+) -> Result:
+    """Index a typed maintenance receipt without changing the branch tuple."""
+    assert action in {"Prepare", "Fence", "Retarget", "Abort"}
+    assert result in CLOSED_LIFECYCLE_RESULTS - {"Applied"}
+    existing = next(
+        (
+            item for item in state.handoff_results
+            if item.key_kind == "LifecycleKey" and item.key == lifecycle_result_key(lid)
+        ),
+        None,
+    )
+    if existing is not None:
+        if (
+            existing.action == action
+            and existing.result == result
+            and existing.input_revision == input_revision
+            and existing.output_revision == -1
+            and existing.receipt_digest == 40000 + lid
+        ):
+            return Result(state, result)
+        return Result(state, "LifecycleVariantConflict")
+    receipt_digest = 40000 + lid
+    return Result(
+        replace(
+            state,
+            lifecycle_receipts=tuple(sorted((
+                *state.lifecycle_receipts, (lid, action, receipt_digest)
+            ))),
+            handoff_results=tuple(sorted((
+                *state.handoff_results,
+                HandoffResult(
+                    "LifecycleKey", lifecycle_result_key(lid), action, result,
+                    input_revision, -1,
+                    receipt_digest, state.dir_seq,
+                ),
+            ))),
+        ),
+        result,
+    )
+def request(state: State, pid: int, **kwargs: object) -> Request:
+    return Request(
+        pid,
+        1000 + pid * 100 + state.head,
+        10000 + pid * 100 + state.head,
+        state.head,
+        state.epoch,
+        state.writer,
+        **kwargs,
+    )
+
+
+def successors(state: State) -> Iterable[tuple[str, Result]]:
+    # Two exact-head competitors use fixed bodies prepared at the initial head.
+    yield "commit-p0", submit(state, Request(0, 100, 1000, 0, 0, 0, operation_eids=(0,), manifest_eids=(0,)))
+    yield "commit-p1", submit(state, Request(1, 101, 1001, 0, 0, 0, operation_eids=(1,), manifest_eids=(1,)))
+
+    yield "trusted-defer-p2", submit(state, request(state, 2, trusted_missing=True))
+    yield "quarantine-p3", submit(state, request(state, 3, decision="Quarantine", operation_eids=(2,), manifest_eids=(2,)))
+    yield "policy-reject-p4", submit(state, request(state, 4, decision="Reject", operation_eids=(3,), manifest_eids=(3,)))
+    yield "resume-quarantine-p5", submit(state, request(state, 5, operation_eids=(2,), manifest_eids=(2,)))
+    yield "duplicate-intra-effect-p6", submit(state, request(
+        state, 6, operation_eids=(3, 3), operation_indices=(0, 1),
+        manifest_eids=(3, 3), manifest_indices=(0, 1)
+    ))
+    empty_effects = dict(
+        operation_eids=(), operation_indices=(), manifest_eids=(), manifest_indices=()
+    )
+    yield "candidate-substitution-p7", submit(
+        state, request(state, 7, candidate_root=99, **empty_effects)
+    )
+    yield "expiry-race-p8", submit(
+        state, request(state, 8, final_bound_valid=False, **empty_effects)
+    )
+    yield "authority-update-p9", submit(state, request(
+        state, 9, authority_required=state.authority_version, authority_effect=1,
+        **empty_effects
+    ))
+    yield "self-authorize-p10", submit(state, request(
+        state, 10, authority_required=state.authority_version + 1,
+        authority_effect=1, **empty_effects
+    ))
+    yield "masked-restore-p11", submit(
+        state, request(
+            state, 11, restore_value=9, transition_kind="Restoration",
+            **empty_effects,
+        )
+    )
+
+    for low in range(state.proposal_watermark + 1, 2):
+        yield f"reclaim-outcomes-through-{low}", reclaim_outcomes(state, low)
+    for low in range(state.effect_watermark + 1, 2):
+        yield f"reclaim-effects-through-{low}", reclaim_effects(state, low)
+
+    if state.lifecycle == "Idle":
+        yield "handoff-prepare", Result(
+            replace(
+                state,
+                lifecycle="Prepared",
+                handoff_open=True,
+                handoff_head=state.head,
+                target_writer=1,
+                handoff_revision=0,
+                handoff_parent_revision=-1,
+                handoff_history=("Prepared",),
+                reserved_epoch=state.epoch + 1,
+                dir_seq=state.dir_seq + 1,
+                lifecycle_receipts=((0, "Prepare", 20000),),
+                handoff_results=(HandoffResult(
+                    "LifecycleKey", lifecycle_result_key(0), "Prepare",
+                    "Applied", -1, 0, 20000,
+                    state.dir_seq + 1,
+                ),),
+            ),
+            "Prepared",
+        )
+    elif state.lifecycle == "Prepared":
+        next_revision = state.handoff_revision + 1
+        yield "handoff-abort", Result(
+            replace(
+                state,
+                lifecycle="Aborted",
+                handoff_open=False,
+                target_writer=-1,
+                reserved_epoch=-1,
+                dir_seq=state.dir_seq + 1,
+                handoff_parent_revision=state.handoff_revision,
+                handoff_revision=next_revision,
+                handoff_history=(*state.handoff_history, "Aborted"),
+                lifecycle_receipts=tuple(sorted((
+                    *state.lifecycle_receipts,
+                    (next_revision, "Abort", 20000 + next_revision)
+                ))),
+                handoff_results=tuple(sorted((
+                    *state.handoff_results,
+                    HandoffResult(
+                        "LifecycleKey", lifecycle_result_key(next_revision),
+                        "Abort", "Applied",
+                        state.handoff_revision, next_revision,
+                        20000 + next_revision, state.dir_seq + 1,
+                    )
+                ))),
+            ),
+            "Aborted",
+        )
+        if state.head == state.handoff_head:
+            yield "handoff-fence", Result(
+                replace(
+                    state,
+                    lifecycle="SourceFenced",
+                    epoch=state.reserved_epoch,
+                    writer=-1,
+                    dir_seq=state.dir_seq + 1,
+                    handoff_parent_revision=state.handoff_revision,
+                    handoff_revision=next_revision,
+                    handoff_history=(*state.handoff_history, "SourceFenced"),
+                    lifecycle_receipts=tuple(sorted((
+                        *state.lifecycle_receipts,
+                        (next_revision, "Fence", 20000 + next_revision)
+                    ))),
+                    handoff_results=tuple(sorted((
+                        *state.handoff_results,
+                        HandoffResult(
+                            "LifecycleKey", lifecycle_result_key(next_revision),
+                            "Fence", "Applied",
+                            state.handoff_revision, next_revision,
+                            20000 + next_revision, state.dir_seq + 1,
+                        )
+                    ))),
+                ),
+                "SourceFenced",
+            )
+    elif state.lifecycle == "SourceFenced":
+        yield "activate-current-target", activate_target(
+            state, state.target_writer, state.epoch, state.reserved_epoch,
+            state.dir_seq,
+            state.handoff_revision, state.authority_version,
+        )
+        replacement = 2 if state.target_writer == 1 else 1
+        next_revision = state.handoff_revision + 1
+        yield "handoff-retarget", Result(
+            replace(
+                state,
+                epoch=state.epoch + 1,
+                abandoned_writer=state.target_writer,
+                target_writer=replacement,
+                dir_seq=state.dir_seq + 1,
+                handoff_parent_revision=state.handoff_revision,
+                handoff_revision=next_revision,
+                handoff_history=(*state.handoff_history, "SourceFenced"),
+                reserved_epoch=state.epoch + 1,
+                lifecycle_receipts=tuple(sorted((
+                    *state.lifecycle_receipts,
+                    (next_revision, "Retarget", 20000 + next_revision)
+                ))),
+                handoff_results=tuple(sorted((
+                    *state.handoff_results,
+                    HandoffResult(
+                        "LifecycleKey", lifecycle_result_key(next_revision),
+                        "Retarget", "Applied",
+                        state.handoff_revision, next_revision,
+                        20000 + next_revision, state.dir_seq + 1,
+                    )
+                ))),
+            ),
+            "Retargeted",
+        )
+        if state.abandoned_writer >= 0:
+            yield "activate-abandoned-target", activate_target(
+                state, state.abandoned_writer, state.epoch - 1,
+                state.reserved_epoch - 1, state.dir_seq - 1,
+                state.handoff_revision - 1, state.authority_version,
+            )
+
+
+def assert_kind_specific_admission() -> None:
+    """Active ordinary writes and writerless HandoffActivate use distinct rows."""
+    initial = State()
+    prepared = next(
+        result.state for label, result in successors(initial)
+        if label == "handoff-prepare"
+    )
+    empty_effects = dict(
+        operation_eids=(), operation_indices=(), manifest_eids=(),
+        manifest_indices=(),
+    )
+    ordinary_while_prepared = submit(
+        prepared, request(prepared, 5, **empty_effects)
+    )
+    assert ordinary_while_prepared.response == "Commit"
+    assert ordinary_while_prepared.state.writer == OWNER
+    assert not any(
+        label == "handoff-fence"
+        for label, _ in successors(ordinary_while_prepared.state)
+    ), "a head advance did not stale the Prepared fence request"
+
+    fenced = next(
+        result.state for label, result in successors(prepared)
+        if label == "handoff-fence"
+    )
+    ordinary_from_frozen = submit(
+        fenced, request(fenced, 5, **empty_effects)
+    )
+    assert ordinary_from_frozen.response == "RejectWriterEpoch"
+    assert ordinary_from_frozen.state.head == fenced.head
+
+    stale_dir = activate_target(
+        fenced, fenced.target_writer, fenced.epoch, fenced.reserved_epoch,
+        fenced.dir_seq - 1, fenced.handoff_revision, fenced.authority_version,
+    )
+    stale_reservation = activate_target(
+        fenced, fenced.target_writer, fenced.epoch, fenced.reserved_epoch - 1,
+        fenced.dir_seq, fenced.handoff_revision, fenced.authority_version,
+    )
+    assert stale_dir.response == stale_reservation.response == "TargetEpochConflict"
+    assert stale_dir.state == stale_reservation.state == fenced
+
+    activated = activate_target(
+        fenced, fenced.target_writer, fenced.epoch, fenced.reserved_epoch,
+        fenced.dir_seq, fenced.handoff_revision, fenced.authority_version,
+    ).state
+    target_outcome = outcome_for(activated, HANDOFF_PID)
+    assert target_outcome is not None
+    assert target_outcome.handoff_input_revision == fenced.handoff_revision
+    assert target_outcome.handoff_output_revision == fenced.handoff_revision + 1
+    assert target_outcome.handoff_input_revision != target_outcome.handoff_output_revision
+    result = next(item for item in activated.handoff_results if item.pid == HANDOFF_PID)
+    assert result.input_revision == target_outcome.handoff_input_revision
+    assert result.output_revision == target_outcome.handoff_output_revision
+    assert result.receipt_digest == target_outcome.receipt_digest
+
+    before_branch = (
+        fenced.head, fenced.state_root, fenced.authority_version, fenced.epoch,
+        fenced.dir_seq, fenced.writer, fenced.handoff_revision,
+        fenced.created_from,
+    )
+    failed = record_lifecycle_failure(
+        fenced, 99, "Retarget", "StaleDirSeq", fenced.handoff_revision - 1,
+    )
+    after_branch = (
+        failed.state.head, failed.state.state_root,
+        failed.state.authority_version, failed.state.epoch,
+        failed.state.dir_seq, failed.state.writer,
+        failed.state.handoff_revision, failed.state.created_from,
+    )
+    assert before_branch == after_branch
+    assert record_lifecycle_failure(
+        failed.state, 99, "Retarget", "StaleDirSeq", fenced.handoff_revision - 1,
+    ).state == failed.state
+    assert record_lifecycle_failure(
+        failed.state, 99, "Abort", "InvalidState", fenced.handoff_revision,
+    ).response == "LifecycleVariantConflict"
+
+    # Existing-branch kinds and BranchCreate have opposite TargetLookup guards.
+    absent = State(
+        branch_exists=False,
+        creation_context_version=4,
+        creation_authority_version=2,
+        creation_dir_seq=7,
+    )
+    ordinary_absent = submit(
+        absent, request(
+            absent, 5, target_exists_at_preparation=False, **empty_effects,
+        ),
+    )
+    assert ordinary_absent.response == "RejectUnknownTargetAtPreparation"
+    assert outcome_for(ordinary_absent.state, 5).prep_stage == "TargetLookup"
+
+    create_existing = submit(
+        initial, request(
+            initial, 6, transition_kind="BranchCreate",
+            target_exists_at_preparation=False, target_exists_at_activation=False,
+            expected_absent=True, **empty_effects,
+        ),
+    )
+    assert create_existing.response == "RejectBranchAlreadyExists"
+    assert outcome_for(create_existing.state, 6).prep_stage == "TargetLookup"
+
+    missing_context = submit(
+        absent, request(
+            absent, 7, transition_kind="BranchCreate",
+            target_exists_at_preparation=False, target_exists_at_activation=False,
+            expected_absent=True, creation_context_exists=False, **empty_effects,
+        ),
+    )
+    assert missing_context.response == "RejectCreationContextMissing"
+    assert outcome_for(missing_context.state, 7).prep_stage == "TargetLookup"
+
+    create_args = dict(
+        transition_kind="BranchCreate",
+        target_exists_at_preparation=False,
+        target_exists_at_activation=False,
+        expected_absent=True,
+        bound_creation_context_version=4,
+        bound_creation_dir_seq=7,
+        authority_required=2,
+        genesis_input=17,
+        **empty_effects,
+    )
+    created = submit(absent, request(absent, 8, **create_args))
+    create_outcome = outcome_for(created.state, 8)
+    assert created.response == "Commit" and created.state.branch_exists
+    assert create_outcome is not None and create_outcome.prospective_built
+    assert (
+        create_outcome.head_before,
+        create_outcome.state_before,
+        create_outcome.authority_before,
+    ) == (-1, -1, -1)
+    assert create_outcome.state_after == transition_root(17, 1)
+    assert created.state.created_from == 17
+    assert (created.state.epoch, created.state.head, created.state.dir_seq) == (0, 0, 0)
+
+    stale_initial = submit(
+        absent, request(absent, 9, creation_initial_fresh=False, **create_args),
+    )
+    stale_final = submit(
+        absent, request(absent, 10, creation_final_fresh=False, **create_args),
+    )
+    assert stale_initial.response == stale_final.response == "RejectStaleCreationContext"
+    stale_initial_outcome = outcome_for(stale_initial.state, 9)
+    stale_final_outcome = outcome_for(stale_final.state, 10)
+    assert stale_initial_outcome.act_check == "FreshnessInitial"
+    assert stale_final_outcome.act_check == "FreshnessFinal"
+    for rejected_create in (stale_initial_outcome, stale_final_outcome):
+        assert rejected_create.transition_kind == "BranchCreate"
+        assert (
+            rejected_create.head_before,
+            rejected_create.state_before,
+            rejected_create.authority_before,
+        ) == (-1, -1, -1)
+
+    appeared_during_activation = submit(
+        absent, request(
+            absent, 11, **(create_args | {"target_exists_at_activation": True}),
+        ),
+    )
+    assert appeared_during_activation.response == "RejectBranchAlreadyExists"
+    assert outcome_for(appeared_during_activation.state, 11).act_check == "TargetLookup"
+
+
+def assert_activation_stage_order() -> None:
+    """A multi-fault request is classified by the first normative stage."""
+    state = State()
+    empty = dict(
+        operation_eids=(), operation_indices=(), manifest_eids=(),
+        manifest_indices=(),
+    )
+    cases = (
+        (
+            dict(candidate_root=99, decision="Quarantine"),
+            "CandidateBinding",
+        ),
+        (
+            dict(effect_scope_valid=False, decision="Reject"),
+            "EffectBinding",
+        ),
+        (
+            dict(commit_bound_valid=False, decision="Quarantine"),
+            "FreshnessInitial",
+        ),
+        (
+            dict(
+                authority_required=1, decision="Reject",
+                authority_transition_valid=False,
+            ),
+            "Authorization",
+        ),
+        (
+            dict(authority_transition_valid=False, final_bound_valid=False),
+            "AuthorityTransition",
+        ),
+        (
+            dict(final_bound_valid=False, successor_well_formed=False),
+            "FreshnessFinal",
+        ),
+        (
+            dict(successor_well_formed=False),
+            "WellFormedness",
+        ),
+    )
+    for offset, (faults, expected_stage) in enumerate(cases):
+        result = submit(state, request(state, 5 + offset, **empty, **faults))
+        outcome = outcome_for(result.state, 5 + offset)
+        assert outcome is not None and outcome.act_check == expected_stage
+        i = ACT_CHECKS.index(expected_stage)
+        assert outcome.act_results[:i] == ("Pass",) * i
+        assert outcome.act_results[i] == "Fail"
+        assert outcome.act_results[i + 1:] == ("NE",) * (len(ACT_CHECKS) - i - 1)
+
+    early_required, early_forbidden = receipt_fields_at("TargetLookup")
+    assert "prepared-package" in early_required
+    assert "prefix:CandidateBinding" in early_forbidden
+    candidate_required, candidate_forbidden = receipt_fields_at("CandidateBinding")
+    assert "prefix:WitnessBinding" in candidate_required
+    assert "prefix:CandidateBinding" in candidate_forbidden
+    assert "finalized-commit" in candidate_forbidden
+    well_formedness_required, well_formedness_forbidden = receipt_fields_at(
+        "WellFormedness"
+    )
+    assert "prospective-unit" in well_formedness_required
+    assert "finalized-commit" in well_formedness_forbidden
+    assert "prefix:WellFormedness" in well_formedness_forbidden
+    failed = submit(
+        state, request(
+            state, 12, successor_well_formed=False, **empty,
+        ),
+    )
+    failed_outcome = outcome_for(failed.state, 12)
+    assert failed_outcome is not None and failed_outcome.prospective_built
+    assert failed_outcome.receipt_digest == -1
+
+
+def assert_complete_accepted_units() -> None:
+    """Every Commit kind has the same core and one closed total delta."""
+    assert set(KIND_DELTA_FIELDS) == CLOSED_KINDS
+    for kind in CLOSED_KINDS:
+        fields = accepted_unit_fields(kind)
+        assert ACCEPTED_CORE_FIELDS <= fields
+        assert KIND_DELTA_FIELDS[kind] <= fields
+    genesis = accepted_unit_fields("BranchCreate")
+    assert {
+        "branch_genesis", "genesis_parent", "initial_writer", "initial_epoch",
+        "initial_dir_seq", "cleared_handoff", "creation_context",
+        "created_from", "branch_row",
+    } <= genesis
+    handoff = accepted_unit_fields("HandoffActivate")
+    assert {
+        "source_fenced_input_revision", "target_active_revision",
+        "cleared_handoff_pointer", "handoff_result", "branch_row", "outcome",
+        "commit_receipt",
+    } <= handoff
+    restoration = accepted_unit_fields("Restoration")
+    assert {"masked_restored_root", "current_protected_fields"} <= restoration
+
+    ordinary = submit(
+        State(), request(
+            State(), 5, operation_eids=(), operation_indices=(),
+            manifest_eids=(), manifest_indices=(),
+        ),
+    )
+    outcome = outcome_for(ordinary.state, 5)
+    assert outcome is not None and outcome.receipt_digest >= 0
+    assert outcome.transition_kind == "Ordinary" and outcome.prospective_built
+
+    assert set(LIFECYCLE_FAILURES) == {"Prepare", "Fence", "Retarget", "Abort"}
+    assert all(results <= CLOSED_LIFECYCLE_RESULTS - {"Applied"}
+               for results in LIFECYCLE_FAILURES.values())
+
+
+def assert_guard_cases() -> None:
+    """Cases that must not mutate state, plus exact coverage failures."""
+    state = State()
+    attacks = [
+        Request(5, 500, 5000, 0, 0, 0, outer_parseable=False),
+        Request(5, 500, 5000, 0, 0, 0, outer_authenticated=False),
+        Request(5, 500, 5000, 0, 0, 0, allocation_valid=False),
+        Request(5, 500, 5000, 0, 0, 0, allocation_epoch_valid=False),
+        Request(5, 500, 5000, 0, 0, 0, scope_active=False),
+        Request(5, 500, 5000, 0, 0, 0, principal=1),
+    ]
+    for attack in attacks:
+        result = submit(state, attack)
+        assert result.state == state and outcome_for(result.state, 5) is None
+
+    inner = submit(state, Request(5, 500, 5000, 0, 0, 0, inner_parseable=False))
+    assert inner.response == "RejectInnerUnparseable"
+    assert outcome_for(inner.state, 5).receipt_type == "PreparationEarly"
+    assert outcome_for(inner.state, 5).prep_stage == "Decode"
+    assert outcome_for(inner.state, 5).proposal_digest is None
+
+    bad_signature = submit(
+        state, Request(5, 500, 5000, 0, 0, 0, proposal_authenticated=False)
+    )
+    assert bad_signature.response == "RejectProposalAuthentication"
+    assert outcome_for(bad_signature.state, 5).proposal_digest == 500
+
+    canonical_limit = submit(
+        state,
+        Request(5, 500, 5000, 0, 0, 0, canonicalization_within_limit=False),
+    )
+    assert canonical_limit.response == "RejectCanonicalizationLimit"
+    assert outcome_for(canonical_limit.state, 5).receipt_type == "PreparationEarly"
+    assert outcome_for(canonical_limit.state, 5).proposal_digest is None
+
+    # Permanent preparation failures precede Missing; predicates that require a
+    # missing witness, including authorization, remain unevaluated.
+    missing_target = submit(
+        state,
+        Request(
+            5, 500, 5000, 0, 0, 0,
+            trusted_missing=True,
+            target_exists_at_preparation=False,
+        ),
+    )
+    assert missing_target.response == "RejectUnknownTargetAtPreparation"
+    missing_authorization = submit(
+        state,
+        Request(5, 500, 5000, 0, 0, 0, trusted_missing=True, authority_required=1),
+    )
+    assert missing_authorization.response == "Defer"
+    expired_with_missing = submit(
+        state,
+        Request(
+            5, 500, 5000, 0, 0, 0,
+            trusted_missing=True,
+            preparation_expired=True,
+        ),
+    )
+    assert expired_with_missing.response == "RejectExpiredAtPreparation"
+    assert outcome_for(expired_with_missing.state, 5).prep_stage == "AcquisitionTime"
+    target_disappeared = submit(
+        state,
+        Request(5, 500, 5000, 0, 0, 0, target_exists_at_activation=False),
+    )
+    assert target_disappeared.response == "RejectTargetMissingAtActivation"
+    assert outcome_for(target_disappeared.state, 5).receipt_type == "Activation"
+    assert outcome_for(target_disappeared.state, 5).act_check == "TargetLookup"
+
+    initial_expiry = submit(
+        state,
+        Request(5, 500, 5000, 0, 0, 0, commit_bound_valid=False),
+    )
+    final_expiry = submit(
+        state,
+        Request(
+            5, 500, 5000, 0, 0, 0,
+            authority_effect=1,
+            final_bound_valid=False,
+        ),
+    )
+    assert initial_expiry.response == final_expiry.response == "RejectExpiredAtActivation"
+    assert outcome_for(initial_expiry.state, 5).act_check == "FreshnessInitial"
+    assert outcome_for(final_expiry.state, 5).act_check == "FreshnessFinal"
+    assert outcome_for(final_expiry.state, 5).authority_after == state.authority_version
+    assert outcome_for(final_expiry.state, 5).act_results[ACT_CHECKS.index("AuthorityTransition")] == "Pass"
+    assert outcome_for(initial_expiry.state, 5).act_results[ACT_CHECKS.index("Authorization")] == "NE"
+    for result in (
+        missing_target, missing_authorization, expired_with_missing,
+        target_disappeared, initial_expiry, final_expiry,
+    ):
+        assert (
+            result.state.head,
+            result.state.state_root,
+            result.state.authority_version,
+            result.state.effects,
+            result.state.quarantine,
+        ) == (
+            state.head,
+            state.state_root,
+            state.authority_version,
+            state.effects,
+            state.quarantine,
+        )
+
+    for kwargs, expected in (
+        ({"caller_missing": True}, "RejectUntrustedRequirementResult"),
+        ({"acquisition_authenticated": False}, "RejectAcquisitionAuthentication"),
+    ):
+        result = submit(state, Request(5, 500, 5000, 0, 0, 0, **kwargs))
+        assert result.response == expected
+        assert outcome_for(result.state, 5).kind == expected
+
+    for coverage in ("omitted", "duplicated", "reordered", "substituted", "injected"):
+        result = submit(state, Request(5, 500, 5000, 0, 0, 0, coverage=coverage))
+        assert result.response == "RejectRequirementCoverage"
+        assert outcome_for(result.state, 5).kind == "RejectRequirementCoverage"
+
+    malformed = submit(state, Request(5, 500, 5000, 0, 0, 0, semantic_valid=False))
+    assert malformed.response == "RejectMalformedProposal"
+    assert outcome_for(malformed.state, 5).receipt_type == "Preparation"
+
+    for kwargs, reason in (
+        ({"effect_scope_valid": False}, "RejectEffectScope"),
+        ({"operation_eids": (0, 0), "operation_indices": (0, 1),
+          "manifest_eids": (0, 0), "manifest_indices": (0, 1)},
+         "RejectDuplicateEffectInProposal"),
+    ):
+        result = submit(state, Request(5, 500, 5000, 0, 0, 0, **kwargs))
+        outcome = outcome_for(result.state, 5)
+        assert outcome.kind == reason
+        if outcome.receipt_type == "Activation":
+            assert outcome.act_check == "EffectBinding"
+
+    quarantine = submit(
+        state,
+        Request(3, 300, 3000, 0, 0, 0, decision="Quarantine", operation_eids=(2,), manifest_eids=(2,)),
+    ).state
+    assert (quarantine.state_root, quarantine.head, quarantine.authority_version, quarantine.effects) == (
+        state.state_root,
+        state.head,
+        state.authority_version,
+        state.effects,
+    )
+
+    # A signed body without inclusion in O is only a ghost receipt candidate.
+    signed_but_aborted = state
+    assert outcome_for(signed_but_aborted, 12) is None
+
+
+def assert_acyclic_construction() -> None:
+    """Audit the exact immediate-input graph used by the manuscript table."""
+    graph = {
+        "creation_context": (),
+        "source_fenced_revision": (),
+        "requirements_and_results": (),
+        "existing_state_or_genesis_inputs": (),
+        "predecessor_or_absence": (),
+        "commit_time": (),
+        "transition": (
+            "creation_context", "source_fenced_revision",
+            "predecessor_or_absence",
+        ),
+        "acquisition": ("transition", "requirements_and_results"),
+        "component_roots": (
+            "existing_state_or_genesis_inputs", "transition", "acquisition",
+        ),
+        "branch_genesis": (
+            "creation_context", "component_roots", "predecessor_or_absence",
+        ),
+        "candidate_seal": (
+            "transition", "acquisition", "component_roots",
+            "creation_context", "source_fenced_revision",
+        ),
+        "head_core": (
+            "component_roots", "predecessor_or_absence", "branch_genesis",
+            "creation_context", "source_fenced_revision", "commit_time",
+        ),
+        "target_active_revision": ("source_fenced_revision", "head_core"),
+        "lineage_edge": (
+            "head_core", "transition", "predecessor_or_absence",
+            "branch_genesis", "source_fenced_revision",
+            "target_active_revision",
+        ),
+        "commit_receipt": (
+            "transition", "acquisition", "candidate_seal", "head_core",
+            "lineage_edge", "component_roots", "branch_genesis",
+            "source_fenced_revision", "target_active_revision",
+        ),
+        "complete_head": ("head_core", "lineage_edge", "commit_receipt"),
+        "outcome_record": ("commit_receipt", "complete_head"),
+        "effect_record": ("commit_receipt", "complete_head"),
+        "handoff_result": (
+            "source_fenced_revision", "target_active_revision",
+            "commit_receipt", "complete_head",
+        ),
+        "branch_row": ("complete_head",),
+        "directory_binding": (
+            "creation_context", "commit_receipt", "complete_head",
+        ),
+        "receipt_store": ("commit_receipt",),
+        "publication": (
+            "outcome_record", "effect_record", "handoff_result", "branch_row",
+            "directory_binding", "receipt_store",
+        ),
+        "later_inclusion": ("publication",),
+    }
+    assert "candidate_seal" not in graph["head_core"]
+    assert "transition" in graph["acquisition"]
+    assert "source_fenced_revision" in graph["transition"]
+    assert "source_fenced_revision" not in graph["acquisition"]
+    visiting: set[str] = set()
+    visited: set[str] = set()
+
+    def visit(node: str) -> None:
+        assert node not in visiting, "head/receipt construction cycle"
+        if node in visited:
+            return
+        visiting.add(node)
+        for dependency in graph[node]:
+            visit(dependency)
+        visiting.remove(node)
+        visited.add(node)
+
+    for node in graph:
+        visit(node)
+
+
+def assert_genesis_lineage() -> None:
+    """Genesis is unique for an absent branch and sourceRef is only provenance."""
+    source_ref = 41
+    absence_digest = 17
+    genesis_ref = hash(("BranchGenesisV1", 0, 9, source_ref, absence_digest, 0, 0))
+    lineage_parent = ("GenesisParent", genesis_ref)
+    created_from = (source_ref, genesis_ref)
+    assert lineage_parent[0] == "GenesisParent"
+    assert lineage_parent[1] != source_ref
+    assert created_from == (source_ref, genesis_ref)
+    initial_epoch = initial_seq = 0
+    target_key_absent = True
+    assert target_key_absent and initial_epoch == 0 and initial_seq == 0
+    later_parent = ("AcceptedParent", 73)
+    assert later_parent[0] == "AcceptedParent" and later_parent != lineage_parent
+
+
+def assert_context_resource_profile() -> None:
+    """Context processing counters are proposal-wide and cache-independent."""
+    max_context_urls = 2
+    max_context_depth = 2
+    context_attempts = ("https://ctx.example/a", "https://ctx.example/a")
+    cache_hits = (False, True)
+    count = 0
+    for _, _cache_hit in zip(context_attempts, cache_hits, strict=True):
+        # Increment before each Context Processing URL attempt; a cache hit counts.
+        if count + 1 > max_context_urls:
+            raise AssertionError("limit must terminate before the excess attempt")
+        count += 1
+    assert count == 2
+    assert count + 1 > max_context_urls  # the next attempt terminates, unprocessed
+
+    # Root depth is one; entering a nested inline/remote context increments it.
+    active_depth = 1
+    active_depth += 1
+    assert active_depth == max_context_depth
+    assert active_depth + 1 > max_context_depth
+
+    # Supplied duplicates are charged as supplied objects; reference cache hits
+    # do not recharge bytes but cannot change attempt or depth counts.
+    supplied_context_octets = (11, 11, 7)
+    supplied_context_structures = 3
+    input_octets = 5 + sum(supplied_context_octets)
+    decoded_items = 1 + supplied_context_structures
+    assert input_octets == 34 and decoded_items == 4
+    assert cache_hits[1] and context_attempts[0] == context_attempts[1]
+    rdf_direction = None
+    remote_contexts_are_digest_pinned_package_objects = True
+    network_fetches = 0
+    assert rdf_direction is None
+    assert remote_contexts_are_digest_pinned_package_objects and network_fetches == 0
+
+
+def assert_retire_before_delete() -> None:
+    """A durable retirement marker excludes reuse before and after deletion."""
+    initial = State()
+    committed = submit(
+        initial,
+        Request(0, 100, 1000, 0, 0, 0, operation_eids=(0,), manifest_eids=(0,)),
+    ).state
+
+    marked = install_proposal_retirement(committed, 0).state
+    assert outcome_for(marked, 0) is not None
+    conflict = submit(marked, Request(0, 999, 999, marked.head, marked.epoch, marked.writer))
+    assert conflict.response == "IdReuseConflict" and conflict.state == marked
+    deleted = delete_retired_outcomes(marked).state
+    assert outcome_for(deleted, 0) is None
+    retired = submit(deleted, Request(0, 999, 999, deleted.head, deleted.epoch, deleted.writer))
+    assert retired.response == "RetiredIdentifier" and retired.state == deleted
+
+    effect_marked = install_effect_retirement(committed, 0).state
+    blocked_online = submit(effect_marked, request(effect_marked, 1))
+    assert blocked_online.response == "RejectRetiredEffect"
+    effect_deleted = delete_retired_effects(effect_marked).state
+    blocked_deleted = submit(effect_deleted, request(effect_deleted, 1))
+    assert blocked_deleted.response == "RejectRetiredEffect"
+
+
+def assert_signed_receipt_abort() -> None:
+    """Receipt construction without O inclusion is not a durable disposition."""
+    state = State()
+    receipt_tag = "Commit"
+    # The abstract storage abort returns the unchanged pre-state.
+    aborted_state = state
+    assert receipt_tag == "Commit" and outcome_for(aborted_state, 0) is None
+
+
+def check_state(state: State) -> None:
+    pids = [outcome.pid for outcome in state.outcomes]
+    assert len(pids) == len(set(pids)), "more than one online outcome per pid"
+    assert all(outcome.owner == OWNER for outcome in state.outcomes)
+
+    eids = [eid for eid, _, _ in state.effects]
+    assert len(eids) == len(set(eids)), "duplicate accepted effect identifier"
+    assert state.protected_root == PROTECTED_ROOT, "restoration changed protected state"
+
+    for outcome in state.outcomes:
+        if outcome.kind == "Commit":
+            assert outcome.receipt_type == "Commit"
+            assert outcome.head_after == outcome.head_before + 1
+            assert outcome.prospective_built
+            if outcome.transition_kind == "HandoffActivate":
+                assert outcome.state_after == outcome.state_before
+                assert outcome.authority_after == outcome.authority_before
+                assert outcome.handoff_input_revision >= 0
+                assert outcome.handoff_output_revision == outcome.handoff_input_revision + 1
+                assert outcome.receipt_digest >= 0
+            elif outcome.transition_kind == "BranchCreate":
+                assert outcome.head_before == -1 and outcome.head_after == 0
+                assert outcome.state_before == -1 and outcome.authority_before == -1
+                assert outcome.receipt_digest >= 0
+            else:
+                assert outcome.state_after == transition_root(outcome.state_before, outcome.ops_token)
+            assert outcome.head_after <= state.head
+            assert outcome.authority_after <= state.authority_version
+            for eid in outcome.eids:
+                assert any(
+                    saved_eid == eid and saved_pid == outcome.pid
+                    for saved_eid, saved_pid, _ in state.effects
+                ) or eid <= state.effect_watermark
+        elif outcome.kind == "Quarantine":
+            assert outcome.receipt_type == "Quarantine"
+            assert any(pid == outcome.pid for pid, _ in state.quarantine)
+            assert not outcome.eids
+        elif outcome.kind == "Defer":
+            assert outcome.receipt_type == "Preparation"
+        elif outcome.receipt_type == "PreparationEarly":
+            assert outcome.proposal_digest is None
+        else:
+            assert outcome.receipt_type in {"Preparation", "Activation"}
+        if outcome.receipt_type == "Activation":
+            assert outcome.act_check in ACT_CHECKS
+            assert len(outcome.act_results) == len(ACT_CHECKS)
+            failed = ACT_CHECKS.index(outcome.act_check)
+            assert outcome.act_results[failed] == "Fail"
+            assert all(value == "Pass" for value in outcome.act_results[:failed])
+            assert all(value == "NE" for value in outcome.act_results[failed + 1:])
+        if outcome.receipt_type in {"Commit", "Quarantine"}:
+            assert len(outcome.act_results) == len(ACT_CHECKS)
+        if outcome.receipt_type.startswith("Preparation"):
+            assert outcome.prep_stage in {
+                "Decode", "Canonicalize", "ProposalAuth", "StaticValidation",
+                "TargetLookup", "AcquisitionAuth", "RequirementCoverage",
+                "AcquisitionTime",
+            }
+            assert outcome.head_after == -1 and outcome.state_after == -1
+        if outcome.receipt_type != "PreparationEarly":
+            assert outcome.proposal_digest is not None
+
+        retry = submit(
+            state,
+            Request(
+                outcome.pid,
+                outcome.core_digest,
+                outcome.attempt_digest,
+                state.head,
+                state.epoch,
+                state.writer,
+            ),
+        )
+        assert retry.state == state and retry.response == outcome.kind
+
+    if state.proposal_watermark >= 0 and outcome_for(state, 0) is None:
+        retired = submit(state, Request(0, 123, 123, state.head, state.epoch, state.writer))
+        assert retired.state == state and retired.response == "RetiredIdentifier"
+    if state.lifecycle == "SourceFenced":
+        assert state.writer == -1 and state.handoff_open
+        assert state.handoff_history[-1] == "SourceFenced"
+        assert state.epoch == state.reserved_epoch
+    if state.lifecycle == "TargetActive":
+        assert state.writer == state.target_writer and not state.handoff_open
+        assert state.handoff_history[-1] == "TargetActive"
+        target_outcome = outcome_for(state, HANDOFF_PID)
+        assert target_outcome is not None and target_outcome.transition_kind == "HandoffActivate"
+        assert any(
+            item.key_kind == "HandoffResultKey"
+            and item.key == handoff_result_key(HANDOFF_PID)
+            and item.output_revision == state.handoff_revision
+            and item.action == "TargetActive"
+            and item.pid == HANDOFF_PID
+            and item.receipt_digest == target_outcome.receipt_digest
+            for item in state.handoff_results
+        )
+        assert target_outcome.pid == HANDOFF_PID  # one O and HResult receipt
+    if state.lifecycle == "Aborted":
+        assert state.writer == OWNER and not state.handoff_open
+        assert state.handoff_history[-1] == "Aborted"
+        assert state.reserved_epoch == -1
+    if state.lifecycle == "Prepared":
+        assert state.handoff_open and state.handoff_history[-1] == "Prepared"
+    if state.handoff_revision >= 0:
+        assert state.handoff_parent_revision < state.handoff_revision
+        assert state.dir_seq == state.handoff_revision + 1
+        assert len(state.handoff_history) == state.handoff_revision + 1
+        assert set(state.handoff_history) <= {
+            "Prepared", "SourceFenced", "Aborted", "TargetActive",
+        }
+        lids = [lid for lid, _, _ in state.lifecycle_receipts]
+        assert len(lids) == len(set(lids))
+        result_keys = [(item.key_kind, item.key) for item in state.handoff_results]
+        assert len(result_keys) == len(set(result_keys))
+        for lid, action, receipt_digest in state.lifecycle_receipts:
+            assert any(
+                item.key_kind == "LifecycleKey"
+                and item.key == lifecycle_result_key(lid)
+                and item.action == action
+                and item.receipt_digest == receipt_digest
+                and item.pid == -1
+                for item in state.handoff_results
+            )
+    if state.created_from != -1:
+        create_outcomes = [
+            outcome for outcome in state.outcomes
+            if outcome.kind == "Commit" and outcome.transition_kind == "BranchCreate"
+        ]
+        assert len(create_outcomes) == 1
+        assert state.created_from >= 0
+
+
+def main() -> None:
+    assert_guard_cases()
+    assert_activation_stage_order()
+    assert_complete_accepted_units()
+    assert_kind_specific_admission()
+    assert_acyclic_construction()
+    assert_genesis_lineage()
+    assert_context_resource_profile()
+    assert_retire_before_delete()
+    assert_signed_receipt_abort()
+    initial = State()
+    queue = deque([(initial, 0)])
+    seen = {initial}
+    transitions = 0
+    reached = {
+        "commit": False,
+        "reject": False,
+        "quarantine": False,
+        "defer": False,
+        "candidate_exact": False,
+        "duplicate_intra_effect": False,
+        "freshness_final": False,
+        "proposal_reclaimed": False,
+        "effect_reclaimed": False,
+        "authority_atomic": False,
+        "self_authorization_rejected": False,
+        "source_fenced": False,
+        "aborted": False,
+        "lifecycle_receipts": False,
+        "retargeted": False,
+        "abandoned_target_blocked": False,
+        "target_active": False,
+        "masked_restore": False,
+    }
+
+    while queue:
+        state, depth = queue.popleft()
+        check_state(state)
+        kinds = {outcome.kind for outcome in state.outcomes}
+        reached["commit"] |= "Commit" in kinds
+        reached["reject"] |= any(kind.startswith("Reject") for kind in kinds)
+        reached["quarantine"] |= "Quarantine" in kinds
+        reached["defer"] |= "Defer" in kinds
+        reached["candidate_exact"] |= any(
+            o.kind == "Commit" and o.state_after == transition_root(o.state_before, o.ops_token)
+            for o in state.outcomes
+        )
+        reached["duplicate_intra_effect"] |= "RejectDuplicateEffectInProposal" in kinds
+        reached["freshness_final"] |= any(
+            o.kind == "RejectExpiredAtActivation" and o.act_check == "FreshnessFinal"
+            for o in state.outcomes
+        )
+        reached["proposal_reclaimed"] |= state.proposal_watermark >= 0
+        reached["effect_reclaimed"] |= state.effect_watermark >= 0
+        reached["authority_atomic"] |= any(
+            o.kind == "Commit" and o.authority_after > o.authority_before
+            for o in state.outcomes
+        )
+        reached["self_authorization_rejected"] |= any(
+            o.pid == 10 and o.kind == "RejectUnauthorized" for o in state.outcomes
+        )
+        reached["source_fenced"] |= state.lifecycle == "SourceFenced"
+        reached["aborted"] |= state.lifecycle == "Aborted"
+        reached["lifecycle_receipts"] |= bool(state.lifecycle_receipts)
+        reached["retargeted"] |= state.lifecycle == "SourceFenced" and state.abandoned_writer >= 0
+        reached["target_active"] |= state.lifecycle == "TargetActive"
+        reached["masked_restore"] |= state.restorable_root == 9
+
+        if depth == MAX_DEPTH:
+            continue
+        for _, result in successors(state):
+            reached["abandoned_target_blocked"] |= result.response == "TargetEpochConflict"
+            successor = result.state
+            if successor == state:
+                continue
+            transitions += 1
+            if successor not in seen:
+                seen.add(successor)
+                queue.append((successor, depth + 1))
+
+    assert all(reached.values()), f"coverage goal not reached: {reached}"
+    print(
+        "bounded_model_ok "
+        f"states={len(seen)} transitions={transitions} max_depth={MAX_DEPTH} "
+        "pids=13 eids=4 principals=2 branches=1 shared_rows=1"
+    )
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ExecuteChangeSet - AWS CloudFormation</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="API_ExecuteChangeSet" /><meta name="default_state" content="API_ExecuteChangeSet" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" /><meta name="description" content="Updates a stack using the input information that was provided when the specified change set was created. After the call successfully completes, CloudFormation starts updating the stack. Use the action to view the status of the update." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS CloudFormation" /><meta name="guide" content="API Reference" /><meta name="abstract" content="AWS CloudFormation allows you to create and manage AWS infrastructure deployments predictably and repeatedly. You can use CloudFormation to leverage AWS products, such as Amazon Elastic Compute Cloud, Amazon Elastic Block Store, Amazon Simple Notification Service, Elastic Load Balancing, and Amazon EC2 Auto Scaling to build highly reliable, highly scalable, cost-effective applications without creating or configuring the underlying AWS infrastructure." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="id-id" /><link rel="alternate" href="https://docs.aws.amazon.com/id_id/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="id" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="de-de" /><link rel="alternate" href="https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="de" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="en-us" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="en" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="es-es" /><link rel="alternate" href="https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="es" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="fr-fr" /><link rel="alternate" href="https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="fr" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="it-it" /><link rel="alternate" href="https://docs.aws.amazon.com/it_it/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="it" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="ja-jp" /><link rel="alternate" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="ja" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="ko-kr" /><link rel="alternate" href="https://docs.aws.amazon.com/ko_kr/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="ko" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="pt-br" /><link rel="alternate" href="https://docs.aws.amazon.com/pt_br/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="pt" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_cn/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.aws.amazon.com/zh_tw/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="zh-tw" /><link rel="alternate" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFormation" /><meta name="this_doc_product" content="AWS CloudFormation" /><meta name="this_doc_guide" content="API Reference" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudformation'}"></script><meta id="panorama-serviceSubSection" value="API Reference" /><meta id="panorama-serviceConsolePage" value="ExecuteChangeSet" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="API_ExecuteChangeSet.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>ExecuteChangeSet - AWS CloudFormation</title><meta name="pdf" content="/pdfs/AWSCloudFormation/latest/APIReference/cfn-api.pdf#API_ExecuteChangeSet" /><meta name="forums" content="https://repost.aws/tags/TAm3R3LNU3RfSX9L23YIpo3w" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFormation&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html" /><meta name="keywords" content="API,requests,ExecuteChangeSet" /><link rel="alternate" type="text/markdown" href="API_ExecuteChangeSet.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS CloudFormation",
+        "item" : "https://docs.aws.amazon.com/cloudformation/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "API Reference",
+        "item" : "https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Actions",
+        "item" : "https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Operations.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "ExecuteChangeSet",
+        "item" : "https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Operations.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AWSCloudFormation/latest/APIReference/cfn-api.pdf#API_ExecuteChangeSet" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/cloudformation/index.html">AWS CloudFormation</a><a href="Welcome.html">API Reference</a></div><div id="page-toc-src"><a href="#API_ExecuteChangeSet_RequestParameters">Request Parameters</a><a href="#API_ExecuteChangeSet_Errors">Errors</a><a href="#API_ExecuteChangeSet_Examples">Examples</a><a href="#API_ExecuteChangeSet_SeeAlso">See Also</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="API_ExecuteChangeSet">ExecuteChangeSet</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Updates a stack using the input information that was provided when the specified change
+      set was created. After the call successfully completes, CloudFormation starts updating the stack.
+      Use the <a href="./API_DescribeStacks.html">DescribeStacks</a> action to view the status of the update.</p><p>When you execute a change set, CloudFormation deletes all other change sets associated with
+      the stack because they aren't valid for the updated stack.</p><p>If a stack policy is associated with the stack, CloudFormation enforces the policy during the
+      update. You can't specify a temporary stack policy that overrides the current policy.</p><p>To create a change set for the entire stack hierarchy, <code class="code">IncludeNestedStacks</code>
+      must have been set to <code class="code">True</code>.</p>
+      <h2 id="API_ExecuteChangeSet_RequestParameters">Request Parameters</h2>
+      <p> For information about the parameters that are common to all actions, see <a href="./CommonParameters.html">Common Parameters</a>.</p>
+      <div class="variablelist">
+          
+          
+          
+          
+          
+      <dl>
+            <dt><span class="term">
+               <b>
+                  ChangeSetName
+               </b>
+            </span></dt>
+            <dd>
+               <p>The name or Amazon Resource Name (ARN) of the change set that you want use to update the
+      specified stack.</p>
+               <p>Type: String</p>
+               <p>Length Constraints: Minimum length of 1. Maximum length of 1600.</p>
+               <p>Pattern: <code class="code">[a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/]*</code>
+               </p>
+               <p>Required: Yes</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  ClientRequestToken
+               </b>
+            </span></dt>
+            <dd>
+               <p>A unique identifier for this <code class="code">ExecuteChangeSet</code> request. Specify this token if
+      you plan to retry requests so that CloudFormation knows that you're not attempting to execute a
+      change set to update a stack with the same name. You might retry <code class="code">ExecuteChangeSet</code>
+      requests to ensure that CloudFormation successfully received them.</p>
+               <p>Type: String</p>
+               <p>Length Constraints: Minimum length of 1. Maximum length of 128.</p>
+               <p>Pattern: <code class="code">[a-zA-Z0-9][-a-zA-Z0-9]*</code>
+               </p>
+               <p>Required: No</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  DisableRollback
+               </b>
+            </span></dt>
+            <dd>
+               <p>Preserves the state of previously provisioned resources when an operation fails. This
+      parameter can't be specified when the <code class="code">OnStackFailure</code> parameter to the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html">CreateChangeSet</a> API operation was specified.</p>
+               <div class="itemizedlist">
+                   
+                   
+               <ul class="itemizedlist"><li class="listitem">
+                     <p>
+                        <code class="code">True</code> - if the stack creation fails, do nothing. This is equivalent to
+          specifying <code class="code">DO_NOTHING</code> for the <code class="code">OnStackFailure</code> parameter to the
+            <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html">CreateChangeSet</a> API operation.</p>
+                  </li><li class="listitem">
+                     <p>
+                        <code class="code">False</code> - if the stack creation fails, roll back the stack. This is
+          equivalent to specifying <code class="code">ROLLBACK</code> for the <code class="code">OnStackFailure</code>
+          parameter to the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html">CreateChangeSet</a> API operation.</p>
+                  </li></ul></div>
+               <p>Default: <code class="code">True</code>
+               </p>
+               <p>Type: Boolean</p>
+               <p>Required: No</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  RetainExceptOnCreate
+               </b>
+            </span></dt>
+            <dd>
+               <p>When set to <code class="code">true</code>, newly created resources are deleted when the operation
+      rolls back. This includes newly created resources marked with a deletion policy of
+        <code class="code">Retain</code>.</p>
+               <p>Default: <code class="code">false</code>
+               </p>
+               <p>Type: Boolean</p>
+               <p>Required: No</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  StackName
+               </b>
+            </span></dt>
+            <dd>
+               <p>If you specified the name of a change set, specify the stack name or Amazon Resource Name
+      (ARN) that's associated with the change set you want to execute.</p>
+               <p>Type: String</p>
+               <p>Length Constraints: Minimum length of 1.</p>
+               <p>Pattern: <code class="code">([a-zA-Z][-a-zA-Z0-9]*)|(arn:\b(aws|aws-us-gov|aws-cn)\b:[-a-zA-Z0-9:/._+]*)</code>
+               </p>
+               <p>Required: No</p>
+            </dd>
+         </dl></div>
+    
+      <h2 id="API_ExecuteChangeSet_Errors">Errors</h2>
+      <p>For information about the errors that are common to all actions, see <a href="./CommonErrors.html">Common Error Types</a>.</p>
+      <div class="variablelist">
+          
+          
+          
+          
+      <dl>
+            <dt><span class="term">
+               <b>
+                  ChangeSetNotFound
+               </b>
+            </span></dt>
+            <dd>
+               <p>The specified change set name or ID doesn't exit. To view valid change sets for a stack, use the
+   <code class="code">ListChangeSets</code> operation.</p>
+               <p>HTTP Status Code: 404</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  InsufficientCapabilities
+               </b>
+            </span></dt>
+            <dd>
+               <p>The template contains resources with capabilities that weren't specified in the Capabilities parameter.</p>
+               <p>HTTP Status Code: 400</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  InvalidChangeSetStatus
+               </b>
+            </span></dt>
+            <dd>
+               <p>The specified change set can't be used to update the stack. For example, the change set status might be
+   <code class="code">CREATE_IN_PROGRESS</code>, or the stack status might be <code class="code">UPDATE_IN_PROGRESS</code>.</p>
+               <p>HTTP Status Code: 400</p>
+            </dd>
+          
+            <dt><span class="term">
+               <b>
+                  TokenAlreadyExists
+               </b>
+            </span></dt>
+            <dd>
+               <p>A client request token already exists.</p>
+               <p>HTTP Status Code: 400</p>
+            </dd>
+         </dl></div>
+    
+      <h2 id="API_ExecuteChangeSet_Examples">Examples</h2>
+       
+         <h3 id="API_ExecuteChangeSet_Example_1">ExecuteChangeSet</h3>
+         <p>This example illustrates one usage of ExecuteChangeSet.</p>
+          
+            <h4 id="API_ExecuteChangeSet_Example_1_Request">Sample Request</h4>
+            <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="">
+https://cloudformation.us-east-1.amazonaws.com/
+ ?Action=ExecuteChangeSet
+ &amp;ChangeSetName=arn:aws:cloudformation:us-east-1:123456789012:changeSet/SampleChangeSet/12a3b456-0e10-4ce0-9052-5d484a8c4e5b
+ &amp;Version=2010-05-15
+ &amp;X-Amz-Algorithm=AWS4-HMAC-SHA256
+ &amp;X-Amz-Credential=[Access key ID and scope]
+ &amp;X-Amz-Date=20160316T233349Z
+ &amp;X-Amz-SignedHeaders=content-type;host
+ &amp;X-Amz-Signature=[Signature]</code></pre>
+          
+          
+            <h4 id="API_ExecuteChangeSet_Example_1_Response">Sample Response</h4>
+            <pre class="programlisting"><div class="code-btn-container"></div><!--DEBUG: cli ()--><code class="">
+&lt;ExecuteChangeSetResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/"&gt;
+  &lt;ExecuteChangeSetResult/&gt;
+  &lt;ResponseMetadata&gt;
+    &lt;RequestId&gt;5ccc7dcd-744c-11e5-be70-example&lt;/RequestId&gt;
+  &lt;/ResponseMetadata&gt;
+&lt;/ExecuteChangeSetResponse&gt;</code></pre>
+          
+       
+    
+      <h2 id="API_ExecuteChangeSet_SeeAlso">See Also</h2>
+      <p>For more information about using this API in one of the language-specific AWS SDKs, see the following:</p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/cli2/cloudformation-2010-05-15/ExecuteChangeSet">AWS Command Line Interface V2</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/DotNetSDKV4/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for .NET V4</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForCpp/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for C++</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForGoV2/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for Go v2</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForJavaV2/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for Java V2</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForJavaScriptV3/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for JavaScript V3</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForKotlin/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for Kotlin</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForPHPV3/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for PHP V3</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/boto3/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for Python (Boto3)</a>
+            </p>
+         </li><li class="listitem">
+            <p>
+               <a href="https://docs.aws.amazon.com/goto/SdkForRubyV3/cloudformation-2010-05-15/ExecuteChangeSet">AWS SDK for Ruby V3</a>
+            </p>
+         </li></ul></div>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./API_EstimateTemplateCost.html">EstimateTemplateCost</div><div id="next" class="next-link" accesskey="n" href="./API_ExecuteStackRefactor.html">ExecuteStackRefactor</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFormation&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFormation&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

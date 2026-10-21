@@ -1,0 +1,1 @@
+"""Industrial form collection demo."""

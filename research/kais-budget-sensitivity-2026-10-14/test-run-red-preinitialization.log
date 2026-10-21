@@ -1,0 +1,31 @@
+test_interruption_before_first_event_preserves_unknown (__main__.RunnerTests.test_interruption_before_first_event_preserves_unknown) ... FAIL
+
+======================================================================
+FAIL: test_interruption_before_first_event_preserves_unknown (__main__.RunnerTests.test_interruption_before_first_event_preserves_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 219, in test_interruption_before_first_event_preserves_unknown
+    result = run.execute_arm(cell, case, provider, root)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\run.py", line 463, in execute_arm
+    if not log.events: return preserve_incomplete(directory, cell, 'RESUME_BOUNDARY_MISSING')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\run.py", line 448, in preserve_incomplete
+    score = runner.score_run(directory)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\vendor\src\phase2\runner.py", line 597, in score_run
+    'elapsed_ms': events[-1]['elapsed_ms'], 'usage': [e['payload']['usage'] for e in events if e['event_type'] == 'model_response']}
+                  ~~~~~~^^^^
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 221, in test_interruption_before_first_event_preserves_unknown
+    self.fail('An interrupted initialization must retain unknown rather than crash: ' + type(exc).__name__)
+AssertionError: An interrupted initialization must retain unknown rather than crash: IndexError
+
+----------------------------------------------------------------------
+Ran 1 test in 0.055s
+
+FAILED (failures=1)

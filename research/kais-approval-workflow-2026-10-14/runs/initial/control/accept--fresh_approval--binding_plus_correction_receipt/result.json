@@ -1,0 +1,62 @@
+{
+  "relation": "Accept",
+  "route": "binding_plus_correction_receipt",
+  "control": "fresh_approval",
+  "observation": {
+    "label": "fresh-approval",
+    "caller_requested_artifact_id": "regenerated",
+    "selected_artifact_id": "regenerated",
+    "selected_path": "artifacts/regenerated.tfplan",
+    "approved_artifact_id": "regenerated",
+    "gate_decision": "allow",
+    "gate_reason": "artifact identity and digest match",
+    "native_command_number": 9,
+    "native_exit_code": 0,
+    "native_timed_out": false,
+    "native_launch_error": null,
+    "native_error_kind": null,
+    "binding_checks": {
+      "logical_artifact_matches": true,
+      "actual_digest_matches_approval": true,
+      "artifact_metadata_matches_bytes": true
+    },
+    "receipt_checks": {
+      "original_value_matches_plan": true,
+      "original_bytes_preserved": true,
+      "authorized_value_matches_plan": true,
+      "reviewed_matches_attempt": true
+    },
+    "before": {
+      "label": "fresh-approval-before",
+      "exists": true,
+      "quantity": 7,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 1,
+      "lineage": "dc7376a3-9c39-3bc7-2522-2dfac815d699",
+      "sha256": "694f744a31f1f16c32d3637497eeef4a58d3cf66761cb2d4850f5947a0d68c2e",
+      "path": "states/003-fresh-approval-before.tfstate"
+    },
+    "after": {
+      "label": "fresh-approval-after",
+      "exists": true,
+      "quantity": 20,
+      "reference_note": "retain-reviewed-reference",
+      "serial": 2,
+      "lineage": "dc7376a3-9c39-3bc7-2522-2dfac815d699",
+      "sha256": "feab21fb22930f4bbb56b6fa5e3f8252268f89fd7be391ef63f650c749cf39f9",
+      "path": "states/004-fresh-approval-after.tfstate"
+    },
+    "state_changed": true
+  },
+  "checks": {
+    "new_approval_allows_new_artifact": true,
+    "authorized_business_value": true,
+    "unchanged_reference_preserved": true
+  },
+  "status": "pass",
+  "native_cli_calls": 9,
+  "approval_records": 2,
+  "additional_correction_receipt_records": 2,
+  "additional_correction_receipt_bytes": 1402,
+  "record_directory": "control/accept--fresh_approval--binding_plus_correction_receipt"
+}

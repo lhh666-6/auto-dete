@@ -1,0 +1,16 @@
+\begin{table}[tbp]
+\caption{Existing foundations and their role in the corrected-execution comparison. P1--P6 are defined in Section~\ref{admission-and-persistence}.}\label{tab:obligation-positioning}
+\centering\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.37\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Obligation & Existing basis & Role in this study \\
+\midrule
+P1 & Continuity Kernel binds proposal and sealed candidate; ReSA tracks the consumed object \citep{continuity-kernel,zhu2026resa}. & Vary reviewed-instance equality while holding the correction and shared checks fixed; observe continuation. \\
+P2 & ReSA requires preserved or atomically validated consumed versions \citep{zhu2026resa}. & Compare retained context and declared content; separate external referent checks. \\
+P3 & Guarded Commits binds authority and pre-edit, delta and post-edit hashes \citep{bindschaedler2026guarded}. & Retain the machine proposal separately from the authorized correction and committed value. \\
+P4 & Optimistic concurrency control and Continuity Kernel validate predecessors \citep{kung-occ,continuity-kernel}. & Keep freshness shared across policies, separate from instance mismatch. \\
+P5 & Transactions and Continuity Kernel install an atomic accepted unit \citep{gray-transaction,continuity-kernel}. & Install the complete corrected successor, sources, transitions and grant consumption together. \\
+P6 & Provenance and curated-database copying retain derivation and source relations \citep{buneman-provenance,buneman-curated}. & Link changed fields to authorized transitions and copy unchanged fields' exact prior sources; check these relations in persistence. \\
+\bottomrule
+\end{tabularx}
+\end{table}

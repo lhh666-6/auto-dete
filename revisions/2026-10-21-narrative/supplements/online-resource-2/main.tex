@@ -1,0 +1,276 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=23mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\thesection}{A\arabic{section}}
+\title{Online Resource 2: Supplementary Addendum\protect\\
+\large The Review–Execution Gap in Agentic Software: Specification, Design Space, and Empirical Characterization}
+\author{Liang Hanghao, Xuan Wentao, Chen Qile, and Peng Peng}
+\date{}
+\begin{document}
+\maketitle
+\begin{center}\small
+Automated Software Engineering manuscript\\
+College of Computer Science and Electronic Engineering, Hunan University, Changsha, China\\
+Corresponding author: Peng Peng, \texttt{hnu16pp@hnu.edu.cn}
+\end{center}
+\noindent\textbf{Scope.} This resource accompanies the manuscript on the review--execution gap. Online Resource 1 retains the original study documentation. The original 512-arm collection and separately frozen 117-pair deployment-A collection keep their original denominators, scores and inference. The analyses below are later diagnostics or separately frozen exploratory studies. Deterministic implementation checks are distinguished from hosted-agent observations. Sections A1--A2 report output-budget evidence, A3 examines receipt semantics, A4 reports local mechanism probes, A5 documents the historical audit, A6 maps controlled cases, A7 recounts preview exposure, and A8 reports configured ToolGate and public-reference workflows. Sections A9--A10 give the extended specification and design-selection guide; A11 documents native-approval and binding-scope reproduction.
+
+\section{Output truncation in original deployment B}
+The diagnostic audit covered all 128 B tasks and 256 arms, counting each shared prefix once. It linked all 1,372 recorded provider responses to their events and saved inputs. Of these responses, 1,293 ended naturally with parseable actions and 79 reported \texttt{stop\_reason=max\_tokens}, with no parseable action. All 79 occurred after the shared review prefix: 76 had no text and three contained partial, unparseable text. The 4,096-token cap is established by the frozen configuration and adapter, not a retained HTTP wire capture.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Original B diagnostic counts. The original outcomes are retained.}
+\begin{tabular}{lrr}
+\toprule
+Quantity & Context & Bound\\
+\midrule
+Arms & 128 & 128\\
+Arms with at least one truncated suffix response & 33 & 28\\
+Truncated suffix responses & 43 & 36\\
+Original invalid-output terminations & 10 & 8\\
+Original task completions & 117 & 119\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All eighteen invalid-output terminations ended in a truncated response after the history's one format-repair allowance had already been used. Five histories contained intervening parseable actions between their two truncated responses; these were not uniformly consecutive failures or transport retries. Among all 61 affected arms, 42 later completed, eighteen ended with invalid output, and one retained its missing-termination classification. No transport retry was recorded. Truncation at any point therefore cannot be equated with task failure.
+
+The original bound-minus-context completion difference of two tasks coincides arithmetically with the unequal locations of these terminations: seven pairs have only a context termination, five only a bound termination, and three both. This is a descriptive decomposition, not an estimate of what the historical model would have done with a larger budget. The original failure scores, unknown handling and integrity violations remain intact; a later reporting failure does not undo a committed instance violation. The diagnostic supports describing these outcomes as truncation-associated invalid output, rather than naturally completed format noncompliance.
+
+\section{Separately frozen output-budget sensitivity study}
+Twenty-four tasks were sampled from the original task definitions, four from each of E, G, L, N, R and V. Each archived B review checkpoint and its visible prefix was continued under a contemporaneous $2\times2$ design: context/bound policy crossed with caps of 4,096/393,216 output tokens. The resulting 96 continuations were assigned before collection, with task blocks and Williams arm order fixed. There was one continuation per task and condition. This equal-scenario sample is not weighted like the original 128-task set.
+
+Both budgets used the same current deployment, temperature zero, and extended waiting limits of 1,800 seconds per request and 21,600 seconds per continuation. The original twenty decision steps, twenty-four tool calls and one format-repair allowance per history were retained. The extended waiting limits also apply to the lower-cap condition; neither condition is an exact rerun of the original 90/720-second limits. The model alias does not establish that the immutable model version matched the historical collection.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Complete 96-continuation sensitivity results. $U$ and $I$ are scored separately; there are no unknown outcomes in this collection.}
+\begin{tabular}{llrrrr}
+\toprule
+Policy & Output cap & $U=1$ & $I=1$ & Invalid output & Truncated/responses\\
+\midrule
+Context & 4,096   & 23/24 & 20/24 & 1 & 6/100\\
+Bound   & 4,096   & 22/24 & 24/24 & 2 & 8/93\\
+Context & 393,216 & 24/24 & 20/24 & 0 & 0/96\\
+Bound   & 393,216 & 24/24 & 24/24 & 0 & 0/100\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The lower-cap conditions produced fourteen truncated responses across eleven arms. Three arms terminated with invalid output after truncation, before any tool action; they remain in the denominator and cost totals. In the expanded-cap conditions, all 196 responses ended naturally; thirteen reported more than 4,096 output tokens, with maximum 8,447. Thus, the larger cap was used in practice. All 389 requests received responses, with no outer transport retry.
+
+The descriptive bound-minus-context completion difference is $-1/24$ at the lower cap and zero at the expanded cap. The difference of these differences is $+1/24$ (4.17 percentage points), supported by only three discordant tasks. No equivalence, non-inferiority or stable interaction claim follows. The four context integrity violations at each cap occurred at the programmed G handoff, not through naturally occurring agent substitution. Bound recovered with reviewed-candidate reuse in all four G tasks under each budget; those are two observations of the same four tasks, not eight independent tasks.
+
+These observations show budget sensitivity in the sampled current continuations while retaining the integrity separation under both caps. They neither replace original results nor recover the counterfactual outcome of the eighteen historical failures. Actual continuation time and provider usage are available in the artifact report; low tool counts in prematurely terminated arms are not evidence of efficiency.
+
+\section{Receipt unavailability versus uncertain commit outcome}
+In the original R family, the agent receives a successful commit response before the first subsequent receipt query becomes unavailable. Authoritative state remains readable. A state-confirmation endpoint in that setting concerns an already acknowledged commit; it does not show that state inspection alone can attribute a commit whose success response was never delivered.
+
+A separate deterministic check used the unchanged original Host, with durable copies of the full original request and key. Accept ($20\to20$) and Correction ($20\to21$), two policies and six history conditions produced 24 main records, plus eight controls. The fixed recovery script retried the original arguments and key once and then read full public state. It received only the client journal and public returns; injected history and private state were used only by the environment and scorer.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Deterministic recovery witnesses. Each row contains four records. These are not LLM-agent outcomes.}
+\begin{tabularx}{\textwidth}{@{}Xll@{}}
+\toprule
+History & Correct own-request report & New recovery transitions\\
+\midrule
+Initial request not delivered & Confirmed after retry & One per record\\
+Commit persisted, success reply lost & Historical success & Zero\\
+Competing key commits same value & Rejected; goal true & Zero\\
+Own commit, then reviewer disabled & Historical success & Zero\\
+Own commit; retry delivery blocked & Unknown; goal true & Zero\\
+Competing commit; retry delivery blocked & Unknown; goal true & Zero\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+There were twelve confirmed, four rejected and eight unknown reports, with one business transition in every final state. Four paired hidden histories had identical full client journals and public observations, including values, versions, sources and capabilities, but different request ownership. The competing request used the same candidate and grant with another key; it was not an independently approved actor. These pairs are concrete witnesses that a matching state need not identify the request that committed. They do not prove that all possible interfaces are permanently insufficient.
+
+Controls also distinguished historical receipts from current permission: the original successful response remained replayable after reviewer disablement without a new transition, and a cached refusal remained replayable after reviewer restoration while a valid fresh request could succeed. Changed arguments under a previously used key were rejected as a collision; such a collision is not evidence that the original request failed.
+
+Both runs passed all 316 implementation checks; rebuilding in another directory was not a new statistical sample. The result depends on a complete retained client request, retained idempotency records and complete SQLite state checkpoints. It does not cover partial persistence, process crashes during commit, cache eviction, lost client journals, real concurrent races or cross-service effects. Existing retry and receipt mechanisms suffice under these tested conditions. Agent ability to choose or interpret those mechanisms was not measured.
+
+\section{Strong-binding overlap and local integration}
+The two comparisons below preserve the native protections and avoid treating an unavailable abstraction as a failed system. They are local exploratory checks, not a complete external-system benchmark or an efficacy ranking.
+
+\subsection*{Continuity Kernel model probe}
+The unmodified author model at commit \nolinkurl{74841530988f1324bd927da15519486509372917} was called through its native submission interface. The matrix planned 24 records, with context, bound and the CK model for two value relations and four scenarios. Twenty-two records executed; two CK instance-substitution cells were retained as not representable because its exposed abstraction lacks a distinct human-reviewed candidate object. They were not counted as failures, accepted substitutions or zero integrity scores.
+
+All eighteen records in the six jointly expressible cells agreed on coarse admission decisions for normal submission, changed evidence and changed predecessors. CK's Accept/Correction values were adapter encodings, and its evidence validity was a supplied predicate; these are not native demonstrations of the full correction or evidence-byte contract. Fourteen initial rejections had scripted legal recovery witnesses, all twenty-two executable requests replayed without another authoritative change, and eleven controls checked retained protections. The 150 assertions are implementation checks, not independent samples. This probe supports capability mapping, not superiority or absence of instance-binding capability in CK.
+
+\subsection*{Native saved-plan workflow}
+The application rule was an approval for a named logical saved-plan artifact, with a fresh approval required for another plan. HashiCorp's official automation guidance describes tying approval to the correct plan. OpenTofu treats a supplied saved plan as approved input, so both comparison routes added the same explicit trusted approval record, artifact identifier and digest checks before invoking the unmodified OpenTofu 1.13.1 binary. Those approval checks belong to the workflow wrapper, not a native human-approval API.
+
+One route used saved-plan binding; the other retained the same binding and added explicit correction receipts. Both had the same original proposal, plan and approval information, and the baseline could reconstruct the relation from its logs. Accept and Correction crossed six scenarios and two routes to give 24 main records (twelve route pairs), plus eight controls. The local \texttt{terraform\_data} fixtures used no cloud resources, external providers, human reviewers or LLM calls.
+
+Both routes satisfied the tested common obligations. Each route's twelve main records used 128 native CLI calls and sixteen approval records, including authorized state advancement in stale-state fixtures. Twelve scripted recoveries succeeded across both routes. All twenty-four main replays were refused as stale without another state change: this is stable non-reexecution, not a returned cached success receipt. The extension generated sixty extra receipt files totalling 40,521 bytes. The 240 checks and new-directory rebuild verify this constructed integration; they do not establish minimal storage cost, production performance or audit time saved.
+
+These comparisons locate the contribution in the explicit four-role correction relation, successor and field-source obligations, and the original online evidence on agent continuation. Identity binding and recovery have strong existing foundations. The OpenTofu mapping did not port the full successor/provenance contract, and neither comparison demonstrated additional execution protection or audit efficiency over a strong binding baseline. A broader system comparison or an audit-task study would require a separately specified observable benefit.
+
+\section{Historical correction-chain audit protocol}
+The main text reports that an audit of 1,260 historical databases identified 84 retained machine-origin correction chains. This section records the population, discovery rule and per-chain counts so that the claim can be checked from the deposited evidence.
+
+\textbf{Population and discovery.} The audit opened all 1,260 archived databases read-only. Each database belongs to one archived run of the restricted-agent benchmark (three requested configurations, 420 runs each). A correction chain was enumerated from the persisted transition table as a committed transition whose source kind is \texttt{AI\_SUGGESTION} and whose committed value differs from the proposal value stored on its candidate certificate. No task-success label was used for selection. All such transitions in the population were audited; none was excluded after inspection.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Historical correction-chain audit counts. Units are persisted chains and checks, not task successes.}
+\begin{tabular}{lr}
+\toprule
+Quantity & Value \\
+\midrule
+Databases scanned & 1,260 \\
+Correction chains found & 84 \\
+Chains with an audited violation & 0 \\
+Chains with no audited violation & 84 \\
+Behavior-evaluable chains & 81 \\
+Evidence associations checked & 252 \\
+Candidate-certificate checks & 252 \\
+Record versions checked & 168 \\
+P6 provenance traces checked & 168 \\
+Chains with unchanged-field checks & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Configuration counts are $G1=29$, $G2=26$ and $D1=29$; prompt-variant counts are $V1=27$, $V2=29$ and $V3=28$. Terminal classes of the containing runs are 80 \texttt{PASS\_UTILITY\_SAFE}, one \texttt{PASS\_SAFE\_BUT\_UTILITY\_FAILED}, two \texttt{MODEL\_API\_FAILURE} and one \texttt{TIMEOUT}. All 84 chains are single-field, so the audit supplies zero nonvacuous unchanged-field checks; copy-forward is supported by the controlled multi-field evidence, not by this audit.
+
+\textbf{What the audit does and does not establish.} It verifies that the four roles can be reconstructed from persisted relations and archived evidence, and that the recovered relations satisfy the audited binding. It does not show that the historical system enforced the relation at run time, because the audit reconstructs from persisted state rather than from an enforcement log; it does not establish natural mismatch prevalence or adoption need. Chain identifiers and input hashes are retained in \nolinkurl{research/authorization-granularity-phase1-2026-10-06/} (\texttt{correction-chains.jsonl}, \texttt{correction-summary.json}, \texttt{audit\_corrections.py}); the receipt association pairs tool calls and results by tool name in archived event order because the archive has no uniform call identifier.
+
+\section{Controlled-case summaries and artifact mapping}
+The main text reports outcomes of the controlled comparisons and the bounded formal checks. Those counts are summarized here with their denominators and with the artifact paths that retain the per-case records.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Controlled and formal evidence: counts, denominators and units.}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}p{0.34\textwidth}X@{}}
+\toprule
+Evidence & Counts & Unit and artifact \\
+\midrule
+E1, exact journal and relational reference & 165 cases each: 45 legal accepted, 120 rejected (the 15 equal-value substitutions are rejected) & Two exact realizations; 495 executions in total across three arms. \nolinkurl{results/e1/inputs.json}, \nolinkurl{results/e1/receipts.jsonl} \\
+E1, context journal & 165 cases: 60 accepted (45 legal plus 15 equal-value substitutions), 105 rejected & Same constructed cases under the retained-context policy. \\
+E2, per path & 30 cases: 9 legitimate, 9 request substitutions, 9 stale/replay/interrupt, 3 display-only & Scripted browser interactions plus 6 replay setup confirmations. \nolinkurl{results/e2/browser-observations.jsonl} \\
+Rejection audit & 372 rejected attempts across E1 and E2 & Attempts, with expected cause and unchanged fact-database digest. \nolinkurl{rejection-audit.json}, \nolinkurl{verification.json} \\
+Bounded checks & 36 commands in each of two scopes (72 outcomes); 9 projections SAT; 20 selected mutants UNSAT & Command outcomes, not independent proofs. \nolinkurl{research/authorization-granularity-phase1-2026-10-06/formal/} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The E1 and E2 records are retained in the pinned DKE-supplement archive cited in the main text; this addendum does not re-analyze them. The labels ``legal'', ``rejected'' and ``display-only'' follow the submitted protocol. All cases are constructed or scripted, not production interactions.
+
+\section{Refreshed-preview exposure in the N family}
+The main text reports that no N transition substituted an instance without authorization. This section records how often an equivalent but distinct candidate was exposed and which legal continuation each agent chose.
+
+\textbf{Population and decision rule.} The analysis unit is the N arm that reached review and has a retained state record: 127 arms in total (original A six, original B 63, supplementary A 58). Exposure is judged relative to the review object that existed before the refreshed preview, not relative to every grant present in the final state. For each arm we take the earliest authorization by issue time, require both candidate contexts to be present dictionaries, and compare their canonical JSON serialization; a preview candidate counts as an equivalent alternative when its identifier differs from that review object and its canonical context is equal. A candidate that is previewed and later separately authorized therefore still counts as an exposed alternative; treating it as part of the review set would understate the denominator. Presentation is verified from the saved model-input files, which contain the exposed candidate identifier, together with a later model-response event without an error. Commit paths are read from persisted transitions and checked against the reviewed candidate of their authorizing grant. The recount reads archived states, events and saved model inputs and makes no new model calls.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{Refreshed-preview exposure in the N family. ``Reviewed'' counts arms that reached review and retain a state record. ``Exposure'' requires a preview candidate with a different identifier and a canonically equal retained context, judged against the pre-preview review object. ``Presented'' requires the candidate in the saved model inputs and a later non-error model response. ``Reused'' committed the reviewed instance; ``Reauthorized'' requested a fresh authorization for the previewed instance and committed it. No commit mismatched its authorizing grant.}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+Cohort & Policy & Reviewed & Preview & Exposure & Presented & Reused & Reauthorized \\
+\midrule
+Original A & Context & 3 & 3 & 3 & 3 & 3 & 0 \\
+Original A & Bound & 3 & 3 & 3 & 3 & 3 & 0 \\
+Original B & Context & 32 & 30 & 30 & 30 & 30 & 0 \\
+Original B & Bound & 31 & 30 & 30 & 30 & 30 & 0 \\
+Supplementary A & Context & 29 & 29 & 29 & 29 & 29 & 0 \\
+Supplementary A & Bound & 29 & 29 & 29 & 29 & 28 & 1 \\
+\midrule
+Total & & 127 & 124 & 124 & 124 & 123 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across the cohorts, 124 of the 127 analyzable arms received a preview of an equivalent but distinct candidate, and in all 124 the candidate and a later non-error model response are present in the saved inputs. Of these, 123 committed the reviewed instance and one supplementary-A bound arm (\texttt{FORMAL-N-016-A}) requested a fresh authorization for the previewed instance and committed it. No commit was observed whose candidate did not match its authorizing grant. The observation therefore shows two legal continuity-preserving behaviours under an available alternative, not a lack of opportunity; it does not estimate how often such an alternative arises in production. The three reviewed arms without a preview are retained in the counts rather than dropped.
+
+One original-B context arm (\texttt{FORMAL-N-020-B}) has no final state; the last numbered after-state is used. That record supports the observed events up to its save point (preview, model response, commit and persisted transition are present) but is not treated as a complete final state, and the original frozen integrity and termination classification are unchanged. Excluding this arm as a sensitivity check leaves 126 analyzable arms, 123 equivalent exposures, 122 reviewed-instance commits and one reauthorization.
+
+\textbf{Source records.} Counts were read from the archived states, events and saved model inputs in \nolinkurl{revisions/2026-10-07-kais-continuity/replication-package.zip} (original collection; SHA-256 \nolinkurl{1bc17338d18f198811e0e58eca9b64bded29f9b01cd61558862455e7e0d469d8}) and \nolinkurl{research/phase2-results-snapshots/2026-10-07-complete/quota-recovery-complete.zip} (supplementary A; SHA-256 \nolinkurl{536f8b7d784d1af118145affd90c3d613b67ad44d9c5b3607b463bcebeacbec1}). State paths follow \nolinkurl{formal-results/FORMAL-N-*/<policy>/state/final.json} and \nolinkurl{results/FORMAL-N-*/attempt-001/<policy>/state/final.json}; presentation uses the adjacent \nolinkurl{model-inputs/} and \nolinkurl{events.jsonl} records. The recount script and per-arm output are retained in \nolinkurl{revisions/2026-10-18-kais-recalibrated/qa/n_exposure.py} and \nolinkurl{revisions/2026-10-18-kais-recalibrated/qa/n-exposure.csv}; the recorded per-arm flags include whether an after-state was used and whether any unauthorised substitution was observed. The analysis exports in Online Resource 1 report 30 N transitions per policy for original B, which matches the 30 observed commits per policy recounted here. An earlier draft of this section judged exposure against the final grant set; that rule is superseded because it excluded a previewed candidate that was subsequently authorised.
+
+\section{Configured ToolGate and public-tool reference workflows}
+\label{sec:a8-toolgate}
+\textbf{Comparison target and source versions.}
+The question is whether a separately developed contract-execution framework can implement the shared correction obligations and pass its committed state to a subsequent workflow. ToolGate is the method of Liu et al., \emph{ToolGate: Contract-Grounded and Verified Tool Execution for LLMs}, Findings of ACL 2026, pp.~9653--9684 (\url{https://doi.org/10.18653/v1/2026.findings-acl.470}). The paper links to \url{https://github.com/OceannTwT/ToolGate}, which redirects to the recorded source \url{https://github.com/Liam-magicbook/ToolGate}. We use commit \nolinkurl{976ad3f5528f89e248cbdf55840347b445934155}, a snapshot preceding final publication, and retain its source files unchanged. This identifies the implementation tested; it does not imply reproduction of the final paper's model experiments. The public Retail tools and tasks come from \url{https://github.com/sierra-research/tau2-bench} at commit \nolinkurl{dd8757d4c8791dad7b3cdaf02a105a3d5f9d86bd}.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Implementation ownership in the comparison. Both routes receive the full shared business requirements; $T$ does not call the $C$ verifier.}
+\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}XX@{}}
+\toprule
+Layer & Configured ToolGate ($T$) & Contract backend ($C$)\\
+\midrule
+Existing implementation & Original pipeline: precondition, tool, postcondition, symbolic-state update & Frozen \texttt{ReviewForms} and \texttt{SqlAlchemyFormRepository} admission/persistence backend\\
+Business adaptation & Author-written callbacks for candidate/authorization binding, value, predecessor and successor/source relations & Input construction and mapping into the unchanged contract backend\\
+Persistent boundary & Author-written candidate, grant, version, source and transition records; SQLite commit bridge & Existing persistent backend through \texttt{stores.Store("full", ...)}\\
+Shared execution harness & \multicolumn{2}{p{0.72\textwidth}}{Native Retail tool on a cloned complete world; deterministic review and recovery; independent read-only scoring of actual SQLite and complete reference-world state}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+ToolGate's paper describes contracts extracted from tool specifications and documentation. Here the application predicates are supplied manually through its normal Python callback interfaces. The original pipeline runs with \texttt{llm\_client=None}, a scripted reasoner and fixed single-tool retrieval; no model-generated decisions or LLM verifier calls are measured. All shared relations are available to the baseline, so the initially proposed labels \texttt{T-configured} and \texttt{T+relation} denote one condition. The additional tables and commit bridge are author contributions to the adapter, not native ToolGate external-transaction guarantees.
+
+For $T$, the bridge begins a SQLite transaction, reads the predecessor, runs the original pipeline and writes only after successful postcondition checks. Tools produce a candidate in an isolated clone rather than committing an external effect before verification. For $C$, the original backend makes the admission decision. The shared projection covers candidate/authorization association, proposed and authorized values, predecessor, complete successor and unchanged-field sources; $C$'s additional producer/evidence metadata are not claimed to have been equivalently tested. The scenarios are sequential: arbitrary external-side-effect rollback and concurrent freshness are outside this execution comparison.
+
+\textbf{Development controls.}
+Eight constructed controls are kept separate from the public-workflow denominator. D01--D04 cover unchanged approval, corrected-value execution, reuse after an alternative preview exists, and fresh authorization of the new instance. D05--D08 cover a new instance under the old grant, a predecessor advanced by another transaction, execution of the uncorrected proposal, and an unauthorized change to an unchanged field. Both routes satisfy 8/8 expectations: four authorized commits and four attempts without a new business commit. The independently advanced predecessor in D06 is retained. These are development controls, not held-out benchmark cases.
+
+\textbf{Public workflow selection and intervention.}
+Of fourteen eligible tasks unused in the earlier three-task comparison, twelve groups remain after deduplicating the common initial world and full reference action sequence with action identifiers removed. The six smallest representative IDs---59, 71, 78, 96, 101 and 102---were selected before this run. Some still share orders or actions and are not independent natural samples. Each is crossed with four fixed scenarios and two implementations: $6\times4\times2=48$ routes, or 24 per implementation.
+
+\begin{table}[htbp]
+\centering\small
+\caption{The four controlled scenarios applied to each public reference workflow. Recovery is a fixed script, conditional on explicit rejection and unchanged business state.}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+Scenario & Initial request & Predefined continuation\\
+\midrule
+Corrected & Execute the original candidate at the corrected, authorized address & Run the reference suffix after commit\\
+Reauthorized & Execute a new equivalent candidate under its fresh grant & Run the reference suffix after commit\\
+Instance mismatch & Execute the new candidate under the original grant & Reuse the original reviewed candidate, then run the suffix\\
+Wrong value & Execute the proposal address rather than the authorized correction & Retry at the authorized value, then run the suffix\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The proposal appends the fixed marker \texttt{[unreviewed-draft]} to the reference address's second line; the authorized value is the original reference action's address. Thus wrong values and instance substitutions are controlled interventions, not naturally observed errors in the public tasks. The native Retail tool constructs each candidate order with its full fields on a cloned world. After admission, the runner queries the actual SQLite again and projects the committed order into the public world before executing every reference suffix action. Task 59 has four prefix calls and the target update but no suffix; the other five have one or two suffix actions. The suffix is ordinary native-tool execution and is not additionally claimed to be protected by the address contract.
+
+\textbf{Scoring and complete results.}
+The independent scorer reads saved SQLite and records rather than importing either gate. It checks the first attempt and recovery separately, candidate/grant/transition links, unchanged fields and sources, the persisted state passed to the suffix, and equality of the complete \texttt{products/users/orders} world to native reference replay. Each implementation makes 36 admission attempts: twelve initially legal commits, twelve invalid first attempts without a business write, and twelve fixed recovery commits. Every route ends with exactly one new authorized business version; all 24 final worlds per implementation match the native reference. There are no engineering errors. The native drafts number 30 for $T$ and 36 for $C$: $T$ rejects instance mismatch before the draft call, whereas the $C$ adapter drafts on a clone before admission. Each implementation makes 32 suffix calls. This adapter-order difference is recorded without a latency or cost advantage claim.
+
+The frozen strict scorer reports $T=23$ PASS/$1$ FAIL and $C=24$ PASS/$0$ FAIL. Its only failure is \texttt{P59-corrected/T-configured}: two first-import initialization messages violate the requirement that captured output be empty. Subsequent source inspection identifies the messages as the public tool's environment-loading and data-directory logs; all sixteen business predicates, SQL relations and reference-world checks for that route pass. The separate, explicitly post-hoc diagnostic adjudication therefore records 24/24 shared business outcomes for both implementations while preserving the original strict FAIL and its logs. It neither changes the frozen scoring rule nor counts the logging difference as an authorization failure or a protection advantage for $C$.
+
+These results establish implementation agreement on the tested shared obligations and continuity of scripted reference workflows. They do not establish statistical equivalence. The public task dialogue, \texttt{NL\_ASSERTION} checks and official evaluator were not run; reference-world agreement is accordingly distinct from official benchmark success. Likewise, fixed recovery is not an observation of autonomous agent recovery or human review burden. The separate online study in the main text remains the evidence for agent continuation.
+
+\textbf{Artifact locations.}
+The development protocol, \texttt{UPSTREAM-SOURCE.json}, \texttt{FREEZE.json}, adapters and independent scorer are in \nolinkurl{research/kais-toolgate-feasibility-2026-10-20/}; the saved run is \nolinkurl{runs/20261020T121403449662Z/}. The public protocol, selected-input manifest, source freeze and independent scorer are in \nolinkurl{research/kais-toolgate-public-reference-2026-10-20/}; its run is \nolinkurl{runs/20261020T123319655459Z/}. Each run retains \texttt{RUN.json}, \texttt{SCORE.json}, per-route CSV, original records and SQLite databases. The public directory also retains \texttt{DIAGNOSTIC-ADJUDICATION.md}; the frozen strict score has SHA-256 \nolinkurl{39a1d65be1b47abfdb189c57a7287aba8ac66e256688c697ee7ee705293b60bc}. The unchanged public source bytes and task provenance are pinned by \nolinkurl{research/kais-external-baseline-sprint-2026-10-15/vendor/pilot/source/manifest.json}. Both experiment directories provide read-only rescoring instructions in their \texttt{README.md}; no new model calls are needed.
+
+\clearpage
+\input{extended-specification.tex}
+\input{binding-defaults.tex}
+
+\section*{Artifact sources and reproduction}
+The following repository-relative directories contain the complete protocols, raw or linked records, independent scoring, and reproduction entry points. \texttt{SOURCE-MANIFEST.json} supplied with the manuscript package pins the report versions and archive hashes used for Sections A1--A8 and the current manuscript artifacts. Section A11 additionally identifies the self-contained X1/X2 archive and its internal source manifest. Online Resource 1 remains the reference for the original study evidence.
+\begin{itemize}
+\item Output audit: \nolinkurl{research/kais-revision-output-audit-2026-10-14/RESULTS.md}.
+\item Budget sensitivity: \nolinkurl{research/kais-budget-sensitivity-2026-10-14/RESULTS.md}; offline analysis uses \texttt{analysis.py}.
+\item Commit uncertainty: \nolinkurl{research/kais-commit-uncertainty-2026-10-14/RESULTS.md}; \texttt{run\_probe.py} with a fresh output directory.
+\item CK mapping: \nolinkurl{research/kais-native-baseline-probe-2026-10-14/RESULTS.md}; \texttt{run\_probe.py} with a fresh output file.
+\item OpenTofu integration: \nolinkurl{research/kais-approval-workflow-2026-10-14/RESULTS.md}; \texttt{run\_workflow.py} with a fresh output directory and pinned protocol.
+\item Historical chain audit: \nolinkurl{research/authorization-granularity-phase1-2026-10-06/}; controlled-case records: the pinned DKE-supplement archive cited in the main text.
+\item N exposure recount: \nolinkurl{revisions/2026-10-18-kais-recalibrated/qa/n_exposure.py} and \nolinkurl{revisions/2026-10-18-kais-recalibrated/qa/n-exposure.csv}; source archives are named with hashes in Section A7.
+\item ToolGate development and public-reference comparisons: \nolinkurl{research/kais-toolgate-feasibility-2026-10-20/} and \nolinkurl{research/kais-toolgate-public-reference-2026-10-20/}; sources, frozen runs and the retained diagnostic are mapped in Section A8.
+\item Native-approval and binding-scope comparisons: \nolinkurl{research/ase-x1-x2-2026-10-21/v2/}; the supplied \texttt{X1-X2-reproduction.zip} retains the corrected sources and both final runs, with instructions in \texttt{REPRODUCE.md}.
+\end{itemize}
+Official workflow sources, archived with hashes in the OpenTofu comparison directory, are \url{https://developer.hashicorp.com/terraform/tutorials/automation/automate-terraform} and \url{https://opentofu.org/docs/cli/commands/apply/}. The CK paper is already cited in the main manuscript; its pinned model is \url{https://github.com/openkedge/pci/blob/74841530988f1324bd927da15519486509372917/src/transactional_continuity_kernel/bounded_model.py}.
+
+The reported rebuilds used new directories on the same machine. Independent-environment validation is retained separately: a clean-environment same-machine rebuild (\nolinkurl{research/kais-clean-reproduction-2026-10-14/}) and a cross-machine Linux rebuild with Python 3.11.13 (\nolinkurl{research/kais-server-reproduction-2026-10-14/}). The post-submission studies in this addendum were not themselves rerun cross-machine.
+\end{document}

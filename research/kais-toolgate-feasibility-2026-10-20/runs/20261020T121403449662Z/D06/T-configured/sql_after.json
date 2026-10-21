@@ -1,0 +1,35 @@
+{
+  "approvals": [
+    {
+      "approval_id": "approval-1",
+      "reviewed_candidate_id": "c1",
+      "authorization_json": "{\"approval_id\":\"approval-1\",\"authorized\":{\"line1\":\"corrected\"},\"field\":\"address\",\"predecessor_version\":1,\"proposal\":{\"line1\":\"suggested\"},\"reviewed_candidate_id\":\"c1\",\"target\":\"record-1\"}"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "c1",
+      "context_json": "{\"candidate_id\":\"c1\",\"field\":\"address\",\"predecessor_version\":1,\"proposal\":{\"line1\":\"suggested\"},\"target\":\"record-1\"}"
+    }
+  ],
+  "transitions": [
+    {
+      "transition_id": "independent-update",
+      "record_json": "{\"external\":true,\"field\":\"batch\",\"final\":\"concurrent\",\"from_version\":1,\"previous_source\":\"seed-batch\",\"target\":\"record-1\",\"to_version\":2,\"transition_id\":\"independent-update\",\"version\":2}"
+    }
+  ],
+  "versions": [
+    {
+      "version": 2,
+      "values_json": "{\"address\":{\"line1\":\"old\"},\"batch\":\"concurrent\"}",
+      "sources_json": "{\"address\":\"seed-address\",\"batch\":\"independent-update\"}",
+      "transition_id": "independent-update"
+    },
+    {
+      "version": 1,
+      "values_json": "{\"address\":{\"line1\":\"old\"},\"batch\":\"keep\"}",
+      "sources_json": "{\"address\":\"seed-address\",\"batch\":\"seed-batch\"}",
+      "transition_id": null
+    }
+  ]
+}

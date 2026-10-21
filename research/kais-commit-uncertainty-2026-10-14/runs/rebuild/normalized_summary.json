@@ -1,0 +1,1304 @@
+{
+  "main": [
+    {
+      "scenario": "before_delivery",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 0,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 1,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "scenario": "after_durable_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "scenario": "competing_key_same_value",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "rejected",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "AUTHORIZATION_INVALID",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "scenario": "committed_then_reviewer_disabled",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": false
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "scenario": "hidden_primary_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "scenario": "hidden_competing_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "scenario": "before_delivery",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 0,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 1,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "scenario": "after_durable_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "scenario": "competing_key_same_value",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "rejected",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "AUTHORIZATION_INVALID",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "scenario": "committed_then_reviewer_disabled",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": false
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "scenario": "hidden_primary_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "scenario": "hidden_competing_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "scenario": "before_delivery",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 0,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 1,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "scenario": "after_durable_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "scenario": "competing_key_same_value",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "rejected",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "AUTHORIZATION_INVALID",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "scenario": "committed_then_reviewer_disabled",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": false
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "scenario": "hidden_primary_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "scenario": "hidden_competing_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "scenario": "before_delivery",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 0,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 1,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "bound"
+    },
+    {
+      "scenario": "after_durable_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "bound"
+    },
+    {
+      "scenario": "competing_key_same_value",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "rejected",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "AUTHORIZATION_INVALID",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "bound"
+    },
+    {
+      "scenario": "committed_then_reviewer_disabled",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "confirmed",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": "request-1",
+        "confirmed_historical_version": 2,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": false
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "ok",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "bound"
+    },
+    {
+      "scenario": "hidden_primary_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": true,
+        "primary_committed_after_recovery": true,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "bound"
+    },
+    {
+      "scenario": "hidden_competing_commit",
+      "status": "pass",
+      "checks": {
+        "report_matches_available_evidence": true,
+        "goal_presence_reported_separately": true,
+        "one_total_transition": true,
+        "expected_new_transitions": true,
+        "no_false_request_attribution": true,
+        "known_rejection_not_own_commit": true,
+        "reference_value_preserved": true,
+        "reference_source_preserved": true,
+        "original_request_retried_exactly": true,
+        "no_extra_authorization": true,
+        "recovery_only_retry_and_state": true
+      },
+      "report": {
+        "request_outcome": "unknown",
+        "current_goal_present": true,
+        "observed_current_version": 2,
+        "confirmed_request_id": null,
+        "confirmed_historical_version": null,
+        "claimed_original_delivery_timing": "not_inferred",
+        "claimed_competing_request_identity": "not_inferred"
+      },
+      "truth": {
+        "primary_committed_before_recovery": false,
+        "primary_committed_after_recovery": false,
+        "total_transitions_before": 1,
+        "total_transitions_after": 1,
+        "recovery_new_transitions": 0,
+        "reviewer_active_after": true
+      },
+      "public_response_codes": [
+        "TRANSPORT_TIMEOUT",
+        "TRANSPORT_TIMEOUT",
+        "ok"
+      ],
+      "public_tool_sequence": [
+        "commit",
+        "commit",
+        "get_state"
+      ],
+      "relation": "Correction",
+      "policy": "bound"
+    }
+  ],
+  "controls": [
+    {
+      "control": "changed_payload_collision",
+      "status": "pass",
+      "checks": {
+        "initial_commit_ok": true,
+        "collision_detected": true,
+        "original_result_retained": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "ok",
+        "IDEMPOTENCY_COLLISION",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "control": "cached_rejection_after_change",
+      "status": "pass",
+      "checks": {
+        "initial_reviewer_rejection": true,
+        "cached_rejection_unchanged": true,
+        "rejected_requests_do_not_mutate": true,
+        "fresh_legal_request_succeeds": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "REVIEWER_INVALID",
+        "REVIEWER_INVALID",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Accept",
+      "policy": "context"
+    },
+    {
+      "control": "changed_payload_collision",
+      "status": "pass",
+      "checks": {
+        "initial_commit_ok": true,
+        "collision_detected": true,
+        "original_result_retained": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "ok",
+        "IDEMPOTENCY_COLLISION",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "control": "cached_rejection_after_change",
+      "status": "pass",
+      "checks": {
+        "initial_reviewer_rejection": true,
+        "cached_rejection_unchanged": true,
+        "rejected_requests_do_not_mutate": true,
+        "fresh_legal_request_succeeds": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "REVIEWER_INVALID",
+        "REVIEWER_INVALID",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Accept",
+      "policy": "bound"
+    },
+    {
+      "control": "changed_payload_collision",
+      "status": "pass",
+      "checks": {
+        "initial_commit_ok": true,
+        "collision_detected": true,
+        "original_result_retained": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "ok",
+        "IDEMPOTENCY_COLLISION",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "control": "cached_rejection_after_change",
+      "status": "pass",
+      "checks": {
+        "initial_reviewer_rejection": true,
+        "cached_rejection_unchanged": true,
+        "rejected_requests_do_not_mutate": true,
+        "fresh_legal_request_succeeds": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "REVIEWER_INVALID",
+        "REVIEWER_INVALID",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Correction",
+      "policy": "context"
+    },
+    {
+      "control": "changed_payload_collision",
+      "status": "pass",
+      "checks": {
+        "initial_commit_ok": true,
+        "collision_detected": true,
+        "original_result_retained": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "ok",
+        "IDEMPOTENCY_COLLISION",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Correction",
+      "policy": "bound"
+    },
+    {
+      "control": "cached_rejection_after_change",
+      "status": "pass",
+      "checks": {
+        "initial_reviewer_rejection": true,
+        "cached_rejection_unchanged": true,
+        "rejected_requests_do_not_mutate": true,
+        "fresh_legal_request_succeeds": true,
+        "one_transition_only": true
+      },
+      "response_codes": [
+        "REVIEWER_INVALID",
+        "REVIEWER_INVALID",
+        "ok"
+      ],
+      "total_transitions": 1,
+      "relation": "Correction",
+      "policy": "bound"
+    }
+  ],
+  "observation_pairs": [
+    {
+      "relation": "Accept",
+      "policy": "context",
+      "checks": {
+        "same_complete_journal": true,
+        "same_complete_public_transcript": true,
+        "different_private_request_ownership": true,
+        "both_preserve_unknown": true
+      },
+      "status": "pass"
+    },
+    {
+      "relation": "Accept",
+      "policy": "bound",
+      "checks": {
+        "same_complete_journal": true,
+        "same_complete_public_transcript": true,
+        "different_private_request_ownership": true,
+        "both_preserve_unknown": true
+      },
+      "status": "pass"
+    },
+    {
+      "relation": "Correction",
+      "policy": "context",
+      "checks": {
+        "same_complete_journal": true,
+        "same_complete_public_transcript": true,
+        "different_private_request_ownership": true,
+        "both_preserve_unknown": true
+      },
+      "status": "pass"
+    },
+    {
+      "relation": "Correction",
+      "policy": "bound",
+      "checks": {
+        "same_complete_journal": true,
+        "same_complete_public_transcript": true,
+        "different_private_request_ownership": true,
+        "both_preserve_unknown": true
+      },
+      "status": "pass"
+    }
+  ]
+}

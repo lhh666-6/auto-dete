@@ -1,0 +1,46 @@
+{
+  "label": "recovery",
+  "caller_requested_artifact_id": "corrected",
+  "selected_artifact_id": "corrected",
+  "selected_path": "artifacts/corrected.tfplan",
+  "approved_artifact_id": "corrected",
+  "gate_decision": "allow",
+  "gate_reason": "artifact identity and digest match",
+  "native_command_number": 11,
+  "native_exit_code": 0,
+  "native_timed_out": false,
+  "native_launch_error": null,
+  "native_error_kind": null,
+  "binding_checks": {
+    "logical_artifact_matches": true,
+    "actual_digest_matches_approval": true,
+    "artifact_metadata_matches_bytes": true
+  },
+  "receipt_checks": {
+    "original_value_matches_plan": true,
+    "original_bytes_preserved": true,
+    "authorized_value_matches_plan": true,
+    "reviewed_matches_attempt": true
+  },
+  "before": {
+    "label": "recovery-before",
+    "exists": true,
+    "quantity": 7,
+    "reference_note": "retain-reviewed-reference",
+    "serial": 1,
+    "lineage": "0140985b-3cbe-e9c4-0096-f3f7f5c4e37a",
+    "sha256": "9d7d9121ea44e431cfec9fcec0b0ae4586c66871c78161f66f05b15fa370f5d8",
+    "path": "states/004-recovery-before.tfstate"
+  },
+  "after": {
+    "label": "recovery-after",
+    "exists": true,
+    "quantity": 21,
+    "reference_note": "retain-reviewed-reference",
+    "serial": 2,
+    "lineage": "0140985b-3cbe-e9c4-0096-f3f7f5c4e37a",
+    "sha256": "730483fcdc28f3d5c4cda6afb44adc6ee4695e448b062a678a4bd86e128550b8",
+    "path": "states/005-recovery-after.tfstate"
+  },
+  "state_changed": true
+}

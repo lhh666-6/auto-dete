@@ -1,0 +1,26 @@
+\documentclass[pdflatex,sn-basic]{sn-jnl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,graphicx,microtype,xurl}
+\usepackage{enumitem}
+\setlist{nosep}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+\begin{document}
+\title[The Review–Execution Gap in Agentic Software: Specification, Design Space, and Empirical Characterization]{The Review–Execution Gap in Agentic Software: Specification, Design Space, and Empirical Characterization}
+\author[1]{Liang Hanghao}
+\author[1]{Xuan Wentao}
+\author[1]{Chen Qile}
+\author*[1]{Peng Peng}\email{hnu16pp@hnu.edu.cn}
+\affil[1]{\orgdiv{College of Computer Science and Electronic Engineering},
+\orgname{Hunan University},
+\orgaddress{\city{Changsha}, \postcode{410082}, \country{China}}}
+\abstract{An agent may regenerate a proposed update after human approval. Even when the final value is unchanged, execution must determine whether the earlier approval covers the new candidate. We compare approval bound to selected context fields, complete candidate content, or the specific reviewed instance. A four-role correction contract links the machine proposal, authorized correction, reviewed candidate and persisted transition, allowing these binding choices to be evaluated under shared execution checks. Nine constructed cases show that context binding can admit semantic changes in omitted fields, whereas content and instance binding reject them. With trusted immutable candidate storage, instance binding also rejects semantically equivalent replacements; none of the three rules alone protects mutable external references. A separate paired agent study isolates the cost of this stricter instance requirement using harness-injected identity-only substitutions at controlled handoffs. Across 32 delivered pairs spanning 16 task definitions, context binding admits every substitution and 30 arms complete their tasks. Instance binding rejects the substitutions. With reviewed candidates available and valid reauthorization requests immediately approved by a deterministic reviewer, all 32 runs recover: 24 reuse the reviewed candidate and eight obtain fresh authorization. Mean additional tool calls per pair are 1.00 in original deployment B and 1.60 in supplementary A, without an established completion advantage. These results distinguish approval coverage from recovery cost, helping developers implement declared approval reuse rules and plan for the agent-side cost of enforcing them.}
+\keywords{Agentic software, Human review, Runtime enforcement, Authorization, Provenance, Empirical evaluation}
+\maketitle
+\input{body}
+\input{declarations}
+\bibliography{references}
+\end{document}

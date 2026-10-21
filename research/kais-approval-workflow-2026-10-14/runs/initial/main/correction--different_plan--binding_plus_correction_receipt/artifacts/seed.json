@@ -1,0 +1,91 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.13.1",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "terraform_data.change",
+          "mode": "managed",
+          "type": "terraform_data",
+          "name": "change",
+          "provider_name": "terraform.io/builtin/terraform",
+          "schema_version": 0,
+          "values": {
+            "input": {
+              "quantity": 7,
+              "reference_note": "retain-reviewed-reference"
+            },
+            "triggers_replace": null
+          },
+          "sensitive_values": {
+            "input": {},
+            "output": {}
+          }
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    {
+      "address": "terraform_data.change",
+      "mode": "managed",
+      "type": "terraform_data",
+      "name": "change",
+      "provider_name": "terraform.io/builtin/terraform",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "input": {
+            "quantity": 7,
+            "reference_note": "retain-reviewed-reference"
+          },
+          "triggers_replace": null
+        },
+        "after_unknown": {
+          "id": true,
+          "input": {},
+          "output": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "input": {},
+          "output": {}
+        }
+      }
+    }
+  ],
+  "configuration": {
+    "provider_config": {
+      "terraform": {
+        "name": "terraform",
+        "full_name": "terraform.io/builtin/terraform"
+      }
+    },
+    "root_module": {
+      "resources": [
+        {
+          "address": "terraform_data.change",
+          "mode": "managed",
+          "type": "terraform_data",
+          "name": "change",
+          "provider_config_key": "terraform",
+          "expressions": {
+            "input": {
+              "constant_value": {
+                "quantity": 7,
+                "reference_note": "retain-reviewed-reference"
+              }
+            }
+          },
+          "schema_version": 0
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-10-14T08:41:08Z",
+  "errored": false
+}

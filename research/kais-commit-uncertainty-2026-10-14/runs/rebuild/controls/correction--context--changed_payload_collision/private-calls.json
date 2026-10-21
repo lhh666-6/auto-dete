@@ -1,0 +1,123 @@
+[
+  {
+    "label": "first",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 21,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "status": "ok",
+      "commit_request_id": "request-1",
+      "transition_id": "transition-1",
+      "version": 2,
+      "committed_value": 21,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "visible_result": {
+      "status": "ok",
+      "commit_request_id": "request-1",
+      "transition_id": "transition-1",
+      "version": 2,
+      "committed_value": 21,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      }
+    },
+    "before_snapshot": 1,
+    "after_snapshot": 2,
+    "client_observed": false
+  },
+  {
+    "label": "changed-payload",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 121,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "status": "rejected",
+      "error_code": "IDEMPOTENCY_COLLISION"
+    },
+    "visible_result": {
+      "status": "rejected",
+      "error_code": "IDEMPOTENCY_COLLISION"
+    },
+    "before_snapshot": 3,
+    "after_snapshot": 4,
+    "client_observed": false
+  },
+  {
+    "label": "original-replay",
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 21,
+      "idempotency_key": "primary-request"
+    },
+    "delivered": true,
+    "response_hidden": false,
+    "actual_result": {
+      "commit_request_id": "request-1",
+      "committed_value": 21,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      },
+      "status": "ok",
+      "transition_id": "transition-1",
+      "version": 2
+    },
+    "visible_result": {
+      "commit_request_id": "request-1",
+      "committed_value": 21,
+      "decision": {
+        "common_guard_pass": true,
+        "guard_results": {
+          "authorization_exists_active_unconsumed": true,
+          "reviewer_valid_at_commit_entry": true
+        },
+        "same_context": true,
+        "same_instance": true,
+        "same_value": true
+      },
+      "status": "ok",
+      "transition_id": "transition-1",
+      "version": 2
+    },
+    "before_snapshot": 5,
+    "after_snapshot": 6,
+    "client_observed": false
+  }
+]

@@ -1,0 +1,36 @@
+test_allocation_is_balanced_reproducible_and_matches_sampling_rule (__main__.RunnerTests.test_allocation_is_balanced_reproducible_and_matches_sampling_rule) ... ok
+test_freeze_tamper_is_rejected (__main__.RunnerTests.test_freeze_tamper_is_rejected) ... ok
+test_global_stop_codes (__main__.RunnerTests.test_global_stop_codes) ... ok
+test_inherited_repair_budget_is_not_reset (__main__.RunnerTests.test_inherited_repair_budget_is_not_reset) ... ok
+test_initial_messages_identical_for_same_policy_and_scenarios_preserved (__main__.RunnerTests.test_initial_messages_identical_for_same_policy_and_scenarios_preserved) ... ok
+test_initialization_interruption_is_retained_and_not_replayed (__main__.RunnerTests.test_initialization_interruption_is_retained_and_not_replayed) ... ok
+test_interrupted_semantic_action_is_not_replayed (__main__.RunnerTests.test_interrupted_semantic_action_is_not_replayed) ... ok
+test_os_lock_rejects_a_second_lane (__main__.RunnerTests.test_os_lock_rejects_a_second_lane) ... ok
+test_provider_records_actual_wire_and_raw_without_headers (__main__.RunnerTests.test_provider_records_actual_wire_and_raw_without_headers) ... ok
+test_quota_429_stops_without_retrying_and_preserves_raw (__main__.RunnerTests.test_quota_429_stops_without_retrying_and_preserves_raw) ... FAIL
+test_raw_received_response_is_reused_after_pause (__main__.RunnerTests.test_raw_received_response_is_reused_after_pause) ... ok
+test_request_body_budget_is_only_difference_and_contains_no_secret (__main__.RunnerTests.test_request_body_budget_is_only_difference_and_contains_no_secret) ... FAIL
+test_terminal_arm_is_audited_but_never_resampled (__main__.RunnerTests.test_terminal_arm_is_audited_but_never_resampled) ... ok
+test_termination_event_without_score_is_rescored_without_model (__main__.RunnerTests.test_termination_event_without_score_is_rescored_without_model) ... ok
+test_vendor_semantics_and_scorer_unchanged (__main__.RunnerTests.test_vendor_semantics_and_scorer_unchanged) ... ok
+
+======================================================================
+FAIL: test_quota_429_stops_without_retrying_and_preserves_raw (__main__.RunnerTests.test_quota_429_stops_without_retrying_and_preserves_raw)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 129, in test_quota_429_stops_without_retrying_and_preserves_raw
+    self.assertFalse(caught.exception.retryable)
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_request_body_budget_is_only_difference_and_contains_no_secret (__main__.RunnerTests.test_request_body_budget_is_only_difference_and_contains_no_secret)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 55, in test_request_body_budget_is_only_difference_and_contains_no_secret
+    self.assertNotIn('actual_returned_identifier', config)
+AssertionError: 'actual_returned_identifier' unexpectedly found in {'actual_returned_identifier': 'deepseek-v4-flash', 'availability_probe_end_utc': '2026-10-06T18:26:41.032802+00:00', 'availability_probe_start_utc': '2026-10-06T18:26:37.060770+00:00', 'base_url': 'https://api.deepseek.com/anthropic', 'credential_file': 'C:\\Users\\lenovo\\.codex\\local-secrets\\phase2-dsh-api.dpapi', 'credential_source': 'User-authorized DSH API credential, Windows user encrypted outside repository', 'id': 'B', 'identity_limitation': 'Returned alias does not certify an immutable snapshot', 'interface': 'shared-json-action-facade-v1', 'max_output_tokens': 4096, 'model': 'deepseek-v4-flash', 'observable_revision': None, 'provider': 'deepseek', 'reasoning_effort': None, 'request_timeout_seconds': 1800, 'requested_alias': 'deepseek-v4-flash', 'sdk': 'urllib/Python-3.11.9', 'seed': None, 'seed_support': 'not observable/not requested', 'snapshot_or_revision': None, 'temperature': 0, 'top_p': None, 'suffix_seconds': 21600, 'freeze_id': 'kais-budget-sensitivity-2026-10-14-v1'}
+
+----------------------------------------------------------------------
+Ran 15 tests in 3.283s
+
+FAILED (failures=2)

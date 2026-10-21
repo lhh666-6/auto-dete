@@ -1,0 +1,574 @@
+{
+  "method": "T-configured",
+  "method_alias": "T+relation",
+  "case_id": "D08",
+  "kind": "unchanged_field_changed",
+  "accepted": false,
+  "committed": false,
+  "db_path": "D08.sqlite",
+  "initial": {
+    "version": 1,
+    "values": {
+      "address": {
+        "line1": "old"
+      },
+      "batch": "keep"
+    },
+    "sources": {
+      "address": "seed-address",
+      "batch": "seed-batch"
+    },
+    "transition_id": null
+  },
+  "before": {
+    "version": 1,
+    "values": {
+      "address": {
+        "line1": "old"
+      },
+      "batch": "keep"
+    },
+    "sources": {
+      "address": "seed-address",
+      "batch": "seed-batch"
+    },
+    "transition_id": null
+  },
+  "after": {
+    "version": 1,
+    "values": {
+      "address": {
+        "line1": "old"
+      },
+      "batch": "keep"
+    },
+    "sources": {
+      "address": "seed-address",
+      "batch": "seed-batch"
+    },
+    "transition_id": null
+  },
+  "candidates": [
+    {
+      "candidate_id": "c1",
+      "target": "record-1",
+      "predecessor_version": 1,
+      "field": "address",
+      "proposal": {
+        "line1": "suggested"
+      }
+    }
+  ],
+  "approvals": [
+    {
+      "approval_id": "approval-1",
+      "reviewed_candidate_id": "c1",
+      "target": "record-1",
+      "predecessor_version": 1,
+      "field": "address",
+      "proposal": {
+        "line1": "suggested"
+      },
+      "authorized": {
+        "line1": "corrected"
+      }
+    }
+  ],
+  "used_candidate_id": "c1",
+  "reviewed_candidate_id": "c1",
+  "approval_id": "approval-1",
+  "callback_counts": {
+    "pre": 1,
+    "post": 1
+  },
+  "callback_log": [
+    {
+      "callback": "pre",
+      "checks": {
+        "target_and_field": true,
+        "current_predecessor": true,
+        "persisted_candidate": true,
+        "persisted_approval": true,
+        "same_context": true,
+        "reviewed_instance": true
+      },
+      "passed": true
+    },
+    {
+      "callback": "post",
+      "checks": {
+        "no_error": true,
+        "complete_successor": true,
+        "authorized_value": true,
+        "unchanged_values": false,
+        "unchanged_sources": true,
+        "changed_source": true,
+        "transition_relation": true,
+        "successor_version": true,
+        "native_update_matches_draft": true,
+        "other_symbolic_fields_preserved": true
+      },
+      "passed": false
+    }
+  ],
+  "executor_called": true,
+  "executor_calls": 1,
+  "executor_log": [
+    {
+      "tool_name": "draft_authorized_address",
+      "params": {
+        "target": "record-1",
+        "version": 1,
+        "values": {
+          "address": {
+            "line1": "old"
+          },
+          "batch": "keep"
+        },
+        "sources": {
+          "address": "seed-address",
+          "batch": "seed-batch"
+        },
+        "candidate": {
+          "candidate_id": "c1",
+          "target": "record-1",
+          "predecessor_version": 1,
+          "field": "address",
+          "proposal": {
+            "line1": "suggested"
+          }
+        },
+        "approval": {
+          "approval_id": "approval-1",
+          "reviewed_candidate_id": "c1",
+          "target": "record-1",
+          "predecessor_version": 1,
+          "field": "address",
+          "proposal": {
+            "line1": "suggested"
+          },
+          "authorized": {
+            "line1": "corrected"
+          }
+        },
+        "transition_id": "address-commit",
+        "transition": {}
+      }
+    }
+  ],
+  "reasoner_calls": 2,
+  "symbolic_before": {
+    "target": {
+      "value": "record-1",
+      "type": "string",
+      "optional": false,
+      "constraints": []
+    },
+    "version": {
+      "value": 1,
+      "type": "integer",
+      "optional": false,
+      "constraints": []
+    },
+    "values": {
+      "value": {
+        "address": {
+          "line1": "old"
+        },
+        "batch": "keep"
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "sources": {
+      "value": {
+        "address": "seed-address",
+        "batch": "seed-batch"
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "candidate": {
+      "value": {
+        "candidate_id": "c1",
+        "target": "record-1",
+        "predecessor_version": 1,
+        "field": "address",
+        "proposal": {
+          "line1": "suggested"
+        }
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "approval": {
+      "value": {
+        "approval_id": "approval-1",
+        "reviewed_candidate_id": "c1",
+        "target": "record-1",
+        "predecessor_version": 1,
+        "field": "address",
+        "proposal": {
+          "line1": "suggested"
+        },
+        "authorized": {
+          "line1": "corrected"
+        }
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "transition_id": {
+      "value": "address-commit",
+      "type": "string",
+      "optional": false,
+      "constraints": []
+    },
+    "transition": {
+      "value": {},
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    }
+  },
+  "symbolic_after": {
+    "target": {
+      "value": "record-1",
+      "type": "string",
+      "optional": false,
+      "constraints": []
+    },
+    "version": {
+      "value": 1,
+      "type": "integer",
+      "optional": false,
+      "constraints": []
+    },
+    "values": {
+      "value": {
+        "address": {
+          "line1": "old"
+        },
+        "batch": "keep"
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "sources": {
+      "value": {
+        "address": "seed-address",
+        "batch": "seed-batch"
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "candidate": {
+      "value": {
+        "candidate_id": "c1",
+        "target": "record-1",
+        "predecessor_version": 1,
+        "field": "address",
+        "proposal": {
+          "line1": "suggested"
+        }
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "approval": {
+      "value": {
+        "approval_id": "approval-1",
+        "reviewed_candidate_id": "c1",
+        "target": "record-1",
+        "predecessor_version": 1,
+        "field": "address",
+        "proposal": {
+          "line1": "suggested"
+        },
+        "authorized": {
+          "line1": "corrected"
+        }
+      },
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    },
+    "transition_id": {
+      "value": "address-commit",
+      "type": "string",
+      "optional": false,
+      "constraints": []
+    },
+    "transition": {
+      "value": {},
+      "type": "dict",
+      "optional": false,
+      "constraints": []
+    }
+  },
+  "trace": [
+    {
+      "step": 0,
+      "state_summary": "Current State: target(string): record-1; version(integer): 1; values(dict): {'address': {'line1': 'old'}, 'batch': 'keep'}; sources(dict): {'address': 'seed-address', 'batch': 'seed-batch'}; candidate(dict): {'candidate_id': 'c1', 'target': 'record-1', 'pred...; approval(dict): {'approval_id': 'approval-1', 'reviewed_candidate_...; transition_id(string): address-commit; transition(dict): {}",
+      "action_type": "start_call_tool",
+      "action_content": "Draft the reviewed address change",
+      "tool_called": "draft_authorized_address",
+      "tool_result": {
+        "error": "",
+        "response": {
+          "version": 2,
+          "values": {
+            "address": {
+              "line1": "corrected"
+            },
+            "batch": "unreviewed"
+          },
+          "sources": {
+            "address": "address-commit",
+            "batch": "seed-batch"
+          },
+          "transition": {
+            "transition_id": "address-commit",
+            "external": false,
+            "target": "record-1",
+            "field": "address",
+            "from_version": 1,
+            "to_version": 2,
+            "version": 2,
+            "approval_id": "approval-1",
+            "used_candidate_id": "c1",
+            "reviewed_candidate_id": "c1",
+            "proposal": {
+              "line1": "suggested"
+            },
+            "authorized": {
+              "line1": "corrected"
+            },
+            "final": {
+              "line1": "corrected"
+            },
+            "previous_source": "seed-address"
+          }
+        }
+      },
+      "verification_result": {
+        "success": false,
+        "error_message": "State after update does not satisfy semantic constraints"
+      },
+      "state_updated": false
+    },
+    {
+      "step": 1,
+      "state_summary": "Current State: target(string): record-1; version(integer): 1; values(dict): {'address': {'line1': 'old'}, 'batch': 'keep'}; sources(dict): {'address': 'seed-address', 'batch': 'seed-batch'}; candidate(dict): {'candidate_id': 'c1', 'target': 'record-1', 'pred...; approval(dict): {'approval_id': 'approval-1', 'reviewed_candidate_...; transition_id(string): address-commit; transition(dict): {}",
+      "action_type": "answer",
+      "action_content": "Single offline attempt complete",
+      "tool_called": null,
+      "tool_result": null,
+      "verification_result": null,
+      "state_updated": false
+    }
+  ],
+  "native_result": {
+    "answer": "Single offline attempt complete",
+    "final_state": {
+      "target": {
+        "value": "record-1",
+        "type": "string",
+        "optional": false,
+        "constraints": []
+      },
+      "version": {
+        "value": 1,
+        "type": "integer",
+        "optional": false,
+        "constraints": []
+      },
+      "values": {
+        "value": {
+          "address": {
+            "line1": "old"
+          },
+          "batch": "keep"
+        },
+        "type": "dict",
+        "optional": false,
+        "constraints": []
+      },
+      "sources": {
+        "value": {
+          "address": "seed-address",
+          "batch": "seed-batch"
+        },
+        "type": "dict",
+        "optional": false,
+        "constraints": []
+      },
+      "candidate": {
+        "value": {
+          "candidate_id": "c1",
+          "target": "record-1",
+          "predecessor_version": 1,
+          "field": "address",
+          "proposal": {
+            "line1": "suggested"
+          }
+        },
+        "type": "dict",
+        "optional": false,
+        "constraints": []
+      },
+      "approval": {
+        "value": {
+          "approval_id": "approval-1",
+          "reviewed_candidate_id": "c1",
+          "target": "record-1",
+          "predecessor_version": 1,
+          "field": "address",
+          "proposal": {
+            "line1": "suggested"
+          },
+          "authorized": {
+            "line1": "corrected"
+          }
+        },
+        "type": "dict",
+        "optional": false,
+        "constraints": []
+      },
+      "transition_id": {
+        "value": "address-commit",
+        "type": "string",
+        "optional": false,
+        "constraints": []
+      },
+      "transition": {
+        "value": {},
+        "type": "dict",
+        "optional": false,
+        "constraints": []
+      }
+    },
+    "trace": [
+      {
+        "step": 0,
+        "state_summary": "Current State: target(string): record-1; version(integer): 1; values(dict): {'address': {'line1': 'old'}, 'batch': 'keep'}; sources(dict): {'address': 'seed-address', 'batch': 'seed-batch'}; candidate(dict): {'candidate_id': 'c1', 'target': 'record-1', 'pred...; approval(dict): {'approval_id': 'approval-1', 'reviewed_candidate_...; transition_id(string): address-commit; transition(dict): {}",
+        "action_type": "start_call_tool",
+        "action_content": "Draft the reviewed address change",
+        "tool_called": "draft_authorized_address",
+        "tool_result": {
+          "error": "",
+          "response": {
+            "version": 2,
+            "values": {
+              "address": {
+                "line1": "corrected"
+              },
+              "batch": "unreviewed"
+            },
+            "sources": {
+              "address": "address-commit",
+              "batch": "seed-batch"
+            },
+            "transition": {
+              "transition_id": "address-commit",
+              "external": false,
+              "target": "record-1",
+              "field": "address",
+              "from_version": 1,
+              "to_version": 2,
+              "version": 2,
+              "approval_id": "approval-1",
+              "used_candidate_id": "c1",
+              "reviewed_candidate_id": "c1",
+              "proposal": {
+                "line1": "suggested"
+              },
+              "authorized": {
+                "line1": "corrected"
+              },
+              "final": {
+                "line1": "corrected"
+              },
+              "previous_source": "seed-address"
+            }
+          }
+        },
+        "verification_result": {
+          "success": false,
+          "error_message": "State after update does not satisfy semantic constraints"
+        },
+        "state_updated": false
+      },
+      {
+        "step": 1,
+        "state_summary": "Current State: target(string): record-1; version(integer): 1; values(dict): {'address': {'line1': 'old'}, 'batch': 'keep'}; sources(dict): {'address': 'seed-address', 'batch': 'seed-batch'}; candidate(dict): {'candidate_id': 'c1', 'target': 'record-1', 'pred...; approval(dict): {'approval_id': 'approval-1', 'reviewed_candidate_...; transition_id(string): address-commit; transition(dict): {}",
+        "action_type": "answer",
+        "action_content": "Single offline attempt complete",
+        "tool_called": null,
+        "tool_result": null,
+        "verification_result": null,
+        "state_updated": false
+      }
+    ],
+    "conversation_history": [
+      {
+        "role": "user",
+        "content": "<start_tool_result>\nTool call failed: The currently attempted tool cannot be called successfully. Possible reasons: Precondition not satisfied, tool execution failed, or postcondition verification failed.\n\n**Important: Please don't give up!**\n- Consider trying other tools: Different tools may provide similar information\n- Try different parameters: The current tool may need different input parameters\n- Try alternative approaches: Think about other methods to obtain required information\n- Check state information: Current state may already contain some useful information\n\nYou should only provide a final answer in the following cases:\n1. You have successfully obtained enough information to answer the question, OR\n2. You have tried all reasonable tool options and can provide a helpful answer based on available information\n\nPlease continue thinking and trying other approaches.\n<end_tool_result>"
+      }
+    ]
+  },
+  "failed_tools": [
+    "draft_authorized_address"
+  ],
+  "bridge_log": [
+    {
+      "event": "begin_immediate",
+      "version": 1
+    },
+    {
+      "event": "rollback_no_business_write"
+    }
+  ],
+  "stdout": "",
+  "stderr": "",
+  "source_provenance": {
+    "native_pipeline": {
+      "commit": "976ad3f5528f89e248cbdf55840347b445934155",
+      "source": "D:\\Claude_Design\\auto-decte-paper\\research\\kais-toolgate-feasibility-2026-10-20\\vendor\\ToolGate\\toolgate\\pipeline\\pipeline.py",
+      "modified": false
+    },
+    "callback_configuration": {
+      "source": "D:\\Claude_Design\\auto-decte-paper\\research\\kais-toolgate-feasibility-2026-10-20\\toolgate_adapter.py",
+      "interfaces": [
+        "Precondition.check_function",
+        "Postcondition.verify_function"
+      ],
+      "role": "Author-supplied business relation through ordinary native callbacks",
+      "imports_C_verifier": false
+    },
+    "persistence_bridge": {
+      "source": "D:\\Claude_Design\\auto-decte-paper\\research\\kais-toolgate-feasibility-2026-10-20\\toolgate_adapter.py",
+      "role": "Author-written SQLite snapshot and post-acceptance commit bridge",
+      "native_ToolGate_feature": false,
+      "transaction": "BEGIN IMMEDIATE; snapshot; original pipeline; commit on acceptance"
+    },
+    "offline_drivers": {
+      "retriever": "Fixed single-tool retriever",
+      "reasoner": "Scripted llm_reasoner",
+      "llm_client": null,
+      "model_calls": 0,
+      "network_calls": 0,
+      "executor": "Pure candidate successor construction"
+    },
+    "scope": "Sequential development controls; no concurrent-writer guarantee tested"
+  },
+  "engineering_status": "COMPLETE",
+  "sql_after_path": "sql_after.json"
+}

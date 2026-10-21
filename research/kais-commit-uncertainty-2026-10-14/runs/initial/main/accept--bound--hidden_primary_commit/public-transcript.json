@@ -1,0 +1,62 @@
+[
+  {
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "primary-request"
+    },
+    "result": {
+      "status": "unknown",
+      "error_code": "TRANSPORT_TIMEOUT"
+    }
+  },
+  {
+    "tool": "commit",
+    "arguments": {
+      "candidate_id": "c1",
+      "authorization_id": "a1",
+      "committed_value": 20,
+      "idempotency_key": "primary-request"
+    },
+    "result": {
+      "status": "unknown",
+      "error_code": "TRANSPORT_TIMEOUT"
+    }
+  },
+  {
+    "tool": "get_state",
+    "arguments": {
+      "record_id": "local-record"
+    },
+    "result": {
+      "status": "ok",
+      "sources": {
+        "quantity": "transition-1",
+        "reference_note": "baseline:reference_note"
+      },
+      "values": {
+        "quantity": 20,
+        "reference_note": "retain-original-note"
+      },
+      "version": 2,
+      "record_id": "local-record",
+      "root_certificate_id": "root-v2",
+      "evidence_ref": "E1",
+      "capabilities": [
+        "get_state",
+        "inspect_evidence",
+        "propose",
+        "verify",
+        "request_authorization",
+        "commit",
+        "get_receipt"
+      ],
+      "field_order": [
+        "quantity",
+        "reference_note"
+      ]
+    }
+  }
+]

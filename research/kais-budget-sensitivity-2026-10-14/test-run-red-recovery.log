@@ -1,0 +1,67 @@
+test_allocation_is_balanced_reproducible_and_matches_sampling_rule (__main__.RunnerTests.test_allocation_is_balanced_reproducible_and_matches_sampling_rule) ... ok
+test_freeze_tamper_is_rejected (__main__.RunnerTests.test_freeze_tamper_is_rejected) ... ok
+test_global_stop_codes (__main__.RunnerTests.test_global_stop_codes) ... ok
+test_inherited_repair_budget_is_not_reset (__main__.RunnerTests.test_inherited_repair_budget_is_not_reset) ... FAIL
+test_initial_messages_identical_for_same_policy_and_scenarios_preserved (__main__.RunnerTests.test_initial_messages_identical_for_same_policy_and_scenarios_preserved) ... ok
+test_initialization_interruption_is_retained_and_not_replayed (__main__.RunnerTests.test_initialization_interruption_is_retained_and_not_replayed) ... FAIL
+test_interrupted_semantic_action_is_not_replayed (__main__.RunnerTests.test_interrupted_semantic_action_is_not_replayed) ... FAIL
+test_os_lock_rejects_a_second_lane (__main__.RunnerTests.test_os_lock_rejects_a_second_lane) ... ok
+test_provider_records_actual_wire_and_raw_without_headers (__main__.RunnerTests.test_provider_records_actual_wire_and_raw_without_headers) ... ok
+test_raw_received_response_is_reused_after_pause (__main__.RunnerTests.test_raw_received_response_is_reused_after_pause) ... FAIL
+test_request_body_budget_is_only_difference_and_contains_no_secret (__main__.RunnerTests.test_request_body_budget_is_only_difference_and_contains_no_secret) ... ok
+test_terminal_arm_is_audited_but_never_resampled (__main__.RunnerTests.test_terminal_arm_is_audited_but_never_resampled) ... FAIL
+test_termination_event_without_score_is_rescored_without_model (__main__.RunnerTests.test_termination_event_without_score_is_rescored_without_model) ... FAIL
+test_vendor_semantics_and_scorer_unchanged (__main__.RunnerTests.test_vendor_semantics_and_scorer_unchanged) ... ok
+
+======================================================================
+FAIL: test_inherited_repair_budget_is_not_reset (__main__.RunnerTests.test_inherited_repair_budget_is_not_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 155, in test_inherited_repair_budget_is_not_reset
+    self.assertTrue(hasattr(run, 'execute_arm'), 'single-arm execution missing')
+AssertionError: False is not true : single-arm execution missing
+
+======================================================================
+FAIL: test_initialization_interruption_is_retained_and_not_replayed (__main__.RunnerTests.test_initialization_interruption_is_retained_and_not_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 167, in test_initialization_interruption_is_retained_and_not_replayed
+    self.assertTrue(hasattr(run, 'execute_arm'), 'single-arm execution missing')
+AssertionError: False is not true : single-arm execution missing
+
+======================================================================
+FAIL: test_interrupted_semantic_action_is_not_replayed (__main__.RunnerTests.test_interrupted_semantic_action_is_not_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 200, in test_interrupted_semantic_action_is_not_replayed
+    self.assertTrue(hasattr(run, 'execute_arm'), 'single-arm execution missing')
+AssertionError: False is not true : single-arm execution missing
+
+======================================================================
+FAIL: test_raw_received_response_is_reused_after_pause (__main__.RunnerTests.test_raw_received_response_is_reused_after_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 183, in test_raw_received_response_is_reused_after_pause
+    self.assertTrue(hasattr(run, 'execute_arm'), 'single-arm execution missing')
+AssertionError: False is not true : single-arm execution missing
+
+======================================================================
+FAIL: test_terminal_arm_is_audited_but_never_resampled (__main__.RunnerTests.test_terminal_arm_is_audited_but_never_resampled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 140, in test_terminal_arm_is_audited_but_never_resampled
+    self.assertTrue(hasattr(run, 'execute_arm'), 'single-arm execution missing')
+AssertionError: False is not true : single-arm execution missing
+
+======================================================================
+FAIL: test_termination_event_without_score_is_rescored_without_model (__main__.RunnerTests.test_termination_event_without_score_is_rescored_without_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-budget-sensitivity-2026-10-14\test_run.py", line 219, in test_termination_event_without_score_is_rescored_without_model
+    self.assertTrue(hasattr(run, 'execute_arm'), 'single-arm execution missing')
+AssertionError: False is not true : single-arm execution missing
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.925s
+
+FAILED (failures=6)

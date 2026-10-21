@@ -1,0 +1,26 @@
+
+\begin{table}[tbp]
+\caption{Configured ToolGate ($T$) versus the contract backend ($C$). Development controls and public workflow routes are separate units; decisions and recovery are scripted.}
+\label{tab:external}
+\centering\small
+\begin{tabularx}{\textwidth}{@{}Xrr@{}}
+\toprule
+Check & $T$ & $C$ \\
+\midrule
+Development controls satisfied & 8/8 & 8/8 \\
+Public: initial authorized business commits & 12/12 & 12/12 \\
+Public: invalid requests rejected without a business write & 12/12 & 12/12 \\
+Public: fixed legal recovery commits & 12/12 & 12/12 \\
+Public: complete reference-world matches & 24/24 & 24/24 \\
+Public: frozen strict PASS/FAIL & 23/1 & 24/0 \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+\begin{minipage}{\textwidth}\small
+Six public workflows crossed with four controlled scenarios give 24 routes per implementation.
+The retained strict failure is two initialization log lines violating an empty-output rule.
+Post-hoc inspection confirms that route's business relations and final reference world;
+the frozen FAIL is unchanged. Reference-world agreement is not an official benchmark
+success rate or evidence of autonomous recovery.
+\end{minipage}
+\end{table}

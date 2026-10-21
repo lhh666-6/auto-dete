@@ -1,0 +1,160 @@
+{
+  "after_checkpoint": false,
+  "baseline": {
+    "sources": {
+      "quantity": "baseline:quantity",
+      "reference_note": "baseline:reference_note"
+    },
+    "values": {
+      "quantity": 7,
+      "reference_note": "retain-original-note"
+    },
+    "version": 1
+  },
+  "candidate_counter": 1,
+  "candidates": {
+    "c1": {
+      "candidate_id": "c1",
+      "certificate_id": "774be801bdb96719be3ff66b9cc86618bcd805f248cc7eb6ac30a18c4d1f7acc",
+      "context": {
+        "confidence": 1.0,
+        "evidence_file_id": "E1",
+        "evidence_hash": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35",
+        "evidence_locator": "source-supported-value",
+        "expected_fact_version": 1,
+        "field_key": "quantity",
+        "lineage_parent_ids": [
+          "root-v1"
+        ],
+        "producer_id": "pilot-source-adapter",
+        "producer_version": "1",
+        "proposal_value_payload": "20",
+        "schema_version": "1",
+        "selection_artifact_id": "selection:UNCERTAINTY-Accept",
+        "selection_state": "SELECTED",
+        "source_kind": "AI_SUGGESTION",
+        "target_record_id": "local-record",
+        "template_id": "purchase_quantity",
+        "template_version": "1"
+      },
+      "context_hash": "34dc550e24bbdce702d46c925d23b30c2f681e7fd646964a19bed25dd2a046bb",
+      "created_at": "2026-10-14T09:26:31.377992+00:00",
+      "envelope_metadata": {}
+    }
+  },
+  "case": {
+    "baseline_values": {
+      "quantity": 7,
+      "reference_note": "retain-original-note"
+    },
+    "domain": "purchase_quantity",
+    "field_key": "quantity",
+    "host_authorized_value": 20,
+    "record_id": "local-record",
+    "scenario": "L",
+    "source_proposal_value": 20,
+    "task_instance_id": "UNCERTAINTY-Accept"
+  },
+  "current_evidence_ref": "E1",
+  "evidence": {
+    "E1": {
+      "bytes": "Record: local-record; field: quantity; source-supported value: 20. This immutable source snapshot is separate from the candidate instance envelope. The host reviewer determines the final correction value.",
+      "locator": "source-supported-value",
+      "sha256": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35"
+    }
+  },
+  "external_advances": [],
+  "grant_counter": 1,
+  "grants": {
+    "a1": {
+      "authorization_id": "a1",
+      "authorized_value": 20,
+      "context": {
+        "confidence": 1.0,
+        "evidence_file_id": "E1",
+        "evidence_hash": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35",
+        "evidence_locator": "source-supported-value",
+        "expected_fact_version": 1,
+        "field_key": "quantity",
+        "lineage_parent_ids": [
+          "root-v1"
+        ],
+        "producer_id": "pilot-source-adapter",
+        "producer_version": "1",
+        "proposal_value_payload": "20",
+        "schema_version": "1",
+        "selection_artifact_id": "selection:UNCERTAINTY-Accept",
+        "selection_state": "SELECTED",
+        "source_kind": "AI_SUGGESTION",
+        "target_record_id": "local-record",
+        "template_id": "purchase_quantity",
+        "template_version": "1"
+      },
+      "field_key": "quantity",
+      "issued_at": "2026-10-14T09:26:31.379552+00:00",
+      "record_id": "local-record",
+      "reviewed_candidate": {
+        "candidate_id": "c1",
+        "certificate_id": "774be801bdb96719be3ff66b9cc86618bcd805f248cc7eb6ac30a18c4d1f7acc",
+        "context": {
+          "confidence": 1.0,
+          "evidence_file_id": "E1",
+          "evidence_hash": "a659d2d9eb56b9c46d78b1370ca81a2578782d6fad19796e78a8f78f3b6a4f35",
+          "evidence_locator": "source-supported-value",
+          "expected_fact_version": 1,
+          "field_key": "quantity",
+          "lineage_parent_ids": [
+            "root-v1"
+          ],
+          "producer_id": "pilot-source-adapter",
+          "producer_version": "1",
+          "proposal_value_payload": "20",
+          "schema_version": "1",
+          "selection_artifact_id": "selection:UNCERTAINTY-Accept",
+          "selection_state": "SELECTED",
+          "source_kind": "AI_SUGGESTION",
+          "target_record_id": "local-record",
+          "template_id": "purchase_quantity",
+          "template_version": "1"
+        },
+        "context_hash": "34dc550e24bbdce702d46c925d23b30c2f681e7fd646964a19bed25dd2a046bb",
+        "created_at": "2026-10-14T09:26:31.377992+00:00",
+        "envelope_metadata": {}
+      },
+      "reviewed_candidate_id": "c1",
+      "reviewer_id": "trusted-host-reviewer",
+      "status": "active"
+    }
+  },
+  "head": {
+    "sources": {
+      "quantity": "baseline:quantity",
+      "reference_note": "baseline:reference_note"
+    },
+    "values": {
+      "quantity": 7,
+      "reference_note": "retain-original-note"
+    },
+    "version": 1
+  },
+  "idempotency": {},
+  "preview_ids": [],
+  "receipt_outage_used": false,
+  "receipts": {},
+  "request_counter": 0,
+  "reviewer_active": true,
+  "transitions": [],
+  "versions": [
+    {
+      "sources": {
+        "quantity": "baseline:quantity",
+        "reference_note": "baseline:reference_note"
+      },
+      "values": {
+        "quantity": 7,
+        "reference_note": "retain-original-note"
+      },
+      "version": 1
+    }
+  ]
+}

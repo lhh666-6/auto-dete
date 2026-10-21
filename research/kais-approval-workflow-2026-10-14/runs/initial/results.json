@@ -1,0 +1,3770 @@
+{
+  "main": [
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "scenario": "normal",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 7,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "bd62ab9d-c65e-5d24-ce7d-0162e2faa7e2",
+          "sha256": "a189fca8e8f671d4f62fde71f77cdef3199d9f9e71fe80099da378f0333401b2",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "bd62ab9d-c65e-5d24-ce7d-0162e2faa7e2",
+          "sha256": "fc613dbee3357666893e2d6a81b74ae2c3cf21962a0713e1b59f720fdc381166",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 8,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "bd62ab9d-c65e-5d24-ce7d-0162e2faa7e2",
+          "sha256": "fc613dbee3357666893e2d6a81b74ae2c3cf21962a0713e1b59f720fdc381166",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "bd62ab9d-c65e-5d24-ce7d-0162e2faa7e2",
+          "sha256": "fc613dbee3357666893e2d6a81b74ae2c3cf21962a0713e1b59f720fdc381166",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/accept--normal--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "normal",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 7,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "eeee25c6-50dc-492e-98b1-c61e3101fe27",
+          "sha256": "90544426057364052c793e4b85f1839b72555f5022a712ba4edeb80fd0ccac84",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "eeee25c6-50dc-492e-98b1-c61e3101fe27",
+          "sha256": "5c522a4d5028f93eb16a1f590b95e9fa887dfdb0158c42311647d7467d676132",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 8,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "eeee25c6-50dc-492e-98b1-c61e3101fe27",
+          "sha256": "5c522a4d5028f93eb16a1f590b95e9fa887dfdb0158c42311647d7467d676132",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "eeee25c6-50dc-492e-98b1-c61e3101fe27",
+          "sha256": "5c522a4d5028f93eb16a1f590b95e9fa887dfdb0158c42311647d7467d676132",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 4,
+      "additional_correction_receipt_bytes": 2709,
+      "record_directory": "main/accept--normal--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "scenario": "configuration_changed",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 7,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "fe42bc6b-5f38-e889-dac1-669eae6df706",
+          "sha256": "154f280b0531b67b3763c59c1d594f4534b1b6fa9b9d00fb7b9d0bf12d7a8b07",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "fe42bc6b-5f38-e889-dac1-669eae6df706",
+          "sha256": "c57f026b3171cc7f712b4aaa2724941780e9b0ed9373887fc1fa82cf49f4ea7e",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 8,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "fe42bc6b-5f38-e889-dac1-669eae6df706",
+          "sha256": "c57f026b3171cc7f712b4aaa2724941780e9b0ed9373887fc1fa82cf49f4ea7e",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "fe42bc6b-5f38-e889-dac1-669eae6df706",
+          "sha256": "c57f026b3171cc7f712b4aaa2724941780e9b0ed9373887fc1fa82cf49f4ea7e",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/accept--configuration_changed--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "configuration_changed",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 7,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "f82e5e59-ff4f-31dd-b530-2b0bab847fc6",
+          "sha256": "db6d0f16fd8517ac7adaad04cadd950769a82fabad5781f77df52b80d32784ce",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "f82e5e59-ff4f-31dd-b530-2b0bab847fc6",
+          "sha256": "1a6b64bdb5be016bb3bbfb670bf115b66c28723292fce98e339c7590bd8a3cea",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 8,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "f82e5e59-ff4f-31dd-b530-2b0bab847fc6",
+          "sha256": "1a6b64bdb5be016bb3bbfb670bf115b66c28723292fce98e339c7590bd8a3cea",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "f82e5e59-ff4f-31dd-b530-2b0bab847fc6",
+          "sha256": "1a6b64bdb5be016bb3bbfb670bf115b66c28723292fce98e339c7590bd8a3cea",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 4,
+      "additional_correction_receipt_bytes": 2709,
+      "record_directory": "main/accept--configuration_changed--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "scenario": "regenerated_equivalent",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "db975004-eada-5895-a232-68d7760c2539",
+          "sha256": "4879b9b82a566766d286c755dfeaa096a5984338b72ade73c00aecc99415c013",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "db975004-eada-5895-a232-68d7760c2539",
+          "sha256": "4879b9b82a566766d286c755dfeaa096a5984338b72ade73c00aecc99415c013",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "db975004-eada-5895-a232-68d7760c2539",
+          "sha256": "4879b9b82a566766d286c755dfeaa096a5984338b72ade73c00aecc99415c013",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "db975004-eada-5895-a232-68d7760c2539",
+          "sha256": "5caad458fec49d43a05664c272a1ebb80e4223fea8ab727757dc693fc19d2c4d",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "db975004-eada-5895-a232-68d7760c2539",
+          "sha256": "5caad458fec49d43a05664c272a1ebb80e4223fea8ab727757dc693fc19d2c4d",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "db975004-eada-5895-a232-68d7760c2539",
+          "sha256": "5caad458fec49d43a05664c272a1ebb80e4223fea8ab727757dc693fc19d2c4d",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/accept--regenerated_equivalent--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "regenerated_equivalent",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": false
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "c9c13612-8fb3-9a70-47ae-d939d0cbf465",
+          "sha256": "fd723910dbee0cda422a2fdb2920418022d2e0e44ce4dbdf824016ac8f97958b",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "c9c13612-8fb3-9a70-47ae-d939d0cbf465",
+          "sha256": "fd723910dbee0cda422a2fdb2920418022d2e0e44ce4dbdf824016ac8f97958b",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "c9c13612-8fb3-9a70-47ae-d939d0cbf465",
+          "sha256": "fd723910dbee0cda422a2fdb2920418022d2e0e44ce4dbdf824016ac8f97958b",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "c9c13612-8fb3-9a70-47ae-d939d0cbf465",
+          "sha256": "75b39894d4aae8ef8c531d018845a3bc5317b5af9b6d55ed54ec90cbded3a053",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "c9c13612-8fb3-9a70-47ae-d939d0cbf465",
+          "sha256": "75b39894d4aae8ef8c531d018845a3bc5317b5af9b6d55ed54ec90cbded3a053",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "c9c13612-8fb3-9a70-47ae-d939d0cbf465",
+          "sha256": "75b39894d4aae8ef8c531d018845a3bc5317b5af9b6d55ed54ec90cbded3a053",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 6,
+      "additional_correction_receipt_bytes": 4040,
+      "record_directory": "main/accept--regenerated_equivalent--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "scenario": "different_plan",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "different",
+        "selected_artifact_id": "different",
+        "selected_path": "artifacts/different.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": false,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "17b11896-3f03-d26b-225a-fbd425001fdd",
+          "sha256": "6528eed884bd36e4492a255aebfca6e5502fe49ba020a44614c02caf80da127c",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "17b11896-3f03-d26b-225a-fbd425001fdd",
+          "sha256": "6528eed884bd36e4492a255aebfca6e5502fe49ba020a44614c02caf80da127c",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "17b11896-3f03-d26b-225a-fbd425001fdd",
+          "sha256": "6528eed884bd36e4492a255aebfca6e5502fe49ba020a44614c02caf80da127c",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "17b11896-3f03-d26b-225a-fbd425001fdd",
+          "sha256": "748d1fe381139ccb218aa793f61baaf59dc0de4d8e0c2c0574e01e8afa69f4c1",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "17b11896-3f03-d26b-225a-fbd425001fdd",
+          "sha256": "748d1fe381139ccb218aa793f61baaf59dc0de4d8e0c2c0574e01e8afa69f4c1",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "17b11896-3f03-d26b-225a-fbd425001fdd",
+          "sha256": "748d1fe381139ccb218aa793f61baaf59dc0de4d8e0c2c0574e01e8afa69f4c1",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/accept--different_plan--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "different_plan",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "different",
+        "selected_artifact_id": "different",
+        "selected_path": "artifacts/different.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": false,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": false,
+          "reviewed_matches_attempt": false
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "7a453f61-0434-b3ad-043f-6642acd70703",
+          "sha256": "b401b6c82b6b4d3b9770ed06e79463476d64b6f1516bf010980f29f57d06e2ca",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "7a453f61-0434-b3ad-043f-6642acd70703",
+          "sha256": "b401b6c82b6b4d3b9770ed06e79463476d64b6f1516bf010980f29f57d06e2ca",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "7a453f61-0434-b3ad-043f-6642acd70703",
+          "sha256": "b401b6c82b6b4d3b9770ed06e79463476d64b6f1516bf010980f29f57d06e2ca",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7a453f61-0434-b3ad-043f-6642acd70703",
+          "sha256": "90e46714acfd751491f3fd4713f604d8b2fd143d402f1d0bfdb881329c8ab6e1",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7a453f61-0434-b3ad-043f-6642acd70703",
+          "sha256": "90e46714acfd751491f3fd4713f604d8b2fd143d402f1d0bfdb881329c8ab6e1",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7a453f61-0434-b3ad-043f-6642acd70703",
+          "sha256": "90e46714acfd751491f3fd4713f604d8b2fd143d402f1d0bfdb881329c8ab6e1",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 6,
+      "additional_correction_receipt_bytes": 4036,
+      "record_directory": "main/accept--different_plan--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "scenario": "stale_state",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "8b99cbc81dfa55064d2016d23c4a1e18b03d4d31a77e825f6fd691e43d7adee3",
+          "path": "states/005-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "8b99cbc81dfa55064d2016d23c4a1e18b03d4d31a77e825f6fd691e43d7adee3",
+          "path": "states/006-initial-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 13,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "8b99cbc81dfa55064d2016d23c4a1e18b03d4d31a77e825f6fd691e43d7adee3",
+          "path": "states/007-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "e6d48c41374c46db6c8fa0272fb9ac02eff4502b3709d6f97cb953dd72609806",
+          "path": "states/008-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "plan against current state",
+        "review and approve new plan",
+        "execute newly approved plan"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 14,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "e6d48c41374c46db6c8fa0272fb9ac02eff4502b3709d6f97cb953dd72609806",
+          "path": "states/009-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "e6d48c41374c46db6c8fa0272fb9ac02eff4502b3709d6f97cb953dd72609806",
+          "path": "states/010-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": {
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "before": {
+          "label": "intervening-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "6c71315f811e0f91a0dfd3e84d759bcb5a4d789882e7beaff11dc511a5080629",
+          "path": "states/003-intervening-before.tfstate"
+        },
+        "after": {
+          "label": "intervening-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "9e21841e-aa8d-9f2d-cb8f-3b0d4172c0e5",
+          "sha256": "8b99cbc81dfa55064d2016d23c4a1e18b03d4d31a77e825f6fd691e43d7adee3",
+          "path": "states/004-intervening-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 14,
+      "approval_records": 3,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/accept--stale_state--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "stale_state",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/proposal.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "3942369e5d4ab4ba1b8f51f2f5a2cc2407853d8ca9cba3f2bcf26b12be3798c5",
+          "path": "states/005-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "3942369e5d4ab4ba1b8f51f2f5a2cc2407853d8ca9cba3f2bcf26b12be3798c5",
+          "path": "states/006-initial-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 13,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "3942369e5d4ab4ba1b8f51f2f5a2cc2407853d8ca9cba3f2bcf26b12be3798c5",
+          "path": "states/007-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "af6f8c541e1c3994f74f20fd3bad22bdcf6426b777d4541417adfd3d69d58e0b",
+          "path": "states/008-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "plan against current state",
+        "review and approve new plan",
+        "execute newly approved plan"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 14,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "af6f8c541e1c3994f74f20fd3bad22bdcf6426b777d4541417adfd3d69d58e0b",
+          "path": "states/009-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "af6f8c541e1c3994f74f20fd3bad22bdcf6426b777d4541417adfd3d69d58e0b",
+          "path": "states/010-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": {
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "before": {
+          "label": "intervening-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "e4088ed03ec267fbc8fc06caadefe237902a83ce8cc77e6534b8b2e58f2a4172",
+          "path": "states/003-intervening-before.tfstate"
+        },
+        "after": {
+          "label": "intervening-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "16f5daef-0984-476c-9387-92e7953b86d9",
+          "sha256": "3942369e5d4ab4ba1b8f51f2f5a2cc2407853d8ca9cba3f2bcf26b12be3798c5",
+          "path": "states/004-intervening-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 14,
+      "approval_records": 3,
+      "additional_correction_receipt_records": 6,
+      "additional_correction_receipt_bytes": 4031,
+      "record_directory": "main/accept--stale_state--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "scenario": "relocated_same_artifact",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 7,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "dab893c7-5c84-76e5-67ce-5f0f32229b62",
+          "sha256": "d5c1539320fded300b07fd04e81ead9a327bdb27673b13b9c20e9599205f1390",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "dab893c7-5c84-76e5-67ce-5f0f32229b62",
+          "sha256": "c9040af07cf987fc2f5a50d8336d2f43832cacc24c0ca9c757b3358d8f4eee05",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 8,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "dab893c7-5c84-76e5-67ce-5f0f32229b62",
+          "sha256": "c9040af07cf987fc2f5a50d8336d2f43832cacc24c0ca9c757b3358d8f4eee05",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "dab893c7-5c84-76e5-67ce-5f0f32229b62",
+          "sha256": "c9040af07cf987fc2f5a50d8336d2f43832cacc24c0ca9c757b3358d8f4eee05",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/accept--relocated_same_artifact--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "relocated_same_artifact",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 7,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "10e22709-89d3-0822-dd98-4998f74634bf",
+          "sha256": "1a1160172ad4bcdf84889a8d6eee761afd2ac57b726616b0a9c174c0f0034586",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "10e22709-89d3-0822-dd98-4998f74634bf",
+          "sha256": "e16be54b546833732671146a33c8934f688f94ea36726fd5c32e607ec40d5f77",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "proposal",
+        "selected_artifact_id": "proposal",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "proposal",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 8,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "10e22709-89d3-0822-dd98-4998f74634bf",
+          "sha256": "e16be54b546833732671146a33c8934f688f94ea36726fd5c32e607ec40d5f77",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "10e22709-89d3-0822-dd98-4998f74634bf",
+          "sha256": "e16be54b546833732671146a33c8934f688f94ea36726fd5c32e607ec40d5f77",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 4,
+      "additional_correction_receipt_bytes": 2709,
+      "record_directory": "main/accept--relocated_same_artifact--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "scenario": "normal",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "ebada66b-36b4-cb96-ece8-f764c89c3861",
+          "sha256": "842754403ddb9cddc4ba9a2a177b91b88560bc3a26efdbaba131595ddf921e62",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "ebada66b-36b4-cb96-ece8-f764c89c3861",
+          "sha256": "8feddb1c1cf35a69717e0376ec97742e0348e086f25a8f24459ef37af2f75a09",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "ebada66b-36b4-cb96-ece8-f764c89c3861",
+          "sha256": "8feddb1c1cf35a69717e0376ec97742e0348e086f25a8f24459ef37af2f75a09",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "ebada66b-36b4-cb96-ece8-f764c89c3861",
+          "sha256": "8feddb1c1cf35a69717e0376ec97742e0348e086f25a8f24459ef37af2f75a09",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/correction--normal--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "normal",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "7009a3a6-2c43-edf0-b36d-657a1f8bf24a",
+          "sha256": "20e8d9b28e1a5516b992b56f6eaa590003325507da8a22e3bff09daf2f2c9238",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7009a3a6-2c43-edf0-b36d-657a1f8bf24a",
+          "sha256": "945d9fcd689fce7929f4e86858d1603524edfceb0413ecb48eee4a18dcb5487a",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7009a3a6-2c43-edf0-b36d-657a1f8bf24a",
+          "sha256": "945d9fcd689fce7929f4e86858d1603524edfceb0413ecb48eee4a18dcb5487a",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7009a3a6-2c43-edf0-b36d-657a1f8bf24a",
+          "sha256": "945d9fcd689fce7929f4e86858d1603524edfceb0413ecb48eee4a18dcb5487a",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 4,
+      "additional_correction_receipt_bytes": 2718,
+      "record_directory": "main/correction--normal--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "scenario": "configuration_changed",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "157ef010-c868-f60a-4993-cb0ce80cb3c8",
+          "sha256": "b63d2689fb938a0428d1c58397038915fcf9951e434c00c0a70b89e8fcce7e8a",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "157ef010-c868-f60a-4993-cb0ce80cb3c8",
+          "sha256": "ec7baa20fb96bce6390a6ccfdef52df801adbc7a304ff30c6774531e108cfb26",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "157ef010-c868-f60a-4993-cb0ce80cb3c8",
+          "sha256": "ec7baa20fb96bce6390a6ccfdef52df801adbc7a304ff30c6774531e108cfb26",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "157ef010-c868-f60a-4993-cb0ce80cb3c8",
+          "sha256": "ec7baa20fb96bce6390a6ccfdef52df801adbc7a304ff30c6774531e108cfb26",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/correction--configuration_changed--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "configuration_changed",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "e165244b-eb32-6ebe-150c-0b920ac5be7b",
+          "sha256": "39ead30022afb38b1b3470d91b902c45c4d339684028a264ef266d023dcdb0a8",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "e165244b-eb32-6ebe-150c-0b920ac5be7b",
+          "sha256": "9c781a15ab608d2bf1e5f4f0c85aaa6b391208082ff6e35e1645317b3249445f",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "e165244b-eb32-6ebe-150c-0b920ac5be7b",
+          "sha256": "9c781a15ab608d2bf1e5f4f0c85aaa6b391208082ff6e35e1645317b3249445f",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "e165244b-eb32-6ebe-150c-0b920ac5be7b",
+          "sha256": "9c781a15ab608d2bf1e5f4f0c85aaa6b391208082ff6e35e1645317b3249445f",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 4,
+      "additional_correction_receipt_bytes": 2718,
+      "record_directory": "main/correction--configuration_changed--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "scenario": "regenerated_equivalent",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "77914834-d8e3-387f-b6cf-c2e4826015c8",
+          "sha256": "e6bf5c07bc8fd826af7631ac1b19626bd4c9c80d40341354ac5652d903dd30ea",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "77914834-d8e3-387f-b6cf-c2e4826015c8",
+          "sha256": "e6bf5c07bc8fd826af7631ac1b19626bd4c9c80d40341354ac5652d903dd30ea",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "77914834-d8e3-387f-b6cf-c2e4826015c8",
+          "sha256": "e6bf5c07bc8fd826af7631ac1b19626bd4c9c80d40341354ac5652d903dd30ea",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "77914834-d8e3-387f-b6cf-c2e4826015c8",
+          "sha256": "48d1b3be2c5062959d6e9008dd166eb5797752c0071ac9246d6babe403f994f8",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 12,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "77914834-d8e3-387f-b6cf-c2e4826015c8",
+          "sha256": "48d1b3be2c5062959d6e9008dd166eb5797752c0071ac9246d6babe403f994f8",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "77914834-d8e3-387f-b6cf-c2e4826015c8",
+          "sha256": "48d1b3be2c5062959d6e9008dd166eb5797752c0071ac9246d6babe403f994f8",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 12,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/correction--regenerated_equivalent--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "regenerated_equivalent",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": false
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "1960e629-3a4a-9fa9-c741-0f57bbea03ae",
+          "sha256": "6351b51407a5b23bb16791cbc1ed733a4409c9b581d753c27e1cf93f0a01f4ee",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "1960e629-3a4a-9fa9-c741-0f57bbea03ae",
+          "sha256": "6351b51407a5b23bb16791cbc1ed733a4409c9b581d753c27e1cf93f0a01f4ee",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "1960e629-3a4a-9fa9-c741-0f57bbea03ae",
+          "sha256": "6351b51407a5b23bb16791cbc1ed733a4409c9b581d753c27e1cf93f0a01f4ee",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "1960e629-3a4a-9fa9-c741-0f57bbea03ae",
+          "sha256": "410f21749fee3dbb58a839b2319c0a4d4fe7d6c10ae9e1878bda4980d716812e",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 12,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "1960e629-3a4a-9fa9-c741-0f57bbea03ae",
+          "sha256": "410f21749fee3dbb58a839b2319c0a4d4fe7d6c10ae9e1878bda4980d716812e",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "1960e629-3a4a-9fa9-c741-0f57bbea03ae",
+          "sha256": "410f21749fee3dbb58a839b2319c0a4d4fe7d6c10ae9e1878bda4980d716812e",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 12,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 6,
+      "additional_correction_receipt_bytes": 4051,
+      "record_directory": "main/correction--regenerated_equivalent--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "scenario": "different_plan",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "different",
+        "selected_artifact_id": "different",
+        "selected_path": "artifacts/different.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": false,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "6ddeb801-a507-1e2e-58c9-972bd0454508",
+          "sha256": "a5c4ae7cf850dacabc3d1655b18f0ff7a3ecaee4eb81c488ede9b5cfce450ac7",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "6ddeb801-a507-1e2e-58c9-972bd0454508",
+          "sha256": "a5c4ae7cf850dacabc3d1655b18f0ff7a3ecaee4eb81c488ede9b5cfce450ac7",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "6ddeb801-a507-1e2e-58c9-972bd0454508",
+          "sha256": "a5c4ae7cf850dacabc3d1655b18f0ff7a3ecaee4eb81c488ede9b5cfce450ac7",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "6ddeb801-a507-1e2e-58c9-972bd0454508",
+          "sha256": "1fb4801523953267c5c88a54e929dc239a6bd25799cd02f646f741c22195a27f",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 12,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "6ddeb801-a507-1e2e-58c9-972bd0454508",
+          "sha256": "1fb4801523953267c5c88a54e929dc239a6bd25799cd02f646f741c22195a27f",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "6ddeb801-a507-1e2e-58c9-972bd0454508",
+          "sha256": "1fb4801523953267c5c88a54e929dc239a6bd25799cd02f646f741c22195a27f",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 12,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/correction--different_plan--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "different_plan",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "different",
+        "selected_artifact_id": "different",
+        "selected_path": "artifacts/different.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "reject",
+        "gate_reason": "artifact binding mismatch",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": false,
+          "actual_digest_matches_approval": false,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": false,
+          "reviewed_matches_attempt": false
+        },
+        "before": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "358a1def-dc9a-a477-92cc-131ec9e38ac9",
+          "sha256": "9933119a866e5a6e070f94112614033e1d59ea47de76b00b40441f19b769f09f",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "initial-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "358a1def-dc9a-a477-92cc-131ec9e38ac9",
+          "sha256": "9933119a866e5a6e070f94112614033e1d59ea47de76b00b40441f19b769f09f",
+          "path": "states/003-initial-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "358a1def-dc9a-a477-92cc-131ec9e38ac9",
+          "sha256": "9933119a866e5a6e070f94112614033e1d59ea47de76b00b40441f19b769f09f",
+          "path": "states/004-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "358a1def-dc9a-a477-92cc-131ec9e38ac9",
+          "sha256": "a74939fd97f9a74e02e5988489254c230a1d62a97519a5fb84cd984650938776",
+          "path": "states/005-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "explicitly select previously reviewed artifact",
+        "execute with original approval"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 12,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "358a1def-dc9a-a477-92cc-131ec9e38ac9",
+          "sha256": "a74939fd97f9a74e02e5988489254c230a1d62a97519a5fb84cd984650938776",
+          "path": "states/006-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "358a1def-dc9a-a477-92cc-131ec9e38ac9",
+          "sha256": "a74939fd97f9a74e02e5988489254c230a1d62a97519a5fb84cd984650938776",
+          "path": "states/007-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 12,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 6,
+      "additional_correction_receipt_bytes": 4047,
+      "record_directory": "main/correction--different_plan--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "scenario": "stale_state",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 12,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "bbe54bb447b35a3aac7a9f9ec9e97163610028482ab51bde1168a18a43ace770",
+          "path": "states/005-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "bbe54bb447b35a3aac7a9f9ec9e97163610028482ab51bde1168a18a43ace770",
+          "path": "states/006-initial-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 15,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "bbe54bb447b35a3aac7a9f9ec9e97163610028482ab51bde1168a18a43ace770",
+          "path": "states/007-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "b180db621ef87de58c0824962b8fbada0c4ed708a6a69f67a33a32b20b39b20d",
+          "path": "states/008-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "plan against current state",
+        "review and approve new plan",
+        "execute newly approved plan"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 16,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "b180db621ef87de58c0824962b8fbada0c4ed708a6a69f67a33a32b20b39b20d",
+          "path": "states/009-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "b180db621ef87de58c0824962b8fbada0c4ed708a6a69f67a33a32b20b39b20d",
+          "path": "states/010-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": {
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "before": {
+          "label": "intervening-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "e48cca1ae2ea4ff0517129da2e66e321d67a9d57a862833dd336778785968a53",
+          "path": "states/003-intervening-before.tfstate"
+        },
+        "after": {
+          "label": "intervening-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "22604099-1177-8491-2cf3-494bdf6f70e7",
+          "sha256": "bbe54bb447b35a3aac7a9f9ec9e97163610028482ab51bde1168a18a43ace770",
+          "path": "states/004-intervening-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 16,
+      "approval_records": 3,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/correction--stale_state--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "stale_state",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 12,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "8d4deed3bb93a0a3962d30fc73e14b6365c58d13f645342c4c01e755d29cc464",
+          "path": "states/005-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "8d4deed3bb93a0a3962d30fc73e14b6365c58d13f645342c4c01e755d29cc464",
+          "path": "states/006-initial-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "recovery": {
+        "label": "recovery",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 15,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "recovery-before",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "8d4deed3bb93a0a3962d30fc73e14b6365c58d13f645342c4c01e755d29cc464",
+          "path": "states/007-recovery-before.tfstate"
+        },
+        "after": {
+          "label": "recovery-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "b4703dd327e174d58ecc9ec63b51dea8fc4a1539e70350e9c3786132d7abf8cc",
+          "path": "states/008-recovery-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery_steps": [
+        "plan against current state",
+        "review and approve new plan",
+        "execute newly approved plan"
+      ],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "recovery",
+        "selected_artifact_id": "recovery",
+        "selected_path": "artifacts/recovery.tfplan",
+        "approved_artifact_id": "recovery",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 16,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "b4703dd327e174d58ecc9ec63b51dea8fc4a1539e70350e9c3786132d7abf8cc",
+          "path": "states/009-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 3,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "b4703dd327e174d58ecc9ec63b51dea8fc4a1539e70350e9c3786132d7abf8cc",
+          "path": "states/010-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": {
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "before": {
+          "label": "intervening-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "4601a39e2f6dad367c0f684b57d91b89071cae066ab9a0108951d0b5133f2f9e",
+          "path": "states/003-intervening-before.tfstate"
+        },
+        "after": {
+          "label": "intervening-after",
+          "exists": true,
+          "quantity": 99,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "d668d59f-a357-6ba8-2072-7092c72718d0",
+          "sha256": "8d4deed3bb93a0a3962d30fc73e14b6365c58d13f645342c4c01e755d29cc464",
+          "path": "states/004-intervening-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 16,
+      "approval_records": 3,
+      "additional_correction_receipt_records": 6,
+      "additional_correction_receipt_bytes": 4035,
+      "record_directory": "main/correction--stale_state--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "scenario": "relocated_same_artifact",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "867c2842-d7c0-5934-bce6-14d8ac863187",
+          "sha256": "40f362cc1645449e43b96bc3c0ae521e90c1bf92bfb8e46bb5bc8355360013c1",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "867c2842-d7c0-5934-bce6-14d8ac863187",
+          "sha256": "565587186d1a91ab268824b82a568eeedc7553eefa4478753c99fe8005a87bcc",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "867c2842-d7c0-5934-bce6-14d8ac863187",
+          "sha256": "565587186d1a91ab268824b82a568eeedc7553eefa4478753c99fe8005a87bcc",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "867c2842-d7c0-5934-bce6-14d8ac863187",
+          "sha256": "565587186d1a91ab268824b82a568eeedc7553eefa4478753c99fe8005a87bcc",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "main/correction--relocated_same_artifact--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "scenario": "relocated_same_artifact",
+      "initial": {
+        "label": "initial",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "initial-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "0e8866d2-8555-db69-133a-383b129733e3",
+          "sha256": "30dbc7a9dcc108461b166767400cdcaae33fda667744db41f268a9ed3c014b89",
+          "path": "states/003-initial-before.tfstate"
+        },
+        "after": {
+          "label": "initial-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "0e8866d2-8555-db69-133a-383b129733e3",
+          "sha256": "2b4002d1abc9d6c19274a860bff7170fd808cc9a7d07a94bc7119b00e66f33e5",
+          "path": "states/004-initial-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "recovery": null,
+      "recovery_steps": [],
+      "replay": {
+        "label": "replay",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/relocated.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 10,
+        "native_exit_code": 1,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": "stale_plan",
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "replay-before",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "0e8866d2-8555-db69-133a-383b129733e3",
+          "sha256": "2b4002d1abc9d6c19274a860bff7170fd808cc9a7d07a94bc7119b00e66f33e5",
+          "path": "states/005-replay-before.tfstate"
+        },
+        "after": {
+          "label": "replay-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "0e8866d2-8555-db69-133a-383b129733e3",
+          "sha256": "2b4002d1abc9d6c19274a860bff7170fd808cc9a7d07a94bc7119b00e66f33e5",
+          "path": "states/006-replay-after.tfstate"
+        },
+        "state_changed": false
+      },
+      "intervening_transition": null,
+      "checks": {
+        "initial_gate_matches_protocol": true,
+        "initial_native_behavior_matches_protocol": true,
+        "rejected_attempt_preserves_state": true,
+        "final_native_commit_succeeded": true,
+        "final_authorized_value": true,
+        "unchanged_reference_preserved": true,
+        "replay_native_observation_known": true,
+        "replay_no_second_state_change": true,
+        "replay_value_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 10,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 4,
+      "additional_correction_receipt_bytes": 2718,
+      "record_directory": "main/correction--relocated_same_artifact--binding_plus_correction_receipt"
+    }
+  ],
+  "controls": [
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "control": "direct_native_regenerated",
+      "observation": {
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "before": {
+          "label": "direct-native-regenerated-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "fd15294d-6719-0a51-c872-6f06792a379f",
+          "sha256": "3e52dc717ac2cc8e33bd7725854d0c8e713e7f33b5dd2a3372d7daa16a518555",
+          "path": "states/003-direct-native-regenerated-before.tfstate"
+        },
+        "after": {
+          "label": "direct-native-regenerated-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "fd15294d-6719-0a51-c872-6f06792a379f",
+          "sha256": "66cf021688970d5242faae8ef4a6a9c9a58f5c4bc0868c6c6ae7120bf239ee6e",
+          "path": "states/004-direct-native-regenerated-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "explicit_native_application_succeeded": true,
+        "authorized_business_value": true,
+        "unchanged_reference_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 9,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "control/accept--direct_native_regenerated--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "control": "direct_native_regenerated",
+      "observation": {
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "before": {
+          "label": "direct-native-regenerated-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "7941a1b9-ccfc-65e0-7bba-0d6fdf89781f",
+          "sha256": "4001056c5bf4d949bce04394baba7cfa32f64e831bda4bd6a03153d0c545ea86",
+          "path": "states/003-direct-native-regenerated-before.tfstate"
+        },
+        "after": {
+          "label": "direct-native-regenerated-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "7941a1b9-ccfc-65e0-7bba-0d6fdf89781f",
+          "sha256": "b3f1d4ec6a73a1ee0bb4721a0fb4e9590ada7245da1549d2d7ee6402cb56501d",
+          "path": "states/004-direct-native-regenerated-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "explicit_native_application_succeeded": true,
+        "authorized_business_value": true,
+        "unchanged_reference_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 11,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "control/correction--direct_native_regenerated--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "saved_plan_binding",
+      "control": "fresh_approval",
+      "observation": {
+        "label": "fresh-approval",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "regenerated",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "fresh-approval-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "4d70778b-67f1-1241-7598-6b5fb056c242",
+          "sha256": "0a591f03d3a551826a1506bc79aa8846f790cb5dff8fd81c7e937de564200286",
+          "path": "states/003-fresh-approval-before.tfstate"
+        },
+        "after": {
+          "label": "fresh-approval-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "4d70778b-67f1-1241-7598-6b5fb056c242",
+          "sha256": "11505804743e820a68cfa8fc1dbfbfd12dc645cfb53f4b65cd869f855904859e",
+          "path": "states/004-fresh-approval-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "new_approval_allows_new_artifact": true,
+        "authorized_business_value": true,
+        "unchanged_reference_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 9,
+      "approval_records": 2,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "control/accept--fresh_approval--saved_plan_binding"
+    },
+    {
+      "relation": "Accept",
+      "route": "binding_plus_correction_receipt",
+      "control": "fresh_approval",
+      "observation": {
+        "label": "fresh-approval",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "regenerated",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 9,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "fresh-approval-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "dc7376a3-9c39-3bc7-2522-2dfac815d699",
+          "sha256": "694f744a31f1f16c32d3637497eeef4a58d3cf66761cb2d4850f5947a0d68c2e",
+          "path": "states/003-fresh-approval-before.tfstate"
+        },
+        "after": {
+          "label": "fresh-approval-after",
+          "exists": true,
+          "quantity": 20,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "dc7376a3-9c39-3bc7-2522-2dfac815d699",
+          "sha256": "feab21fb22930f4bbb56b6fa5e3f8252268f89fd7be391ef63f650c749cf39f9",
+          "path": "states/004-fresh-approval-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "new_approval_allows_new_artifact": true,
+        "authorized_business_value": true,
+        "unchanged_reference_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 9,
+      "approval_records": 2,
+      "additional_correction_receipt_records": 2,
+      "additional_correction_receipt_bytes": 1402,
+      "record_directory": "control/accept--fresh_approval--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "saved_plan_binding",
+      "control": "fresh_approval",
+      "observation": {
+        "label": "fresh-approval",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "regenerated",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "before": {
+          "label": "fresh-approval-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "69713006-9509-dc59-de37-f0abb08c90ca",
+          "sha256": "f53e285825a6e315a66dfbc5b323ad6def5bcd85f9043d2b96b1a92c85484f51",
+          "path": "states/003-fresh-approval-before.tfstate"
+        },
+        "after": {
+          "label": "fresh-approval-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "69713006-9509-dc59-de37-f0abb08c90ca",
+          "sha256": "9580753db67009ed68b7b1b832776fe8ea3cf7a166c046c7cfd55ceabec62cf3",
+          "path": "states/004-fresh-approval-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "new_approval_allows_new_artifact": true,
+        "authorized_business_value": true,
+        "unchanged_reference_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 11,
+      "approval_records": 2,
+      "additional_correction_receipt_records": 0,
+      "additional_correction_receipt_bytes": 0,
+      "record_directory": "control/correction--fresh_approval--saved_plan_binding"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "control": "fresh_approval",
+      "observation": {
+        "label": "fresh-approval",
+        "caller_requested_artifact_id": "regenerated",
+        "selected_artifact_id": "regenerated",
+        "selected_path": "artifacts/regenerated.tfplan",
+        "approved_artifact_id": "regenerated",
+        "gate_decision": "allow",
+        "gate_reason": "artifact identity and digest match",
+        "native_command_number": 11,
+        "native_exit_code": 0,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "fresh-approval-before",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "913d6844-292a-fcaa-c8c4-12d6e54a3e67",
+          "sha256": "5a9beaec1cd07a1b49584f0b8b1ee94c2f330ee11c32547d9ce50eabc48b0521",
+          "path": "states/003-fresh-approval-before.tfstate"
+        },
+        "after": {
+          "label": "fresh-approval-after",
+          "exists": true,
+          "quantity": 21,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 2,
+          "lineage": "913d6844-292a-fcaa-c8c4-12d6e54a3e67",
+          "sha256": "e7bc9c3c376143901f8cb2d40a07c3680b1243e3f07d39cd41cdabe76b7991e9",
+          "path": "states/004-fresh-approval-after.tfstate"
+        },
+        "state_changed": true
+      },
+      "checks": {
+        "new_approval_allows_new_artifact": true,
+        "authorized_business_value": true,
+        "unchanged_reference_preserved": true
+      },
+      "status": "pass",
+      "native_cli_calls": 11,
+      "approval_records": 2,
+      "additional_correction_receipt_records": 2,
+      "additional_correction_receipt_bytes": 1402,
+      "record_directory": "control/correction--fresh_approval--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "control": "corrupt_proposal_receipt",
+      "observation": {
+        "label": "corrupt_proposal_receipt",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "reject",
+        "gate_reason": "correction receipt inconsistent",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": false,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": true,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "corrupt_proposal_receipt-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "2e5af821-cea5-5348-8ecf-656b8c1dfbcd",
+          "sha256": "66a13b085fa9e9c7e33ac02a1c42af5308d07667a46878372ef17e7daa3602c5",
+          "path": "states/003-corrupt_proposal_receipt-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "corrupt_proposal_receipt-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "2e5af821-cea5-5348-8ecf-656b8c1dfbcd",
+          "sha256": "66a13b085fa9e9c7e33ac02a1c42af5308d07667a46878372ef17e7daa3602c5",
+          "path": "states/003-corrupt_proposal_receipt-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "checks": {
+        "inconsistent_receipt_rejected": true,
+        "native_not_invoked": true,
+        "state_unchanged": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 2,
+      "additional_correction_receipt_bytes": 1335,
+      "record_directory": "control/correction--corrupt_proposal_receipt--binding_plus_correction_receipt"
+    },
+    {
+      "relation": "Correction",
+      "route": "binding_plus_correction_receipt",
+      "control": "corrupt_authorized_receipt",
+      "observation": {
+        "label": "corrupt_authorized_receipt",
+        "caller_requested_artifact_id": "corrected",
+        "selected_artifact_id": "corrected",
+        "selected_path": "artifacts/corrected.tfplan",
+        "approved_artifact_id": "corrected",
+        "gate_decision": "reject",
+        "gate_reason": "correction receipt inconsistent",
+        "native_command_number": null,
+        "native_exit_code": null,
+        "native_timed_out": false,
+        "native_launch_error": null,
+        "native_error_kind": null,
+        "binding_checks": {
+          "logical_artifact_matches": true,
+          "actual_digest_matches_approval": true,
+          "artifact_metadata_matches_bytes": true
+        },
+        "receipt_checks": {
+          "original_value_matches_plan": true,
+          "original_bytes_preserved": true,
+          "authorized_value_matches_plan": false,
+          "reviewed_matches_attempt": true
+        },
+        "before": {
+          "label": "corrupt_authorized_receipt-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "39a2643f-6903-6ad2-ab44-b13fdbb952c1",
+          "sha256": "370bd7e1307f15501cd85facdaf8176de8373ca3c410a8b2450003b15793ebbf",
+          "path": "states/003-corrupt_authorized_receipt-gate-rejected.tfstate"
+        },
+        "after": {
+          "label": "corrupt_authorized_receipt-gate-rejected",
+          "exists": true,
+          "quantity": 7,
+          "reference_note": "retain-reviewed-reference",
+          "serial": 1,
+          "lineage": "39a2643f-6903-6ad2-ab44-b13fdbb952c1",
+          "sha256": "370bd7e1307f15501cd85facdaf8176de8373ca3c410a8b2450003b15793ebbf",
+          "path": "states/003-corrupt_authorized_receipt-gate-rejected.tfstate"
+        },
+        "state_changed": false
+      },
+      "checks": {
+        "inconsistent_receipt_rejected": true,
+        "native_not_invoked": true,
+        "state_unchanged": true
+      },
+      "status": "pass",
+      "native_cli_calls": 8,
+      "approval_records": 1,
+      "additional_correction_receipt_records": 2,
+      "additional_correction_receipt_bytes": 1335,
+      "record_directory": "control/correction--corrupt_authorized_receipt--binding_plus_correction_receipt"
+    }
+  ]
+}

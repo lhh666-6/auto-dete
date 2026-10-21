@@ -1,0 +1,148 @@
+test_early_truncation_does_not_overwrite_success (test_analysis.ClassificationTests.test_early_truncation_does_not_overwrite_success) ... FAIL
+test_envelope_failure_is_separate (test_analysis.ClassificationTests.test_envelope_failure_is_separate) ... FAIL
+test_equal_tokens_is_not_truncation (test_analysis.ClassificationTests.test_equal_tokens_is_not_truncation) ... ok
+test_final_natural_format_failure_after_early_truncation (test_analysis.ClassificationTests.test_final_natural_format_failure_after_early_truncation) ... FAIL
+test_frozen_parser_allows_normalized_action (test_analysis.ClassificationTests.test_frozen_parser_allows_normalized_action) ... FAIL
+test_frozen_parser_rejects_bad_nested_json (test_analysis.ClassificationTests.test_frozen_parser_rejects_bad_nested_json) ... ok
+test_missing_termination_stays_missing (test_analysis.ClassificationTests.test_missing_termination_stays_missing) ... FAIL
+test_natural_format_error_is_separate (test_analysis.ClassificationTests.test_natural_format_error_is_separate) ... FAIL
+test_parseable_truncation_is_not_terminal_cause (test_analysis.ClassificationTests.test_parseable_truncation_is_not_terminal_cause) ... FAIL
+test_terminal_after_format_repair (test_analysis.ClassificationTests.test_terminal_after_format_repair) ... FAIL
+test_transport_failure_after_truncation_is_not_truncation_terminal (test_analysis.ClassificationTests.test_transport_failure_after_truncation_is_not_truncation_terminal) ... FAIL
+test_truncated_empty (test_analysis.ClassificationTests.test_truncated_empty) ... FAIL
+test_truncated_parseable (test_analysis.ClassificationTests.test_truncated_parseable) ... FAIL
+test_truncated_partial (test_analysis.ClassificationTests.test_truncated_partial) ... FAIL
+
+======================================================================
+FAIL: test_early_truncation_does_not_overwrite_success (test_analysis.ClassificationTests.test_early_truncation_does_not_overwrite_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 36, in test_early_truncation_does_not_overwrite_success
+    self.assertEqual(terminal_diagnostic('agent_final',[attempt(),attempt('end_turn',ACTION,True,seq=2)]),'agent_final')
+AssertionError: 'unclassified' != 'agent_final'
+- unclassified
++ agent_final
+
+
+======================================================================
+FAIL: test_envelope_failure_is_separate (test_analysis.ClassificationTests.test_envelope_failure_is_separate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 27, in test_envelope_failure_is_separate
+    self.assertEqual(classify_response({'error': {'type': 'authentication_error'}})['response_class'], 'malformed_envelope')
+AssertionError: 'unclassified' != 'malformed_envelope'
+- unclassified
++ malformed_envelope
+
+
+======================================================================
+FAIL: test_final_natural_format_failure_after_early_truncation (test_analysis.ClassificationTests.test_final_natural_format_failure_after_early_truncation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 40, in test_final_natural_format_failure_after_early_truncation
+    self.assertEqual(terminal_diagnostic('invalid_output',[attempt(),attempt('end_turn','bad',True,seq=2)]),'invalid_output_other_last_response')
+AssertionError: 'unclassified' != 'invalid_output_other_last_response'
+- unclassified
++ invalid_output_other_last_response
+
+
+======================================================================
+FAIL: test_frozen_parser_allows_normalized_action (test_analysis.ClassificationTests.test_frozen_parser_allows_normalized_action)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 29, in test_frozen_parser_allows_normalized_action
+    self.assertTrue(classify_response(response('end_turn',ACTION))['parseable'])
+AssertionError: None is not true
+
+======================================================================
+FAIL: test_missing_termination_stays_missing (test_analysis.ClassificationTests.test_missing_termination_stays_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 42, in test_missing_termination_stays_missing
+    self.assertEqual(terminal_diagnostic('termination_missing',[attempt()]),'termination_missing')
+AssertionError: 'unclassified' != 'termination_missing'
+- unclassified
++ termination_missing
+
+
+======================================================================
+FAIL: test_natural_format_error_is_separate (test_analysis.ClassificationTests.test_natural_format_error_is_separate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 25, in test_natural_format_error_is_separate
+    self.assertEqual(classify_response(response('end_turn','hello'))['response_class'], 'natural_stop_nonparseable')
+AssertionError: 'unclassified' != 'natural_stop_nonparseable'
+- unclassified
++ natural_stop_nonparseable
+
+
+======================================================================
+FAIL: test_parseable_truncation_is_not_terminal_cause (test_analysis.ClassificationTests.test_parseable_truncation_is_not_terminal_cause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 44, in test_parseable_truncation_is_not_terminal_cause
+    self.assertEqual(terminal_diagnostic('invalid_output',[attempt(text=ACTION)]),'invalid_output_unresolved')
+AssertionError: 'unclassified' != 'invalid_output_unresolved'
+- unclassified
++ invalid_output_unresolved
+
+
+======================================================================
+FAIL: test_terminal_after_format_repair (test_analysis.ClassificationTests.test_terminal_after_format_repair)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 34, in test_terminal_after_format_repair
+    self.assertEqual(terminal_diagnostic('invalid_output',[attempt(),attempt(repair=True,seq=2)]), 'invalid_output_after_output_truncation_after_format_repair')
+AssertionError: 'unclassified' != 'invalid_output_after_output_truncation_after_format_repair'
+- unclassified
++ invalid_output_after_output_truncation_after_format_repair
+
+
+======================================================================
+FAIL: test_transport_failure_after_truncation_is_not_truncation_terminal (test_analysis.ClassificationTests.test_transport_failure_after_truncation_is_not_truncation_terminal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 38, in test_transport_failure_after_truncation_is_not_truncation_terminal
+    self.assertEqual(terminal_diagnostic('runtime_error',[attempt(),attempt(outcome='model_error',seq=2)]),'runtime_error')
+AssertionError: 'unclassified' != 'runtime_error'
+- unclassified
++ runtime_error
+
+
+======================================================================
+FAIL: test_truncated_empty (test_analysis.ClassificationTests.test_truncated_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 17, in test_truncated_empty
+    self.assertEqual(classify_response(response('max_tokens',''))['response_class'], 'max_tokens_empty')
+AssertionError: 'unclassified' != 'max_tokens_empty'
+- unclassified
++ max_tokens_empty
+
+
+======================================================================
+FAIL: test_truncated_parseable (test_analysis.ClassificationTests.test_truncated_parseable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 21, in test_truncated_parseable
+    self.assertEqual(classify_response(response('max_tokens',ACTION))['response_class'], 'max_tokens_parseable')
+AssertionError: 'unclassified' != 'max_tokens_parseable'
+- unclassified
++ max_tokens_parseable
+
+
+======================================================================
+FAIL: test_truncated_partial (test_analysis.ClassificationTests.test_truncated_partial)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Claude_Design\auto-decte-paper\research\kais-revision-output-audit-2026-10-14\test_analysis.py", line 19, in test_truncated_partial
+    self.assertEqual(classify_response(response('max_tokens','{"kind":'))['response_class'], 'max_tokens_nonparseable_text')
+AssertionError: 'unclassified' != 'max_tokens_nonparseable_text'
+- unclassified
++ max_tokens_nonparseable_text
+
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.003s
+
+FAILED (failures=12)

@@ -1,0 +1,22 @@
+terraform_data.change: Refreshing state... [id=bc341605-e17e-9575-5225-13158b2bc44f]
+
+OpenTofu used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place (current -> planned)
+
+OpenTofu will perform the following actions:
+
+  # terraform_data.change will be updated in-place
+  ~ resource "terraform_data" "change" {
+        id     = "bc341605-e17e-9575-5225-13158b2bc44f"
+      ~ input  = {
+          ~ quantity       = 7 -> 20
+            # (1 unchanged attribute hidden)
+        }
+      ~ output = {
+          - quantity       = 7
+          - reference_note = "retain-reviewed-reference"
+        } -> (known after apply)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

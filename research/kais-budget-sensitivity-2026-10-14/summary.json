@@ -1,0 +1,5576 @@
+{
+  "analysis_version": "kais-budget-sensitivity-analysis-v1",
+  "planned_cells": 96,
+  "planned_tasks": 24,
+  "terminated_cells": 96,
+  "not_started_cells": 0,
+  "incomplete_cells": 0,
+  "audit_error_cells": 0,
+  "overall": {
+    "planned_tasks": 24,
+    "d_low": {
+      "planned_tasks": 24,
+      "known_tasks": 24,
+      "mean": -0.041666666666666664,
+      "mean_lower": -0.041666666666666664,
+      "mean_upper": -0.041666666666666664,
+      "known_sum": -1,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "all_observed_identical": false
+    },
+    "d_high": {
+      "planned_tasks": 24,
+      "known_tasks": 24,
+      "mean": 0,
+      "mean_lower": 0,
+      "mean_upper": 0,
+      "known_sum": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "all_observed_identical": true
+    },
+    "interaction": {
+      "planned_tasks": 24,
+      "known_tasks": 24,
+      "mean": 0.041666666666666664,
+      "mean_lower": 0.041666666666666664,
+      "mean_upper": 0.041666666666666664,
+      "known_sum": 1,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "all_observed_identical": false
+    },
+    "budget_context": {
+      "planned_tasks": 24,
+      "known_tasks": 24,
+      "mean": 0.041666666666666664,
+      "mean_lower": 0.041666666666666664,
+      "mean_upper": 0.041666666666666664,
+      "known_sum": 1,
+      "minimum_observed": 0,
+      "maximum_observed": 1,
+      "all_observed_identical": false
+    },
+    "budget_bound": {
+      "planned_tasks": 24,
+      "known_tasks": 24,
+      "mean": 0.08333333333333333,
+      "mean_lower": 0.08333333333333333,
+      "mean_upper": 0.08333333333333333,
+      "known_sum": 2,
+      "minimum_observed": 0,
+      "maximum_observed": 1,
+      "all_observed_identical": false
+    }
+  },
+  "conditions": {
+    "CL": {
+      "planned_cells": 24,
+      "terminated_cells": 24,
+      "known_U": 24,
+      "successes_known": 23,
+      "U_mean": 0.9583333333333334,
+      "U_mean_lower": 0.9583333333333334,
+      "U_mean_upper": 0.9583333333333334,
+      "I_counts": {
+        "1": 20,
+        "0": 4
+      },
+      "terminal_counts": {
+        "agent_final": 23,
+        "invalid_output": 1
+      },
+      "recovery_paths": {
+        "reauthorization": 8,
+        "none": 12,
+        "no_observed_recovery": 2,
+        "successful-confirmation-via-state": 2
+      },
+      "costs_all_planned_cells": {
+        "suffix_elapsed_ms": {
+          "planned": 24,
+          "known": 24,
+          "sum": 1132779.0,
+          "observed_sum": 1132779.0,
+          "mean": 47199.125,
+          "minimum_observed": 11015.0,
+          "maximum_observed": 109625.0,
+          "median_observed": 39835.5
+        },
+        "agent_tool_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 71,
+          "observed_sum": 71,
+          "mean": 2.9583333333333335,
+          "minimum_observed": 0,
+          "maximum_observed": 6,
+          "median_observed": 2.5
+        },
+        "model_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 100,
+          "observed_sum": 100,
+          "mean": 4.166666666666667,
+          "minimum_observed": 1,
+          "maximum_observed": 7,
+          "median_observed": 4.0
+        },
+        "model_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 100,
+          "observed_sum": 100,
+          "mean": 4.166666666666667,
+          "minimum_observed": 1,
+          "maximum_observed": 7,
+          "median_observed": 4.0
+        },
+        "external_retries": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "truncated_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 6,
+          "observed_sum": 6,
+          "mean": 0.25,
+          "minimum_observed": 0,
+          "maximum_observed": 2,
+          "median_observed": 0.0
+        },
+        "suffix_format_repairs": {
+          "planned": 24,
+          "known": 24,
+          "sum": 5,
+          "observed_sum": 5,
+          "mean": 0.20833333333333334,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "authorization_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 8,
+          "observed_sum": 8,
+          "mean": 0.3333333333333333,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "reproposal_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 11,
+          "observed_sum": 11,
+          "mean": 0.4583333333333333,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "receipt_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 15,
+          "observed_sum": 15,
+          "mean": 0.625,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 1.0
+        }
+      },
+      "usage": {
+        "cache_creation_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "cache_read_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 236032,
+          "observed_sum": 236032,
+          "mean": 9834.666666666666,
+          "minimum_observed": 2304,
+          "maximum_observed": 19328,
+          "median_observed": 8128.0
+        },
+        "input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 29712,
+          "observed_sum": 29712,
+          "mean": 1238,
+          "minimum_observed": 154,
+          "maximum_observed": 2734,
+          "median_observed": 857.0
+        },
+        "output_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 172249,
+          "observed_sum": 172249,
+          "mean": 7177.041666666667,
+          "minimum_observed": 1579,
+          "maximum_observed": 16822,
+          "median_observed": 6461.5
+        }
+      }
+    },
+    "CH": {
+      "planned_cells": 24,
+      "terminated_cells": 24,
+      "known_U": 24,
+      "successes_known": 24,
+      "U_mean": 1.0,
+      "U_mean_lower": 1.0,
+      "U_mean_upper": 1.0,
+      "I_counts": {
+        "1": 20,
+        "0": 4
+      },
+      "terminal_counts": {
+        "agent_final": 24
+      },
+      "recovery_paths": {
+        "reauthorization": 8,
+        "none": 13,
+        "successful-confirmation-via-state": 2,
+        "no_observed_recovery": 1
+      },
+      "costs_all_planned_cells": {
+        "suffix_elapsed_ms": {
+          "planned": 24,
+          "known": 24,
+          "sum": 1116097.0,
+          "observed_sum": 1116097.0,
+          "mean": 46504.041666666664,
+          "minimum_observed": 14016.0,
+          "maximum_observed": 112890.0,
+          "median_observed": 33133.0
+        },
+        "agent_tool_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 72,
+          "observed_sum": 72,
+          "mean": 3,
+          "minimum_observed": 0,
+          "maximum_observed": 6,
+          "median_observed": 2.0
+        },
+        "model_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 96,
+          "observed_sum": 96,
+          "mean": 4,
+          "minimum_observed": 1,
+          "maximum_observed": 7,
+          "median_observed": 3.0
+        },
+        "model_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 96,
+          "observed_sum": 96,
+          "mean": 4,
+          "minimum_observed": 1,
+          "maximum_observed": 7,
+          "median_observed": 3.0
+        },
+        "external_retries": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "truncated_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "suffix_format_repairs": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "authorization_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 8,
+          "observed_sum": 8,
+          "mean": 0.3333333333333333,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "reproposal_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 12,
+          "observed_sum": 12,
+          "mean": 0.5,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.5
+        },
+        "receipt_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 15,
+          "observed_sum": 15,
+          "mean": 0.625,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 1.0
+        }
+      },
+      "usage": {
+        "cache_creation_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "cache_read_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 227072,
+          "observed_sum": 227072,
+          "mean": 9461.333333333334,
+          "minimum_observed": 1920,
+          "maximum_observed": 19840,
+          "median_observed": 6400.0
+        },
+        "input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 28690,
+          "observed_sum": 28690,
+          "mean": 1195.4166666666667,
+          "minimum_observed": 282,
+          "maximum_observed": 2603,
+          "median_observed": 887.5
+        },
+        "output_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 171582,
+          "observed_sum": 171582,
+          "mean": 7149.25,
+          "minimum_observed": 1837,
+          "maximum_observed": 17276,
+          "median_observed": 5480.0
+        }
+      }
+    },
+    "BL": {
+      "planned_cells": 24,
+      "terminated_cells": 24,
+      "known_U": 24,
+      "successes_known": 22,
+      "U_mean": 0.9166666666666666,
+      "U_mean_lower": 0.9166666666666666,
+      "U_mean_upper": 0.9166666666666666,
+      "I_counts": {
+        "1": 24
+      },
+      "terminal_counts": {
+        "invalid_output": 2,
+        "agent_final": 22
+      },
+      "recovery_paths": {
+        "none": 12,
+        "successful-confirmation-via-state": 2,
+        "reuse-reviewed": 4,
+        "reauthorization": 6
+      },
+      "costs_all_planned_cells": {
+        "suffix_elapsed_ms": {
+          "planned": 24,
+          "known": 24,
+          "sum": 1068982.0,
+          "observed_sum": 1068982.0,
+          "mean": 44540.916666666664,
+          "minimum_observed": 15047.0,
+          "maximum_observed": 106469.0,
+          "median_observed": 38586.0
+        },
+        "agent_tool_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 63,
+          "observed_sum": 63,
+          "mean": 2.625,
+          "minimum_observed": 0,
+          "maximum_observed": 6,
+          "median_observed": 2.0
+        },
+        "model_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 93,
+          "observed_sum": 93,
+          "mean": 3.875,
+          "minimum_observed": 2,
+          "maximum_observed": 8,
+          "median_observed": 3.0
+        },
+        "model_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 93,
+          "observed_sum": 93,
+          "mean": 3.875,
+          "minimum_observed": 2,
+          "maximum_observed": 8,
+          "median_observed": 3.0
+        },
+        "external_retries": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "truncated_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 8,
+          "observed_sum": 8,
+          "mean": 0.3333333333333333,
+          "minimum_observed": 0,
+          "maximum_observed": 2,
+          "median_observed": 0.0
+        },
+        "suffix_format_repairs": {
+          "planned": 24,
+          "known": 24,
+          "sum": 6,
+          "observed_sum": 6,
+          "mean": 0.25,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "authorization_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 6,
+          "observed_sum": 6,
+          "mean": 0.25,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "reproposal_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 10,
+          "observed_sum": 10,
+          "mean": 0.4166666666666667,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "receipt_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 11,
+          "observed_sum": 11,
+          "mean": 0.4583333333333333,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        }
+      },
+      "usage": {
+        "cache_creation_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "cache_read_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 217467,
+          "observed_sum": 217467,
+          "mean": 9061.125,
+          "minimum_observed": 3584,
+          "maximum_observed": 22272,
+          "median_observed": 6400.0
+        },
+        "input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 26024,
+          "observed_sum": 26024,
+          "mean": 1084.3333333333333,
+          "minimum_observed": 320,
+          "maximum_observed": 2624,
+          "median_observed": 825.0
+        },
+        "output_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 164153,
+          "observed_sum": 164153,
+          "mean": 6839.708333333333,
+          "minimum_observed": 2148,
+          "maximum_observed": 15480,
+          "median_observed": 6191.0
+        }
+      }
+    },
+    "BH": {
+      "planned_cells": 24,
+      "terminated_cells": 24,
+      "known_U": 24,
+      "successes_known": 24,
+      "U_mean": 1.0,
+      "U_mean_lower": 1.0,
+      "U_mean_upper": 1.0,
+      "I_counts": {
+        "1": 24
+      },
+      "terminal_counts": {
+        "agent_final": 24
+      },
+      "recovery_paths": {
+        "reauthorization": 8,
+        "none": 9,
+        "successful-confirmation-via-state": 3,
+        "reuse-reviewed": 4
+      },
+      "costs_all_planned_cells": {
+        "suffix_elapsed_ms": {
+          "planned": 24,
+          "known": 24,
+          "sum": 1037641.0,
+          "observed_sum": 1037641.0,
+          "mean": 43235.041666666664,
+          "minimum_observed": 15218.0,
+          "maximum_observed": 84531.0,
+          "median_observed": 39383.0
+        },
+        "agent_tool_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 76,
+          "observed_sum": 76,
+          "mean": 3.1666666666666665,
+          "minimum_observed": 1,
+          "maximum_observed": 6,
+          "median_observed": 3.0
+        },
+        "model_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 100,
+          "observed_sum": 100,
+          "mean": 4.166666666666667,
+          "minimum_observed": 2,
+          "maximum_observed": 7,
+          "median_observed": 4.0
+        },
+        "model_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 100,
+          "observed_sum": 100,
+          "mean": 4.166666666666667,
+          "minimum_observed": 2,
+          "maximum_observed": 7,
+          "median_observed": 4.0
+        },
+        "external_retries": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "truncated_responses": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "suffix_format_repairs": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "authorization_requests": {
+          "planned": 24,
+          "known": 24,
+          "sum": 8,
+          "observed_sum": 8,
+          "mean": 0.3333333333333333,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.0
+        },
+        "reproposal_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 12,
+          "observed_sum": 12,
+          "mean": 0.5,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 0.5
+        },
+        "receipt_calls": {
+          "planned": 24,
+          "known": 24,
+          "sum": 13,
+          "observed_sum": 13,
+          "mean": 0.5416666666666666,
+          "minimum_observed": 0,
+          "maximum_observed": 1,
+          "median_observed": 1.0
+        }
+      },
+      "usage": {
+        "cache_creation_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 0,
+          "observed_sum": 0,
+          "mean": 0,
+          "minimum_observed": 0,
+          "maximum_observed": 0,
+          "median_observed": 0.0
+        },
+        "cache_read_input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 236032,
+          "observed_sum": 236032,
+          "mean": 9834.666666666666,
+          "minimum_observed": 3712,
+          "maximum_observed": 19072,
+          "median_observed": 8192.0
+        },
+        "input_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 30439,
+          "observed_sum": 30439,
+          "mean": 1268.2916666666667,
+          "minimum_observed": 328,
+          "maximum_observed": 2683,
+          "median_observed": 963.0
+        },
+        "output_tokens": {
+          "planned": 24,
+          "known": 24,
+          "sum": 155614,
+          "observed_sum": 155614,
+          "mean": 6483.916666666667,
+          "minimum_observed": 1896,
+          "maximum_observed": 12884,
+          "median_observed": 6243.5
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "E": {
+      "planned_tasks": 4,
+      "d_low": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "d_high": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "interaction": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_context": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_bound": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "conditions": {
+        "CL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 295859.0,
+              "observed_sum": 295859.0,
+              "mean": 73964.75,
+              "minimum_observed": 61032.0,
+              "maximum_observed": 86640.0,
+              "median_observed": 74093.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 22,
+              "observed_sum": 22,
+              "mean": 5.5,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 5.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 69760,
+              "observed_sum": 69760,
+              "mean": 17440,
+              "minimum_observed": 14208,
+              "maximum_observed": 19328,
+              "median_observed": 18112.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9182,
+              "observed_sum": 9182,
+              "mean": 2295.5,
+              "minimum_observed": 2065,
+              "maximum_observed": 2734,
+              "median_observed": 2191.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 45082,
+              "observed_sum": 45082,
+              "mean": 11270.5,
+              "minimum_observed": 9056,
+              "maximum_observed": 13088,
+              "median_observed": 11469.0
+            }
+          }
+        },
+        "CH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 289518.0,
+              "observed_sum": 289518.0,
+              "mean": 72379.5,
+              "minimum_observed": 57407.0,
+              "maximum_observed": 86407.0,
+              "median_observed": 72852.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 21,
+              "observed_sum": 21,
+              "mean": 5.25,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 5.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 25,
+              "observed_sum": 25,
+              "mean": 6.25,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 6.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 25,
+              "observed_sum": 25,
+              "mean": 6.25,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 6.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 63744,
+              "observed_sum": 63744,
+              "mean": 15936,
+              "minimum_observed": 15232,
+              "maximum_observed": 17664,
+              "median_observed": 15424.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8293,
+              "observed_sum": 8293,
+              "mean": 2073.25,
+              "minimum_observed": 1860,
+              "maximum_observed": 2419,
+              "median_observed": 2007.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 45389,
+              "observed_sum": 45389,
+              "mean": 11347.25,
+              "minimum_observed": 8987,
+              "maximum_observed": 15006,
+              "median_observed": 10698.0
+            }
+          }
+        },
+        "BL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 270500.0,
+              "observed_sum": 270500.0,
+              "mean": 67625.0,
+              "minimum_observed": 56312.0,
+              "maximum_observed": 83734.0,
+              "median_observed": 65227.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 22,
+              "observed_sum": 22,
+              "mean": 5.5,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 5.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 68731,
+              "observed_sum": 68731,
+              "mean": 17182.75,
+              "minimum_observed": 14208,
+              "maximum_observed": 19328,
+              "median_observed": 17597.5
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8806,
+              "observed_sum": 8806,
+              "mean": 2201.5,
+              "minimum_observed": 2101,
+              "maximum_observed": 2300,
+              "median_observed": 2202.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 41346,
+              "observed_sum": 41346,
+              "mean": 10336.5,
+              "minimum_observed": 7594,
+              "maximum_observed": 14008,
+              "median_observed": 9872.0
+            }
+          }
+        },
+        "BH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 218688.0,
+              "observed_sum": 218688.0,
+              "mean": 54672.0,
+              "minimum_observed": 42703.0,
+              "maximum_observed": 63813.0,
+              "median_observed": 56086.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 21,
+              "observed_sum": 21,
+              "mean": 5.25,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 5.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 25,
+              "observed_sum": 25,
+              "mean": 6.25,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 6.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 25,
+              "observed_sum": 25,
+              "mean": 6.25,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 6.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 62336,
+              "observed_sum": 62336,
+              "mean": 15584,
+              "minimum_observed": 14208,
+              "maximum_observed": 17920,
+              "median_observed": 15104.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8962,
+              "observed_sum": 8962,
+              "mean": 2240.5,
+              "minimum_observed": 1882,
+              "maximum_observed": 2683,
+              "median_observed": 2198.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 32556,
+              "observed_sum": 32556,
+              "mean": 8139,
+              "minimum_observed": 6475,
+              "maximum_observed": 9936,
+              "median_observed": 8072.5
+            }
+          }
+        }
+      }
+    },
+    "G": {
+      "planned_tasks": 4,
+      "d_low": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "d_high": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "interaction": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_context": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_bound": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "conditions": {
+        "CL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "0": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 67844.0,
+              "observed_sum": 67844.0,
+              "mean": 16961.0,
+              "minimum_observed": 11015.0,
+              "maximum_observed": 27812.0,
+              "median_observed": 14508.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 6,
+              "observed_sum": 6,
+              "mean": 1.5,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 1.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 6,
+              "observed_sum": 6,
+              "mean": 1.5,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 1.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13696,
+              "observed_sum": 13696,
+              "mean": 3424,
+              "minimum_observed": 2304,
+              "maximum_observed": 4736,
+              "median_observed": 3328.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1770,
+              "observed_sum": 1770,
+              "mean": 442.5,
+              "minimum_observed": 154,
+              "maximum_observed": 847,
+              "median_observed": 384.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 10266,
+              "observed_sum": 10266,
+              "mean": 2566.5,
+              "minimum_observed": 1579,
+              "maximum_observed": 4287,
+              "median_observed": 2200.0
+            }
+          }
+        },
+        "CH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "0": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 85923.0,
+              "observed_sum": 85923.0,
+              "mean": 21480.75,
+              "minimum_observed": 14016.0,
+              "maximum_observed": 32438.0,
+              "median_observed": 19734.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 6,
+              "observed_sum": 6,
+              "mean": 1.5,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 1.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 6,
+              "observed_sum": 6,
+              "mean": 1.5,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 1.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13952,
+              "observed_sum": 13952,
+              "mean": 3488,
+              "minimum_observed": 1920,
+              "maximum_observed": 4992,
+              "median_observed": 3520.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1542,
+              "observed_sum": 1542,
+              "mean": 385.5,
+              "minimum_observed": 282,
+              "maximum_observed": 630,
+              "median_observed": 315.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13343,
+              "observed_sum": 13343,
+              "mean": 3335.75,
+              "minimum_observed": 1837,
+              "maximum_observed": 5288,
+              "median_observed": 3109.0
+            }
+          }
+        },
+        "BL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reuse-reviewed": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 129734.0,
+              "observed_sum": 129734.0,
+              "mean": 32433.5,
+              "minimum_observed": 23437.0,
+              "maximum_observed": 38969.0,
+              "median_observed": 33664.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 5,
+              "observed_sum": 5,
+              "mean": 1.25,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 1.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9,
+              "observed_sum": 9,
+              "mean": 2.25,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9,
+              "observed_sum": 9,
+              "mean": 2.25,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 21504,
+              "observed_sum": 21504,
+              "mean": 5376,
+              "minimum_observed": 4480,
+              "maximum_observed": 7296,
+              "median_observed": 4864.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2331,
+              "observed_sum": 2331,
+              "mean": 582.75,
+              "minimum_observed": 320,
+              "maximum_observed": 850,
+              "median_observed": 580.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 20479,
+              "observed_sum": 20479,
+              "mean": 5119.75,
+              "minimum_observed": 3380,
+              "maximum_observed": 6229,
+              "median_observed": 5435.0
+            }
+          }
+        },
+        "BH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reuse-reviewed": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 158829.0,
+              "observed_sum": 158829.0,
+              "mean": 39707.25,
+              "minimum_observed": 34532.0,
+              "maximum_observed": 47219.0,
+              "median_observed": 38539.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 5,
+              "observed_sum": 5,
+              "mean": 1.25,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 1.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9,
+              "observed_sum": 9,
+              "mean": 2.25,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9,
+              "observed_sum": 9,
+              "mean": 2.25,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 21504,
+              "observed_sum": 21504,
+              "mean": 5376,
+              "minimum_observed": 4608,
+              "maximum_observed": 7168,
+              "median_observed": 4864.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2375,
+              "observed_sum": 2375,
+              "mean": 593.75,
+              "minimum_observed": 334,
+              "maximum_observed": 1032,
+              "median_observed": 504.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 25215,
+              "observed_sum": 25215,
+              "mean": 6303.75,
+              "minimum_observed": 5737,
+              "maximum_observed": 6991,
+              "median_observed": 6243.5
+            }
+          }
+        }
+      }
+    },
+    "L": {
+      "planned_tasks": 4,
+      "d_low": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "d_high": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "interaction": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_context": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_bound": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "conditions": {
+        "CL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 92171.0,
+              "observed_sum": 92171.0,
+              "mean": 23042.75,
+              "minimum_observed": 17218.0,
+              "maximum_observed": 27734.0,
+              "median_observed": 23609.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 7,
+              "observed_sum": 7,
+              "mean": 1.75,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 11,
+              "observed_sum": 11,
+              "mean": 2.75,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 11,
+              "observed_sum": 11,
+              "mean": 2.75,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 21504,
+              "observed_sum": 21504,
+              "mean": 5376,
+              "minimum_observed": 3712,
+              "maximum_observed": 6144,
+              "median_observed": 5824.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2416,
+              "observed_sum": 2416,
+              "mean": 604,
+              "minimum_observed": 434,
+              "maximum_observed": 715,
+              "median_observed": 633.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13198,
+              "observed_sum": 13198,
+              "mean": 3299.5,
+              "minimum_observed": 2152,
+              "maximum_observed": 4617,
+              "median_observed": 3214.5
+            }
+          }
+        },
+        "CH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 83390.0,
+              "observed_sum": 83390.0,
+              "mean": 20847.5,
+              "minimum_observed": 18234.0,
+              "maximum_observed": 27281.0,
+              "median_observed": 18937.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8,
+              "observed_sum": 8,
+              "mean": 2,
+              "minimum_observed": 2,
+              "maximum_observed": 2,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 3,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 3,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 23552,
+              "observed_sum": 23552,
+              "mean": 5888,
+              "minimum_observed": 5760,
+              "maximum_observed": 6144,
+              "median_observed": 5824.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2664,
+              "observed_sum": 2664,
+              "mean": 666,
+              "minimum_observed": 567,
+              "maximum_observed": 721,
+              "median_observed": 688.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 11344,
+              "observed_sum": 11344,
+              "mean": 2836,
+              "minimum_observed": 2296,
+              "maximum_observed": 3966,
+              "median_observed": 2541.0
+            }
+          }
+        },
+        "BL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 95045.0,
+              "observed_sum": 95045.0,
+              "mean": 23761.25,
+              "minimum_observed": 16687.0,
+              "maximum_observed": 30640.0,
+              "median_observed": 23859.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8,
+              "observed_sum": 8,
+              "mean": 2,
+              "minimum_observed": 2,
+              "maximum_observed": 2,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 3,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 3,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 23552,
+              "observed_sum": 23552,
+              "mean": 5888,
+              "minimum_observed": 5760,
+              "maximum_observed": 6144,
+              "median_observed": 5824.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2660,
+              "observed_sum": 2660,
+              "mean": 665,
+              "minimum_observed": 559,
+              "maximum_observed": 717,
+              "median_observed": 692.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13676,
+              "observed_sum": 13676,
+              "mean": 3419,
+              "minimum_observed": 2148,
+              "maximum_observed": 4770,
+              "median_observed": 3379.0
+            }
+          }
+        },
+        "BH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 83452.0,
+              "observed_sum": 83452.0,
+              "mean": 20863.0,
+              "minimum_observed": 15218.0,
+              "maximum_observed": 24313.0,
+              "median_observed": 21960.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 7,
+              "observed_sum": 7,
+              "mean": 1.75,
+              "minimum_observed": 1,
+              "maximum_observed": 2,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 11,
+              "observed_sum": 11,
+              "mean": 2.75,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 11,
+              "observed_sum": 11,
+              "mean": 2.75,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 21504,
+              "observed_sum": 21504,
+              "mean": 5376,
+              "minimum_observed": 3712,
+              "maximum_observed": 6144,
+              "median_observed": 5824.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2404,
+              "observed_sum": 2404,
+              "mean": 601,
+              "minimum_observed": 436,
+              "maximum_observed": 717,
+              "median_observed": 625.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 11569,
+              "observed_sum": 11569,
+              "mean": 2892.25,
+              "minimum_observed": 1896,
+              "maximum_observed": 3847,
+              "median_observed": 2913.0
+            }
+          }
+        }
+      }
+    },
+    "N": {
+      "planned_tasks": 4,
+      "d_low": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0.25,
+        "mean_lower": 0.25,
+        "mean_upper": 0.25,
+        "known_sum": 1,
+        "minimum_observed": 0,
+        "maximum_observed": 1,
+        "all_observed_identical": false
+      },
+      "d_high": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "interaction": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": -0.25,
+        "mean_lower": -0.25,
+        "mean_upper": -0.25,
+        "known_sum": -1,
+        "minimum_observed": -1,
+        "maximum_observed": 0,
+        "all_observed_identical": false
+      },
+      "budget_context": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0.25,
+        "mean_lower": 0.25,
+        "mean_upper": 0.25,
+        "known_sum": 1,
+        "minimum_observed": 0,
+        "maximum_observed": 1,
+        "all_observed_identical": false
+      },
+      "budget_bound": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "conditions": {
+        "CL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 3,
+          "U_mean": 0.75,
+          "U_mean_lower": 0.75,
+          "U_mean_upper": 0.75,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 3,
+            "invalid_output": 1
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 173984.0,
+              "observed_sum": 173984.0,
+              "mean": 43496.0,
+              "minimum_observed": 36203.0,
+              "maximum_observed": 50547.0,
+              "median_observed": 43617.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8,
+              "observed_sum": 8,
+              "mean": 2,
+              "minimum_observed": 0,
+              "maximum_observed": 3,
+              "median_observed": 2.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13,
+              "observed_sum": 13,
+              "mean": 3.25,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13,
+              "observed_sum": 13,
+              "mean": 3.25,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 2,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27904,
+              "observed_sum": 27904,
+              "mean": 6976,
+              "minimum_observed": 3584,
+              "maximum_observed": 8960,
+              "median_observed": 7680.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3767,
+              "observed_sum": 3767,
+              "mean": 941.75,
+              "minimum_observed": 484,
+              "maximum_observed": 1169,
+              "median_observed": 1057.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 28039,
+              "observed_sum": 28039,
+              "mean": 7009.75,
+              "minimum_observed": 4782,
+              "maximum_observed": 8211,
+              "median_observed": 7523.0
+            }
+          }
+        },
+        "CH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 191438.0,
+              "observed_sum": 191438.0,
+              "mean": 47859.5,
+              "minimum_observed": 33828.0,
+              "maximum_observed": 58000.0,
+              "median_observed": 49805.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9,
+              "observed_sum": 9,
+              "mean": 2.25,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13,
+              "observed_sum": 13,
+              "mean": 3.25,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 3.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13,
+              "observed_sum": 13,
+              "mean": 3.25,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 3.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27776,
+              "observed_sum": 27776,
+              "mean": 6944,
+              "minimum_observed": 6400,
+              "maximum_observed": 8576,
+              "median_observed": 6400.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3901,
+              "observed_sum": 3901,
+              "mean": 975.25,
+              "minimum_observed": 892,
+              "maximum_observed": 1149,
+              "median_observed": 930.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 32151,
+              "observed_sum": 32151,
+              "mean": 8037.75,
+              "minimum_observed": 5672,
+              "maximum_observed": 9365,
+              "median_observed": 8557.0
+            }
+          }
+        },
+        "BL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 200515.0,
+              "observed_sum": 200515.0,
+              "mean": 50128.75,
+              "minimum_observed": 34078.0,
+              "maximum_observed": 65859.0,
+              "median_observed": 50289.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8,
+              "observed_sum": 8,
+              "mean": 2,
+              "minimum_observed": 2,
+              "maximum_observed": 2,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 14,
+              "observed_sum": 14,
+              "mean": 3.5,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 14,
+              "observed_sum": 14,
+              "mean": 3.5,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 30208,
+              "observed_sum": 30208,
+              "mean": 7552,
+              "minimum_observed": 6400,
+              "maximum_observed": 8960,
+              "median_observed": 7424.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4057,
+              "observed_sum": 4057,
+              "mean": 1014.25,
+              "minimum_observed": 897,
+              "maximum_observed": 1169,
+              "median_observed": 995.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 33983,
+              "observed_sum": 33983,
+              "mean": 8495.75,
+              "minimum_observed": 5864,
+              "maximum_observed": 10776,
+              "median_observed": 8671.5
+            }
+          }
+        },
+        "BH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "none": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 172719.0,
+              "observed_sum": 172719.0,
+              "mean": 43179.75,
+              "minimum_observed": 31875.0,
+              "maximum_observed": 57547.0,
+              "median_observed": 41648.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 10,
+              "observed_sum": 10,
+              "mean": 2.5,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 14,
+              "observed_sum": 14,
+              "mean": 3.5,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 14,
+              "observed_sum": 14,
+              "mean": 3.5,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 30464,
+              "observed_sum": 30464,
+              "mean": 7616,
+              "minimum_observed": 6400,
+              "maximum_observed": 9088,
+              "median_observed": 7488.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4047,
+              "observed_sum": 4047,
+              "mean": 1011.75,
+              "minimum_observed": 903,
+              "maximum_observed": 1147,
+              "median_observed": 998.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 28851,
+              "observed_sum": 28851,
+              "mean": 7212.75,
+              "minimum_observed": 4842,
+              "maximum_observed": 10558,
+              "median_observed": 6725.5
+            }
+          }
+        }
+      }
+    },
+    "R": {
+      "planned_tasks": 4,
+      "d_low": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "d_high": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "interaction": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_context": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_bound": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "conditions": {
+        "CL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "no_observed_recovery": 2,
+            "successful-confirmation-via-state": 2
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 155734.0,
+              "observed_sum": 155734.0,
+              "mean": 38933.5,
+              "minimum_observed": 26328.0,
+              "maximum_observed": 61719.0,
+              "median_observed": 33843.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 10,
+              "observed_sum": 10,
+              "mean": 2.5,
+              "minimum_observed": 2,
+              "maximum_observed": 3,
+              "median_observed": 2.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 15,
+              "observed_sum": 15,
+              "mean": 3.75,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 4.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 15,
+              "observed_sum": 15,
+              "mean": 3.75,
+              "minimum_observed": 3,
+              "maximum_observed": 4,
+              "median_observed": 4.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 1,
+              "observed_sum": 1,
+              "mean": 0.25,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 30848,
+              "observed_sum": 30848,
+              "mean": 7712,
+              "minimum_observed": 6144,
+              "maximum_observed": 8448,
+              "median_observed": 8128.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3057,
+              "observed_sum": 3057,
+              "mean": 764.25,
+              "minimum_observed": 628,
+              "maximum_observed": 867,
+              "median_observed": 781.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 23468,
+              "observed_sum": 23468,
+              "mean": 5867,
+              "minimum_observed": 3514,
+              "maximum_observed": 10036,
+              "median_observed": 4959.0
+            }
+          }
+        },
+        "CH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "successful-confirmation-via-state": 2,
+            "none": 1,
+            "no_observed_recovery": 1
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 91266.0,
+              "observed_sum": 91266.0,
+              "mean": 22816.5,
+              "minimum_observed": 17375.0,
+              "maximum_observed": 30203.0,
+              "median_observed": 21844.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9,
+              "observed_sum": 9,
+              "mean": 2.25,
+              "minimum_observed": 1,
+              "maximum_observed": 3,
+              "median_observed": 2.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13,
+              "observed_sum": 13,
+              "mean": 3.25,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 13,
+              "observed_sum": 13,
+              "mean": 3.25,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 3.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 26496,
+              "observed_sum": 26496,
+              "mean": 6624,
+              "minimum_observed": 3968,
+              "maximum_observed": 8448,
+              "median_observed": 7040.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2703,
+              "observed_sum": 2703,
+              "mean": 675.75,
+              "minimum_observed": 331,
+              "maximum_observed": 883,
+              "median_observed": 744.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12407,
+              "observed_sum": 12407,
+              "mean": 3101.75,
+              "minimum_observed": 2419,
+              "maximum_observed": 4425,
+              "median_observed": 2781.5
+            }
+          }
+        },
+        "BL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "successful-confirmation-via-state": 2,
+            "none": 2
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 85469.0,
+              "observed_sum": 85469.0,
+              "mean": 21367.25,
+              "minimum_observed": 15047.0,
+              "maximum_observed": 24688.0,
+              "median_observed": 22867.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 8,
+              "observed_sum": 8,
+              "mean": 2,
+              "minimum_observed": 1,
+              "maximum_observed": 3,
+              "median_observed": 2.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 3.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 3.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 24320,
+              "observed_sum": 24320,
+              "mean": 6080,
+              "minimum_observed": 3968,
+              "maximum_observed": 8448,
+              "median_observed": 5952.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2434,
+              "observed_sum": 2434,
+              "mean": 608.5,
+              "minimum_observed": 386,
+              "maximum_observed": 875,
+              "median_observed": 586.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12105,
+              "observed_sum": 12105,
+              "mean": 3026.25,
+              "minimum_observed": 2247,
+              "maximum_observed": 4051,
+              "median_observed": 2903.5
+            }
+          }
+        },
+        "BH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "successful-confirmation-via-state": 3,
+            "none": 1
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 118172.0,
+              "observed_sum": 118172.0,
+              "mean": 29543.0,
+              "minimum_observed": 25641.0,
+              "maximum_observed": 32844.0,
+              "median_observed": 29843.5
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 10,
+              "observed_sum": 10,
+              "mean": 2.5,
+              "minimum_observed": 1,
+              "maximum_observed": 3,
+              "median_observed": 3.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 14,
+              "observed_sum": 14,
+              "mean": 3.5,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 4.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 14,
+              "observed_sum": 14,
+              "mean": 3.5,
+              "minimum_observed": 2,
+              "maximum_observed": 4,
+              "median_observed": 4.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 28800,
+              "observed_sum": 28800,
+              "mean": 7200,
+              "minimum_observed": 3968,
+              "maximum_observed": 8448,
+              "median_observed": 8192.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3086,
+              "observed_sum": 3086,
+              "mean": 771.5,
+              "minimum_observed": 328,
+              "maximum_observed": 1003,
+              "median_observed": 877.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 16691,
+              "observed_sum": 16691,
+              "mean": 4172.75,
+              "minimum_observed": 3436,
+              "maximum_observed": 4763,
+              "median_observed": 4246.0
+            }
+          }
+        }
+      }
+    },
+    "V": {
+      "planned_tasks": 4,
+      "d_low": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": -0.5,
+        "mean_lower": -0.5,
+        "mean_upper": -0.5,
+        "known_sum": -2,
+        "minimum_observed": -1,
+        "maximum_observed": 0,
+        "all_observed_identical": false
+      },
+      "d_high": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "interaction": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0.5,
+        "mean_lower": 0.5,
+        "mean_upper": 0.5,
+        "known_sum": 2,
+        "minimum_observed": 0,
+        "maximum_observed": 1,
+        "all_observed_identical": false
+      },
+      "budget_context": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0,
+        "mean_lower": 0,
+        "mean_upper": 0,
+        "known_sum": 0,
+        "minimum_observed": 0,
+        "maximum_observed": 0,
+        "all_observed_identical": true
+      },
+      "budget_bound": {
+        "planned_tasks": 4,
+        "known_tasks": 4,
+        "mean": 0.5,
+        "mean_lower": 0.5,
+        "mean_upper": 0.5,
+        "known_sum": 2,
+        "minimum_observed": 0,
+        "maximum_observed": 1,
+        "all_observed_identical": false
+      },
+      "conditions": {
+        "CL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 347187.0,
+              "observed_sum": 347187.0,
+              "mean": 86796.75,
+              "minimum_observed": 70438.0,
+              "maximum_observed": 109625.0,
+              "median_observed": 83562.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 22,
+              "observed_sum": 22,
+              "mean": 5.5,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 5.5
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 28,
+              "observed_sum": 28,
+              "mean": 7,
+              "minimum_observed": 7,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 28,
+              "observed_sum": 28,
+              "mean": 7,
+              "minimum_observed": 7,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 72320,
+              "observed_sum": 72320,
+              "mean": 18080,
+              "minimum_observed": 16384,
+              "maximum_observed": 19072,
+              "median_observed": 18432.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9520,
+              "observed_sum": 9520,
+              "mean": 2380,
+              "minimum_observed": 2279,
+              "maximum_observed": 2499,
+              "median_observed": 2371.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 52196,
+              "observed_sum": 52196,
+              "mean": 13049,
+              "minimum_observed": 10436,
+              "maximum_observed": 16822,
+              "median_observed": 12469.0
+            }
+          }
+        },
+        "CH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 374562.0,
+              "observed_sum": 374562.0,
+              "mean": 93640.5,
+              "minimum_observed": 71922.0,
+              "maximum_observed": 112890.0,
+              "median_observed": 94875.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 23,
+              "observed_sum": 23,
+              "mean": 5.75,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 6.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 71552,
+              "observed_sum": 71552,
+              "mean": 17888,
+              "minimum_observed": 15360,
+              "maximum_observed": 19840,
+              "median_observed": 18176.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9587,
+              "observed_sum": 9587,
+              "mean": 2396.75,
+              "minimum_observed": 2263,
+              "maximum_observed": 2603,
+              "median_observed": 2360.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 56948,
+              "observed_sum": 56948,
+              "mean": 14237,
+              "minimum_observed": 10841,
+              "maximum_observed": 17276,
+              "median_observed": 14415.5
+            }
+          }
+        },
+        "BL": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 2,
+          "U_mean": 0.5,
+          "U_mean_lower": 0.5,
+          "U_mean_upper": 0.5,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "invalid_output": 2,
+            "agent_final": 2
+          },
+          "recovery_paths": {
+            "none": 2,
+            "reauthorization": 2
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 287719.0,
+              "observed_sum": 287719.0,
+              "mean": 71929.75,
+              "minimum_observed": 50484.0,
+              "maximum_observed": 106469.0,
+              "median_observed": 65383.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 12,
+              "observed_sum": 12,
+              "mean": 3,
+              "minimum_observed": 0,
+              "maximum_observed": 6,
+              "median_observed": 3.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 19,
+              "observed_sum": 19,
+              "mean": 4.75,
+              "minimum_observed": 2,
+              "maximum_observed": 8,
+              "median_observed": 4.5
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 19,
+              "observed_sum": 19,
+              "mean": 4.75,
+              "minimum_observed": 2,
+              "maximum_observed": 8,
+              "median_observed": 4.5
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 5,
+              "observed_sum": 5,
+              "mean": 1.25,
+              "minimum_observed": 0,
+              "maximum_observed": 2,
+              "median_observed": 1.5
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 2,
+              "observed_sum": 2,
+              "mean": 0.5,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 0.5
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 49152,
+              "observed_sum": 49152,
+              "mean": 12288,
+              "minimum_observed": 3584,
+              "maximum_observed": 22272,
+              "median_observed": 11648.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 5736,
+              "observed_sum": 5736,
+              "mean": 1434,
+              "minimum_observed": 436,
+              "maximum_observed": 2624,
+              "median_observed": 1338.0
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 42564,
+              "observed_sum": 42564,
+              "mean": 10641,
+              "minimum_observed": 8192,
+              "maximum_observed": 15480,
+              "median_observed": 9446.0
+            }
+          }
+        },
+        "BH": {
+          "planned_cells": 4,
+          "terminated_cells": 4,
+          "known_U": 4,
+          "successes_known": 4,
+          "U_mean": 1.0,
+          "U_mean_lower": 1.0,
+          "U_mean_upper": 1.0,
+          "I_counts": {
+            "1": 4
+          },
+          "terminal_counts": {
+            "agent_final": 4
+          },
+          "recovery_paths": {
+            "reauthorization": 4
+          },
+          "costs_all_planned_cells": {
+            "suffix_elapsed_ms": {
+              "planned": 4,
+              "known": 4,
+              "sum": 285781.0,
+              "observed_sum": 285781.0,
+              "mean": 71445.25,
+              "minimum_observed": 59578.0,
+              "maximum_observed": 84531.0,
+              "median_observed": 70836.0
+            },
+            "agent_tool_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 23,
+              "observed_sum": 23,
+              "mean": 5.75,
+              "minimum_observed": 5,
+              "maximum_observed": 6,
+              "median_observed": 6.0
+            },
+            "model_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "model_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 27,
+              "observed_sum": 27,
+              "mean": 6.75,
+              "minimum_observed": 6,
+              "maximum_observed": 7,
+              "median_observed": 7.0
+            },
+            "external_retries": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "truncated_responses": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "suffix_format_repairs": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "authorization_requests": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "reproposal_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 4,
+              "observed_sum": 4,
+              "mean": 1,
+              "minimum_observed": 1,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            },
+            "receipt_calls": {
+              "planned": 4,
+              "known": 4,
+              "sum": 3,
+              "observed_sum": 3,
+              "mean": 0.75,
+              "minimum_observed": 0,
+              "maximum_observed": 1,
+              "median_observed": 1.0
+            }
+          },
+          "usage": {
+            "cache_creation_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 0,
+              "observed_sum": 0,
+              "mean": 0,
+              "minimum_observed": 0,
+              "maximum_observed": 0,
+              "median_observed": 0.0
+            },
+            "cache_read_input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 71424,
+              "observed_sum": 71424,
+              "mean": 17856,
+              "minimum_observed": 15744,
+              "maximum_observed": 19072,
+              "median_observed": 18304.0
+            },
+            "input_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 9565,
+              "observed_sum": 9565,
+              "mean": 2391.25,
+              "minimum_observed": 2243,
+              "maximum_observed": 2513,
+              "median_observed": 2404.5
+            },
+            "output_tokens": {
+              "planned": 4,
+              "known": 4,
+              "sum": 40732,
+              "observed_sum": 40732,
+              "mean": 10183,
+              "minimum_observed": 7987,
+              "maximum_observed": 12884,
+              "median_observed": 9930.5
+            }
+          }
+        }
+      }
+    }
+  },
+  "inference": "Descriptive task-level contrasts and missing-outcome identification bounds; no p-values or equivalence claims.",
+  "estimand": "24 archived-checkpoint tasks, equally weighted; six scenarios equally weighted; continuation only.",
+  "elapsed_definition": "Actual new suffix wall-clock elapsed time for every terminated arm, including failures; no 720-second cap.",
+  "usage_definition": "Each provider attempt has field-specific completeness; error or pending attempts are unknown, never zero.",
+  "bounds_definition": "Unknown binary U ranges over [0,1]; contrast bounds averaged over all planned tasks; these are not confidence intervals.",
+  "warning": "Single run per task-condition; identical observations do not establish zero effect, equivalence, or general recovery probability.",
+  "pair_cost_deltas": {
+    "delta_budget_bound_agent_tool_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 13,
+      "observed_sum": 13,
+      "mean": 0.5416666666666666,
+      "minimum_observed": -2,
+      "maximum_observed": 6,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_authorization_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": 2,
+      "observed_sum": 2,
+      "mean": 0.08333333333333333,
+      "minimum_observed": 0,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_external_retries": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_model_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": 7,
+      "observed_sum": 7,
+      "mean": 0.2916666666666667,
+      "minimum_observed": -2,
+      "maximum_observed": 5,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_model_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": 7,
+      "observed_sum": 7,
+      "mean": 0.2916666666666667,
+      "minimum_observed": -2,
+      "maximum_observed": 5,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_receipt_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 2,
+      "observed_sum": 2,
+      "mean": 0.08333333333333333,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_reproposal_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 2,
+      "observed_sum": 2,
+      "mean": 0.08333333333333333,
+      "minimum_observed": 0,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_suffix_elapsed_ms": {
+      "planned": 24,
+      "known": 24,
+      "sum": -31341.0,
+      "observed_sum": -31341.0,
+      "mean": -1305.875,
+      "minimum_observed": -31204.0,
+      "maximum_observed": 17844.0,
+      "median_observed": 2852.0
+    },
+    "delta_budget_bound_suffix_format_repairs": {
+      "planned": 24,
+      "known": 24,
+      "sum": -6,
+      "observed_sum": -6,
+      "mean": -0.25,
+      "minimum_observed": -1,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_truncated_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": -8,
+      "observed_sum": -8,
+      "mean": -0.3333333333333333,
+      "minimum_observed": -2,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_usage_cache_creation_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_usage_cache_read_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 18565,
+      "observed_sum": 18565,
+      "mean": 773.5416666666666,
+      "minimum_observed": -6528,
+      "maximum_observed": 14976,
+      "median_observed": 0.0
+    },
+    "delta_budget_bound_usage_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 4415,
+      "observed_sum": 4415,
+      "mean": 183.95833333333334,
+      "minimum_observed": -516,
+      "maximum_observed": 1943,
+      "median_observed": 1.5
+    },
+    "delta_budget_bound_usage_output_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -8539,
+      "observed_sum": -8539,
+      "mean": -355.7916666666667,
+      "minimum_observed": -5163,
+      "maximum_observed": 2357,
+      "median_observed": 152.0
+    },
+    "delta_budget_context_agent_tool_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 1,
+      "observed_sum": 1,
+      "mean": 0.041666666666666664,
+      "minimum_observed": -2,
+      "maximum_observed": 3,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_authorization_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_external_retries": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_model_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": -4,
+      "observed_sum": -4,
+      "mean": -0.16666666666666666,
+      "minimum_observed": -2,
+      "maximum_observed": 2,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_model_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": -4,
+      "observed_sum": -4,
+      "mean": -0.16666666666666666,
+      "minimum_observed": -2,
+      "maximum_observed": 2,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_receipt_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_reproposal_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 1,
+      "observed_sum": 1,
+      "mean": 0.041666666666666664,
+      "minimum_observed": 0,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_suffix_elapsed_ms": {
+      "planned": 24,
+      "known": 24,
+      "sum": -16682.0,
+      "observed_sum": -16682.0,
+      "mean": -695.0833333333334,
+      "minimum_observed": -41672.0,
+      "maximum_observed": 33202.0,
+      "median_observed": 157.0
+    },
+    "delta_budget_context_suffix_format_repairs": {
+      "planned": 24,
+      "known": 24,
+      "sum": -5,
+      "observed_sum": -5,
+      "mean": -0.20833333333333334,
+      "minimum_observed": -1,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_truncated_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": -6,
+      "observed_sum": -6,
+      "mean": -0.25,
+      "minimum_observed": -2,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_usage_cache_creation_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_usage_cache_read_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -8960,
+      "observed_sum": -8960,
+      "mean": -373.3333333333333,
+      "minimum_observed": -4480,
+      "maximum_observed": 4992,
+      "median_observed": 0.0
+    },
+    "delta_budget_context_usage_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -1022,
+      "observed_sum": -1022,
+      "mean": -42.583333333333336,
+      "minimum_observed": -628,
+      "maximum_observed": 665,
+      "median_observed": 1.5
+    },
+    "delta_budget_context_usage_output_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -667,
+      "observed_sum": -667,
+      "mean": -27.791666666666668,
+      "minimum_observed": -7617,
+      "maximum_observed": 5950,
+      "median_observed": -9.0
+    },
+    "delta_high_agent_tool_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 4,
+      "observed_sum": 4,
+      "mean": 0.16666666666666666,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_high_authorization_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_high_external_retries": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_high_model_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": 4,
+      "observed_sum": 4,
+      "mean": 0.16666666666666666,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_high_model_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": 4,
+      "observed_sum": 4,
+      "mean": 0.16666666666666666,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_high_receipt_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": -2,
+      "observed_sum": -2,
+      "mean": -0.08333333333333333,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_high_reproposal_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_high_suffix_elapsed_ms": {
+      "planned": 24,
+      "known": 24,
+      "sum": -78456.0,
+      "observed_sum": -78456.0,
+      "mean": -3269.0,
+      "minimum_observed": -53312.0,
+      "maximum_observed": 33203.0,
+      "median_observed": -1985.0
+    },
+    "delta_high_suffix_format_repairs": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_high_truncated_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_high_usage_cache_creation_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_high_usage_cache_read_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 8960,
+      "observed_sum": 8960,
+      "mean": 373.3333333333333,
+      "minimum_observed": -4096,
+      "maximum_observed": 3712,
+      "median_observed": 0.0
+    },
+    "delta_high_usage_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 1749,
+      "observed_sum": 1749,
+      "mean": 72.875,
+      "minimum_observed": -253,
+      "maximum_observed": 737,
+      "median_observed": 1.0
+    },
+    "delta_high_usage_output_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -15968,
+      "observed_sum": -15968,
+      "mean": -665.3333333333334,
+      "minimum_observed": -9289,
+      "maximum_observed": 5154,
+      "median_observed": -407.5
+    },
+    "delta_low_agent_tool_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": -8,
+      "observed_sum": -8,
+      "mean": -0.3333333333333333,
+      "minimum_observed": -6,
+      "maximum_observed": 2,
+      "median_observed": 0.0
+    },
+    "delta_low_authorization_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": -2,
+      "observed_sum": -2,
+      "mean": -0.08333333333333333,
+      "minimum_observed": -1,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_low_external_retries": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_low_model_requests": {
+      "planned": 24,
+      "known": 24,
+      "sum": -7,
+      "observed_sum": -7,
+      "mean": -0.2916666666666667,
+      "minimum_observed": -5,
+      "maximum_observed": 2,
+      "median_observed": 0.0
+    },
+    "delta_low_model_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": -7,
+      "observed_sum": -7,
+      "mean": -0.2916666666666667,
+      "minimum_observed": -5,
+      "maximum_observed": 2,
+      "median_observed": 0.0
+    },
+    "delta_low_receipt_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": -4,
+      "observed_sum": -4,
+      "mean": -0.16666666666666666,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_low_reproposal_calls": {
+      "planned": 24,
+      "known": 24,
+      "sum": -1,
+      "observed_sum": -1,
+      "mean": -0.041666666666666664,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_low_suffix_elapsed_ms": {
+      "planned": 24,
+      "known": 24,
+      "sum": -63797.0,
+      "observed_sum": -63797.0,
+      "mean": -2658.2083333333335,
+      "minimum_observed": -56078.0,
+      "maximum_observed": 27954.0,
+      "median_observed": 3266.5
+    },
+    "delta_low_suffix_format_repairs": {
+      "planned": 24,
+      "known": 24,
+      "sum": 1,
+      "observed_sum": 1,
+      "mean": 0.041666666666666664,
+      "minimum_observed": -1,
+      "maximum_observed": 1,
+      "median_observed": 0.0
+    },
+    "delta_low_truncated_responses": {
+      "planned": 24,
+      "known": 24,
+      "sum": 2,
+      "observed_sum": 2,
+      "mean": 0.08333333333333333,
+      "minimum_observed": -1,
+      "maximum_observed": 2,
+      "median_observed": 0.0
+    },
+    "delta_low_usage_cache_creation_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": 0,
+      "observed_sum": 0,
+      "mean": 0,
+      "minimum_observed": 0,
+      "maximum_observed": 0,
+      "median_observed": 0.0
+    },
+    "delta_low_usage_cache_read_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -18565,
+      "observed_sum": -18565,
+      "mean": -773.5416666666666,
+      "minimum_observed": -14976,
+      "maximum_observed": 4864,
+      "median_observed": 0.0
+    },
+    "delta_low_usage_input_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -3688,
+      "observed_sum": -3688,
+      "mean": -153.66666666666666,
+      "minimum_observed": -2015,
+      "maximum_observed": 696,
+      "median_observed": -1.0
+    },
+    "delta_low_usage_output_tokens": {
+      "planned": 24,
+      "known": 24,
+      "sum": -8096,
+      "observed_sum": -8096,
+      "mean": -337.3333333333333,
+      "minimum_observed": -8630,
+      "maximum_observed": 4952,
+      "median_observed": 281.5
+    }
+  },
+  "allocation_sha256": "72efe53ae0910bb6c0534aebe854a3cbf7f0608924f4491d72f02ebdafcdd9ef",
+  "allocation_validation": {
+    "planned_cells": 96,
+    "planned_tasks": 24,
+    "tasks_by_scenario": {
+      "V": 4,
+      "L": 4,
+      "N": 4,
+      "R": 4,
+      "G": 4,
+      "E": 4
+    }
+  },
+  "pair_input_audit_errors": [],
+  "generated_utc": "2026-10-14T03:55:57.157732+00:00",
+  "all_planned_terminated": true,
+  "audit_pass": true
+}

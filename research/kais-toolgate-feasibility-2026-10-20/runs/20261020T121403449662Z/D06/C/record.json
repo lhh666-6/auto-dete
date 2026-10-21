@@ -1,0 +1,260 @@
+{
+  "method": "C",
+  "case_id": "D06",
+  "kind": "stale",
+  "accepted": false,
+  "committed": false,
+  "db_path": "D06.sqlite",
+  "timestamp_utc": "2026-10-20T12:14:09.365455+00:00",
+  "before": {
+    "version": 2,
+    "values": {
+      "address": {
+        "line1": "old"
+      },
+      "batch": "concurrent"
+    },
+    "sources": {
+      "address": "FORM-1:1:address",
+      "batch": "FORM-1:2:batch"
+    }
+  },
+  "after": {
+    "version": 2,
+    "values": {
+      "address": {
+        "line1": "old"
+      },
+      "batch": "concurrent"
+    },
+    "sources": {
+      "address": "FORM-1:1:address",
+      "batch": "FORM-1:2:batch"
+    }
+  },
+  "reviewed_candidate_ids": {
+    "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+  },
+  "used_candidate_ids": {
+    "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+  },
+  "first_reviewed_candidate_ids": {
+    "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+  },
+  "registered_preview_packets": null,
+  "request": {
+    "preview": {
+      "nonce": "D06:review",
+      "record_id": "FORM-1",
+      "public_order_id": null,
+      "expected_version": 1,
+      "proposal": {
+        "address": {
+          "line1": "suggested"
+        }
+      },
+      "authorized": {
+        "address": {
+          "line1": "corrected"
+        }
+      },
+      "candidate_ids": {
+        "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+      },
+      "candidate_packets": {
+        "address": {
+          "id": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734",
+          "candidate_id": "D06:review:address",
+          "field": "address",
+          "proposed": {
+            "line1": "suggested"
+          },
+          "expected_version": 1,
+          "record_id": "FORM-1",
+          "evidence_id": "E-95995c82bca045a4e81bf926",
+          "evidence_hash": "13e1320baebcd0a951e3f84e825f56c335e8e959c91b8d79102fde4ff37d5f5d",
+          "evidence_locator": "{\"form_id\":\"FORM-1\",\"related_field_id\":\"FIELD-address\",\"uri\":\"evidence/E-95995c82bca045a4e81bf926.json\",\"v\":1}",
+          "producer": "archived-output-replay",
+          "producer_version": "dke-replay-v1",
+          "created_at": "2026-10-20T12:14:09.365455+00:00"
+        }
+      },
+      "complete_successor": {
+        "address": {
+          "line1": "corrected"
+        },
+        "batch": "keep"
+      }
+    },
+    "complete_successor": {
+      "address": {
+        "line1": "corrected"
+      },
+      "batch": "concurrent"
+    },
+    "candidate_swap": false,
+    "first_reviewed_candidate_ids": {
+      "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+    },
+    "reviewed_candidate_ids": {
+      "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+    }
+  },
+  "outcome": {
+    "status": "REJECTED",
+    "reason": "STALE_OR_CONFLICT",
+    "error_type": "ValueError",
+    "version_before": 2,
+    "version_after": 2,
+    "used_candidate_ids": {
+      "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+    },
+    "reviewed_candidate_ids": {
+      "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+    }
+  },
+  "events": [
+    {
+      "stage": "seed",
+      "state": {
+        "version": 1,
+        "values": {
+          "address": {
+            "line1": "old"
+          },
+          "batch": "keep"
+        },
+        "sources": {
+          "address": "FORM-1:1:address",
+          "batch": "FORM-1:1:batch"
+        }
+      }
+    },
+    {
+      "stage": "prepare",
+      "reviewed_candidate_ids": {
+        "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+      },
+      "preview": {
+        "nonce": "D06:review",
+        "record_id": "FORM-1",
+        "public_order_id": null,
+        "expected_version": 1,
+        "proposal": {
+          "address": {
+            "line1": "suggested"
+          }
+        },
+        "authorized": {
+          "address": {
+            "line1": "corrected"
+          }
+        },
+        "candidate_ids": {
+          "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+        },
+        "candidate_packets": {
+          "address": {
+            "id": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734",
+            "candidate_id": "D06:review:address",
+            "field": "address",
+            "proposed": {
+              "line1": "suggested"
+            },
+            "expected_version": 1,
+            "record_id": "FORM-1",
+            "evidence_id": "E-95995c82bca045a4e81bf926",
+            "evidence_hash": "13e1320baebcd0a951e3f84e825f56c335e8e959c91b8d79102fde4ff37d5f5d",
+            "evidence_locator": "{\"form_id\":\"FORM-1\",\"related_field_id\":\"FIELD-address\",\"uri\":\"evidence/E-95995c82bca045a4e81bf926.json\",\"v\":1}",
+            "producer": "archived-output-replay",
+            "producer_version": "dke-replay-v1",
+            "created_at": "2026-10-20T12:14:09.365455+00:00"
+          }
+        },
+        "complete_successor": {
+          "address": {
+            "line1": "corrected"
+          },
+          "batch": "keep"
+        }
+      }
+    },
+    {
+      "stage": "independent_committed_update",
+      "outcome": {
+        "status": "COMMITTED",
+        "reason": null,
+        "error_type": null,
+        "version_before": 1,
+        "version_after": 2,
+        "used_candidate_ids": {
+          "batch": "e8af45c9c94cad95477dd0e69c12be6506a54b09e0861f3c1b208f377aab1da0"
+        },
+        "reviewed_candidate_ids": {
+          "batch": "e8af45c9c94cad95477dd0e69c12be6506a54b09e0861f3c1b208f377aab1da0"
+        }
+      },
+      "state": {
+        "version": 2,
+        "values": {
+          "address": {
+            "line1": "old"
+          },
+          "batch": "concurrent"
+        },
+        "sources": {
+          "address": "FORM-1:1:address",
+          "batch": "FORM-1:2:batch"
+        }
+      }
+    },
+    {
+      "stage": "attempt",
+      "outcome": {
+        "status": "REJECTED",
+        "reason": "STALE_OR_CONFLICT",
+        "error_type": "ValueError",
+        "version_before": 2,
+        "version_after": 2,
+        "used_candidate_ids": {
+          "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+        },
+        "reviewed_candidate_ids": {
+          "address": "634a34f332238628d140dd78d37b34a2b4cb6ba17a48e7ce504222741ab0a734"
+        }
+      },
+      "state": {
+        "version": 2,
+        "values": {
+          "address": {
+            "line1": "old"
+          },
+          "batch": "concurrent"
+        },
+        "sources": {
+          "address": "FORM-1:1:address",
+          "batch": "FORM-1:2:batch"
+        }
+      }
+    }
+  ],
+  "source_provenance": {
+    "route": "stores.Store(full)",
+    "admission": "original ReviewForms / SqlAlchemyFormRepository",
+    "stores_path": "D:\\Claude_Design\\auto-decte-paper\\research\\kais-external-baseline-sprint-2026-10-15\\stores.py",
+    "stores_sha256": "eafe593dd5128bda6aedcfb3075b7d64a2e09292bc9f6738460667fd2e75fde1",
+    "reference_path": "D:\\Claude_Design\\auto-decte-paper\\research\\kais-external-baseline-sprint-2026-10-15\\vendor\\contract\\DKE-supplement\\reference.py",
+    "reference_sha256": "70b12f425447e67f9d4f53685e20d77788f556a05f57c8b35a0bef8822742c07",
+    "source_manifest_path": "D:\\Claude_Design\\auto-decte-paper\\research\\kais-external-baseline-sprint-2026-10-15\\contract-source-manifest.json",
+    "source_manifest_sha256": "471f32bcf6057c1fd0bbec6eb275f65d373fa994e43b7c69417ada2949b0c76e",
+    "pinned_source_check": {
+      "files": 19,
+      "unchanged": true
+    },
+    "admission_verifier_modified": false,
+    "hosted_model_calls": 0
+  },
+  "engineering_status": "COMPLETE",
+  "sql_after_path": "sql_after.json",
+  "sql_before_path": "sql_before.json"
+}
