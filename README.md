@@ -1,25 +1,24 @@
 # Review–execution gap: current research artifacts
 
-Current manuscript: **The Review–Execution Gap in Agentic Software: Specification, Design Space, and Empirical Characterization** (21 October 2026).
+Current manuscript: **The Review–Execution Gap in Agentic Software: Approval Binding and Recovery** — final-review revision **v7, 24 October 2026**, 28 pages.
 
-Use the fixed tag [`ase-reproducibility-2026-10-21`](https://github.com/lhh666-6/auto-dete/tree/ase-reproducibility-2026-10-21). The deposit retains the original raw archives, the separate supplementary cohort, later studies, deterministic X1/X2 evidence, current manuscript and both Online Resources. Historical KAIS/JIIS names inside frozen inputs are retained for traceability.
+Use the fixed tag [`ase-review-v7-2026-10-24`](https://github.com/lhh666-6/auto-dete/tree/ase-review-v7-2026-10-24). This release restores the two analysis entry points promised in Online Resource 2, clarifies the comparison with Guarded Commits and the historical bootstrap interval, and adds current navigation to the three SDK archives. It adds no experimental observations and preserves existing raw archive members.
 
 | Start here | Contents |
 |---|---|
-| [Reproduction guide](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/REPRODUCIBILITY.md) | Isolated environment, data preparation, one-command offline reproduction and expected results |
-| [Manuscript PDF](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/revisions/2026-10-21-narrative/main-submission.pdf) | Current 24-page main paper |
-| [Online Resource 1](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/revisions/2026-10-21-narrative/Online-Resource-1.pdf) | Original and supplementary evidence, 29 pages |
-| [Online Resource 2](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/revisions/2026-10-21-narrative/Online-Resource-2.pdf) | Later evidence and design/specification addendum, 16 pages |
-| [Complete editable sources](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/revisions/2026-10-21-narrative/ASE-manuscript-sources.zip) | All three documents, figure sources/assets and recovery readbacks |
-| [X1/X2 reproduction](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/revisions/2026-10-21-narrative/X1-X2-reproduction.zip) | Deterministic experiment code, two saved executions and verification |
-| [Submission files](https://github.com/lhh666-6/auto-dete/tree/ase-reproducibility-2026-10-21/revisions/2026-10-21-narrative/submission-ase-2026-10-21/) | Single-entry manuscript upload ZIP and separate supplements; no combined submission archive |
-| [Paper-to-code map](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/pipeline.md) | What produces each evidence layer and main figure/table |
-| [Verification record](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/docs/reproduction/ASE-VERIFICATION-2026-10-21.md) | Executed checks, preserved negative result and limits of the tested route |
+| [Reproduction guide](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/REPRODUCIBILITY.md) | Current offline commands, inputs and expected results |
+| [Manuscript PDF](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/main.pdf) | 28-page paper |
+| [Online Resource 1](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/Online-Resource-1.pdf) | Original and supplementary evidence |
+| [Online Resource 2](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/Online-Resource-2.pdf) | Later studies and secondary analysis |
+| [Editable sources](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/upload-package/Manuscript-sources.zip) | All three documents, figure sources and five analysis scripts |
+| [Eleven submission files](https://github.com/lhh666-6/auto-dete/tree/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/upload-package) | Three PDFs, manuscript sources and seven experiment ZIPs |
+| [Springer upload layout](https://github.com/lhh666-6/auto-dete/tree/ase-review-v7-2026-10-24/submission/ASE-2026-10-24-v7) | One-entry manuscript source ZIP and consecutively numbered Online Resources |
+| [Verification](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/audit/VERIFICATION.json) | Clean-extraction analysis, build checks and scope |
+| [Changes](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/V7-CHANGELOG.md) | Bounded review repairs and preserved evidence |
+| [Frozen file hashes](https://github.com/lhh666-6/auto-dete/blob/ase-review-v7-2026-10-24/revisions/2026-10-24-ase-review-v7/FINAL-FREEZE-v7.json) | Exact release file inventory |
 
-The default reproduction route reanalyses saved records and requires no model calls or API keys. It checks the original and supplementary ledgers separately, reconstructs recovery costs, verifies X1/X2, audits the later budget and truncation studies, rescores saved ToolGate workflows, and checks uncertain-commit and OpenTofu records. It preserves the original ToolGate diagnostic-output failure. Fresh hosted experiments and fresh framework/CLI executions are separate optional routes; they are not claimed as part of the offline pass.
+Offline analysis uses saved records and requires no model calls or API keys. Framework recollection and hosted experiments are separate activities. The three SDK archives include raw per-cell records; begin with their `START-HERE.md`, which points to the portable verifier and identifies historical README limitations.
 
-The principal empirical comparison covers 32 delivered G pairs across 16 task definitions, with 24 reviewed-candidate reuse routes and eight fresh-authorization routes. Recovery is conditional on available candidates and immediate deterministic authorization; the costs do not measure human waiting or production latency. The manuscript's design examples and deterministic cases are distinct evidence layers.
+The principal agent comparison covers 32 delivered G pairs across 16 task definitions: 24 reviewed-candidate reuse routes and eight fresh-authorization routes. Recovery costs are conditional on the controlled setup; they do not estimate human waiting or production latency. SDK cells, constructed cases and agent trajectories are distinct evidence layers.
 
-Earlier releases remain available: [KAIS guide](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/REPRODUCIBILITY-KAIS-2026-10-07.md), [DKE reviewer guide](https://github.com/lhh666-6/auto-dete/blob/ase-reproducibility-2026-10-21/REVIEWER_GUIDE.md), and the existing historical tags. Begin with the ASE guide for the current paper.
-
-This default branch provides navigation. Use the fixed ASE tag above for the current manuscript and complete reproducibility files. Historical source snapshots on this branch remain unchanged.
+The [21 October reproducibility deposit](https://github.com/lhh666-6/auto-dete/tree/ase-reproducibility-2026-10-21) retains its broader historical pipeline, raw evidence and earlier manuscript. Earlier releases and their hashes remain unchanged.
