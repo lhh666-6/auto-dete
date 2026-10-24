@@ -1,0 +1,15 @@
+\begin{table}[tbp]
+\caption{Agent tool calls at delivered G handoffs. All entries except $n$ are cohort means; post-commit calls occur after the first successful persistent recovery commit.}\label{tab:recovery-decomposition}
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
+\toprule
+Collection & $n$ & \shortstack{To recovery\\commit} & \shortstack{After\\commit} & \shortstack{Bound\\suffix} & \shortstack{Context\\suffix} & $\Delta$ \\
+\midrule
+Original A & 1 & 2.000 & 2.000 & 4.000 & 2.000 & 2.000 \\
+Original B & 16 & 1.000 & 0.375 & 1.375 & 0.375 & 1.000 \\
+Supplementary A & 15 & 1.467 & 1.533 & 3.000 & 1.400 & 1.600 \\
+\bottomrule
+\end{tabular*}
+\par\smallskip\begin{minipage}{\textwidth}\small Recovery comprises one commit in each of 24 reuse episodes and an authorization request followed by a commit in each of eight fresh-authorization episodes. The last column is bound minus context over complete suffixes, not calls beyond a route minimum. Values are recomputed from the archived event order and persistent transitions; no new runs are added.\end{minipage}
+\end{table}
