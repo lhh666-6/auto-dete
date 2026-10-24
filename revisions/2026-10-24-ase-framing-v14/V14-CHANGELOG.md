@@ -265,11 +265,12 @@ Three changes were made and nothing else in the manuscript was touched.
   v9-v13 records); the 20 MB submission ZIP and its `sha256` files sit beside it.
   `SOURCE-MANIFEST.json` was regenerated for the 62-file source tree, `README.txt` rewritten,
   `FINAL-FREEZE-v14.json` records 125 files, and `audit/VERIFICATION.json` was updated.
-- **Release control.** This state is committed as `af327d4` and tagged
-  `ase-framing-v14-2026-10-24`, and pushed to `origin/main` (fast-forward from the v13 release
-  `f557071`). The manuscript's data and software statement still cites the published v13 release,
-  because the study artefacts are unchanged between the two and only manuscript sources and layout
-  differ; the v14 tree is additionally frozen here in `FINAL-FREEZE-v14.json`.
+- **Release control.** This state is committed to `main` and tagged
+  `ase-framing-v14-2026-10-24`, pushed to `origin` (fast-forward from the v13 release `f557071`);
+  the tag points at the commit that carries this changelog. The manuscript's data and software
+  statement still cites the published v13 release, because the study artefacts are unchanged
+  between the two and only manuscript sources and layout differ; the v14 tree is additionally
+  frozen here in `FINAL-FREEZE-v14.json`.
 
 ## Independent final audit (read-only)
 
