@@ -1,0 +1,164 @@
+{
+  "schema": "ase-v8-title-build-review-1",
+  "scope": "Fresh build, log, PDF-text and first-page checks for a title-only revision. Inherited source lint and citation checks are explicitly separated. No experiments rerun.",
+  "title": "The Review–Execution Gap in Agentic Software: Approval Scope and Recovery",
+  "baseline_revision": "2026-10-24-ase-review-v7",
+  "fresh_checks": {
+    "build_command": "python build.py",
+    "pdflatex_passes": {
+      "main": 4,
+      "online_resource_1": 3,
+      "online_resource_2": 3
+    },
+    "main_stabilization": "One additional pdflatex pass after the standard three-pass build cleared the rerun-label notice. Final warnings are zero.",
+    "all_expected_pages": true,
+    "all_pdf_text_title_only": true,
+    "text_comparison_method": "pdftotext -layout; Unicode NFKC ligature normalization; remove soft hyphens; join word-boundary hyphen plus newline wraps; collapse all whitespace; replace Approval Binding and Recovery by Approval Scope and Recovery in v7 text. No other tokens replaced.",
+    "all_diagnostics_match_v7": true,
+    "all_source_changes_exact_title_replacements": true,
+    "source_files_checked": 12,
+    "changed_source_files": 3,
+    "replacement_counts": {
+      "main.tex": 2,
+      "supplements/online-resource-1/main.tex": 1,
+      "supplements/online-resource-2/main.tex": 1
+    },
+    "bibliography_byte_identical_to_v7": true,
+    "sources_unmodified_by_build": true
+  },
+  "first_page_visual_review": {
+    "method": "Rendered each PDF first page with pdftoppm at 110 dpi and inspected the rendered image. Final main first-page raster is identical to the inspected pre-stabilization raster.",
+    "main.pdf": "Title occupies two balanced lines; authors, affiliation, email, abstract and keyword blocks are readable with no overlap or clipping.",
+    "Online-Resource-1.pdf": "Resource heading and single-line manuscript title fit within margins; author/contact block and following text are clear.",
+    "Online-Resource-2.pdf": "Resource heading and single-line manuscript title fit within margins; title, author and affiliation blocks have clear separation.",
+    "new_abnormal_whitespace_or_overlap": false
+  },
+  "inherited_checks_from_v7": {
+    "basis": "All 12 TeX files were compared byte-for-byte; only the full/short title phrase replacements in three files differ. Bibliography is byte-identical.",
+    "source_pathology_checks_passed": 9,
+    "unique_cited_keys": 42,
+    "bibliography_entries": 43,
+    "missing_cited_keys": [],
+    "duplicate_labels": [],
+    "unused_bibliography_keys": [
+      "testera"
+    ],
+    "chktex": {
+      "raw_warnings": 122,
+      "false_positive_or_inapplicable": 114,
+      "retained_minor_spacing_notes": 8,
+      "retained_notes_preexist_v7": true
+    },
+    "latexindent": {
+      "status": "unavailable",
+      "reason": "Executable installed but cannot find required Perl runtime; not treated as a source failure"
+    },
+    "external_linters_rerun_for_v8": false
+  },
+  "documents": {
+    "main.pdf": {
+      "pages": 28,
+      "bytes": 3718482,
+      "sha256": "ec49f846188d83050522d7d0402651940b7ce209fc159f92e0a1336c77ff7ea3",
+      "diagnostics": {
+        "fatal_errors": [],
+        "latex_warnings": [],
+        "overfull": [],
+        "underfull": [
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []",
+          "Underfull \\vbox (badness 10000) has occurred while \\output is active []"
+        ],
+        "nonfatal_engine_diagnostics": []
+      },
+      "normalized_pdf_text_equals_v7_after_title_replacement": true,
+      "old_phrase_occurrences_v7": 1,
+      "old_phrase_occurrences_v8": 0,
+      "new_phrase_occurrences_v8": 1,
+      "first_page_title": "The Review–Execution Gap in Agentic Software: Approval Scope and Recovery Liang Hanghao1 , Xuan Wentao1 , Chen Qile1 , Peng Peng1* 1 College of Computer Science and Electronic Engineering, Hunan University, Cha",
+      "diagnostics_exactly_match_v7": true,
+      "pdf_equal_to_out_copy": true
+    },
+    "Online-Resource-1.pdf": {
+      "pages": 30,
+      "bytes": 540474,
+      "sha256": "bccb5be53e66c238811e280841f8b3740bb303587660a62ae98dc9226b84d573",
+      "diagnostics": {
+        "fatal_errors": [],
+        "latex_warnings": [],
+        "overfull": [],
+        "underfull": [
+          "Underfull \\hbox (badness 1178) in paragraph at lines 588--589",
+          "Underfull \\hbox (badness 1360) in paragraph at lines 649--649",
+          "Underfull \\hbox (badness 10000) in paragraph at lines 797--797",
+          "Underfull \\hbox (badness 1418) in paragraph at lines 797--797"
+        ],
+        "nonfatal_engine_diagnostics": [
+          "ignored error: Infinite glue shrinkage found in box being split [22] [23]"
+        ]
+      },
+      "normalized_pdf_text_equals_v7_after_title_replacement": true,
+      "old_phrase_occurrences_v7": 1,
+      "old_phrase_occurrences_v8": 0,
+      "new_phrase_occurrences_v8": 1,
+      "first_page_title": "Online Resource 1 The Review–Execution Gap in Agentic Software: Approval Scope and Recovery Liang Hanghao, Xuan Wentao, Chen Qile, and Peng Peng",
+      "diagnostics_exactly_match_v7": true,
+      "pdf_equal_to_out_copy": true
+    },
+    "Online-Resource-2.pdf": {
+      "pages": 25,
+      "bytes": 623666,
+      "sha256": "65ebea7e8822f0cd586f2575d7343301593c5d0e785e4375de30004bd87b8397",
+      "diagnostics": {
+        "fatal_errors": [],
+        "latex_warnings": [],
+        "overfull": [],
+        "underfull": [
+          "Underfull \\hbox (badness 1931) in paragraph at lines 163--163",
+          "Underfull \\hbox (badness 7030) in paragraph at lines 163--163",
+          "Underfull \\hbox (badness 8113) in paragraph at lines 218--218",
+          "Underfull \\hbox (badness 10000) in paragraph at lines 218--218",
+          "Underfull \\hbox (badness 10000) in paragraph at lines 218--218",
+          "Underfull \\hbox (badness 10000) in paragraph at lines 218--218",
+          "Underfull \\hbox (badness 10000) in paragraph at lines 218--218",
+          "Underfull \\hbox (badness 3514) in paragraph at lines 97--1"
+        ],
+        "nonfatal_engine_diagnostics": []
+      },
+      "normalized_pdf_text_equals_v7_after_title_replacement": true,
+      "old_phrase_occurrences_v7": 1,
+      "old_phrase_occurrences_v8": 0,
+      "new_phrase_occurrences_v8": 1,
+      "first_page_title": "Online Resource 2: Supplementary Addendum The Review–Execution Gap in Agentic Software: Approval Scope and Recovery Liang Hanghao, Xuan Wentao, Chen Qile, and Peng Peng",
+      "diagnostics_exactly_match_v7": true,
+      "pdf_equal_to_out_copy": true
+    }
+  },
+  "longtable_note": "OR1 retains the same nonfatal glue-shrinkage diagnostic as v7. v7 pages 22–23 were previously visually checked; that page inspection is inherited, not newly repeated here. Current full-document text and diagnostic comparison found no changes outside titles.",
+  "new_source_or_layout_defects_found": []
+}
