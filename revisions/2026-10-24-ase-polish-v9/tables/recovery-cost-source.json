@@ -1,0 +1,173 @@
+{
+  "scope": "Read-only audit of archived G events and state hashes, not a rerun or complete research-package audit.",
+  "metric_boundary": "Calls after delivered mismatch feedback through first successful commit that adds a persisted transition. Minimum is route-specific tool calls, not optimal route choice, human cost, model turns, or elapsed time.",
+  "source_checks": [
+    {
+      "path": "research/phase2-results-snapshots/2026-10-07-complete/quota-recovery-complete.zip",
+      "matches": true
+    },
+    {
+      "path": "revisions/2026-10-07-kais-continuity/replication-package.zip",
+      "matches": true
+    }
+  ],
+  "figure_data_sha256": "3a639de0cbd7b11b757ccb84f788dfef3c21ade0fdf660ecaec4792bb0fab6c5",
+  "state_hash_checks": 64,
+  "g_episodes": 32,
+  "task_definitions": 16,
+  "routes": {
+    "reuse-reviewed": 24,
+    "reauthorization": 8
+  },
+  "route_minimum_met": 32,
+  "cohorts": [
+    {
+      "cohort": "original_A",
+      "n": 1,
+      "routes": {
+        "reauthorization": 1
+      },
+      "route_minimum_calls": {
+        "mean": 2,
+        "min": 2,
+        "max": 2
+      },
+      "actual_calls_to_durable_commit": {
+        "mean": 2,
+        "min": 2,
+        "max": 2
+      },
+      "excess_calls_for_selected_route": {
+        "mean": 0,
+        "min": 0,
+        "max": 0
+      },
+      "post_commit_calls": {
+        "mean": 2,
+        "min": 2,
+        "max": 2
+      },
+      "bound_suffix_calls": {
+        "mean": 4,
+        "min": 4,
+        "max": 4
+      },
+      "context_suffix_calls": {
+        "mean": 2,
+        "min": 2,
+        "max": 2
+      },
+      "suffix_call_difference": {
+        "mean": 2,
+        "min": 2,
+        "max": 2
+      },
+      "suffix_seconds_difference": {
+        "median": 23.671,
+        "min": 23.671,
+        "max": 23.671
+      }
+    },
+    {
+      "cohort": "original_B",
+      "n": 16,
+      "routes": {
+        "reuse-reviewed": 16
+      },
+      "route_minimum_calls": {
+        "mean": 1,
+        "min": 1,
+        "max": 1
+      },
+      "actual_calls_to_durable_commit": {
+        "mean": 1,
+        "min": 1,
+        "max": 1
+      },
+      "excess_calls_for_selected_route": {
+        "mean": 0,
+        "min": 0,
+        "max": 0
+      },
+      "post_commit_calls": {
+        "mean": 0.375,
+        "min": 0,
+        "max": 1
+      },
+      "bound_suffix_calls": {
+        "mean": 1.375,
+        "min": 1,
+        "max": 2
+      },
+      "context_suffix_calls": {
+        "mean": 0.375,
+        "min": 0,
+        "max": 1
+      },
+      "suffix_call_difference": {
+        "mean": 1,
+        "min": 0,
+        "max": 2
+      },
+      "suffix_seconds_difference": {
+        "median": 14.539000000000001,
+        "min": -23.781,
+        "max": 31.953
+      }
+    },
+    {
+      "cohort": "supplementary_A",
+      "n": 15,
+      "routes": {
+        "reuse-reviewed": 8,
+        "reauthorization": 7
+      },
+      "route_minimum_calls": {
+        "mean": 1.4666666666666666,
+        "min": 1,
+        "max": 2
+      },
+      "actual_calls_to_durable_commit": {
+        "mean": 1.4666666666666666,
+        "min": 1,
+        "max": 2
+      },
+      "excess_calls_for_selected_route": {
+        "mean": 0,
+        "min": 0,
+        "max": 0
+      },
+      "post_commit_calls": {
+        "mean": 1.5333333333333334,
+        "min": 0,
+        "max": 2
+      },
+      "bound_suffix_calls": {
+        "mean": 3,
+        "min": 1,
+        "max": 4
+      },
+      "context_suffix_calls": {
+        "mean": 1.4,
+        "min": 0,
+        "max": 2
+      },
+      "suffix_call_difference": {
+        "mean": 1.6,
+        "min": -1,
+        "max": 4
+      },
+      "suffix_seconds_difference": {
+        "median": 14.532,
+        "min": -11.798,
+        "max": 51.218
+      }
+    }
+  ],
+  "arithmetic_checks": {
+    "original_completion_context": 126,
+    "original_completion_bound": 128,
+    "original_difference_percentage_points": 0.78125,
+    "supplementary_difference_percentage_points": 1.7094017094017093
+  }
+}

@@ -1,0 +1,84 @@
+\section{Dynamic recovery after an initially available route}
+\label{sec:dynamic-recovery}
+This separately frozen exploratory pilot distinguishes route availability at
+feedback, authorization at execution, and the eventual business effect. It reuses
+the bound Host and independent oracle without modification, and two preselected
+checkpoint definitions (FORMAL-G-003 and FORMAL-G-004) from the earlier feedback
+study. Each initially has a valid reviewed candidate, active grant and available
+reuse, reauthorization and fresh-proposal routes. The initial visible state is
+identical across the four conditions of a task. Eight hosted continuations, eight
+adaptive-rule continuations and eight cached-route controls were executed on
+23 October 2026 after freezing the protocol, inputs, code, allocation and limits.
+They are not added to the original 32 G episodes.
+
+Immediately after the controller chooses its first continuation commit, but before
+the Host executes it, the harness either leaves state unchanged, revokes the grant
+named by that action, advances the predecessor, or revokes active grants and
+disables the reviewer. Selected-grant revocation is an adaptive, controlled
+intervention, not a sample of naturally occurring administrative changes.
+After the triggered return, all three controllers receive the same current
+administrative facts. In the predecessor condition, the existing Host advances the
+version while preserving the current reference-note value; a fresh candidate and
+authorization can therefore restore a legitimate path. The unavailable-reviewer
+condition has no legal continuation route.
+
+All eight hosted first commits were admissible before intervention; only the two
+static commits remained admissible at execution. The two revocations and two
+unavailable-reviewer cases returned \texttt{AUTHORIZATION\_INVALID}; the two
+predecessor changes returned \texttt{STALE\_VERSION}. These six deterministic
+rejections are host safety behavior, not autonomous-recovery successes.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Dynamic pilot: independently read-back business recovery. Each controller
+has two trajectories per condition; the controllers are not pooled.}
+\begin{tabular}{lrrr}
+\toprule
+Condition & Hosted & Adaptive rule & Cached route\\
+\midrule
+Static & 2/2 & 2/2 & 2/2\\
+Selected grant revoked & 2/2 & 2/2 & 0/2\\
+Predecessor advanced & 2/2 & 2/2 & 0/2\\
+No legal route & 0/2 & 0/2 & 0/2\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The hosted and adaptive-rule controllers reauthorized after revocation and rebuilt
+the candidate and authorization after a predecessor advance. All three controllers
+correctly stopped in both no-legal-route cases, with unchanged target values and
+accurate observed reports. The cached-route controller also stopped after the
+other dynamic rejections, leaving four feasible corrections incomplete. A fresh
+SQLite connection independently read the persisted host state: all 24 trajectories
+had integrity one, and all eight hosted final reports matched that state. Negative
+controls rejected a forged success report and unrelated-field damage, and returned
+unknown when independent readback was removed. All 24 saved trajectories were
+reproduced exactly by offline replay.
+
+\paragraph{A preserved measurement limitation.}
+The frozen scorer additionally defines \texttt{task\_completion} by requiring a
+successful \texttt{get\_state} at the final version, alongside business recovery
+and an accurate report. This \emph{state-query-confirmed completion} measure is
+narrower than the original task's allowance for receipt or state evidence. It is
+0/6 in feasible hosted continuations: five instead queried a successful receipt,
+and one used the successful commit response. All six business corrections are
+independently verified and accurately reported. The frozen zeros are retained,
+not interpreted as six failed business tasks. Adaptive rules score 6/6 and cached
+routes 2/6 on this narrower measure. The pilot thus also exposes a measurement
+dependence on confirmation-tool choice; subsequent studies should measure
+completion from independent authoritative state and truthful reporting, with the
+query choice reported separately.
+
+The hosted collection used 35 requests and 27 continuation tool calls; adaptive
+rules used 28 calls and cached routes 16. All responses returned the alias
+\texttt{deepseek-v4-flash} and ended naturally, with no truncation, invalid output,
+transport retry or budget exhaustion. Eight decisions, a 32,768-token output cap,
+120 seconds per request and 900 seconds per episode were fixed before collection.
+The raw provider-usage fields and local elapsed times are retained in
+\texttt{Dynamic-recovery-reproduction.zip}; they do not estimate production latency.
+Two reused task definitions, one realization per cell, controlled interventions
+and a mutable service alias do not support statistical generalization, a
+feedback-format comparison or LLM superiority. Matching adaptive-rule outcomes
+show that the fixture is solvable without an LLM. The evidence establishes a
+concrete temporal separation between an available route and a subsequently
+authorized commit, and between gate rejection and actual recovery.

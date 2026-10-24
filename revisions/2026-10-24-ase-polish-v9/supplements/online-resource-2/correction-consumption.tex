@@ -1,0 +1,133 @@
+\section{Reviewed-argument delivery across a process boundary}
+\label{sec:a17-correction-consumption}
+
+This section reports a separately frozen check of the trusted-adapter premise used in
+the native-default and native-to-store probes. Those probes assume that a complete
+reviewed argument object, supplied per pending tool call, is the object the native
+runtime executes. The check asks whether three pinned SDKs deliver each reviewed
+object to its intended pending call, and leave the other pending calls unchanged,
+when the run is paused for review and then continued, including after a clean process
+exit and a new interpreter resumes the persisted state.
+
+The question is deliberately narrow. The application merges the reviewed patch into a
+complete five-field argument object and supplies that object for every pending call,
+including calls the reviewer did not change. The study therefore measures
+transmission fidelity of the reviewed object, not partial-patch inference or
+field-level preservation by the SDK. The deterministic model emits the declared calls
+and then stops; no language model is called, and no provider request is made. A local
+tool body writes its actual runtime call identifier and actual arguments to SQLite,
+and a separate SDK-free scorer reads those rows in read-only mode.
+
+The matrix crosses three frameworks, two lifecycles, seven call scenarios, six review
+edits and two payload families, giving 504 constructed cells. Lifecycles are an
+in-process continuation and an exit after a native pause whose persisted state is
+resumed by a newly launched interpreter. Scenarios are one call; two calls with
+distinct original arguments; and two calls with equal original arguments, each edited
+in the first, second or both positions. Edits are a text replacement, integer zero,
+boolean false, empty string, a three-field change and a same-value confirmation.
+Payload families are ASCII and text with Unicode, quotes and newlines. The protocol,
+case matrix, adapters, scorer and SDK sources were hashed before collection; a
+separately recorded twelve-cell development preflight is excluded from these
+denominators, and 23 runtime and oracle controls were exercised before the freeze.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Reviewed-argument delivery: cells whose persisted effect multiset equals the
+reviewed expectations exactly. Each lifecycle exercises one native continuation route
+per framework; the cells are constructed and are not independent samples.}
+\label{tab:a17-correction-consumption}
+\begin{tabular}{llrrr}
+\toprule
+Framework & Lifecycle & Cells & Exact match & Mismatch\\
+\midrule
+Agno 3.1.10 & in-process continuation & 84 & 24 & 60\\
+Agno 3.1.10 & exit and fresh-process resume & 84 & 84 & 0\\
+LangChain 1.4.7 / LangGraph 1.2.16 & in-process continuation & 84 & 84 & 0\\
+LangChain 1.4.7 / LangGraph 1.2.16 & exit and fresh-process resume & 84 & 84 & 0\\
+Pydantic AI 2.60.0 & in-process continuation & 84 & 84 & 0\\
+Pydantic AI 2.60.0 & exit and fresh-process resume & 84 & 84 & 0\\
+\midrule
+Total & & 504 & 444 & 60\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 60 mismatching cells belong to one path, the Agno in-process continuation, and
+they share one mechanism. In every one of them the first pending call executed with
+the complete reviewed arguments supplied for the second pending call, while the second
+call executed its own; the fields that differ follow the edit, so the pattern is not
+restricted to calls with equal original arguments. Of the 72 multi-call cells on that
+path, 60 mismatch; the 24 matching cells are the twelve single-call cells and twelve
+cells whose two reviewed payloads coincide, where sharing cannot change the delivered
+values. The public issue \#8546 already describes shared human-input state across
+pending calls in this framework, so the matrix reproduces a known mechanism and
+characterizes its current-version scope. It is not reported as a discovered defect,
+not confirmed by the maintainers here, and not counted once per cell.
+
+The in-process arm also differs from the fresh arm in its continuation extension point
+and in the object it continues from. A 54-cell ablation in the same frozen family
+(Agno only) separates the two. Holding the pause, the reviewed objects and the
+recorded arguments fixed, the original-run-object route
+(\texttt{continue\_run(run\_response=...)})
+mismatched in 12 of 18 cells (all twelve multi-call cells; the six single-call cells matched), while the run-identifier route
+(\texttt{continue\_run(run\_id, session\_id, requirements)}) matched in all 18 cells in
+the same process and in all 18 cells after a clean exit and a new interpreter. The
+mechanism therefore follows the continuation route and the state it continues from, not
+the process boundary, and the process contrast alone shows no difference. This is a
+two-contrast decomposition rather than a single-factor isolation, because the
+entrypoint and object identity change together in the first contrast. The matching
+paths are equally bounded: LangChain and Pydantic AI use the same documented
+continuation route in both lifecycles, so their arms differ mainly in process and
+serialization, and one route per lifecycle is exercised.
+
+The primary observable is the exact multiset of call identifier, tool name and
+complete typed payload, compared with the reviewed expectations. Field-level
+diagnostics locate the same differences and carry no additional detection power; the
+two agreed on every cell. No setup mismatch, unsupported path, collection failure,
+worker error, native framework error or blocked network attempt occurred. The
+constructed cells are not an ecosystem sample: three frameworks were chosen for prior
+support, each lifecycle exercises one route, and no prevalence estimate, confidence
+interval or significance test applies. What the check supports is conditional and
+descriptive: on the documented routes of two SDKs and on the Agno fresh-process route,
+a complete reviewed object reached its intended pending call and the unintended call
+was unchanged; on the Agno route that continues from the original in-memory run object
+with more than one pending call, the reviewed values of one call were executed by
+another, while the run-identifier route was clean in the same process.
+
+\paragraph{Same-identifier substitution.}
+A third frozen check (16 cells, Pydantic AI 2.60.0) applies a controlled injection
+between the review and the continuation: the state the continuation executes from is
+replaced while the native call identifier stays unchanged. When the human decision only
+approves the pending call, the continuation
+executed the substituted arguments in all four cells that changed the supplied message
+history, in both lifecycles; substituting the deferred request object alone changed
+nothing (two of two executed the reviewed object). When the decision re-supplies the
+reviewed object through the native override argument, the reviewed object was executed
+in all eight override cells: six with substitution and two unchanged controls. These three contrasts are conditional on the tested path: matching native call
+identifiers did not keep the executed arguments equal to the reviewed ones, while
+supplying the complete reviewed object through the native override argument left the
+executed arguments unchanged under the same substitution. The framework's
+documentation describes client-supplied message history as input outside the boundary
+the framework enforces, and does not present native approval as a substitute for
+server-side authorization
+(\url{https://pydantic.dev/docs/ai/core-concepts/message-history/}, accessed
+2026-10-24). The result is therefore an empirical statement about an
+application-maintained responsibility boundary, not a framework defect; post-approval
+substitution itself is reported in prior work on approval hijacking.
+
+\paragraph{Artifact locations.}
+The three supplied archives contain frozen protocols, code, cases, source seals,
+raw per-cell databases, scores and reports. Their original freeze SHA-256 values are:
+\nolinkurl{Correction-consumption-reproduction.zip},
+\nolinkurl{740ccc4fee766849dfaa9fec529c79ba36372cd521138f57672aa586ec89cf8b};
+\nolinkurl{Agno-entrypoint-reproduction.zip},
+\nolinkurl{f17ade246c0e92371874b9fc6373461f2f42ca1ff85ec9e0d2c8d95dd8076166}; and
+\nolinkurl{Reviewed-instance-substitution-reproduction.zip},
+\nolinkurl{b5871cf623af9cb81fa5c17ac034c913345c8b5d6ed0836e29ed14da498d7a66}.
+In each extracted study directory, \texttt{python verify\_offline.py} checks package,
+source and raw-record hashes and recomputes effects from the case definitions using
+only the standard library. It needs neither SDK imports nor the recorded installation
+paths. Recollection instead requires pinned SDK environments and configured collectors;
+their concurrency ladder and no-overwrite/no-replay guards remain unchanged.
+\texttt{REPRODUCE-V4.md} documents these separate workflows and the history intervention.
+Neither workflow requires model calls.
