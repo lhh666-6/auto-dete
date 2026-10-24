@@ -265,12 +265,27 @@ Three changes were made and nothing else in the manuscript was touched.
   v9-v13 records); the 20 MB submission ZIP and its `sha256` files sit beside it.
   `SOURCE-MANIFEST.json` was regenerated for the 62-file source tree, `README.txt` rewritten,
   `FINAL-FREEZE-v14.json` records 125 files, and `audit/VERIFICATION.json` was updated.
-- **Release control.** This state is recorded by `FINAL-FREEZE-v14.json` (125 files with hashes),
-  `audit/VERIFICATION.json` and the package hashes above. No git commit or tag was created in this
-  pass: the repository's release commits (including the `ase-layout-v13-2026-10-24` tag) sit on a
-  line separate from `main`, and publishing a v14 tag is the author's decision. The manuscript's
-  data and software statement still cites the published v13 release, so no text depends on a v14
-  tag being visible on GitHub.
+- **Release control.** This state is committed as `af327d4` and tagged
+  `ase-framing-v14-2026-10-24`, and pushed to `origin/main` (fast-forward from the v13 release
+  `f557071`). The manuscript's data and software statement still cites the published v13 release,
+  because the study artefacts are unchanged between the two and only manuscript sources and layout
+  differ; the v14 tree is additionally frozen here in `FINAL-FREEZE-v14.json`.
+
+## Independent final audit (read-only)
+
+A separate read-only audit pinned the manuscript at `main.tex` `48e3847c…` and `main.pdf`
+`a710e065…` and returned PASS on all six requested checks: citations (40 cited keys, 41 entries,
+no cited-but-missing; AgentSpec = Wang et al. 2026a and `wang2026agr` = 2026b), supplement
+cross-references (every S/A target exists; S12.6 holds both archived episodes), numeric consistency
+(all reported counts and intervals reconcile with OR1/OR2 and the shipped tables), declarations
+(AI statement verbatim; v13 tag, guide and ESM_3 manifests verified), external inputs and archives
+(23/23 hashes, seven reproduction archives present and hash-matching) and the build (29 pages,
+0 overfull, 0 undefined references/citations, no `??`). Non-blocking observations were recorded but
+not acted on: one uncited legacy bibliography entry (`testera`), an ambiguous A17 "freeze" hash
+label in Online Resource 2, duplicate PDF hyperlink destinations, and the "Codex CLI" host mentioned
+in Section 6 alongside the frozen Codex-declaration wording. All are author-judgement items; none
+affects the manuscript's claims or the package contents.
+
 
 
 ## Remaining open items
