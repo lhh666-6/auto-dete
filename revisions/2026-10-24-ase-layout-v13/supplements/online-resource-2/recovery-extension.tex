@@ -1,0 +1,243 @@
+\section{Archived recovery availability and matched task routes}
+\label{sec:a12-availability}
+
+This post-hoc readback adds no trajectories to the 32 delivered G pairs. It asks
+whether the chosen reuse and reauthorization routes were associated with
+different availability of the reviewed candidate and original grant at the
+saved rejection boundary. The script \texttt{qa/recovery\_availability.py}
+reads the same two frozen archives as the recovery-cost decomposition and
+checks their whole-file SHA-256 hashes before reading any episode.
+
+For each episode, the script resolves the saved delivered-feedback event and
+verifies the hashes of its rejection-state and model-input references. It
+independently checks thirteen predicates: active unconsumed grant, active
+reviewer, candidate digest, context digest, preservation of the reviewed
+candidate, predecessor freshness, evidence bytes, evidence locator,
+source-supported proposal, retained metadata, matching record/field target,
+matching review context, and visible grant/candidate/authorized value.
+Here, visible means present in the saved agent input, not assessed human
+perception or understanding. The script does not use \texttt{legal\_paths\_at\_rejection} to decide availability and
+does not import the admission engine. The rejected attempt preserves the
+business head and transition list; request and receipt bookkeeping may change.
+The observed subsequent commit is checked against the hashed before/after
+snapshots and must add exactly one transition.
+
+All thirteen predicates hold in all 32 episodes. Each visible review response
+contains the original candidate, authorization identifier and authorized
+value. The first post-feedback action is a commit in the 24 reuse episodes,
+or an authorization request followed by a commit in the eight reauthorization
+episodes. Thus a visible valid reuse option coexists with every observed
+reauthorization choice. This is an availability statement at a recorded
+boundary, not a counterfactual replay, an optimality claim or a guarantee
+against state changes during a production delay.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Matched task routes at the 16 G task definitions. Reuse means committing the reviewed candidate under the existing grant; fresh means requesting matching new authorization. All 32 episodes have a visible valid reuse option.}
+\begin{tabular}{llll}
+\toprule
+Task suffix & A collection & A route & Original B route\\
+\midrule
+001 & Supplementary & Reuse & Reuse\\
+002 & Supplementary & Reuse & Reuse\\
+003 & Supplementary & Reuse & Reuse\\
+004 & Original & Fresh & Reuse\\
+005 & Supplementary & Reuse & Reuse\\
+006 & Supplementary & Fresh & Reuse\\
+007 & Supplementary & Fresh & Reuse\\
+008 & Supplementary & Reuse & Reuse\\
+009 & Supplementary & Fresh & Reuse\\
+010 & Supplementary & Reuse & Reuse\\
+011 & Supplementary & Fresh & Reuse\\
+012 & Supplementary & Reuse & Reuse\\
+013 & Supplementary & Reuse & Reuse\\
+014 & Supplementary & Fresh & Reuse\\
+015 & Supplementary & Fresh & Reuse\\
+016 & Supplementary & Fresh & Reuse\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The task-wise comparison is descriptive. A's sixteen episodes combine one
+original episode with fifteen later episodes selected by the original quota
+interruption; B's sixteen are original. The same task definition does not
+make provider, collection period, sampled prefix or hidden serving state
+exchangeable. No model-effect significance test is inferred from the eight
+discordant route pairs. The original three cohort ledgers remain unchanged.
+
+Outputs \texttt{tables/availability/episodes.csv},
+\texttt{matched-tasks.csv} and \texttt{summary.json} retain every task route,
+archive member, state/input hash and cohort. The command and the two external
+archive dependencies are specified in \texttt{REPRODUCE-RECOVERY.md}.
+
+\subsection*{Secondary uncertainty analysis of complete suffix cost}
+
+The script \texttt{qa/scientific\_statistics.py} resamples complete task
+pairs separately within each collection (10,000 draws, seed 20261023).
+It retains policy pairing and does not pool the A/B observations of a task
+as independent tasks. The percentile 95\% intervals are exploratory secondary
+analyses of existing records, conditional on a small constructed task set.
+They are not deployment-level performance guarantees. Original A has one
+pair, for which no interval is estimated.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Complete G suffix cost, bound minus context. Ranges describe observed pairs; intervals are exploratory paired-bootstrap intervals}
+\begin{tabular}{lrrrr}
+\toprule
+Collection & Pairs & Mean calls & Call range & 95\% interval\\
+\midrule
+Original B & 16 & 1.00 & $[0,2]$ & $[0.75,1.25]$\\
+Supplementary A & 15 & 1.60 & $[-1,4]$ & $[0.87,2.33]$\\
+Original A & 1 & 2.00 & $[2,2]$ & Not estimated\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The harness performs every context-side handoff commit. The bound continuation
+must perform a recovery commit after rejection; its full-suffix difference
+also includes subsequent confirmation and subtracts context-side agent calls.
+Recovery through the first persistent commit uses the selected route's minimum
+in all 32 cases, but full-suffix differences do not. Original B's differences
+are zero in two pairs, one in twelve and two in two; supplementary A's range
+includes a negative difference. No claim of optimal route selection follows.
+
+\section{Exploratory permission-state and feedback comparison}
+\label{sec:a13-feedback}
+
+\textbf{Purpose and provenance.}
+This study was separately frozen before collection on 14 October 2026
+(freeze time 13 October, 17:09:12 UTC) and is incorporated into the present
+revision after reauditing its raw records. It asks whether explicit legal-path
+labels add value beyond the same visible permission facts, and observes
+continuation when permission changes after rejection. It is not a new
+collection for this revision. The four task instances, FORMAL-G-003 through
+FORMAL-G-006, are the next IDs not used in two preceding feedback minipilots.
+They reuse the original B review checkpoints from the existing G task family;
+they are not unseen tasks relative to the full research program. Selection
+does not use their original suffix outcomes. Earlier minipilot results are
+not pooled with this comparison.
+
+\textbf{Design.}
+Each task has three administrative states after the common identity-mismatch
+rejection: \emph{valid} (old grant and reviewer usable), \emph{revoked}
+(old grant revoked, reviewer usable), and \emph{unavailable}
+(reviewer unavailable, no legal path). Candidate content, evidence, target
+and predecessor remain valid. Two independent arms receive either
+\emph{facts}, the historical rejection and current permission facts, or
+\emph{facts plus options}, those identical facts plus derived legal-path
+labels. Removing the options field leaves the initial visible messages
+byte-identical; initial states also match in all twelve pairs. The deterministic
+mapping uses only common visible facts, not hidden goals or a scoring oracle.
+It is valid for this fixture, not a general concurrent authorization planner.
+
+The twelve task--state pairs run in a seeded order (20261014), with arms
+adjacent and each state balanced two pairs per starting arm. There are 24
+hosted trajectories and 24 separate simple-rule trajectories, one realization
+per cell. The requested model alias is \texttt{deepseek-v4-flash} through
+the same provider interface as B, at temperature zero. The output cap is
+393,216 tokens, the request timeout 1,800 seconds, the episode limit 21,600
+seconds and the decision limit six; one transient-transport retry is allowed.
+The returned alias does not identify an immutable serving revision. These
+budgets and the collection period differ from the original B study.
+
+\textbf{Endpoints and complete results.}
+The primary comparison is subsequent tool calls and rejected operations,
+options minus facts. Feasible completion and unavailable-state stopping
+have separate denominators. Unavailable episodes have $U=0$ because the
+task is not committed; a correct stop requires unchanged business state,
+no new transition and a truthful report, and is not counted as completion.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Exploratory feedback results. Each column contains twelve hosted episodes across four tasks and three permission states. Counts are totals, not independent-task estimates.}
+\begin{tabular}{lrr}
+\toprule
+Observation & Facts & Facts plus options\\
+\midrule
+Feasible task completion & 8/8 & 8/8\\
+Unavailable-state correct stops & 4/4 & 4/4\\
+Integrity $I=1$ & 12/12 & 12/12\\
+Tool calls & 16 & 16\\
+Commits / authorization requests & 8/4 & 8/4\\
+Rejected continuation operations & 0 & 0\\
+Model requests / responses & 28/28 & 28/28\\
+Elapsed seconds, total & 371.048 & 283.751\\
+Output tokens & 66,774 & 49,293\\
+Provider input tokens & 9,747 & 9,376\\
+Cache-read input tokens & 70,400 & 72,064\\
+Cache-creation input tokens & 0 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The twelve paired tool-call differences are $-1$ in three, zero in six and
+$+1$ in three; task-level sums are 0, 0, $-1$ and $+1$. Facts uses three
+state queries and one receipt query; options uses four receipt queries.
+Grouped by permission state, the four paired call differences sum to $+2$
+for valid grants, $+1$ for revoked grants and $-3$ for unavailable review.
+All three negative differences omit a state query when no legal route remains;
+all three positive differences add a receipt query in feasible episodes.
+These are descriptive contrasts across four reused tasks per state, not
+estimates of a feedback-by-state interaction. Table~\ref{tab:feedback-strata}
+retains the corresponding secondary time and output-token totals.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Secondary feedback outcomes by permission state. Each row contains four pairs; F is facts and L is facts plus labels}
+\label{tab:feedback-strata}
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{2}{c}{Calls} & \multicolumn{2}{c}{Seconds} & \multicolumn{2}{c}{Output tokens}\\
+State & F & L & F & L & F & L\\
+\midrule
+Valid & 5 & 7 & 90.407 & 97.813 & 15,773 & 16,863\\
+Revoked & 8 & 9 & 155.578 & 142.954 & 27,799 & 24,963\\
+Unavailable & 3 & 0 & 125.063 & 42.984 & 23,202 & 7,467\\
+\bottomrule
+\end{tabular}
+\end{table}
+These legal reads are confirmation behavior, not rejected or invalid actions.
+The simple-rule controller produces identical action sequences across the
+two feedback variants, completes all sixteen feasible rule episodes and
+correctly stops in all eight unavailable rule episodes. It always confirms
+the final state and therefore uses 24 calls per feedback variant. It is not
+an optimal controller; the smaller model call total does not establish an
+LLM-specific advantage.
+
+All 56 hosted responses terminate naturally. Four exceed 4,096 output
+tokens; the largest has 6,522. No response is truncated, and no retry,
+transport failure, timeout, quota failure or unfinished episode occurs.
+Elapsed time includes feedback construction, recording and continuation;
+it excludes preparation, offline audit and human review. Time decreases in
+eight of twelve pairs (median paired difference $-7.219$ seconds), and
+output tokens decrease in nine. These secondary descriptive directions do
+not establish a stable overall cost advantage when the primary tool-call
+outcome has no net improvement.
+
+Options are computed without a model call. Across twelve hosted notices,
+the options computation takes 37,600 ns in total, and adds 31, 61 or 78
+UTF-8 bytes per notice. This in-memory fixture does not measure production
+database access, concurrent consistency or rule maintenance. Provider usage
+fields remain separate and are not converted to unverified monetary cost.
+
+\textbf{Interpretation and reproduction.}
+The comparison supports permission-sensitive continuation under the tested
+instructions and exposes no net tool-call benefit from path labels.
+It is not an equivalence test, a prevalence estimate, evidence about real
+review queues or a cross-model comparison. The four tasks share one family;
+repeated states do not create twelve independent task samples.
+
+The supplied \texttt{Feedback-sensitivity-reproduction.zip} retains the
+frozen study directory, its pinned source dependencies and a read-only
+entry point. \texttt{qa/feedback\_sensitivity.py} verifies eighty frozen
+files, reconstructs all 48 hosted/rule episodes from saved inputs,
+responses and state transitions, and recomputes the descriptive analysis.
+All 48 episode audits pass. The 1,369 files in the study directory remain
+unchanged by the readback. Source hashes, cell results and all paired cost
+differences are retained in \texttt{tables/feedback-sensitivity/}; the archive's
+\texttt{REPRODUCE.md} specifies a fresh output directory and no provider calls.
+
+The source-package script \texttt{qa/feedback\_strata.py} groups the saved
+model pairs by permission state and writes \texttt{strata.json}. This grouping
+adds no trajectories and leaves the frozen experimental archive unchanged.

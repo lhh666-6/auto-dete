@@ -1,0 +1,159 @@
+\subsection{Typed transitions and policy-relative satisfaction}
+\label{app:typed-contract}
+The paper uses P2 for context/evidence integrity and P3 for principal authority
+and the authorized value throughout. Cross-candidate context agreement is a
+separate binding condition; it is not the internal integrity condition P2.
+
+Let $\Sigma$ contain the current version, complete field-value and field-source
+maps, and the candidate, authorization and transition registries. A submitted
+item is $u=(c_s,a,x)$, where $a=(c_r,x_a,q)$. For the singleton presentation, a
+persisted transition has type
+\[
+\begin{aligned}
+ \tau&=\langle j,r,f,e,v^-,v^+,x,p,\operatorname{id}(c_s),\operatorname{id}(a)\rangle,\\
+ \tau&\in \mathsf{Tid}\times\mathsf{Record}\times\mathsf{Field}\times\mathsf{Evidence}
+ \times\mathsf{Version}^{2}\\
+ &\qquad\times\mathsf{Value}\times\mathsf{Producer}
+ \times\mathsf{Cid}\times\mathsf{Aid}.
+\end{aligned}
+\]
+The transition identifies the executed candidate; the authorization separately
+identifies the reviewed candidate; $\mathsf{Cid}$ and $\mathsf{Aid}$ are registry
+keys. Certificate rows in the realization resolve
+these references to immutable candidate records. The fields of this tuple are
+observable relations, not an assumption that an arbitrary stored tuple is valid.
+
+For $b\in\{\mathrm{context},\mathrm{bound}\}$, define the binding condition
+\[
+\begin{aligned}
+ \beta_{\mathrm{context}}(u)&\iff K(c_s)=K(c_r),\\
+ \beta_{\mathrm{bound}}(u)&\iff\beta_{\mathrm{context}}(u)
+       \land\operatorname{id}(c_s)=\operatorname{id}(c_r).
+\end{aligned}
+\]
+Thus P1 denotes $\beta_b$ under the selected policy. Under bound admission it
+includes instance equality; under context admission it requires only the
+declared context equality. In particular, context admission does not borrow
+instance equality through another shared check.
+
+Write $z=(\Sigma^-,u,\tau,\Sigma^+)$ for a committed outcome. The satisfaction
+relation is defined by the following checks on the outcome and the validated
+admission inputs:
+\begin{description}
+\item[P1$_b$:] $\beta_b(u)$ holds for the submitted and reviewed records.
+\item[P2:] The declared record, field, evidence identity/locator and expected
+predecessor agree with the submitted candidate. The evidence belongs to the
+target record; the transition retains the candidate's record, field, evidence
+and producer. This concerns internal consistency, independently of P1$_b$.
+\item[P3:] The authorization comes from a permitted principal at commit entry,
+is usable for this admission, and explicitly records $x_a$. The submitted,
+transition and newly installed field values equal $x_a$ under the declared
+comparator; no equality between $x_a$ and the retained proposal $x_c$ is required.
+\item[P4:] The candidate's expected predecessor equals the authoritative
+version observed in $\Sigma^-$ within the admission transaction.
+\item[P5:] Exactly one successor of that predecessor is installed. Its changed
+fields and new transitions correspond exactly to the admitted items, each
+transition records the actual predecessor and successor, and all other values
+are retained. The successor, new transitions, source updates and grant
+consumption belong to the same commit unit.
+\item[P6$_{\mathrm{local}}$:] Each changed field points to its unique new
+transition, with the same field and installed value. Each unchanged field
+retains its exact prior source. Source references resolve uniquely in the
+retained transition registry.
+\end{description}
+For a batch, $u$ and $\tau$ are replaced by the admitted item set and its
+transition set; P1--P4 apply itemwise and P5 requires one shared record/version
+envelope and an item--transition bijection. After initial coverage, the concrete
+admitted set contains exactly the submitted fields whose canonical values
+change and must be nonempty, as specified in Online Resource 1, S2.
+
+Formally, with $L(z)$ denoting P2--P5 and P6$_{\mathrm{local}}$ together,
+\[
+ z\models\mathcal R_b^{\mathrm{local}}
+ \quad\Longleftrightarrow\quad \beta_b(u)\land L(z).
+\]
+P0 restricts the execution model: candidate-producing operations cannot write
+authoritative values, versions, sources, transitions or authorizations. It is
+not inferred from $z\models\mathcal R_b^{\mathrm{local}}$. The pre/post relation
+specifies one complete step; crash atomicity cannot be inferred from endpoint
+snapshots. Trusted immutable lookup, canonicalization and atomic installation
+are explicit execution premises. The shared gate
+$G$ implements the common checks and lifecycle constraints; its definition
+must not hide the bound-policy conjunct in $\beta_b$.
+
+Full P6 also checks the source--transition--authorization--candidate--evidence
+chain, including retained references, field/value/producer/version consistency
+and source-version uniqueness. Its binding link is interpreted under the
+declared policy: a context-authorized transition retains both candidate roles
+and requires $\beta_{\mathrm{context}}$, whereas an exact-instance trace also
+requires $\beta_{\mathrm{bound}}$. A context-legal substitution can therefore
+satisfy its local contract while failing the separate exact-instance trace
+criterion. The positive formal preservation result below is for the bound
+model only; this policy-relative definition adds no new model-checking result.
+
+\subsection{Paper obligations and archived Alloy assertions}
+\label{app:formal-mapping}
+Table~\ref{tab:formal-contract-map} is a semantic crosswalk, not a renaming of
+the frozen source or a claim that every paper-level premise was model checked.
+\textsf{H} denotes the historical singleton model
+\nolinkurl{formal/alloy/auto_decte.als}; \textsf{B} denotes the batch model
+\nolinkurl{latest/formal/alloy/batch/auto_decte_batch.als} in the fixed reference
+artifact cited in Online Resource 1, S1. The \textsf{B} command manifest uses
+freeze \nolinkurl{2026-09-11-trace-witness}. Assertion names retain their
+historical spelling and numbering: neither source has an assertion named P2.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Paper obligations mapped to exact archived assertion names. \textsf{H}
+and \textsf{B} are source namespaces, not additional evidence counts.}
+\label{tab:formal-contract-map}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Paper relation & Archived assertions & Encoded part and limit\\
+\midrule
+P0 & \textsf{H}: \nolinkurl{P0_no_machine_write}; \textsf{B}: \nolinkurl{P0NoMachineAuthoritativeWrite}
+& Frame modeled machine operations. They do not prove that a deployed caller cannot bypass the gate.\\
+P1$_{\mathrm{bound}}$ & \textsf{H}: \nolinkurl{P1_auth_nontransfer}; \textsf{B}: \nolinkurl{P3AuthorizationIntegrity}
+& Canonical certificate equality binds authorization to the submitted certificate. The candidate abstraction must preserve this relation.\\
+P1$_{\mathrm{context}}$ & No separate context-policy assertion
+& Defined here through $K_{\mathrm{eq}}$. Neither Full model verifies the relaxed policy or the three-level binding comparison.\\
+P2 & \textsf{H}: \nolinkurl{P1_no_cross_context_admission}; \textsf{B}: \nolinkurl{P1ExactContext}
+& Item/certificate record, field, evidence and expected-version consistency. These historical ``P1'' names correspond to paper P2, not reviewed-instance equality.\\
+P3 & \textsf{H}: \nolinkurl{P3_authorization_reference_integrity}; \textsf{B}: \nolinkurl{P3AuthorizationIntegrity}
+& Principal membership, explicit authorized value and reference checks. Dynamic revocation, expiry and grant consumption are outside these models.\\
+P4 & \textsf{H}: \nolinkurl{P4_stale_reject}; \textsf{B}: \nolinkurl{P4Freshness}
+& Expected/current predecessor equality. Database concurrency semantics are an implementation obligation.\\
+P5 & \textsf{H}: \nolinkurl{P5_transition_integrity}; \textsf{B}: \nolinkurl{P5TransitionBijection}, \nolinkurl{FullNoPartialItemEffects}, \nolinkurl{RejectionHasNoEffect}
+& Transition relations, complete batch effects and rejection framing in atomic pre/post steps; no crash or database atomicity proof.\\
+P6 & \textsf{H}: \nolinkurl{P6_trace_soundness}, \nolinkurl{P6_missing_source_incomplete}, \nolinkurl{P6_duplicate_incomplete}; \textsf{B}: \nolinkurl{P6MissingAnchorIncomplete}, \nolinkurl{P6DuplicateSourceVersionIncomplete}, and positive preservation (below)
+& Missing/duplicate-source diagnostics and conditional positive trace checks; scope and pre-state restrictions remain essential.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The \textsf{B} authorization assertion calls \nolinkurl{itemAuthorizationOk},
+which includes both \nolinkurl{authorizationCertificateBinding} (paper P1)
+and \nolinkurl{principalBinding}/\nolinkurl{authorizationValueBinding} (paper
+P3). Its context assertion calls \nolinkurl{itemContextOk} (paper P2).
+This explains why the mapping is many-to-many. The Full assertions often
+check consequences of explicit contract conjuncts; effective ablation
+witnesses and independent persisted-state projections provide different
+evidence and are not subsumed by these names.
+
+The positive \textsf{B} P6 assertion,
+\nolinkurl{LegalAdmissionTraceCompleteUnderWellFormedPre}, assumes every anchored predecessor field
+has a complete trace and no prior transition targets an admitted field's next
+version. It concludes trace completeness for admitted fields after one legal
+Full step. The same archive includes reachable initial and carry-forward
+precondition witnesses. These checks do not establish arbitrary-history
+induction, every unchanged field's full chain, external-document immutability,
+or the correctness of an unmodeled review channel.
+
+For source identification, SHA-256 of \textsf{H} is
+\nolinkurl{3e42226a642e458170b85671a56ff8438fdc7c8dba72b970c53822867e7f9d19}.
+The \textsf{B} S1 and S2 source hashes are, respectively,
+\nolinkurl{e5275f855eff19469ecb73da26d1f3dab383c2578e72f4b526a9694230f8e70b}
+and \nolinkurl{3bf12ffb44259fff5022e749fe13d2573ae1539e7f8306a3402da1db0007b947}.
+The matching manifest records 72 outcomes (22 SAT witnesses and 14 UNSAT
+checks per profile). This crosswalk identifies the archived results; it adds
+neither a new Analyzer run nor an unbounded proof.
