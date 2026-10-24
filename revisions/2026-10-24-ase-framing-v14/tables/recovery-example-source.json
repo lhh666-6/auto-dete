@@ -1,0 +1,1753 @@
+{
+  "schema": 2,
+  "examples": [
+    {
+      "pair_id": "FORMAL-G-002-B",
+      "cohort": "original_B",
+      "route": "reuse-reviewed",
+      "source_archive": "revisions/2026-10-07-kais-continuity/replication-package.zip",
+      "source_archive_sha256": "1bc17338d18f198811e0e58eca9b64bded29f9b01cd61558862455e7e0d469d8",
+      "selection": "Illustration of reuse followed by confirmation; not a representative latency estimate.",
+      "members": [
+        {
+          "member": "research/agent-policy-phase2-formal-2026-10-07/formal-results/FORMAL-G-002-B/bound/events.jsonl",
+          "sha256": "08d9282a0ad7f10c04b3bec193e42db362b34ad6edbba21376f28ddbb38f544c"
+        },
+        {
+          "member": "research/agent-policy-phase2-formal-2026-10-07/formal-results/FORMAL-G-002-B/bound/model-inputs/0.json",
+          "sha256": "d36a5e5cf7049ac3bbf1ac542b18d8ee9c49430915173a2694712bc8c350f258"
+        },
+        {
+          "member": "research/agent-policy-phase2-formal-2026-10-07/formal-results/FORMAL-G-002-B/bound/state/4-after.json",
+          "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+        },
+        {
+          "member": "research/agent-policy-phase2-formal-2026-10-07/formal-results/FORMAL-G-002-B/context/events.jsonl",
+          "sha256": "5e768857a70f4c9441b3260186e80829329d6b2b0cd66c77f710a5dfbe3a6b49"
+        }
+      ],
+      "checks": {
+        "reuse_route_used": true,
+        "saved_grant_available": true,
+        "reviewed_candidate_unchanged": true,
+        "candidate_grant_value_in_model_input": true,
+        "rejection_writes_nothing": true,
+        "persistent_recovery_commits": 1,
+        "bound_recovery_calls": 1,
+        "confirmation_calls": 1,
+        "context_agent_calls": 0
+      },
+      "events": [
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 47.0,
+          "event_hash": "ac8c8ac1671ff93b150d4d91c8ab01be79acb41ed37fada7fb899d3d9299fe16",
+          "event_id": "FORMAL-G-002-B-bound:e4",
+          "event_type": "workflow_event",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "harness_handoff",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "authorization_id": "a1",
+              "candidate_id": "c2",
+              "committed_value": 3412,
+              "idempotency_key": "harness-index"
+            },
+            "tool_call_id": "FORMAL-G-002-B-bound:tool-4",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "a6c863aa260f57a65b42261f5f9599711b3978b074606bd113c1c9320dd33ede",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 4,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:14.102614+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/4.json",
+              "sha256": "645fbda08664e62f0cf8f9ffc8f7044c0a93a4dc5d51b7885fa4acd7e16f0c51"
+            },
+            {
+              "relative_path": "state/4-before.json",
+              "sha256": "b1d109a84ddc4b5353146f07b8bd23c967d2cda18c375bc92ec7cf19cb768e66"
+            },
+            {
+              "relative_path": "state/4-after.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 62.0,
+          "event_hash": "fe6161329c485821d4f6aabd68138cd791b898189243528524c250bbe9fe73aa",
+          "event_id": "FORMAL-G-002-B-bound:e5",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": "INSTANCE_MISMATCH",
+            "result": {
+              "commit_request_id": "request-1",
+              "decision": {
+                "common_guard_pass": true,
+                "guard_results": {
+                  "authorization_exists_active_unconsumed": true,
+                  "reviewer_valid_at_commit_entry": true
+                },
+                "same_context": true,
+                "same_instance": false,
+                "same_value": true
+              },
+              "error_code": "INSTANCE_MISMATCH",
+              "status": "rejected"
+            },
+            "state_after_ref": {
+              "relative_path": "state/4-after.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            },
+            "state_before_ref": {
+              "relative_path": "state/4-before.json",
+              "sha256": "b1d109a84ddc4b5353146f07b8bd23c967d2cda18c375bc92ec7cf19cb768e66"
+            },
+            "status": "rejected",
+            "tool_call_id": "FORMAL-G-002-B-bound:tool-4",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "ac8c8ac1671ff93b150d4d91c8ab01be79acb41ed37fada7fb899d3d9299fe16",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 5,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:14.118194+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 62.0,
+          "event_hash": "6421ebf3d8d668f137574268f212227e0e3970a38be84d8df716dc95988d20bc",
+          "event_id": "FORMAL-G-002-B-bound:e6",
+          "event_type": "admission_decision",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "authorization_id": "a1",
+            "authorized_value_payload": "3412",
+            "caller_origin": "harness_handoff",
+            "candidate_id": "c2",
+            "commit_request_id": "request-1",
+            "committed_value_payload": "3412",
+            "decision": "rejected",
+            "guard_results": {
+              "authorization_exists_active_unconsumed": true,
+              "reviewer_valid_at_commit_entry": true
+            },
+            "idempotency_key": "harness-index",
+            "idempotent_receipt": false,
+            "observed_head_version": 2,
+            "post_state_ref": {
+              "relative_path": "state/4-after.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            },
+            "pre_state_ref": {
+              "relative_path": "state/4-before.json",
+              "sha256": "b1d109a84ddc4b5353146f07b8bd23c967d2cda18c375bc92ec7cf19cb768e66"
+            },
+            "reason_code": "INSTANCE_MISMATCH",
+            "reviewed_candidate_id": "c1",
+            "same_context": true,
+            "same_instance": false,
+            "same_value": true,
+            "state_unchanged": true,
+            "transition_ref": null
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "fe6161329c485821d4f6aabd68138cd791b898189243528524c250bbe9fe73aa",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 6,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:14.120525+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 11812.0,
+          "event_hash": "36576d1379e02ad2aa7b23e38e2ba59a80062a2858c01848456d42776fda0419",
+          "event_id": "FORMAL-G-002-B-bound:e10",
+          "event_type": "feedback_delivered",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "harness",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "agent_input_message_ref": {
+              "relative_path": "model-inputs/0.json",
+              "sha256": "d36a5e5cf7049ac3bbf1ac542b18d8ee9c49430915173a2694712bc8c350f258"
+            },
+            "decision_event_id": "FORMAL-G-002-B-bound:e6",
+            "delivered": true,
+            "legal_paths_at_rejection": [
+              "reuse_reviewed",
+              "reauthorize",
+              "fresh_proposal"
+            ],
+            "next_model_request_id": "FORMAL-G-002-B-bound:model-0",
+            "rejection_state_ref": {
+              "relative_path": "state/4-after.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "69e11dbd1836fd045a0e16711735d2f0505bba80b1fda7da14d5e60d0ec2b8c2",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 10,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:25.869461+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 11828.0,
+          "event_hash": "5a5de3df4603751bf02d9a61363752585209f0f2212ef32aa566e9b00df946f3",
+          "event_id": "FORMAL-G-002-B-bound:e11",
+          "event_type": "tool_call",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "agent",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "authorization_id": "a1",
+              "candidate_id": "c1",
+              "committed_value": 3412,
+              "idempotency_key": "FORMAL-G-002-commit-1"
+            },
+            "model_request_id": "FORMAL-G-002-B-bound:model-0",
+            "tool_call_id": "FORMAL-G-002-B-bound:tool-11",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "36576d1379e02ad2aa7b23e38e2ba59a80062a2858c01848456d42776fda0419",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 11,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:25.891974+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/11.json",
+              "sha256": "e8885a54b48fe6da00aa32d6e8615c4f3016f78c4c05f588810ba972918c8e2c"
+            },
+            {
+              "relative_path": "state/11-before.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            },
+            {
+              "relative_path": "state/11-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 11844.0,
+          "event_hash": "e3a2973521b033d93d8e367a4ed3e2c2bca360b7461f2c5c8b996f38fb25c221",
+          "event_id": "FORMAL-G-002-B-bound:e12",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "result": {
+              "commit_request_id": "request-2",
+              "committed_value": 3412,
+              "decision": {
+                "common_guard_pass": true,
+                "guard_results": {
+                  "authorization_exists_active_unconsumed": true,
+                  "reviewer_valid_at_commit_entry": true
+                },
+                "same_context": true,
+                "same_instance": true,
+                "same_value": true
+              },
+              "status": "ok",
+              "transition_id": "transition-1",
+              "version": 3
+            },
+            "state_after_ref": {
+              "relative_path": "state/11-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            },
+            "state_before_ref": {
+              "relative_path": "state/11-before.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            },
+            "status": "ok",
+            "tool_call_id": "FORMAL-G-002-B-bound:tool-11",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "5a5de3df4603751bf02d9a61363752585209f0f2212ef32aa566e9b00df946f3",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 12,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:25.903889+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 11844.0,
+          "event_hash": "4f3a883a4a0fe49412754170f65b912277d41858a1ae6f71180203c9457175ad",
+          "event_id": "FORMAL-G-002-B-bound:e13",
+          "event_type": "admission_decision",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "authorization_id": "a1",
+            "authorized_value_payload": "3412",
+            "caller_origin": "agent",
+            "candidate_id": "c1",
+            "commit_request_id": "request-2",
+            "committed_value_payload": "3412",
+            "decision": "accepted",
+            "guard_results": {
+              "authorization_exists_active_unconsumed": true,
+              "reviewer_valid_at_commit_entry": true
+            },
+            "idempotency_key": "FORMAL-G-002-commit-1",
+            "idempotent_receipt": false,
+            "observed_head_version": 2,
+            "post_state_ref": {
+              "relative_path": "state/11-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            },
+            "pre_state_ref": {
+              "relative_path": "state/11-before.json",
+              "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+            },
+            "reason_code": null,
+            "reviewed_candidate_id": "c1",
+            "same_context": true,
+            "same_instance": true,
+            "same_value": true,
+            "state_unchanged": false,
+            "transition_ref": {
+              "relative_path": "state/11-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "e3a2973521b033d93d8e367a4ed3e2c2bca360b7461f2c5c8b996f38fb25c221",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 13,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:25.903889+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 11844.0,
+          "event_hash": "26751e2c1e79cebe14d4260f912b4363edb7242d6a5ddb0e1b0d4ae36cad2e85",
+          "event_id": "FORMAL-G-002-B-bound:e14",
+          "event_type": "transition_persisted",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "db_snapshot_ref": {
+              "relative_path": "state/11-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            },
+            "fact_sources": {
+              "business_context": "baseline:business_context",
+              "quantity": "transition-1",
+              "reference_history": "baseline:reference_history",
+              "reference_note": "external-v2"
+            },
+            "record_id": "P2F-FORMAL-G-002",
+            "record_version": 3,
+            "trace_artifacts": [
+              {
+                "relative_path": "state/11-before.json",
+                "sha256": "db1850109c1d11967e8039feca666cfbd7b9a4312f8a8631f1b2f44f2aea893b"
+              },
+              {
+                "relative_path": "state/11-after.json",
+                "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+              }
+            ],
+            "values": {
+              "business_context": "warehouse_intake",
+              "quantity": 3412,
+              "reference_history": [
+                {
+                  "memo": "ledger-import",
+                  "sequence": 0
+                },
+                {
+                  "memo": "ledger-import",
+                  "sequence": 1
+                }
+              ],
+              "reference_note": "ledger reconciliation memo; source batch 16"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "4f3a883a4a0fe49412754170f65b912277d41858a1ae6f71180203c9457175ad",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 14,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:25.905424+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 17375.0,
+          "event_hash": "ee9b952ab2e6b38e4abc289e40319fff7696f052ee46e33e50a2242f2479dcb5",
+          "event_id": "FORMAL-G-002-B-bound:e17",
+          "event_type": "tool_call",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "agent",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "commit_request_id": "request-2"
+            },
+            "model_request_id": "FORMAL-G-002-B-bound:model-1",
+            "tool_call_id": "FORMAL-G-002-B-bound:tool-17",
+            "tool_name": "get_receipt"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "c30f4bb313efee5c172bd6ed9d4dceaa17b2ca473c4819a9b8f5fe2aa5ef56b6",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 17,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:31.426435+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/17.json",
+              "sha256": "e8885a54b48fe6da00aa32d6e8615c4f3016f78c4c05f588810ba972918c8e2c"
+            },
+            {
+              "relative_path": "state/17-before.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            },
+            {
+              "relative_path": "state/17-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 17375.0,
+          "event_hash": "8761815fd07d52e36982c25ec1d55ab9bede8108e8a65403f911238e5d0e1874",
+          "event_id": "FORMAL-G-002-B-bound:e18",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "result": {
+              "commit_request_id": "request-2",
+              "committed_value": 3412,
+              "decision": {
+                "common_guard_pass": true,
+                "guard_results": {
+                  "authorization_exists_active_unconsumed": true,
+                  "reviewer_valid_at_commit_entry": true
+                },
+                "same_context": true,
+                "same_instance": true,
+                "same_value": true
+              },
+              "status": "ok",
+              "transition_id": "transition-1",
+              "version": 3
+            },
+            "state_after_ref": {
+              "relative_path": "state/17-after.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            },
+            "state_before_ref": {
+              "relative_path": "state/17-before.json",
+              "sha256": "788f924a149b9294f7509a77269c505eec5ceffb1e0b4bd2b4dcc88f9f6755bd"
+            },
+            "status": "ok",
+            "tool_call_id": "FORMAL-G-002-B-bound:tool-17",
+            "tool_name": "get_receipt"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "ee9b952ab2e6b38e4abc289e40319fff7696f052ee46e33e50a2242f2479dcb5",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 18,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:31.438728+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [
+            {
+              "relative_path": "model-inputs/2.json",
+              "sha256": "887bf3ef047769865a888f696194002ca973eea84d5053a25bcf147685b4a8a3"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 17391.0,
+          "event_hash": "b86b5d06728701870c1747cccd86eae5afae0bddef697b56c7e12f95ab1b870d",
+          "event_id": "FORMAL-G-002-B-bound:e19",
+          "event_type": "model_request",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "harness",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "messages_ref": {
+              "relative_path": "model-inputs/2.json",
+              "sha256": "887bf3ef047769865a888f696194002ca973eea84d5053a25bcf147685b4a8a3"
+            },
+            "model_request_id": "FORMAL-G-002-B-bound:model-2",
+            "provider_request_id": null,
+            "requested_model": "deepseek-v4-flash",
+            "returned_model": null,
+            "returned_revision": null,
+            "usage": null
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "8761815fd07d52e36982c25ec1d55ab9bede8108e8a65403f911238e5d0e1874",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 19,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:31.448061+00:00"
+        },
+        {
+          "agent_config_id": "B",
+          "agent_config_sha256": "51ad773af4a3f00a62f1592423919c14154b166e78ca6ee842d90736488af284",
+          "artifacts": [
+            {
+              "relative_path": "provider-raw/2-0/prompt.txt",
+              "sha256": "e7fa59b32660e46e6bb5fa71fcd2780d7c4b2e588fe3f30f7a01238cfa7a5fc3"
+            },
+            {
+              "relative_path": "provider-raw/2-0/response.json",
+              "sha256": "0b0fa4124c7745786d02e4818e4ab4d64ff1acf4f6c6fbaa585078e759347b40"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 27453.0,
+          "event_hash": "028e82add5692c089f58706a497bc08d92e468cd37fa4c1c92cf1828cede9571",
+          "event_id": "FORMAL-G-002-B-bound:e20",
+          "event_type": "model_response",
+          "freeze_id": "phase2-formal-v1.0-9fd97d11ceaed652",
+          "origin": "provider",
+          "pair_id": "FORMAL-G-002-B",
+          "parent_event_ids": [
+            "FORMAL-G-002-B-bound:e19"
+          ],
+          "payload": {
+            "error_code": null,
+            "messages_ref": {
+              "relative_path": "model-inputs/2.json",
+              "sha256": "887bf3ef047769865a888f696194002ca973eea84d5053a25bcf147685b4a8a3"
+            },
+            "model_request_id": "FORMAL-G-002-B-bound:model-2",
+            "provider_request_id": "827a8c02-48b4-48c4-9902-817c89a724fb",
+            "requested_model": "deepseek-v4-flash",
+            "response": "{\"kind\":\"final\",\"tool\":\"\",\"arguments_json\":\"{}\",\"report_json\":\"{\\\"record_id\\\":\\\"P2F-FORMAL-G-002\\\",\\\"version\\\":3,\\\"value\\\":3412}\"}",
+            "returned_model": "deepseek-v4-flash",
+            "returned_revision": null,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 2560,
+              "input_tokens": 234,
+              "output_tokens": 1949,
+              "service_tier": "standard"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "9adf71819507ed8594e70c48e0ef4a97c5868801147da653452ef9fc0066b2c1"
+          },
+          "previous_event_hash": "b86b5d06728701870c1747cccd86eae5afae0bddef697b56c7e12f95ab1b870d",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-002-B-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 20,
+          "task_instance_id": "FORMAL-G-002",
+          "timestamp_utc": "2026-10-06T19:54:41.510330+00:00"
+        }
+      ]
+    },
+    {
+      "pair_id": "FORMAL-G-006-A",
+      "cohort": "supplementary_A",
+      "route": "reauthorization",
+      "source_archive": "research/phase2-results-snapshots/2026-10-07-complete/quota-recovery-complete.zip",
+      "source_archive_sha256": "536f8b7d784d1af118145affd90c3d613b67ad44d9c5b3607b463bcebeacbec1",
+      "selection": "Illustration of fresh authorization for the submitted candidate; not a representative latency estimate.",
+      "members": [
+        {
+          "member": "research/agent-policy-phase2-quota-recovery-2026-10-07/results/FORMAL-G-006-A/attempt-001/bound/events.jsonl",
+          "sha256": "7ffb2e2f786823c7d8d42821cf032554975b1d44b6cb459af3d96a6948de3b27"
+        },
+        {
+          "member": "research/agent-policy-phase2-quota-recovery-2026-10-07/results/FORMAL-G-006-A/attempt-001/bound/model-inputs/0.json",
+          "sha256": "257c37df46752d9d08ac6937f566205dd754a6a5275642477936c080e81d7195"
+        },
+        {
+          "member": "research/agent-policy-phase2-quota-recovery-2026-10-07/results/FORMAL-G-006-A/attempt-001/bound/state/4-after.json",
+          "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+        },
+        {
+          "member": "research/agent-policy-phase2-quota-recovery-2026-10-07/results/FORMAL-G-006-A/attempt-001/context/events.jsonl",
+          "sha256": "e709b0825c62a90369c3d3e5c175b9f941aed2dc789b1332bf8375f57b1fee06"
+        }
+      ],
+      "checks": {
+        "reuse_route_available": true,
+        "fresh_grant_issued": "a2",
+        "old_grant_superseded": true,
+        "saved_grant_available": true,
+        "reviewed_candidate_unchanged": true,
+        "candidate_grant_value_in_model_input": true,
+        "rejection_writes_nothing": true,
+        "persistent_recovery_commits": 1,
+        "bound_recovery_calls": 2,
+        "confirmation_calls": 2,
+        "context_agent_calls": 2
+      },
+      "events": [
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 47.0,
+          "event_hash": "2348c68fc8fea212f33a870449b55fbed63d22120b64333e02299a59db7204e8",
+          "event_id": "FORMAL-G-006-A-bound:e4",
+          "event_type": "workflow_event",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "harness_handoff",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "authorization_id": "a1",
+              "candidate_id": "c2",
+              "committed_value": 23560,
+              "idempotency_key": "harness-index"
+            },
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-4",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "31de43280d33fefb49b0808434f1f129213ee8c0fad0478a889dd703abc716e0",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 4,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:03.555799+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/4.json",
+              "sha256": "645fbda08664e62f0cf8f9ffc8f7044c0a93a4dc5d51b7885fa4acd7e16f0c51"
+            },
+            {
+              "relative_path": "state/4-before.json",
+              "sha256": "7df4f4780a4d44d71bbcdaba920d15f892931313cb741e55e229e2dec3cbb899"
+            },
+            {
+              "relative_path": "state/4-after.json",
+              "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 63.0,
+          "event_hash": "656a6a143185a7e39f918e74df3d0949cc3fa2b9fa24800309a59f839a5d31cd",
+          "event_id": "FORMAL-G-006-A-bound:e5",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": "INSTANCE_MISMATCH",
+            "result": {
+              "commit_request_id": "request-1",
+              "decision": {
+                "common_guard_pass": true,
+                "guard_results": {
+                  "authorization_exists_active_unconsumed": true,
+                  "reviewer_valid_at_commit_entry": true
+                },
+                "same_context": true,
+                "same_instance": false,
+                "same_value": true
+              },
+              "error_code": "INSTANCE_MISMATCH",
+              "status": "rejected"
+            },
+            "state_after_ref": {
+              "relative_path": "state/4-after.json",
+              "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+            },
+            "state_before_ref": {
+              "relative_path": "state/4-before.json",
+              "sha256": "7df4f4780a4d44d71bbcdaba920d15f892931313cb741e55e229e2dec3cbb899"
+            },
+            "status": "rejected",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-4",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "2348c68fc8fea212f33a870449b55fbed63d22120b64333e02299a59db7204e8",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 5,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:03.567944+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 63.0,
+          "event_hash": "5aed768deeef994a292fd42ee1b65121b241d154036bc3941fc82ebe5d60d834",
+          "event_id": "FORMAL-G-006-A-bound:e6",
+          "event_type": "admission_decision",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "authorization_id": "a1",
+            "authorized_value_payload": "23560",
+            "caller_origin": "harness_handoff",
+            "candidate_id": "c2",
+            "commit_request_id": "request-1",
+            "committed_value_payload": "23560",
+            "decision": "rejected",
+            "guard_results": {
+              "authorization_exists_active_unconsumed": true,
+              "reviewer_valid_at_commit_entry": true
+            },
+            "idempotency_key": "harness-index",
+            "idempotent_receipt": false,
+            "observed_head_version": 2,
+            "post_state_ref": {
+              "relative_path": "state/4-after.json",
+              "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+            },
+            "pre_state_ref": {
+              "relative_path": "state/4-before.json",
+              "sha256": "7df4f4780a4d44d71bbcdaba920d15f892931313cb741e55e229e2dec3cbb899"
+            },
+            "reason_code": "INSTANCE_MISMATCH",
+            "reviewed_candidate_id": "c1",
+            "same_context": true,
+            "same_instance": false,
+            "same_value": true,
+            "state_unchanged": true,
+            "transition_ref": null
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "656a6a143185a7e39f918e74df3d0949cc3fa2b9fa24800309a59f839a5d31cd",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 6,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:03.568982+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 10297.0,
+          "event_hash": "c2b579df5c15159115c9e8baac2c876376e777f268e6af9b78a366d3bac5428c",
+          "event_id": "FORMAL-G-006-A-bound:e10",
+          "event_type": "feedback_delivered",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "harness",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "agent_input_message_ref": {
+              "relative_path": "model-inputs/0.json",
+              "sha256": "257c37df46752d9d08ac6937f566205dd754a6a5275642477936c080e81d7195"
+            },
+            "decision_event_id": "FORMAL-G-006-A-bound:e6",
+            "delivered": true,
+            "legal_paths_at_rejection": [
+              "reuse_reviewed",
+              "reauthorize",
+              "fresh_proposal"
+            ],
+            "next_model_request_id": "FORMAL-G-006-A-bound:model-0",
+            "rejection_state_ref": {
+              "relative_path": "state/4-after.json",
+              "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "20eacaf175025b6d911650aa4bc4982856964d2d248d10e8145865723f28a012",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 10,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:13.805646+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 10313.0,
+          "event_hash": "354961d0eb38b5a3d7727d0094a2f6fec86a9cdf846af1e939e70f19f24481f7",
+          "event_id": "FORMAL-G-006-A-bound:e11",
+          "event_type": "tool_call",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "agent",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "candidate_id": "c2"
+            },
+            "model_request_id": "FORMAL-G-006-A-bound:model-0",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-11",
+            "tool_name": "request_authorization"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "c2b579df5c15159115c9e8baac2c876376e777f268e6af9b78a366d3bac5428c",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 11,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:13.820696+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/11.json",
+              "sha256": "81562fb3bfa7b4ead16764c3a40ed63fa59df059519e5b8d079ebf280217a8da"
+            },
+            {
+              "relative_path": "state/11-before.json",
+              "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+            },
+            {
+              "relative_path": "state/11-after.json",
+              "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 10328.0,
+          "event_hash": "aae34d937b59a0ade0eab854a6edfc964fc85ed6737ccf35d840508b5abc03de",
+          "event_id": "FORMAL-G-006-A-bound:e12",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "result": {
+              "authorization_id": "a2",
+              "authorization_status": "active",
+              "authorized_value": 23560,
+              "context": {
+                "confidence": 0.9,
+                "evidence_file_id": "E1",
+                "evidence_hash": "da81ae8a74b1091e5d5dfb41d08cd16d61648dde7c0cbc2df2f45cbaae1351eb",
+                "evidence_locator": "document/items/target/revision-1",
+                "expected_fact_version": 2,
+                "field_key": "net_amount_cents",
+                "lineage_parent_ids": [
+                  "root-v2"
+                ],
+                "producer_id": "signed_ledger",
+                "producer_version": "1",
+                "proposal_value_payload": "23553",
+                "schema_version": "2",
+                "selection_artifact_id": "selection:FORMAL-G-006",
+                "selection_state": "SELECTED",
+                "source_kind": "AI_SUGGESTION",
+                "target_record_id": "P2F-FORMAL-G-006",
+                "template_id": "expense_allocation",
+                "template_version": "1"
+              },
+              "field_key": "net_amount_cents",
+              "issued_at": "2026-10-07T07:47:13.821767+00:00",
+              "record_id": "P2F-FORMAL-G-006",
+              "reviewed_candidate": {
+                "candidate_id": "c2",
+                "certificate_id": "01c3f5f37a11b7c6de9e48904c3bdda2aab7fd2c58802f6be05171bc036c98bd",
+                "context": {
+                  "confidence": 0.9,
+                  "evidence_file_id": "E1",
+                  "evidence_hash": "da81ae8a74b1091e5d5dfb41d08cd16d61648dde7c0cbc2df2f45cbaae1351eb",
+                  "evidence_locator": "document/items/target/revision-1",
+                  "expected_fact_version": 2,
+                  "field_key": "net_amount_cents",
+                  "lineage_parent_ids": [
+                    "root-v2"
+                  ],
+                  "producer_id": "signed_ledger",
+                  "producer_version": "1",
+                  "proposal_value_payload": "23553",
+                  "schema_version": "2",
+                  "selection_artifact_id": "selection:FORMAL-G-006",
+                  "selection_state": "SELECTED",
+                  "source_kind": "AI_SUGGESTION",
+                  "target_record_id": "P2F-FORMAL-G-006",
+                  "template_id": "expense_allocation",
+                  "template_version": "1"
+                },
+                "context_hash": "241fe3960a1bda40cf7f7620171ef91ab173c736dc49130144c7f0ceba95ac80",
+                "created_at": "2026-10-07T07:47:03.533015+00:00",
+                "envelope_metadata": {
+                  "batch": 8,
+                  "kind": "queue_envelope"
+                }
+              },
+              "reviewed_candidate_id": "c2",
+              "reviewer_id": "trusted-host-reviewer",
+              "status": "ok"
+            },
+            "state_after_ref": {
+              "relative_path": "state/11-after.json",
+              "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+            },
+            "state_before_ref": {
+              "relative_path": "state/11-before.json",
+              "sha256": "31e27db1e69860ea08b9452ccbbc78ac9c7605c3c18403b7247074fea42cfdc4"
+            },
+            "status": "ok",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-11",
+            "tool_name": "request_authorization"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "354961d0eb38b5a3d7727d0094a2f6fec86a9cdf846af1e939e70f19f24481f7",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 12,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:13.832555+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 10328.0,
+          "event_hash": "07c7a333b85af77492a9a3f786e6fd26f9d3d0f0570957a01062dc1815dbe2a6",
+          "event_id": "FORMAL-G-006-A-bound:e13",
+          "event_type": "authorization_issued",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "authorization_id": "a2",
+            "authorized_value_payload": "23560",
+            "binding_ref": {
+              "relative_path": "state/11-after.json",
+              "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+            },
+            "expected_fact_version": 2,
+            "issued_at": "2026-10-07T07:47:13.821767+00:00",
+            "reviewed_candidate_id": "c2",
+            "reviewed_context": {
+              "confidence": 0.9,
+              "evidence_file_id": "E1",
+              "evidence_hash": "da81ae8a74b1091e5d5dfb41d08cd16d61648dde7c0cbc2df2f45cbaae1351eb",
+              "evidence_locator": "document/items/target/revision-1",
+              "expected_fact_version": 2,
+              "field_key": "net_amount_cents",
+              "lineage_parent_ids": [
+                "root-v2"
+              ],
+              "producer_id": "signed_ledger",
+              "producer_version": "1",
+              "proposal_value_payload": "23553",
+              "schema_version": "2",
+              "selection_artifact_id": "selection:FORMAL-G-006",
+              "selection_state": "SELECTED",
+              "source_kind": "AI_SUGGESTION",
+              "target_record_id": "P2F-FORMAL-G-006",
+              "template_id": "expense_allocation",
+              "template_version": "1"
+            },
+            "reviewer_id": "trusted-host-reviewer",
+            "status": "issued"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "aae34d937b59a0ade0eab854a6edfc964fc85ed6737ccf35d840508b5abc03de",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 13,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:13.833642+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 10328.0,
+          "event_hash": "0a307e2a2b8e4ee6814ce205605c48345d2ef0b45ab1feab0a393e778e93286c",
+          "event_id": "FORMAL-G-006-A-bound:e14",
+          "event_type": "authorization_superseded",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "authorization_ids": [
+              "a1"
+            ],
+            "new_authorization_id": "a2"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "07c7a333b85af77492a9a3f786e6fd26f9d3d0f0570957a01062dc1815dbe2a6",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 14,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:13.833642+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 23109.0,
+          "event_hash": "ce5933c258ef682fe4babf0a5a533a223fac3d6c4c72ac68dcc7ba38ec1080a8",
+          "event_id": "FORMAL-G-006-A-bound:e17",
+          "event_type": "tool_call",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "agent",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "authorization_id": "a2",
+              "candidate_id": "c2",
+              "committed_value": 23560,
+              "idempotency_key": "FORMAL-G-006-c2-a2-commit-1"
+            },
+            "model_request_id": "FORMAL-G-006-A-bound:model-1",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-17",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "2589bd48fa5a18f9b7d6fa048f6481f374cee0ce0905126cb378047b5124d077",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 17,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:26.625939+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/17.json",
+              "sha256": "413eb77d287fe8ca3b60107c91d04ebc0dab1132bd9cff070ed90d1321c0d127"
+            },
+            {
+              "relative_path": "state/17-before.json",
+              "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+            },
+            {
+              "relative_path": "state/17-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 23125.0,
+          "event_hash": "e17e71e58e4e9d22f05e433ffe5ac845829b4ed5baebb024a1106f3ee4c1e18a",
+          "event_id": "FORMAL-G-006-A-bound:e18",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "result": {
+              "commit_request_id": "request-2",
+              "committed_value": 23560,
+              "decision": {
+                "common_guard_pass": true,
+                "guard_results": {
+                  "authorization_exists_active_unconsumed": true,
+                  "reviewer_valid_at_commit_entry": true
+                },
+                "same_context": true,
+                "same_instance": true,
+                "same_value": true
+              },
+              "status": "ok",
+              "transition_id": "transition-1",
+              "version": 3
+            },
+            "state_after_ref": {
+              "relative_path": "state/17-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "state_before_ref": {
+              "relative_path": "state/17-before.json",
+              "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+            },
+            "status": "ok",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-17",
+            "tool_name": "commit"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "ce5933c258ef682fe4babf0a5a533a223fac3d6c4c72ac68dcc7ba38ec1080a8",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 18,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:26.643044+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 23141.0,
+          "event_hash": "332a3caf2d81b3e5e863bd0f0961c98eb3c023f06c352d800d6893d4ffe850ae",
+          "event_id": "FORMAL-G-006-A-bound:e19",
+          "event_type": "admission_decision",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "authorization_id": "a2",
+            "authorized_value_payload": "23560",
+            "caller_origin": "agent",
+            "candidate_id": "c2",
+            "commit_request_id": "request-2",
+            "committed_value_payload": "23560",
+            "decision": "accepted",
+            "guard_results": {
+              "authorization_exists_active_unconsumed": true,
+              "reviewer_valid_at_commit_entry": true
+            },
+            "idempotency_key": "FORMAL-G-006-c2-a2-commit-1",
+            "idempotent_receipt": false,
+            "observed_head_version": 2,
+            "post_state_ref": {
+              "relative_path": "state/17-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "pre_state_ref": {
+              "relative_path": "state/17-before.json",
+              "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+            },
+            "reason_code": null,
+            "reviewed_candidate_id": "c2",
+            "same_context": true,
+            "same_instance": true,
+            "same_value": true,
+            "state_unchanged": false,
+            "transition_ref": {
+              "relative_path": "state/17-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "e17e71e58e4e9d22f05e433ffe5ac845829b4ed5baebb024a1106f3ee4c1e18a",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 19,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:26.644635+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 23141.0,
+          "event_hash": "22a35622aad3c45e437aa2dee4e85e4ffc3d023cbf3be1887dca9f73810f2368",
+          "event_id": "FORMAL-G-006-A-bound:e20",
+          "event_type": "transition_persisted",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "db_snapshot_ref": {
+              "relative_path": "state/17-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "fact_sources": {
+              "business_context": "baseline:business_context",
+              "net_amount_cents": "transition-1",
+              "reference_history": "baseline:reference_history",
+              "reference_note": "external-v2"
+            },
+            "record_id": "P2F-FORMAL-G-006",
+            "record_version": 3,
+            "trace_artifacts": [
+              {
+                "relative_path": "state/17-before.json",
+                "sha256": "a285f625f1639beb4c0595406260e06dfff095c68914fe651c7f7ab94d2a9172"
+              },
+              {
+                "relative_path": "state/17-after.json",
+                "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+              }
+            ],
+            "values": {
+              "business_context": "expense_allocation",
+              "net_amount_cents": 23560,
+              "reference_history": [
+                {
+                  "memo": "ledger-import",
+                  "sequence": 0
+                },
+                {
+                  "memo": "ledger-import",
+                  "sequence": 1
+                }
+              ],
+              "reference_note": "ledger reconciliation memo; source batch 17"
+            }
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "332a3caf2d81b3e5e863bd0f0961c98eb3c023f06c352d800d6893d4ffe850ae",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 20,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:26.646169+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 36156.0,
+          "event_hash": "aa7c221a760410445352a3b67f478363a3a7a1c086859890904ad7a410539265",
+          "event_id": "FORMAL-G-006-A-bound:e23",
+          "event_type": "tool_call",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "agent",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "commit_request_id": "request-2"
+            },
+            "model_request_id": "FORMAL-G-006-A-bound:model-2",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-23",
+            "tool_name": "get_receipt"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "3b08fffd5642cdfafddebe1dea303ea561a622bce60c9413367521cb51ee17fa",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 23,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:39.668078+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/23.json",
+              "sha256": "413eb77d287fe8ca3b60107c91d04ebc0dab1132bd9cff070ed90d1321c0d127"
+            },
+            {
+              "relative_path": "state/23-before.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            {
+              "relative_path": "state/23-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 36172.0,
+          "event_hash": "0a495561c62202417d18f8c42f2ade074415f7be0bb43d1a14f17d487fcdd50f",
+          "event_id": "FORMAL-G-006-A-bound:e24",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "result": {
+              "commit_request_id": "request-2",
+              "committed_value": 23560,
+              "decision": {
+                "common_guard_pass": true,
+                "guard_results": {
+                  "authorization_exists_active_unconsumed": true,
+                  "reviewer_valid_at_commit_entry": true
+                },
+                "same_context": true,
+                "same_instance": true,
+                "same_value": true
+              },
+              "status": "ok",
+              "transition_id": "transition-1",
+              "version": 3
+            },
+            "state_after_ref": {
+              "relative_path": "state/23-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "state_before_ref": {
+              "relative_path": "state/23-before.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "status": "ok",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-23",
+            "tool_name": "get_receipt"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "aa7c221a760410445352a3b67f478363a3a7a1c086859890904ad7a410539265",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 24,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:39.679695+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [],
+          "attempt_index": 0,
+          "elapsed_ms": 47172.0,
+          "event_hash": "206749b24dbeb39b995795217dd85518bdce78f898fa745a53c1bcd1e0e684f0",
+          "event_id": "FORMAL-G-006-A-bound:e27",
+          "event_type": "tool_call",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "agent",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "arguments": {
+              "record_id": "P2F-FORMAL-G-006"
+            },
+            "model_request_id": "FORMAL-G-006-A-bound:model-3",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-27",
+            "tool_name": "get_state"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "3ba0bc1450894148f2dfdddc19a6eae4423283b225b540e3c69de10089776c29",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 27,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:50.690219+00:00"
+        },
+        {
+          "agent_config_id": "A",
+          "agent_config_sha256": "2b7742d2a942cad54679ff9be61fa4cf4ad0451450abe44b7457be014fa072df",
+          "artifacts": [
+            {
+              "relative_path": "tool-results/27.json",
+              "sha256": "78a6d70c461b3eb052c81d27ff0dbf3c65534cfc6d9485725b91386f16cff1dc"
+            },
+            {
+              "relative_path": "state/27-before.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            {
+              "relative_path": "state/27-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            }
+          ],
+          "attempt_index": 0,
+          "elapsed_ms": 47188.0,
+          "event_hash": "0fba1c3c6f9136b0c6aa23dfa88754f055e98a23dd9c6f7e161166afb93ca292",
+          "event_id": "FORMAL-G-006-A-bound:e28",
+          "event_type": "tool_result",
+          "freeze_id": "phase2-quota-recovery-v1-c41e052eb585",
+          "origin": "trusted_host",
+          "pair_id": "FORMAL-G-006-A",
+          "parent_event_ids": [],
+          "payload": {
+            "error_code": null,
+            "result": {
+              "capabilities": [
+                "get_state",
+                "inspect_evidence",
+                "propose",
+                "verify",
+                "request_authorization",
+                "commit",
+                "get_receipt"
+              ],
+              "evidence_ref": "E1",
+              "field_order": [
+                "reference_history",
+                "business_context",
+                "reference_note",
+                "net_amount_cents"
+              ],
+              "record_id": "P2F-FORMAL-G-006",
+              "root_certificate_id": "root-v3",
+              "sources": {
+                "business_context": "baseline:business_context",
+                "net_amount_cents": "transition-1",
+                "reference_history": "baseline:reference_history",
+                "reference_note": "external-v2"
+              },
+              "status": "ok",
+              "values": {
+                "business_context": "expense_allocation",
+                "net_amount_cents": 23560,
+                "reference_history": [
+                  {
+                    "memo": "ledger-import",
+                    "sequence": 0
+                  },
+                  {
+                    "memo": "ledger-import",
+                    "sequence": 1
+                  }
+                ],
+                "reference_note": "ledger reconciliation memo; source batch 17"
+              },
+              "version": 3
+            },
+            "state_after_ref": {
+              "relative_path": "state/27-after.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "state_before_ref": {
+              "relative_path": "state/27-before.json",
+              "sha256": "3192becb32ee9d17f07a42ab69abeb97c675b374ee430e1fa84dfd64e380b441"
+            },
+            "status": "ok",
+            "tool_call_id": "FORMAL-G-006-A-bound:tool-27",
+            "tool_name": "get_state"
+          },
+          "phase": "arm",
+          "policy": "bound",
+          "prefix_ref": {
+            "relative_path": "../prefix/events.jsonl",
+            "sha256": "083ebb674fcd49955e649fb39aeaea4d51c8c3aaa504824ee43b700cae4a7f5d"
+          },
+          "previous_event_hash": "206749b24dbeb39b995795217dd85518bdce78f898fa745a53c1bcd1e0e684f0",
+          "protocol_sha256": "793131f66e5d8f5ce090b26067efb546459807f572dc2fbdb150ca4fea4293b4",
+          "protocol_version": "phase2-formal-v1.0",
+          "repetition": 1,
+          "run_id": "FORMAL-G-006-A-bound",
+          "scenario": "G",
+          "schema_version": "phase2.event.v2",
+          "sequence": 28,
+          "task_instance_id": "FORMAL-G-006",
+          "timestamp_utc": "2026-10-07T07:47:50.701700+00:00"
+        }
+      ]
+    }
+  ],
+  "scope": "Two archived G episodes: one reuse route and one fresh-authorization route. Selected to show the mechanism, not typicality or latency."
+}

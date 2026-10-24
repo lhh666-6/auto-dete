@@ -1,0 +1,35 @@
+\section{Obligations and existing foundations}
+The table retains the detailed mechanism-to-obligation mapping. Bibliographic
+entries for the named mechanisms are provided in the main manuscript's related
+work. The mapping identifies reused foundations and the role of each obligation
+in this controlled comparison; it does not assert that existing systems cannot
+express the same relations.
+
+\begin{table}[tbp]
+\caption{Existing foundations and their role in the corrected-execution comparison. P1--P6 are defined in main-text Section 3.2.}\label{tab:obligation-positioning}
+\centering\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.37\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Obligation & Existing basis & Role in this study \\
+\midrule
+P1 & Continuity Kernel binds proposal and sealed candidate; ReSA tracks the consumed object. & Select context or reviewed-instance agreement as the binding condition while holding correction and shared checks fixed; observe continuation. \\
+P2 & ReSA requires preserved or atomically validated consumed versions. & Check internal record, field and evidence consistency against the submitted immutable candidate. Cross-candidate equality belongs to P1; external referents need a separate consumption check. \\
+P3 & Guarded Commits binds authority and pre-edit, delta and post-edit hashes. & Check principal authority and the explicit authorized value, retaining the machine proposal separately from the correction and committed value. \\
+P4 & Optimistic concurrency control and Continuity Kernel validate predecessors. & Keep freshness shared across policies, separate from instance mismatch. \\
+P5 & Transactions and Continuity Kernel install an atomic accepted unit. & Install the complete corrected successor, sources, transitions and grant consumption together. \\
+P6 & Provenance and curated-database copying retain derivation and source relations. & Link changed fields to authorized transitions and copy unchanged fields' exact prior sources; check these relations in persistence. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+P1 is policy-relative: context binding requires $K_{\mathrm{eq}}$, and bound
+binding adds $I_{\mathrm{eq}}$. P2 is context/evidence integrity and P3 is
+principal/authorized-value integrity in both policies. The source-level Alloy
+names use a historical numbering scheme; Section~\ref{app:formal-mapping}
+gives their precise correspondence and verification limits.
+
+The comparison's admission-set inclusions follow from the declared predicates.
+The store checks assess implementation of the shared obligations; the agent
+trajectories assess choices and costs after admission or rejection. The
+observed reuse, renewed authorization and confirmation actions cannot be
+derived from the binding predicates alone.
