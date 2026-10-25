@@ -1,0 +1,85 @@
+\section{Native approval and binding-scope reproduction}
+\label{sec:a11-native-binding}
+
+\textbf{Version and execution scope.}
+The corrected experiment is retained in
+\nolinkurl{research/ase-x1-x2-2026-10-21/v2/}
+and supplied in \texttt{X1-X2-reproduction.zip}. It uses Python 3.11,
+LangChain 1.2.10, langchain-core 1.2.13, LangGraph 1.0.8 and
+langgraph-checkpoint 4.0.0. All assistant messages, reviewer decisions
+and interventions are scripted; no hosted model is called. The protocol
+is an amendment made after inspection of the initial experiment. The
+earlier version is retained as historical material; the main text uses
+the corrected version and its two saved final runs.
+
+\textbf{X1: pending-interrupt routing and explicit edits.}
+Sixteen conditions exercise the unchanged official LangChain middleware
+and LangGraph interrupt/resume primitives, using author-written graphs,
+tools and recorders. Both rounds of each cross-turn test use the same
+graph, checkpointer and thread. Records separate native behavior, official
+configuration and adapter choices. Each final run contains 18 actual
+effects read from SQLite. A new round creates a new pending interrupt:
+resuming with the old interrupt identifier produces no new effect and
+leaves the current review pending, whereas the matching identifier
+allows the current action. Repeating an unkeyed affirmative input at a
+new interrupt is a fresh input from the caller. Authorized edits retain
+the earlier proposal and approval payload in checkpoint history.
+These conditions characterize routing and explicit-edit semantics for
+the tested interfaces. They do not exercise same-identifier pending-state
+substitution within a shared interrupted thread, Agent Server
+authorization policies, or other persistence backends. Matching an
+application grant to a candidate during queued handoffs or reuse is a
+separate design question.
+\texttt{RAW-EVIDENCE.json} preserves the framework identifiers,
+requests and checkpoint history; \texttt{OBSERVATIONS.json} records
+the relationships compared across runs.
+
+\textbf{X2: binding and execution checks.}
+Nine constructed fixtures cross three main binding comparators and one
+raw-content diagnostic with two common execution modes: 54 main routes
+and 18 diagnostic routes per run. The comparators share a request-value guard;
+the content projection extends the retained context with decision-relevant
+fields. Amount normalization follows the experiment's declared two-decimal
+rule. These selected comparators do not implement the manuscript's full
+$G$, nor do they replace its canonical-JSON equality.
+The unchecked executor reads the external document at execution; the
+verified executor compares its bytes to the reviewed digest and consumes
+those same bytes. Both modes are applied to every comparator.
+
+For context, normalized content, instance and raw-content binding,
+respectively, semantic-violation counts are $4,1,1,1$ with unchecked
+execution and $3,0,0,0$ with verified execution (nine fixtures per cell).
+Corresponding SQLite-write counts are $8,5,2,4$ and $7,4,1,3$, totaling
+34 effects per run. The three remaining context violations concern fields
+omitted from its retained comparison. The changed-document case is
+stopped by the shared executor check in every arm. Instance binding also
+rejects three same-semantics submissions with new identifiers, recording
+the cost of the selected attribution rule separately from semantic
+violations. The scorer reads the saved approved-effect fixtures and
+SQLite in read-only mode without importing the gate or its projection.
+
+\textbf{Saved runs and verification.}
+The archive's \texttt{v2/runs/final-1/} and
+\texttt{v2/runs/final-2/} contain runner metadata, checks, raw evidence,
+scores and SQLite databases. Their semantic JSON/CSV and actual SQL rows
+agree. Randomized framework identifiers are retained but not compared
+byte for byte. The original \texttt{VERIFICATION.json} also records
+historical source-preservation checks at experiment completion; those
+checks describe that time, before the manuscript was revised.
+The archive's \texttt{verify\_saved.py} verifies the preserved artifact
+hashes, compares the two saved executions and independently rescores
+the X2 databases without asserting that the later manuscript remains
+unchanged.
+
+\textbf{Reproduction entry point.}
+After extracting the archive, \texttt{REPRODUCE.md} gives commands for
+read-only validation and optional fresh execution. The saved evidence can
+be checked with \texttt{python verify\_saved.py}; fresh execution uses
+the pinned requirements and \texttt{v2/run\_all.py} with new output
+directories. New runs do not overwrite the archived results. The
+unaltered \texttt{v2/FINAL-MANIFEST.json} pins 111 source and result files
+and has SHA-256
+\nolinkurl{7e850e40e45f2afeffed1a2ab5eadb62738343043406049f5a35dc09d55cb066}.
+These deterministic checks complement the separate paired-agent study;
+they measure interface and binding behavior rather than autonomous
+recovery or human-review costs.

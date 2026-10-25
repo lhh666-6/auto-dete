@@ -1,12 +1,28 @@
-# Reproducing the local ASE revision v15
+# Reproducing ASE manuscript v17
 
-The current source revision is [v15](revisions/2026-10-25-ase-revision-v15/README.txt), dated 25 October 2026. Repository availability does not assert journal submission or a separate release tag. Historical v13 and [v14](revisions/2026-10-24-ase-framing-v14/README.txt) freezes remain unchanged; this checkout retains the v14 revision and inherited experimental payloads. The v15 packaging tool generates `SOURCE-MANIFEST.json`, `upload-package/FILES.json` and `FINAL-FREEZE-v15.json` after current PDF/scientific validation.
+Use the [fixed v17 snapshot](https://github.com/lhh666-6/auto-dete/tree/ase-framing-v17-2026-10-25). The [five scientific payloads](https://github.com/lhh666-6/auto-dete/tree/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/ready-to-upload) and [FILES.json](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/FILES.json) identify the exact review files. Main/Online Resources 1/2 have 29/31/26 pages. This guide reads archived records; it does not recollect agent or SDK runs.
 
-## Sources and offline readback
+## Obtain the complete sources
 
-After packaging, extract `Manuscript-sources.zip` from `revisions/2026-10-25-ase-revision-v15/upload-package/ESM_3.zip` and work inside `Manuscript-sources/`. It contains complete sources for all three PDFs, QA/checker tests, analysis scripts and current v15 audits. The separate `Manuscript-source.zip` is the single-entry main manuscript source for the submission system.
+1. Download [ESM_3.zip](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/ready-to-upload/ESM_3.zip), then extract its `Manuscript-sources.zip` member. Work inside `Manuscript-sources/`.
+2. Use Python 3.11 or later. The supplied QA scripts use its standard library.
+3. Read [REPRODUCE-RECOVERY.md](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/REPRODUCE-RECOVERY.md). Download the two pinned raw ZIPs and retain their exact bytes under the stated `INPUT_ROOT` paths. Their hashes are checked automatically. These two historical datasets are external to ESM_3; downloads require network access, while the readback commands below are offline.
 
-Use Python 3.11 or later. Read [REPRODUCE-RECOVERY.md](revisions/2026-10-25-ase-revision-v15/REPRODUCE-RECOVERY.md) for the two immutable raw ZIP URLs, SHA-256 hashes and placement under `INPUT_ROOT`. Run from the extracted source directory, replacing `INPUT_ROOT` with the directory containing those two ZIPs. Outputs go to new directories.
+The separate `Manuscript-source.zip` is the one-entry source for compiling the main manuscript. The full three-document source and scientific readback scripts are in ESM_3.
+
+## Portable observation-checker regression
+
+From `Manuscript-sources/`, run:
+
+```text
+python -B qa/test_observation_equality_v15.py --output scratch/equality.json
+```
+
+Expected: 38 equality regressions pass, with five omission pairs, the instance-identity pair and copy-forward control preserved. The bundled upstream source is hash-checked; no Git checkout, model API or third-party Python package is needed. This is the unchanged v15 auxiliary checker, with its finite scope documented in Online Resource 1 S2.6–S2.8 and Online Resource 2 A9. It is separate from historical production-gate and Alloy results.
+
+## Scientific readback
+
+Replace `INPUT_ROOT` with the directory holding the two raw ZIPs. Run from the complete-source directory, with outputs separate from supplied tables:
 
 ```text
 python qa/scientific_statistics.py --repository-root INPUT_ROOT --output scientific-readback
@@ -16,40 +32,36 @@ python qa/recovery_example.py --repository-root INPUT_ROOT --output recovery-rea
 python qa/recovery_availability.py --repository-root INPUT_ROOT --output recovery-availability
 ```
 
-These five scripts use only the Python standard library. The expected archived readback covers 32 recovery pairs, 64 exposed N pairs, 128 checkpoint events and 127 summary flags. Supplementary A has 15 recovery pairs, mean call difference 1.60 and exploratory paired-bootstrap interval [0.87, 2.33] (10,000 draws; seed 20261023). The three feedback permission states contribute call differences +2, +1 and -3, summing to zero over 12 pairs from four reused tasks. The guide identifies comparison files and separates original/supplementary cohorts. These expectations do not imply new hosted or SDK collection.
+Expected readback includes 32 recovery pairs (24 reuse/eight fresh authorization), 64 exposed N pairs, 128 checkpoint events and 127 retained summary flags. These have different units and do not imply complete suffix observation. The availability audit checks 13 predicates per delivered mismatch episode. Original A, original B and supplementary A remain labelled separately.
 
-## v15 checker correction
+Supplementary A's 15 delivered recovery pairs have mean call difference 1.60 and the exploratory A12 interval [0.87, 2.33] (10,000 paired resamples, seed 20261023). The historical interval uses a separately recorded seed; the detailed guide explains both. The feedback strata contain 12 pairs over four reused task definitions; permission-state call differences sum to +2, +1 and -3, with aggregate zero. Compare derived scientific fields and CSVs with the supplied `tables/` records.
 
-The corrected checker is [qa/observation_witnesses_v15.py](revisions/2026-10-25-ase-revision-v15/qa/observation_witnesses_v15.py). Read its CLI help and current `audit/` reports for regression commands and results. The checker, tests and upstream fixture are separate from historical frozen experiment archives. The correction concerns canonical JSON equality in an auxiliary observation projection; it does not rewrite saved experimental records or claim a new production-gate result.
+## Compile the PDFs
 
-## Build and verify
-
-Install pdfLaTeX and BibTeX, then run `python build.py` from the v15 source directory; `python build.py --main-only` builds the manuscript alone. Supplied figure PDFs, bibliography, class and style suffice for compilation. Optional figure regeneration has the dependencies in `requirements-figures.txt`.
-
-The following maintainer packaging commands require this repository layout and
-the preserved v14 ESM_3.zip. They are not required for an extracted source package's
-PDF build or standalone checker regression. From the repository's v15 directory:
+Install pdfLaTeX and BibTeX. From the full source directory:
 
 ```text
-python scripts/package_v15.py --check
-python scripts/package_v15.py --package --validated
-python scripts/package_v15.py --verify
+python build.py
 ```
 
-Use `--package --validated` only after current PDF/scientific checks pass. The tool reads actual PDF page counts, records hashes and inventories, verifies ZIP CRCs and local TeX dependencies, and mirrors five payloads to `submission/ASE-2026-10-25-v15/ready-to-upload/`. Verification needs `pdfinfo` on PATH or Python `pypdf`. The final freeze excludes itself to avoid a self-hash cycle. Packaging does not publish, commit, push or submit anything.
+Expected pages: 29, 31 and 26. `python build.py --main-only` builds only the main paper. Supplied class, style, bibliography and figure PDFs suffice; optional figure regeneration has separate dependencies. The standalone main-source ZIP supports `python build.py --main-only` from its archive root.
 
-## Experiment archives
+The [packaged-source validation](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/audit/packaged-source-validation-v17.json) records clean-extraction builds. Every rebuilt page has matching text and 72-dpi rendering to its issued PDF. Underfull spacing warnings are retained; there are no unresolved citations/references or overfull boxes in those builds.
 
-These are members of `ESM_3.zip`, alongside the complete three-document `Manuscript-sources.zip`. Their bytes are inherited from v14 without modification.
+## Seven separate study archives
+
+These ZIPs are members of ESM_3 alongside the full-source ZIP. All seven retain the prior frozen bytes.
 
 | Archive | Entry point and evidence |
 |---|---|
 | Correction-consumption-reproduction.zip | `START-HERE.md`; `verify_offline.py`; 504 cells, 444 matches |
 | Agno-entrypoint-reproduction.zip | `START-HERE.md`; `verify_offline.py`; 54 cells, 42 matches |
 | Reviewed-instance-substitution-reproduction.zip | `START-HERE.md`; `verify_offline.py`; 16 cells, 12 matches |
-| X1-X2-reproduction.zip | Included offline verification guide |
-| Native-contract-reproduction.zip | Native-contract study guide |
+| X1-X2-reproduction.zip | Included independent offline verification guide |
+| Native-contract-reproduction.zip | Scripted native-to-store study guide and SQL scoring |
 | Feedback-sensitivity-reproduction.zip | Archived feedback-study guide |
-| Dynamic-recovery-reproduction.zip | Archived dynamic-recovery guide |
+| Dynamic-recovery-reproduction.zip | Archived pilot guide, saved scoring and offline replay |
 
-In the three SDK archives, `START-HERE.md` and `REPRODUCE-V4.md` take precedence over historical README instructions. Raw per-cell databases are included. Do not overwrite historical freezes for verification. Counts across archives are not pooled as independent samples. Fresh SDK/model executions require their own pinned environments and are not implied by saved-record checks. Historical evidence pointers remain in [EXTERNAL-INPUTS.json](revisions/2026-10-25-ase-revision-v15/EXTERNAL-INPUTS.json); v15 does not claim a fresh rerun of every experiment or Alloy command.
+For the three SDK archives, read `START-HERE.md` and `REPRODUCE-V4.md` before historical README instructions. Raw per-cell records are included. Readback does not imply portable recollection or independent pooled samples. Fresh SDK/model runs require their pinned dependencies and, where relevant, provider access.
+
+The [external-input inventory](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/EXTERNAL-INPUTS.json) preserves historical evidence identities. Wider E1–E3 and Alloy rerun instructions remain in their pinned historical deposits. The v17 publication verifies packaging and existing records; it does not claim new hosted runs or a fresh rerun of every historical experiment.

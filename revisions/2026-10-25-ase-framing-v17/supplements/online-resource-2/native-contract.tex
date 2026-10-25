@@ -1,0 +1,103 @@
+\section{Native interrupt and relational contract composition}
+\label{sec:a14-composition}
+
+\textbf{Question and design.}
+This deterministic experiment connects the native interruption mechanism and
+the relational contract in one scripted execution. It tests whether an
+application adapter can preserve the reviewed-candidate relation through
+approval, handoff, rejection and continuation. It uses LangGraph 1.0.8,
+langgraph-checkpoint 4.0.0, langchain-core 1.2.13 and SQLAlchemy 2.0.23 with
+Python 3.11. The existing \texttt{stores.py}, its source manifest and nineteen
+contract source files are copied without edits. Native framework code is also
+unmodified. The protocol, runner, independent scorer, scorer controls and
+dependencies are frozen as 27 files before two final executions, each with
+fresh SQLite databases. The development round remains separate.
+
+\textbf{Adapter responsibilities.}
+An author-written graph first pauses over an already registered immutable
+candidate proposing \texttt{machine proposal} for the address field. The
+scripted reviewer can deny or authorize \texttt{reviewed correction}; only
+an affirmative response to the current native interrupt creates the
+application grant handle. A second interrupt is an instrumentation barrier
+for injecting the controlled handoff, not another approval request.
+The graph invokes the unchanged relational gate with a complete two-field
+successor. After rejection, a recovery interrupt receives a scripted choice.
+Reuse submits the old candidate/grant; fresh authorization visits a new
+review interrupt before creating a grant for the replacement. The unchanged
+batch field supplies a source-preservation check. X3 assumes the trusted,
+content-immutable candidate storage required in main-text Section 3.2. It
+tests the resulting identity relations at commit; it does not independently
+probe same-ID content mutation or object replacement between check and use.
+
+The graph, payload interpretation, grant-handle registry, interventions and
+recording are adapter code. InMemorySaver and pre-commit grant handles are
+in process. The database atomically persists the admitted successor and its
+authorization/transition relations. This design does not provide or test
+restart-safe approval storage, authenticated review or a distributed
+transaction between checkpoint and business storage.
+
+\begin{table}[htbp]
+\centering\small
+\caption{All ten composition conditions, with identical semantic observations in both final executions. Counts are per execution. ``No write'' refers to business versions and transactional relations, not candidate registration.}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.29\textwidth}Xr@{}}
+\toprule
+Condition & Observed behavior & Address commits\\
+\midrule
+Corrected approval & Current approval commits corrected value with reviewed identity. & 1\\
+Denial & No grant handle or successor write. & 0\\
+Identity substitution; reuse & First attempt rejects; old reviewed candidate/grant commits. & 1\\
+Identity substitution; fresh review & First attempt rejects; old interrupt ID cannot approve replacement; current ID permits it. & 1\\
+Wrong executed value & First attempt rejects; original correction commits on reuse. & 1\\
+Stale predecessor & Independent batch update persists; stale address attempt rejects. & 0\\
+Rollback after compare-and-swap & No partial transactional rows; retry commits once. & 1\\
+Rollback before commit & No partial transactional rows; retry commits once. & 1\\
+Duplicate native resume & Completed execution has no additional write. & 1\\
+Consumed application-grant replay & Direct replay has no additional write. & 1\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Independent readback.}
+Every graph invocation and gate attempt retains a SQLite copy and the native
+pending interrupt identifiers, payloads and scripted input. The scorer
+imports neither the gate nor LangGraph. It opens fresh read-only SQLite
+connections and checks version counts, corrected values, the retained batch
+source, and joins among candidate certificates, authorization bindings,
+human-decision rows and fact transitions. It also compares the complete
+record-version, transition, decision and authorization-binding tables before
+and after every rejected or rolled-back attempt. Gate-return status is not
+used to determine whether a business effect occurred. Candidate registration
+is permitted before rejection and is kept separate from transactional
+business effects.
+
+Both executions satisfy all ten conditions. Each contains fourteen gate
+attempts: eight admitted corrections and six rejected or rolled-back attempts
+with no partial transactional rows. The stale case contributes one separate
+independent batch update and no address correction. Repeating a completed
+native resume or explicitly replaying a consumed application grant adds no
+business version. In the fresh-review case, the new native interrupt ID
+differs from the original; submitting the original ID leaves the current
+review pending and creates no new grant or write. Submitting the current ID
+permits the replacement's corrected transition with a matching authorization.
+
+Four negative controls mutate database copies: an incorrect final value,
+a deleted transition, an incorrect authorized value and an extra version.
+The independent scorer detects all four. These checks exercise the oracle;
+they are not additional task successes or security-attack trials.
+
+\textbf{Interpretation and artifacts.}
+The evidence establishes compatibility of native interrupt routing and the
+existing relational checks for the specified adapter and scripted paths.
+It does not establish autonomous recovery, production performance, concurrent
+replay resistance, restart durability, human review validity or protection
+against hostile mutation of pending graph state. Two executions test
+deterministic repeatability on the same machine, not statistical robustness.
+The agent trajectories reported elsewhere remain a separate evidence layer.
+
+\texttt{Native-contract-reproduction.zip} contains \texttt{PROTOCOL.md},
+\texttt{FREEZE.json}, \texttt{run.py}, \texttt{score.py},
+\texttt{test\_scorer.py}, the unchanged backend, requirements, both final
+run directories and all SQLite snapshots. \texttt{REPRODUCE.md} gives
+read-only rescoring and fresh-directory rerun commands. No provider access
+or model calls are needed. Development records are retained separately in
+the local experiment directory and are not pooled with final observations.

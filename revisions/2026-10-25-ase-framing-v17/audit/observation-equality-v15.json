@@ -1,0 +1,2514 @@
+{
+  "changes": [
+    "Canonical JSON encoding of proposed, authorized and committed D_V payloads",
+    "Canonical JSON comparison of commit snapshot connections and declared endpoint",
+    "Canonical JSON encoding of D_F discriminators and matching freshness comparison"
+  ],
+  "counterexamples": {
+    "frozen": {
+      "authorization": {
+        "all_projections_equal": true,
+        "domain_errors": [
+          [],
+          []
+        ],
+        "outcomes": [
+          [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          [
+            "inadmissible",
+            "complete-successor",
+            "complete-trace"
+          ]
+        ]
+      },
+      "endpoint": {
+        "domain_errors": [],
+        "local_outcome": [
+          "admissible",
+          "complete-successor",
+          "complete-trace"
+        ]
+      }
+    },
+    "v15": {
+      "authorization": {
+        "all_projections_equal": false,
+        "domain_errors": [
+          [],
+          []
+        ],
+        "outcomes": [
+          [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          [
+            "inadmissible",
+            "complete-successor",
+            "complete-trace"
+          ]
+        ]
+      },
+      "endpoint": {
+        "domain_errors": [
+          "commit sequence does not reach successor values"
+        ],
+        "local_outcome": [
+          "admissible",
+          "complete-successor",
+          "complete-trace"
+        ]
+      }
+    }
+  },
+  "derived_checker": "qa/observation_witnesses_v15.py",
+  "derived_checker_sha256": "68ee924d21f72c5841ab11e252ff394b0e2b8022e9b2ede5fd6a0611352ec2b9",
+  "derived_witness_report": {
+    "candidate_identity_pair": {
+      "changed_observation_classes": [
+        "D_C"
+      ],
+      "normative_outcomes_differ": true,
+      "reduced_projection_equal": true,
+      "safe": {
+        "derived_commit_effects": [
+          "score"
+        ],
+        "derived_successor_count": 1,
+        "domain_errors": [],
+        "history": {
+          "authorizations": [
+            {
+              "authorization_id": "auth-1",
+              "authorized_value": 101,
+              "candidate_id": "candidate-1",
+              "role": "human-authorized"
+            }
+          ],
+          "batch_items": [
+            {
+              "authorization_id": "auth-1",
+              "candidate_id": "candidate-1"
+            }
+          ],
+          "candidates": [
+            {
+              "candidate_id": "candidate-1",
+              "evidence_id": "evidence-1",
+              "field_id": "score",
+              "producer_id": "model-A",
+              "proposal_value": 100,
+              "record_id": "record-A"
+            },
+            {
+              "candidate_id": "candidate-2",
+              "evidence_id": "evidence-1",
+              "field_id": "score",
+              "producer_id": "model-A",
+              "proposal_value": 100,
+              "record_id": "record-A"
+            }
+          ],
+          "commits": [
+            {
+              "after": [
+                {
+                  "field_id": "score",
+                  "value": 101
+                }
+              ],
+              "before": [
+                {
+                  "field_id": "score",
+                  "value": 90
+                }
+              ],
+              "successor_id": "successor-1"
+            }
+          ],
+          "declared_fields": [
+            "score"
+          ],
+          "expected_version": 7,
+          "name": "reviewed-candidate-selected",
+          "observed_version": 7,
+          "predecessor_sources": [
+            {
+              "field_id": "score",
+              "source_id": "prior-score"
+            }
+          ],
+          "predecessor_values": [
+            {
+              "field_id": "score",
+              "value": 90
+            }
+          ],
+          "schema_fields": null,
+          "source_transitions": [
+            {
+              "field_id": "score",
+              "source_id": "prior-score",
+              "value": 90
+            },
+            {
+              "field_id": "score",
+              "source_id": "transition-score",
+              "value": 101
+            }
+          ],
+          "sources": [
+            {
+              "field_id": "score",
+              "source_id": "transition-score"
+            }
+          ],
+          "successor_values": [
+            {
+              "field_id": "score",
+              "value": 101
+            }
+          ],
+          "target_record_id": "record-A"
+        },
+        "normative_outcome": [
+          "admissible",
+          "complete-successor",
+          "complete-trace"
+        ],
+        "observations": {
+          "D_B": [
+            [
+              "score"
+            ],
+            [
+              "score"
+            ],
+            1,
+            [
+              [
+                "score"
+              ]
+            ]
+          ],
+          "D_C": [
+            [
+              "candidate-1",
+              "record-A",
+              "score",
+              "evidence-1",
+              "model-A",
+              "record-A",
+              "candidate-1"
+            ]
+          ],
+          "D_F": [
+            "7",
+            "7"
+          ],
+          "D_S": [
+            [
+              [
+                "score",
+                "transition-score"
+              ]
+            ],
+            [
+              [
+                "score",
+                1,
+                1,
+                true,
+                true
+              ]
+            ]
+          ],
+          "D_V": [
+            [
+              "100",
+              "101",
+              "101",
+              "human-authorized"
+            ]
+          ]
+        }
+      },
+      "unsafe": {
+        "derived_commit_effects": [
+          "score"
+        ],
+        "derived_successor_count": 1,
+        "domain_errors": [],
+        "history": {
+          "authorizations": [
+            {
+              "authorization_id": "auth-1",
+              "authorized_value": 101,
+              "candidate_id": "candidate-1",
+              "role": "human-authorized"
+            }
+          ],
+          "batch_items": [
+            {
+              "authorization_id": "auth-1",
+              "candidate_id": "candidate-2"
+            }
+          ],
+          "candidates": [
+            {
+              "candidate_id": "candidate-1",
+              "evidence_id": "evidence-1",
+              "field_id": "score",
+              "producer_id": "model-A",
+              "proposal_value": 100,
+              "record_id": "record-A"
+            },
+            {
+              "candidate_id": "candidate-2",
+              "evidence_id": "evidence-1",
+              "field_id": "score",
+              "producer_id": "model-A",
+              "proposal_value": 100,
+              "record_id": "record-A"
+            }
+          ],
+          "commits": [
+            {
+              "after": [
+                {
+                  "field_id": "score",
+                  "value": 101
+                }
+              ],
+              "before": [
+                {
+                  "field_id": "score",
+                  "value": 90
+                }
+              ],
+              "successor_id": "successor-1"
+            }
+          ],
+          "declared_fields": [
+            "score"
+          ],
+          "expected_version": 7,
+          "name": "same-context-equal-value-unreviewed-candidate",
+          "observed_version": 7,
+          "predecessor_sources": [
+            {
+              "field_id": "score",
+              "source_id": "prior-score"
+            }
+          ],
+          "predecessor_values": [
+            {
+              "field_id": "score",
+              "value": 90
+            }
+          ],
+          "schema_fields": null,
+          "source_transitions": [
+            {
+              "field_id": "score",
+              "source_id": "prior-score",
+              "value": 90
+            },
+            {
+              "field_id": "score",
+              "source_id": "transition-score",
+              "value": 101
+            }
+          ],
+          "sources": [
+            {
+              "field_id": "score",
+              "source_id": "transition-score"
+            }
+          ],
+          "successor_values": [
+            {
+              "field_id": "score",
+              "value": 101
+            }
+          ],
+          "target_record_id": "record-A"
+        },
+        "normative_outcome": [
+          "inadmissible",
+          "complete-successor",
+          "complete-trace"
+        ],
+        "observations": {
+          "D_B": [
+            [
+              "score"
+            ],
+            [
+              "score"
+            ],
+            1,
+            [
+              [
+                "score"
+              ]
+            ]
+          ],
+          "D_C": [
+            [
+              "candidate-2",
+              "record-A",
+              "score",
+              "evidence-1",
+              "model-A",
+              "record-A",
+              "candidate-1"
+            ]
+          ],
+          "D_F": [
+            "7",
+            "7"
+          ],
+          "D_S": [
+            [
+              [
+                "score",
+                "transition-score"
+              ]
+            ],
+            [
+              [
+                "score",
+                1,
+                1,
+                true,
+                true
+              ]
+            ]
+          ],
+          "D_V": [
+            [
+              "100",
+              "101",
+              "101",
+              "human-authorized"
+            ]
+          ]
+        }
+      }
+    },
+    "checker": "observation-witnesses-v15-canonical-equality",
+    "copy_forward_control": {
+      "derived_commit_effects": [
+        "score"
+      ],
+      "derived_declared_item_fields": [
+        "score"
+      ],
+      "derived_schema_field_domain": [
+        "score",
+        "status"
+      ],
+      "derived_successor_count": 1,
+      "domain_errors": [],
+      "history": {
+        "authorizations": [
+          {
+            "authorization_id": "auth-1",
+            "authorized_value": 101,
+            "candidate_id": "candidate-1",
+            "role": "human-authorized"
+          }
+        ],
+        "batch_items": [
+          {
+            "authorization_id": "auth-1",
+            "candidate_id": "candidate-1"
+          }
+        ],
+        "candidates": [
+          {
+            "candidate_id": "candidate-1",
+            "evidence_id": "evidence-1",
+            "field_id": "score",
+            "producer_id": "model-A",
+            "proposal_value": 100,
+            "record_id": "record-A"
+          }
+        ],
+        "commits": [
+          {
+            "after": [
+              {
+                "field_id": "score",
+                "value": 101
+              },
+              {
+                "field_id": "status",
+                "value": "open"
+              }
+            ],
+            "before": [
+              {
+                "field_id": "score",
+                "value": 90
+              },
+              {
+                "field_id": "status",
+                "value": "open"
+              }
+            ],
+            "successor_id": "successor-1"
+          }
+        ],
+        "declared_fields": [
+          "score",
+          "status"
+        ],
+        "expected_version": 7,
+        "name": "single-field-update-with-copy-forward",
+        "observed_version": 7,
+        "predecessor_sources": [
+          {
+            "field_id": "score",
+            "source_id": "prior-score"
+          },
+          {
+            "field_id": "status",
+            "source_id": "prior-status"
+          }
+        ],
+        "predecessor_values": [
+          {
+            "field_id": "score",
+            "value": 90
+          },
+          {
+            "field_id": "status",
+            "value": "open"
+          }
+        ],
+        "schema_fields": [
+          "score",
+          "status"
+        ],
+        "source_transitions": [
+          {
+            "field_id": "score",
+            "source_id": "prior-score",
+            "value": 90
+          },
+          {
+            "field_id": "status",
+            "source_id": "prior-status",
+            "value": "open"
+          },
+          {
+            "field_id": "score",
+            "source_id": "transition-score",
+            "value": 101
+          }
+        ],
+        "sources": [
+          {
+            "field_id": "score",
+            "source_id": "transition-score"
+          },
+          {
+            "field_id": "status",
+            "source_id": "prior-status"
+          }
+        ],
+        "successor_values": [
+          {
+            "field_id": "score",
+            "value": 101
+          },
+          {
+            "field_id": "status",
+            "value": "open"
+          }
+        ],
+        "target_record_id": "record-A"
+      },
+      "normative_outcome": [
+        "admissible",
+        "complete-successor",
+        "complete-trace"
+      ]
+    },
+    "domain_scope": "schema field domain governs total value/source maps; declared item field domain governs committed effects and batch references",
+    "information_classes": [
+      "D_C",
+      "D_V",
+      "D_F",
+      "D_B",
+      "D_S"
+    ],
+    "observations_and_outcomes_are_derived": true,
+    "pairs": {
+      "D_B": {
+        "changed_observation_classes": [
+          "D_B"
+        ],
+        "normative_outcomes_differ": true,
+        "reduced_projection_equal": true,
+        "safe": {
+          "derived_commit_effects": [
+            "score",
+            "status"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              },
+              {
+                "authorization_id": "auth-2",
+                "authorized_value": 50,
+                "candidate_id": "candidate-2",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              },
+              {
+                "authorization_id": "auth-2",
+                "candidate_id": "candidate-2"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              },
+              {
+                "candidate_id": "candidate-2",
+                "evidence_id": "evidence-2",
+                "field_id": "status",
+                "producer_id": "model-A",
+                "proposal_value": 50,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  },
+                  {
+                    "field_id": "status",
+                    "value": 50
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  },
+                  {
+                    "field_id": "status",
+                    "value": "open"
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score",
+              "status"
+            ],
+            "expected_version": 7,
+            "name": "atomic-declared-batch",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              },
+              {
+                "field_id": "status",
+                "source_id": "prior-status"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              },
+              {
+                "field_id": "status",
+                "value": "open"
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "status",
+                "source_id": "prior-status",
+                "value": "open"
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              },
+              {
+                "field_id": "status",
+                "source_id": "transition-status",
+                "value": 50
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              },
+              {
+                "field_id": "status",
+                "source_id": "transition-status"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              },
+              {
+                "field_id": "status",
+                "value": 50
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score",
+                "status"
+              ],
+              [
+                "score",
+                "status"
+              ],
+              1,
+              [
+                [
+                  "score",
+                  "status"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ],
+              [
+                "candidate-2",
+                "record-A",
+                "status",
+                "evidence-2",
+                "model-A",
+                "record-A",
+                "candidate-2"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ],
+                [
+                  "status",
+                  "transition-status"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ],
+                [
+                  "status",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ],
+              [
+                "50",
+                "50",
+                "50",
+                "human-authorized"
+              ]
+            ]
+          }
+        },
+        "unsafe": {
+          "derived_commit_effects": [
+            "score",
+            "status"
+          ],
+          "derived_successor_count": 2,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              },
+              {
+                "authorization_id": "auth-2",
+                "authorized_value": 50,
+                "candidate_id": "candidate-2",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              },
+              {
+                "authorization_id": "auth-2",
+                "candidate_id": "candidate-2"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              },
+              {
+                "candidate_id": "candidate-2",
+                "evidence_id": "evidence-2",
+                "field_id": "status",
+                "producer_id": "model-A",
+                "proposal_value": 50,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  },
+                  {
+                    "field_id": "status",
+                    "value": "open"
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  },
+                  {
+                    "field_id": "status",
+                    "value": "open"
+                  }
+                ],
+                "successor_id": "successor-1"
+              },
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  },
+                  {
+                    "field_id": "status",
+                    "value": 50
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  },
+                  {
+                    "field_id": "status",
+                    "value": "open"
+                  }
+                ],
+                "successor_id": "successor-2"
+              }
+            ],
+            "declared_fields": [
+              "score",
+              "status"
+            ],
+            "expected_version": 7,
+            "name": "fragmented-declared-batch",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              },
+              {
+                "field_id": "status",
+                "source_id": "prior-status"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              },
+              {
+                "field_id": "status",
+                "value": "open"
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "status",
+                "source_id": "prior-status",
+                "value": "open"
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              },
+              {
+                "field_id": "status",
+                "source_id": "transition-status",
+                "value": 50
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              },
+              {
+                "field_id": "status",
+                "source_id": "transition-status"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              },
+              {
+                "field_id": "status",
+                "value": 50
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "inadmissible",
+            "fragmented-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score",
+                "status"
+              ],
+              [
+                "score",
+                "status"
+              ],
+              2,
+              [
+                [
+                  "score"
+                ],
+                [
+                  "status"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ],
+              [
+                "candidate-2",
+                "record-A",
+                "status",
+                "evidence-2",
+                "model-A",
+                "record-A",
+                "candidate-2"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ],
+                [
+                  "status",
+                  "transition-status"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ],
+                [
+                  "status",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ],
+              [
+                "50",
+                "50",
+                "50",
+                "human-authorized"
+              ]
+            ]
+          }
+        }
+      },
+      "D_C": {
+        "changed_observation_classes": [
+          "D_C"
+        ],
+        "normative_outcomes_differ": true,
+        "reduced_projection_equal": true,
+        "safe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "exact-candidate",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        },
+        "unsafe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-B"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "equal-value-cross-context-substitute",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "inadmissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-B",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        }
+      },
+      "D_F": {
+        "changed_observation_classes": [
+          "D_F"
+        ],
+        "normative_outcomes_differ": true,
+        "reduced_projection_equal": true,
+        "safe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "fresh-authorization",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        },
+        "unsafe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "same-bytes-after-supersession",
+            "observed_version": 8,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "inadmissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "8"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        }
+      },
+      "D_S": {
+        "changed_observation_classes": [
+          "D_S"
+        ],
+        "normative_outcomes_differ": true,
+        "reduced_projection_equal": true,
+        "safe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "total-field-source-map",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        },
+        "unsafe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "missing-field-source",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": null
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "inadmissible",
+            "complete-successor",
+            "incomplete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  null
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  0,
+                  false,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        }
+      },
+      "D_V": {
+        "changed_observation_classes": [
+          "D_V"
+        ],
+        "normative_outcomes_differ": true,
+        "reduced_projection_equal": true,
+        "safe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "human-authorized"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "retained-correction",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "admissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "human-authorized"
+              ]
+            ]
+          }
+        },
+        "unsafe": {
+          "derived_commit_effects": [
+            "score"
+          ],
+          "derived_successor_count": 1,
+          "domain_errors": [],
+          "history": {
+            "authorizations": [
+              {
+                "authorization_id": "auth-1",
+                "authorized_value": 101,
+                "candidate_id": "candidate-1",
+                "role": "machine-attributed"
+              }
+            ],
+            "batch_items": [
+              {
+                "authorization_id": "auth-1",
+                "candidate_id": "candidate-1"
+              }
+            ],
+            "candidates": [
+              {
+                "candidate_id": "candidate-1",
+                "evidence_id": "evidence-1",
+                "field_id": "score",
+                "producer_id": "model-A",
+                "proposal_value": 100,
+                "record_id": "record-A"
+              }
+            ],
+            "commits": [
+              {
+                "after": [
+                  {
+                    "field_id": "score",
+                    "value": 101
+                  }
+                ],
+                "before": [
+                  {
+                    "field_id": "score",
+                    "value": 90
+                  }
+                ],
+                "successor_id": "successor-1"
+              }
+            ],
+            "declared_fields": [
+              "score"
+            ],
+            "expected_version": 7,
+            "name": "correction-role-erased",
+            "observed_version": 7,
+            "predecessor_sources": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score"
+              }
+            ],
+            "predecessor_values": [
+              {
+                "field_id": "score",
+                "value": 90
+              }
+            ],
+            "schema_fields": null,
+            "source_transitions": [
+              {
+                "field_id": "score",
+                "source_id": "prior-score",
+                "value": 90
+              },
+              {
+                "field_id": "score",
+                "source_id": "transition-score",
+                "value": 101
+              }
+            ],
+            "sources": [
+              {
+                "field_id": "score",
+                "source_id": "transition-score"
+              }
+            ],
+            "successor_values": [
+              {
+                "field_id": "score",
+                "value": 101
+              }
+            ],
+            "target_record_id": "record-A"
+          },
+          "normative_outcome": [
+            "inadmissible",
+            "complete-successor",
+            "complete-trace"
+          ],
+          "observations": {
+            "D_B": [
+              [
+                "score"
+              ],
+              [
+                "score"
+              ],
+              1,
+              [
+                [
+                  "score"
+                ]
+              ]
+            ],
+            "D_C": [
+              [
+                "candidate-1",
+                "record-A",
+                "score",
+                "evidence-1",
+                "model-A",
+                "record-A",
+                "candidate-1"
+              ]
+            ],
+            "D_F": [
+              "7",
+              "7"
+            ],
+            "D_S": [
+              [
+                [
+                  "score",
+                  "transition-score"
+                ]
+              ],
+              [
+                [
+                  "score",
+                  1,
+                  1,
+                  true,
+                  true
+                ]
+              ]
+            ],
+            "D_V": [
+              [
+                "100",
+                "101",
+                "101",
+                "machine-attributed"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "source_scope": "local resolution cardinality, field/value consistency, exact unchanged-source retention; full P6 lineage is checked separately",
+    "upstream_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+    "upstream_raw_sha256": "32bed3ae1aed344c3bf5c57c7f7e545e4e05836a154ae14d278be3aebd6b7832",
+    "validated_scope": "five declared constructions, a separate D_C identity pair, plus one single-field copy-forward control; not a general admission oracle"
+  },
+  "equality_scope": "Existing sorted-key whitespace-minimal JSON serialization retained. JSON payloads and Any-typed predecessor discriminators use canonical equality; opaque string identifiers retain identifier equality. No new input-normalization or non-JSON semantics.",
+  "experiment_counts_changed": false,
+  "model_calls": 0,
+  "new_regressions": {
+    "actual_counterexamples": 2,
+    "count": 38,
+    "matrix_checks": 36,
+    "results": [
+      {
+        "name": "integer-boolean/projection-proposal",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/projection-authorization",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/projection-successor",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/attribution",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/changed-field",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/source-resolution",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/endpoint",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/commit-connection",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-boolean/discriminator",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/projection-proposal",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/projection-authorization",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/projection-successor",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/attribution",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/changed-field",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/source-resolution",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/endpoint",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/commit-connection",
+        "status": "PASS"
+      },
+      {
+        "name": "integer-float/discriminator",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/projection-proposal",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/projection-authorization",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/projection-successor",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/attribution",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/changed-field",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/source-resolution",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/endpoint",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/commit-connection",
+        "status": "PASS"
+      },
+      {
+        "name": "nested-type/discriminator",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/projection-proposal",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/projection-authorization",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/projection-successor",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/attribution",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/changed-field",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/source-resolution",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/endpoint",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/commit-connection",
+        "status": "PASS"
+      },
+      {
+        "name": "dictionary-key-order/discriminator",
+        "status": "PASS"
+      },
+      {
+        "name": "actual-counterexample-1",
+        "status": "PASS"
+      },
+      {
+        "name": "actual-counterexample-2",
+        "status": "PASS"
+      }
+    ]
+  },
+  "preserved_checks": {
+    "candidate_identity_pairs": 1,
+    "class_pairs": 5,
+    "copy_forward_controls": 1,
+    "frozen_verify": "PASS",
+    "v15_verify": "PASS"
+  },
+  "recollected_traces": 0,
+  "regression_script_sha256": "5d0e7fd1f9a4a38de2da5051c3ef41d8cd1e0838da8aa2743e7ed8b8d6268d0b",
+  "scope": "Finite constructions and 38 equality regressions only; not a general admission oracle, exhaustive proof, JSON validator, new hosted experiment, or rerun of historical suites. Local outcome is meaningful only on the declared well-formed history domain.",
+  "status": "PASS",
+  "upstream_commit": "c6d512843c905cab6d8521dd8c914f7fb26d85ae",
+  "upstream_path": "latest/code/formal-fixed/observation_witnesses.py",
+  "upstream_raw_sha256": "32bed3ae1aed344c3bf5c57c7f7e545e4e05836a154ae14d278be3aebd6b7832",
+  "upstream_read_method": "Bundled byte-exact Git blob; hash verified before in-memory loading"
+}

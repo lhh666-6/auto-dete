@@ -1,0 +1,245 @@
+% Input after the existing A8.  The enclosing document already defines
+% \thesection as A\arabic{section}; no counter reset or custom macro is needed.
+% Transferred from the preserved pre-compression manuscript, Sections 4 and 6.
+
+\section{Extended specification and characterization}
+\label{app:extended-specification}
+This section retains the conditions and derivations accompanying the specification in the main manuscript. The statements concern the declared observation model and execution contract. They introduce no additional experiment or change to the original or supplementary collection.
+
+\subsection{Observation domain and local outcome}
+\label{app:observation-domain}
+The observation model in Online Resource 1, Section S2, concerns one declared admission obligation and the finite history produced for it. It permits malformed outcomes, including a declared batch fragmented across connected commits. Candidate and authorization handles are opaque and equality-preserving: a projection cannot recover omitted information by decoding a handle.
+
+Let
+\[
+  D=\{D_C,D_V,D_F,D_B,D_S\}
+\]
+denote the five logical information classes. For a history $h$, $\pi_I(h)$ is its projection onto the classes in $I\subseteq D$. The observations expose:
+\begin{description}
+\item[$D_C$:] Candidate and authorization-target handles and non-temporal context.
+\item[$D_V$:] Proposed, authorized, and committed values with their role labels.
+\item[$D_F$:] Expected and observed predecessor discriminators.
+\item[$D_B$:] Declared and actual effect domains, commit grouping, and successor count.
+\item[$D_S$:] Field-source anchors and local resolution, consistency, and copy-forward checks.
+\end{description}
+These are logical projections, not five required physical storage objects.
+
+Write $C$, $V$, $F$, $B$, and $S_{\mathrm{local}}$ for the checks computed from these observations. $C$ checks the target record and equality of the submitted candidate and authorization target. $V$ checks explicit human-authorized attribution and equality of authorized and committed values. $F$ compares the predecessor discriminators. $B$ requires equality of the declared and actual effect domains and exactly one successor. $S_{\mathrm{local}}$ checks unique source resolution, field/value consistency, and exact source retention for unchanged fields.
+
+The modeled local outcome $O_{\mathrm{obs}}$ is a triple comprising status, successor category, and trace category. Its status is admissible exactly when
+\[
+ C\land V\land F\land B\land S_{\mathrm{local}}
+\]
+holds. Its successor category is fragmented when the successor count differs from one, partial when there is one successor but the actual and declared effect domains differ, and complete otherwise. Its trace category is complete exactly when $S_{\mathrm{local}}$ holds. These are the categories computed by the executable observation model. They do not encode runtime interruption, reconstruct the full successor value map, or certify the deep authorization--candidate--evidence chain.
+
+The operational gate has separate inherited authorization inputs: principal and policy epoch, validity window together with admission time, grant and idempotency state, and the transaction envelope. The characterization below does not assert that the five observations alone determine every operational outcome.
+
+\subsection{T1: an irredundant basis for the modeled local outcome}
+\label{app:t1}
+\paragraph{T1a: necessity in the declared observation model.}
+For each $d\in D$, the witness construction, retained in the v15 equality-corrected derivative (Online Resource 1, S2.6--S2.8), gives two well-formed histories $h_s,h_u$ such that
+\[
+ \pi_{D\setminus\{d\}}(h_s)=\pi_{D\setminus\{d\}}(h_u),
+ \qquad
+ O_{\mathrm{obs}}(h_s)\ne O_{\mathrm{obs}}(h_u).
+\]
+The checker verifies these properties for the constructed pairs. Every proper subset of $D$ is therefore insufficient to determine $O_{\mathrm{obs}}$: choose an omitted class and its witness pair, then take the corresponding sub-projection. Equality on the larger retained projection entails equality on that sub-projection, while the outcome labels remain different.
+
+\paragraph{T1b: sufficiency for the modeled local outcome.}
+For any two well-formed histories in this observation model,
+\[
+ \pi_D(h_1)=\pi_D(h_2)
+ \ \Longrightarrow\
+ O_{\mathrm{obs}}(h_1)=O_{\mathrm{obs}}(h_2).
+\]
+Observation and history-domain comparisons use sorted-key, whitespace-minimal canonical JSON serialization, preserving JSON value types. JSON predecessor discriminators use this convention in both $D_F$ and $F$; opaque handles retain identity equality. Each of the five checks is a function of its corresponding observation. The successor category is a function of $D_B$, and the trace category is a function of $D_S$. Substituting these functions into the definition of $O_{\mathrm{obs}}$ establishes the implication. This is a result about the declared local classification, rather than a proof of arbitrary runtime behavior. Online Resource 1, S2.8 documents the historical checker's departures from this equality convention, the v15 repair and 38 separate offline regressions. These finite checks support the constructions; the general implication follows from the factorization above.
+
+\paragraph{T1c: irredundancy.}
+Together, T1a and T1b establish that $D$ is sufficient and that no proper subset is sufficient for $O_{\mathrm{obs}}$ in the declared observation model. This is an irredundant observation basis, not a minimum-cardinality schema, a unique representation, or completeness over all admission failures. The inherited authorization parameters are separate inputs to the operational gate; the witness checker does not validate their runtime behavior.
+
+\subsection{T2: equal endpoint values with different continuity}
+\label{app:t2}
+For an issued authorization, let $c_r$ be its reviewed candidate and $c_s$ the submitted candidate. Retained context $K(c)$ is the declared non-identity review information. Define
+\[
+ K_{\mathrm{eq}}\iff K(c_s)=K(c_r),
+ \qquad
+ I_{\mathrm{eq}}\iff \operatorname{id}(c_s)=\operatorname{id}(c_r).
+\]
+$G$ collects the shared disclosed checks and excludes an implicit instance comparison. The policies are
+\[
+ \begin{aligned}
+ \operatorname{Admit}_{\mathrm{context}}&=G\land K_{\mathrm{eq}},\\
+ \operatorname{Admit}_{\mathrm{bound}}&=G\land K_{\mathrm{eq}}\land I_{\mathrm{eq}}.
+ \end{aligned}
+\]
+
+\paragraph{T2a: refinement.}
+$\operatorname{Admit}_{\mathrm{bound}}\Rightarrow
+\operatorname{Admit}_{\mathrm{context}}$ by conjunction elimination. Its interpretation is narrower admission under the specified instance requirement.
+
+\paragraph{T2b: difference set and paired executions.}
+On a common request-state domain, define
+\[
+ S=\{r:G(r)\land K_{\mathrm{eq}}(r)\land\neg I_{\mathrm{eq}}(r)\}.
+\]
+Then the difference between the context-admitted and bound-admitted sets is exactly $S$. Strictness on a given domain requires that this difference contain a reachable request.
+
+To compare committed results, take two independent copies of the same pre-admission state, including an unconsumed grant and the candidate registry. In the first copy, context admits $(c_s,x_a)$ under that grant. In the second, bound admits $(c_r,x_a)$ under the corresponding copy of the grant. These are alternative executions, not sequential consumption of one grant. Both install $x_a$ at the same field and copy all other values and exact prior sources forward, so their field-wise value maps agree.
+
+For the fixed-registry identity-isolation construction, all non-identity candidate components are equal. After consistently renaming the newly allocated transition atom, the local projections on $D\setminus\{D_C\}$ also agree. The candidate-binding observation differs: the context execution violates the declared instance requirement while the bound execution satisfies it. Holding predecessor state and final value fixed therefore does not determine review continuity. An execution rule can distinguish the two cases; recovery, cost, and completion remain empirical questions.
+
+\paragraph{T2c: link to T1.}
+The archived fixed-registry identity-isolation witness instantiates this paired comparison. It holds the candidate pool, authorization, non-identity content, and the other four observations fixed while changing the submitted candidate. $D_C$ exposes a distinction that endpoint values and the other local observations do not.
+
+\paragraph{T2d: request-domain and execution-domain coincidence.}
+For a declared request-state domain $Q$, the predicates coincide on $Q$ exactly when $S\cap Q=\varnothing$. This holds, for example, if each reachable context class contains at most one candidate, or if the submission interface admits only the reviewed candidate under its grant.
+
+A different condition concerns the actual submitted requests $T\subseteq Q$. If every submission uses an authorization whose reviewed target is the submitted candidate, then $S\cap T=\varnothing$ even when $S\cap Q$ is non-empty. Merely having another authorization available is insufficient: the submission must use the matching authorization. A trace in which all actual submissions follow that discipline does not establish equality of the predicates over all possible requests.
+
+\input{formal-mapping.tex}
+
+\subsection{T3: conditional gate correctness}
+\label{app:t3}
+Let $\mathcal R_{\mathrm{bound}}^{\mathrm{local}}$ be the transition contract in Section~\ref{app:typed-contract}. It combines P1 (instance binding), P2 (context and evidence integrity), P3 (principal and authorized value), P4 (freshness), P5 (complete atomic successor), and the local part of P6 (source relations). P0 is an execution-boundary assumption, not a predicate on one successor. Full trace soundness additionally concerns the deeper authorization--candidate--evidence chain. Section~\ref{app:formal-mapping} distinguishes these paper obligations from the historical Alloy assertion names.
+
+\paragraph{Conditional gate soundness.}
+Assume direct-write exclusion, a trusted gate and persistence adapter, trusted lookup of content-immutable candidate records preserved to consumption, authority checked at commit entry, consistent canonical equality, transaction-scoped reload and predecessor validation, and atomic installation of the transition, authorization consumption, complete successor, and source records. Candidate creation must not permit overwriting a retained candidate or its review linkage; this storage prerequisite is separate from P0's exclusion of bypass writes to authoritative state. If the bound gate commits an outcome $z$, then $z\models\mathcal R_{\mathrm{bound}}^{\mathrm{local}}$: each listed relation is validated and the same validated objects are installed atomically. This conditional argument uses the explicit relations above; it does not infer soundness from the gate's returned status alone.
+
+Extending this conclusion to full bound-policy P6 requires a trace-complete predecessor, valid and immutable referenced records, validated new chain links, and uniqueness of the successor's transitions. An independent audit checks those relations in the realized state. Audit alone is not a premise that makes an unchecked commit sound. The archived positive preservation assertion checks admitted fields in one step under its explicit pre-state conditions; it is not an induction over arbitrary histories or a check of the context policy.
+
+\paragraph{Relative completeness.}
+If $r$ is contract-legal with a non-empty change, the gate's observed state equals the authoritative state at validation, the canonical forms match, and the key is fresh and the grant unconsumed, then
+\[
+ \operatorname{Admit}_{\mathrm{bound}}(r,\Sigma_v)=\mathrm{yes}.
+\]
+This is a conditional acceptance result; it does not classify every rejection. Legal no-ops are excluded by the non-empty-change requirement. Formal and implementation models can differ on same-value admission. Soundness and completeness are relative to the declared equality relation, and disagreement between review semantics and implementation equality can cause false acceptance or rejection. The controlled implementation and bounded mapping evidence supports the realization, rather than replacing the argument's assumptions.
+
+\subsection{T4: continuation obligations and available capabilities}
+\label{app:t4}
+Let $\mathrm{Cap}$ describe the available continuation capabilities.
+$\operatorname{Recover}(\Sigma,\kappa,\mathrm{Cap})$ means that a finite continuation generated using those capabilities can reach a successful bound admission whose candidate matches the authorization used for that admission. This authorization may be the original grant or a matching grant obtained during the continuation.
+
+Table~\ref{tab:appendix-continuation} states continuation obligations, subject to all remaining admission checks. The rows are not unconditional sufficient conditions.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Continuation obligations following rejection or uncertainty.}
+\label{tab:appendix-continuation}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.18\textwidth}@{}}
+\toprule
+Failure or uncertainty & Continuation obligation & Decision burden\\
+\midrule
+Instance mismatch; otherwise unchanged valid context &
+Reuse the original reviewed candidate under its still-valid grant, or obtain/use an authorization matching the submitted candidate. &
+Re-binding for the fixed-value identity-only case\\
+Stale predecessor &
+Construct a candidate against current state and obtain matching authorization. &
+Re-decision\\
+Changed evidence &
+Construct a candidate using current evidence and obtain matching authorization. &
+Re-decision\\
+Consumed grant with a prior commit &
+Retrieve or confirm the prior receipt; this confirms an effect rather than creating a new one. &
+Confirmation\\
+Unconsumed but no-longer-valid authorization &
+Obtain a currently valid matching authorization, if permitted. &
+Authorization renewal\\
+Principal or policy denial &
+Restore applicable authority or obtain authorization from a permitted principal. &
+Escalation\\
+Unknown commit outcome &
+Obtain evidence distinguishing committed from uncommitted before choosing retry or renewal. &
+Diagnosis\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Under instance binding, the existing authorization covers its reviewed candidate. Executing any different candidate requires an authorization matching that candidate. This distinguishes reuse from matching authorization; it does not restrict legal sequences to two candidates, since a third candidate can be proposed and authorized. $\operatorname{Recover}$ quantifies over state and capabilities, not over the agent's knowledge. Existence of a continuation is distinct from the agent attaining it. Receipt confirmation, in particular, concerns an already committed effect rather than a new successful admission.
+
+\subsection{Schema connection}
+The specification is packaged as four role objects, five observation classes, obligations P1--P6, and the policy parameter. The candidate tuple excludes implementation-level certificates; certificates are derived artifacts of the realization.
+
+In the running $c_{17}/c_{18}$ example, bound rejects $c_{18}$ under $c_{17}$'s grant. Subject to the remaining checks, it permits the reviewed candidate under the existing grant or another candidate under matching fresh authorization. Context permits the equivalent $c_{18}$ request under the original grant, while the independent instance-continuity oracle records a violation. Admissibility under a policy and conformity to that independent oracle are different judgments.
+
+\section{Expanded design-selection guidance}
+\label{app:design-guidance}
+This section preserves the design axes, selection questions, matrix, and principles underlying the compact guide in the main manuscript. The workflow owner supplies the responsibility rule. The guide derives implementation and recovery choices from that rule and the evaluated mechanisms; it does not establish which rule an organization should adopt or add a developer-study result.
+
+\subsection{Binding, mismatch handling, and the enforcement boundary}
+The first axis is the bound object: no gate, value-bound, context-bound, content-bound, or instance-bound. The gated policies share $G$. When the content field set $R$ extends the retained context field set $K$, equality on $R$ implies $K_{\mathrm{eq}}$. Under trusted lookup of content-immutable candidate records, $I_{\mathrm{eq}}$ implies equality on $R$. Writing $P_{\mathrm{value}}=G$ for the value-only policy gives
+\[
+ P_{\mathrm{bound}}\subseteq P_{\mathrm{content}}\subseteq P_{\mathrm{context}}\subseteq P_{\mathrm{value}}.
+\]
+In the declared contract, $K$ spans every non-identifier candidate field, so context and content binding coincide; they separate when retained context omits a decision-relevant field. External document contents require a separate check at consumption. This is a chain of admissible request sets under those choices, not a universal ordering of unrelated authorization systems. Reauthorization-required is not the next point on the chain. At the level of one admission predicate it shares the instance-bound decision and differs in the failure branch. It changes the continuation and reachable next states, rather than the admitted set of that single admission.
+
+The second axis is mismatch handling: automatic adoption with a substitution record, unexplained denial, denial with actionable feedback, or routing to reauthorization. The context policy tested here uses automatic adoption with a substitution record: it admits the substitute without a rejection and records the executed candidate in the transition. Recording a substitution does not itself make that substitution conform to an instance-bound responsibility rule.
+
+The third axis is the anchor and timing: a request, server-held review record, or persisted constraint may be compared at review, handoff, commit, or grant consumption. An engineer must identify which authoritative object the check reads and whether that check governs the eventual persistent effect.
+
+\subsection{Interpreting existing mechanisms through the axes}
+The mechanisms compared in the main manuscript occupy different locations on these axes. Gerrit and GitLab make review applicability explicit when a patch set changes; OpenTofu's saved-plan mode retains the decisions supplied to apply. Continuity Kernel binds a proposal and a sealed candidate, and ToolGate permits application relations to be expressed as pre/postconditions. Their cited descriptions and the obligation-level comparison remain in the main manuscript.
+
+These examples motivate making the binding object a declared application choice. The correction relation specifies which candidate a corrected authorization covers and joins that choice to the installed successor and its sources. In the configured ToolGate adaptation, application callbacks express the relations and the commit bridge supplies the external persistence boundary. This is the implementation route to inspect when deciding whether a symbolic postcondition also protects durable effects.
+
+\subsection{Selection questions and matrix}
+\paragraph{Short selection sequence.}
+\begin{enumerate}
+\item What responsibility rule has the workflow owner declared: value/content approval or approval of the reviewed artifact, and which carryovers are permitted?
+\item Can an equivalent alternative be re-materialized by preview, handoff, or replay?
+\item If binding fails, does the agent have a usable object or channel: reuse, fresh authorization, state read, or confirmation?
+\end{enumerate}
+If there is no legal continuation channel for the required responsibility rule, stop that submission path and build the channel first. Do not silently downgrade to context. Choosing context instead is a change in the responsibility rule, not a fallback that preserves the same instance-bound rule.
+
+The selection also depends on identifier stability, the location of the authoritative review record, which proposed and authorized values and grants are retained, and who may authorize a replacement candidate.
+
+Reversibility affects the cost of a mistake; it does not by itself determine what a grant authorizes. The no-reachable-alternative condition in Table~\ref{tab:appendix-design-selection} requires an interface guarantee rather than an observed zero substitution count.
+
+The main manuscript's release-configuration example illustrates two declared rules, not two tested deployments. Under an artifact rule, installing a new record with identical content can violate the required link between review and installation; a substitution log alone does not authorize approval transfer. Under an explicit content-carryover rule, matching the approved content, evidence and predecessor may permit that transfer. These examples explain the consequences of a chosen rule, not the frequency or severity of such cases in practice.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Implementation and recovery choices given the declared responsibility rule. Every new admission must pass the remaining checks; reversibility is not an authorization condition.}
+\label{tab:appendix-design-selection}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.43\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Responsibility and current validity & Available channel & Starting choice\\
+\midrule
+Content or value; equivalent alternatives allowed & Any & Value-, context-, or content-bound; declare compared fields\\
+Reviewed artifact; no reachable distinct-instance alternative & Any & Predicates coincide on that reachable domain\\
+Reviewed artifact; original candidate and grant remain valid & Reuse & Instance-bound; submit the reviewed candidate, even if the operation is irreversible\\
+Reviewed artifact; original state, evidence or grant is no longer valid & Review & Prepare a currently valid candidate and obtain matching authorization, even if the operation is reversible\\
+Reviewed artifact; original grant valid, but a replacement candidate is required & Review & Authorize that replacement; do not transfer the old grant silently\\
+Reviewed artifact; alternative reachable & None & Build a legal continuation channel or stop the path\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+When both reuse and review channels exist, the binding rule does not determine which legal route the agent will choose. In the online study, review immediately grants any valid candidate. In deployment, a review request may wait, be refused or require transfer to another reviewer. Queue waiting and human re-inspection are unmeasured costs, separate from the reported agent-side calls and suffix times. The fixed observed count of eight fresh-authorization routes does not predict how often a human-reviewed deployment would choose that route.
+
+\subsection{Principles and implementation patterns}
+\begin{enumerate}
+\item Retain the machine proposal and the authorized value as distinct persisted roles.
+\item Retain the reviewed candidate and its grant, not merely a record that review happened.
+\item Bind execution to the reviewed candidate where responsibility attaches to the artifact, and state the cost.
+\item Make rejection actionable by reporting the failed relation and the legal next step.
+\item Keep recovery objects available. Rejection must not pollute authoritative state or over-consume grants.
+\item Keep audit records atomic with the transition.
+\item Separate review, the execution gate, and presentation.
+\item Declare the binding rule, the $K$ field set, and the equality relation as design parameters.
+\end{enumerate}
+
+The corresponding implementation patterns are:
+\begin{description}
+\item[Instance-bound approval:] Persist the reviewed instance and require the submitted instance to match it.
+\item[Reuse under grant:] Make the reviewed candidate available for a later request under its still-valid authorization.
+\item[Reauthorize on a new instance:] Obtain an authorization matching the replacement candidate before submitting it.
+\item[Handoff guard:] Where queued handoffs or re-previews create new identities, check continuity at the execution boundary.
+\item[Exposure accounting:] Report the opportunity for substitution separately from whether an agent used it.
+\item[Audit chain:] Retain the candidate, authorization, transition, successor, and source links needed to inspect the relation.
+\end{description}
+These patterns organize the already specified obligations. They do not guarantee that every application exposes the necessary capabilities or that an agent will select a legal continuation.
+
+\subsection{Status of the design knowledge}
+The guide is derived from the specification and evaluated mechanisms and has not been validated through a developer study. Its purpose is to help a team implement an explicitly supplied responsibility rule, identify blocked submission paths, avoid silent policy downgrade, and identify where the empirical evidence transfers. It does not estimate production benefit or select the appropriate responsibility rule for that team.
+
+Several candidate hypotheses remain untested: requiring teams to declare a binding rule might reduce implicit substitutions; exposure accounting might change review decisions; and reauthorization channels might reduce abandonment after rejection. These are directions for validation, not additional findings of the present study.

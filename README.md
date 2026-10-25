@@ -1,22 +1,27 @@
-# Review–execution gap: current research artifacts
+# Review–execution gap: current ASE research artifacts
 
-Current manuscript: **The Review–Execution Gap in Agentic Software: Approval Scope and Recovery**, local revision **v15, 25 October 2026**. Start with the [v15 revision](revisions/2026-10-25-ase-revision-v15/README.txt) and [change log](revisions/2026-10-25-ase-revision-v15/V15-CHANGELOG.md). This is a submission candidate; repository availability does not assert journal submission or a separate release tag. Page counts and final artifact hashes are recorded by the packaging tool after validation.
+**The Review–Execution Gap in Agentic Software: Approval Scope and Recovery**
+
+Current manuscript revision **v17, 25 October 2026**. Main manuscript **29 pages**; Online Resources 1 and 2 **31 and 26 pages**. Use the [fixed v17 snapshot](https://github.com/lhh666-6/auto-dete/tree/ase-framing-v17-2026-10-25) for this manuscript and its reproduction materials.
 
 | Start here | Contents |
 |---|---|
-| [Reproduction guide](REPRODUCIBILITY.md) | Offline analysis, checker correction and verification |
-| [Manuscript PDF](revisions/2026-10-25-ase-revision-v15/main.pdf) | Current 29-page manuscript |
-| [Online Resource 1](revisions/2026-10-25-ase-revision-v15/Online-Resource-1.pdf) | Original and supplementary evidence |
-| [Online Resource 2](revisions/2026-10-25-ase-revision-v15/Online-Resource-2.pdf) | Later studies and secondary analysis |
-| [Upload layout](submission/ASE-2026-10-25-v15/README.md) | Five scientific payloads and upload roles |
-| [Packaging tool](revisions/2026-10-25-ase-revision-v15/scripts/package_v15.py) | Preflight, packaging and manifest verification |
-| [v14 historical revision](revisions/2026-10-24-ase-framing-v14/README.txt) | Preserved manuscript, sources and frozen hashes |
-| [Historical evidence pointers](revisions/2026-10-25-ase-revision-v15/EXTERNAL-INPUTS.json) | Preserved experimental identity and provenance |
+| [Reproduction guide](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/REPRODUCIBILITY.md) | Offline commands, inputs and expected results |
+| [Manuscript PDF](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/main.pdf) | Current 29-page paper |
+| [Online Resource 1](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/Online-Resource-1.pdf) | Formal, implementation and original/supplementary agent evidence |
+| [Online Resource 2](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/Online-Resource-2.pdf) | Specification, integration, SDK and secondary-analysis evidence |
+| [Online Resource 3](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/ready-to-upload/ESM_3.zip) | Complete editable sources plus seven frozen study archives |
+| [One-entry main source ZIP](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/ready-to-upload/Manuscript-source.zip) | Editable main.tex, figures, class, style and bibliography |
+| [Five scientific submission files](https://github.com/lhh666-6/auto-dete/tree/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/ready-to-upload) | Main PDF/source and Online Resources 1–3 |
+| [Payload hashes](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/FILES.json) | SHA-256 and byte sizes of the five files |
+| [Frozen revision inventory](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/FINAL-FREEZE-v17.json) | 78 exact file identities |
+| [Source-package validation](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/audit/packaged-source-validation-v17.json) | Clean-extraction builds and all-page text/render comparison |
+| [Change log](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/V17-CHANGELOG.md) | Contribution framing and final local prose refinements |
 
-The v15 correction gives the observation checker the same canonical JSON equality as its admissibility check, with regression tests and an audit trail. Its source package also records manuscript and disclosure revisions. It does not change the seven frozen experimental archives or introduce new model calls. The corrected auxiliary checker is distinct from the mathematical claim, production gate behavior and original empirical statistics; see the v15 change log and audit for the precise scope.
+Approval scope specifies admissibility under shared execution checks; recovery observations identify the route selected and its interaction costs. The principal agent comparison comprises 32 delivered identity-mismatch pairs across 16 task definitions: 24 reuse the reviewed candidate and eight obtain fresh authorization. Saved-state and actual-input audits establish that reuse was valid and visible at rejection. The reduced host uses a deterministic reviewer; the measurements do not estimate human waiting or production approval latency.
 
-Offline analysis uses saved records and requires no model calls or API keys. The principal agent comparison covers 32 delivered G pairs across 16 task definitions: 24 reviewed-candidate reuse routes and eight fresh-authorization routes. Recovery costs are conditional on the controlled setup; they do not estimate human waiting or production latency. SDK cells, constructed cases and agent trajectories are distinct evidence layers.
+The v17 prose aligns the research question, contributions, discussion and abstract. Online Resource 1 reorganizes the verification entry and repair history. The v15 canonical-equality checker, its 38 offline regressions, all scientific data, figures and seven study ZIPs retain their validated contents. This revision adds no hosted-model observations or experimental collection.
 
-Historical v13 and v14 artifacts remain unchanged. The seven study ZIP members of v15 Online Resource 3 are copied byte-for-byte from v14 Online Resource 3, which preserves the v13 experimental freeze. The manuscript/source revision and the experimental freeze have separate roles. Earlier release identifiers are historical references, not evidence that v15 has been published.
+Offline analysis uses saved records and needs no API keys. The recovery readback uses **two separately downloaded, immutable raw ZIPs**, with exact URLs, placement and hashes in [REPRODUCE-RECOVERY.md](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/revisions/2026-10-25-ase-framing-v17/REPRODUCE-RECOVERY.md). SDK recollection and new hosted runs have separate environment/provider requirements. Study cells and agent trajectories remain distinct units.
 
-Scientific payload manifests cover five files. Author correspondence is a separate submission role; historical directories may contain a tracked cover letter beyond their scientific manifest. The v15 packaging tool does not inherit that letter, its submission identity, or its withdrawal wording. Local preparation does not establish withdrawal, submission, or journal receipt.
+Historical v13/v14/v15 artifacts and their hashes remain unchanged. The seven study ZIPs in Online Resource 3 retain their v16/v15 bytes and the inherited experimental freeze. Author correspondence is managed separately from this public scientific deposit. Repository publication is distinct from journal submission.

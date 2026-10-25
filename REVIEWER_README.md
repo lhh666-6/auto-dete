@@ -1,3 +1,11 @@
+# Current ASE reviewer entry
+
+For the current 29-page ASE manuscript v17, start with the [v17 reproduction guide](https://github.com/lhh666-6/auto-dete/blob/ase-framing-v17-2026-10-25/REPRODUCIBILITY.md) and [review files](https://github.com/lhh666-6/auto-dete/tree/ase-framing-v17-2026-10-25/submission/ASE-2026-10-25-v17/ready-to-upload).
+
+The material below is a historical guide retained for its own pinned evidence. Its manuscript names, counts and commands refer to that earlier research stage.
+
+---
+
 Current frozen JSS reviewer entry: [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md).
 
 Auto-Decte — Reviewer artifact (historical ESWA-era package)
