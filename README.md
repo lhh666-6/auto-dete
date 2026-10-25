@@ -1,24 +1,22 @@
 # Review–execution gap: current research artifacts
 
-Current manuscript: **The Review–Execution Gap in Agentic Software: Approval Scope and Recovery** — layout revision **v13, 24 October 2026**, 28 pages.
-
-Use the fixed tag [`ase-layout-v13-2026-10-24`](https://github.com/lhh666-6/auto-dete/tree/ase-layout-v13-2026-10-24). This release changes presentation and the data and software statement: all four figures are redrawn with larger type (7.9–8.9 pt) and clearer emphasis, figure and table captions are trimmed, Tables 2, 5, 6 and 7 are re-set, the introduction and related work are reordered, the bibliography is corrected, and the availability statement is reorganised into four labelled parts (entry point, frozen versions, archive contents, reanalysis versus new runs) with every archive name, hash and pointer preserved. It keeps the v12 reference revision (Cordon and ACG removed, six arXiv preprints), the v11 AI-assisted preparation statement and the v10 and v9 text revisions. It adds no experimental observations, changes no statistic or archive, and preserves existing raw archive members.
+Current manuscript: **The Review–Execution Gap in Agentic Software: Approval Scope and Recovery**, local revision **v15, 25 October 2026**. Start with the [v15 revision](revisions/2026-10-25-ase-revision-v15/README.txt) and [change log](revisions/2026-10-25-ase-revision-v15/V15-CHANGELOG.md). This is a submission candidate; repository availability does not assert journal submission or a separate release tag. Page counts and final artifact hashes are recorded by the packaging tool after validation.
 
 | Start here | Contents |
 |---|---|
-| [Reproduction guide](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/REPRODUCIBILITY.md) | Current offline commands, inputs and expected results |
-| [Manuscript PDF](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/main.pdf) | 28-page paper |
-| [Online Resource 1](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/Online-Resource-1.pdf) | Original and supplementary evidence |
-| [Online Resource 2](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/Online-Resource-2.pdf) | Later studies and secondary analysis |
-| [Editable sources](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/upload-package/Manuscript-source.zip) | All three documents, figure sources and five analysis scripts |
-| [Six submission files](https://github.com/lhh666-6/auto-dete/tree/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/upload-package) | Three PDFs, manuscript and supplementary sources |
-| [Springer upload layout](https://github.com/lhh666-6/auto-dete/tree/ase-layout-v13-2026-10-24/submission/ASE-2026-10-24-v13) | One-entry manuscript source ZIP and consecutively numbered Online Resources |
-| [Verification](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/audit/VERIFICATION.json) | Clean-extraction analysis, build checks and scope |
-| [Changes](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/V13-CHANGELOG.md) | Layout, figure and statement revision |
-| [Frozen file hashes](https://github.com/lhh666-6/auto-dete/blob/ase-layout-v13-2026-10-24/revisions/2026-10-24-ase-layout-v13/FINAL-FREEZE-v13.json) | Exact release file inventory |
+| [Reproduction guide](REPRODUCIBILITY.md) | Offline analysis, checker correction and verification |
+| [Manuscript PDF](revisions/2026-10-25-ase-revision-v15/main.pdf) | Current 29-page manuscript |
+| [Online Resource 1](revisions/2026-10-25-ase-revision-v15/Online-Resource-1.pdf) | Original and supplementary evidence |
+| [Online Resource 2](revisions/2026-10-25-ase-revision-v15/Online-Resource-2.pdf) | Later studies and secondary analysis |
+| [Upload layout](submission/ASE-2026-10-25-v15/README.md) | Five scientific payloads and upload roles |
+| [Packaging tool](revisions/2026-10-25-ase-revision-v15/scripts/package_v15.py) | Preflight, packaging and manifest verification |
+| [v14 historical revision](revisions/2026-10-24-ase-framing-v14/README.txt) | Preserved manuscript, sources and frozen hashes |
+| [Historical evidence pointers](revisions/2026-10-25-ase-revision-v15/EXTERNAL-INPUTS.json) | Preserved experimental identity and provenance |
 
-Offline analysis uses saved records and requires no model calls or API keys. Framework recollection and hosted experiments are separate activities. The three SDK archives include raw per-cell records; begin with their `START-HERE.md`, which points to the portable verifier and identifies historical README limitations.
+The v15 correction gives the observation checker the same canonical JSON equality as its admissibility check, with regression tests and an audit trail. Its source package also records manuscript and disclosure revisions. It does not change the seven frozen experimental archives or introduce new model calls. The corrected auxiliary checker is distinct from the mathematical claim, production gate behavior and original empirical statistics; see the v15 change log and audit for the precise scope.
 
-The principal agent comparison covers 32 delivered G pairs across 16 task definitions: 24 reviewed-candidate reuse routes and eight fresh-authorization routes. Recovery costs are conditional on the controlled setup; they do not estimate human waiting or production latency. SDK cells, constructed cases and agent trajectories are distinct evidence layers.
+Offline analysis uses saved records and requires no model calls or API keys. The principal agent comparison covers 32 delivered G pairs across 16 task definitions: 24 reviewed-candidate reuse routes and eight fresh-authorization routes. Recovery costs are conditional on the controlled setup; they do not estimate human waiting or production latency. SDK cells, constructed cases and agent trajectories are distinct evidence layers.
 
-The [21 October reproducibility deposit](https://github.com/lhh666-6/auto-dete/tree/ase-reproducibility-2026-10-21) retains its broader historical pipeline, raw evidence and earlier manuscript. Earlier releases and their hashes remain unchanged.
+Historical v13 and v14 artifacts remain unchanged. The seven study ZIP members of v15 Online Resource 3 are copied byte-for-byte from v14 Online Resource 3, which preserves the v13 experimental freeze. The manuscript/source revision and the experimental freeze have separate roles. Earlier release identifiers are historical references, not evidence that v15 has been published.
+
+Scientific payload manifests cover five files. Author correspondence is a separate submission role; historical directories may contain a tracked cover letter beyond their scientific manifest. The v15 packaging tool does not inherit that letter, its submission identity, or its withdrawal wording. Local preparation does not establish withdrawal, submission, or journal receipt.
